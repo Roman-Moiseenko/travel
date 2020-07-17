@@ -9,5 +9,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'geo' => [
+            'class' => 'div\geoip\Geo',
+            'cityClass' => 'app\models\City' // модель города
+        ],
     ],
 ];

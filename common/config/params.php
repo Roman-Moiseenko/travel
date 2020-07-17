@@ -1,8 +1,12 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
     'user.passwordResetTokenExpire' => 3600,
+    'user.rememberMeDuration' => 3600 * 24 * 30,
+    'cookieDomain' => '.shop.loc',
+    'frontendHostInfo' => 'http://travel.loc',
+    'backendHostInfo' => 'http://office.travel.loc',
+    'staticHostInfo' => 'http://static.travel.loc',
+    'adminHostInfo' => 'http://admin.travel.loc',
+    'staticPath' => dirname(__DIR__, 2) . '/static',
+    'supportEmail' => 'admin@kupi41.ru',
 ];

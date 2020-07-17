@@ -14,7 +14,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=7.3",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
@@ -27,7 +27,9 @@
         "bower-asset/font-awesome": "*",
         "sersid/yii2-font-awesome-asset": "*",
         "cocur/slugify": "^4.0",
-        "bower-asset/magnific-popup": "*"
+        "bower-asset/magnific-popup": "*",
+        "alexeevdv/yii2-sms": "~1.0",
+        "div/yii2-geoip": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

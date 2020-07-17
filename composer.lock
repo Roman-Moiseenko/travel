@@ -4,14 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1771bb8d914ad2c9cb6679ace1cc83e",
+    "content-hash": "06dc8ca84dd952196b6da2287b72554e",
     "packages": [
+        {
+            "name": "alexeevdv/yii2-sms",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexeevdv/yii2-sms.git",
+                "reference": "7b348dfecbabfbb7f6f8aa7a04180e30dea59d16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexeevdv/yii2-sms/zipball/7b348dfecbabfbb7f6f8aa7a04180e30dea59d16",
+                "reference": "7b348dfecbabfbb7f6f8aa7a04180e30dea59d16",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "^2.0",
+                "yiisoft/yii2-httpclient": "^2.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^2.3",
+                "yiisoft/yii2-coding-standards": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "alexeevdv\\sms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Alekseev",
+                    "email": "mail@alexeevdv.ru"
+                }
+            ],
+            "description": "This extension allows SMS sending via different SMS providers",
+            "time": "2020-06-01T05:46:34+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -279,6 +320,39 @@
                 "slugify"
             ],
             "time": "2019-12-14T13:04:14+00:00"
+        },
+        {
+            "name": "div/yii2-geoip",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/div-production/yii2-geoip.git",
+                "reference": "95a5d38c744df1919881fa703caf52338eb43020"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/div-production/yii2-geoip/zipball/95a5d38c744df1919881fa703caf52338eb43020",
+                "reference": "95a5d38c744df1919881fa703caf52338eb43020",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "div\\geoip\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Vladimir Deryabin",
+                    "email": "backend@div26.ru"
+                }
+            ],
+            "description": "Yii2 расширение для определения города пользователя (используется сервис ipgeobase.ru)",
+            "time": "2017-04-29T16:42:02+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -6033,23 +6107,23 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.3",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9"
+                "reference": "75a63c33a8577608444246075ea0af0d052e452a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
-                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/75a63c33a8577608444246075ea0af0d052e452a",
+                "reference": "75a63c33a8577608444246075ea0af0d052e452a",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": "^7.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "autoload": {
@@ -6069,7 +6143,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2019-06-13T22:48:21+00:00"
+            "time": "2020-07-12T23:59:07+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -6283,7 +6357,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.3"
     },
     "platform-dev": []
 }
