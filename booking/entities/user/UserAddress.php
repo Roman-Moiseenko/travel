@@ -11,7 +11,7 @@ class UserAddress
     public $address;
     public $index;
 
-    public function __construct($country, $town = '', $address = '', $index = '')
+    public function __construct($country = 'ru', $town = '', $address = '', $index = '')
     {
         $this->country = $country;
         $this->town = $town;

@@ -1,14 +1,15 @@
 <?php
 
 
-namespace shop\services\auth;
+namespace booking\services\auth;
 
 
-use shop\entities\user\User;
-use shop\repositories\UserRepository;
-use shop\forms\auth\PasswordResetRequestForm;
-use shop\forms\auth\ResendVerificationEmailForm;
-use shop\forms\auth\ResetPasswordForm;
+
+use booking\entities\user\User;
+use booking\forms\auth\PasswordResetRequestForm;
+use booking\forms\auth\ResendVerificationEmailForm;
+use booking\forms\auth\ResetPasswordForm;
+use booking\repositories\UserRepository;
 use Yii;
 use yii\mail\MailerInterface;
 

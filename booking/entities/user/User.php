@@ -45,8 +45,8 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = time();
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
-        $user->personal = new Personal();
-        $user->preferences = new Preferences();
+        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), );
+        $user->preferences = Preferences::create();
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -61,13 +61,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function signup(string $username, string $email, string $password): self
     {
-        $user = new User();
-        $user->username = $username;
-        $user->email = $email;
+        $user = User::create($username, $email, $password);
         $user->status = self::STATUS_INACTIVE;
-        $user->created_at = time();
-        $user->setPassword($password);
-        $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         return $user;
     }
@@ -104,12 +99,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Network::class, ['user_id' => 'id']);
     }
-
-    public function setPersonal(Personal $personal)
-    {
-        $this->personal = $personal;
-    }
-
 
 
     public function setPhoto(UploadedFile $file)
@@ -164,6 +153,7 @@ class User extends ActiveRecord implements IdentityInterface
             ],
         ];
     }
+
 
     public function transactions()
     {
@@ -358,37 +348,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->verification_token = null;
     }
-/*
-    public function getWishlistItems(): ActiveQuery
+
+    public function setLang($lang)
     {
-        return $this->hasMany(WishlistItem::class, ['user_id' => 'id']);
+        $preferences = $this->preferences;
+        $preferences->setLang($lang);
+        $this->preferences = $preferences;
     }
-*/
-    public function afterFind(): void
-    {
-       /* $this->deliveryData = new DeliveryData(
-            $this->getAttribute('delivery_town'),
-            $this->getAttribute('delivery_address')
-        );
-        $fullname = Json::decode($this->getAttribute('fullname_json'));
-        $this->fullname = new FullName($fullname['surname'], $fullname['firstname'], $fullname['secondname']);*/
-        parent::afterFind();
-    }
-
-    public function beforeSave($insert): bool
-    {
-
-      /*  $this->setAttribute('delivery_town', $this->deliveryData->town);
-        $this->setAttribute('delivery_address', $this->deliveryData->address);
-
-        $this->setAttribute('fullname_json', Json::encode([
-            'surname' =>$this->fullname->surname,
-            'firstname' =>$this->fullname->firstname,
-            'secondname' =>$this->fullname->secondname
-        ]));*/
-        return parent::beforeSave($insert);
-    }
-
 
 
 }

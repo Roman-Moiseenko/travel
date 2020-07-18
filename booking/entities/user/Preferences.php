@@ -19,9 +19,27 @@ use yii\db\ActiveRecord;
 
 class Preferences extends ActiveRecord
 {
+    public static function create($lang = 'ru', $currency = 'руб', $smocking = false)
+    {
+        $preferences = new static();
+        $preferences->lang = $lang;
+        $preferences->currency = $currency;
+        $preferences->smocking = $smocking;
+        return $preferences;
+    }
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    }
+
+    public function edit($lang = 'ru', $currency = 'руб', $smocking = false)
+    {
+
+    }
 
     public static function tableName()
     {
-        return '{{%users_preferences}}';
+        return '{{%user_preferences}}';
     }
+
 }

@@ -4,21 +4,9 @@
 namespace common\bootstrap;
 
 
-use frontend\urls\CategoryUrlRule;
-use frontend\urls\PageUrlRule;
-use shop\cart\Cart;
-use shop\cart\cost\calculator\DynamicCost;
-use shop\cart\cost\calculator\SimpleCost;
-use shop\cart\storage\HybridStorage;
-use shop\readModels\PageReadRepository;
-use shop\readModels\shop\CategoryReadRepository;
-use shop\repositories\UserRepository;
-use shop\services\ContactService;
-use shop\services\auth\PasswordResetService;
-use shop\services\auth\SignupService;
-use shop\services\RoleManager;
-use shop\services\yandex\ShopInfo;
-use shop\services\yandex\YandexMarket;
+use booking\repositories\UserRepository;
+
+use booking\services\auth\PasswordResetService;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\di\Instance;

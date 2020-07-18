@@ -19,10 +19,16 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property UserAddress $address
  * @property Fullname $fullname
  * @property string $photo
+ * @property string $surname
+ * @property string $firstname
+ * @property string $secondname
  */
 
 class Personal extends ActiveRecord
 {
+
+    public $fullname;
+    public $address;
 
     public static function create($phone, $dateborn, UserAddress $address, FullName $fullName): self
     {
@@ -47,9 +53,42 @@ class Personal extends ActiveRecord
         $this->photo = $file;
     }
 
+    public function afterFind(): void
+    {
+
+        $this->fullname = new FullName(
+            $this->getAttribute('surname'),
+            $this->getAttribute('firstname'),
+            $this->getAttribute('secondname'),
+        );
+
+        $this->address = new UserAddress(
+            $this->getAttribute('country'),
+            $this->getAttribute('town'),
+            $this->getAttribute('address'),
+            $this->getAttribute('index'),
+        );
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert): bool
+    {
+
+        $this->setAttribute('surname', $this->fullname->surname);
+        $this->setAttribute('firstname', $this->fullname->firstname);
+        $this->setAttribute('secondname', $this->fullname->secondname);
+
+        $this->setAttribute('country', $this->address->country);
+        $this->setAttribute('index', $this->address->index);
+        $this->setAttribute('town', $this->address->town);
+        $this->setAttribute('address', $this->address->address);
+
+        return parent::beforeSave($insert);
+    }
+
     public static function tableName()
     {
-        return '{{%users_personal}}';
+        return '{{%user_personal}}';
     }
 
     public function behaviors(): array
