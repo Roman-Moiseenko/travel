@@ -1,7 +1,6 @@
 <?php
 namespace booking\forms\auth;
 
-use booking\entities\user\User;
 use yii\base\Model;
 
 /**

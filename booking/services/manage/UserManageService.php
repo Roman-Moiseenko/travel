@@ -72,6 +72,12 @@ class UserManageService
     }
 
 */
+    public function setCurrency(int $id, $currency)
+    {
+        $user = $this->users->get($id);
+        $user->setCurrency($currency);
+        $this->users->save($user);
+    }
 
     private function ExcangeName($name): string
     {

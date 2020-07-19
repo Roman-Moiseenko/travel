@@ -1,11 +1,12 @@
 <?php
-namespace backend\controllers;
+namespace admin\controllers;
 
+use booking\forms\auth\LoginForm;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+
 
 /**
  * Site controller

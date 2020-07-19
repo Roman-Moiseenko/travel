@@ -28,5 +28,6 @@ class AppAsset extends AssetBundle
         // 'sersid\fontawesome\Asset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        'rmrevin\yii\fontawesome\CdnFreeAssetBundle',
     ];
 }

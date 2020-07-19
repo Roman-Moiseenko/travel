@@ -42,4 +42,9 @@ class Preferences extends ActiveRecord
         return '{{%user_preferences}}';
     }
 
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
 }

@@ -44,4 +44,21 @@ class UserController extends Controller
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
+
+    public function actionCurrency($currency)
+    {
+
+        if (\Yii::$app->user->isGuest)
+        {
+            \Yii::$app->response->cookies->add(new Cookie([
+                'name' => 'currency',
+                'value' => $currency,
+                'expire' => time() + 3600 * 24 * 365
+            ]));
+        } else {
+            //TODO Сохраняем валюту в базе пользователя
+            $this->service->setCurrency(\Yii::$app->user->id, $currency);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
 }

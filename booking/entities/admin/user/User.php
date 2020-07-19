@@ -1,15 +1,12 @@
 <?php
-namespace booking\entities\user;
+namespace booking\entities\admin\user;
 
-use booking\entities\Lang;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use yii\web\UploadedFile;
 
 /**
  * User model
@@ -24,9 +21,6 @@ use yii\web\UploadedFile;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property Network[] $networks
- * @property Personal $personal
- * @property Preferences $preferences
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -45,8 +39,6 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = time();
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
-        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), );
-        $user->preferences = Preferences::create();
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -67,27 +59,6 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public static function signupByNetwork($network, $identity): self
-    {
-        $user = new User();
-        $user->created_at = time();
-        $user->status = User::STATUS_ACTIVE;
-        $user->generateAuthKey();
-        $user->networks = [Network::create($network, $identity)];
-        return $user;
-    }
-
-    public function attachNetwork($network, $identity): void
-    {
-        $networks = $this->networks;
-        foreach ($networks as $current) {
-            if ($current->isFor($network, $identity)) {
-                throw new \DomainException(Lang::t('Соцсеть уже подключена'));
-            }
-        }
-        $networks[] = [Network::create($network, $identity)];
-        $this->networks = $networks;
-    }
 
     public function isActive(): bool
     {
@@ -95,31 +66,10 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-    public function getNetworks(): ActiveQuery
-    {
-        return $this->hasMany(Network::class, ['user_id' => 'id']);
-    }
-
-
-    public function setPhoto(UploadedFile $file)
-    {
-
-    }
-
-    public function getPersonal(): ActiveQuery
-    {
-        return $this->hasOne(Personal::class, ['user_id' => 'id']);
-    }
-
-    public function getPreferences(): ActiveQuery
-    {
-        return $this->hasOne(Preferences::class, ['user_id' => 'id']);
-    }
-
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
-            throw new \DomainException(Lang::t('Пароль уже был сброшен'));
+            throw new \DomainException('Пароль уже был сброшен');
         }
         $this->generatePasswordResetToken();
     }
@@ -127,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function resetPassword($password): void
     {
         if (empty($this->password_reset_token)) {
-            throw new \DomainException(Lang::t('Сброшенный пароль не подтвержден'));
+            throw new \DomainException('Сброшенный пароль не подтвержден');
         }
         $this->setPassword($password);
         $this->password_reset_token = null;
@@ -137,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%users}}';
+        return '{{%booking_users}}';
     }
 
     /**
@@ -149,7 +99,7 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['networks', 'personal', 'preferences'],
+                'relations' => [],
             ],
         ];
     }
@@ -162,38 +112,8 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-
     /** Repository ===================> */
-/*
-    public function addToWishlist($productId): void
-    {
-        $items = $this->wishlistItems;
-        foreach ($items as $item) {
-            if ($item->isForProduct($productId)) {
-                throw new \DomainException('Уже в избранном.');
-            }
-        }
-        $items[] = WishlistItem::create($productId);
-        $this->wishlistItems = $items;
-    }
 
-    public function removeFromWishlist($productId): void
-    {
-        $items = $this->wishlistItems;
-        foreach ($items as $i => $item) {
-            if ($item->isForProduct($productId)) {
-                unset($items[$i]);
-                $this->wishlistItems = $items;
-                return;
-            }
-        }
-        throw new \DomainException('Не найден в избранном.');
-    }
-*/
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
@@ -348,20 +268,5 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->verification_token = null;
     }
-
-    public function setLang($lang)
-    {
-        $preferences = $this->preferences;
-        $preferences->setLang($lang);
-        $this->preferences = $preferences;
-    }
-
-    public function setCurrency($currency)
-    {
-        $preferences = $this->preferences;
-        $preferences->setCurrency($currency);
-        $this->preferences = $preferences;
-    }
-
 
 }
