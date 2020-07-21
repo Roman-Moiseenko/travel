@@ -49,9 +49,9 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                'site/login' => 'auth/login',
-                '<_a:login|logout>' => 'auth/<_a>',
 
+                '<_a:login|logout>' => 'auth/auth/<_a>',
+                'signup' => 'auth/signup/index',
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',

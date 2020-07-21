@@ -3,6 +3,7 @@
 
 namespace booking\services\auth;
 
+use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\auth\PasswordResetRequestForm;
 use booking\forms\auth\ResendVerificationEmailForm;
@@ -63,7 +64,7 @@ class PasswordResetService
             ->setSubject('Password reset for ' . $user->username)
             ->send();
         if (!$sent) {
-            throw new \RuntimeException('Письмо не отправлено, проверьте правильность заполнения поля Email');
+            throw new \RuntimeException(Lang::t('Письмо не отправлено, проверьте правильность заполнения поля Email'));
         }
     }
 
@@ -74,7 +75,7 @@ class PasswordResetService
         }
         $user = $this->repository->getByEmailConfirmToken($token);
         if ($user->isActive()) {
-            throw new \DomainException('Пользователь уже авторизован');
+            throw new \DomainException(Lang::t('Пользователь уже авторизован'));
         }
     }
 
@@ -120,7 +121,7 @@ class PasswordResetService
             ->setSubject('Account registration at ' . $user->username)
             ->send();
         if (!$send) {
-            throw new \RuntimeException('Письмо не отправлено, проверьте правильность заполнения поля Email');
+            throw new \RuntimeException(Lang::t('Письмо не отправлено, проверьте правильность заполнения поля Email'));
         }
     }
 

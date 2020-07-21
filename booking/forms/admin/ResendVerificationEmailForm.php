@@ -1,12 +1,10 @@
 <?php
 
 
-namespace booking\forms\auth;
+namespace booking\forms\admin;
 
 
-use booking\entities\Lang;
-use booking\entities\user\User;
-use yii\base\Model;
+use booking\entities\admin\user\User;
 
 class ResendVerificationEmailForm extends Model
 {
@@ -28,7 +26,7 @@ class ResendVerificationEmailForm extends Model
             ['email', 'exist',
                 'targetClass' => '\booking\entities\user\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
-                'message' => Lang::t('Нет пользователя с таким email'),
+                'message' => 'Нет пользователя с таким email',
             ],
         ];
     }

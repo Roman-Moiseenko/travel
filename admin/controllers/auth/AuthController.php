@@ -10,11 +10,12 @@ use booking\services\admin\AuthService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class   AuthController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'main-login';
     /**
      * @var AuthService
      */
@@ -64,7 +65,7 @@ class   AuthController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+           return $this->goHome();
         }
 
         $form = new LoginForm();
@@ -78,7 +79,6 @@ class   AuthController extends Controller
             }
         }
         $form->password = '';
-        $this->layout = 'cabinet';
         return $this->render('login', ['model' => $form]);
 
     }
@@ -91,7 +91,7 @@ class   AuthController extends Controller
     public function actionLogout()
     {
         \Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect( Url::to(['/login']));
     }
 
 }

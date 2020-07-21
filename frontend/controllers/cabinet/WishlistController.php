@@ -7,11 +7,8 @@ namespace frontend\controllers\cabinet;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class ProfileController extends Controller
+class WishlistController extends Controller
 {
-    public $layout = 'cabinet';
-
-
     public function behaviors()
     {
         return [
@@ -19,22 +16,11 @@ class ProfileController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        //'actions' => ['edit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
         ];
-    }
-
-    public function actionPersonal()
-    {
-
-    }
-
-    public function actionPreferences()
-    {
-
     }
 }

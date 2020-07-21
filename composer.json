@@ -30,7 +30,9 @@
         "bower-asset/magnific-popup": "*",
         "alexeevdv/yii2-sms": "~1.0",
         "div/yii2-geoip": "^1.0",
-        "rmrevin/yii2-fontawesome": "~3.5"
+        "rmrevin/yii2-fontawesome": "~3.5",
+        "almasaeed2010/adminlte": "~3.0",
+        "hail812/yii2-adminlte3": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

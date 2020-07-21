@@ -3,7 +3,7 @@
 
 namespace admin\controllers\auth;
 
-use booking\forms\auth\SignupForm;
+use booking\forms\admin\SignupForm;
 use booking\services\admin\SignupService;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,7 +11,7 @@ use yii\web\Controller;
 
 class SignupController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'main-login';
     /**
      * @var SignupService
      */

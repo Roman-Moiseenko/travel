@@ -4,8 +4,9 @@
 namespace admin\controllers\auth;
 
 
-use booking\forms\auth\PasswordResetRequestForm;
-use booking\forms\auth\ResendVerificationEmailForm;
+
+use booking\forms\admin\PasswordResetRequestForm;
+use booking\forms\admin\ResendVerificationEmailForm;
 use booking\forms\auth\ResetPasswordForm;
 use booking\services\admin\PasswordResetService;
 use Yii;

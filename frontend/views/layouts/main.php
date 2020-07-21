@@ -26,12 +26,8 @@ AppAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <nav id="top">
-
-
                 <?= TopmenuWidget::widget()?>
-
     </nav>
-
 
     <div id="common-home" class="container">
         <?= Breadcrumbs::widget([
