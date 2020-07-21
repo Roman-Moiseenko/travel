@@ -31,7 +31,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <?= $this->render('left', ['assetDir' => $assetDir]) ?>
+    <?= $this->render('left-cabinet', ['assetDir' => $assetDir]) ?>
 
     <!-- Content Wrapper. Contains page content -->
     <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
