@@ -29,7 +29,6 @@ class m200721_221736_create_booking_stays_table extends Migration
             'geo_longitude' => $this->string(),
         ]);
         $this->createIndex('{{%idx-booking_stays-main_photo_id}}', '{{%booking_stays}}', 'main_photo_id');
-
         $this->addForeignKey('{{%fk-booking_stays-main_photo_id}}', '{{%booking_stays}}', 'main_photo_id', '{{%booking_stays_photos}}', 'id', 'SET NULL', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_stays-type}}', '{{%booking_stays}}', 'type', '{{%booking_stays_type}}', 'id', 'SET NULL', 'RESTRICT');
 

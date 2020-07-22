@@ -2,7 +2,7 @@
 
 namespace booking\entities\booking\stays;
 
-use booking\entities\booking\stays\Stays;
+
 use booking\entities\user\User;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -13,8 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $user_id
  * @property int $vote
  * @property string $text
- * @property bool $active
- * @property integer $product_id
+ * @property integer $stays_id
  */
 class Review extends ActiveRecord
 {
@@ -25,7 +24,6 @@ class Review extends ActiveRecord
         $review->vote = $vote;
         $review->text = $text;
         $review->created_at = time();
-        $review->active = false;
         return $review;
     }
 
@@ -56,7 +54,7 @@ class Review extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getProduct(): ActiveQuery
+    public function getStays(): ActiveQuery
     {
         return $this->hasOne(Stays::class, ['id' => 'stays_id']);
     }
