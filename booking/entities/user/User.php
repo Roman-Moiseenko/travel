@@ -50,8 +50,7 @@ class User extends ActiveRecord implements IdentityInterface
         //$user->generateEmailVerificationToken();
         return $user;
     }
-
-
+    
     public function edit(string $username, string $email): void
     {
         $this->username = $username;

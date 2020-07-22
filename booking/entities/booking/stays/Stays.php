@@ -105,6 +105,35 @@ class Stays extends ActiveRecord
         ];
     }
 
+    public function afterFind(): void
+    {
+
+        $this->address = new StaysAddress(
+            $this->getAttribute('town'),
+            $this->getAttribute('street'),
+            $this->getAttribute('house'),
+        );
+
+        $this->geo = new Geo(
+            $this->getAttribute('latitude'),
+            $this->getAttribute('longitude')
+        );
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert): bool
+    {
+
+        $this->setAttribute('town', $this->address->town);
+        $this->setAttribute('street', $this->address->street);
+        $this->setAttribute('house', $this->address->house);
+
+        $this->setAttribute('latitude', $this->geo->latitude);
+        $this->setAttribute('longitude', $this->geo->longitude);
+
+        return parent::beforeSave($insert);
+    }
+
     /** Review  ==========>*/
 
     public function addReview($userId, $vote, $text): Review

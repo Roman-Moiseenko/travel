@@ -11,11 +11,25 @@ use yii\db\ActiveRecord;
  * @package booking\entities\booking
  * @property integer $id
  * @property string $name
- * @property boolean $mono
+ * @property bool $mono
  */
 class StaysType extends ActiveRecord
 {
-    public function isMono(): boolean
+    public static function create($name, $mono): self
+    {
+        $staystype = new static();
+        $staystype->name = $name;
+        $staystype->mono = $mono;
+        return $staystype;
+    }
+
+    public function edit($name, $mono): void
+    {
+        $this->name = $name;
+        $this->mono = $mono;
+    }
+
+    public function isMono(): bool
     {
         return $this->mono;
     }
