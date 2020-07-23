@@ -1,6 +1,7 @@
 <?php
 namespace booking\entities\admin\user;
 
+use booking\entities\user\UserAddress;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\base\NotSupportedException;
@@ -23,6 +24,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property UserLegal[] $legals
+ * @property Personal $personal
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -276,6 +278,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserLegal::class, ['user_id' => 'id']);
     }
-
+    public function getPersonal(): ActiveQuery
+    {
+        return $this->hasOne(Personal::class, ['user_id' => 'id']);
+    }
     /** <========== getXXX */
 }

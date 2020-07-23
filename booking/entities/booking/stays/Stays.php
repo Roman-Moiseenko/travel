@@ -6,6 +6,8 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\rooms\Rooms;
+use booking\entities\booking\stays\comfort\Comfort;
+use booking\entities\booking\stays\rules\Rules;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -31,7 +33,7 @@ use yii\web\UploadedFile;
  * @property Rooms[] $rooms
  * @property StaysType $type
  * @property Rules $rules
- * @property Comforts[] $comforts
+ * @property Comfort[] $comforts
  * @property Nearby[] $nearby
  *
  */
@@ -304,6 +306,21 @@ class Stays extends ActiveRecord
     public function getRooms(): ActiveQuery
     {
         return $this->hasMany(Rooms::class, ['stays_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getRules(): ActiveQuery
+    {
+        return $this->hasOne(Rules::class, ['stays_id' => 'id']);
+    }
+
+    public function getComforts(): ActiveQuery
+    {
+        return $this->hasOne(Comfort::class, ['stays_id' => 'id']);
+    }
+
+    public function getNearby(): ActiveQuery
+    {
+        return $this->hasOne(Nearby::class, ['stays_id' => 'id']);
     }
     /** <========== getXXX */
 }

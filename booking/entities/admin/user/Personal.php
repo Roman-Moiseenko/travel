@@ -21,9 +21,6 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property UserAddress $address
  * @property Fullname $fullname
  * @property string $photo
- * @property string $surname
- * @property string $firstname
- * @property string $secondname
  * @property string $position
  */
 

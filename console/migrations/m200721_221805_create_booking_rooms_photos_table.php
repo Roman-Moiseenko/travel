@@ -21,8 +21,8 @@ class m200721_221805_create_booking_rooms_photos_table extends Migration
             'sort' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->createIndex('{{%idx-booking_rooms_photos-stays_id}}', '{{%booking_rooms_photos}}', 'rooms_id');
-        $this->addForeignKey('{{%fk-booking_rooms_photos-stays_id}}', '{{%booking_rooms_photos}}', 'rooms_id', '{{%booking_rooms}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->createIndex('{{%idx-booking_rooms_photos-rooms_id}}', '{{%booking_rooms_photos}}', 'rooms_id');
+        $this->addForeignKey('{{%fk-booking_rooms_photos-rooms_id}}', '{{%booking_rooms_photos}}', 'rooms_id', '{{%booking_rooms}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     /**

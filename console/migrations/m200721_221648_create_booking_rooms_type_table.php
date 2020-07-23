@@ -17,7 +17,7 @@ class m200721_221648_create_booking_rooms_type_table extends Migration
             'stays_id' => $this->integer(),
             'name' => $this->string(),
         ]);
-        $this->addForeignKey('{{%fk-booking_rooms_type-stays_id}}', '{{%booking_rooms_type}}', 'type',
+        $this->addForeignKey('{{%fk-booking_rooms_type-stays_id}}', '{{%booking_rooms_type}}', 'stays_id',
             '{{%booking_stays_type}}', 'id', 'SET NULL', 'RESTRICT');
     }
 

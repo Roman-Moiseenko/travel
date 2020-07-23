@@ -23,7 +23,7 @@ class m200721_221636_create_admin_user_legals_table extends Migration
             'account' => $this->string(),
         ]);
         $this->createIndex('{{%idx-admin_user_legals-user_id}}', '{{%admin_user_legals}}', 'user_id');
-        $this->addForeignKey('{{%fk-admin_user_legals-user_id}}', '{{%admin_user_legals}}', 'user_id', '{{%admin_users}}', 'id', 'SET NULL', 'RESTRICT');
+        $this->addForeignKey('{{%fk-admin_user_legals-user_id}}', '{{%admin_user_legals}}', 'user_id', '{{%admin_users}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     /**

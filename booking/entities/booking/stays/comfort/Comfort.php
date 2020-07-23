@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $sort
  * @property boolean $editpay
+ * @property boolean $featured
  * @property ComfortCategory $category
  */
 class Comfort extends ActiveRecord
@@ -26,7 +27,13 @@ class Comfort extends ActiveRecord
         $comfort->name = $name;
         $comfort->editpay = $editpay;
         $comfort->sort = $sort;
+        $comfort->featured = false;
         return $comfort;
+    }
+
+    public function featured(): void
+    {
+        $this->featured = true;
     }
 
     public function edit($name, $editpay, $sort): void
