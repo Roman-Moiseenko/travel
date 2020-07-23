@@ -1,17 +1,19 @@
 <?php
 
 
-namespace booking\entities\user;
+namespace booking\entities\admin\user;
 
 
 //use shop\services\WaterMarker;
+use booking\entities\user\FullName;
+use booking\entities\user\UserAddress;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * Class Personal
- * @package booking\entities\user
+ * @package booking\entities\admin\user
  * @property integer $id
  * @property integer $user_id
  * @property string $phone
@@ -22,6 +24,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $surname
  * @property string $firstname
  * @property string $secondname
+ * @property string $position
  */
 
 class Personal extends ActiveRecord
@@ -30,22 +33,24 @@ class Personal extends ActiveRecord
     public $fullname;
     public $address;
 
-    public static function create($phone, $dateborn, UserAddress $address, FullName $fullName): self
+    public static function create($phone, $dateborn, UserAddress $address, FullName $fullName, $position): self
     {
         $personal = new static();
         $personal->phone = $phone;
         $personal->dateborn = $dateborn;
         $personal->address = $address;
         $personal->fullname = $fullName;
+        $personal->position = $position;
         return $personal;
     }
 
-    public function edit($phone, $dateborn, UserAddress $address, FullName $fullName)
+    public function edit($phone, $dateborn, UserAddress $address, FullName $fullName, $position)
     {
         $this->phone = $phone;
         $this->dateborn = $dateborn;
         $this->address = $address;
         $this->fullname = $fullName;
+        $this->position = $position;
     }
 
     public function setPhoto(UploadedFile $file)
@@ -88,7 +93,7 @@ class Personal extends ActiveRecord
 
     public static function tableName()
     {
-        return '{{%user_personal}}';
+        return '{{%admin_user_personal}}';
     }
 
     public function behaviors(): array
@@ -98,10 +103,10 @@ class Personal extends ActiveRecord
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'photo',
                 'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/users/[[attribute_user_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/users/[[attribute_user_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/users/[[attribute_user_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/users/[[attribute_user_id]]/[[profile]]_[[id]].[[extension]]',
+                'filePath' => '@staticRoot/origin/admin_users/[[attribute_user_id]]/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/admin_users/[[attribute_user_id]]/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/admin_users/[[attribute_user_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/admin_users/[[attribute_user_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 240],

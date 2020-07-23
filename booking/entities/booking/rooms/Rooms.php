@@ -3,6 +3,7 @@
 
 namespace booking\entities\booking\rooms;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 
@@ -14,16 +15,20 @@ use yii\web\UploadedFile;
  * @property string $name
  * @property integer $baseprice
  * @property integer $count
- * @property integer $capacity
+ * @property Capacity $capacity
  * @property float $square
  * @property integer $subrooms
+ * @property integer $type_id
+ * @property bool $smocking
  * @property Photo[] $photos
+ * @property RoomsType $type
+ * @property Beds[] $beds
  */
 
 class Rooms extends ActiveRecord
 {
 
-    public static function create($stays_id, $name, $baseprice , $square, $capacity, $subrooms = 1, $count = 1): self
+    public static function create($stays_id, $name, $baseprice , $square, Capacity $capacity, $type_id, $subrooms = 1, $count = 1): self
     {
         $rooms = new static();
         $rooms->$stays_id = $stays_id;
@@ -33,23 +38,48 @@ class Rooms extends ActiveRecord
         $rooms->capacity = $capacity;
         $rooms->subrooms = $subrooms;
         $rooms->count = $count;
+        $rooms->type_id = $type_id;
         return $rooms;
     }
 
-    public function edit($stays_id, $name, $baseprice , $square, $capacity, $subrooms = 1, $count = 1): void
+    public function edit( $name, $baseprice , $square, Capacity $capacity, $type_id, $subrooms = 1, $count = 1): void
     {
-        $this->$stays_id = $stays_id;
         $this->name = $name;
         $this->baseprice = $baseprice;
         $this->square = $square;
         $this->capacity = $capacity;
         $this->subrooms = $subrooms;
         $this->count = $count;
+        $this->type_id = $type_id;
+    }
+
+    public function setCount($count): void
+    {
+        $this->count = $count;
     }
 
     public static function tableName()
     {
         return '{{%booking_rooms}}';
+    }
+    public function afterFind(): void
+    {
+
+        $this->capacity = new Capacity(
+            $this->getAttribute('capacityAdult'),
+            $this->getAttribute('capacityChild')
+        );
+
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert): bool
+    {
+
+        $this->setAttribute('capacityAdult', $this->capacity->adult);
+        $this->setAttribute('capacityChild', $this->capacity->child);
+
+        return parent::beforeSave($insert);
     }
 
     /** Photo ==========> */
@@ -128,4 +158,15 @@ class Rooms extends ActiveRecord
     }
     /** <========== Photo */
 
+    /** getXXX ==========> */
+    public function getType(): ActiveQuery
+    {
+        return $this->hasOne(RoomsType::class, ['id' => 'type_id']);
+    }
+
+    public function getPhotos(): ActiveQuery
+    {
+        return $this->hasMany(Photo::class, ['rooms_id' => 'id'])->orderBy('sort');
+    }
+    /** <========== getXXX */
 }

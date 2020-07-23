@@ -4,8 +4,10 @@
 namespace booking\entities\booking\stays;
 
 
+use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\rooms\Rooms;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 
@@ -14,18 +16,23 @@ use yii\web\UploadedFile;
  * @package booking\entities\booking\stays
  * @property integer $id
  * @property integer $user_id
+ * @property integer $legal_id
  * @property integer $created_at
  * @property string $name
  * @property integer $status
  * @property integer $stars
  * @property float $rating
  * @property integer $main_photo_id
- * @property StaysType $type
+ * @property integer $type_id
  * @property StaysAddress $address
  * @property Geo $geo
  * @property Photo[] $photos
  * @property Review[] $reviews
  * @property Rooms[] $rooms
+ * @property StaysType $type
+ * @property Rules $rules
+ * @property Comforts[] $comforts
+ * @property Nearby[] $nearby
  *
  */
 class Stays extends ActiveRecord
@@ -35,23 +42,33 @@ class Stays extends ActiveRecord
     const STATUS_ACTIVE = 2;
 
 
-    public static function create($name, StaysType $type, StaysAddress $address, Geo $geo, $stars = 0): self
+    public static function create($name, $typeId, StaysAddress $address, Geo $geo, $stars = 0): self
     {
         $stays = new static();
         $stays->created_at = time();
         $stays->name = $name;
+       // $stays->legal_id = $legalId;
         $stays->status = Stays::STATUS_INACTIVE;
-       // $stays->rating = null;
-        $stays->type = $type;
+        $stays->type_id = $typeId;
         $stays->address = $address;
         $stays->geo = $geo;
         $stays->stars = $stars;
         return $stays;
     }
 
-    public function edit()
+    public function edit($name, $legalId, StaysAddress $address, Geo $geo, $stars = 0): void
     {
+        $this->name = $name;
+        $this->legal_id = $legalId;
+        //$stays->type = $type;
+        $this->address = $address;
+        $this->geo = $geo;
+        $this->stars = $stars;
+    }
 
+    public function setLegal($legalId): void
+    {
+        $this->legal_id = $legalId;
     }
 
     public function activate(): void
@@ -262,4 +279,31 @@ class Stays extends ActiveRecord
 
     /** <========== Photo */
 
+
+    /** getXXX ==========> */
+    public function getType(): ActiveQuery
+    {
+        return $this->hasOne(StaysType::class, ['id' => 'type_id']);
+    }
+
+    public function getLegal(): ActiveQuery
+    {
+        return $this->hasOne(UserLegal::class, ['id' => 'legal_id']);
+    }
+
+    public function getReviews(): ActiveQuery
+    {
+        return $this->hasMany(Review::class, ['stays_id' => 'id']);
+    }
+
+    public function getPhotos(): ActiveQuery
+    {
+        return $this->hasMany(Photo::class, ['stays_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getRooms(): ActiveQuery
+    {
+        return $this->hasMany(Rooms::class, ['stays_id' => 'id'])->orderBy('sort');
+    }
+    /** <========== getXXX */
 }

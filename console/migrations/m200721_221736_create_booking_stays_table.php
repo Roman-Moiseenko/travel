@@ -15,6 +15,7 @@ class m200721_221736_create_booking_stays_table extends Migration
         $this->createTable('{{%booking_stays}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
+            'legal_id'=> $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),
             'name' => $this->string(),
             'status' => $this->integer(),
@@ -31,6 +32,7 @@ class m200721_221736_create_booking_stays_table extends Migration
         $this->createIndex('{{%idx-booking_stays-main_photo_id}}', '{{%booking_stays}}', 'main_photo_id');
         $this->addForeignKey('{{%fk-booking_stays-main_photo_id}}', '{{%booking_stays}}', 'main_photo_id', '{{%booking_stays_photos}}', 'id', 'SET NULL', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_stays-type}}', '{{%booking_stays}}', 'type', '{{%booking_stays_type}}', 'id', 'SET NULL', 'RESTRICT');
+        $this->addForeignKey('{{%fk-booking_stays-legal_id}}', '{{%booking_stays}}', 'legal_id', '{{%admin_users_legal}}', 'id', 'SET NULL', 'RESTRICT');
 
     }
 
