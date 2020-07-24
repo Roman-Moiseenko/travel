@@ -49,7 +49,6 @@ class Stays extends ActiveRecord
         $stays = new static();
         $stays->created_at = time();
         $stays->name = $name;
-       // $stays->legal_id = $legalId;
         $stays->status = Stays::STATUS_INACTIVE;
         $stays->type_id = $typeId;
         $stays->address = $address;
@@ -62,7 +61,6 @@ class Stays extends ActiveRecord
     {
         $this->name = $name;
         $this->legal_id = $legalId;
-        //$stays->type = $type;
         $this->address = $address;
         $this->geo = $geo;
         $this->stars = $stars;
@@ -73,6 +71,10 @@ class Stays extends ActiveRecord
         $this->legal_id = $legalId;
     }
 
+    public function setRules(Rules $rules)
+    {
+        $this->rules = $rules;
+    }
     public function activate(): void
     {
         if ($this->isActive()) {
@@ -111,6 +113,7 @@ class Stays extends ActiveRecord
                     'photos',
                    // 'tagAssignments',
                   //  'relatedAssignments',
+                    'rules',
                     'reviews'
                 ],
             ],
