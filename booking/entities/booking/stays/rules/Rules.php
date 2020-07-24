@@ -6,6 +6,7 @@ namespace booking\entities\booking\stays\rules;
 
 use booking\entities\user\Personal;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 
 /**
  * Class Rules
@@ -16,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property Children $children
  * @property CheckIn $checkin
  * @property Agelimit $agelimit
- * @property Cards[] $cards
+ * @property Cards $cards
  * @property Parking $parking
  */
 class Rules extends ActiveRecord
@@ -56,6 +57,11 @@ class Rules extends ActiveRecord
     public function setAgelimit(Agelimit $agelimit)
     {
         $this->agelimit = $agelimit;
+    }
+
+    public function setCards(Cards $cards)
+    {
+        $this->cards = $cards;
     }
 
     public function afterFind(): void
@@ -99,6 +105,11 @@ class Rules extends ActiveRecord
             $this->getAttribute('agelimit_ageMin'),
             $this->getAttribute('agelimit_ageMax')
         );
+
+        $this->cards = new Cards(
+            $this->getAttribute('cards_on'),
+            $this->getAttribute(Json::decode('cards_list', true))
+        );
         parent::afterFind();
     }
 
@@ -134,6 +145,10 @@ class Rules extends ActiveRecord
         $this->setAttribute('agelimit_on', $this->agelimit->on);
         $this->setAttribute('agelimit_ageMin', $this->agelimit->ageMin);
         $this->setAttribute('agelimit_ageMax', $this->agelimit->ageMax);
+
+        $this->setAttribute('cards_on', $this->cards->on);
+        $this->setAttribute('cards_list', Json::encode($this->cards->list));
+
         return parent::beforeSave($insert);
     }
 }

@@ -12,6 +12,7 @@ class m200723_213141_create_booking_stays_rules_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_stays_rules}}', [
             'id' => $this->primaryKey(),
             'stays_id' => $this->integer()->notNull(),
@@ -40,10 +41,17 @@ class m200723_213141_create_booking_stays_rules_table extends Migration
             'checkin_checkint_to' => $this->integer(),
             'checkin_checkout_from' => $this->integer(),
             'checkin_checkout_to' => $this->integer(),
-        ]);
+
+            'agelimit_on' => $this->boolean(),
+            'agelimit_ageMin' => $this->integer(),
+            'agelimit_ageMax' => $this->integer(),
+
+            'cards_on' => $this->boolean(),
+            'cards_list' => $this->text()
+        ], $tableOptions);
 
         $this->createIndex('{{%idx-booking_stays_rules-stays_id}}', '{{%booking_stays_rules}}', 'stays_id');
-        $this->addForeignKey('{{%fk-booking_stays_rules-stays_id}}', '{{%booking_stays_rules}}', 'rooms_id', '{{%booking_stays}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('{{%fk-booking_stays_rules-stays_id}}', '{{%booking_stays_rules}}', 'stays_id', '{{%booking_stays}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
 

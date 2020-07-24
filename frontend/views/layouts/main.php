@@ -49,36 +49,36 @@ AppAsset::register($this);
                 <div class="col-sm-3">
                     <h5>Информация</h5>
                     <ul class="list-unstyled">
-                        <li><a href="<?=Html::encode(Url::to(['/about']))?>">О Магазине</a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/delivery']))?>">Доставка</a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/policy']))?>">Политика конфиденциальности</a></li>
-                        <li><a href="">Terms &amp; Conditions</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/about']))?>">О Сайте (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/']))?>">Служба поддержки (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/policy']))?>">Политика конфиденциальности (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h5>Customer Service</h5>
+                    <h5>Жилье</h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Contact Us</a></li>
-                        <li><a href="">Returns</a></li>
-                        <li><a href="">Site Map</a></li>
+                        <li><a href="">Отели</a></li>
+                        <li><a href="">Хостелы</a></li>
+                        <li><a href="">Аппартаменты</a></li>
+                        <li><a href="">Загородные дома (виллы)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h5>Extras</h5>
+                    <h5>Другие услуги</h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Brands</a></li>
-                        <li><a href="">Gift Certificates</a></li>
-                        <li><a href="">Affiliate</a></li>
-                        <li><a href="">Specials</a></li>
+                        <li><a href="">Прокат автомобиля</a></li>
+                        <li><a href="">Найти тур</a></li>
+                        <li><a href="">Заказать столик в ресторане</a></li>
+                        <li><a href="">Купить билет на представление</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Личный кабинет</h5>
                     <ul class="list-unstyled">
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>">Кабинет</a></li>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/order/index'])) ?>">Заказы</a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/order/index'])) ?>">Бронирования</a></li>
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>">Избранное</a></li>
-                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">Сообщения</a></li>
                     </ul>
                 </div>
             </div>

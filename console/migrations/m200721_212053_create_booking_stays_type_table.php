@@ -12,11 +12,12 @@ class m200721_212053_create_booking_stays_type_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_stays_type}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'mono' => $this->boolean()
-        ]);
+        ], $tableOptions);
         $this->insert('{{%booking_stays_type}}', [
             'name' => 'Аппартаменты',
             'mono' => true

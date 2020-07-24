@@ -12,7 +12,7 @@ class m200722_191110_create_admin_user_personal_table extends Migration
      */
     public function safeUp()
     {
-
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%admin_user_personal}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull()->unique(),
@@ -27,7 +27,7 @@ class m200722_191110_create_admin_user_personal_table extends Migration
             'photo' => $this->string(),
             'phone' => $this->string(15),
             'position' => $this->string(),
-        ]);
+        ], $tableOptions);
 
         $this->createIndex('{{%idx-admin_user_personal-user_id}}', '{{%admin_user_personal}}', 'user_id');
 

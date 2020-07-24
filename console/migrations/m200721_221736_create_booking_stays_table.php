@@ -12,6 +12,7 @@ class m200721_221736_create_booking_stays_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_stays}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
@@ -28,7 +29,7 @@ class m200721_221736_create_booking_stays_table extends Migration
             'adr_house' => $this->string(),
             'geo_latitude' => $this->string(),
             'geo_longitude' => $this->string(),
-        ]);
+        ], $tableOptions);
         $this->addForeignKey('{{%fk-booking_stays-type_id}}', '{{%booking_stays}}', 'type_id', '{{%booking_stays_type}}', 'id', 'SET NULL', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_stays-legal_id}}', '{{%booking_stays}}', 'legal_id', '{{%admin_user_legals}}', 'id', 'SET NULL', 'RESTRICT');
 

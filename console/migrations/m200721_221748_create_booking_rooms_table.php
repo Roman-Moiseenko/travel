@@ -12,6 +12,7 @@ class m200721_221748_create_booking_rooms_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_rooms}}', [
             'id' => $this->primaryKey(),
             'stays_id' => $this->integer(),
@@ -25,7 +26,7 @@ class m200721_221748_create_booking_rooms_table extends Migration
             'type_id' => $this->integer(),
             'smocking' => $this->boolean(),
             'main_photo_id' => $this->integer(),
-        ]);
+        ], $tableOptions);
 
         $this->addForeignKey('{{%fk-booking_rooms-type_id}}', '{{%booking_rooms}}', 'type_id',
             '{{%booking_rooms_type}}', 'id', 'SET NULL', 'RESTRICT');

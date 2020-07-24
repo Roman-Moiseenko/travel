@@ -12,11 +12,12 @@ class m200722_235941_create_booking_stays_comfort_tables extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_stays_comfort_category}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'sort' => $this->integer()->defaultValue(0),
-            ]);
+            ], $tableOptions);
 
         $this->createTable('{{%booking_stays_comfort}}', [
             'id' => $this->primaryKey(),
@@ -24,7 +25,7 @@ class m200722_235941_create_booking_stays_comfort_tables extends Migration
             'name' => $this->string(),
             'sort' => $this->integer()->defaultValue(0),
             'editpay' => $this->boolean(),
-        ]);
+        ], $tableOptions);
         $this->createIndex('{{%idx-booking_stays_comfort-category_id}}', '{{%booking_stays_comfort}}', 'category_id');
         $this->addForeignKey('{{%fk-booking_stays_comfort-category_id}}', '{{%booking_stays_comfort}}', 'category_id',
             '{{%booking_stays_comfort_category}}', 'id', 'SET NULL', 'RESTRICT');
@@ -33,7 +34,7 @@ class m200722_235941_create_booking_stays_comfort_tables extends Migration
             'stays_id' => $this->integer(),
             'comfort_id' => $this->integer(),
             'pay' => $this->boolean(),
-        ]);
+        ], $tableOptions);
 
         $this->addPrimaryKey('{{%pk-booking_stays_assign_comfort}}', '{{%booking_stays_assign_comfort}}', ['stays_id', 'comfort_id']);
 

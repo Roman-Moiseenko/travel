@@ -12,6 +12,7 @@ class m200716_180515_create_user_personal_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%user_personal}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull()->unique(),
@@ -25,7 +26,7 @@ class m200716_180515_create_user_personal_table extends Migration
             'dateborn' => $this->integer(),
             'photo' => $this->string(),
             'phone' => $this->string(15),
-        ]);
+        ], $tableOptions);
 
         $this->createIndex('{{%idx-user_personal-user_id}}', '{{%user_personal}}', 'user_id');
 

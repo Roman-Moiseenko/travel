@@ -12,6 +12,7 @@ class m200714_222143_create_booking_lang_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_lang}}', [
             'ru' => $this->text(),
             'en' => $this->text(),
@@ -20,7 +21,7 @@ class m200714_222143_create_booking_lang_table extends Migration
             'fr' => $this->text(),
             'lv' => $this->text(),
             'lt' => $this->text(),
-        ]);
+        ], $tableOptions);
         $this->createIndex('{{%idx-booking_lang-ru}}', '{{%booking_lang}}', 'ru');
     }
 

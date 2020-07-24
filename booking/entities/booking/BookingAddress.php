@@ -1,10 +1,10 @@
 <?php
 
 
-namespace booking\entities\booking\stays;
+namespace booking\entities\booking;
 
 
-class StaysAddress
+class BookingAddress
 {
     public $town;
     public $street;

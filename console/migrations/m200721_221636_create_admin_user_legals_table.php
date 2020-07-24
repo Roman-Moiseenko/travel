@@ -12,6 +12,7 @@ class m200721_221636_create_admin_user_legals_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%admin_user_legals}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
@@ -21,7 +22,7 @@ class m200721_221636_create_admin_user_legals_table extends Migration
             'OGRN' => $this->string(),
             'BIK' => $this->string(),
             'account' => $this->string(),
-        ]);
+        ], $tableOptions);
         $this->createIndex('{{%idx-admin_user_legals-user_id}}', '{{%admin_user_legals}}', 'user_id');
         $this->addForeignKey('{{%fk-admin_user_legals-user_id}}', '{{%admin_user_legals}}', 'user_id', '{{%admin_users}}', 'id', 'CASCADE', 'RESTRICT');
     }

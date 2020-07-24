@@ -8,6 +8,7 @@ use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\rooms\Rooms;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\rules\Rules;
+use booking\entities\booking\BookingAddress;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -26,7 +27,7 @@ use yii\web\UploadedFile;
  * @property float $rating
  * @property integer $main_photo_id
  * @property integer $type_id
- * @property StaysAddress $address
+ * @property BookingAddress $address
  * @property Geo $geo
  * @property Photo[] $photos
  * @property Review[] $reviews
@@ -42,9 +43,11 @@ class Stays extends ActiveRecord
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 1;
     const STATUS_ACTIVE = 2;
+    public $address;
+    public $geo;
 
 
-    public static function create($name, $typeId, StaysAddress $address, Geo $geo, $stars = 0): self
+    public static function create($name, $typeId, BookingAddress $address, Geo $geo, $stars = 0): self
     {
         $stays = new static();
         $stays->created_at = time();
@@ -57,7 +60,7 @@ class Stays extends ActiveRecord
         return $stays;
     }
 
-    public function edit($name, $legalId, StaysAddress $address, Geo $geo, $stars = 0): void
+    public function edit($name, $legalId, BookingAddress $address, Geo $geo, $stars = 0): void
     {
         $this->name = $name;
         $this->legal_id = $legalId;
@@ -130,7 +133,7 @@ class Stays extends ActiveRecord
     public function afterFind(): void
     {
 
-        $this->address = new StaysAddress(
+        $this->address = new BookingAddress(
             $this->getAttribute('town'),
             $this->getAttribute('street'),
             $this->getAttribute('house'),

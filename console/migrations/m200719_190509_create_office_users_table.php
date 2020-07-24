@@ -12,7 +12,7 @@ class m200719_190509_create_office_users_table extends Migration
      */
     public function safeUp()
     {
-
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%office_users}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
@@ -25,7 +25,7 @@ class m200719_190509_create_office_users_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'verification_token' => $this->string()->defaultValue(null),
-        ], null);
+        ], $tableOptions);
 
         $this->createIndex('{{%idx-office_users-username}}', '{{%office_users}}', 'username');
         $this->createIndex('{{%idx-office_users-email}}', '{{%office_users}}', 'email');

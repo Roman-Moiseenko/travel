@@ -7,12 +7,12 @@ namespace booking\entities\booking\stays\rules;
 class Cards
 {
     public $on;
-    public $json;
+    public $list;
 
-    public function __construct($on = false, $json = '{}')
+    public function __construct($on = false, array $list = [])
     {
         $this->on = $on;
-        $this->json = $json;
+        $this->list = $list;
     }
 
 }
