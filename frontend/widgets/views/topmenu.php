@@ -88,9 +88,9 @@ use yii\helpers\Url;
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="<?= Html::encode(Url::to(['site/index'])) ?>"><i class="fas fa-hotel"></i>&#160;<?= Lang::t('Жилье') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/cars/index'])) ?>"><i class="fas fa-car"></i>&#160;<?= Lang::t('Авто') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/tours/index'])) ?>"><i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Туры') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/tickets/index'])) ?>"><i class="fas fa-ticket-alt"></i>&#160;<?= Lang::t('Билеты') ?></a></li>
+                <li><a href="<?= Html::encode(Url::to(['/cars'])) ?>"><i class="fas fa-car"></i>&#160;<?= Lang::t('Авто') ?></a></li>
+                <li><a href="<?= Html::encode(Url::to(['/tours'])) ?>"><i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Туры') ?></a></li>
+                <li><a href="<?= Html::encode(Url::to(['/tickets'])) ?>"><i class="fas fa-ticket-alt"></i>&#160;<?= Lang::t('Билеты') ?></a></li>
             </ul>
         </div>
     </nav>

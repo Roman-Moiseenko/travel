@@ -28,7 +28,6 @@ use yii\web\UploadedFile;
  * @property integer $main_photo_id
  * @property integer $type_id
  * @property BookingAddress $address
- * @property Geo $geo
  * @property Photo[] $photos
  * @property Review[] $reviews
  * @property Rooms[] $rooms
@@ -44,10 +43,9 @@ class Stays extends ActiveRecord
     const STATUS_INACTIVE = 1;
     const STATUS_ACTIVE = 2;
     public $address;
-    public $geo;
 
 
-    public static function create($name, $typeId, BookingAddress $address, Geo $geo, $stars = 0): self
+    public static function create($name, $typeId, BookingAddress $address, $stars = 0): self
     {
         $stays = new static();
         $stays->created_at = time();
@@ -55,17 +53,15 @@ class Stays extends ActiveRecord
         $stays->status = Stays::STATUS_INACTIVE;
         $stays->type_id = $typeId;
         $stays->address = $address;
-        $stays->geo = $geo;
         $stays->stars = $stars;
         return $stays;
     }
 
-    public function edit($name, $legalId, BookingAddress $address, Geo $geo, $stars = 0): void
+    public function edit($name, $legalId, BookingAddress $address, $stars = 0): void
     {
         $this->name = $name;
         $this->legal_id = $legalId;
         $this->address = $address;
-        $this->geo = $geo;
         $this->stars = $stars;
     }
 
@@ -132,30 +128,23 @@ class Stays extends ActiveRecord
 
     public function afterFind(): void
     {
-
         $this->address = new BookingAddress(
-            $this->getAttribute('town'),
-            $this->getAttribute('street'),
-            $this->getAttribute('house'),
-        );
-
-        $this->geo = new Geo(
-            $this->getAttribute('latitude'),
-            $this->getAttribute('longitude')
+            $this->getAttribute('adr_town'),
+            $this->getAttribute('adr_street'),
+            $this->getAttribute('adr_house'),
+            $this->getAttribute('adr_latitude'),
+            $this->getAttribute('adr_longitude')
         );
         parent::afterFind();
     }
 
     public function beforeSave($insert): bool
     {
-
-        $this->setAttribute('town', $this->address->town);
-        $this->setAttribute('street', $this->address->street);
-        $this->setAttribute('house', $this->address->house);
-
-        $this->setAttribute('latitude', $this->geo->latitude);
-        $this->setAttribute('longitude', $this->geo->longitude);
-
+        $this->setAttribute('adr_town', $this->address->town);
+        $this->setAttribute('adr_street', $this->address->street);
+        $this->setAttribute('adr_house', $this->address->house);
+        $this->setAttribute('adr_latitude', $this->address->latitude);
+        $this->setAttribute('adr_longitude', $this->address->longitude);
         return parent::beforeSave($insert);
     }
 

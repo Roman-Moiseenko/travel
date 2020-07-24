@@ -4,6 +4,7 @@
 namespace booking\entities\booking\stays;
 
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -37,5 +38,10 @@ class StaysType extends ActiveRecord
     public static function tableName()
     {
         return 'booking_stays_type';
+    }
+
+    public function getStays(): ActiveQuery
+    {
+        return $this->hasMany(Stays::class, ['type_id' => 'id']);
     }
 }

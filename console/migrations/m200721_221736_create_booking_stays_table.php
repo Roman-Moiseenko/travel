@@ -27,9 +27,11 @@ class m200721_221736_create_booking_stays_table extends Migration
             'adr_town' => $this->string(),
             'adr_street' => $this->string(),
             'adr_house' => $this->string(),
-            'geo_latitude' => $this->string(),
-            'geo_longitude' => $this->string(),
+            'adr_latitude' => $this->string(),
+            'adr_longitude' => $this->string(),
         ], $tableOptions);
+        $this->createIndex('{{%idx-booking_stays-type_id}}', '{{%booking_stays}}','type_id');
+
         $this->addForeignKey('{{%fk-booking_stays-type_id}}', '{{%booking_stays}}', 'type_id', '{{%booking_stays_type}}', 'id', 'SET NULL', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_stays-legal_id}}', '{{%booking_stays}}', 'legal_id', '{{%admin_user_legals}}', 'id', 'SET NULL', 'RESTRICT');
 
