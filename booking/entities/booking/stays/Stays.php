@@ -31,7 +31,7 @@ use yii\web\UploadedFile;
  * @property Photo[] $photos
  * @property Review[] $reviews
  * @property Rooms[] $rooms
- * @property StaysType $type
+ * @property Type $type
  * @property Rules $rules
  * @property Comfort[] $comforts
  * @property Nearby[] $nearby
@@ -146,6 +146,15 @@ class Stays extends ActiveRecord
         $this->setAttribute('adr_latitude', $this->address->latitude);
         $this->setAttribute('adr_longitude', $this->address->longitude);
         return parent::beforeSave($insert);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
     }
 
     /** Review  ==========>*/
@@ -280,7 +289,7 @@ class Stays extends ActiveRecord
     /** getXXX ==========> */
     public function getType(): ActiveQuery
     {
-        return $this->hasOne(StaysType::class, ['id' => 'type_id']);
+        return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
 
     public function getLegal(): ActiveQuery

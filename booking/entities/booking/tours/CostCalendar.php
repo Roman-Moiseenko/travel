@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * Class CostCalendar
  * @package booking\entities\booking\tours
  * @property integer $id
- * @property integer $tour_id
+ * @property integer $tours_id
  * @property integer $tour_at
  * @property Cost $cost
  */

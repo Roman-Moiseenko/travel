@@ -4,28 +4,28 @@
 namespace booking\repositories\booking\stays;
 
 
-use booking\entities\booking\stays\StaysType;
+use booking\entities\booking\stays\Type;
 
-class StaysTypeRepository
+class TypeRepository
 {
-    public function get($id): StaysType
+    public function get($id): Type
     {
-        if (!$result = StaysType::findOne('id')) {
+        if (!$result = Type::findOne('id')) {
             throw new \DomainException('Не найден тип жилища ' . $id);
         }
         return $result;
     }
 
-    public function save(StaysType $staysType): void
+    public function save(Type $type): void
     {
-        if (!$staysType->save()) {
+        if (!$type->save()) {
             throw new \RuntimeException('Тип жилища не сохранен');
         }
     }
 
-    public function remove(StaysType $roomsType)
+    public function remove(Type $type)
     {
-        if (!$staysType->delete()) {
+        if (!$type->delete()) {
             throw new \RuntimeException('Ошибка удаления типа жилища');
         }
     }

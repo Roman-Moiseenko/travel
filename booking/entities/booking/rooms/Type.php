@@ -4,26 +4,25 @@
 namespace booking\entities\booking\rooms;
 
 
-use booking\entities\booking\stays\StaysType;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Class RoomsType
+ * Class Type
  * @package booking\entities\booking\rooms
  * @property integer $id
  * @property integer $stays_id
  * @property string $name
- * @property StaysType $staystype
+ * @property Type $staystype
  */
-class RoomsType extends ActiveRecord
+class Type extends ActiveRecord
 {
     public static function create($stays_id, $name): self
     {
-        $rooms = new static();
-        $rooms->stays_id = $stays_id;
-        $rooms->name = $name;
-        return $rooms;
+        $type = new static();
+        $type->stays_id = $stays_id;
+        $type->name = $name;
+        return $type;
     }
 
     public function edit($stays_id, $name): void
@@ -39,6 +38,6 @@ class RoomsType extends ActiveRecord
 
     public function getStaystype(): ActiveQuery
     {
-        return $this->hasOne(StaysType::class, ['stays_id' => 'id']);
+        return $this->hasOne(\booking\entities\booking\stays\Type::class, ['stays_id' => 'id']);
     }
 }

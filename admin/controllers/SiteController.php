@@ -2,6 +2,7 @@
 namespace admin\controllers;
 
 
+use admin\forms\ToursSearch;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -30,6 +31,11 @@ class SiteController extends Controller
                         'actions' => ['index'],
                         'allow' => true,
                       //  'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['tours'],
+                        'allow' => true,
+                          'roles' => ['@'],
                     ],
                 ],
             ],
@@ -66,6 +72,18 @@ class SiteController extends Controller
         }
 
         return $this->render('index');
+    }
+
+    public function actionTours()
+    {
+        //TODO Список всех моих туров
+        $searchModel = new ToursSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
+        return $this->render('tours', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 }

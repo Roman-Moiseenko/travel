@@ -51,6 +51,7 @@ return [
                 '' => 'site/index',
 
                 '<_a:login|logout>' => 'auth/auth/<_a>',
+                'tours' => 'site/tours',
                 'signup' => 'auth/signup/index',
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

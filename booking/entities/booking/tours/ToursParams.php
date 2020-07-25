@@ -16,6 +16,7 @@ class ToursParams
     public $children;
     public $beginAddress;
     public $endAddress;
+    public $agelimit;
 
     public function __construct(
         $duration, BookingAddress $beginAddress, BookingAddress $endAddress,
@@ -25,6 +26,7 @@ class ToursParams
         $this->duration = $duration;
         $this->beginAddress = $beginAddress;
         $this->endAddress = $endAddress;
+        $this->agelimit = $agelimit;
         $this->private = $private;
         $this->groupMin = $groupMin;
         $this->groupMax = $groupMax;

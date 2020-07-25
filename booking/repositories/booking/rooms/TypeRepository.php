@@ -3,13 +3,13 @@
 
 namespace booking\repositories\booking\rooms;
 
-use booking\entities\booking\rooms\RoomsType;
+use booking\entities\booking\rooms\Type;
 
-class RoomsTypeRepository
+class TypeRepository
 {
-    public function get($id): RoomsType
+    public function get($id): Type
     {
-        if (!$result = RoomsType::findOne('id')) {
+        if (!$result = Type::findOne('id')) {
             throw new \DomainException('Не найден тип номера ' . $id);
         }
         return $result;
@@ -17,22 +17,22 @@ class RoomsTypeRepository
 
     public function getByStays($staysId): array
     {
-        if (!$result = RoomsType::find()->andWhere(['stays_id' => $staysId])->all()) {
+        if (!$result = Type::find()->andWhere(['stays_id' => $staysId])->all()) {
             throw new \DomainException('Не найдены по типу жилища ' . $staysId);
         }
         return $result;
     }
 
-    public function save(RoomsType $roomsType): void
+    public function save(Type $type): void
     {
-        if (!$roomsType->save()) {
+        if (!$type->save()) {
             throw new \RuntimeException('Тип номера не сохранен');
         }
     }
 
-    public function remove(RoomsType $roomsType)
+    public function remove(Type $type)
     {
-        if (!$roomsType->delete()) {
+        if (!$type->delete()) {
             throw new \RuntimeException('Ошибка удаления типа номера');
         }
     }

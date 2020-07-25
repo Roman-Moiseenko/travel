@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  */
 
-class ToursType extends ActiveRecord
+class Type extends ActiveRecord
 {
     public static function create($name): self
     {

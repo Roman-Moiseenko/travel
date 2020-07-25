@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $user_id
  * @property int $vote
  * @property string $text
- * @property integer $stays_id
+ * @property integer $tours_id
  */
 class Review extends ActiveRecord
 {
@@ -54,8 +54,8 @@ class Review extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getStays(): ActiveQuery
+    public function getTours(): ActiveQuery
     {
-        return $this->hasOne(Tours::class, ['id' => 'stays_id']);
+        return $this->hasOne(Tours::class, ['id' => 'tours_id']);
     }
 }

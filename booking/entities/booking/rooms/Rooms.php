@@ -21,7 +21,7 @@ use yii\web\UploadedFile;
  * @property integer $type_id
  * @property bool $smocking
  * @property Photo[] $photos
- * @property RoomsType $type
+ * @property Type $type
  * @property Beds[] $beds
  */
 
@@ -82,6 +82,14 @@ class Rooms extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
     /** Photo ==========> */
 
     public function addPhotoClass(Photo $photo): void
@@ -161,7 +169,7 @@ class Rooms extends ActiveRecord
     /** getXXX ==========> */
     public function getType(): ActiveQuery
     {
-        return $this->hasOne(RoomsType::class, ['id' => 'type_id']);
+        return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
 
     public function getPhotos(): ActiveQuery

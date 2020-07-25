@@ -3,7 +3,6 @@
 
 namespace booking\entities\booking\stays;
 
-
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -14,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property bool $mono
  */
-class StaysType extends ActiveRecord
+class Type extends ActiveRecord
 {
     public static function create($name, $mono): self
     {

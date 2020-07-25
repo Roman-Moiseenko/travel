@@ -1,12 +1,13 @@
 <?php
 
 
-namespace booking\forms\booking\stays;
+namespace booking\forms\booking\tours;
 
-use booking\entities\booking\stays\Type;
+
+use booking\entities\booking\tours\Type;
 use yii\base\Model;
 
-class StaysTypeForm extends Model
+class CreateToursTypeForm extends Model
 {
     public $name;
     public $mono;
@@ -15,11 +16,7 @@ class StaysTypeForm extends Model
     {
         if ($type != null) {
             $this->name = $type->name;
-            $this->mono = $type->mono;
-        } else {
-            $this->mono = false;
         }
-
         parent::__construct($config);
     }
 
@@ -28,7 +25,6 @@ class StaysTypeForm extends Model
         return [
             ['name', 'string'],
             ['name', 'required'],
-            ['mono', 'boolean'],
         ];
     }
 }

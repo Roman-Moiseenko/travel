@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\booking\rooms;
+namespace booking\forms\booking;
 
 
 use yii\base\Model;

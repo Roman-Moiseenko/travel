@@ -4,22 +4,22 @@
 namespace booking\services\booking\rooms;
 
 
-use booking\entities\booking\rooms\RoomsType;
+use booking\entities\booking\rooms\Type;
 use booking\forms\booking\rooms\RoomsTypeForm;
-use booking\repositories\booking\rooms\RoomsTypeRepository;
+use booking\repositories\booking\rooms\TypeRepository;
 
-class RoomsTypeService
+class TypeService
 {
     private $roomsType;
 
-    public function __construct(RoomsTypeRepository $roomsType)
+    public function __construct(TypeRepository $roomsType)
     {
         $this->roomsType = $roomsType;
     }
 
-    public function create(RoomsTypeForm $form): RoomsType
+    public function create(RoomsTypeForm $form): Type
     {
-        $roomsType = RoomsType::create($form->stays_id, $form->name);
+        $roomsType = Type::create($form->stays_id, $form->name);
         $this->roomsType->save($roomsType);
         return $roomsType;
     }
