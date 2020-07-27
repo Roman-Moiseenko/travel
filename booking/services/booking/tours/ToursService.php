@@ -51,16 +51,21 @@ class ToursService
             $form->types->main,
             $form->description,
             new BookingAddress(
-                $form->address->town,
-                $form->address->street,
-                $form->address->house,
+                $form->address->address,
                 $form->address->latitude,
                 $form->address->longitude
             )
         );
-        $this->saveTypesPhotos($form, $tours);
+
+        foreach ($form->types->others as $otherId) {
+            $type = $this->types->get($otherId);
+            $tours->assignType($type->id);
+        }
+        $this->tours->save($tours);
+
         return $tours;
     }
+
     public function edit($id, ToursCommonForms $form): void
     {
         $tours = $this->tours->get($id);
@@ -69,18 +74,11 @@ class ToursService
             $form->types->main,
             $form->description,
             new BookingAddress(
-                $form->address->town,
-                $form->address->street,
-                $form->address->house,
+                $form->address->address,
                 $form->address->latitude,
                 $form->address->longitude
             )
         );
-        $this->saveTypesPhotos($form, $tours);
-
-    }
-    private function saveTypesPhotos(ToursCommonForms $form, Tours $tours)
-    {
         $this->transaction->wrap(function () use ($form, $tours) {
             $tours->clearType();
             $this->tours->save($tours);
@@ -94,6 +92,7 @@ class ToursService
                 }
             $this->tours->save($tours);
         });
+
     }
 
     public function setParams($id, ToursParamsForm $form): void
@@ -103,16 +102,12 @@ class ToursService
             new ToursParams(
                 $form->duration,
                 new BookingAddress(
-                    $form->beginAddress->town,
-                    $form->beginAddress->street,
-                    $form->beginAddress->house,
+                    $form->beginAddress->address,
                     $form->beginAddress->latitude,
                     $form->beginAddress->longitude
                 ),
                 new BookingAddress(
-                    $form->endAddress->town,
-                    $form->endAddress->street,
-                    $form->endAddress->house,
+                    $form->endAddress->address,
                     $form->endAddress->latitude,
                     $form->endAddress->longitude
                 ),
@@ -151,5 +146,5 @@ class ToursService
         $this->tours->save($tours);
     }
 
-    
+
 }

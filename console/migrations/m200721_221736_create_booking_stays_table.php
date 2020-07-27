@@ -24,9 +24,7 @@ class m200721_221736_create_booking_stays_table extends Migration
             'rating' => $this->decimal(3, 2),
             'main_photo_id' => $this->integer(),
             'type_id' => $this->integer(),
-            'adr_town' => $this->string(),
-            'adr_street' => $this->string(),
-            'adr_house' => $this->string(),
+            'adr_address' => $this->string(),
             'adr_latitude' => $this->string(),
             'adr_longitude' => $this->string(),
         ], $tableOptions);

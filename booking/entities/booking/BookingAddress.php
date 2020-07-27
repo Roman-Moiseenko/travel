@@ -6,18 +6,13 @@ namespace booking\entities\booking;
 
 class BookingAddress
 {
-    public $town;
-    public $street;
-    public $house;
-
+    public $address;
     public $latitude;
     public $longitude;
 
-    public function __construct($town, $street, $house, $latitude, $longitude)
+    public function __construct($address, $latitude, $longitude)
     {
-        $this->town = $town;
-        $this->street = $street;
-        $this->house = $house;
+        $this->address = $address;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
     }

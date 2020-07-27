@@ -20,11 +20,11 @@ class m200724_100207_create_booking_tours_type_table extends Migration
         ], $tableOptions);
 
         $this->insert('{{%booking_tours_type}}',[
-            'name' => 'Экскурссии по городу',
+            'name' => 'Экскурсии по городу',
             'sort' => '1'
         ]);
         $this->insert('{{%booking_tours_type}}',[
-            'name' => 'Выездные экскурссия',
+            'name' => 'Выездные экскурсия',
             'sort' => '2'
         ]);
         $this->insert('{{%booking_tours_type}}',[

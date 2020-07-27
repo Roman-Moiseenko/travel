@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'name',
+                'value' => function (Tours $model) {
+                    return Html::a(Html::encode($model->name), ['/tours/common/index', 'id' => $model->id]);
+                },
+                'format' => 'raw',
                 'label' => 'Название'
             ],
             [

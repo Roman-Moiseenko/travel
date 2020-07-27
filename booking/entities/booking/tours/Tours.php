@@ -52,6 +52,7 @@ class Tours extends ActiveRecord
     public static function create($name, $type_id, $description, BookingAddress $address): self
     {
         $tours = new static();
+        $tours->user_id = \Yii::$app->user->id;
         $tours->created_at = time();
         $tours->status = Tours::STATUS_INACTIVE;
         $tours->name = $name;
@@ -127,27 +128,20 @@ class Tours extends ActiveRecord
     public function afterFind(): void
     {
         $this->address = new BookingAddress(
-            $this->getAttribute('adr_town'),
-            $this->getAttribute('adr_street'),
-            $this->getAttribute('adr_house'),
+            $this->getAttribute('adr_address'),
             $this->getAttribute('adr_latitude'),
             $this->getAttribute('adr_longitude')
         );
 
-
         $this->params = new ToursParams(
             $this->getAttribute('params_duration'),
             new BookingAddress(
-                $this->getAttribute('params_begin_town'),
-                $this->getAttribute('params_begin_street'),
-                $this->getAttribute('params_begin_house'),
+                $this->getAttribute('params_begin_address'),
                 $this->getAttribute('params_begin_latitude'),
                 $this->getAttribute('params_begin_longitude')
             ),
             new BookingAddress(
-                $this->getAttribute('params_end_town'),
-                $this->getAttribute('params_end_street'),
-                $this->getAttribute('params_end_house'),
+                $this->getAttribute('params_end_address'),
                 $this->getAttribute('params_end_latitude'),
                 $this->getAttribute('params_end_longitude')
             ),
@@ -172,34 +166,32 @@ class Tours extends ActiveRecord
 
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('adr_town', $this->address->town);
-        $this->setAttribute('adr_street', $this->address->street);
-        $this->setAttribute('adr_house', $this->address->house);
+
+        $this->setAttribute('adr_address', $this->address->address);
         $this->setAttribute('adr_latitude', $this->address->latitude);
         $this->setAttribute('adr_longitude', $this->address->longitude);
 
-        $this->setAttribute('params_duration', $this->params->duration);
-        $this->setAttribute('params_begin_town', $this->params->beginAddress->town);
-        $this->setAttribute('params_begin_street', $this->params->beginAddress->street);
-        $this->setAttribute('params_begin_house', $this->params->beginAddress->house);
-        $this->setAttribute('params_begin_latitude', $this->params->beginAddress->latitude);
-        $this->setAttribute('params_begin_longitude', $this->params->beginAddress->longitude);
-        $this->setAttribute('params_end_town', $this->params->beginAddress->town);
-        $this->setAttribute('params_end_street', $this->params->beginAddress->street);
-        $this->setAttribute('params_end_house', $this->params->beginAddress->house);
-        $this->setAttribute('params_end_latitude', $this->params->beginAddress->latitude);
-        $this->setAttribute('params_end_longitude', $this->params->beginAddress->longitude);
-        $this->setAttribute('params_limit_on', $this->params->agelimit->on);
-        $this->setAttribute('params_limit_min', $this->params->agelimit->ageMin);
-        $this->setAttribute('params_limit_max', $this->params->agelimit->ageMax);
-        $this->setAttribute('params_private', $this->params->private);
-        $this->setAttribute('params_groupMin', $this->params->groupMin);
-        $this->setAttribute('params_groupMax', $this->params->groupMax);
-        $this->setAttribute('params_children', $this->params->children);
-
-        $this->setAttribute('cost_adult', $this->baseCost->adult);
-        $this->setAttribute('cost_child', $this->baseCost->child);
-        $this->setAttribute('cost_preference', $this->baseCost->preference);
+        if ($this->params) {
+            $this->setAttribute('params_duration', $this->params->duration);
+            $this->setAttribute('params_begin_address', $this->params->beginAddress->address);
+            $this->setAttribute('params_begin_latitude', $this->params->beginAddress->latitude);
+            $this->setAttribute('params_begin_longitude', $this->params->beginAddress->longitude);
+            $this->setAttribute('params_end_address', $this->params->beginAddress->address);
+            $this->setAttribute('params_end_latitude', $this->params->beginAddress->latitude);
+            $this->setAttribute('params_end_longitude', $this->params->beginAddress->longitude);
+            $this->setAttribute('params_limit_on', $this->params->agelimit->on);
+            $this->setAttribute('params_limit_min', $this->params->agelimit->ageMin);
+            $this->setAttribute('params_limit_max', $this->params->agelimit->ageMax);
+            $this->setAttribute('params_private', $this->params->private);
+            $this->setAttribute('params_groupMin', $this->params->groupMin);
+            $this->setAttribute('params_groupMax', $this->params->groupMax);
+            $this->setAttribute('params_children', $this->params->children);
+        }
+        if ($this->baseCost) {
+            $this->setAttribute('cost_adult', $this->baseCost->adult);
+            $this->setAttribute('cost_child', $this->baseCost->child);
+            $this->setAttribute('cost_preference', $this->baseCost->preference);
+        }
 
         return parent::beforeSave($insert);
     }
@@ -212,6 +204,7 @@ class Tours extends ActiveRecord
             $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
         }
     }
+
     /** AssignExtra ==========> */
 
     public function assignExtra($id): void
@@ -417,12 +410,12 @@ class Tours extends ActiveRecord
 
     public function getExtraAssignments(): ActiveQuery
     {
-        return $this->hasMany(ExtraAssignment::class, ['tours_id' => 'id'])->orderBy('sort');
+        return $this->hasMany(ExtraAssignment::class, ['tours_id' => 'id']);//->orderBy('sort');
     }
 
     public function getTypeAssignments(): ActiveQuery
     {
-        return $this->hasMany(TypeAssignment::class, ['tours_id' => 'id'])->orderBy('sort');
+        return $this->hasMany(TypeAssignment::class, ['tours_id' => 'id']);//->orderBy('sort');
     }
 
     public function getType(): ActiveQuery
@@ -433,6 +426,10 @@ class Tours extends ActiveRecord
     public function getReviews(): ActiveQuery
     {
         return $this->hasMany(Review::class, ['tours_id' => 'id']);
+    }
+    public function getMainPhoto(): ActiveQuery
+    {
+        return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
     }
     /** <========== getXXX */
 

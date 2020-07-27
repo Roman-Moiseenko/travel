@@ -10,8 +10,8 @@ class TypeRepository
 {
     public function get($id): Type
     {
-        if (!$result = Type::findOne('id')) {
-            throw new \DomainException('Не найдена категория тура' . $id);
+        if (!$result = Type::findOne($id)) {
+            throw new \DomainException('Не найдена категория тура ' . $id);
         }
         return $result;
     }

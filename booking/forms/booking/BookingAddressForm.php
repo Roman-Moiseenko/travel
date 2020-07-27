@@ -9,19 +9,14 @@ use yii\base\Model;
 
 class BookingAddressForm extends Model
 {
-    public $town;
-    public $street;
-    public $house;
-
+    public $address;
     public $latitude;
     public $longitude;
 
     public function __construct(BookingAddress $address = null, $config = [])
     {
         if ($address != null) {
-            $this->town = $address->town;
-            $this->street = $address->street;
-            $this->house = $address->house;
+            $this->address = $address->address;
             $this->latitude = $address->latitude;
             $this->longitude = $address->longitude;
         }
@@ -31,9 +26,8 @@ class BookingAddressForm extends Model
     public function rules()
     {
         return [
-            [['town', 'street', 'house'], 'string'],
+            [['address'], 'string'],
             [['latitude', 'longitude'], 'required'],
-            [['latitude', 'longitude'], 'integer']
         ];
     }
 }

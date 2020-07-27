@@ -4,7 +4,7 @@
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 ?>
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left: 73.6px">
     <!-- Content Header (Page header) -->
     <?= Alert::widget() ?>
     <div class="content-header">

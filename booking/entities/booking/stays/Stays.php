@@ -129,9 +129,7 @@ class Stays extends ActiveRecord
     public function afterFind(): void
     {
         $this->address = new BookingAddress(
-            $this->getAttribute('adr_town'),
-            $this->getAttribute('adr_street'),
-            $this->getAttribute('adr_house'),
+            $this->getAttribute('adr_address'),
             $this->getAttribute('adr_latitude'),
             $this->getAttribute('adr_longitude')
         );
@@ -140,9 +138,7 @@ class Stays extends ActiveRecord
 
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('adr_town', $this->address->town);
-        $this->setAttribute('adr_street', $this->address->street);
-        $this->setAttribute('adr_house', $this->address->house);
+        $this->setAttribute('adr_address', $this->address->address);
         $this->setAttribute('adr_latitude', $this->address->latitude);
         $this->setAttribute('adr_longitude', $this->address->longitude);
         return parent::beforeSave($insert);

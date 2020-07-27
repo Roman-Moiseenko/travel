@@ -20,7 +20,9 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+
     <?php $this->head() ?>
+
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ec80b990-9f0f-4371-8872-4040ba6373b3&lang=ru_RU" type="text/javascript">
     </script>
     <script src="/js/map.js" type="text/javascript"></script>
@@ -33,11 +35,8 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
     <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <?= $this->render('left-tours', ['assetDir' => $assetDir]) ?>
-
     <!-- Content Wrapper. Contains page content -->
-    <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
+    <?= $this->render('content-create', ['content' => $content, 'assetDir' => $assetDir]) ?>
     <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
@@ -51,5 +50,5 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 <?php $this->endBody() ?>
 </body>
 </html>
-<script src="https://api-maps.yandex.ru/2.1/?apikey=ec80b990-9f0f-4371-8872-4040ba6373b3&lang=ru_RU" type="text/javascript">
+
 <?php $this->endPage() ?>
