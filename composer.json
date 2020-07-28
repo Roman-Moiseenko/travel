@@ -32,7 +32,9 @@
         "div/yii2-geoip": "^1.0",
         "rmrevin/yii2-fontawesome": "~3.5",
         "almasaeed2010/adminlte": "~3.0",
-        "hail812/yii2-adminlte3": "*"
+        "hail812/yii2-adminlte3": "*",
+        "mihaildev/yii2-elfinder": "*",
+        "mihaildev/yii2-ckeditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

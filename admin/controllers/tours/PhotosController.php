@@ -5,15 +5,14 @@ namespace admin\controllers\tours;
 
 
 use booking\entities\booking\tours\Tours;
-use booking\forms\booking\tours\ToursCommonForms;
-use booking\repositories\booking\tours\ToursRepository;
+use booking\forms\booking\PhotosForm;
 use booking\services\booking\tours\ToursService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class CommonController extends Controller
+class PhotosController extends Controller
 {
     public  $layout = 'main-tours';
     /**
@@ -40,8 +39,19 @@ class CommonController extends Controller
                     ],
                 ],
             ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                    'delete-photo' => ['POST'],
+                    'move-photo-up' => ['POST'],
+                    'move-photo-down' => ['POST'],
+                    'featured' => ['POST'],
+                ],
+            ],
         ];
     }
+
 
     public function actionIndex($id)
     {
@@ -49,51 +59,45 @@ class CommonController extends Controller
         if ($tours->user_id != \Yii::$app->user->id) {
             throw new \DomainException('У вас нет прав для данного тура');
         }
+        $form = new PhotosForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->addPhotos($tours->id, $form);
+                return $this->redirect(['/tours/photos/index', 'id' => $id, '#' => 'photos']);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
         return $this->render('view', [
-            'tours' => $tours
+            'tours' => $tours,
+            'photosForm' => $form,
         ]);
     }
 
-    public function actionCreate()
+
+    public function actionDeletePhoto($id, $photo_id)
     {
-        $this->layout = 'main-tours-create';
-        $form = new ToursCommonForms();
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $tours = $this->service->create($form);
-                \Yii::$app->session->setFlash('success', 'Тур успешно создан, теперь вы можете загрузить фотографии и настроить остальные параметры');
-                return $this->redirect(['/tours/common', 'id' => $tours->id]);
-            } catch (\DomainException $e) {
-                \Yii::$app->errorHandler->logException($e);
-                \Yii::$app->session->setFlash('error', $e->getMessage());
-            }
+        try {
+            $this->service->removePhoto($id, $photo_id);
+
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->render('create', [
-            'model' => $form,
-        ]);
+        return $this->redirect(['/tours/photos/index', 'id' => $id, '#' => 'photos']);
     }
 
-    public function actionUpdate($id)
+    public function actionMovePhotoUp($id, $photo_id)
     {
-        $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
-        $form = new ToursCommonForms($tours);
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $this->service->edit($tours->id, $form);
-                return $this->redirect(['/tours/common', 'id' => $tours->id]);
-            } catch (\DomainException $e) {
-                \Yii::$app->errorHandler->logException($e);
-                \Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
-        return $this->render('update', [
-            'model' => $form,
-            'tours' => $tours
-        ]);
+        $this->service->movePhotoUp($id, $photo_id);
+        return $this->redirect(['/tours/photos/index', 'id' => $id, '#' => 'photos']);
+    }
 
+    public function actionMovePhotoDown($id, $photo_id)
+    {
+        $this->service->movePhotoDown($id, $photo_id);
+        return $this->redirect(['/tours/photos/index', 'id' => $id, '#' => 'photos']);
     }
 
     protected function findModel($id)

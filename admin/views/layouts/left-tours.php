@@ -22,14 +22,14 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Описание', 'icon' => '', 'url' => ['/tours/common'], 'active' => $this->context->id == 'stays/default'],
-                    ['label' => 'Параметры', 'icon' => '', 'url' => ['/tours/params'], 'active' => $this->context->id == 'cars/default'],
-                    ['label' => 'Дополнения', 'icon' => '', 'url' => ['/tours/extra'], 'active' => $this->context->id == 'tours/default'],
-                    ['label' => 'Цены', 'icon' => '', 'url' => ['/tours/finance'], 'active' => $this->context->id == 'reviews/default'],
-                    ['label' => 'Бронирования', 'icon' => '', 'url' => ['/tours/booking'], 'active' => $this->context->id == 'tours/default'],
-                    ['label' => 'Отзывы', 'icon' => '', 'url' => ['/tours/reviews'], 'active' => $this->context->id == 'tours/default'],
-                    ['label' => 'Отчеты', 'icon' => '', 'url' => ['/tours/reports'], 'active' => $this->context->id == 'tours/default'],
-
+                    ['label' => 'Описание', 'icon' => '', 'url' => ['/tours/common', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/common'],
+                    ['label' => 'Фотографии', 'icon' => '', 'url' => ['/tours/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/photos'],
+                    ['label' => 'Параметры', 'icon' => '', 'url' => ['/tours/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/params'],
+                    ['label' => 'Дополнения', 'icon' => '', 'url' => ['/tours/extra', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/extra'],
+                    ['label' => 'Цены', 'icon' => '', 'url' => ['/tours/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/finance'],
+                    ['label' => 'Бронирования', 'icon' => '', 'url' => ['/tours/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/booking'],
+                    ['label' => 'Отзывы', 'icon' => '', 'url' => ['/tours/reviews', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reviews'],
+                    ['label' => 'Отчеты', 'icon' => '', 'url' => ['/tours/reports', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reports'],
                 ],
             ]);
             ?>

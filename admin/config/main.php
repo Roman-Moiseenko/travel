@@ -9,6 +9,10 @@ $params = array_merge(
 return [
     'id' => 'app-admin',
     'basePath' => dirname(__DIR__),
+    'aliases' => [
+        '@staticRoot' => $params['staticPath'],
+        '@static' => $params['staticHostInfo'],
+    ],
     'controllerNamespace' => 'admin\controllers',
     'bootstrap' => [
         'log',
@@ -52,7 +56,14 @@ return [
 
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'tours' => 'site/tours',
-                'tours/view' => 'tours/common/index',
+                'tours/common' => 'tours/common/index',
+                'tours/photos' => 'tours/photos/index',
+                'tours/params' => 'tours/params/index',
+                '/tours/extra' => '/tours/extra/index',
+                '/tours/finance' => '/tours/finance/index',
+                '/tours/booking' => '/tours/booking/index',
+                '/tours/reviews' => '/tours/reviews/index',
+                '/tours/reports' => '/tours/reports/index',
                 'signup' => 'auth/signup/index',
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

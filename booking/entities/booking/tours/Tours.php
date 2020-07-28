@@ -422,7 +422,10 @@ class Tours extends ActiveRecord
     {
         return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
-
+    public function getTypes(): ActiveQuery
+    {
+        return $this->hasMany(Type::class, ['id' => 'type_id'])->via('typeAssignments');
+    }
     public function getReviews(): ActiveQuery
     {
         return $this->hasMany(Review::class, ['tours_id' => 'id']);

@@ -1,5 +1,6 @@
 <?php
 
+use booking\entities\booking\tours\Tours;
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\helpers\ToursTypeHelper;
 use kartik\widgets\FileInput;
@@ -9,8 +10,10 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model ToursCommonForms */
+/* @var $tours Tours */
 
-$this->title = 'Создать Тур';
+$this->title = 'Редактировать Тур' . $tours->name;
+$this->params['id'] = $tours->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <div class="card card-secondary">
-        <div class="card-header with-border">Основные</div>
+    <div class="card card-secondary"">
+        <div class="card-header with-border"></div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
@@ -76,6 +79,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>
 

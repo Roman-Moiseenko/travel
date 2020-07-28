@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 
+admin\assets\AppAsset::register($this);
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
 \hail812\adminlte3\assets\AdminLteAsset::register($this);
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
@@ -21,9 +22,8 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=ec80b990-9f0f-4371-8872-4040ba6373b3&lang=ru_RU" type="text/javascript">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=b38651ca-314e-4dd0-8919-28dd226e14e1&lang=ru_RU" type="text/javascript">
     </script>
-    <script src="/js/map.js" type="text/javascript"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <?php $this->beginBody() ?>

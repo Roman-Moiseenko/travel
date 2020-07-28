@@ -6,6 +6,7 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\Tours;
 use booking\entities\booking\tours\ToursParams;
+use booking\forms\booking\PhotosForm;
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursFinanceForm;
@@ -86,14 +87,42 @@ class ToursService
                 $type = $this->types->get($otherId);
                 $tours->assignType($type->id);
             }
-            if ($form->photos->files != null)
-                foreach ($form->photos->files as $file) {
-                    $tours->addPhoto($file);
-                }
             $this->tours->save($tours);
         });
 
     }
+
+    public function addPhotos($id, PhotosForm $form)
+    {
+        $tours = $this->tours->get($id);
+        if ($form->files != null)
+            foreach ($form->files as $file) {
+                $tours->addPhoto($file);
+            }
+        $this->tours->save($tours);
+    }
+
+    public function movePhotoUp($id, $photoId): void
+    {
+        $tours = $this->tours->get($id);
+        $tours->movePhotoUp($photoId);
+        $this->tours->save($tours);
+    }
+
+    public function movePhotoDown($id, $photoId): void
+    {
+        $tours = $this->tours->get($id);
+        $tours->movePhotoDown($photoId);
+        $this->tours->save($tours);
+    }
+
+    public function removePhoto($id, $photoId): void
+    {
+        $tours = $this->tours->get($id);
+        $tours->removePhoto($photoId);
+        $this->tours->save($tours);
+    }
+
 
     public function setParams($id, ToursParamsForm $form): void
     {
