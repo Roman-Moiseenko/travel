@@ -131,7 +131,7 @@ function init() {
             preset: 'islands#violetDotIconWithCaption',
             draggable: false
         });
-        myMapView2.geoObjects.add(myPlacemark);
+        myMapView2.geoObjects.add(myPlacemark2);
         if ($('#' + suggest + '-2').val() === '') {
             ymaps.geocode(coords2).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);

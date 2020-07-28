@@ -5,6 +5,7 @@ namespace booking\services\booking\tours;
 
 
 use booking\entities\booking\tours\Type;
+use booking\forms\booking\tours\ToursTypeForm;
 use booking\repositories\booking\tours\TypeRepository;
 
 class TypeService
@@ -18,21 +19,21 @@ class TypeService
 
     public function create(ToursTypeForm $form): Type
     {
-        $staysType = Type::create($form->name, $form->mono);
-        $this->staysType->save($staysType);
-        return $staysType;
+        $toursType = Type::create($form->name);
+        $this->toursType->save($toursType);
+        return $toursType;
     }
 
     public function edit($id, ToursTypeForm $form): void
     {
-        $staysType = $this->staysType->get($id);
-        $staysType->edit($form->name, $form->name);
-        $this->staysType->save($staysType);
+        $toursType = $this->toursType->get($id);
+        $toursType->edit($form->name);
+        $this->toursType->save($toursType);
     }
 
     public function remove($id): void
     {
-        $staysType = $this->staysType->get($id);
-        $this->staysType->remove($staysType);
+        $staysType = $this->toursType->get($id);
+        $this->toursType->remove($staysType);
     }
 }

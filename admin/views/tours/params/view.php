@@ -3,6 +3,7 @@
 use booking\entities\booking\tours\Tours;
 use booking\entities\Lang;
 use booking\forms\booking\tours\ToursCommonForms;
+use booking\helpers\ToursHelper;
 use booking\helpers\ToursTypeHelper;
 use kartik\widgets\FileInput;
 //use mihaildev\ckeditor\CKEditor;
@@ -38,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'params.private',
+                                'value' => ToursHelper::stringPrivate($tours->params->private),
                                 'label' => 'Групповой/Индивидуальный',
                             ],
                             [
@@ -51,10 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'label' => 'Ограничение по возрасту',
                                 'value' => function (Tours $model) {
-                                    if ($model->params->agelimit->on == null) return null;
-                                    if ($model->params->agelimit->on == false) return 'нет';
-                                    if ($model->params->agelimit->on == true)
-                                        return 'с ' . $model->params->agelimit->ageMin .' по ' . $model->params->agelimit->ageMax;
+                                    return ToursHelper::ageLimit($model->params->agelimit);
                                 },
                             ],
                         ],

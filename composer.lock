@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22d50e72a7432a00b07a925d7a0bc7b7",
+    "content-hash": "fabe0021c69f940553f57cee1a63f1b9",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",

@@ -6,7 +6,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\forms\ToursSearch */
+/* @var $searchModel admin\forms\ToursSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Мои туры';
@@ -29,12 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width: 100px'],
             ],
             [
+                'attribute' =>'status',
+                'label' => 'Статус',
+                'options' => ['width' => '40px'],
+            ],
+            [
                 'attribute' => 'name',
                 'value' => function (Tours $model) {
                     return Html::a(Html::encode($model->name), ['/tours/common', 'id' => $model->id]);
                 },
                 'format' => 'raw',
-                'label' => 'Название'
+                'label' => 'Название',
+                'options' => ['width' => '35%'],
             ],
             [
                 'attribute' =>'description',
@@ -42,7 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Описание'
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                'buttons' => [
+                    'delete' => function ($url, $model, $key) {
+                        $url = Url::to(['/tours/delete', 'id' => $model->id]);
+                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
+                        return Html::a($icon, $url);
+                    },
+                ],
+                ],
         ],
     ]); ?>
 

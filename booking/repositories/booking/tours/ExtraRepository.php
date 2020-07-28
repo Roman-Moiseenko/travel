@@ -10,7 +10,7 @@ class ExtraRepository
 {
     public function get($id): Extra
     {
-        if (!$result = Extra::find()->andWhere(['id' => $id])->andWhere(['user_id' => \Yii::$app->user->id])->one()) {
+        if (!$result = Extra::findOne($id)) {
             throw new \DomainException('Дополнение на найдено');
         }
         return $result;
@@ -33,5 +33,11 @@ class ExtraRepository
         if (!$extra->delete()) {
             throw new \RuntimeException('Ошибка удаления дополнения');
         }
+    }
+
+    public function getNextSort($user_id)
+    {
+        $sort = Extra::find()->andWhere(['user_id' => $user_id])->max('sort');
+        return ($sort == null) ? 0 : (int)$sort + 1;
     }
 }

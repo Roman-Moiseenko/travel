@@ -147,16 +147,24 @@ class ToursService
                 ),
                 $form->private,
                 $form->groupMin,
-                $form->groupMax,
-                $form->children
+                $form->groupMax
             )
         );
         $this->tours->save($tours);
     }
 
-    public function setExtra($id, ToursExtraForm $form): void
+    public function setExtra($id, $extra_id, $set /*ToursExtraForm $form*/): void
     {
+
         $tours = $this->tours->get($id);
+        echo $id . $extra_id . $set;
+        if ($set) {
+            $tours->assignExtra($extra_id);
+        } else {
+            $tours->revokeExtra($extra_id);
+        }
+        $this->tours->save($tours);
+        /*
         $this->transaction->wrap(function () use ($form, $tours) {
             $tours->clearExtra();
             $this->tours->save($tours);
@@ -165,7 +173,7 @@ class ToursService
                 $tours->assignExtra($extra->id);
             }
             $this->tours->save($tours);
-        });
+        });*/
 
     }
 

@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         textInput(['maxlength' => true, 'style' => 'width:100%'])->label(false) ?>
                         </div>
                         <div class="col-2">
-                            <?= $form->field($model->address, 'latitude')->textInput(['maxlength' => true, 'disabled' => 'disabled'])->label(false) ?>
+                            <?= $form->field($model->address, 'latitude')->textInput(['maxlength' => true])->label(false) ?>
                         </div>
                         <div class="col-2">
-                            <?= $form->field($model->address, 'longitude')->textInput(['maxlength' => true, 'disabled' => 'disabled'])->label(false) ?>
+                            <?= $form->field($model->address, 'longitude')->textInput(['maxlength' => true])->label(false) ?>
                         </div>
                     </div>
 

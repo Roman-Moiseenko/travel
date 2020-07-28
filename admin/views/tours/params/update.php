@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
             <div class="col-md-3">
-                <?= $form->field($model, 'duration')->dropDownList(ToursHelper::listPrivate(), ['prompt' => ''])->label('Группа') ?>
+                <?= $form->field($model, 'private')->dropDownList(ToursHelper::listPrivate(), ['prompt' => ''])->label('Группа') ?>
             </div>
 
             <div class="col-md-3">
@@ -76,13 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-2">
                         <?= $form
                             ->field($model->beginAddress, 'latitude')
-                            ->textInput(['maxlength' => true, 'disabled' => 'disabled'])
+                            ->textInput(['maxlength' => true])
                             ->label(false) ?>
                     </div>
                     <div class="col-2">
                         <?= $form
                             ->field($model->beginAddress, 'longitude')
-                            ->textInput(['maxlength' => true, 'disabled' => 'disabled'])
+                            ->textInput(['maxlength' => true])
                             ->label(false) ?>
                     </div>
                 </div>
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ->field($model->endAddress, 'latitude')
                             ->textInput([
                                     'maxlength' => true,
-                                'disabled' => 'disabled',
+                               // 'disabled' => 'disabled',
                                 'id' => 'bookingaddressform-latitude-2'
                             ])
                             ->label(false) ?>
@@ -125,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ->field($model->endAddress, 'longitude')
                             ->textInput([
                                     'maxlength' => true,
-                                'disabled' => 'disabled',
+                               // 'disabled' => 'disabled',
                                 'id' => 'bookingaddressform-longitude-2'
                             ])
                             ->label(false) ?>

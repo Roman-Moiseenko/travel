@@ -76,7 +76,6 @@ class SiteController extends Controller
 
     public function actionTours()
     {
-        //TODO Список всех моих туров
         $searchModel = new ToursSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
@@ -85,5 +84,7 @@ class SiteController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
 
 }

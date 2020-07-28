@@ -12,7 +12,7 @@ use yii\helpers\ArrayHelper;
  */
 class ToursSearch extends Tours
 {
-    public $notRemains = false;
+
     /**
      * {@inheritdoc}
      */

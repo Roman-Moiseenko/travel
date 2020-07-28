@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         //  'frontend\assets\MagnificPopupAsset',
         // 'sersid\fontawesome\Asset',
         'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\CdnFreeAssetBundle',
     ];

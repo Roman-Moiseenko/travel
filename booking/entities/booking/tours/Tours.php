@@ -33,6 +33,8 @@ use yii\web\UploadedFile;
  * @property ExtraAssignment[] $extraAssignments
  * @property Review[] $reviews
  * @property Type $type
+ * @property Type[] $types
+ * @property Extra[] $extra
  * @property ToursParams $params
  * @property Photo $mainPhoto
  * @property Photo[] $photos
@@ -152,8 +154,7 @@ class Tours extends ActiveRecord
             ),
             $this->getAttribute('params_private'),
             $this->getAttribute('params_groupMin'),
-            $this->getAttribute('params_groupMax'),
-            $this->getAttribute('params_children')
+            $this->getAttribute('params_groupMax')
         );
 
         $this->baseCost = new Cost(
@@ -176,16 +177,15 @@ class Tours extends ActiveRecord
             $this->setAttribute('params_begin_address', $this->params->beginAddress->address);
             $this->setAttribute('params_begin_latitude', $this->params->beginAddress->latitude);
             $this->setAttribute('params_begin_longitude', $this->params->beginAddress->longitude);
-            $this->setAttribute('params_end_address', $this->params->beginAddress->address);
-            $this->setAttribute('params_end_latitude', $this->params->beginAddress->latitude);
-            $this->setAttribute('params_end_longitude', $this->params->beginAddress->longitude);
+            $this->setAttribute('params_end_address', $this->params->endAddress->address);
+            $this->setAttribute('params_end_latitude', $this->params->endAddress->latitude);
+            $this->setAttribute('params_end_longitude', $this->params->endAddress->longitude);
             $this->setAttribute('params_limit_on', $this->params->agelimit->on);
             $this->setAttribute('params_limit_min', $this->params->agelimit->ageMin);
             $this->setAttribute('params_limit_max', $this->params->agelimit->ageMax);
             $this->setAttribute('params_private', $this->params->private);
             $this->setAttribute('params_groupMin', $this->params->groupMin);
             $this->setAttribute('params_groupMax', $this->params->groupMax);
-            $this->setAttribute('params_children', $this->params->children);
         }
         if ($this->baseCost) {
             $this->setAttribute('cost_adult', $this->baseCost->adult);
@@ -217,6 +217,17 @@ class Tours extends ActiveRecord
         }
         $assigns[] = ExtraAssignment::create($id);
         $this->extraAssignments = $assigns;
+    }
+
+    public function isExtra($id): bool
+    {
+        $assigns = $this->extraAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function revokeExtra($id): void
@@ -411,6 +422,10 @@ class Tours extends ActiveRecord
     public function getExtraAssignments(): ActiveQuery
     {
         return $this->hasMany(ExtraAssignment::class, ['tours_id' => 'id']);//->orderBy('sort');
+    }
+    public function getExtra(): ActiveQuery
+    {
+        return $this->hasMany(Extra::class, ['id' => 'extra_id'])->via('extraAssignments');
     }
 
     public function getTypeAssignments(): ActiveQuery

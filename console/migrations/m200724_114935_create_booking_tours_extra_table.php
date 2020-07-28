@@ -17,15 +17,14 @@ class m200724_114935_create_booking_tours_extra_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'name' => $this->string(),
-            'pay' => $this->boolean(),
-            'coast' => $this->integer(),
+            'cost' => $this->integer(),
             'sort' => $this->integer(),
             'description' => $this->string(),
 
         ], $tableOptions);
 
         $this->createIndex('{{%idx-booking_tours_extra-user_id}}', '{{%booking_tours_extra}}', 'user_id');
-        $this->addForeignKey('{{%fk-booking_tours_extra-user_id}}', '{{%booking_tours_extra}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('{{%fk-booking_tours_extra-user_id}}', '{{%booking_tours_extra}}', 'user_id', '{{%admin_users}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
 
