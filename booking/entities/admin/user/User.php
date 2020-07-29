@@ -1,6 +1,7 @@
 <?php
 namespace booking\entities\admin\user;
 
+use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -43,6 +44,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = time();
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
+        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), '');
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -61,6 +63,11 @@ class User extends ActiveRecord implements IdentityInterface
         $user->status = self::STATUS_INACTIVE;
         $user->generateEmailVerificationToken();
         return $user;
+    }
+
+    public function updatePersonal(Personal $personal)
+    {
+        $this->personal = $personal;
     }
 
 
@@ -103,7 +110,7 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => [],
+                'relations' => ['personal', 'legals'],
             ],
         ];
     }

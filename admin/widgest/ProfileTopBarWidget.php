@@ -9,9 +9,10 @@ use booking\repositories\admin\UserRepository;
 use yii\base\Widget;
 use yii\helpers\Url;
 
-class ProfileLeftBarWidget extends Widget
+class ProfileTopBarWidget extends Widget
 {
     private $users;
+
     public function __construct(UserRepository $users, $config = [])
     {
         $this->users = $users;
@@ -32,7 +33,8 @@ class ProfileLeftBarWidget extends Widget
         } else {
             $userName = $user->personal->fullname->getShortname();
         }
-        return $this->render('profile_left_bar', [
+
+        return $this->render('profile_top_bar', [
             'user' => $user,
             'userImage' => $photo,
             'userName' => $userName,

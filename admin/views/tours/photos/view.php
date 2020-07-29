@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card card-secondary" id="photos">
         <div class="card-header with-border">Фотографии</div>
         <div class="card-body">
-
             <div class="row">
                 <?php foreach ($tours->photos as $photo): ?>
                     <div class="col-md-2 col-xs-3" style="text-align: center">

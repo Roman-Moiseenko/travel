@@ -5,14 +5,11 @@ namespace admin\controllers\cabinet;
 
 
 use booking\entities\admin\user\User;
-use booking\forms\admin\PersonalForm;
 use booking\services\admin\UserManageService;
-use booking\services\booking\tours\ToursService;
-
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class ProfileController extends Controller
+class AuthController extends Controller
 {
     public $layout = 'main-cabinet';
     private $service;
@@ -22,7 +19,6 @@ class ProfileController extends Controller
         parent::__construct($id, $module, $config);
         $this->service = $service;
     }
-
     public function behaviors()
     {
         return [
@@ -30,7 +26,7 @@ class ProfileController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                     //   'actions' => ['edit'],
+                        //   'actions' => ['edit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,11 +46,11 @@ class ProfileController extends Controller
     public function actionUpdate()
     {
         $user = $this->findModel();
-        $form = new PersonalForm($user->personal);
+        $form = new AuthForm($user);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->setPersonal($user->id, $form);
-                return $this->redirect(['/cabinet/profile']);
+                $this->service->edit($user->id, $form);
+                return $this->redirect(['/cabinet/auth']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -66,9 +62,7 @@ class ProfileController extends Controller
         ]);
     }
 
-
     private function findModel()
     {
         return User::findOne(\Yii::$app->user->id);
     }
-}

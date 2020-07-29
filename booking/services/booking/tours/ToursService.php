@@ -94,6 +94,7 @@ class ToursService
 
     public function addPhotos($id, PhotosForm $form)
     {
+        //echo '<pre>';var_dump($form); exit();
         $tours = $this->tours->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {

@@ -22,8 +22,8 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property Fullname $fullname
  * @property string $photo
  * @property string $position
+ * @mixin ImageUploadBehavior
  */
-
 class Personal extends ActiveRecord
 {
 
@@ -106,8 +106,8 @@ class Personal extends ActiveRecord
                 'thumbUrl' => '@static/cache/admin_users/[[attribute_user_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
-                    'thumb' => ['width' => 320, 'height' => 240],
-                    'cart_list' => ['width' => 150, 'height' => 150],
+                    'thumb' => ['width' => 320, 'height' => 320],
+                    'cart_list' => ['width' => 160, 'height' => 160],
                     'profile' => ['width' => 400, 'height' => 400],
                 ],
             ],

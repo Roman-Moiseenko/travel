@@ -19,7 +19,7 @@ class ToursHelper
 
     public static function stringPrivate($private): string
     {
-        if ($private == null) return 'Не задано';
+        if ($private === null) return 'Не задано';
         $arr = ToursHelper::listPrivate();
         return $arr[$private];
     }

@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tours-view">
-
-
     <div class="card card-secondary">
         <div class="card-header with-border">Описание</div>
         <div class="card-body">

@@ -22,11 +22,9 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Мои Жилища', 'icon' => 'hotel', 'url' => ['/stays/default'], 'active' => $this->context->id == 'stays/default'],
-                    ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars/default'], 'active' => $this->context->id == 'cars/default'],
-                    ['label' => 'Мои Туры', 'icon' => 'umbrella-beach', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
-                    ['label' => 'Отзывы', 'icon' => 'umbrella-beach', 'url' => ['/reviews/default'], 'active' => $this->context->id == 'reviews/default'],
-                    ['label' => 'Бронирования', 'icon' => '', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
+                    ['label' => 'Мой Профиль', 'icon' => 'id-card', 'url' => ['/cabinet/profile'], 'active' => $this->context->id == 'cabinet/profile'],
+                    ['label' => 'Мои организации', 'icon' => 'registered', 'url' => ['/cabinet/legal'], 'active' => $this->context->id == 'cabinet/legal'],
+                    ['label' => 'Аутентификация', 'icon' => 'key', 'url' => ['/cabinet/auth'], 'active' => $this->context->id == 'cabinet/auth'],
 
                 ],
             ]);
