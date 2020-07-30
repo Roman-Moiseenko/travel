@@ -78,6 +78,7 @@ return [
                 'tours/reports' => '/tours/reports/index',
                 'cabinet/profile' => '/cabinet/profile/index',
                 'cabinet/legal' => '/cabinet/legal/index',
+                'cabinet/auth' => '/cabinet/auth/index',
                 'signup' => 'auth/signup/index',
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

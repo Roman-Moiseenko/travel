@@ -8,6 +8,7 @@ use booking\entities\admin\user\User;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\PersonalForm;
+use booking\forms\admin\UserEditForm;
 use booking\repositories\admin\UserRepository;
 use booking\services\TransactionManager;
 
@@ -58,7 +59,7 @@ class UserManageService
         });
         return $user;
     }*/
-/*
+
     public function update($id, UserEditForm $form): User
     {
         $user = $this->users->get($id);
@@ -70,7 +71,7 @@ class UserManageService
 
         return $user;
     }
-    */
+
 
     private function ExcangeName($name): string
     {

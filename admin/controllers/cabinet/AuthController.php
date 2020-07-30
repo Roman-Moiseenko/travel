@@ -5,6 +5,7 @@ namespace admin\controllers\cabinet;
 
 
 use booking\entities\admin\user\User;
+use booking\forms\admin\UserEditForm;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -19,6 +20,7 @@ class AuthController extends Controller
         parent::__construct($id, $module, $config);
         $this->service = $service;
     }
+
     public function behaviors()
     {
         return [
@@ -46,10 +48,10 @@ class AuthController extends Controller
     public function actionUpdate()
     {
         $user = $this->findModel();
-        $form = new AuthForm($user);
+        $form = new UserEditForm($user->id, $user);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($user->id, $form);
+                $this->service->update($user->id, $form);
                 return $this->redirect(['/cabinet/auth']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
@@ -66,3 +68,4 @@ class AuthController extends Controller
     {
         return User::findOne(\Yii::$app->user->id);
     }
+}
