@@ -54,7 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'delete' => function ($url, $model, $key) {
                         $url = Url::to(['/tours/delete', 'id' => $model->id]);
                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
-                        return Html::a($icon, $url);
+                        return Html::a($icon, $url, [
+                            'title' => 'Удалить',
+                            'aria-label' => 'Удалить',
+                            'data-pjax' => 0,
+                            'data-confirm' => 'Вы уверены, что хотите удалить Тур ' . $model->name . '?',
+                            'data-method' => 'post',
+                        ]);
                     },
                 ],
                 ],

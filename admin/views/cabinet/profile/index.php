@@ -1,9 +1,6 @@
 <?php
 
 use booking\entities\admin\user\User;
-use kartik\widgets\DatePicker;
-use kartik\widgets\FileInput;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;

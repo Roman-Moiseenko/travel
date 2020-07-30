@@ -3,12 +3,13 @@
 
 namespace booking\services\admin;
 
-use booking\entities\admin\user\Personal;
 use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
+use booking\forms\auth\UserLegalForm;
 use booking\repositories\admin\UserRepository;
 use booking\services\TransactionManager;
 
@@ -43,6 +44,45 @@ class UserManageService
         $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
         $user->updatePersonal($personal);
         //echo '<pre>'; print_r($user->personal); exit();
+        $this->users->save($user);
+    }
+
+    public function newLegal($id, UserLegalForm $form): UserLegal
+    {
+        $user = $this->users->get($id);
+        $legal = UserLegal::create(
+            $form->name,
+            $form->BIK,
+            $form->account,
+            $form->INN,
+            $form->OGRN,
+            $form->KPP
+        );
+        $user->addLegal($legal);
+        $this->users->save($user);
+        return $legal;
+    }
+
+    public function editLegal($user_id, $legal_id, UserLegalForm $form)
+    {
+        $user = $this->users->get($user_id);
+        $legal = $user->getLegal($legal_id);
+        $legal->edit(
+            $form->name,
+            $form->BIK,
+            $form->account,
+            $form->INN,
+            $form->OGRN,
+            $form->KPP
+        );
+        $user->updateLegal($legal_id, $legal);
+        $this->users->save($user);
+    }
+
+    public function removeLegal($user_id, $legal_id)
+    {
+        $user = $this->users->get($user_id);
+        $user->removeLegal($legal_id);
         $this->users->save($user);
     }
 

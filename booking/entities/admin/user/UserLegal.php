@@ -21,7 +21,7 @@ use yii\db\ActiveRecord;
 class UserLegal extends ActiveRecord
 {
 
-    public static function create($name, $BIK, $account, $INN = null, $OGRN = null, $KPP = null): self
+    public static function create($name, $BIK, $account, $INN, $OGRN = null, $KPP = null): self
     {
         $legal = new static();
         $legal->name = $name;
@@ -33,7 +33,12 @@ class UserLegal extends ActiveRecord
         return $legal;
     }
 
-    public function edit($name, $BIK, $account, $INN = null, $OGRN = null, $KPP = null): void
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
+    }
+
+    public function edit($name, $BIK, $account, $INN, $OGRN = null, $KPP = null): void
     {
         $this->name = $name;
         $this->BIK = $BIK;

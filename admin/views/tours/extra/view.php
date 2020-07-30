@@ -79,12 +79,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'update' => function ($url, $model, $key) use ($tours) {
                                         $url = Url::to(['/tours/extra/update', 'id' => $tours->id, 'extra_id' => $model->id]);
                                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-pencil"]);
-                                        return Html::a($icon, $url);
+                                        return Html::a($icon, $url, [
+                                            'title' => 'Изменить',
+                                            'aria-label' => 'Изменить',
+                                            'data-pjax' => 0,
+                                        ]   );
                                     },
                                     'delete' => function ($url, $model, $key) use ($tours) {
                                         $url = Url::to(['/tours/extra/delete', 'id' => $tours->id, 'extra_id' => $model->id]);
                                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
-                                        return Html::a($icon, $url);
+                                        return Html::a($icon, $url, [
+                                        'title' => 'Удалить',
+                                        'aria-label' => 'Удалить',
+                                        'data-pjax' => 0,
+                                        'data-confirm' => 'Вы уверены, что хотите удалить Дополнение ' . $model->name . '?',
+                                        'data-method' => 'post',
+                                    ]);
                                     },
                                 ],
                             ],

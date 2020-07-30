@@ -70,6 +70,38 @@ class User extends ActiveRecord implements IdentityInterface
         $this->personal = $personal;
     }
 
+    public function addLegal(UserLegal $legal)
+    {
+        $legals = $this->legals;
+        $legals[] = $legal;
+        $this->legals = $legals;
+    }
+
+    public function updateLegal($id, UserLegal $legal_new)
+    {
+        $legals = $this->legals;
+        foreach ($legals as $i => $legal) {
+            if ($legal->isFor($id)) {
+                $legals[$i] = $legal_new;
+                $this->legals = $legals;
+                return;
+            }
+        }
+        throw new \DomainException('Фирма не найдена');
+    }
+
+    public function removeLegal($id)
+    {
+        $legals = $this->legals;
+        foreach ($legals as $i => $legal) {
+            if ($legal->isFor($id)) {
+                unset($legals[$i]);
+                $this->legals = $legals;
+                return;
+            }
+        }
+        throw new \DomainException('Фирма не найдена');
+    }
 
     public function isActive(): bool
     {
@@ -285,6 +317,16 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserLegal::class, ['user_id' => 'id']);
     }
+
+    public function getLegal($id): UserLegal
+    {
+        $legals = $this->legals;
+        foreach ($legals as $legal) {
+            if ($legal->isFor($id)) return $legal;
+        }
+        throw new \DomainException('Not Founded legal by $id = ' . $id);
+    }
+
     public function getPersonal(): ActiveQuery
     {
         return $this->hasOne(Personal::class, ['user_id' => 'id']);
