@@ -1,7 +1,6 @@
 <?php
 
 /* @var $user User */
-
 /* @var $model PersonalForm */
 
 use booking\entities\admin\user\User;

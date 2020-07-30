@@ -31,6 +31,7 @@ class ToursFinanceForm extends CompositeForm
         return [
             ['legal_id', 'integer'],
             ['cancellation', 'integer'],
+            ['legal_id', 'required'],
         ];
     }
 

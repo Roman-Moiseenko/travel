@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width: 100px'],
             ],
             [
-                'attribute' =>'status',
+                'attribute' => 'status',
                 'label' => 'Статус',
                 'options' => ['width' => '40px'],
             ],
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['width' => '35%'],
             ],
             [
-                'attribute' =>'description',
+                'attribute' => 'description',
                 'format' => 'ntext',
                 'label' => 'Описание'
             ],
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{delete}',
                 'buttons' => [
                     'delete' => function ($url, $model, $key) {
-                        $url = Url::to(['/tours/delete', 'id' => $model->id]);
+                        $url = Url::to(['/tours/tours-delete', 'id' => $model->id]);
                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
                         return Html::a($icon, $url, [
                             'title' => 'Удалить',
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                 ],
-                ],
+            ],
         ],
     ]); ?>
 

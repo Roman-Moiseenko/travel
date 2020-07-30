@@ -2,20 +2,10 @@
 
 use booking\entities\booking\tours\Extra;
 use booking\entities\booking\tours\Tours;
-use booking\entities\Lang;
-use booking\forms\booking\tours\ToursCommonForms;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\ToursHelper;
-use booking\helpers\ToursTypeHelper;
-use kartik\widgets\FileInput;
-//use mihaildev\ckeditor\CKEditor;
-use shop\helpers\PriceHelper;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var  $tours Tours */

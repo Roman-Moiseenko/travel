@@ -1,4 +1,5 @@
 <?php
+
 namespace admin\controllers;
 
 
@@ -30,12 +31,12 @@ class SiteController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                      //  'roles' => ['@'],
+                        //  'roles' => ['@'],
                     ],
                     [
                         'actions' => ['tours'],
                         'allow' => true,
-                          'roles' => ['@'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -68,7 +69,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (\Yii::$app->user->isGuest) {
-            return $this->redirect( Url::to(['/login']));
+            return $this->redirect(Url::to(['/login']));
         }
 
         return $this->render('index');
@@ -85,6 +86,15 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionToursDelete($id)
+    {
+//TODO Сделать удаление туров
+        /* $tours =  $this->tours->get($id);
+         if ($tours->user_id != \Yii::$app->user->id) {
+             throw new \DomainException('У вас нет прав для данного тура');
+         }
+         */
+    }
 
 
 }

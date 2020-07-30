@@ -3,7 +3,6 @@
 use booking\entities\booking\tours\Tours;
 use booking\forms\booking\PhotosForm;
 use kartik\widgets\FileInput;
-
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 

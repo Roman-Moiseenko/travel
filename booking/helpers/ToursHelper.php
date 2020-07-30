@@ -39,4 +39,11 @@ class ToursHelper
     {
         return Extra::find()->andWhere(['user_id' => \Yii::$app->user->id])->all();
     }
+
+    public static function cancellation($cancellation): string
+    {
+        if ($cancellation === null) return 'Отмена не предусмотрена';
+        if ($cancellation === 0) return 'В любое время';
+        return 'За ' . $cancellation . ' дней';
+    }
 }

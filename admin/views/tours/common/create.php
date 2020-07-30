@@ -2,8 +2,6 @@
 
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\helpers\ToursTypeHelper;
-use kartik\widgets\FileInput;
-//use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 

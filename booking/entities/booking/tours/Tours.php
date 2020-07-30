@@ -95,9 +95,12 @@ class Tours extends ActiveRecord
         $this->cancellation = $cancellation;
     }
 
-    public function isCancellation()
+
+    public function isCancellation($date_tours)
     {
-        return $this->cancellation == null ? true : false;
+        if ($this->cancellation == null) return false;
+        if (($date_tours - time()) / (24 * 3600) < $this->cancellation) return false;
+        return true;
     }
 
     public function behaviors()

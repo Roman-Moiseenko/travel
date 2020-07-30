@@ -4,9 +4,11 @@ namespace booking\services\booking\tours;
 
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\rules\AgeLimit;
+use booking\entities\booking\tours\Cost;
 use booking\entities\booking\tours\Tours;
 use booking\entities\booking\tours\ToursParams;
 use booking\forms\booking\PhotosForm;
+use booking\forms\booking\tours\CostForm;
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursFinanceForm;
@@ -181,6 +183,15 @@ class ToursService
     public function setFinance($id, ToursFinanceForm $form): void
     {
         $tours = $this->tours->get($id);
+        $tours->setLegal($form->legal_id);
+        $tours->setCost(
+            new Cost(
+                $form->baseCost->adult,
+                $form->baseCost->child,
+                $form->baseCost->preference
+            )
+        );
+        $tours->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tours);
     }
 

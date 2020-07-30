@@ -1,11 +1,8 @@
 <?php
 
 use booking\entities\booking\tours\Tours;
-use booking\forms\booking\tours\ToursCommonForms;
 use booking\forms\booking\tours\ToursParamsForm;
-use booking\helpers\ToursHelper;use booking\helpers\ToursTypeHelper;
-use kartik\widgets\FileInput;
-//use mihaildev\ckeditor\CKEditor;
+use booking\helpers\ToursHelper;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
