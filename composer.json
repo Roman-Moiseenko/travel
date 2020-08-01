@@ -35,7 +35,8 @@
         "hail812/yii2-adminlte3": "*",
         "mihaildev/yii2-elfinder": "*",
         "mihaildev/yii2-ckeditor": "*",
-        "yiisoft/yii2-bootstrap4": "^2.0"
+        "yiisoft/yii2-bootstrap4": "^2.0",
+        "understeam/yii2-calendar-widget": "0.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

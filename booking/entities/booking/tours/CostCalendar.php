@@ -4,6 +4,9 @@
 namespace booking\entities\booking\tours;
 
 
+use understeam\calendar\ActiveRecordItemTrait;
+use understeam\calendar\CalendarInterface;
+use understeam\calendar\ItemInterface;
 use yii\db\ActiveRecord;
 
 /**
@@ -12,10 +15,14 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $tours_id
  * @property integer $tour_at
+ * @property integer $time_at
+ * @property integer $tickets
+ * @property integer $status
  * @property Cost $cost
  */
-class CostCalendar extends ActiveRecord
+class CostCalendar extends ActiveRecord // implements ItemInterface
 {
+   // use ActiveRecordItemTrait;
     public $cost;
 
     public static function create($tour_at, Cost $cost): self
@@ -55,4 +62,5 @@ class CostCalendar extends ActiveRecord
 
         return parent::beforeSave($insert);
     }
+
 }

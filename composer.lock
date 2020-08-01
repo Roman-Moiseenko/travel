@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fabe0021c69f940553f57cee1a63f1b9",
+    "content-hash": "8859e5c8439b5beab6f999beabbb6718",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",
@@ -127,7 +127,7 @@
             "version": "5.13.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "1147d199a35293b391152ee85e2d30988439157f"
             },
             "dist": {
@@ -2786,6 +2786,48 @@
                 "shim"
             ],
             "time": "2020-05-12T16:47:27+00:00"
+        },
+        {
+            "name": "understeam/yii2-calendar-widget",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Understeam/yii2-calendar-widget.git",
+                "reference": "88af7944f20e5c81db2f6095af295787554569ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Understeam/yii2-calendar-widget/zipball/88af7944f20e5c81db2f6095af295787554569ac",
+                "reference": "88af7944f20e5c81db2f6095af295787554569ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.5",
+                "yiisoft/yii2": "^2.0",
+                "yiisoft/yii2-bootstrap": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.4"
+            },
+            "type": "extension",
+            "autoload": {
+                "psr-4": {
+                    "understeam\\calendar\\": "src",
+                    "understeam\\unit\\calendar\\": "tests/unit"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Anatoly Rugalev",
+                    "email": "anatoly.rugalev@gmail.com"
+                }
+            ],
+            "description": "Yii2 calendar widget",
+            "time": "2016-07-26T23:03:05+00:00"
         },
         {
             "name": "yii-dream-team/yii2-upload-behavior",

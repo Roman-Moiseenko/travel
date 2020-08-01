@@ -17,9 +17,12 @@ class m200724_223552_create_booking_tours_calendar_cost_table extends Migration
             'id' => $this->primaryKey(),
             'tours_id' => $this->integer(),
             'tour_at' => $this->integer(),
+            'time_at' => $this->integer(),
             'cost_adult' => $this->integer(),
             'cost_child' => $this->integer(),
             'cost_preference' => $this->integer(),
+            'tickets' => $this->integer(),
+            'status' => $this->integer(),
         ], $tableOptions);
         $this->createIndex('{{%idx-booking_tours_calendar_cost-tours_id}}', '{{%booking_tours_calendar_cost}}','tours_id');
         $this->addForeignKey('{{%fk-booking_tours_calendar_cost-tours_id}}', '{{%booking_tours_calendar_cost}}', 'tours_id', '{{%booking_tours}}', 'id', 'SET NULL', 'RESTRICT');

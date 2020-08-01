@@ -1,6 +1,7 @@
 <?php
 
 /* @var $user User */
+
 /* @var $model PersonalForm */
 
 use booking\entities\admin\user\User;
@@ -43,9 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model->fullname, 'surname')->textInput()->label('Фамилия'); ?>
                     <?= $form->field($model->fullname, 'firstname')->textInput()->label('Имя'); ?>
                     <?= $form->field($model->fullname, 'secondname')->textInput()->label('Отчество'); ?>
-                    <?= $form->field($model, 'datebornform')->label('Дата рождения')->widget(DatePicker::class,[
+                    <?= $form->field($model, 'datebornform')->label('Дата рождения')->widget(DatePicker::class, [
                         'type' => DatePicker::TYPE_INPUT,
+                        'language' => 'ru',
                         'pluginOptions' => [
+
                             'format' => 'dd-mm-yyyy',
                             'autoclose' => true,
                         ]

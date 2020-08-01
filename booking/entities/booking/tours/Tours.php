@@ -46,6 +46,11 @@ class Tours extends ActiveRecord
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 1;
     const STATUS_ACTIVE = 2;
+
+    const TOUR_FULL = 11;
+    const TOUR_CANCEL = 12;
+    const TOUR_CURRIENT = 13;
+
     public $address;
     public $params;
     public $baseCost;
