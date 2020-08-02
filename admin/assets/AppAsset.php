@@ -14,11 +14,12 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/glyphicon.css',
+        'css/calendar.css',
     ];
     public $js = [
         'js/map.js',
         'js/tours.js',
-
+        'js/calendar.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

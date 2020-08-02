@@ -98,7 +98,11 @@ class FinanceController extends Controller
             throw new \DomainException('У вас нет прав для данного тура');
         }
        // print_r(\Yii::$app->request->queryParams); exit();
-        $multi = boolval(\Yii::$app->request->queryParams['multi']) ?? false;
+        if (!isset(\Yii::$app->request->queryParams['multi'])) {
+            $multi = false;
+        } else {
+            $multi = boolval(\Yii::$app->request->queryParams['multi']);
+        }
         //var_dump($multi); exit();
         return $this->render('calendar', [
             'tours' => $tours,

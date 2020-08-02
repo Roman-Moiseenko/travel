@@ -34,8 +34,6 @@ $(document).ready(function() {
         });
     });
 
-    $('body').on('click', '.day', function () {
-        alert('1');
-        $('.day').removeClass('active');
-    });
-})(window.jQuery);
+
+
+});

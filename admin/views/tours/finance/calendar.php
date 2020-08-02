@@ -1,13 +1,9 @@
 <?php
 
-use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\tours\Tours;
 use booking\helpers\CalendarHelper;
-use booking\helpers\ToursHelper;
-use kartik\widgets\DatePicker;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\DetailView;
+use dosamigos\datepicker\DatePicker;
+
 
 /* @var $this yii\web\View */
 /* @var  $tours Tours */
@@ -22,29 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card card-secondary">
         <div class="card-header with-border">Календарь</div>
         <div class="card-body">
-            <div><input type="checkbox" value="1" checked title="22"> Мультивыбор, при мульти выборе, нельзя просмотреть отдельные даты. Установка тура затирает отмеченные даты </div>
-            <div class="row">
-                <?php $data = CalendarHelper::array4Month() ?>
-                <?php for ($i = 1; $i < 5; $i ++): ?>
-                <div class="col-3">
-                    <?= DatePicker::widget([
-                        'language' => 'ru',
-                        'name' => 'month_' . $i,
-                        'type' => DatePicker::TYPE_INLINE,
-                        'size' => 'lg',
-                        'pluginOptions' => [
-                            'startDate' => $data[$i]['start'],
-                            'endDate' => $data[$i]['end'],
-                            'format' => 'dd-M-yyyy',
-                            'multidate' => $multi
-                        ],
-                        'options' => [
-                            'style' => 'display:none'
-                        ]
-                    ]); ?>
-                </div>
-                <?php endfor; ?>
+            <div><input type="checkbox" value="1" checked title="22"> Мультивыбор, при мульти выборе, нельзя просмотреть
+                отдельные даты. Установка тура затирает отмеченные даты
             </div>
+            <div class="row">
+                <?php $data = CalendarHelper::array4Month();?>
+                <div id="datepicker">
+                    <input type="hidden" id="datepicker_value" value="">
+                </div>
+            </div>
+            <div class="cost-calendar-day"></div>
+
         </div>
     </div>
 </div>

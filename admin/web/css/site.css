@@ -123,3 +123,8 @@ div.required label.control-label:after {
     outline: none;
 }
 
+.myClass {
+    outline: dashed 1px red;
+    background: orange !important;
+    color: white !important;
+}

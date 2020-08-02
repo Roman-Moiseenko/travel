@@ -1,0 +1,15 @@
+.datepicker td,
+.datepicker th {
+    font-size: larger;
+    text-align: center;
+    width: 100px !important;
+    height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+
+.table-condensed {
+    width: 700px !important;
+}
