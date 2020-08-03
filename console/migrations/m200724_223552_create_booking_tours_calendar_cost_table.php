@@ -17,7 +17,7 @@ class m200724_223552_create_booking_tours_calendar_cost_table extends Migration
             'id' => $this->primaryKey(),
             'tours_id' => $this->integer(),
             'tour_at' => $this->integer(),
-            'time_at' => $this->integer(),
+            'time_at' => $this->string(5),
             'cost_adult' => $this->integer(),
             'cost_child' => $this->integer(),
             'cost_preference' => $this->integer(),

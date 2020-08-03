@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var tour_id = $('#number-tour').val();
+    var full_array_tours;
 //Переводим
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
@@ -20,7 +21,7 @@ $(document).ready(function () {
 
     $.post('/tours/finance/getcalendar', {tour_id: tour_id}, function (data) {
         console.log(data);
-        var full_array_tours = JSON.parse(data);
+        full_array_tours = JSON.parse(data);
         console.log(full_array_tours);
         $(function () {
             $("#datepicker").datepicker({
@@ -52,53 +53,98 @@ $(document).ready(function () {
         $('#datepicker').datepicker().on('changeDate', function (e) {
 
             console.log(e);
-            $.post('/tours/finance/getday',
-                {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
-                function (data) {
-                    var dateInfo = JSON.parse(data);
-                    $('.list-tours').html(dateInfo._list);
-                    $('.new-tours').html(dateInfo._new);
-                });
+
+            if ($('#data-day-copy').is(':checked')) {
+
+                var d = $('#data-day').attr('data-d');
+                var m = $('#data-day').attr('data-m');
+                var y = $('#data-day').attr('data-y');
+                // alert(d+'/'+m+'/'+y+ '   ' + e.date);
+                $.post('/tours/finance/copyday',
+                    {
+                        year: e.date.getFullYear(),
+                        month: e.date.getMonth() + 1,
+                        day: e.date.getDate(),
+                        tour_id: tour_id,
+                        copy_year: y,
+                        copy_month: m,
+                        copy_day: d
+                    },
+                    function (data) {
+                        full_array_tours = JSON.parse(data);
+                        $('#datepicker').datepicker('update');
+                        //$('#datepicker').datepicker().
+                    });
+            } else {
+
+                $.post('/tours/finance/getday',
+                    {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
+                    function (data) {
+                        var dateInfo = JSON.parse(data);
+                        $('.list-tours').html(dateInfo._list);
+                        $('.new-tours').html(dateInfo._new);
+                    });
+            }
         });
     });
 
+    $(document).on('click', '#send-new-tour', function () {
+        var d = $('#data-day').attr('data-d');
+        var m = $('#data-day').attr('data-m');
+        var y = $('#data-day').attr('data-y');
+        var _time = $('#_time').val();
+        var _tickets = $('#_tickets').val();
+        var _adult = $('#_adult').val();
+        var _child = $('#_child').val();
+        var _preference = $('#_preference').val();
+        if (_child === undefined) {
+            _child = null;
+        }
+        if (_preference === undefined) {
+            _preference = null;
+        }
 
+        $.post('/tours/finance/setday',
+            {
+                year: y, month: m, day: d, tour_id: tour_id,
+                _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference
+            },
+            function (data) {
+                console.log(data);
+                var dateInfo = JSON.parse(data);
+                $('.list-tours').html(dateInfo._list);
+                $('.new-tours').html(dateInfo._new);
+                full_array_tours = dateInfo.full_array_tours;
+                $('#datepicker').datepicker('update');
+            });
+    });
+
+    $(document).on('click', '.del-day', function () {
+        var d = $('#data-day').attr('data-d');
+        var m = $('#data-day').attr('data-m');
+        var y = $('#data-day').attr('data-y');
+        var calendar_id = $(this).attr('data-id');
+        $.post('/tours/finance/delday',
+            {
+                year: y, month: m, day: d, tour_id: tour_id,
+                calendar_id: calendar_id
+            },
+            function (data) {
+                var dateInfo = JSON.parse(data);
+                $('.list-tours').html(dateInfo._list);
+                $('.new-tours').html(dateInfo._new);
+                full_array_tours = dateInfo.full_array_tours;
+            });
+    });
+
+    $(document).on('click', '#data-day-copy', function () {
+        if ($('#data-day-copy').is(':checked')) {
+            $('.new-tours').addClass('hidden');
+        } else {
+            $('.new-tours').removeClass('hidden');
+        }
+    });
 });
 
-$(document).on('click', '.del-day', function () {
-    var tour_id = $('#number-tour').val();
-    var d = $('#data-day').attr('data-d');
-    var m = $('#data-day').attr('data-m');
-    var y = $('#data-day').attr('data-y');
-    var calendar_id = $(this).attr('data-id');
-    $.post('/tours/finance/delday',
-        {year: y, month: m, day: d, tour_id: tour_id,
-            calendar_id: calendar_id},
-        function (data) {
-            var dateInfo = JSON.parse(data);
-            $('.list-tours').html(dateInfo._list);
-            $('.new-tours').html(dateInfo._new);
-        });
-});
 
-$(document).on('click', '#send-new-tour', function () {
-    var tour_id = $('#number-tour').val();
 
-    var d = $('#data-day').attr('data-d');
-    var m = $('#data-day').attr('data-m');
-    var y = $('#data-day').attr('data-y');
-    var _time = $('#_time').attr('value');
-    var _tickets = $('#_tickets').val();
-    var _adult = $('#_adult').val();
-    var _child = $('#_child').val();
-    var _preference = $('#_preference').val();
-
-    $.post('/tours/finance/setday',
-        {year: y, month: m, day: d, tour_id: tour_id,
-            _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference},
-        function (data) {
-            var dateInfo = JSON.parse(data);
-            $('.list-tours').html(dateInfo._list);
-            $('.new-tours').html(dateInfo._new);
-        });
-});

@@ -10,11 +10,14 @@ class CostCalendarRepository
 {
     public function getActual($id)
     {
-        return CostCalendar::find()->andWhere(['tours_id' => 'id'])->andWhere(['>', 'tour_at', time()])->all();
+        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['>', 'tour_at', time()])->all();
     }
-
+    public function getActualForCalendar($id)
+    {
+        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['>', 'tour_at', time()])->all();
+    }
     public function getDay($id, $date)
     {
-        return CostCalendar::find()->andWhere(['tours_id' => 'id'])->andWhere(['tour_at' => $date])->all();
+        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
     }
 }

@@ -296,18 +296,46 @@ class Tours extends ActiveRecord
     /** <========== AssignType */
 
     /** CostCalendar  ==========>*/
-    public function addCostCalendar($tour_at, $time_at, $cost_adult, $cost_child, $cost_preference, $tickets): CostCalendar
+    public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
         $calendar = CostCalendar::create(
             $tour_at,
             $time_at,
-            new Cost($cost_adult, $cost_child, $$cost_preference),
+            new Cost($cost_adult, $cost_child, $cost_preference),
             $tickets
         );
         $calendars = $this->actualCalendar;
         $calendars[] = $calendar;
+        $this->actualCalendar = $calendars;
         return $calendar;
+    }
 
+    public function copyCostCalendar($new_day, $copy_day)
+    {
+       // throw new \Exception($copy_day . '  ' . $new_day);
+        //TODO Возможно ускорение, нискоуровневым запросом
+        $calendars = $this->actualCalendar;
+        $temp_array = [];
+        foreach ($calendars as $i =>$calendar) {
+            if ($calendar->tour_at === $new_day) {
+                unset($calendars[$i]);
+            }
+            if ($calendar->tour_at === $copy_day) {
+                $calendar_copy = CostCalendar::create(
+                    $new_day,
+                    $calendar->time_at,
+                    new Cost(
+                        $calendar->cost->adult,
+                        $calendar->cost->child,
+                        $calendar->cost->preference
+                    ),
+                    $calendar->tickets
+                );
+                $calendar_copy->tour_at = $new_day;
+                $temp_array[] = $calendar_copy;
+            }
+        }
+        $this->actualCalendar = array_merge($calendars, $temp_array);
     }
 
     public function removeCostCalendar($id): bool
@@ -497,7 +525,7 @@ class Tours extends ActiveRecord
 
     public function getActualCalendar(): ActiveQuery
     {
-        return $this->hasMany(CostCalendar::class, ['tours_id' => 'id']);
+        return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);
     }
     /** <========== getXXX */
 

@@ -142,12 +142,7 @@ class FinanceController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
-            $calendars = $this->calendar->getActual($params['tour_id']);
-            $result = [];
-            foreach ($calendars as $calendar) {
-                $result[date('Y', $calendar->time_at)][date('m', $calendar->time_at)][date('d',$calendar->time_at)] = $calendar->tickets;
-            }
-            return json_encode($result);
+            return json_encode($this->getCalendar($params['tour_id']));
         }
     }
 
@@ -166,17 +161,44 @@ class FinanceController extends Controller
             //Год, Месяц, День, Время, Цена.Взр, Цена.Дет, Цена.Льгот, Кол-воБилетов
             // TODO Устанавливаем новые данные
             $tours = $this->findModel($params['tour_id']);
-            $tours->addCostCalendar(
-                strtotime($params['day'] . '-' . $params['month'] . '-'. $params['year'] . ' 00:00:00'),
+            try {
+
+            $calendar = $tours->addCostCalendar(
+                strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
                 $params['_time'],
+                $params['_tickets'],
                 $params['_adult'],
                 $params['_child'],
-                $params['_preference'],
-                $params['_tickets']
+                $params['_preference']
             );
-            $this->tours->save($tours);
-            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
+                $this->tours->save($tours);
+            } catch (\Throwable $e)
+            {
+                return $e->getMessage();
+            }
 
+            //return $calendar->time_at;
+            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
+        }
+    }
+
+    public function actionCopyday()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $tours = $this->findModel($params['tour_id']);
+            try {
+
+                $tours->copyCostCalendar(
+                    strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
+                    strtotime($params['copy_day'] . '-' . $params['copy_month'] . '-' . $params['copy_year'] . ' 00:00:00')
+                );
+                $this->tours->save($tours);
+            } catch (\Exception $e)
+            {
+                return $e->getMessage();
+            }
+            return json_encode($this->getCalendar($params['tour_id']));
         }
     }
 
@@ -188,18 +210,53 @@ class FinanceController extends Controller
             $tours = $this->findModel($params['tour_id']);
             $result = $tours->removeCostCalendar($params['calendar_id']);
             $this->tours->save($tours);
-            if (!$result) $errors['del-day'] = 'Нельзя удалить не пустой тур';
+            if (!$result) $errors['del-day'] = 'Нельзя удалить непустой тур';
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }
 
+    private function getCalendar($tour_id)
+    {
+        try {
+            $calendars = $this->calendar->getActual($tour_id);
+            $result = [];
+            foreach ($calendars as $calendar) {
+                $y = (int)date('Y', $calendar->tour_at);
+                $m = (int)date('m', $calendar->tour_at);
+                $d = (int)date('d', $calendar->tour_at);
+                if (!isset($result[$y][$m][$d])) {
+                    $result[$y][$m][$d] = ['count' => 1];
+                } else {
+                    $result[$y][$m][$d]['count'] ++;
+                }
+            }
+        } catch (\Throwable $e)
+        {
+            return $e->getMessage();
+        }
+        return $result;
+
+    }
     private function getInfoDay($Y, $M, $D, $id, $errors = [])
     {
         //Получаем данные
         $tours = $this->findModel($id);
         $day_tours = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
         //Отображаем, если есть
-        $listTours = '';
+        $listTours = <<<HTML
+                <div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
+<div class="row">
+    <span style="font-size: larger; font-weight: bold">На $D число</span> 
+</div>
+HTML;
+        if (isset($errors) && isset($errors['del-day'])) {
+            $error_del_day = $errors['del-day'];
+            $listTours .= <<<HTML
+<div class="row">
+    <span style="font-size: larger; font-weight: bold; color: #c12e2a">$error_del_day</span> 
+</div>
+HTML;
+        }
         foreach ($day_tours as $costCalendar) {
             $id_calendar = $costCalendar->id;
             $time = $costCalendar->time_at;
@@ -207,13 +264,9 @@ class FinanceController extends Controller
             $adult = $costCalendar->cost->adult;
             $child = $costCalendar->cost->child ?? '--';
             $preference = $costCalendar->cost->preference ?? '--';
-            if (isset($errors) && isset($errors['del-day']))
-                //TODO !!!!!!!!!!!!!!!!!!!;
-                ;
-            $listTours = <<<HTML
-<div class="row">
-    <span style="font-size: larger; font-weight: bold">На $D число</span> 
-</div>
+
+            $listTours .= <<<HTML
+
 <div class="row">
     <span style="font-size: larger"><i class="far fa-clock"></i>$time <a href="#" class="del-day" data-id="$id_calendar"><i class="far fa-trash-alt"></i></a></span> 
 </div>
@@ -222,17 +275,26 @@ class FinanceController extends Controller
 </div>
 HTML;
         }
-        if ($day_tours == null){
-        $listTours = <<<HTML
+        if ($day_tours != null) {
+            $listTours .= <<<HTML
 <div class="row">
-    <span style="font-size: larger; font-weight: bold">На $D число туры не заданы</span> 
+<label class="container">
+    <input type="checkbox" id="data-day-copy"><span>Копировать на другие дни</span>
+    </label>
+    <i>Поставьте флажок, и выбирайте дни. После снимите флажок и выберите любой день</i>
+</div>
+HTML;
+        } else {
+        $listTours .= <<<HTML
+<div class="row">
+    <span style="font-size: larger; font-weight: bold">туры не заданы</span> 
 </div>
 HTML;
     }
 
         $adult = $tours->baseCost->adult;
         $newTours = <<<HTML
-                <div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
+
                 <div class="row">
                     <div class="col-2">
                         <div class="form-group">
@@ -284,7 +346,7 @@ HTML;
                     </div>
                 </div>
 HTML;
-        $result = ['_list' => $listTours, '_new' => $newTours];
+        $result = ['_list' => $listTours, '_new' => $newTours, 'full_array_tours' => $this->getCalendar($id)];
         return json_encode($result);
     }
 }
