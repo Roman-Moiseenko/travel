@@ -30,48 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="list-tours"></div>
                 </div>
             </div>
-            <div class="new-tours hidden">
-                <div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
-                <div class="row">
-
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label>Начало</label>
-                            <input class="form-control" name="_time" type="time" width="100px" value="00:00" required>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="form-group">
-                            <label>Билеты</label>
-                            <input class="form-control" name="_tickets" type="number" width="100px" required>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за взрослый</label>
-                            <input class="form-control" name="_adult" type="number" width="100px" required>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за детский</label>
-                            <input class="form-control" name="_child" type="number" width="100px">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за льготный</label>
-                            <input class="form-control" name="_preference" type="number" width="100px">
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <a href="#" class="btn btn-success" id="send-new-tour">Добавить</a>
-                    </div>
-                </div>
+            <div class="new-tours">
             </div>
         </div>
-
     </div>
 </div>
 

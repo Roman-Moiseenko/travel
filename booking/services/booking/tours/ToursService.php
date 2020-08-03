@@ -195,5 +195,10 @@ class ToursService
         $this->tours->save($tours);
     }
 
+    public function save(Tours $tours)
+    {
+
+    }
+
 
 }

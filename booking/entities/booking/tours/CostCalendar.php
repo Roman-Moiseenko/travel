@@ -32,6 +32,7 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         $calendar->time_at = $time_at;
         $calendar->tickets = $tickets;
         $calendar->cost = $cost;
+        $calendar->status = Tours::TOUR_EMPTY;
         return $calendar;
     }
 
@@ -63,6 +64,16 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         $this->setAttribute('cost_preference', $this->cost->preference);
 
         return parent::beforeSave($insert);
+    }
+
+    public function isFor($id)
+    {
+        return $this->id == $id;
+    }
+
+    public function isEmpty()
+    {
+        return $this->status === Tours::TOUR_EMPTY;
     }
 
 }

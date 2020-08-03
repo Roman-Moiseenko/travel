@@ -34,7 +34,7 @@ $(document).ready(function () {
             startDate: '+1d',
             language: 'ru',
             beforeShowDay: function (date) {
-                //console.log(full_array_tours);
+                console.log(full_array_tours);
                 var tours = full_array_tours[date.getFullYear()]; //Массив по текущему году
                 if (tours === undefined) return {enabled: true};
                 tours = tours[date.getMonth() + 1];
@@ -52,13 +52,12 @@ $(document).ready(function () {
         $('#datepicker').datepicker().on('changeDate', function (e) {
 
             console.log(e);
-
             $.post('/tours/finance/getday',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {
                     var dateInfo = JSON.parse(data);
                     $('.list-tours').html(dateInfo._list);
-                    $('.new-tours').removeClass('hidden');
+                    $('.new-tours').html(dateInfo._new);
                 });
         });
     });
@@ -66,25 +65,40 @@ $(document).ready(function () {
 
 });
 
-$(document).on('click', '#send-new-tour', function () {
+$(document).on('click', '.del-day', function () {
     var tour_id = $('#number-tour').val();
     var d = $('#data-day').attr('data-d');
     var m = $('#data-day').attr('data-m');
     var y = $('#data-day').attr('data-y');
+    var calendar_id = $(this).attr('data-id');
+    $.post('/tours/finance/delday',
+        {year: y, month: m, day: d, tour_id: tour_id,
+            calendar_id: calendar_id},
+        function (data) {
+            var dateInfo = JSON.parse(data);
+            $('.list-tours').html(dateInfo._list);
+            $('.new-tours').html(dateInfo._new);
+        });
+});
+
+$(document).on('click', '#send-new-tour', function () {
+    var tour_id = $('#number-tour').val();
+
+    var d = $('#data-day').attr('data-d');
+    var m = $('#data-day').attr('data-m');
+    var y = $('#data-day').attr('data-y');
     var _time = $('#_time').attr('value');
-    var _tickets = $('#_tickets').attr('value');
+    var _tickets = $('#_tickets').val();
     var _adult = $('#_adult').val();
     var _child = $('#_child').val();
     var _preference = $('#_preference').val();
-    // alert(d);
-    alert(_tickets);
-    console.log(_time);
+
     $.post('/tours/finance/setday',
         {year: y, month: m, day: d, tour_id: tour_id,
             _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference},
         function (data) {
             var dateInfo = JSON.parse(data);
             $('.list-tours').html(dateInfo._list);
-//            $('.new-tours').html(dateInfo._new);
+            $('.new-tours').html(dateInfo._new);
         });
 });

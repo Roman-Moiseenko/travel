@@ -7,6 +7,7 @@ namespace admin\controllers\tours;
 use booking\entities\booking\tours\Tours;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\repositories\booking\tours\CostCalendarRepository;
+use booking\repositories\booking\tours\ToursRepository;
 use booking\services\booking\tours\ToursService;
 use Codeception\PHPUnit\ResultPrinter\HTML;
 use DateTime;
@@ -23,17 +24,23 @@ class FinanceController extends Controller
      * @var CostCalendarRepository
      */
     private $calendar;
+    /**
+     * @var ToursRepository
+     */
+    private $tours;
 
     public function __construct(
         $id,
         $module,
         ToursService $service,
+        ToursRepository $tours,
         CostCalendarRepository $calendar,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->calendar = $calendar;
+        $this->tours = $tours;
     }
 
     /*   public function actions() {
@@ -135,24 +142,11 @@ class FinanceController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
-            //$result[] = $params['month'];
-            //$result[] = $params['year'];
-
-            $month[6] = ['count' => 4];
-            $month[3] = ['count' => 1];
-            $month[13] = ['count' => 2];
-            $month[10] = ['count' => 2];
-
-            $month2[22] = ['count' => 4];
-            $month2[17] = ['count' => 5];
-            $month2[27] = ['count' => 1];
-            $month2[24] = ['count' => 1];
-            $month3[27] = ['count' => 1];
-            $month3[24] = ['count' => 1];
-            $result[2020][8] = $month;
-            $result[2020][9] = $month2;
-            $result[2021][1] = $month3;
-
+            $calendars = $this->calendar->getActual($params['tour_id']);
+            $result = [];
+            foreach ($calendars as $calendar) {
+                $result[date('Y', $calendar->time_at)][date('m', $calendar->time_at)][date('d',$calendar->time_at)] = $calendar->tickets;
+            }
             return json_encode($result);
         }
     }
@@ -171,6 +165,16 @@ class FinanceController extends Controller
             $params = \Yii::$app->request->bodyParams;
             //Год, Месяц, День, Время, Цена.Взр, Цена.Дет, Цена.Льгот, Кол-воБилетов
             // TODO Устанавливаем новые данные
+            $tours = $this->findModel($params['tour_id']);
+            $tours->addCostCalendar(
+                strtotime($params['day'] . '-' . $params['month'] . '-'. $params['year'] . ' 00:00:00'),
+                $params['_time'],
+                $params['_adult'],
+                $params['_child'],
+                $params['_preference'],
+                $params['_tickets']
+            );
+            $this->tours->save($tours);
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
 
         }
@@ -179,67 +183,102 @@ class FinanceController extends Controller
     public function actionDelday()
     {
         if (\Yii::$app->request->isAjax) {
+            $errors = null;
             $params = \Yii::$app->request->bodyParams;
-            // TODO Удаляем
-            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
-
+            $tours = $this->findModel($params['tour_id']);
+            $result = $tours->removeCostCalendar($params['calendar_id']);
+            $this->tours->save($tours);
+            if (!$result) $errors['del-day'] = 'Нельзя удалить не пустой тур';
+            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }
 
-    private function getInfoDay($Y, $M, $D, $id)
+    private function getInfoDay($Y, $M, $D, $id, $errors = [])
     {
         //Получаем данные
-
+        $tours = $this->findModel($id);
         $day_tours = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
-
         //Отображаем, если есть
-        $listTours = <<<HTML
+        $listTours = '';
+        foreach ($day_tours as $costCalendar) {
+            $id_calendar = $costCalendar->id;
+            $time = $costCalendar->time_at;
+            $tickets = $costCalendar->tickets;
+            $adult = $costCalendar->cost->adult;
+            $child = $costCalendar->cost->child ?? '--';
+            $preference = $costCalendar->cost->preference ?? '--';
+            if (isset($errors) && isset($errors['del-day']))
+                //TODO !!!!!!!!!!!!!!!!!!!;
+                ;
+            $listTours = <<<HTML
 <div class="row">
     <span style="font-size: larger; font-weight: bold">На $D число</span> 
 </div>
 <div class="row">
-    <span style="font-size: larger"><i class="far fa-clock"></i>12:00 <a href="#"><i class="far fa-trash-alt"></i></a></span> 
+    <span style="font-size: larger"><i class="far fa-clock"></i>$time <a href="#" class="del-day" data-id="$id_calendar"><i class="far fa-trash-alt"></i></a></span> 
 </div>
 <div class="row">
-    &nbsp;&nbsp;&nbsp;20 билетов. Цена: 5000/3500/-- 
+    &nbsp;&nbsp;&nbsp;$tickets билетов. Цена: $adult/$child/$preference 
 </div>
 HTML;
+        }
+        if ($day_tours == null){
+        $listTours = <<<HTML
+<div class="row">
+    <span style="font-size: larger; font-weight: bold">На $D число туры не заданы</span> 
+</div>
+HTML;
+    }
 
+        $adult = $tours->baseCost->adult;
         $newTours = <<<HTML
-<div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
+                <div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
                 <div class="row">
-                
                     <div class="col-2">
                         <div class="form-group">
                             <label>Начало</label>
-                            <input class="form-control" name="_time" type="time" width="100px" value="00:00" required>
+                            <input class="form-control" id="_time" type="time" width="100px" value="00:00" required>
                         </div>
                     </div>
                     <div class="col-1">
                         <div class="form-group">
                             <label>Билеты</label>
-                            <input class="form-control" name="_tickets" type="number" width="100px" required>
+                            <input class="form-control" id="_tickets" type="number" value="1" width="100px" required>
                         </div>
                     </div>
 
                     <div class="col-3">
                         <div class="form-group">
-                            <label>Цена за взрослый</label>
-                            <input class="form-control" name="_adult" type="number" width="100px" required>
+                            <label>Цена за взрослый билет</label>
+                            <input class="form-control" id="_adult" type="number" value="$adult" width="100px" required>
                         </div>
                     </div>
+HTML;
+        if ($tours->baseCost->child != null) {
+            $child = $tours->baseCost->child;
+            $newTours .= <<<HTML
+                     <div class="col-3">
+                        <div class="form-group">
+                            <label>Цена за детский билет</label>
+                            <input class="form-control" id="_child" type="number" value="$child" width="100px">
+                        </div>
+                    </div>
+HTML;
+        }
+        if ($tours->baseCost->preference != null) {
+            $preference = $tours->baseCost->preference;
+            $newTours .= <<<HTML
                     <div class="col-3">
                         <div class="form-group">
-                            <label>Цена за детский</label>
-                            <input class="form-control" name="_child" type="number" width="100px">
+                            <label>Цена за льготный билет</label>
+                            <input class="form-control" id="_preference" type="number" value="$preference" width="100px">
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за льготный</label>
-                            <input class="form-control" name="_preference" type="number" width="100px">
-                        </div>
-                    </div>
+                    HTML;
+        }
+        $newTours .= <<<HTML
+</div>
+<div class="row">
                     <div class="col-1">
                         <a href="#" class="btn btn-success" id="send-new-tour">Добавить</a>
                     </div>

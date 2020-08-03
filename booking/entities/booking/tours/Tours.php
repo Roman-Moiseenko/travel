@@ -51,6 +51,7 @@ class Tours extends ActiveRecord
     const TOUR_FULL = 11;
     const TOUR_CANCEL = 12;
     const TOUR_CURRIENT = 13;
+    const TOUR_EMPTY = 14;
 
     public $address;
     public $params;
@@ -293,6 +294,40 @@ class Tours extends ActiveRecord
     }
 
     /** <========== AssignType */
+
+    /** CostCalendar  ==========>*/
+    public function addCostCalendar($tour_at, $time_at, $cost_adult, $cost_child, $cost_preference, $tickets): CostCalendar
+    {
+        $calendar = CostCalendar::create(
+            $tour_at,
+            $time_at,
+            new Cost($cost_adult, $cost_child, $$cost_preference),
+            $tickets
+        );
+        $calendars = $this->actualCalendar;
+        $calendars[] = $calendar;
+        return $calendar;
+
+    }
+
+    public function removeCostCalendar($id): bool
+    {
+        $calendars = $this->actualCalendar;
+        foreach ($calendars as $i => $calendar)
+        {
+            if ($calendar->isFor($id)) {
+                //TODO Сделать на проверку
+                if ($calendar->isEmpty()) {
+                    unset($calendars[$i]);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+    /** <==========  CostCalendar  */
 
     /** Review  ==========>*/
 
