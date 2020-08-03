@@ -40,6 +40,7 @@ use yii\web\UploadedFile;
  * @property Photo[] $photos
  * @property Cost $baseCost
  * @property TypeAssignment[] $typeAssignments
+ * @property CostCalendar[] $actualCalendar
  */
 class Tours extends ActiveRecord
 {
@@ -117,7 +118,8 @@ class Tours extends ActiveRecord
                     'photos',
                     'typeAssignments',
                     'extraAssignments',
-                    'reviews'
+                    'reviews',
+                    'actualCalendar',
                 ],
             ],
         ];
@@ -456,6 +458,11 @@ class Tours extends ActiveRecord
     public function getMainPhoto(): ActiveQuery
     {
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
+    }
+
+    public function getActualCalendar(): ActiveQuery
+    {
+        return $this->hasMany(CostCalendar::class, ['tours_id' => 'id']);
     }
     /** <========== getXXX */
 

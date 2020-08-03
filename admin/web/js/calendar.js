@@ -1,14 +1,15 @@
 $(document).ready(function () {
-
+    var tour_id = $('#number-tour').val();
+//Переводим
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
         prevText: "Пред",
         nextText: "След ",
-        days: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-        daysShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-        daysMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-        months: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-        monthsShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        days: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+        daysShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+        daysMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         today: "Сегодня",
         clear: "Очистить",
         format: "mm/dd/yyyy",
@@ -16,96 +17,74 @@ $(document).ready(function () {
         titleFormat: "MM yyyy",
         weekStart: 0
     };
- /*   $.fn.datepicker.regional["ru"] = {
-        closeText: 'Закрыть',
-        prevText: 'Предыдущий',
-        nextText: 'Следующий',
-        currentText: 'Сегодня',
-        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
-        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-        weekHeader: 'Не',
-        dateFormat: 'dd.mm.yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-    };
-*/
-   // $.datepicker.setDefaults($.datepicker.regional.ru);
-    // var date = new Date();
-    //  date.setDate(date.getDate() + 1);
-   // $.fn.datepicker.defaults.format = "mm/dd/yyyy";
-   /* $(function () {
+
+    $.post('/tours/finance/getcalendar', {tour_id: tour_id}, function (data) {
+        console.log(data);
+        var full_array_tours = JSON.parse(data);
+        console.log(full_array_tours);
+        $(function () {
+            $("#datepicker").datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: '+1d',
+                language: "ru",
+            });
+        });
 
         $('#datepicker').datepicker({
             startDate: '+1d',
-            locale: 'ru',
-            language: "ru",
-            onSelect: function (date) {
-                $('#datepicker_value2').val(date);
-
-            },
-        });
-    });
-
-        var myDate = new Date('2020/08/20').toISOString();
-        var myText = 'Корпоратив! Вася опять нажрется!';
-        $('#datepicker').datepicker({
+            language: 'ru',
             beforeShowDay: function (date) {
-
-                var dateSel = $("#datepicker").datepicker("getDate");
-                console.log(dateSel.toISOString(), myDate);
-                if (date.toISOString() === myDate) {
-                    if (dateSel === null) {
-                        return {enabled: true, classes: 'myClass', tooltip: myText};
-                    } else {
-                        if (dateSel.toISOString() !== myDate) {
-                            return {enabled: true, classes: 'myClass', tooltip: myText};
-                        }
-                    }
+                //console.log(full_array_tours);
+                var tours = full_array_tours[date.getFullYear()]; //Массив по текущему году
+                if (tours === undefined) return {enabled: true};
+                tours = tours[date.getMonth() + 1];
+                if (tours === undefined) return {enabled: true}; //Массив по текущему месяцу
+                tours = tours[date.getDate()];
+                if (tours === undefined) return {enabled: true}; //Объект по текущему дню
+                var dateSel = $("#datepicker").datepicker("getDate"); //Выбранная ячейка
+                var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
+                if (dateSel !== null && dateSel.getDate() === date.getDate()) {
+                    return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
                 }
-            },
-        });
-
-*/
-
-    $(function () {
-        $("#datepicker").datepicker({
-            format: 'mm/dd/yyyy',
-            startDate: '+1d',
-            onSelect: function (date) {
-                $('#datepicker_value').val(date);
-
-            },
-            language: "ru",
-        });
-        // $("#datepicker").datepicker("setDate", $('#datepicker_value').val());
-    });
-
-    var myDate = new Date('2020/08/20').toISOString();
-    var myText = 'Корпоратив! Вася опять нажрется!';
-   $('#datepicker').datepicker({
-       startDate: '+1d',
-       language: 'ru',
-       title: 'Календарь',
-        beforeShowDay: function (date) {
-            var dateSel = $("#datepicker").datepicker("getDate");
-            //console.log(dateSel.toISOString(), myDate);
-            if (date.toISOString() === myDate) {
-                if (dateSel === null) {
-                    return {enabled: true, classes: 'myClass', tooltip: myText};
-                } else {
-                    if (dateSel.toISOString() !== myDate) {
-                        return {enabled: true, classes: 'myClass', tooltip: myText}; }
-                }
+                return {enabled: true, classes: 'tour-day', tooltip: '', content: content};
             }
-        }
+        });
+        $('#datepicker').datepicker().on('changeDate', function (e) {
+
+            console.log(e);
+
+            $.post('/tours/finance/getday',
+                {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
+                function (data) {
+                    var dateInfo = JSON.parse(data);
+                    $('.list-tours').html(dateInfo._list);
+                    $('.new-tours').removeClass('hidden');
+                });
+        });
     });
-    $('#datepicker').datepicker().on('changeDate', function (e) {
-        // alert(e.date);
-        console.log(e);
-    });
+
+
+});
+
+$(document).on('click', '#send-new-tour', function () {
+    var tour_id = $('#number-tour').val();
+    var d = $('#data-day').attr('data-d');
+    var m = $('#data-day').attr('data-m');
+    var y = $('#data-day').attr('data-y');
+    var _time = $('#_time').attr('value');
+    var _tickets = $('#_tickets').attr('value');
+    var _adult = $('#_adult').val();
+    var _child = $('#_child').val();
+    var _preference = $('#_preference').val();
+    // alert(d);
+    alert(_tickets);
+    console.log(_time);
+    $.post('/tours/finance/setday',
+        {year: y, month: m, day: d, tour_id: tour_id,
+            _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference},
+        function (data) {
+            var dateInfo = JSON.parse(data);
+            $('.list-tours').html(dateInfo._list);
+//            $('.new-tours').html(dateInfo._new);
+        });
 });

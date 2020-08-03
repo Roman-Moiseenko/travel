@@ -13,3 +13,46 @@
 .table-condensed {
     width: 700px !important;
 }
+
+.tour-day {
+    font-size: larger;
+    text-align: center;
+    background: orange !important;
+    color: white !important;
+    width: 100px !important;
+    height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+
+.tour-day-select {
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
+    background-image: -ms-linear-gradient(to bottom, #08c, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0044cc));
+    background-image: -webkit-linear-gradient(to bottom, #08c, #0044cc);
+    background-image: -o-linear-gradient(to bottom, #08c, #0044cc);
+    background-image: linear-gradient(to bottom, #08c, #0044cc);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#0044cc', GradientType=0);
+    border-color: #0044cc #0044cc #002a80;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    font-size: larger;
+    text-align: center;
+    width: 100px !important;
+    height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+
+.hidden {
+    display:none;
+}

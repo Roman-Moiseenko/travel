@@ -36,8 +36,8 @@
         "mihaildev/yii2-elfinder": "*",
         "mihaildev/yii2-ckeditor": "*",
         "yiisoft/yii2-bootstrap4": "^2.0",
-        "bower-asset/bootstrap-datepicker": "^1.9"
-
+        "bower-asset/bootstrap-datepicker": "^1.9",
+      "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

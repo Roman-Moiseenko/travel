@@ -25,20 +25,22 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
    // use ActiveRecordItemTrait;
     public $cost;
 
-    public static function create($tour_at, Cost $cost): self
+    public static function create($tour_at, $time_at, Cost $cost, $tickets): self
     {
         $calendar = new static();
         $calendar->tour_at = $tour_at;
+        $calendar->time_at = $time_at;
+        $calendar->tickets = $tickets;
         $calendar->cost = $cost;
         return $calendar;
     }
 
-    public function edit($tour_at, Cost $cost)
+ /*   public function edit($tour_at, Cost $cost)
     {
         $this->tour_at = $tour_at;
         $this->cost = $cost;
     }
-
+*/
     public static function tableName()
     {
         return '{{%booking_tours_calendar_cost}}';
