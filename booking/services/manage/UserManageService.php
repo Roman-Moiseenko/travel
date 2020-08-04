@@ -4,9 +4,13 @@
 namespace booking\services\manage;
 
 
+use booking\entities\booking\tours\BookingTours;
+use booking\entities\booking\tours\Cost;
 use booking\entities\user\User;
+use booking\forms\booking\tours\BookingToursForm;
 use booking\forms\manage\user\UserCreateForm;
 use booking\forms\manage\user\UserEditForm;
+use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\UserRepository;
 use booking\services\TransactionManager;
 
@@ -21,11 +25,17 @@ class UserManageService
      * @var TransactionManager
      */
     private $transaction;
+    /**
+     * @var CostCalendarRepository
+     */
+    private $calendarsTours;
 
-    public function __construct(UserRepository $users, TransactionManager $transaction)
+
+    public function __construct(UserRepository $users, CostCalendarRepository $calendarsTours, TransactionManager $transaction)
     {
         $this->users = $users;
         $this->transaction = $transaction;
+        $this->calendarsTours = $calendarsTours;
     }
 
     public function create(UserCreateForm $form): User
@@ -95,6 +105,28 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $user->setLang($lang);
+        $this->users->save($user);
+    }
+
+    public function addBookingTours($id, BookingToursForm $form): BookingTours
+    {
+        $user = $this->users->get($id);
+        $calendar = $this->calendarsTours->get($form->calendar_id);
+        $amount = $calendar->cost->adult * $form->count->adult;
+        if ($calendar->cost->child && $form->count->child)
+            $amount += $calendar->cost->child * $form->count->child;
+        if ($calendar->cost->preference && $form->count->preference)
+            $amount += $calendar->cost->preference * $form->count->preference;
+        //TODO Сделать скидку на $amount
+        $user->addBookingTours(
+            $amount,
+            $form->calendar_id,
+            new Cost(
+                $form->count->adult,
+                $form->count->child,
+                $form->count->preference,
+            )
+        );
         $this->users->save($user);
     }
 }

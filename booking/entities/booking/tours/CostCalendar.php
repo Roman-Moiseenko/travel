@@ -7,6 +7,7 @@ namespace booking\entities\booking\tours;
 use understeam\calendar\ActiveRecordItemTrait;
 use understeam\calendar\CalendarInterface;
 use understeam\calendar\ItemInterface;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -19,6 +20,8 @@ use yii\db\ActiveRecord;
  * @property integer $tickets
  * @property integer $status
  * @property Cost $cost
+ * @property Tours $tours
+ * @property BookingTours[] $bookings
  */
 class CostCalendar extends ActiveRecord // implements ItemInterface
 {
@@ -36,12 +39,6 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         return $calendar;
     }
 
- /*   public function edit($tour_at, Cost $cost)
-    {
-        $this->tour_at = $tour_at;
-        $this->cost = $cost;
-    }
-*/
     public static function tableName()
     {
         return '{{%booking_tours_calendar_cost}}';
@@ -76,4 +73,25 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         return $this->status === Tours::TOUR_EMPTY;
     }
 
+    public function getTours(): ActiveQuery
+    {
+        return $this->hasOne(Tours::class, ['id' => 'tours_id']);
+    }
+
+    public function getFreeTickets(): int 
+    {
+        $count = 0;
+        $bookings = $this->bookings;
+        foreach ($bookings as $booking) {
+            $count += $booking->count->adult ?? 0;
+            $count += $booking->count->child ?? 0;
+            $count += $booking->count->preference ?? 0;
+        }
+        return $this->tickets - $count;
+    }
+    
+    public function getBooking(): ActiveQuery
+    {
+        return $this->hasMany(BookingTours::class, ['calendar' => 'id']);
+    }
 }

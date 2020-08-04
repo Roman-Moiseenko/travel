@@ -13,7 +13,6 @@ use yii\base\Model;
 
 /**
  * @property BookingAddressForm $address
-
  * @property ToursTypeForm $types
  */
 class ToursCommonForms extends CompositeForm

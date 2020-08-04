@@ -8,23 +8,28 @@ use booking\entities\booking\tours\CostCalendar;
 
 class CostCalendarRepository
 {
-    public function getActual($id)
+    public function get($id)
     {
-        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['>', 'tour_at', time()])->all();
-    }
-    public function getActualForCalendar($id)
-    {
-        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['>', 'tour_at', time()])->all();
-    }
-    public function getDay($id, $date)
-    {
-        return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
+        return CostCalendar::findOne($id);
     }
 
-    public function getActualInterval($id, $min, $max)
+    public function getActual($tours_id)
+    {
+        return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();
+    }
+    public function getActualForCalendar($tours_id)
+    {
+        return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();
+    }
+    public function getDay($tours_id, $date)
+    {
+        return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
+    }
+
+    public function getActualInterval($tours_id, $min, $max)
     {
         return CostCalendar::find()
-            ->andWhere(['tours_id' => $id])
+            ->andWhere(['tours_id' => $tours_id])
             ->andWhere(['>=', 'tour_at', $min])
             ->andWhere(['<=', 'tour_at', $max])
             ->all();

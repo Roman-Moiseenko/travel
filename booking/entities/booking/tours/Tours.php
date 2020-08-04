@@ -296,6 +296,7 @@ class Tours extends ActiveRecord
     /** <========== AssignType */
 
     /** CostCalendar  ==========>*/
+    //TODO Возможно ускорение, нискоуровневым запросом
     public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
         $calendar = CostCalendar::create(
@@ -312,8 +313,6 @@ class Tours extends ActiveRecord
 
     public function copyCostCalendar($new_day, $copy_day)
     {
-       // throw new \Exception($copy_day . '  ' . $new_day);
-        //TODO Возможно ускорение, нискоуровневым запросом
         $calendars = $this->actualCalendar;
         $temp_array = [];
         foreach ($calendars as $i =>$calendar) {
