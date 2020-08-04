@@ -23,4 +23,14 @@ class CalendarHelper
         }
         return $data;
     }
+    public static function getInterval($month, $year): array
+    {
+        $result['min'] = strtotime('01-' . $month . '-' . $year . ' 00:00:00');
+        if ($month == 12) {
+            $result['max'] = strtotime('31-12-' . $year . ' 00:00:00');
+        } else {
+            $result['max'] = strtotime('01-' . ($month + 1) . '-' . $year . ' 00:00:00') - 24 * 3600 ;
+        }
+        return  $result;
+    }
 }

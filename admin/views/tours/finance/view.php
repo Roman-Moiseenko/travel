@@ -72,51 +72,5 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Редактировать', Url::to(['/tours/finance/update', 'id' => $tours->id]), ['class' => 'btn btn-success']) ?>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-secondary">
-                <div class="card-header with-border">Календарь</div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <?= Html::a('Редактировать', Url::to(['/tours/finance/calendar', 'id' => $tours->id]), ['class' => 'btn btn-success']) ?>
-                    </div>
-                    Таблица, с датами и временем и ценами
-<div class="row">
-    <div class="col-4">
-                    <?= DatePicker::widget([
-                        'name' => 'dp_1',
-                        'type' => DatePicker::TYPE_INLINE,
-                        'value' => date('d-m-Y'),
-                        'pluginOptions' => [
-                            'format' => 'dd-M-yyyy',
-                            'multidate' => true
-                        ],
-                        'options' => [
-                            // you can hide the input by setting the following
-                            // 'style' => 'display:none'
-                            'style' => 'display:none'
-                        ]
-                    ]); ?>
-    </div>
-    <div class="col-4">
-                    <?= DatePicker::widget([
-                        'name' => 'dp_5',
-                        'type' => DatePicker::TYPE_INLINE,
-                        'value' => date('d-m-Y', time() + 24 * 3600 * 31),
-                        'pluginOptions' => [
-                            'format' => 'dd-M-yyyy',
-                            'multidate' => true
-                        ],
-                        'options' => [
-                            // you can hide the input by setting the following
-                             'style' => 'display:none'
-                        ]
-                    ]); ?>
-    </div>
-</div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 

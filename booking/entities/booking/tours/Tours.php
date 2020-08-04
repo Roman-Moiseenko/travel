@@ -344,9 +344,9 @@ class Tours extends ActiveRecord
         foreach ($calendars as $i => $calendar)
         {
             if ($calendar->isFor($id)) {
-                //TODO Сделать на проверку
                 if ($calendar->isEmpty()) {
                     unset($calendars[$i]);
+                    $this->actualCalendar = $calendars;
                     return true;
                 } else {
                     return false;

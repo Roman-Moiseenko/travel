@@ -22,14 +22,15 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Описание', 'icon' => '', 'url' => ['/tours/common', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/common'],
-                    ['label' => 'Фотографии', 'icon' => '', 'url' => ['/tours/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/photos'],
-                    ['label' => 'Параметры', 'icon' => '', 'url' => ['/tours/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/params'],
-                    ['label' => 'Дополнения', 'icon' => '', 'url' => ['/tours/extra', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/extra'],
-                    ['label' => 'Цены', 'icon' => '', 'url' => ['/tours/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/finance'],
-                    ['label' => 'Бронирования', 'icon' => '', 'url' => ['/tours/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/booking'],
-                    ['label' => 'Отзывы', 'icon' => '', 'url' => ['/tours/reviews', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reviews'],
-                    ['label' => 'Отчеты', 'icon' => '', 'url' => ['/tours/reports', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reports'],
+                    ['label' => 'Описание', 'icon' => 'align-justify', 'url' => ['/tours/common', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/common'],
+                    ['label' => 'Фотографии', 'icon' => 'camera-retro', 'url' => ['/tours/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/photos'],
+                    ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/tours/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/params'],
+                    ['label' => 'Дополнения', 'icon' => 'donate', 'url' => ['/tours/extra', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/extra'],
+                    ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/tours/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/finance'],
+                    ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tours/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/calendar'],
+                    ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tours/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/booking'],
+                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tours/reviews', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reviews'],
+                    ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tours/reports', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reports'],
                 ],
             ]);
             ?>

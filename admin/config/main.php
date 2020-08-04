@@ -94,6 +94,7 @@ return [
                 'tours/params' => 'tours/params/index',
                 'tours/extra' => '/tours/extra/index',
                 'tours/finance' => '/tours/finance/index',
+                'tours/calendar' => '/tours/calendar/index',
                 'tours/booking' => '/tours/booking/index',
                 'tours/reviews' => '/tours/reviews/index',
                 'tours/reports' => '/tours/reports/index',

@@ -8,7 +8,6 @@ use kartik\widgets\TimePicker;
 
 /* @var $this yii\web\View */
 /* @var  $tours Tours */
-/* @var $multi boolean */
 
 $this->title = 'Календарь ' . $tours->name;
 $this->params['id'] = $tours->id;

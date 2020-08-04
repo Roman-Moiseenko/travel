@@ -20,4 +20,13 @@ class CostCalendarRepository
     {
         return CostCalendar::find()->andWhere(['tours_id' => $id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
     }
+
+    public function getActualInterval($id, $min, $max)
+    {
+        return CostCalendar::find()
+            ->andWhere(['tours_id' => $id])
+            ->andWhere(['>=', 'tour_at', $min])
+            ->andWhere(['<=', 'tour_at', $max])
+            ->all();
+    }
 }
