@@ -62,6 +62,10 @@ class BookingTours extends ActiveRecord
         $this->status = self::BOOKING_CANCEL;
     }
 
+    public function countTickets(): int
+    {
+        return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
+    }
     public static function tableName()
     {
         return '{{%booking_tours_calendar_booking}}';

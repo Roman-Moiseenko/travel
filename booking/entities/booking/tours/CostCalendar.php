@@ -92,6 +92,6 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
     
     public function getBooking(): ActiveQuery
     {
-        return $this->hasMany(BookingTours::class, ['calendar' => 'id']);
+        return $this->hasMany(BookingTours::class, ['calendar' => 'id'])->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingTours::BOOKING_CANCEL]);
     }
 }

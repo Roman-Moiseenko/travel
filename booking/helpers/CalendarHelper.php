@@ -23,9 +23,9 @@ class CalendarHelper
         }
         return $data;
     }
-    public static function getInterval($month, $year): array
+    public static function getInterval($month, $year, $day = 1): array
     {
-        $result['min'] = strtotime('01-' . $month . '-' . $year . ' 00:00:00');
+        $result['min'] = strtotime($day . '-' . $month . '-' . $year . ' 00:00:00');
         if ($month == 12) {
             $result['max'] = strtotime('31-12-' . $year . ' 00:00:00');
         } else {

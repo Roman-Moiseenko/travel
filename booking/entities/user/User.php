@@ -164,9 +164,11 @@ class User extends ActiveRecord implements IdentityInterface
         foreach ($bookings as $i => &$booking) {
             if ($booking->isFor($id)) {
                 $booking->edit($amount, $cost);
+                $this->bookingTours = $bookings;
+                return;
             }
         }
-        $this->bookingTours = $bookings;
+        throw new \DomainException(Lang::t('Бронирование не найдено'));
     }
 
     public function payBookingTours($id)
@@ -175,9 +177,11 @@ class User extends ActiveRecord implements IdentityInterface
         foreach ($bookings as $i => &$booking) {
             if ($booking->isFor($id)) {
                 $booking->pay();
+                $this->bookingTours = $bookings;
+                return;                
             }
         }
-        $this->bookingTours = $bookings;
+        throw new \DomainException(Lang::t('Бронирование не найдено'));
     }
 
     public function cancelBookingTours($id)
@@ -186,9 +190,11 @@ class User extends ActiveRecord implements IdentityInterface
         foreach ($bookings as $i => &$booking) {
             if ($booking->isFor($id)) {
                 $booking->cancel();
+                $this->bookingTours = $bookings;
+                return;
             }
         }
-        $this->bookingTours = $bookings;
+        throw new \DomainException(Lang::t('Бронирование не найдено'));
     }
     /** <=============== Tours*/
 

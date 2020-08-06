@@ -84,11 +84,13 @@ class CalendarController extends Controller
             if (isset($params['current_month'])) {
                 $month = date('m');
                 $year = date('Y');
+                $day = date('d');
             } else {
                 $month = $params['month'];
                 $year = $params['year'];
+                $day = 1;
             }
-            return json_encode($this->getCalendar($params['tour_id'], $month, $year));
+            return json_encode($this->getCalendar($params['tour_id'], $month, $year, $day));
         }
     }
 
@@ -105,7 +107,6 @@ class CalendarController extends Controller
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
             //Год, Месяц, День, Время, Цена.Взр, Цена.Дет, Цена.Льгот, Кол-воБилетов
-            // TODO Устанавливаем новые данные
             $tours = $this->findModel($params['tour_id']);
             try {
 
@@ -158,10 +159,10 @@ class CalendarController extends Controller
         }
     }
 
-    private function getCalendar($tour_id, $month, $year)
+    private function getCalendar($tour_id, $month, $year, $day = 1)
     {
         try {
-            $interval = CalendarHelper::getInterval($month, $year);
+            $interval = CalendarHelper::getInterval($month, $year, $day);
             $calendars = $this->calendar->getActualInterval($tour_id, $interval['min'], $interval['max']);
             $result = [];
             foreach ($calendars as $calendar) {
