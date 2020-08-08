@@ -44,24 +44,8 @@ class ToursRepository
 
             }
         }
-        /////////////////TODO
-        if ($form->values) {
-            $productIds = null;
-            foreach ($form->values as $value) {
-                if ($value->isFilled()) {
-                    $q = Value::find()->andWhere(['characteristic_id' => $value->getId()]);
-                    $q->andFilterWhere(['>=', 'CAST(value AS SIGNED)', $value->from]);
-                    $q->andFilterWhere(['<=', 'CAST(value AS SIGNED)', $value->to]);
-                    $q->andFilterWhere(['value' => $value->equal]);
-                    $foundIds = $q->select('product_id')->column();
-                    $productIds = $productIds === null ? $foundIds : array_intersect($productIds, $foundIds);
-                }
-            }
-            if ($productIds !== null) {
-                $query->andWhere(['t.id' => $productIds]);
-            }
-        }
-        /******  Поиск оп тексту ***/
+
+        /******  Поиск по наименованию ***/
         if (!empty($form->text)) {
             $form->text = trim(htmlspecialchars($form->text));
             $words = explode(' ', $form->text);

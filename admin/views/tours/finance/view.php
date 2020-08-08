@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'label' => 'Организация',
                                 'value' => function () use ($tours) {
                                     $legal = UserLegal::findOne($tours->legal_id);
-                                    return $legal->name;
+                                    return $legal ? $legal->name : '';
                                 },
                             ],
                             [
