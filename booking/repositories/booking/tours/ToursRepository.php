@@ -6,6 +6,7 @@ namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\Tours;
 use booking\entities\booking\tours\Type;
+use booking\forms\booking\tours\SearchToursForm;
 use Prophecy\Argument\Token\TypeToken;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -33,25 +34,36 @@ class ToursRepository
     ///TODO
     public function search(SearchToursForm $form): DataProviderInterface
     {
-        $query = Tours::find()->alias('t')/*->NotEmpty('p')*/->with('type', 'mainPhoto');
+        $query = Tours::find()->alias('t')->with('type', 'mainPhoto');
 
-
+        /******  Поиск по Категории ***/
         if ($form->type) {
             if ($category = Type::findOne($form->type)) {
                 $query->joinWith(['typeAssignments ta'], false);
-                $query->andWhere(['or', ['t.type_id' => $form->type], ['ca.type_id' => $form->type]]);
-                $query->groupBy('t.id');
-
+                $query->andWhere(['or', ['t.type_id' => $form->type], ['ta.type_id' => $form->type]]);
             }
         }
-
-        /******  Поиск по наименованию ***/
+        /******  Поиск по Дате ***/
+        if ($form->date_from == null) $form->date_from = strtotime(date('d-m-Y', time()));
+        if ($form->date_from || $form->date_to) {
+            $query->joinWith(['actualCalendar ac']);
+            if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', $form->date_from]);
+            if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', $form->date_to]);
+        }
+        /******  Поиск по Наименованию ***/
         if (!empty($form->text)) {
             $form->text = trim(htmlspecialchars($form->text));
             $words = explode(' ', $form->text);
             foreach ($words as $word) {
                 $query->andWhere(['like', 'name', $word]);
             }
+        }
+        /******  Поиск по Цене ***/
+        if ($form->cost_min) {
+            $query->andWhere(['>=', 't.cost_adult', $form->cost_min]);
+        }
+        if ($form->cost_max) {
+            $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
         }
         $query->groupBy('t.id');
         return $this->getProvider($query);

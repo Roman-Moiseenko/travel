@@ -3,23 +3,17 @@
 
 /* @var $content string */
 
-?>
+use frontend\widgets\SearchToursWidget; ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
+    <!-- ПОИСК -->
 
 <div class="row">
-    <!-- -->
-    <div id="content" class="col-sm-3">
-        <!-- ПОИСК -->
-        ВИДЖЕТ Расширенного ПОИСКА Тура
-        ВИДЖЕТ Поиска по характеристикам
-    </div>
-    <div id="content" class="col-sm-9">
+    <div id="content" class="col-sm-12">
         <?= $content ?>
     </div>
     <div class="hidden-xs">
         ВИДЖЕТ ВЫ СМОТРЕЛИ
     </div>
-</div>
 </div>
 
 <?php $this->endContent() ?>

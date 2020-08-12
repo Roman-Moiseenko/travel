@@ -1,10 +1,13 @@
 <?php
 
+
 namespace frontend\widgets;
 
+
+use booking\forms\booking\tours\SearchToursForm;
 use yii\base\Widget;
 
-class TopmenuWidget extends Widget
+class SearchToursWidget extends Widget
 {
     public function __construct($config = [])
     {
@@ -13,7 +16,10 @@ class TopmenuWidget extends Widget
 
     public function run()
     {
-        return $this->render('topmenu', [
+
+        $form = new SearchToursForm();
+        return $this->render('searchtours', [
+            'model' => $form,
         ]);
     }
 }

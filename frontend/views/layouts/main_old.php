@@ -29,7 +29,7 @@ AppAsset::register($this);
                 <?= TopmenuWidget::widget()?>
     </nav>
 
-    <div id="common-home" class="container content-container">
+    <div id="common-home" class="container">
         <?= Breadcrumbs::widget([
 
             'homeLink' => [

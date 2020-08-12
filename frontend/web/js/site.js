@@ -7,4 +7,10 @@ $(document).ready(function() {
         });
     });
 
+    $('body').on('input', '.only-numeric', function () {
+        var vl = $(this).val().replace(/\D/g, ''); //str.replace(/[^a-zA-Z ]/g, "")
+        $(this).val(vl);
+        $(this).change();
+    });
+
 })(window.jQuery);

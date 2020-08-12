@@ -70,7 +70,7 @@ div.required .control-label:before {
 	font-weight: bold;
 }
 /* Gradent to all drop down menus */
-.dropdown-menu li > a:hover {
+.dropdown-menu a:hover {
 	text-decoration: none;
 	color: #ffffff;
 	background-color: #229ac8;
@@ -123,7 +123,7 @@ div.required .control-label:before {
 	padding-top: 6px;
 }
 #top-links a + a {
-	margin-left: 15px;
+	/*margin-left: 15px;*/
 }
 /* logo */
 #logo {
@@ -200,18 +200,28 @@ div.required .control-label:before {
 	min-height: 40px;
 /*	z-index: 2;*/
 }
-#menu .nav > li > a {
-	color: #FFF;
+#menu {
+
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	padding: 10px 15px 10px 15px;
 	min-height: 15px;
-	background-color: transparent;
-	font-size: large;
+	background-color: transparent !important;
+	font-size: 22px;
 }
 
-#menu .nav > li > a:hover, #menu .nav > li.open > a {
+#menu .nav-link  {
+	color: #FFF !important;
+}
+#menu .nav-link :hover {
+	/*-background-color: rgba(0, 0, 0, 0.1);*/
+	color: #122b40;
+}
+/*#menu >a:hover, #menu > li.open > a {
 	background-color: rgba(0, 0, 0, 0.1);
 	color: #122b40;
+}*/
+.topbar-search-tours .btn {
+	padding: 6px 12px !important;
 }
 #menu .dropdown-menu {
 	padding-bottom: 0;
@@ -319,7 +329,7 @@ footer {
 	margin-top: 30px;
 	padding-top: 30px;
 	background-color: #303030;
-	border-top: 1px solid #ddd;
+	/*border-top: 1px solid #ddd;*/
 	color: #e2e2e2;
 }
 footer hr {
@@ -598,6 +608,10 @@ footer h5 {
 }
 
 .rating .fa-star-half-o {
+	color: #FC0;
+	font-size: 15px;
+}
+.rating .fa-star-half-alt {
 	color: #FC0;
 	font-size: 15px;
 }

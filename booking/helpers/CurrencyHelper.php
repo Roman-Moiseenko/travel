@@ -12,6 +12,6 @@ class CurrencyHelper
         if (empty($cost)) {
             return 'free';
         }
-        return $cost . ' руб.';
+        return number_format($cost, 2, '.', ' ') . ' руб.';
     }
 }

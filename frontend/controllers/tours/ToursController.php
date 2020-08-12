@@ -4,28 +4,37 @@
 namespace frontend\controllers\tours;
 
 
+use booking\forms\booking\tours\SearchToursForm;
+use booking\repositories\booking\tours\ToursRepository;
 use yii\web\Controller;
 
 class ToursController extends Controller
 {
     public $layout = 'tours';
+    /**
+     * @var ToursRepository
+     */
+    private $tours;
 
-    public function __construct($id, $module, $config = [])
+    public function __construct($id, $module, ToursRepository $tours, $config = [])
     {
         parent::__construct($id, $module, $config);
+        $this->tours = $tours;
     }
 
     public function actionIndex()
     {
-        return $this->render('index', []);
-    }
 
-    public function actionType($id)
-    {
-        return $this->render('category', [
-            'id' => $id
+        $form = new SearchToursForm();
+        $form->load(\Yii::$app->request->post());
+        $form->validate();
+        $dataProvider = $this->tours->search($form);
+        return $this->render('index_top', [
+            'model' => $form,
+            'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionTour($id)
     {

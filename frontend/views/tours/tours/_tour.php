@@ -1,0 +1,55 @@
+<?php
+
+
+use booking\entities\booking\tours\Tours;
+use booking\helpers\CurrencyHelper;
+use frontend\widgets\RatingWidget;
+use shop\helpers\PriceHelper;
+use yii\helpers\Html;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
+
+/* @var $tour Tours */
+?>
+
+
+
+<?php $url = Url::to(['/tour/view', 'id' => $tour->id])?>
+<div class="product-layout product-list col-12">
+    <div class="product-thumb">
+        <?php if ($tour->mainPhoto): ?>
+            <div class="image">
+                <a href="<?=Html::encode($url)?>">
+                    <img src="<?=Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="" class="img-responsive" />
+                </a>
+            </div>
+        <?php endif; ?>
+        <div class="caption">
+            <h4><div class="button-group" style="width: 32px">
+                <button type="button" data-toggle="tooltip" title="В избранное" href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
+                </div><a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
+
+            </h4>
+
+            <p><?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 10)) ?></p>
+            <p class="price">
+                <span class="price-new"><?= CurrencyHelper::get($tour->baseCost->adult) ?></span>
+            </p>
+            <p>
+            <div class="pull-left price">
+
+                <?php foreach ($tour->types as $type): ?>
+                 <?= $type->name . ' | ';?>
+                <?php endforeach;?>
+                <?= $tour->type->name ?>
+            </div>
+            <div class="pull-right rating">
+                <?= RatingWidget::widget(['rating' => $tour->rating])?>
+            </div>
+            </p>
+        </div>
+        <div class="button-group">
+            <button type="button" data-toggle="tooltip" title="В избранное" href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
+        </div>
+    </div>
+</div>

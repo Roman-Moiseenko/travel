@@ -8,68 +8,67 @@ use yii\helpers\Url;
 
 ?>
 <div class="container">
-    <div id="top-links" class="nav pull-left">ЛОГОТИП</div>
-    <div id="top-links" class="nav pull-right">
-        <ul class="list-inline">
-            <li class="dropdown">
-                <a href="/index.php" class="dropdown-toggle" data-toggle="dropdown"><?= Lang::current() ?></a>
-                <ul class="dropdown-menu dropdown-menu-right">
+    <div id="top-links">
+        <ul class="nav justify-content-end">
+            <li class="dropdown nav-item">
+                <a href="/index.php" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                    <?= Lang::current() ?></a>
+                <div class="dropdown-menu">
                     <?php foreach (UserHelper::listLangs() as $lang): ?>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/user/lang', 'lang' => $lang])) ?>">
-                                <?= $lang ?>
-                            </a></li>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/user/lang', 'lang' => $lang])) ?>"><?= $lang ?></a>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             </li>
-            <li class="dropdown">
-                <a href="/index.php" class="dropdown-toggle" data-toggle="dropdown"><?= UserHelper::Currency(Currency::current()) ?></a>
-                <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown nav-item">
+                <a href="/index.php" class="dropdown-toggle nav-link"
+                   data-toggle="dropdown"><?= UserHelper::Currency(Currency::current()) ?></a>
+                <div class="dropdown-menu">
                     <?php foreach (UserHelper::listCurrency() as $key => $currency): ?>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/user/currency', 'currency' => $key])) ?>">
-                                <?= $currency ?>
-                            </a></li>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/user/currency', 'currency' => $key])) ?>">
+                            <?= $currency ?>
+                        </a>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             </li>
-            <li> <span class="hidden-xs hidden-sm hidden-md"><a
-                            href="<?= Url::to(['/contact']) ?>"><i class="fa fa-phone"></i><?= Lang::t('Служба поддержки') ?></a></span>
+            <li class="nav-item"> <span class="hidden-xs hidden-sm hidden-md"><a class="nav-link"
+                            href="<?= Url::to(['/contact']) ?>"><i
+                                class="fa fa-phone"></i><?= Lang::t('Служба поддержки') ?></a></span>
             </li>
-            <li class="dropdown"><a href="/index.php?route=account/account" title="<?= Lang::t('Мой личный кабинет') ?>"
-                                    class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span
+            <li class="dropdown nav-item"><a href="/index.php?route=account/account"
+                                             title="<?= Lang::t('Мой личный кабинет') ?>"
+                                             class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-user"></i>
+                    <span
                             class="hidden-xs hidden-sm hidden-md"><?= Lang::t('Мой личный кабинет') ?></span> <span
                             class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-menu">
                     <?php if (Yii::$app->user->isGuest): ?>
-                        <li><a href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>"><?= Lang::t('Войти') ?></a>
-                        </li>
-                        <li><a href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
-                        </li>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>"><?= Lang::t('Войти') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
                     <?php else: ?>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мой личный кабинет') ?></a>
-                        </li>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
-                        </li>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Избранное') ?></a>
-                        </li>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мои отзывы') ?></a>
-                        </li>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
-                        </li>
-                        <li>
-                            <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Настройки') ?></a>
-                        </li>
-                        <li><a href="<?= Html::encode(Url::to(['/auth/auth/logout'])) ?>"
-                               data-method="post"><?= Lang::t('Выйти') ?></a>
-                        </li>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мой личный кабинет') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Избранное') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мои отзывы') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Настройки') ?></a>
+                        <a class="dropdown-item" href="<?= Html::encode(Url::to(['/auth/auth/logout'])) ?>"
+                           data-method="post"><?= Lang::t('Выйти') ?></a>
+
                     <?php endif; ?>
-                </ul>
+                </div>
             </li>
-            <li><a href="<?= Url::to(['/shop/cart/index']) ?>" title="Корзина"><i class="fa fa-shopping-cart"></i> <span
+            <li><a class=" nav-link" href="<?= Url::to(['/shop/cart/index']) ?>" title="Корзина"><i class="fa fa-shopping-cart"></i> <span
                             class="hidden-xs hidden-sm hidden-md">Бронирование (?)</span></a></li>
         </ul>
     </div>
@@ -77,21 +76,26 @@ use yii\helpers\Url;
 
 
 <div class="container">
-    <nav id="menu" class="navbar">
-        <div class="navbar-header">
-            <span id="category" class="visible-xs"><?= Lang::t('Меню') ?></span>
-            <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse"
-                    data-target=".navbar-ex1-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="<?= Html::encode(Url::to(['site/index'])) ?>"><i class="fas fa-hotel"></i>&#160;<?= Lang::t('Жилье') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/cars'])) ?>"><i class="fas fa-car"></i>&#160;<?= Lang::t('Авто') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/tours'])) ?>"><i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Туры') ?></a></li>
-                <li><a href="<?= Html::encode(Url::to(['/tickets'])) ?>"><i class="fas fa-ticket-alt"></i>&#160;<?= Lang::t('Билеты') ?></a></li>
+    <nav id="menu"  class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= Html::encode(Url::to(['site/index'])) ?>"><i
+                                class="fas fa-hotel">&#160;<?= Lang::t('Жилье') ?></i></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/cars'])) ?>"><i
+                                class="fas fa-car">&#160;<?= Lang::t('Авто') ?></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/tours'])) ?>"><i
+                                class="fas fa-map-marked-alt">&#160;<?= Lang::t('Туры') ?></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/tickets'])) ?>"><i
+                                class="fas fa-ticket-alt">&#160;<?= Lang::t('Билеты') ?></i></a></li>
             </ul>
+
         </div>
     </nav>
 </div>
+

@@ -16,7 +16,7 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-       /* 'assetManager' => [
+        'assetManager' => [
             'appendTimestamp' => true,
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
@@ -26,7 +26,7 @@ return [
                     'class' => 'yii\bootstrap4\BootstrapPluginAsset'
                 ]
             ],
-        ],*/
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -80,7 +80,7 @@ return [
                 'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
                 'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
-               // ['class' => 'frontend\urls\PageUrlRule'],
+                // ['class' => 'frontend\urls\PageUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',
