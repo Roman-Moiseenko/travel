@@ -4,6 +4,7 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
@@ -393,6 +394,11 @@ class Tours extends ActiveRecord
         }
         throw new \DomainException('Отзыв не найден');
     }
+    public function countReviews(): int
+    {
+        $reviews = $this->reviews;
+        return count($reviews);
+    }
 
     private function updateReviews(array $reviews): void
     {
@@ -522,6 +528,10 @@ class Tours extends ActiveRecord
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
     }
 
+    public function getLegal(): ActiveQuery
+    {
+        return $this->hasOne(UserLegal::class, ['id' => 'legal_id']);
+    }
     public function getActualCalendar(): ActiveQuery
     {
         return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);

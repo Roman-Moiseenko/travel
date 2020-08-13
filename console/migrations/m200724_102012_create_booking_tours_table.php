@@ -21,7 +21,7 @@ class m200724_102012_create_booking_tours_table extends Migration
             'legal_id' => $this->integer(),
             'created_at' => $this->integer(),
             'status' => $this->integer(),
-            'description' => $this->string(),
+            'description' => $this->text(),
             'type_id' => $this->integer(),
             'cancellation' => $this->integer(),
             'rating' => $this->decimal(3, 2),

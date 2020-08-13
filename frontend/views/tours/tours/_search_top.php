@@ -13,6 +13,7 @@ use yii\helpers\Html;
 
 <?php $form = ActiveForm::begin([
     //  'action' => 'tours/tours/index',
+    'method' => 'GET'
 ]) ?>
 <div class="topbar-search-tours">
     <div class="row">

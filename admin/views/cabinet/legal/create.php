@@ -1,6 +1,7 @@
 <?php
 
-use booking\forms\auth\UserLegalForm;
+use booking\entities\admin\user\UserLegal;
+use booking\forms\admin\UserLegalForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('_form', [
     'model' => $model,
+    'legal' => new UserLegal(),
 ]) ?>
 
 

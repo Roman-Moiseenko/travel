@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -24,7 +25,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     [
-                        'label' => 'Наименование',
+                        'value' => function (UserLegal $model) {
+                            return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
+                        },
+                        'format' => 'raw',
+                        'contentOptions' => ['style' => 'width: 100px'],
+                    ],
+                    [
+                        'label' => 'Торговая марка',
+                        'value' => function (UserLegal $model) {
+                            return Html::a(Html::encode($model->caption), ['/cabinet/legal/view', 'id' => $model->id]);
+                        },
+                        'format' => 'raw',
+                        'attribute' => 'name',
+                        'options' => ['width' => '40%',],
+                    ],
+                    [
+                        'label' => 'Организация',
+                        'value' => function (UserLegal $model) {
+                            return Html::a(Html::encode($model->name), ['/cabinet/legal/view', 'id' => $model->id]);
+                        },
+                        'format' => 'raw',
                         'attribute' => 'name',
                     ],
                     [
@@ -32,32 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'INN',
                     ],
                     [
-                        'label' => 'КПП',
-                        'attribute' => 'KPP',
-                    ],
-                    [
-                        'label' => 'ОГРН',
-                        'attribute' => 'OGRN',
-                    ],
-                    [
-                        'label' => 'БИК банка',
-                        'attribute' => 'BIK',
-                    ],
-                    [
-                        'label' => 'Р/счет',
-                        'attribute' => 'account',
-                    ],
-                    [
                         'class' => 'yii\grid\ActionColumn',
                         'buttons' => [
-                                'view' => function ($url, $model, $key) {
-                                    $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-eye-open"]);
-                                    return Html::a($icon, $url, [
-                                        'title' => 'Обзор',
-                                        'aria-label' => 'Обзор',
-                                        'data-pjax' => 0,
-                                    ]);
-                                },
+                            'view' => function ($url, $model, $key) {
+                                $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-eye-open"]);
+                                return Html::a($icon, $url, [
+                                    'title' => 'Обзор',
+                                    'aria-label' => 'Обзор',
+                                    'data-pjax' => 0,
+                                ]);
+                            },
                             'update' => function ($url, $model, $key) {
                                 $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-pencil"]);
                                 return Html::a($icon, $url, [
@@ -66,16 +71,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-pjax' => 0,
                                 ]);
                             },
-                                'delete' => function ($url, $model, $key) {
-                                    $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
-                                    return Html::a($icon, $url, [
-                                        'title' => 'Удалить',
-                                        'aria-label' => 'Удалить',
-                                        'data-pjax' => 0,
-                                        'data-confirm' => 'Вы уверены, что хотите удалить организацию ' . $model->name . '?',
-                                        'data-method' => 'post',
-                                    ]);
-                                },
+                            'delete' => function ($url, $model, $key) {
+                                $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
+                                return Html::a($icon, $url, [
+                                    'title' => 'Удалить',
+                                    'aria-label' => 'Удалить',
+                                    'data-pjax' => 0,
+                                    'data-confirm' => 'Вы уверены, что хотите удалить организацию ' . $model->name . '?',
+                                    'data-method' => 'post',
+                                ]);
+                            },
                         ],
                     ],
                 ],

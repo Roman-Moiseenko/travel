@@ -8,6 +8,7 @@ use booking\entities\booking\tours\Cost;
 use booking\entities\booking\tours\Tours;
 use booking\entities\booking\tours\ToursParams;
 use booking\forms\booking\PhotosForm;
+use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\CostForm;
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\forms\booking\tours\ToursExtraForm;
@@ -126,7 +127,13 @@ class ToursService
         $this->tours->save($tours);
     }
 
-
+    public function addReview($tours_id, $user_id, ReviewForm $form)
+    {
+        $tours = $this->tours->get($tours_id);
+        $review =$tours->addReview($user_id, $form->vote, $form->text);
+        $this->tours->save($tours);
+        $this->contactService->sendNoticeReview($review);
+    }
     public function setParams($id, ToursParamsForm $form): void
     {
         $tours = $this->tours->get($id);
@@ -195,9 +202,13 @@ class ToursService
         $this->tours->save($tours);
     }
 
+
+
+
+
     public function save(Tours $tours)
     {
-
+        throw new \DomainException('ОШИБКА!!!!!!!!!!!!!!!!!!!!! БЛЯДЬ ОТКУДА!!!!!!!!!!!!!!!!!!!!11');
     }
 
 

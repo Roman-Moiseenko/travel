@@ -19,9 +19,10 @@ class SearchToursForm extends Model
     public function rules()
     {
         return [
-            [['date_from', 'date_to'], 'string'],
             [['type', 'private', 'cost_max', 'cost_min'], 'integer'],
+            [['date_from', 'date_to'], 'date', 'format' => 'php:d-m-Y'],
         ];
     }
+
 
 }

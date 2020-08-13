@@ -2,9 +2,6 @@
 
 namespace booking\repositories\admin;
 
-
-
-
 use booking\entities\admin\user\User;
 
 class UserRepository
@@ -50,7 +47,6 @@ class UserRepository
             throw new \RuntimeException('Ошибка сохранения');
         }
     }
-
 
     private function getBy(array $condition): User
     {

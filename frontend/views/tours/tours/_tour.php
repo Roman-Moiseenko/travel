@@ -4,7 +4,6 @@
 use booking\entities\booking\tours\Tours;
 use booking\helpers\CurrencyHelper;
 use frontend\widgets\RatingWidget;
-use shop\helpers\PriceHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
@@ -14,7 +13,7 @@ use yii\helpers\Url;
 
 
 
-<?php $url = Url::to(['/tour/view', 'id' => $tour->id])?>
+<?php $url = Url::to(['/tours/view', 'id' => $tour->id])?>
 <div class="product-layout product-list col-12">
     <div class="product-thumb">
         <?php if ($tour->mainPhoto): ?>
@@ -25,10 +24,9 @@ use yii\helpers\Url;
             </div>
         <?php endif; ?>
         <div class="caption">
-            <h4><div class="button-group" style="width: 32px">
+            <h4>
+                <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
                 <button type="button" data-toggle="tooltip" title="В избранное" href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
-                </div><a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
-
             </h4>
 
             <p><?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 10)) ?></p>
@@ -48,8 +46,6 @@ use yii\helpers\Url;
             </div>
             </p>
         </div>
-        <div class="button-group">
-            <button type="button" data-toggle="tooltip" title="В избранное" href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
-        </div>
+
     </div>
 </div>

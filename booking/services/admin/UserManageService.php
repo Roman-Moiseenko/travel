@@ -5,11 +5,12 @@ namespace booking\services\admin;
 
 use booking\entities\admin\user\User;
 use booking\entities\admin\user\UserLegal;
+use booking\entities\booking\BookingAddress;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
-use booking\forms\auth\UserLegalForm;
+use booking\forms\admin\UserLegalForm;
 use booking\repositories\admin\UserRepository;
 use booking\services\TransactionManager;
 
@@ -55,9 +56,21 @@ class UserManageService
             $form->BIK,
             $form->account,
             $form->INN,
+            $form->caption,
+            $form->description,
+            new BookingAddress(
+                $form->address->address,
+                $form->address->latitude,
+                $form->address->longitude
+            ),
+            $form->office,
+            $form->noticePhone,
+            $form->noticeEmail,
             $form->OGRN,
             $form->KPP
         );
+        if ($form->photo->files != null)
+            $legal->setPhoto($form->photo->files[0]);
         $user->addLegal($legal);
         $this->users->save($user);
         return $legal;
@@ -72,9 +85,22 @@ class UserManageService
             $form->BIK,
             $form->account,
             $form->INN,
+            $form->caption,
+            $form->description,
+            new BookingAddress(
+                $form->address->address,
+                $form->address->latitude,
+                $form->address->longitude
+            ),
+            $form->office,
+            $form->noticePhone,
+            $form->noticeEmail,
             $form->OGRN,
             $form->KPP
         );
+
+        if ($form->photo->files != null)
+            $legal->setPhoto($form->photo->files[0]);
         $user->updateLegal($legal_id, $legal);
         $this->users->save($user);
     }
@@ -86,19 +112,6 @@ class UserManageService
         $this->users->save($user);
     }
 
- /*   public function create(UserCreateForm $form): User
-    {
-        $user = User::create(
-            $form->username,
-            $form->email,
-            $form->password
-        );
-
-       $this->transaction->wrap(function () use($user, $form) {
-            $this->users->save($user);
-        });
-        return $user;
-    }*/
 
     public function update($id, UserEditForm $form): User
     {

@@ -39,7 +39,7 @@ class UserController extends Controller
                 'expire' => time() + 3600 * 24 * 365
             ]));
         } else {
-            //TODO Сохраняем язык в базе пользователя
+            // Сохраняем язык в базе пользователя
             $this->service->setLang(\Yii::$app->user->id, $lang);
         }
         return $this->redirect(\Yii::$app->request->referrer);
@@ -56,7 +56,7 @@ class UserController extends Controller
                 'expire' => time() + 3600 * 24 * 365
             ]));
         } else {
-            //TODO Сохраняем валюту в базе пользователя
+            //Сохраняем валюту в базе пользователя
             $this->service->setCurrency(\Yii::$app->user->id, $currency);
         }
         return $this->redirect(\Yii::$app->request->referrer);

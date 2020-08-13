@@ -6,7 +6,7 @@ namespace admin\controllers\cabinet;
 
 use admin\forms\user\LegalSearch;
 use booking\entities\admin\user\User;
-use booking\forms\auth\UserLegalForm;
+use booking\forms\admin\UserLegalForm;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -89,9 +89,9 @@ class LegalController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-        return $this->render('create', [
-            'user' => $user,
+        return $this->render('update', [
             'model' => $form,
+            'legal' => $legal,
         ]);
 
     }
@@ -109,6 +109,7 @@ class LegalController extends Controller
     {
         $user = $this->findModel();
         $this->service->removeLegal($user->id, $id);
+        return $this->redirect(['/cabinet/legal']);
     }
 
     private function findModel()

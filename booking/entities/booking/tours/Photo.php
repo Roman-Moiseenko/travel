@@ -58,7 +58,7 @@ class Photo extends ActiveRecord
                     'tours_list' => ['width' => 150, 'height' => 150],
                     'tours_widget_list' => ['width' => 57, 'height' => 57],
                     'catalog_list' => ['width' => 228, 'height' => 228],
-                   // 'catalog_stays_main' => [/*'width' => 750, 'height' => 500], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
+                    'catalog_tours_main' => ['width' => 1024, 'height' => 400], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
                     'catalog_tours_additional' => ['width' => 66, 'height' => 66],
                     'catalog_origin' => ['width' => 1024, 'height' => 768],
                 ],

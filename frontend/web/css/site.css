@@ -125,7 +125,7 @@ a.desc:after {
     background: #f7e59a;
     border: #122b40 2px;
     margin: 10px 10px;
-    font-size: 14px !important;
+    /*font-size: 14px !important;*/
 }
 
 .content-container {
@@ -134,7 +134,7 @@ a.desc:after {
 
 .label-search {
     font-weight: bold;
-    font-size: medium;
+   /* font-size: medium;*/
 }
 .nav-link {
     padding: 0.5rem 0.4rem !important;

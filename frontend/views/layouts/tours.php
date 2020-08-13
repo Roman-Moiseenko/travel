@@ -5,8 +5,6 @@
 
 use frontend\widgets\SearchToursWidget; ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
-    <!-- ПОИСК -->
-
 <div class="row">
     <div id="content" class="col-sm-12">
         <?= $content ?>
@@ -15,5 +13,4 @@ use frontend\widgets\SearchToursWidget; ?>
         ВИДЖЕТ ВЫ СМОТРЕЛИ
     </div>
 </div>
-
 <?php $this->endContent() ?>

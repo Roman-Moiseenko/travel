@@ -7,7 +7,6 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 
-
 /* @var $user User */
 /* @var $legal UserLegal */
 
@@ -28,7 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <div class="card">
+    <div class="card card-secondary">
+        <div class="card-header with-border">Основные</div>
         <div class="card-body">
             <?= DetailView::widget([
                 'model' => $legal,
@@ -59,6 +59,54 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
             ]); ?>
+        </div>
+    </div>
+    <div class="card card-secondary">
+        <div class="card-header with-border">Дополнительно</div>
+        <div class="card-body">
+            <?= DetailView::widget([
+                'model' => $legal,
+                'attributes' => [
+                    [
+                        'label' => 'Заголовок (торговая марка)',
+                        'attribute' => 'caption',
+                    ],
+                    [
+                        'label' => 'Адрес',
+                        'attribute' => 'address.address',
+                    ],
+                    [
+                        'label' => 'Офис (помещение, кабинет и пр.)',
+                        'attribute' => 'office',
+                    ],
+                    [
+                        'label' => 'Телефон для уведомлений',
+                        'attribute' => 'noticePhone',
+                    ],
+                    [
+                        'label' => 'Почта для уведомлений',
+                        'attribute' => 'noticeEmail',
+                    ],
+                ],
+            ]); ?>
+        </div>
+    </div>
+    <div class="card card-secondary">
+        <div class="card-header with-border">Описание</div>
+        <div class="card-body">
+            <?= Yii::$app->formatter->asHtml($legal->description, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
+    </div>
+    <div class="card card-secondary">
+        <div class="card-header with-border">Контакты</div>
+        <div class="card-body">
+            Перечень + новые, - старые, динам.виджет
         </div>
     </div>
 </div>

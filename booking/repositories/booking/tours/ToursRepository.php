@@ -3,15 +3,13 @@
 
 namespace booking\repositories\booking\tours;
 
-
 use booking\entities\booking\tours\Tours;
 use booking\entities\booking\tours\Type;
 use booking\forms\booking\tours\SearchToursForm;
-use Prophecy\Argument\Token\TypeToken;
+use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
-use yii\helpers\ArrayHelper;
 
 class ToursRepository
 {
@@ -31,11 +29,15 @@ class ToursRepository
         return$this->getProvider($query);
     }
 
-    ///TODO
-    public function search(SearchToursForm $form): DataProviderInterface
+    public function search(SearchToursForm $form = null): DataProviderInterface
     {
         $query = Tours::find()->alias('t')->with('type', 'mainPhoto');
-
+        if ($form == null) {
+            $query->joinWith(['actualCalendar ac']);
+            $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
+            $query->groupBy('t.id');
+            return $this->getProvider($query);
+        }
         /******  Поиск по Категории ***/
         if ($form->type) {
             if ($category = Type::findOne($form->type)) {
@@ -44,11 +46,11 @@ class ToursRepository
             }
         }
         /******  Поиск по Дате ***/
-        if ($form->date_from == null) $form->date_from = strtotime(date('d-m-Y', time()));
+        if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
         if ($form->date_from || $form->date_to) {
             $query->joinWith(['actualCalendar ac']);
-            if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', $form->date_from]);
-            if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', $form->date_to]);
+            if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', strtotime($form->date_from . '00:00:00')]);
+            if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', strtotime($form->date_to . '23:59:00')]);
         }
         /******  Поиск по Наименованию ***/
         if (!empty($form->text)) {
@@ -65,7 +67,14 @@ class ToursRepository
         if ($form->cost_max) {
             $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
         }
+
+        /******  Поиск по Типу ***/
+        //var_dump($form->private); exit();
+        if ($form->private !== "") {
+            $query->andWhere(['t.params_private' => $form->private]);
+        }
         $query->groupBy('t.id');
+        //scr::p($form);
         return $this->getProvider($query);
         /*
         $pagination = new Pagination([
