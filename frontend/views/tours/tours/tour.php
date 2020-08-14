@@ -10,7 +10,9 @@ use booking\forms\booking\ReviewForm;
 /* @var $reviewForm ReviewForm */
 
 use booking\helpers\CurrencyHelper;
+use booking\helpers\ToursHelper;
 use frontend\assets\MagnificPopupAsset;
+use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -52,30 +54,58 @@ $countReveiws = $tour->countReviews();
     <div class="col-8">
         <div class="row">
             <h1><?= Html::encode($tour->name) ?></h1> <!-- Заголовок тура-->
-            <div class="col-8">
-                <?= \Yii::$app->formatter->asNtext($tour->description) ?>
+            <div class="col-8 params-tour">
+                <p class="text-justify">
+                    <?= \Yii::$app->formatter->asNtext($tour->description) ?>
+                </p>
             </div>
             <div class="col-4">
-                Виджет с лого Компании <?= $tour->legal->name;?>
+                <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
             </div>
         </div>
         <!-- Параметры -->
         <div class="row pt-4">
-            <div class="col">
-                ________________________<br>
-                Продолжительность
-                Индивид/Групп
-                Категории
-                Кол-во в группе
-                Ограничения по возрасту
-                ? Отмена бронирования<br>
-                ________________________
+            <div class="col params-tour">
+                <div class="container-hr">
+                    <hr/>
+                    <div class="text-left-hr">Параметры</div>
+                </div>
+                <span class="params-item">
+                    <i class="far fa-clock"></i>&#160;&#160;<?= $tour->params->duration ?>
+                </span>
+                <span class="params-item">
+                    <?php if ($tour->params->private) {
+                        echo '<i class="fas fa-user"></i>&#160;&#160;Индивидуальный';
+                    } else {
+                        echo '<i class="fas fa-users"></i>&#160;&#160;Групповой';
+                    }
+                    ?>
+                </span>
+                <span class="params-item">
+                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= ToursHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
+                </span>
+                <span class="params-item">
+                    <i class="fas fa-user-clock"></i>&#160;&#160;Ограничения по возрасту <?= ToursHelper::ageLimit($tour->params->agelimit) ?>
+                </span>
+                <span class="params-item">
+                    <i class="fas fa-ban"></i>&#160;&#160;<?= ToursHelper::cancellation($tour->cancellation) ?>
+                </span>
+                <span class="params-item">
+                    <i class="fas fa-layer-group"></i>&#160;&#160;
+                                    <?php foreach ($tour->types as $type) {
+                                        echo $type->name . ' | ';
+                                    }
+                                    echo $tour->type->name; ?>
+                </span>
             </div>
         </div>
         <!-- Дополнения -->
         <div class="row pt-4">
             <div class="col">
-                <h3>Дополнительно:</h3>
+                <div class="container-hr">
+                    <hr/>
+                    <div class="text-left-hr">Дополнительно</div>
+                </div>
                 <table class="table table-bordered">
                     <tbody>
                     <?php foreach ($tour->extra as $extra): ?>
@@ -94,7 +124,10 @@ $countReveiws = $tour->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
-                <h3>Координаты</h3>
+                <div class="container-hr">
+                    <hr/>
+                    <div class="text-left-hr">Координаты</div>
+                </div>
                 Место сбора: Адрес + КАРТА<br>
                 Место окончания: Адрес<br>
                 Если Проведение != Сбора => Место проведения: Адрес
@@ -104,8 +137,11 @@ $countReveiws = $tour->countReviews();
         <div class="row">
             <div class="col">
                 <!-- Виджет подгрузки отзывов -->
-                <h3>Отзывы (<?= $countReveiws ?>)</h3>
-                <?= ''// ReviewsWidget::widget(['tours' => $tour]);     ?>
+                <div class="container-hr">
+                    <hr/>
+                    <div class="text-left-hr">Отзывы (<?= $countReveiws ?>)</div>
+                </div>
+                <?= ''// ReviewsWidget::widget(['tours' => $tour]);        ?>
 
                 <div id="review"></div>
                 <h2>Оставить отзыв</h2>
@@ -178,8 +214,6 @@ $countReveiws = $tour->countReviews();
     </div>
 
 </div>
-
-
 
 
 <?php $js = <<<EOD

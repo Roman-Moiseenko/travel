@@ -139,3 +139,39 @@ a.desc:after {
 .nav-link {
     padding: 0.5rem 0.4rem !important;
 }
+
+.params-tour {
+    font-size: 14px;
+}
+.params-item {
+    margin: 8px 30px 8px 8px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 22px;
+    padding-left: 31px;
+    color: #444;
+    line-height: 22px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.container-hr {
+    position: relative;
+    padding-top: 30px;
+}
+.text-left-hr {
+    position: absolute;
+    left: 40px;
+    top: 29px;
+    background: #fff;
+    padding: 0 10px;
+    font-size: 21px;
+}
+.text-right-hr {
+    position: absolute;
+    right: 40px;
+    top: 29px;
+    background: #fff;
+    padding: 0 10px;
+    font-size: 21px;
+}

@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
                                     $legal->getThumbFileUrl('photo', 'profile'),
                                 ],
                             'initialPreviewAsData' => true,
-                            'overwriteInitial' => false,
+                            'overwriteInitial' => true,
                         ],
                     ]) ?>
                 </div>

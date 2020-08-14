@@ -5,6 +5,7 @@ namespace frontend\controllers\auth;
 
 
 use booking\forms\auth\LoginForm;
+use booking\helpers\scr;
 use booking\services\AuthService;
 use Yii;
 use yii\filters\AccessControl;
@@ -70,7 +71,7 @@ class   AuthController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $user = $this->authService->auth($form);
-                Yii::$app->user->login($user, $form->rememberMe ? 3600 * 24 * 30 : 0);
+                \Yii::$app->user->login($user, ($form->rememberMe == '1') ? 3600 * 24 * 30 : 0);
                 return $this->goBack();
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());

@@ -2,7 +2,7 @@
 return [
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
-    'cookieDomain' => '.shop.loc',
+    'cookieDomain' => '.travel.loc',
     'frontendHostInfo' => 'http://travel.loc',
     'backendHostInfo' => 'http://office.travel.loc',
     'staticHostInfo' => 'http://static.travel.loc',

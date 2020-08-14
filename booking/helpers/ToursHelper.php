@@ -43,7 +43,15 @@ class ToursHelper
     public static function cancellation($cancellation): string
     {
         if ($cancellation === null) return 'Отмена не предусмотрена';
-        if ($cancellation === 0) return 'В любое время';
-        return 'За ' . $cancellation . ' дней';
+        if ($cancellation === 0) return 'Отмена в любое время';
+        return 'Отмена за ' . $cancellation . ' дней';
+    }
+
+    public static function group($min, $max)
+    {
+        if ($min === null && $max === null) return 'Кол-во в группе неограничено';
+        if ($min === null && $max !== null) return 'Не более ' . $max . ' человек';
+        if ($min !== null && $max === null) return 'Не менее ' . $max . ' человек';
+        return 'От ' . $min . ' до ' . $max . ' человек';
     }
 }

@@ -24,24 +24,6 @@ return [
     ],
     'modules' => [],
     'components' => [
-        /*'calendar' => [
-            'class' => 'understeam\calendar\ActiveRecordCalendar',  // Имя класса календаря
-            'modelClass' => CostCalendar::class,                     // Имя класса модели
-            'dateAttribute' => 'tout_at',                              // Атрибут модели, в котором хранится дата (тип в БД timestamp или datetime)
-            'dateRange' => [time() + 86400, time() + 2592000],  // период, в который будет доступно событие onClick
-            // Так же в dateRange можно передать функцию, которая должна вернуть нужный массив в случае если нужны динамические вычисления
-            // 'dateRange' => ['app\models\User', 'getCalendarRange'],
-            /* 'filter' => [
-                     // Фильтр ActiveQuery, который будет применён. Возможно указывать callable для фильтрации
-                     'status' => 1,
-             ],*/
-            // Пример
-            // 'filter' => function ($query, $startTime, $endTime) {
-            //     return $query->andWhere(['userId' => Yii::$app->user->id]);
-            // },
-            // Или так
-            // 'filter' => ['app\models\User', 'filterCalendarQuery'],
-        //],
         'assetManager' => [
             'appendTimestamp' => true,
             'bundles' => [
