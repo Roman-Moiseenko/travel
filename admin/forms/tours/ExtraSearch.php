@@ -5,7 +5,7 @@ namespace admin\forms\tours;
 
 
 use booking\entities\booking\tours\Extra;
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use yii\data\ActiveDataProvider;
 
 class ExtraSearch extends Extra

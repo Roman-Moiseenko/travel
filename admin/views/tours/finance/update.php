@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\ToursHelper;
@@ -10,7 +10,7 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours*/
+/* @var  $tours Tour*/
 /* @var $model ToursFinanceForm */
 
 

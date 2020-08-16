@@ -7,7 +7,7 @@ namespace booking\entities\booking\tours;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\rules\AgeLimit;
 
-class ToursParams
+class TourParams
 {
     public $duration;
     public $private;

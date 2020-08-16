@@ -36,14 +36,14 @@ use yii\web\UploadedFile;
  * @property Type $type
  * @property Type[] $types
  * @property Extra[] $extra
- * @property ToursParams $params
+ * @property TourParams $params
  * @property Photo $mainPhoto
  * @property Photo[] $photos
  * @property Cost $baseCost
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
  */
-class Tours extends ActiveRecord
+class Tour extends ActiveRecord
 {
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 1;
@@ -61,16 +61,16 @@ class Tours extends ActiveRecord
     /** base Data */
     public static function create($name, $type_id, $description, BookingAddress $address): self
     {
-        $tours = new static();
-        $tours->user_id = \Yii::$app->user->id;
-        $tours->created_at = time();
-        $tours->status = Tours::STATUS_INACTIVE;
-        $tours->name = $name;
-        $tours->slug = SlugHelper::slug($name);
-        $tours->type_id = $type_id;
-        $tours->address = $address;
-        $tours->description = $description;
-        return $tours;
+        $tour = new static();
+        $tour->user_id = \Yii::$app->user->id;
+        $tour->created_at = time();
+        $tour->status = Tour::STATUS_INACTIVE;
+        $tour->name = $name;
+        $tour->slug = SlugHelper::slug($name);
+        $tour->type_id = $type_id;
+        $tour->address = $address;
+        $tour->description = $description;
+        return $tour;
     }
 
     public function edit($name, $type_id, $description, BookingAddress $address)
@@ -82,7 +82,7 @@ class Tours extends ActiveRecord
     }
 
     /** params Data */
-    public function setParams(ToursParams $params)
+    public function setParams(TourParams $params)
     {
         $this->params = $params;
     }
@@ -147,7 +147,7 @@ class Tours extends ActiveRecord
             $this->getAttribute('adr_longitude')
         );
 
-        $this->params = new ToursParams(
+        $this->params = new TourParams(
             $this->getAttribute('params_duration'),
             new BookingAddress(
                 $this->getAttribute('params_begin_address'),

@@ -1,11 +1,11 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\ReviewForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $tour Tours */
+/* @var $tour Tour */
 
 /* @var $reviewForm ReviewForm */
 
@@ -269,25 +269,11 @@ $countReveiws = $tour->countReviews();
                     href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post">
                 <i class="fa fa-heart"></i>
             </button>
-            <!-- button type="button" data-toggle="tooltip" class="btn btn-default" title="Сравнить" onclick="compare.add('47');">
-                <i class="fa fa-exchange"></i>
-            </button -->
         </div>
-        <div id="buy-tour" class="required">
-            <hr>
-            <h3>Приобрести билеты на тур</h3>
-            <?= Html::beginForm(['/shop/cart/add', 'id' => $tour->id]); ?>
-            <label class="control-label" for="quantity-product-to-cart">Кол-во</label>
-            ДАТА (Календарь выпадающий с датами доступными только), ВРЕМЯ (список из Календаря),
-            КОЛ-ВО оставшихся билетов, ЦЕНА по категориям, ПОЛЯ ввода Кол-ва билетов каждой категории
-            <input id="quantity-product-to-cart" type="text" name="quantity" value="1" size="1" class="form-control"
-                   required/>
-            <p></p>
-            <div class="form-group">
-                <?= Html::submitButton('Приобрести', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
-            </div>
-            <?= Html::endForm() ?>
-        </div>
+
+        <?= $this->render('_booking', [
+                'tour' => $tour,
+]); ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>

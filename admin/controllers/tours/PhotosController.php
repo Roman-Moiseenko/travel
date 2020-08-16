@@ -4,7 +4,7 @@
 namespace admin\controllers\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\PhotosForm;
 use booking\services\booking\tours\ToursService;
 use yii\filters\AccessControl;
@@ -102,7 +102,7 @@ class PhotosController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tours::findOne($id)) !== null) {
+        if (($model = Tour::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

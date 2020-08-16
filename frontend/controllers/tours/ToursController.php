@@ -4,7 +4,7 @@
 namespace frontend\controllers\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\scr;
@@ -73,10 +73,18 @@ class ToursController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tours::findOne($id)) !== null) {
+        if (($model = Tour::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 //Booking Tour
+
+
+    public function actionBooking()
+    {
+
+    }
+
+
 }

@@ -4,7 +4,7 @@
 namespace admin\controllers\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\CalendarHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\ToursRepository;
@@ -70,7 +70,7 @@ class CalendarController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tours::findOne($id)) !== null) {
+        if (($model = Tour::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

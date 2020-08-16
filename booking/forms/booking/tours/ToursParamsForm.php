@@ -4,7 +4,7 @@
 namespace booking\forms\booking\tours;
 
 
-use booking\entities\booking\tours\ToursParams;
+use booking\entities\booking\tours\TourParams;
 use booking\forms\booking\AgeLimitForm;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\booking\BookingAddressForm2;
@@ -27,7 +27,7 @@ class ToursParamsForm extends CompositeForm
     public $groupMax;
   //  public $children;
 
-    public function __construct(ToursParams $params = null, $config = [])
+    public function __construct(TourParams $params = null, $config = [])
     {
         if ($params != null)
         {

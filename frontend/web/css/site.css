@@ -182,3 +182,6 @@ a.desc:after {
     padding: 0 10px;
     font-size: 21px;
 }
+.bg-booking-widget {
+    background-color: #e7f8ff !important;
+}

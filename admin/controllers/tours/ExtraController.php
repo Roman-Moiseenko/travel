@@ -5,7 +5,7 @@ namespace admin\controllers\tours;
 
 
 use admin\forms\tours\ExtraSearch;
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ExtraForm;
 use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursParamsForm;
@@ -136,7 +136,7 @@ class ExtraController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tours::findOne($id)) !== null) {
+        if (($model = Tour::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

@@ -1,13 +1,13 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\CalendarHelper;
 use dosamigos\datepicker\DatePicker;
 use kartik\widgets\TimePicker;
 
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours */
+/* @var  $tours Tour */
 
 $this->title = 'Календарь ' . $tours->name;
 $this->params['id'] = $tours->id;

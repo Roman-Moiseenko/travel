@@ -2,7 +2,7 @@
 
 namespace admin\forms;
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 /**
  * ProductSearch represents the model behind the search form of `shop\entities\shop\product\Product`.
  */
-class ToursSearch extends Tours
+class TourSearch extends Tour
 {
 
     /**
@@ -33,7 +33,7 @@ class ToursSearch extends Tours
      */
     public function search($params)
     {
-        $query = Tours::find()->with('type')->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
+        $query = Tour::find()->with('type')->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

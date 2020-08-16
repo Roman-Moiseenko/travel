@@ -3,7 +3,7 @@
 namespace admin\controllers;
 
 
-use admin\forms\ToursSearch;
+use admin\forms\TourSearch;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -77,7 +77,7 @@ class SiteController extends Controller
 
     public function actionTours()
     {
-        $searchModel = new ToursSearch();
+        $searchModel = new TourSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('tours', [

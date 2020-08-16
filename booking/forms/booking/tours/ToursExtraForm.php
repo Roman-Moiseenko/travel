@@ -4,7 +4,7 @@
 namespace booking\forms\booking\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -12,7 +12,7 @@ class ToursExtraForm extends Model
 {
     public $assign = [];
 
-    public function __construct(Tours $tour, $config = [])
+    public function __construct(Tour $tour, $config = [])
     {
         $this->assign = ArrayHelper::getColumn($tour->extraAssignments, 'extra_id');
         parent::__construct($config);

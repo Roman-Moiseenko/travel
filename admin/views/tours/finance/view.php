@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\admin\user\UserLegal;
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\ToursHelper;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
@@ -9,7 +9,7 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours */
+/* @var  $tours Tour */
 
 
 $this->title = 'Тур ' . $tours->name;

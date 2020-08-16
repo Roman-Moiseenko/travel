@@ -5,8 +5,8 @@ namespace booking\services\booking\tours;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\Cost;
-use booking\entities\booking\tours\Tours;
-use booking\entities\booking\tours\ToursParams;
+use booking\entities\booking\tours\Tour;
+use booking\entities\booking\tours\TourParams;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\CostForm;
@@ -48,9 +48,9 @@ class ToursService
         $this->extra = $extra;
     }
 
-    public function create(ToursCommonForms $form): Tours
+    public function create(ToursCommonForms $form): Tour
     {
-        $tours = Tours::create(
+        $tours = Tour::create(
             $form->name,
             $form->types->main,
             $form->description,
@@ -138,7 +138,7 @@ class ToursService
     {
         $tours = $this->tours->get($id);
         $tours->setParams(
-            new ToursParams(
+            new TourParams(
                 $form->duration,
                 new BookingAddress(
                     $form->beginAddress->address,
@@ -206,7 +206,7 @@ class ToursService
 
 
 
-    public function save(Tours $tours)
+    public function save(Tour $tours)
     {
         throw new \DomainException('ОШИБКА!!!!!!!!!!!!!!!!!!!!! БЛЯДЬ ОТКУДА!!!!!!!!!!!!!!!!!!!!11');
     }

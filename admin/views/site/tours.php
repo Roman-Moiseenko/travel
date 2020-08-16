@@ -1,12 +1,12 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel admin\forms\ToursSearch */
+/* @var $searchModel admin\forms\TourSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Мои туры';
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'value' => function (Tours $model) {
+                'value' => function (Tour $model) {
                     return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
                 },
                 'format' => 'raw',
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'name',
-                'value' => function (Tours $model) {
+                'value' => function (Tour $model) {
                     return Html::a(Html::encode($model->name), ['/tours/common', 'id' => $model->id]);
                 },
                 'format' => 'raw',

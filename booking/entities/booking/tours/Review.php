@@ -56,6 +56,6 @@ class Review extends ActiveRecord
 
     public function getTours(): ActiveQuery
     {
-        return $this->hasOne(Tours::class, ['id' => 'tours_id']);
+        return $this->hasOne(Tour::class, ['id' => 'tours_id']);
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\ToursHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours*/
+/* @var  $tours Tour*/
 
 
 $this->title = 'Параметры тура ' . $tours->name;
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'label' => 'Ограничение по возрасту',
-                                'value' => function (Tours $model) {
+                                'value' => function (Tour $model) {
                                     return ToursHelper::ageLimit($model->params->agelimit);
                                 },
                             ],

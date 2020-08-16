@@ -3,7 +3,7 @@
 
 namespace booking\repositories\booking\tours;
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
 use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\scr;
@@ -15,23 +15,23 @@ class ToursRepository
 {
     public function get($id)
     {
-        return Tours::findOne($id);
+        return Tour::findOne($id);
     }
 
     public function getByUser($user_id)
     {
-        return Tours::find()->andWhere(['user_id' => $user_id])->orderBy(['created_at' => SORT_DESC]);
+        return Tour::find()->andWhere(['user_id' => $user_id])->orderBy(['created_at' => SORT_DESC]);
     }
 
     public function getAll(): DataProviderInterface
     {
-        $query = Tours::find()->alias('t');
+        $query = Tour::find()->alias('t');
         return$this->getProvider($query);
     }
 
     public function search(SearchToursForm $form = null): DataProviderInterface
     {
-        $query = Tours::find()->alias('t')->with('type', 'mainPhoto');
+        $query = Tour::find()->alias('t')->with('type', 'mainPhoto');
         if ($form == null) {
             $query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
@@ -152,21 +152,21 @@ class ToursRepository
 
     public function getAllByType(Type $type): DataProviderInterface
     {
-        $query = Tours::find()->alias('t')->active('t')->with('mainPhoto', 'type');
+        $query = Tour::find()->alias('t')->active('t')->with('mainPhoto', 'type');
         $query->joinWith(['typeAssignments ta'], false);
         $query->andWhere(['or', ['t.type_id' => $type->id], ['ca.type_id' => $type->id]]);
         $query->groupBy('t.id');
         return $this->getProvider($query);
     }
 
-    public function save(Tours $tours)
+    public function save(Tour $tours)
     {
         if (!$tours->save()) {
             throw new \RuntimeException('Тур не сохранен');
         }
     }
 
-    public function remove(Tours $tours)
+    public function remove(Tour $tours)
     {
         if (!$tours->delete()) {
             throw new \RuntimeException('Ошибка удаления Тура');

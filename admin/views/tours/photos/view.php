@@ -1,13 +1,13 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\PhotosForm;
 use kartik\widgets\FileInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours*/
+/* @var  $tours Tour*/
 /* @var $photosForm PhotosForm */
 
 $this->title = 'Тур ' . $tours->name;

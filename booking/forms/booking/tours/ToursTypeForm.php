@@ -3,7 +3,7 @@
 
 namespace booking\forms\booking\tours;
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -12,7 +12,7 @@ class ToursTypeForm extends Model
     public $main;
     public $others = [];
 
-    public function __construct(Tours $tour = null, $config = [])
+    public function __construct(Tour $tour = null, $config = [])
     {
         if ($tour) {
             $this->main = $tour->type_id;

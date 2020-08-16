@@ -1,12 +1,12 @@
 <?php
 
 use booking\entities\booking\tours\Extra;
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tours */
+/* @var  $tours Tour */
 /* @var $searchModel admin\forms\tours\ExtraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $extra Extra */

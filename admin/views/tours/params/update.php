@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursParamsForm;
 use booking\helpers\ToursHelper;
 use yii\helpers\Html;
@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model ToursParamsForm */
-/* @var $tours Tours */
+/* @var $tours Tour */
 
 $this->title = 'Редактировать Тур' . $tours->name;
 $this->params['id'] = $tours->id;

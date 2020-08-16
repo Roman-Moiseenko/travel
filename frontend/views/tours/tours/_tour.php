@@ -1,14 +1,14 @@
 <?php
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\CurrencyHelper;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
-/* @var $tour Tours */
+/* @var $tour Tour */
 ?>
 
 

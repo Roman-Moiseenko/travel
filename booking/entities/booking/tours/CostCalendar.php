@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $tickets
  * @property integer $status
  * @property Cost $cost
- * @property Tours $tours
+ * @property Tour $tours
  * @property BookingTours[] $bookings
  */
 class CostCalendar extends ActiveRecord // implements ItemInterface
@@ -35,7 +35,7 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         $calendar->time_at = $time_at;
         $calendar->tickets = $tickets;
         $calendar->cost = $cost;
-        $calendar->status = Tours::TOUR_EMPTY;
+        $calendar->status = Tour::TOUR_EMPTY;
         return $calendar;
     }
 
@@ -70,12 +70,12 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
 
     public function isEmpty()
     {
-        return $this->status === Tours::TOUR_EMPTY;
+        return $this->status === Tour::TOUR_EMPTY;
     }
 
     public function getTours(): ActiveQuery
     {
-        return $this->hasOne(Tours::class, ['id' => 'tours_id']);
+        return $this->hasOne(Tour::class, ['id' => 'tours_id']);
     }
 
     public function getFreeTickets(): int 

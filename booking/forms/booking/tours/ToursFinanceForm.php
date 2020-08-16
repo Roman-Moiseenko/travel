@@ -4,7 +4,7 @@
 namespace booking\forms\booking\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\CompositeForm;
 use yii\base\Model;
 
@@ -18,7 +18,7 @@ class ToursFinanceForm extends CompositeForm
     public $legal_id;
     public $cancellation;
 
-    public function __construct(Tours $tour, $config = [])
+    public function __construct(Tour $tour, $config = [])
     {
         $this->legal_id = $tour->legal_id;
         $this->cancellation = $tour->cancellation;

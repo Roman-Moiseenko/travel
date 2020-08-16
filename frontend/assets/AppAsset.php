@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'js/common.js',
         'js/site.js',
         'js/map.js',
+        'js/calendar_tour.js',
     ];
     public $depends = [
         //  'frontend\assets\MagnificPopupAsset',

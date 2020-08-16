@@ -4,7 +4,7 @@
 namespace admin\controllers\tours;
 
 
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\helpers\CalendarHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
@@ -95,7 +95,7 @@ class FinanceController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tours::findOne($id)) !== null) {
+        if (($model = Tour::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

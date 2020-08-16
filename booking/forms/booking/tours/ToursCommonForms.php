@@ -5,7 +5,7 @@ namespace booking\forms\booking\tours;
 
 
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\tours\Tours;
+use booking\entities\booking\tours\Tour;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
@@ -20,7 +20,7 @@ class ToursCommonForms extends CompositeForm
     public $name;
     public $description;
 
-    public function __construct(Tours $tours = null, $config = [])
+    public function __construct(Tour $tours = null, $config = [])
     {
        // $this->photos = new PhotosForm();
         if ($tours)
