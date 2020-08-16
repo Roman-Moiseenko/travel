@@ -14,6 +14,7 @@ use booking\helpers\ToursHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
+use frontend\widgets\ReviewsToursWidget;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -104,7 +105,7 @@ $countReveiws = $tour->countReviews();
             <div class="col">
                 <div class="container-hr">
                     <hr/>
-                    <div class="text-left-hr">Дополнительно</div>
+                    <div class="text-left-hr">Дополнения</div>
                 </div>
                 <table class="table table-bordered">
                     <tbody>
@@ -128,9 +129,99 @@ $countReveiws = $tour->countReviews();
                     <hr/>
                     <div class="text-left-hr">Координаты</div>
                 </div>
-                Место сбора: Адрес + КАРТА<br>
-                Место окончания: Адрес<br>
-                Если Проведение != Сбора => Место проведения: Адрес
+                <div class="params-item-map">
+                    Место сбора:&#160;
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            data-target="#collapse-map"
+                            aria-expanded="false" aria-controls="collapse-map">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    &#160;<?= $tour->params->beginAddress->address; ?>
+                    <div class="collapse" id="collapse-map">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-8">
+                                    <input id="bookingaddressform-address" class="form-control" width="100%"
+                                           value="<?= $tour->params->beginAddress->address ?? ' ' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-latitude" class="form-control" width="100%"
+                                           value="<?= $tour->params->beginAddress->latitude ?? '' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-longitude" class="form-control" width="100%"
+                                           value="<?= $tour->params->beginAddress->longitude ?? '' ?>" type="hidden">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="map-view" style="width: 100%; height: 300px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="params-item-map">
+                    Место окончания:&#160;
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            data-target="#collapse-map-2"
+                            aria-expanded="false" aria-controls="collapse-map-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    &#160;<?= $tour->params->endAddress->address; ?>
+                    <div class="collapse" id="collapse-map-2">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-8">
+                                    <input id="bookingaddressform-address-2" class="form-control" width="100%"
+                                           value="<?= $tour->params->endAddress->address ?? ' ' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-latitude-2" class="form-control" width="100%"
+                                           value="<?= $tour->params->endAddress->latitude ?? '' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-longitude-2" class="form-control" width="100%"
+                                           value="<?= $tour->params->endAddress->longitude ?? '' ?>" type="hidden">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="map-view-2" style="width: 100%; height: 300px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="params-item-map">
+                    Место Проведение:&#160;
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            data-target="#collapse-map-3"
+                            aria-expanded="false" aria-controls="collapse-map-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    &#160;<?= $tour->address->address; ?>
+                    <div class="collapse" id="collapse-map-3">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-8">
+                                    <input id="bookingaddressform-address-3" class="form-control" width="100%"
+                                           value="<?= $tour->address->address ?? ' ' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-latitude-3" class="form-control" width="100%"
+                                           value="<?= $tour->address->latitude ?? '' ?>" type="hidden">
+                                </div>
+                                <div class="col-2">
+                                    <input id="bookingaddressform-longitude-3" class="form-control" width="100%"
+                                           value="<?= $tour->address->longitude ?? '' ?>" type="hidden">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="map-view-3" style="width: 100%; height: 300px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- ОТЗЫВЫ -->
@@ -141,10 +232,15 @@ $countReveiws = $tour->countReviews();
                     <hr/>
                     <div class="text-left-hr">Отзывы (<?= $countReveiws ?>)</div>
                 </div>
-                <?= ''// ReviewsWidget::widget(['tours' => $tour]);        ?>
-
-                <div id="review"></div>
-                <h2>Оставить отзыв</h2>
+                <div id="review">
+                    <?= ReviewsToursWidget::widget(['tours' => $tour]); ?>
+                </div>
+                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                        data-target="#collapse-review"
+                        aria-expanded="false" aria-controls="collapse-review">
+                    Оставить отзыв
+                </button>
+                <div class="collapse" id="collapse-review">
                 <?php if (Yii::$app->user->isGuest): ?>
                     <div class="card">
                         <div class="card-body">
@@ -162,7 +258,7 @@ $countReveiws = $tour->countReviews();
                     </div>
                     <?php ActiveForm::end() ?>
                 <?php endif; ?>
-
+                </div>
             </div>
         </div>
     </div>

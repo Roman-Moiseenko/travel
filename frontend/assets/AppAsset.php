@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/common.js',
         'js/site.js',
+        'js/map.js',
     ];
     public $depends = [
         //  'frontend\assets\MagnificPopupAsset',
