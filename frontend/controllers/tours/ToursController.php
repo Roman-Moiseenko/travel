@@ -78,13 +78,7 @@ class ToursController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-//Booking Tour
 
-
-    public function actionBooking()
-    {
-
-    }
 
 
 }

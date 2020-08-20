@@ -32,57 +32,60 @@ $(document).ready(function () {
         language: 'ru',
 
         beforeShowDay: function (date) {
-            if (full_array_tours === undefined) return {enabled: true};
+            if (full_array_tours === undefined) return {enabled: false};
             var tours = full_array_tours[date.getFullYear()]; //Массив по текущему году
-            if (tours === undefined) return {enabled: true};
+            if (tours === undefined) return {enabled: false};
             tours = tours[date.getMonth() + 1];
-            if (tours === undefined) return {enabled: true}; //Массив по текущему месяцу
+            if (tours === undefined) return {enabled: false}; //Массив по текущему месяцу
             tours = tours[date.getDate()];
-            if (tours === undefined) return {enabled: true}; //Объект по текущему дню
-            var dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
-            var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
-            if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
+            if (tours === undefined) return {enabled: false}; //Объект по текущему дню
+          //  var dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
+          //  var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
+          /*  if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
                 return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
-            }
-            return {enabled: false, classes: 'tour-day', tooltip: '', content: content};
+            }*/
+            return {enabled: true, classes: 'tour-day'};
         }
     });
     //Событие при выборе даты
-  /*  $('#datepicker-tour').datepicker().on('changeDate', function (e) {
+   $('#datepicker-tour').datepicker().on('changeDate', function (e) {
         console.log(e);
             // получаем сведения о тек.дне
-            $.post('/tours/calendar/getday',
+            $.post('/tours/booking/getday',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {
-                    var dateInfo = JSON.parse(data);
-                    $('.list-tours').html(dateInfo._list);
-                    $('.new-tours').html(dateInfo._new);
+                    console.log(data);
+                    $('.list-tours').html(data);
                 });
-
     });
+
     //Событие при выборе месяца
     $('#datepicker-tour').datepicker().on('changeMonth', function (e) {
 
-        $.post('/tours/calendar/getcalendar',
+        $.post('/tours/booking/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
                 console.log(data);
                 full_array_tours = JSON.parse(data);
                 $('#datepicker-tour').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
                 $('#datepicker-tour').datepicker('update');
-                if (!$('#data-day-copy').is(':checked')) {
-                    $('.list-tours').html();
-                    $('.new-tours').html();
-                }
+
+                $.post('/tours/booking/getday',
+                    {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: 1, tour_id: tour_id},
+                    function (data) {
+                        $('.list-tours').html(data);
+                    });
+
             });
     });
+
     //Загружаем Массив туров по дням за текущий день
-    $.post('/tours/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+    $.post('/tours/booking/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
         console.log(data);
         full_array_tours = JSON.parse(data);
         $('#datepicker-tour').datepicker('update');
     });
 
-*/
+
 });
 
 

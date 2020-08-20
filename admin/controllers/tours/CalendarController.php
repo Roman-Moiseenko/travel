@@ -90,7 +90,7 @@ class CalendarController extends Controller
                 $year = $params['year'];
                 $day = 1;
             }
-            return json_encode($this->getCalendar($params['tour_id'], $month, $year, $day));
+            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year, $day));
         }
     }
 
@@ -142,7 +142,7 @@ class CalendarController extends Controller
             } catch (\Exception $e) {
                 return $e->getMessage();
             }
-            return json_encode($this->getCalendar($params['tour_id'], $params['month'], $params['year']));
+            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $params['month'], $params['year']));
         }
     }
 
@@ -159,28 +159,6 @@ class CalendarController extends Controller
         }
     }
 
-    private function getCalendar($tour_id, $month, $year, $day = 1)
-    {
-        try {
-            $interval = CalendarHelper::getInterval($month, $year, $day);
-            $calendars = $this->calendar->getActualInterval($tour_id, $interval['min'], $interval['max']);
-            $result = [];
-            foreach ($calendars as $calendar) {
-                $y = (int)date('Y', $calendar->tour_at);
-                $m = (int)date('m', $calendar->tour_at);
-                $d = (int)date('d', $calendar->tour_at);
-                if (!isset($result[$y][$m][$d])) {
-                    $result[$y][$m][$d] = ['count' => 1];
-                } else {
-                    $result[$y][$m][$d]['count']++;
-                }
-            }
-        } catch (\Throwable $e) {
-            return $e->getMessage();
-        }
-        return $result;
-
-    }
 
     private function getInfoDay($Y, $M, $D, $id, $errors = [])
     {
@@ -291,7 +269,7 @@ HTML;
                     </div>
                 </div>
 HTML;
-        $result = ['_list' => $listTours, '_new' => $newTours, 'full_array_tours' => $this->getCalendar($id, (int)$M, (int)$Y)];
+        $result = ['_list' => $listTours, '_new' => $newTours, 'full_array_tours' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
         return json_encode($result);
     }
 }

@@ -16,14 +16,15 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/opencart.css',
         'css/stylesheet.css',
-        'css/font-awesome/css/font-awesome.css'
-
+        'css/font-awesome/css/font-awesome.css',
+        'css/glyphicon.css',
     ];
     public $js = [
         'js/common.js',
         'js/site.js',
         'js/map.js',
         'js/calendar_tour.js',
+
     ];
     public $depends = [
         //  'frontend\assets\MagnificPopupAsset',

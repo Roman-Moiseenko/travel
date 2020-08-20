@@ -5,6 +5,7 @@ namespace booking\repositories\booking\tours;
 
 
 use booking\entities\booking\tours\CostCalendar;
+use booking\helpers\CalendarHelper;
 
 class CostCalendarRepository
 {
@@ -33,5 +34,27 @@ class CostCalendarRepository
             ->andWhere(['>=', 'tour_at', $min])
             ->andWhere(['<=', 'tour_at', $max])
             ->all();
+    }
+
+    public function getCalendarForDatePicker($tour_id, $month, $year, $day = 1)
+    {
+        try {
+            $interval = CalendarHelper::getInterval($month, $year, $day);
+            $calendars = $this->getActualInterval($tour_id, $interval['min'], $interval['max']);
+            $result = [];
+            foreach ($calendars as $calendar) {
+                $y = (int)date('Y', $calendar->tour_at);
+                $m = (int)date('m', $calendar->tour_at);
+                $d = (int)date('d', $calendar->tour_at);
+                if (!isset($result[$y][$m][$d])) {
+                    $result[$y][$m][$d] = ['count' => 1];
+                } else {
+                    $result[$y][$m][$d]['count']++;
+                }
+            }
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+        return $result;
     }
 }
