@@ -66,15 +66,43 @@ $(document).ready(function () {
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
                 console.log(data);
                 full_array_tours = JSON.parse(data);
-                $('#datepicker-tour').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
-                $('#datepicker-tour').datepicker('update');
+                if (full_array_tours === undefined) {
+                    $('.list-tours').html();
+                    return true;
+                }
+                var tours = full_array_tours[e.date.getFullYear()]; //Массив по текущему году
+                if (tours === undefined) {
+                    $('.list-tours').html();
+                    return true;
+                }
+                tours = tours[e.date.getMonth() + 1];
+                if (tours === undefined) {
+                    $('.list-tours').html();
+                    return true;
+                } //Массив по текущему месяцу
+                console.log(tours);
+                for (var i = 1; i <= 31; i ++) {
+                    if (tours[i] !== undefined) {
+                        $('#datepicker-tour').datepicker('update', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + i));
+                        $.post('/tours/booking/getday',
+                            {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: i, tour_id: tour_id},
+                            function (data) {
+                                $('.list-tours').html(data);
+                            });
+                        return true;
+                    }
+                }
+              //  $('#datepicker-tour').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
+                //Находим первое число в тек. месяце, если нет, то не обновляем
 
-                $.post('/tours/booking/getday',
+               // $('#datepicker-tour').datepicker('clearDates');
+            /*
+            $.post('/tours/booking/getday',
                     {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: 1, tour_id: tour_id},
                     function (data) {
                         $('.list-tours').html(data);
                     });
-
+*/
             });
     });
 
