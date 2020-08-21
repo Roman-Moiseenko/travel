@@ -14,6 +14,7 @@ DatepickerAsset::register($this);
     <div class="card-body">
         <input type="hidden" id="number-tour" value="<?= $tour->id ?>">
         <?= Html::beginForm(['tour/tour/booking']); ?>
+        <label for="datepicker-tour">Выберите дату</label>
         <div class="input-group date" id="datepicker-tour">
             <div class="input-group-prepend">
                 <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>

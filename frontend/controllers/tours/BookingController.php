@@ -11,6 +11,7 @@ use yii\web\Controller;
 
 class BookingController  extends Controller
 {
+    public $layout='main_ajax';
     /**
      * @var ToursService
      */
@@ -66,7 +67,10 @@ class BookingController  extends Controller
     {
         $day_tours = $this->calendar->getDay($tour_id, strtotime($day . '-' . $month . '-' . $year . ' 00:00:00'));
 
-        return '<h1>' . count($day_tours) . '</h1>';
+        return $this->render('_list-tours', [
+            'temp' => ' День ' . $day . '. Кол-во туров ' . count($day_tours),
+        ]);
+        //'<h1>' . count($day_tours) . '</h1>';
 
     }
 }
