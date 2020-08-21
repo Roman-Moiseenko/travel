@@ -51,10 +51,10 @@ $(document).ready(function () {
    $('#datepicker-tour').datepicker().on('changeDate', function (e) {
         console.log(e);
             // получаем сведения о тек.дне
-            $.post('/tours/booking/getday',
+            $.post('/tours/booking/getlisttours',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {
-                    console.log(data);
+                    //console.log(data);
                     $('.list-tours').html(data);
                 });
     });
@@ -113,7 +113,44 @@ $(document).ready(function () {
         $('#datepicker-tour').datepicker('update');
     });
 
+    $(document).on('change', '#booking-tour-time', function () {
+        let calendar_id = $(this).val();
+        console.log(calendar_id);
+        if (calendar_id != -1) {
+            $.post('/tours/booking/gettickets', {calendar_id: calendar_id}, function (data) {
+                console.log(data);
+                $('.tickets-tours').html(data);
+                $('#button-booking-tour').attr('disabled', 'disabled');
+            });
+        }
+    });
+    $(document).on('input', '.count-tickets', function (data) {
+        let count_tickets = Number($('#label-count-tickets').attr('data-count'));
+        let count_adult = $('#count-adult').val();
+        if (count_adult === undefined) count_adult = 0;
+        let count_child = $('#count-child').val();
+        if (count_child === undefined) count_child = 0;
+        let count_preference = $('#count-preference').val();
+        if (count_preference === undefined) count_preference = 0;
 
+
+        if (count_tickets < (Number(count_adult) + Number(count_child) + Number(count_preference))) {
+            $('#button-booking-tour').attr('disabled', 'disabled');
+            $('.errors-tours').html('Превышено кол-во билетов');
+        } else {
+            $('.errors-tours').html('');
+            if (Number(count_adult) + Number(count_child) + Number(count_preference) > 0) {
+                $('#button-booking-tour').removeAttr('disabled');
+            } else {
+                $('#button-booking-tour').attr('disabled', 'disabled');
+                $('.errors-tours').html('Не указано кол-во билетов');
+            }
+
+        }
+
+
+
+    });
 });
 
 

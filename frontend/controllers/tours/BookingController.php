@@ -68,9 +68,32 @@ class BookingController  extends Controller
         $day_tours = $this->calendar->getDay($tour_id, strtotime($day . '-' . $month . '-' . $year . ' 00:00:00'));
 
         return $this->render('_list-tours', [
-            'temp' => ' День ' . $day . '. Кол-во туров ' . count($day_tours),
+            'day_tours' => $day_tours,
         ]);
-        //'<h1>' . count($day_tours) . '</h1>';
+    }
 
+    public function actionGetlisttours()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $day_tours = $this->calendar->getDay(
+                $params['tour_id'],
+                strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00')
+            );
+            return $this->render('_list-tours', [
+                'day_tours' => $day_tours,
+            ]);
+        }
+    }
+
+    public function actionGettickets()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $current = $this->calendar->get($params['calendar_id']);
+            return $this->render('_tickets-tours', [
+                'current' => $current,
+            ]);
+        }
     }
 }

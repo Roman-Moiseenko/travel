@@ -22,10 +22,16 @@ DatepickerAsset::register($this);
             <input type="text" id="datepicker_value" value="" class="form-control"/>
         </div>
         <div class="list-tours"></div>
-        ДАТА (Календарь выпадающий с датами доступными только), ВРЕМЯ (список из Календаря),
-        КОЛ-ВО оставшихся билетов, ЦЕНА по категориям, ПОЛЯ ввода Кол-ва билетов каждой категории
+        <p></p>
         <div class="form-group">
-            <?= Html::submitButton('Приобрести', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+            <?= Html::submitButton(
+                'Приобрести',
+                [
+                    'class' => 'btn btn-primary btn-lg btn-block',
+                    'disabled' => 'disabled',
+                    'id' => 'button-booking-tour'
+                ]
+            ) ?>
         </div>
         <?= Html::endForm() ?>
     </div>

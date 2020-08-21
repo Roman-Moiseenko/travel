@@ -185,3 +185,7 @@ a.desc:after {
 .bg-booking-widget {
     background-color: #e7f8ff !important;
 }
+
+.errors-tours {
+    color: #731825;
+}
