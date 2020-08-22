@@ -5,19 +5,19 @@ namespace frontend\controllers\tours;
 
 
 use booking\repositories\booking\tours\CostCalendarRepository;
-use booking\repositories\booking\tours\ToursRepository;
-use booking\services\booking\tours\ToursService;
+use booking\repositories\booking\tours\TourRepository;
+use booking\services\booking\tours\TourService;
 use yii\web\Controller;
 
 class BookingController  extends Controller
 {
     public $layout='main_ajax';
     /**
-     * @var ToursService
+     * @var TourService
      */
     private $service;
     /**
-     * @var ToursRepository
+     * @var TourRepository
      */
     private $tours;
     /**
@@ -27,8 +27,8 @@ class BookingController  extends Controller
 
     public function __construct($id,
                                 $module,
-                                ToursService $service,
-                                ToursRepository $tours,
+                                TourService $service,
+                                TourRepository $tours,
                                 CostCalendarRepository $calendar,
                                 $config = [])
     {
@@ -59,7 +59,7 @@ class BookingController  extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
-            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
+            return '<h1>ERRORS</h1>'; // $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
         }
     }
 

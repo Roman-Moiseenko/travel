@@ -21,7 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property Cost $cost
  * @property Tour $tours
- * @property BookingTours[] $bookings
+ * @property BookingTour[] $bookings
  */
 class CostCalendar extends ActiveRecord // implements ItemInterface
 {
@@ -92,6 +92,6 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
     
     public function getBooking(): ActiveQuery
     {
-        return $this->hasMany(BookingTours::class, ['calendar' => 'id'])->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingTours::BOOKING_CANCEL]);
+        return $this->hasMany(BookingTour::class, ['calendar' => 'id'])->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingTour::BOOKING_CANCEL]);
     }
 }

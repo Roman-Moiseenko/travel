@@ -4,7 +4,7 @@
 namespace booking\forms\booking\tours;
 
 
-use booking\entities\booking\tours\BookingTours;
+use booking\entities\booking\tours\BookingTour;
 use booking\forms\CompositeForm;
 
 /**
@@ -16,7 +16,7 @@ class BookingToursForm extends CompositeForm
 {
     public $calendar_id;
 
-    public function __construct(BookingTours $booking = null, $config = [])
+    public function __construct(BookingTour $booking = null, $config = [])
     {
         if (!$booking) {
             $this->calendar_id = $booking->calendar_id;

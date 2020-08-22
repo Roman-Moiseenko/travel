@@ -8,8 +8,8 @@ use booking\entities\booking\tours\Tour;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\scr;
-use booking\repositories\booking\tours\ToursRepository;
-use booking\services\booking\tours\ToursService;
+use booking\repositories\booking\tours\TourRepository;
+use booking\services\booking\tours\TourService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -17,15 +17,15 @@ class ToursController extends Controller
 {
     public $layout = 'tours';
     /**
-     * @var ToursRepository
+     * @var TourRepository
      */
     private $tours;
     /**
-     * @var ToursService
+     * @var TourService
      */
     private $service;
 
-    public function __construct($id, $module, ToursRepository $tours, ToursService $service, $config = [])
+    public function __construct($id, $module, TourRepository $tours, TourService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->tours = $tours;

@@ -1,7 +1,7 @@
 <?php
 namespace booking\entities\user;
 
-use booking\entities\booking\tours\BookingTours;
+use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use Yii;
@@ -29,7 +29,7 @@ use yii\web\UploadedFile;
  * @property Network[] $networks
  * @property Personal $personal
  * @property Preferences $preferences
- * @property BookingTours[] bookingTours
+ * @property BookingTour[] bookingTours
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -151,7 +151,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function addBookingTours($amount, $calendar_id, Cost $count)
     {
         $bookings = $this->bookingTours;
-        $booking = BookingTours::create($amount, $calendar_id, $count);
+        $booking = BookingTour::create($amount, $calendar_id, $count);
         $bookings[] = $booking;
         $this->bookingTours = $bookings;
     }
@@ -201,7 +201,7 @@ class User extends ActiveRecord implements IdentityInterface
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
     {
-        return $this->hasMany(BookingTours::class, ['user_id' => 'id']);
+        return $this->hasMany(BookingTour::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

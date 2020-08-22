@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
 
-class ToursRepository
+class TourRepository
 {
     public function get($id)
     {

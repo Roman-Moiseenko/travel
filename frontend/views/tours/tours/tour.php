@@ -51,10 +51,29 @@ $countReveiws = $tour->countReviews();
     </div>
 </div>
 <!-- ОПИСАНИЕ -->
+
+
 <div class="row">
     <div class="col-8">
+        <!-- Заголовок тура-->
+        <div class="row pb-3">
+            <div class="col-12">
+            <div class="d-flex">
+                <div class="mr-auto">
+                    <h1><?= Html::encode($tour->name) ?></h1>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" data-toggle="tooltip" class="btn btn-default" title="В избранное"
+                            href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post">
+                        <i class="fa fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Описание -->
         <div class="row">
-            <h1><?= Html::encode($tour->name) ?></h1> <!-- Заголовок тура-->
             <div class="col-8 params-tour">
                 <p class="text-justify">
                     <?= \Yii::$app->formatter->asNtext($tour->description) ?>
@@ -62,6 +81,43 @@ $countReveiws = $tour->countReviews();
             </div>
             <div class="col-4">
                 <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
+            </div>
+        </div>
+        <!-- Стоимость -->
+        <div class="row pt-4">
+            <div class="col params-tour">
+                <div class="container-hr">
+                    <hr/>
+                    <div class="text-left-hr">Стоимость</div>
+                </div>
+                <span class="params-item">
+                    <?php if ($tour->baseCost->adult): ?>
+                        <i class="fas fa-user"></i>&#160;&#160;Взрослый билет <span class="price-view">
+                            <?= CurrencyHelper::get($tour->baseCost->adult) ?>
+                        </span>
+                    <?php endif; ?>
+                </span>
+                <p></p>
+                <span class="params-item">
+                    <?php if ($tour->baseCost->child): ?>
+                        <i class="fas fa-child"></i>&#160;&#160;Детский билет <span class="price-view">
+                        <?= CurrencyHelper::get($tour->baseCost->child) ?>
+                        </span>
+                    <?php endif; ?>
+
+                </span>
+                <p></p>
+                <span class="params-item">
+                    <?php if ($tour->baseCost->preference): ?>
+                        <i class="fab fa-accessible-icon"></i>&#160;&#160;Льготный билет <span class="price-view">
+                        <?= CurrencyHelper::get($tour->baseCost->preference) ?>
+                        </span>
+                    <?php endif; ?>
+                </span>
+                <p></p>
+                <span class="params-item">
+                    <i class="fas fa-star-of-life"></i>&#160;&#160;Цена билета может меняться в зависимости от даты и времени
+                </span>
             </div>
         </div>
         <!-- Параметры -->
@@ -130,13 +186,19 @@ $countReveiws = $tour->countReviews();
                     <div class="text-left-hr">Координаты</div>
                 </div>
                 <div class="params-item-map">
-                    Место сбора:&#160;
-                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                            data-target="#collapse-map"
-                            aria-expanded="false" aria-controls="collapse-map">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </button>
-                    &#160;<?= $tour->params->beginAddress->address; ?>
+                    <div class="row">
+                        <div class="col-4">
+
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                    data-target="#collapse-map"
+                                    aria-expanded="false" aria-controls="collapse-map">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>&#160;Место сбора:
+                        </div>
+                        <div class="col-8">
+                            <?= $tour->params->beginAddress->address; ?>
+                        </div>
+                    </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
                             <div class="row">
@@ -161,13 +223,19 @@ $countReveiws = $tour->countReviews();
                     </div>
                 </div>
                 <div class="params-item-map">
-                    Место окончания:&#160;
-                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                            data-target="#collapse-map-2"
-                            aria-expanded="false" aria-controls="collapse-map-2">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </button>
-                    &#160;<?= $tour->params->endAddress->address; ?>
+                    <div class="row">
+                        <div class="col-4">
+
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                    data-target="#collapse-map-2"
+                                    aria-expanded="false" aria-controls="collapse-map-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>&#160;Место окончания:
+                        </div>
+                        <div class="col-8">
+                            <?= $tour->params->endAddress->address; ?>
+                        </div>
+                    </div>
                     <div class="collapse" id="collapse-map-2">
                         <div class="card card-body">
                             <div class="row">
@@ -192,13 +260,19 @@ $countReveiws = $tour->countReviews();
                     </div>
                 </div>
                 <div class="params-item-map">
-                    Место Проведение:&#160;
-                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                            data-target="#collapse-map-3"
-                            aria-expanded="false" aria-controls="collapse-map-2">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </button>
-                    &#160;<?= $tour->address->address; ?>
+                    <div class="row">
+                        <div class="col-4">
+
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                    data-target="#collapse-map-3"
+                                    aria-expanded="false" aria-controls="collapse-map-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>&#160;Место проведение:
+                        </div>
+                        <div class="col-8">
+                            <?= $tour->address->address; ?>
+                        </div>
+                    </div>
                     <div class="collapse" id="collapse-map-3">
                         <div class="card card-body">
                             <div class="row">
@@ -241,39 +315,33 @@ $countReveiws = $tour->countReviews();
                     Оставить отзыв
                 </button>
                 <div class="collapse" id="collapse-review">
-                <?php if (Yii::$app->user->isGuest): ?>
-                    <div class="card">
-                        <div class="card-body">
-                            Пожалуйста, <?= Html::a('авторизуйтесь', ['/auth/auth/login']) ?> для написания отзыва
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <div class="card">
+                            <div class="card-body">
+                                Пожалуйста, <?= Html::a('авторизуйтесь', ['/auth/auth/login']) ?> для написания отзыва
+                            </div>
                         </div>
-                    </div>
-                <?php else: ?>
-                    <?php $form = ActiveForm::begin() ?>
-                    <?= $form->field($reviewForm, 'vote')->dropDownList($reviewForm->voteList(), ['prompt' => '--- Выберите ---'])->label('Рейтинг'); ?>
+                    <?php else: ?>
+                        <?php $form = ActiveForm::begin() ?>
+                        <?= $form->field($reviewForm, 'vote')->dropDownList($reviewForm->voteList(), ['prompt' => '--- Выберите ---'])->label('Рейтинг'); ?>
 
-                    <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label('Отзыв'); ?>
+                        <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label('Отзыв'); ?>
 
-                    <div class="form-group">
-                        <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
-                    </div>
-                    <?php ActiveForm::end() ?>
-                <?php endif; ?>
+                        <div class="form-group">
+                            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+                        </div>
+                        <?php ActiveForm::end() ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-4">
-        <div class="btn-group">
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="В избранное"
-                    href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post">
-                <i class="fa fa-heart"></i>
-            </button>
-        </div>
-
+        
         <?= $this->render('_booking', [
-                'tour' => $tour,
-]); ?>
+            'tour' => $tour,
+        ]); ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>

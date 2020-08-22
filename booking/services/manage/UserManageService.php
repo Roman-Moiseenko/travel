@@ -4,14 +4,14 @@
 namespace booking\services\manage;
 
 
-use booking\entities\booking\tours\BookingTours;
+use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\booking\tours\BookingToursForm;
 use booking\forms\manage\user\UserCreateForm;
 use booking\forms\manage\user\UserEditForm;
-use booking\repositories\booking\tours\BookingToursRepository;
+use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\UserRepository;
 use booking\services\TransactionManager;
@@ -32,7 +32,7 @@ class UserManageService
      */
     private $calendarsTours;
     /**
-     * @var BookingToursRepository
+     * @var BookingTourRepository
      */
     private $bookingTours;
 
@@ -41,7 +41,7 @@ class UserManageService
         UserRepository $users,
         CostCalendarRepository $calendarsTours,
         TransactionManager $transaction,
-        BookingToursRepository $bookingTours
+        BookingTourRepository $bookingTours
     )
     {
         $this->users = $users;
@@ -120,7 +120,7 @@ class UserManageService
         $this->users->save($user);
     }
 
-    public function addBookingTours($id, BookingToursForm $form): BookingTours
+    public function addBookingTours($id, BookingToursForm $form): BookingTour
     {
         $user = $this->users->get($id);
         $calendar = $this->calendarsTours->get($form->calendar_id);

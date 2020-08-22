@@ -6,7 +6,7 @@ namespace admin\controllers\tours;
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursParamsForm;
-use booking\services\booking\tours\ToursService;
+use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -16,7 +16,7 @@ class ParamsController extends Controller
     public  $layout = 'main-tours';
     private $service;
 
-    public function __construct($id, $module, ToursService $service, $config = [])
+    public function __construct($id, $module, TourService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;

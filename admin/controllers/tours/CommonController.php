@@ -6,8 +6,8 @@ namespace admin\controllers\tours;
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursCommonForms;
-use booking\repositories\booking\tours\ToursRepository;
-use booking\services\booking\tours\ToursService;
+use booking\repositories\booking\tours\TourRepository;
+use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -17,11 +17,11 @@ class CommonController extends Controller
 {
     public  $layout = 'main-tours';
     /**
-     * @var ToursService
+     * @var TourService
      */
     private $service;
 
-    public function __construct($id, $module, ToursService $service, $config = [])
+    public function __construct($id, $module, TourService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;

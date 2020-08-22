@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property Cost $count
  * @property integer $status
  */
-class BookingTours extends ActiveRecord
+class BookingTour extends ActiveRecord
 {
     const BOOKING_NEW = 1;
     const BOOKING_PAY = 2;

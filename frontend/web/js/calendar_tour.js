@@ -56,6 +56,7 @@ $(document).ready(function () {
                 function (data) {
                     //console.log(data);
                     $('.list-tours').html(data);
+                    $('#button-booking-tour').attr('disabled', 'disabled');
                 });
     });
 
@@ -80,11 +81,12 @@ $(document).ready(function () {
                     $('.list-tours').html();
                     return true;
                 } //Массив по текущему месяцу
+                $('#button-booking-tour').attr('disabled', 'disabled');
                 console.log(tours);
                 for (var i = 1; i <= 31; i ++) {
                     if (tours[i] !== undefined) {
                         $('#datepicker-tour').datepicker('update', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + i));
-                        $.post('/tours/booking/getday',
+                        $.post('/tours/booking/getlisttours',
                             {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: i, tour_id: tour_id},
                             function (data) {
                                 $('.list-tours').html(data);
@@ -92,17 +94,6 @@ $(document).ready(function () {
                         return true;
                     }
                 }
-              //  $('#datepicker-tour').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
-                //Находим первое число в тек. месяце, если нет, то не обновляем
-
-               // $('#datepicker-tour').datepicker('clearDates');
-            /*
-            $.post('/tours/booking/getday',
-                    {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: 1, tour_id: tour_id},
-                    function (data) {
-                        $('.list-tours').html(data);
-                    });
-*/
             });
     });
 
@@ -133,7 +124,6 @@ $(document).ready(function () {
         let count_preference = $('#count-preference').val();
         if (count_preference === undefined) count_preference = 0;
 
-
         if (count_tickets < (Number(count_adult) + Number(count_child) + Number(count_preference))) {
             $('#button-booking-tour').attr('disabled', 'disabled');
             $('.errors-tours').html('Превышено кол-во билетов');
@@ -145,11 +135,7 @@ $(document).ready(function () {
                 $('#button-booking-tour').attr('disabled', 'disabled');
                 $('.errors-tours').html('Не указано кол-во билетов');
             }
-
         }
-
-
-
     });
 });
 

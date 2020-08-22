@@ -15,11 +15,11 @@ use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\forms\booking\tours\ToursParamsForm;
 use booking\repositories\booking\tours\ExtraRepository;
-use booking\repositories\booking\tours\ToursRepository;
+use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\services\TransactionManager;
 
-class ToursService
+class TourService
 {
     private $tours;
     /**
@@ -36,7 +36,7 @@ class ToursService
     private $extra;
 
     public function __construct(
-        ToursRepository $tours,
+        TourRepository $tours,
         TransactionManager $transaction,
         TypeRepository $types,
         ExtraRepository $extra

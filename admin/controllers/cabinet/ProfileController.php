@@ -7,7 +7,7 @@ namespace admin\controllers\cabinet;
 use booking\entities\admin\user\User;
 use booking\forms\admin\PersonalForm;
 use booking\services\admin\UserManageService;
-use booking\services\booking\tours\ToursService;
+use booking\services\booking\tours\TourService;
 
 use yii\filters\AccessControl;
 use yii\web\Controller;

@@ -11,7 +11,7 @@ use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursParamsForm;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\services\booking\tours\ExtraService;
-use booking\services\booking\tours\ToursService;
+use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,7 +29,7 @@ class ExtraController extends Controller
      */
     private $extraService;
 
-    public function __construct($id, $module, ToursService $service, ExtraRepository $extra, ExtraService $extraService, $config = [])
+    public function __construct($id, $module, TourService $service, ExtraRepository $extra, ExtraService $extraService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;

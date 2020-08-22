@@ -13,13 +13,13 @@ DatepickerAsset::register($this);
 
     <div class="card-body">
         <input type="hidden" id="number-tour" value="<?= $tour->id ?>">
-        <?= Html::beginForm(['tour/tour/booking']); ?>
+        <?= Html::beginForm(['tours/checkout/booking']); ?>
         <label for="datepicker-tour">Выберите дату</label>
-        <div class="input-group date" id="datepicker-tour">
+        <div class="input-group date pb-2" id="datepicker-tour">
             <div class="input-group-prepend">
                 <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
             </div>
-            <input type="text" id="datepicker_value" value="" class="form-control"/>
+            <input type="text" id="datepicker_value" name="tour_at" value="" class="form-control" readonly/>
         </div>
         <div class="list-tours"></div>
         <p></p>

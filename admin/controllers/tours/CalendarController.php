@@ -7,8 +7,8 @@ namespace admin\controllers\tours;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\CalendarHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
-use booking\repositories\booking\tours\ToursRepository;
-use booking\services\booking\tours\ToursService;
+use booking\repositories\booking\tours\TourRepository;
+use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -22,15 +22,15 @@ class CalendarController extends Controller
      */
     private $calendar;
     /**
-     * @var ToursRepository
+     * @var TourRepository
      */
     private $tours;
 
     public function __construct(
         $id,
         $module,
-        ToursService $service,
-        ToursRepository $tours,
+        TourService $service,
+        TourRepository $tours,
         CostCalendarRepository $calendar,
         $config = [])
     {
