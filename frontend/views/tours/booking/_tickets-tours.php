@@ -36,5 +36,5 @@ use booking\helpers\CurrencyHelper;
             </tr>
         <?php endif; ?>
     </table>
-    <label id="label-count-tickets" data-count="<?= $current->tickets?>">Осталось билетов: <?= $current->tickets?></label>
+    <label id="label-count-tickets" data-count="<?= $current->getFreeTickets()?>">Осталось билетов: <?= $current->getFreeTickets()?></label>
 </div>

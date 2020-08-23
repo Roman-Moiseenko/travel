@@ -19,7 +19,7 @@ DatepickerAsset::register($this);
             <div class="input-group-prepend">
                 <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
             </div>
-            <input type="text" id="datepicker_value" name="tour_at" value="" class="form-control" readonly/>
+            <input type="text" id="datepicker_value" value="" class="form-control" readonly/>
         </div>
         <div class="list-tours"></div>
         <p></p>
@@ -34,5 +34,10 @@ DatepickerAsset::register($this);
             ) ?>
         </div>
         <?= Html::endForm() ?>
+        <?php if (\Yii::$app->user->isGuest): ?>
+        <div class="card-footer">
+            Для приобретения билетов, зарергистрируйтесь на сайте.
+        </div>
+        <?php endif; ?>
     </div>
 </div>

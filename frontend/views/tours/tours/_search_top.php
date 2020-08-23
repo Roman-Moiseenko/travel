@@ -25,7 +25,7 @@ use yii\helpers\Html;
                 'attribute2' => 'date_to',
                 'type' => DatePicker::TYPE_RANGE,
                 'separator' => '-',
-                'language' => 'ru',
+                'language' => Lang::current(),
                 'pluginOptions' => [
                     'todayHighLight' => true,
                     'autoclose' => true,
@@ -37,9 +37,7 @@ use yii\helpers\Html;
             <?= $form->field($model, 'type')->dropDownList(ToursTypeHelper::list(), ['prompt' => ''])->label('Категория:', ['class' => 'label-search']); ?>
         </div>
         <div class="col-sm-3">
-
             <label class="label-search">Цена (от и до):</label>
-
             <div class="form-row">
                 <div class="col">
                     <?= $form->field($model, 'cost_min', ['template' => "{input}"])->textInput(['class' => 'only-numeric form-control'])->label(false); ?>

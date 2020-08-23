@@ -15,6 +15,8 @@ use yii\web\NotFoundHttpException;
 
 class CalendarController extends Controller
 {
+
+    //TODO СДЕЛАТЬ РЕФАКТОРИНГ, => ч/з render()
     public $layout = 'main-tours';
     private $service;
     /**

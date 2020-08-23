@@ -113,6 +113,9 @@ $(document).ready(function () {
                 $('.tickets-tours').html(data);
                 $('#button-booking-tour').attr('disabled', 'disabled');
             });
+        } else  {
+            $('.tickets-tours').html('');
+            $('#button-booking-tour').attr('disabled', 'disabled');
         }
     });
     $(document).on('input', '.count-tickets', function (data) {

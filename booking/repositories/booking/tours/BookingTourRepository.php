@@ -5,6 +5,7 @@ namespace booking\repositories\booking\tours;
 
 
 use booking\entities\booking\tours\BookingTour;
+use booking\entities\booking\tours\CostCalendar;
 use booking\entities\Lang;
 
 class BookingTourRepository
@@ -21,7 +22,13 @@ class BookingTourRepository
 
     public function getByTours($tours_id): array
     {
-        //TODO
+        return BookingTour::find()->andWhere(
+            [
+                'IN',
+                'calendar_id',
+                CostCalendar::find()->select('id')->andWhere(['tours_id' => $tours_id])
+            ]
+        )->all();
     }
 
 
@@ -32,6 +39,12 @@ class BookingTourRepository
         }
     }
 
-    //TODO delete
+    public function remove(int $id)
+    {
+        $booking = $this->get($id);
+        if (!$booking->delete()) {
+            throw new \DomainException(Lang::t('Ошибка удаления бронирования'));
+        }
+    }
 
 }

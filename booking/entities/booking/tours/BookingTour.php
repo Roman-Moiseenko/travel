@@ -4,8 +4,12 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\booking\BookingItemInterface;
+use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * Class BookingCalendar
@@ -18,22 +22,19 @@ use yii\db\ActiveRecord;
  * @property Cost $count
  * @property integer $status
  */
-class BookingTour extends ActiveRecord
+class BookingTour extends ActiveRecord implements BookingItemInterface
 {
-    const BOOKING_NEW = 1;
-    const BOOKING_PAY = 2;
-    const BOOKING_CANCEL = 3;
-    //const BOOKING_NEW = 1;
     public $count;
 
     public static function create($amount, $calendar_id, Cost $count): self
     {
-        $calendar = new static();
-        $calendar->amount = $amount;
-        $calendar->calendar_id = $calendar_id;
-        $calendar->count = $count;
-        $calendar->status = self::BOOKING_NEW;
-        return $calendar;
+        $booking = new static();
+        $booking->user_id = \Yii::$app->user->id;
+        $booking->amount = $amount;
+        $booking->calendar_id = $calendar_id;
+        $booking->count = $count;
+        $booking->status = BookingHelper::BOOKING_STATUS_NEW;
+        return $booking;
     }
 
     public function edit($amount, Cost $count): void
@@ -49,17 +50,17 @@ class BookingTour extends ActiveRecord
 
     public function isPay(): bool
     {
-        return $this->status == self::BOOKING_PAY;
+        return $this->status == BookingHelper::BOOKING_STATUS_PAY;
     }
 
     public function pay()
     {
-        $this->status = self::BOOKING_PAY;
+        $this->status = BookingHelper::BOOKING_STATUS_PAY;
     }
 
     public function cancel()
     {
-        $this->status = self::BOOKING_CANCEL;
+        $this->status = BookingHelper::BOOKING_STATUS_CANCEL;
     }
 
     public function countTickets(): int
@@ -72,7 +73,7 @@ class BookingTour extends ActiveRecord
     }
     public function afterFind(): void
     {
-        $this->cost = new Cost(
+        $this->count = new Cost(
             $this->getAttribute('count_adult'),
             $this->getAttribute('count_child'),
             $this->getAttribute('count_preference'),
@@ -90,6 +91,48 @@ class BookingTour extends ActiveRecord
     }
     public function getCalendar(): ActiveQuery
     {
-        return $this->hasOne(CostCalendar::class, ['id' => 'calendar']);
+        return $this->hasOne(CostCalendar::class, ['id' => 'calendar_id']);
+    }
+
+
+    /** ==========> Interface для личного кабинета */
+    public function getDate(): int
+    {
+        return $this->calendar->tour_at;
+    }
+
+    public function getName(): string
+    {
+        return $this->calendar->tour->name;
+    }
+
+    public function getLink(): string
+    {
+        return Url::to(['cabinet/tour/view', 'id' => $this->id]);
+    }
+
+    public function getPhoto(): string
+    {
+        return $this->calendar->tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list');
+    }
+
+    public function getType(): string
+    {
+        return BookingHelper::BOOKING_TYPE_TOUR;
+    }
+
+    public function getAdd(): string
+    {
+        return $this->calendar->time_at;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    public function getAmount(): int
+    {
+        return $this->amount;
     }
 }

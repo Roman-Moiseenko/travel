@@ -49,7 +49,7 @@ AppAsset::register($this);
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h5>Информация</h5>
+                    <h5><?= Lang::t('Информация') ?></h5>
                     <ul class="list-unstyled">
                         <li><a href="<?=Html::encode(Url::to(['/about']))?>">О Сайте (*)</a></li>
                         <li><a href="<?=Html::encode(Url::to(['/']))?>">Служба поддержки (*)</a></li>
@@ -57,35 +57,35 @@ AppAsset::register($this);
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h5>Жилье</h5>
+                    <h5><?= Lang::t('Жилье') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Отели</a></li>
-                        <li><a href="">Хостелы</a></li>
-                        <li><a href="">Аппартаменты</a></li>
-                        <li><a href="">Загородные дома (виллы)</a></li>
+                        <li><a href="">Отели (*)</a></li>
+                        <li><a href="">Хостелы (*)</a></li>
+                        <li><a href="">Аппартаменты (*)</a></li>
+                        <li><a href="">Загородные дома (виллы) (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h5>Другие услуги</h5>
+                    <h5><?= Lang::t('Другие услуги') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Прокат автомобиля</a></li>
-                        <li><a href="">Найти тур</a></li>
-                        <li><a href="">Заказать столик в ресторане</a></li>
-                        <li><a href="">Купить билет на представление</a></li>
+                        <li><a href="">Прокат автомобиля (*)</a></li>
+                        <li><a href="<?= Url::to(['/tours'])?>"><?= Lang::t('Найти тур') ?></a></li>
+                        <li><a href="">Заказать столик в ресторане (*)</a></li>
+                        <li><a href="">Купить билет на представление (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h5>Личный кабинет</h5>
+                    <h5><?= Lang::t('Личный кабинет') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>">Кабинет</a></li>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/order/index'])) ?>">Бронирования</a></li>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>">Избранное</a></li>
-                        <li><a href="">Сообщения</a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/index'])) ?>"><?= Lang::t('Кабинет') ?></a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"><?= Lang::t('Бронирования') ?></a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>"><?= Lang::t('Избранное') ?></a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/message/index'])) ?>"><?= Lang::t('Сообщения') ?></a></li>
                     </ul>
                 </div>
             </div>
             <hr>
-            <p><?= Lang::t('Разработано') ?> <a href="http://www.mycraft.site" target="_blank">Моисеенко Роман Александрович</a> &copy; 2020</p>
+            <p><?= Lang::t('Разработано') ?> <a href="http://www.mycraft.site" target="_blank"><?= Lang::t('Моисеенко Роман Александрович') ?></a> &copy; 2020</p>
         </div>
     </footer>
 

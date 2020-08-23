@@ -51,8 +51,6 @@ $countReveiws = $tour->countReviews();
     </div>
 </div>
 <!-- ОПИСАНИЕ -->
-
-
 <div class="row">
     <div class="col-8">
         <!-- Заголовок тура-->

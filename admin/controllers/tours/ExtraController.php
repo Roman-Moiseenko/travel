@@ -55,10 +55,6 @@ class ExtraController extends Controller
     public function actionIndex($id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
-
         $searchModel = new ExtraSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
@@ -80,10 +76,6 @@ class ExtraController extends Controller
     public function actionCreate($id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
-
         $form = new ExtraForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -102,9 +94,6 @@ class ExtraController extends Controller
     public function actionUpdate($id, $extra_id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
         $extra = $this->extra->get($extra_id);
         $form = new ExtraForm($extra);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
@@ -127,9 +116,6 @@ class ExtraController extends Controller
     public function actionDelete($id, $extra_id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
         $this->extraService->remove($extra_id);
         return $this->redirect(['/tours/extra', 'id' => $tours->id]);
     }
@@ -137,6 +123,9 @@ class ExtraController extends Controller
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {
+            if ($model->user_id != \Yii::$app->user->id) {
+                throw new \DomainException('У вас нет прав для данного тура');
+            }
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

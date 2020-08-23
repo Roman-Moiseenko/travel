@@ -46,9 +46,6 @@ class CommonController extends Controller
     public function actionIndex($id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
         return $this->render('view', [
             'tours' => $tours
         ]);
@@ -76,9 +73,6 @@ class CommonController extends Controller
     public function actionUpdate($id)
     {
         $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
-        }
         $form = new ToursCommonForms($tours);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -99,6 +93,9 @@ class CommonController extends Controller
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {
+            if ($model->user_id != \Yii::$app->user->id) {
+                throw new \DomainException('У вас нет прав для данного тура');
+            }
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

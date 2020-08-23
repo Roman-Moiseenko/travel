@@ -57,6 +57,7 @@ class Photo extends ActiveRecord
                     'thumb' => ['width' => 320, 'height' => 240],
                     'tours_list' => ['width' => 150, 'height' => 150],
                     'tours_widget_list' => ['width' => 57, 'height' => 57],
+                    'cabinet_list' => ['width' => 70, 'height' => 70],
                     'catalog_list' => ['width' => 228, 'height' => 228],
                     'catalog_tours_main' => ['width' => 1024, 'height' => 400], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
                     'catalog_tours_additional' => ['width' => 66, 'height' => 66],

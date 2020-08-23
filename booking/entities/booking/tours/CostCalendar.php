@@ -4,6 +4,7 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\helpers\BookingHelper;
 use understeam\calendar\ActiveRecordItemTrait;
 use understeam\calendar\CalendarInterface;
 use understeam\calendar\ItemInterface;
@@ -20,7 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $tickets
  * @property integer $status
  * @property Cost $cost
- * @property Tour $tours
+ * @property Tour $tour
  * @property BookingTour[] $bookings
  */
 class CostCalendar extends ActiveRecord // implements ItemInterface
@@ -73,7 +74,7 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         return $this->status === Tour::TOUR_EMPTY;
     }
 
-    public function getTours(): ActiveQuery
+    public function getTour(): ActiveQuery
     {
         return $this->hasOne(Tour::class, ['id' => 'tours_id']);
     }
@@ -81,7 +82,9 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
     public function getFreeTickets(): int 
     {
         $count = 0;
+
         $bookings = $this->bookings;
+       // return count($bookings);
         foreach ($bookings as $booking) {
             $count += $booking->count->adult ?? 0;
             $count += $booking->count->child ?? 0;
@@ -90,8 +93,8 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         return $this->tickets - $count;
     }
     
-    public function getBooking(): ActiveQuery
+    public function getBookings(): ActiveQuery
     {
-        return $this->hasMany(BookingTour::class, ['calendar' => 'id'])->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingTour::BOOKING_CANCEL]);
+        return $this->hasMany(BookingTour::class, ['calendar_id' => 'id'])->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL]);
     }
 }

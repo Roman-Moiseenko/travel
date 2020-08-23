@@ -53,7 +53,7 @@ use yii\helpers\Url;
                         <a class="dropdown-item"
                            href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мой личный кабинет') ?></a>
                         <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
+                           href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
                         <a class="dropdown-item"
                            href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Избранное') ?></a>
                         <a class="dropdown-item"
@@ -68,8 +68,6 @@ use yii\helpers\Url;
                     <?php endif; ?>
                 </div>
             </li>
-            <li><a class=" nav-link" href="<?= Url::to(['/shop/cart/index']) ?>" title="Корзина"><i class="fa fa-shopping-cart"></i> <span
-                            class="hidden-xs hidden-sm hidden-md">Бронирование (?)</span></a></li>
         </ul>
     </div>
 </div>
