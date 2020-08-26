@@ -133,7 +133,7 @@ $tour = $booking->calendar->tour;
                         </li>
                     </ul>
                     <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
-                        <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
+                        <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
                            class="btn btn-default">Отменить</a>
                     <?php endif; ?>
                 </div>

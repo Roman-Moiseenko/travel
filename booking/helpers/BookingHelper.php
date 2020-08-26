@@ -12,7 +12,8 @@ class BookingHelper
     const BOOKING_STATUS_NEW = 1;
     const BOOKING_STATUS_PAY = 2;
     const BOOKING_STATUS_CANCEL = 3;
-    const BOOKING_STATUS_EXECUTE = 4;
+    const BOOKING_STATUS_CANCEL_PAY = 4;
+    const BOOKING_STATUS_EXECUTE = 5;
 
     const BOOKING_TYPE_TOUR = 10;
     const BOOKING_TYPE_STAY = 20;
@@ -40,6 +41,7 @@ class BookingHelper
                 $class = 'badge badge-success';
                 break;
             case self::BOOKING_STATUS_CANCEL:
+            case self::BOOKING_STATUS_CANCEL_PAY:
                 $class = 'badge badge-secondary';
                 break;
             case self::BOOKING_STATUS_EXECUTE:
@@ -78,7 +80,6 @@ class BookingHelper
 
     public static function number(BookingItemInterface $booking): string
     {
-        //$booking->user_id . '.' . $booking->id . $booking->getType() / 10
         return $booking->getUserId() . '.' . $booking->getId() . $booking->getType() / 10;
     }
 }

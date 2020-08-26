@@ -9,6 +9,8 @@ use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
+use booking\services\ContactService;
+
 
 class BookingTourService
 {
@@ -20,11 +22,19 @@ class BookingTourService
      * @var CostCalendarRepository
      */
     private $calendar;
+    /**
+     * @var ContactService
+     */
+    private $contact;
 
-    public function __construct(BookingTourRepository $bookings, CostCalendarRepository $calendar)
+    public function __construct(
+        BookingTourRepository $bookings,
+        CostCalendarRepository $calendar,
+        ContactService $contact)
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
+        $this->contact = $contact;
     }
 
     public function create($calendar_id, Cost $count): BookingTour
@@ -37,6 +47,7 @@ class BookingTourService
 
         $booking = BookingTour::create($amount, $calendar_id, $count);
         $this->bookings->save($booking);
+        $this->contact->sendNoticeBooking($booking);
         return $booking;
     }
 
@@ -62,7 +73,22 @@ class BookingTourService
     public function cancel($id)
     {
         $booking = $this->bookings->get($id);
-        $booking->status = BookingHelper::BOOKING_STATUS_CANCEL;
+        $booking->cancel();
         $this->bookings->save($booking);
+        $this->contact->sendNoticeBooking($booking);
+    }
+    public function cancelPay($id)
+    {
+        $booking = $this->bookings->get($id);
+        $booking->cancelPay();
+        $this->bookings->save($booking);
+        $this->contact->sendNoticeBooking($booking);
+    }
+    public function pay($id)
+    {
+        $booking = $this->bookings->get($id);
+        $booking->pay();
+        $this->bookings->save($booking);
+        $this->contact->sendNoticeBooking($booking);
     }
 }

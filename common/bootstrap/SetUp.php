@@ -7,6 +7,7 @@ namespace common\bootstrap;
 use booking\repositories\UserRepository;
 
 use booking\services\auth\PasswordResetService;
+use booking\services\ContactService;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\di\Instance;

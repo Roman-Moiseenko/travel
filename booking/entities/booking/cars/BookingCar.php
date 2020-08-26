@@ -77,4 +77,9 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     {
         return $this->id;
     }
+
+    public function getAdminId(): int
+    {
+        // TODO: Implement getAdminId() method.
+    }
 }

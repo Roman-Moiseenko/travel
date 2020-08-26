@@ -6,6 +6,7 @@ namespace booking\entities\booking;
 
 interface BookingItemInterface
 {
+    public function getAdminId(): int;
     public function getUserId(): int;
     public function getId(): int;
     public function getDate(): int;

@@ -64,6 +64,11 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $this->status = BookingHelper::BOOKING_STATUS_CANCEL;
     }
 
+    public function cancelPay()
+    {
+        $this->status = BookingHelper::BOOKING_STATUS_CANCEL_PAY;
+    }
+
     public function countTickets(): int
     {
         return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
@@ -154,4 +159,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return $this->id;
     }
+
+    public function getAdminId(): int
+    {
+        return $this->calendar->tour->user_id;
+    }
+
 }

@@ -26,6 +26,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property UserLegal[] $legals
  * @property Personal $personal
+ * @property Notice $notice
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -45,6 +46,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
         $user->personal = Personal::create('', null, new UserAddress(), new FullName(), '');
+        $user->notice = Notice::create();
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -68,6 +70,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function updatePersonal(Personal $personal)
     {
         $this->personal = $personal;
+    }
+
+    public function updateNotice(Notice $notice)
+    {
+        $this->notice = $notice;
     }
 
     public function addLegal(UserLegal $legal)
@@ -330,6 +337,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPersonal(): ActiveQuery
     {
         return $this->hasOne(Personal::class, ['user_id' => 'id']);
+    }
+
+    public function getNotice(): ActiveQuery
+    {
+        return $this->hasOne(Notice::class, ['user_id' => 'id']);
     }
     /** <========== getXXX */
 }

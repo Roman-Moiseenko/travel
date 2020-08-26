@@ -69,6 +69,15 @@ class TourController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionCancelpay($id)
+    {
+        $booking = $this->findModel($id);
+        $this->bookings->cancelPay($booking->id);
+        //TODO Переход на страницу подтверждения отмены оплаченного тура
+        // Затем уведомление .....
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
     private function findModel($id)
     {
         if (($model = BookingTour::findOne($id)) !== null) {
