@@ -28,6 +28,7 @@ class BookingHelper
             self::BOOKING_STATUS_EXECUTE => Lang::t('Исполнен'),
         ];
     }
+
     public static function status($status): string
     {
         switch ($status) {
@@ -47,7 +48,7 @@ class BookingHelper
                 $class = 'badge badge-info'; //primary info
         }
 
-        return '<span class="'.$class.'">' . (self::list())[$status] . '</span>';
+        return '<span class="' . $class . '">' . (self::list())[$status] . '</span>';
     }
 
     public static function caption($status): string
@@ -61,5 +62,16 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_TOUR) return '<i class="fas fa-map-marked-alt"></i>';
         if ($type == self::BOOKING_TYPE_CAR) return '<i class="fas fa-car"></i>';
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
+    }
+
+    public static function stamp($status): string
+    {
+        if ($status == BookingHelper::BOOKING_STATUS_PAY) {
+            return '<span class="big-red-paid-stamp">' . Lang::t('ОПЛАЧЕНО') . '</span>';
+        }
+        if ($status == BookingHelper::BOOKING_STATUS_CANCEL) {
+            return '<span class="big-grey-paid-stamp">' . Lang::t('ОТМЕНЕНО') . '</span>';
+        }
+        return '';
     }
 }

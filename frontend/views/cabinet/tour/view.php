@@ -1,9 +1,16 @@
 <?php
 
+use booking\entities\user\User;
+
 /* @var $booking BookingTour */
+
+/* @var $user User */
 
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
+use booking\helpers\BookingHelper;
+use booking\helpers\CurrencyHelper;
+use booking\helpers\ToursHelper;
 use frontend\assets\MagnificPopupAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -12,36 +19,338 @@ $this->title = $booking->name;
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
+
+$tour = $booking->calendar->tour;
 ?>
+    <!-- Фото + Название + Ссылка -->
+    <div class="d-flex p-2">
+        <div>
+            <ul class="thumbnails">
+                <li>
+                    <a class="thumbnail"
+                       href="<?= $tour->mainPhoto->getThumbFileUrl('file', 'catalog_origin'); ?>">
+                        <img src="<?= $tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list'); ?>"
+                             alt="<?= Html::encode($tour->name); ?>"/></a>
+                </li>
+            </ul>
+        </div>
+        <div class="flex-grow-1 align-self-center caption-list pl-3">
+            <a href="<?= Url::to(['/tours/view', 'id' => $tour->id]); ?>"><?= $tour->name ?></a>
+        </div>
+    </div>
+    <!-- Блок от статуса -->
     <div class="booking-view">
-        <div class="card">
-            <div class="card-body shadow-sm">
-                <div class="d-flex">
-                <div>
-                    <ul class="thumbnails">
-                    <li>
-                        <a class="thumbnail"
-                           href="<?= $booking->calendar->tour->mainPhoto->getThumbFileUrl('file', 'catalog_origin'); ?>">
-                            <img src="<?= $booking->calendar->tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list'); ?>"
-                                 alt="<?= Html::encode($booking->calendar->tour->name); ?>"/></a>
-                    </li>
-                </ul>
+        <!-- Общая информация -->
+        <div class="card py-2 shadow-sm my-2" style="font-size: 14px;">
+            <div class="card-body">
+                <table width="70%">
+                    <tbody>
+                    <tr>
+                        <th>Номер брони:</th>
+                        <td><?=  $booking->user_id . '.' . $booking->id ?></td>
+                    </tr>
+                    <tr>
+                        <th>Дата тура:</th>
+                        <td><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
+                        <td>
+                            <?= BookingHelper::stamp($booking->status) ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Время начало:</th>
+                        <td><?= $booking->calendar->time_at ?></td>
+                    </tr>
+                    <?php if ($booking->count->adult !== 0): ?>
+                        <tr>
+                            <th>Взрослый билет</th>
+                            <td><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
+                            <td>x <?= $booking->count->adult ?> шт</td>
+                            <td><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($booking->count->child !== 0): ?>
+                        <tr>
+                            <th>Детский билет</th>
+                            <td><?= CurrencyHelper::get($booking->calendar->cost->child) ?></td>
+                            <td>x <?= $booking->count->child ?> шт</td>
+                            <td><?= CurrencyHelper::get((int)$booking->count->child * (int)$booking->calendar->cost->child) ?> </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($booking->count->preference !== 0): ?>
+                        <tr>
+                            <th>Льготный билет</th>
+                            <td><?= CurrencyHelper::get($booking->calendar->cost->preference) ?></td>
+                            <td>x <?= $booking->count->preference ?> шт</td>
+                            <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$booking->calendar->cost->preference) ?> </td>
+                        </tr>
+                    <?php endif; ?>
+                    <tr></tr>
+                    <tr class="price-view py-2 my-2">
+                        <th class="py-3 my-2">Сумма платежа</th>
+                        <td></td>
+                        <td></td>
+                        <td><?= CurrencyHelper::get((int)$booking->amount) ?> </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW): ?>
+                    <div class="d-flex pay-tour py-3">
+                        <div>
+                            <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
+                               class="btn btn-default">Отменить</a>
+                        </div>
+                        <div class="ml-auto">
+                            <a href="<?= Url::to(['/cabinet/pay/yandex', 'id' => $booking->id]) ?>"
+                               class="btn btn-primary">Оплатить</a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <!-- Чеки и бронь -->
+        <?php if ($booking->status == BookingHelper::BOOKING_STATUS_PAY): ?>
+            <div class="card shadow-sm py-2 my-2">
+                <div class="card-body nowrap-parent">
+                    <h2>Ваше бронирование подтверждено!</h2>
+                    <ul class="reassurance__list">
+                        <li>
+                            Подтверждение бронирования отправлено на ваш адрес <b><?= $user->email ?></b>
+                        </li>
+                        <li>
+                            <div class="nowrap-child">
+                                Распечатать подверждение
+
+                                <a class="btn-sm btn-primary "
+                                   href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
+                                    <i class="fas fa-print"></i></a>
+                            </div>
+                        </li>
+                        <li>
+                            Распечатать чек об оплате
+                            <a class="btn-sm btn-primary"
+                               href="<?= Url::to(['/cabinet/print/tour', 'id' => $booking->id]) ?>">
+                                <i class="fas fa-print"></i></a>
+                        </li>
+                    </ul>
+                    <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
+                        <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
+                           class="btn btn-default">Отменить</a>
+                    <?php endif; ?>
                 </div>
-                    <div class="flex-grow-1 align-self-center caption-list pl-3">
-                        <a href="<?= Url::to(['/tours/view', 'id' => $booking->calendar->tours_id]); ?>"><?= $booking->getName()?></a>
+            </div>
+        <?php endif; ?>
+    </div>
+    <!-- Информация от туре -->
+    <div class="card shadow-sm my-2">
+        <div class="card-body">
+            <!-- Описание -->
+            <div class="row">
+                <div class="col params-tour">
+                    <div class="container-hr">
+                        <hr/>
+                        <div class="text-left-hr">Описание</div>
+                    </div>
+                    <p class="text-justify">
+                        <?= \Yii::$app->formatter->asNtext($tour->description) ?>
+                    </p>
+                </div>
+            </div>
+            <!-- Параметры -->
+            <div class="row pt-4">
+                <div class="col params-tour">
+                    <div class="container-hr">
+                        <hr/>
+                        <div class="text-left-hr">Параметры</div>
+                    </div>
+                    <span class="params-item">
+                    <i class="far fa-clock"></i>&#160;&#160;<?= $tour->params->duration ?>
+                </span>
+                    <span class="params-item">
+                    <?php if ($tour->params->private) {
+                        echo '<i class="fas fa-user"></i>&#160;&#160;Индивидуальный';
+                    } else {
+                        echo '<i class="fas fa-users"></i>&#160;&#160;Групповой';
+                    }
+                    ?>
+                </span>
+                    <span class="params-item">
+                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= ToursHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
+                </span>
+                    <span class="params-item">
+                    <i class="fas fa-user-clock"></i>&#160;&#160;Ограничения по возрасту <?= ToursHelper::ageLimit($tour->params->agelimit) ?>
+                </span>
+                    <span class="params-item">
+                    <i class="fas fa-ban"></i>&#160;&#160;<?= ToursHelper::cancellation($tour->cancellation) ?>
+                </span>
+                    <span class="params-item">
+                    <i class="fas fa-layer-group"></i>&#160;&#160;
+                                    <?php foreach ($tour->types as $type) {
+                                        echo $type->name . ' | ';
+                                    }
+                                    echo $tour->type->name; ?>
+                </span>
+                </div>
+            </div>
+            <!-- Дополнения -->
+            <div class="row pt-4">
+                <div class="col">
+                    <div class="container-hr">
+                        <hr/>
+                        <div class="text-left-hr">Дополнения</div>
+                    </div>
+                    <table class="table table-bordered">
+                        <tbody>
+                        <?php foreach ($tour->extra as $extra): ?>
+                            <?php if (!empty($extra->name)): ?>
+                                <tr>
+                                    <th><?= Html::encode($extra->name) ?></th>
+                                    <td><?= Html::encode($extra->description) ?></td>
+                                    <td><?= Html::encode(CurrencyHelper::get($extra->cost)) ?></td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Координаты -->
+            <div class="row pt-4">
+                <div class="col">
+                    <div class="container-hr">
+                        <hr/>
+                        <div class="text-left-hr">Координаты</div>
+                    </div>
+                    <div class="params-item-map">
+                        <div class="row">
+                            <div class="col-4">
+
+                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                        data-target="#collapse-map"
+                                        aria-expanded="false" aria-controls="collapse-map">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>&#160;Место сбора:
+                            </div>
+                            <div class="col-8">
+                                <?= $tour->params->beginAddress->address; ?>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapse-map">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input id="bookingaddressform-address" class="form-control" width="100%"
+                                               value="<?= $tour->params->beginAddress->address ?? ' ' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-latitude" class="form-control" width="100%"
+                                               value="<?= $tour->params->beginAddress->latitude ?? '' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-longitude" class="form-control" width="100%"
+                                               value="<?= $tour->params->beginAddress->longitude ?? '' ?>"
+                                               type="hidden">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div id="map-view" style="width: 100%; height: 300px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="params-item-map">
+                        <div class="row">
+                            <div class="col-4">
+
+                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                        data-target="#collapse-map-2"
+                                        aria-expanded="false" aria-controls="collapse-map-2">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>&#160;Место окончания:
+                            </div>
+                            <div class="col-8">
+                                <?= $tour->params->endAddress->address; ?>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapse-map-2">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input id="bookingaddressform-address-2" class="form-control" width="100%"
+                                               value="<?= $tour->params->endAddress->address ?? ' ' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-latitude-2" class="form-control" width="100%"
+                                               value="<?= $tour->params->endAddress->latitude ?? '' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-longitude-2" class="form-control" width="100%"
+                                               value="<?= $tour->params->endAddress->longitude ?? '' ?>" type="hidden">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div id="map-view-2" style="width: 100%; height: 300px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="params-item-map">
+                        <div class="row">
+                            <div class="col-4">
+
+                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                        data-target="#collapse-map-3"
+                                        aria-expanded="false" aria-controls="collapse-map-2">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>&#160;Место проведение:
+                            </div>
+                            <div class="col-8">
+                                <?= $tour->address->address; ?>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapse-map-3">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input id="bookingaddressform-address-3" class="form-control" width="100%"
+                                               value="<?= $tour->address->address ?? ' ' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-latitude-3" class="form-control" width="100%"
+                                               value="<?= $tour->address->latitude ?? '' ?>" type="hidden">
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="bookingaddressform-longitude-3" class="form-control" width="100%"
+                                               value="<?= $tour->address->longitude ?? '' ?>" type="hidden">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div id="map-view-3" style="width: 100%; height: 300px"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <hr/>
-                Дата + Время
-                <hr/>
-                Кол-во билетов Сумма <br>
-                ИТОГО
-                <br>
-                Если статус NEW => Оплатить, Изменить, Отменить
-                Если статус PAY && tour->cancelation => Отменить
             </div>
         </div>
     </div>
+    <!-- Информация от туре -->
+    <div class="card py-2 shadow-sm my-2">
+        <div class="card-body">
+            <h2>Безопасность</h2>
+            <span class="select-text">
+            Организатор тура обеспечивает безопасность каждого участника.
+            Гид и/или сотрудник по безопасности имеет сертификат оказания первой помощи,
+            а так же имеет при себе средства оказания первой медицинской помощи.
+            <p>
+                <span class="select-row"><i class="fas fa-phone-alt"></i> Единый номер экстренных служб: <span class="select-item">112</span></span>
+            </p>
+            </span>
+        </div>
+    </div>
+
 <?php $js = <<<EOD
     $(document).ready(function() {
         $('.thumbnails').magnificPopup({

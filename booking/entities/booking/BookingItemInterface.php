@@ -14,5 +14,6 @@ interface BookingItemInterface
     public function getAdd(): string;
     public function getStatus(): int;
     public function getAmount(): int;
+    public function setStatus(int $status);
 
 }

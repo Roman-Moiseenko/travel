@@ -32,15 +32,14 @@ class CheckoutController extends Controller
         }
         try {
             $params = \Yii::$app->request->bodyParams;
-            $this->service->create(
+            $booking = $this->service->create(
                 $params['calendar_id'],
                 new Cost(
                     $params['count-adult'] ?? 0,
                     $params['count-child'] ?? 0,
                     $params['count-preference'] ?? 0
                 ));
-            //TODO ссылка на кабинет/бронирования/просмотр
-            return $this->redirect(['ссылка на кабинет/бронирования/просмотр']);
+            return $this->redirect(['/cabinet/tour/view', 'id' => $booking->id]);
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());

@@ -6,6 +6,7 @@ namespace booking\repositories\booking;
 
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\tours\BookingTour;
+use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 
 class BookingRepository
@@ -23,7 +24,7 @@ class BookingRepository
         /** @var BookingTour $tour */
         //scr::p($tours);
         foreach ($tours as $tour) {
-            if ($tour->getDate() > time() + 3600 * 24) {
+            if ($tour->getDate() >= time()) {
                 $result[] = $tour;
             }
         }
@@ -54,11 +55,15 @@ class BookingRepository
         /** @var BookingTour $tour */
         //scr::p($tours);
         foreach ($tours as $tour) {
-            if ($tour->getDate() < time() + 3600 * 24) {
+            if ($tour->getDate() < time()) {
+                /** Заглушка для не отмененных бронирований */
+                if ($tour->getStatus() === BookingHelper::BOOKING_STATUS_NEW) $tour->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
                 $result[] = $tour;
             }
         }
         //TODO Сортировка массива
+
+
         return $result;
     }
 }

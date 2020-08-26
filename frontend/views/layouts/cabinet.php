@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url; ?>
 
@@ -21,10 +22,10 @@ use yii\helpers\Url; ?>
                     <a href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"
                        class="list-group-item"><?= Lang::t('Регистрация') ?></a>
                 <?php else: ?>
-                    <a href="<?= Html::encode(Url::to(['/auth/reset/request'])) ?>" class="list-group-item"><?= Lang::t('Восстановить пароль') ?></a>
-                    <a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"
-                       class="list-group-item"><?= Lang::t('Кабинет') ?></a>
-                    <a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>" class="list-group-item"><?= Lang::t('Избранное') ?></a>
+                    <?= UserMenuWidget::widget([
+                        'type' => UserMenuWidget::CABINET_USERMENU,
+                        'class_list' => 'list-group-item',
+                    ]) ?>
                 <?php endif; ?>
             </div>
         </aside>

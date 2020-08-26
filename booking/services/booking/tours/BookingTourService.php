@@ -55,7 +55,8 @@ class BookingTourService
 
     public function remove($id)
     {
-//TODO remove Booking Tour
+        $booking = $this->bookings->get($id);
+        $this->bookings->remove($booking->id);
     }
 
     public function cancel($id)

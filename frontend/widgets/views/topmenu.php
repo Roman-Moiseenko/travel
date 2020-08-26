@@ -3,6 +3,7 @@
 use booking\entities\Currency;
 use booking\entities\Lang;
 use booking\helpers\UserHelper;
+use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -50,20 +51,11 @@ use yii\helpers\Url;
                         <a class="dropdown-item"
                            href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
                     <?php else: ?>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мой личный кабинет') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Избранное') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Мои отзывы') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>"><?= Lang::t('Настройки') ?></a>
-                        <a class="dropdown-item" href="<?= Html::encode(Url::to(['/auth/auth/logout'])) ?>"
-                           data-method="post"><?= Lang::t('Выйти') ?></a>
+                    <?= UserMenuWidget::widget([
+                            'type' => UserMenuWidget::TOP_USERMENU,
+                            'class_list' => 'dropdown-item',
+                        ]) ?>
+
 
                     <?php endif; ?>
                 </div>

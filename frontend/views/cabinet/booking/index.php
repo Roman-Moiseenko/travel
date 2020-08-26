@@ -9,8 +9,16 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $bookings BookingItemInterface[] */
+/* @var $active bool */
+if ($active) {
+    $this->title = Lang::t('Мои бронирования');
+} else {
+    $this->title = Lang::t('Прошедшие бронирования');
 
-$this->title = Lang::t('Мои бронирования');
+}
+if (!$active)
+    $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -21,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="d-flex flex-row">
                     <div>
                         <img src="<?= $booking->getPhoto(); ?>" alt="<?= Html::encode($booking->getName()); ?>"
-                             style="border-radius: 10px;"/>
+                             style="border-radius: 12px;"/>
                     </div>
                     <div class="flex-grow-1 align-self-center pl-4">
                         <div class="row caption-list">
@@ -56,7 +64,16 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     <?php endforeach; ?>
-    <?php if (count($bookings) == 0):?>
-        <h3><?= Lang::t('У вас нет бронирований')?></h3>
+    <?php if (count($bookings) == 0): ?>
+        <h3><?= Lang::t('У вас нет бронирований') ?></h3>
     <?php endif; ?>
 </div>
+
+<?php if ($active): ?>
+<div class="d-flex justify-content-center pt-4">
+    <div>
+        <a href="<?= Url::to(['/cabinet/booking/history']) ?>" class="btn-lg btn-primary">Прошедшие бронирования</a>
+    </div>
+
+</div>
+<?php endif; ?>

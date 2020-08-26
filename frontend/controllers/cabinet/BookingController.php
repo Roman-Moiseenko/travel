@@ -56,8 +56,8 @@ class BookingController extends Controller
     public function actionIndex()
     {
         $bookings = $this->bookings->getActive(\Yii::$app->user->id);
-        $bookingsOld = $this->bookings->getPast(\Yii::$app->user->id);
         return $this->render('index', [
+            'active' => true,
             'bookings' => $bookings,
         ]);
     }
@@ -65,7 +65,8 @@ class BookingController extends Controller
     public function actionHistory()
     {
         $bookings = $this->bookings->getPast(\Yii::$app->user->id);
-        return $this->render('past', [
+        return $this->render('index', [
+            'active' => false,
             'bookings' => $bookings,
         ]);
     }

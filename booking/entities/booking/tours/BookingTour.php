@@ -5,6 +5,7 @@ namespace booking\entities\booking\tours;
 
 
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use yii\db\ActiveQuery;
@@ -134,5 +135,13 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getAmount(): int
     {
         return $this->amount;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        if (!$this->save()) {
+            throw new \DomainException(Lang::t('Ошибка изменения статуса'));
+        }
     }
 }
