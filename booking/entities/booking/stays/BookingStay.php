@@ -5,7 +5,10 @@ namespace booking\entities\booking\stays;
 
 
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\Lang;
+use booking\helpers\BookingHelper;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 class BookingStay extends ActiveRecord implements BookingItemInterface
 {
@@ -31,7 +34,7 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
 
     public function getLink(): string
     {
-        // TODO: Implement getLink() method.
+        return Url::to(['cabinet/stay/view', 'id' => $this->id]);
     }
 
     public function getPhoto(): string
@@ -41,7 +44,7 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
 
     public function getType(): string
     {
-        // TODO: Implement getType() method.
+        return BookingHelper::BOOKING_TYPE_STAY;
     }
 
     public function getAdd(): string
@@ -51,16 +54,29 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
 
     public function getStatus(): int
     {
-        // TODO: Implement getStatus() method.
+         return $this->status;
     }
 
     public function getAmount(): int
     {
-        // TODO: Implement getAmount() method.
+        return $this->amount;
     }
 
     public function setStatus($status)
     {
-        // TODO: Implement setStatus() method.
+        $this->status = $status;
+        if (!$this->save()) {
+            throw new \DomainException(Lang::t('Ошибка изменения статуса'));
+        }
+    }
+
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

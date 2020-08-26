@@ -144,4 +144,14 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
             throw new \DomainException(Lang::t('Ошибка изменения статуса'));
         }
     }
+
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

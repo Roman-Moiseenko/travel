@@ -31,19 +31,26 @@ class BookingRepository
  /*
         $stays = BookingStay::find()->andWhere(['user_id' => $user_id]);
         foreach ($stays as $stay) {
-            if ($stay->getDate() > time() + 3600 * 24) {
+            if ($stay->getDate() >= time()) {
                 $result[] = $stay;
             }
         }
 
         $cars = BookingCar::find()->andWhere(['user_id' => $user_id]);
         foreach ($cars as $car) {
-            if ($cars->getDate() > time() + 3600 * 24) {
+            if ($cars->getDate() >= time()) {
                 $result[] = $stay;
             }
         } */
 
-        //TODO Сортировка массива
+        /** Сортировка массива */
+        usort($result, function (BookingItemInterface $a, BookingItemInterface $b) {
+            if ($a->getDate() > $b->getDate()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
         return $result;
     }
 
@@ -61,8 +68,14 @@ class BookingRepository
                 $result[] = $tour;
             }
         }
-        //TODO Сортировка массива
-
+        /** Сортировка массива обратная */
+        usort($result, function (BookingItemInterface $a, BookingItemInterface $b) {
+            if ($a->getDate() > $b->getDate()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
 
         return $result;
     }

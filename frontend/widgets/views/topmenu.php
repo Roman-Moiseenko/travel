@@ -55,8 +55,6 @@ use yii\helpers\Url;
                             'type' => UserMenuWidget::TOP_USERMENU,
                             'class_list' => 'dropdown-item',
                         ]) ?>
-
-
                     <?php endif; ?>
                 </div>
             </li>

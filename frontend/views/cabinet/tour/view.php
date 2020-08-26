@@ -47,7 +47,7 @@ $tour = $booking->calendar->tour;
                     <tbody>
                     <tr>
                         <th>Номер брони:</th>
-                        <td><?=  $booking->user_id . '.' . $booking->id ?></td>
+                        <td><?= BookingHelper::number($booking) ?></td>
                     </tr>
                     <tr>
                         <th>Дата тура:</th>

@@ -4,6 +4,7 @@
 namespace booking\helpers;
 
 
+use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 
 class BookingHelper
@@ -73,5 +74,11 @@ class BookingHelper
             return '<span class="big-grey-paid-stamp">' . Lang::t('ОТМЕНЕНО') . '</span>';
         }
         return '';
+    }
+
+    public static function number(BookingItemInterface $booking): string
+    {
+        //$booking->user_id . '.' . $booking->id . $booking->getType() / 10
+        return $booking->getUserId() . '.' . $booking->getId() . $booking->getType() / 10;
     }
 }

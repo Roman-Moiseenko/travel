@@ -71,7 +71,8 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
 
     public function isEmpty()
     {
-        return $this->status === Tour::TOUR_EMPTY;
+        $bookings = BookingTour::find()->andWhere(['calendar_id' => $this->id])->count();
+        return $bookings == 0;
     }
 
     public function getTour(): ActiveQuery

@@ -156,7 +156,7 @@ class CalendarController extends Controller
             $tours = $this->findModel($params['tour_id']);
             $result = $tours->removeCostCalendar($params['calendar_id']);
             $this->tours->save($tours);
-            if (!$result) $errors['del-day'] = 'Нельзя удалить непустой тур';
+            if (!$result) $errors['del-day'] = 'Нельзя удалить тур с бронированием';
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }
