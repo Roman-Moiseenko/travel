@@ -134,7 +134,8 @@ class User extends ActiveRecord implements IdentityInterface
                     'networks',
                     'personal',
                     'preferences',
-                    'bookingTours'],
+                    'bookingTours',
+                    ],
             ],
         ];
     }

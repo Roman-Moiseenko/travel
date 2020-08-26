@@ -8,6 +8,7 @@ use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use booking\forms\admin\NoticeForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
@@ -44,9 +45,23 @@ class UserManageService
         $personal->address =  new UserAddress('ru', $form->address->town, $form->address->address, $form->address->index);
         $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
         $user->updatePersonal($personal);
-        //echo '<pre>'; print_r($user->personal); exit();
         $this->users->save($user);
     }
+
+    public function setNotice($id, NoticeForm $form)
+    {
+        $user = $this->users->get($id);
+        $notice = $user->notice;
+        $notice->review = $form->review;
+        $notice->bookingNew = $form->bookingNew;
+        $notice->bookingPay = $form->bookingPay;
+        $notice->bookingCancel = $form->bookingCancel;
+        $notice->bookingCancelPay = $form->bookingCancelPay;
+        $notice->messageNew = $form->messageNew;
+        $user->updateNotice($notice);
+        $this->users->save($user);
+    }
+
 
     public function newLegal($id, UserLegalForm $form): UserLegal
     {

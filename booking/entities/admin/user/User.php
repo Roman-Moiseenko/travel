@@ -149,7 +149,7 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['personal', 'legals'],
+                'relations' => ['personal', 'legals', 'notice'],
             ],
         ];
     }

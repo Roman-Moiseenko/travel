@@ -25,6 +25,7 @@ use yii\helpers\Url;
                     ['label' => 'Мой Профиль', 'icon' => 'id-card', 'url' => ['/cabinet/profile'], 'active' => $this->context->id == 'cabinet/profile'],
                     ['label' => 'Мои организации', 'icon' => 'registered', 'url' => ['/cabinet/legal'], 'active' => $this->context->id == 'cabinet/legal'],
                     ['label' => 'Аутентификация', 'icon' => 'key', 'url' => ['/cabinet/auth'], 'active' => $this->context->id == 'cabinet/auth'],
+                    ['label' => 'Уведомления', 'icon' => 'mail-bulk', 'url' => ['/cabinet/notice'], 'active' => $this->context->id == 'cabinet/notice'],
 
                 ],
             ]);
