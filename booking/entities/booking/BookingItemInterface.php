@@ -4,9 +4,15 @@
 namespace booking\entities\booking;
 
 
+use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
+
 interface BookingItemInterface
 {
-    public function getAdminId(): int;
+    /** get entities */
+    public function getAdmin(): User;
+    public function getLegal(): UserLegal;
+    /** get field */
     public function getUserId(): int;
     public function getId(): int;
     public function getDate(): int;
@@ -17,6 +23,8 @@ interface BookingItemInterface
     public function getAdd(): string;
     public function getStatus(): int;
     public function getAmount(): int;
+    /** set */
     public function setStatus(int $status);
+
 
 }

@@ -10,4 +10,5 @@ return [
     'staticPath' => dirname(__DIR__, 2) . '/static',
     'supportEmail' => 'admin@kupi41.ru',
     'NotSend' => true,
+    'NotPay' => true,
 ];

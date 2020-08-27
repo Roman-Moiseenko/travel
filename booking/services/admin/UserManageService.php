@@ -48,6 +48,7 @@ class UserManageService
         $this->users->save($user);
     }
 
+    /** Не используется */
     public function setNotice($id, NoticeForm $form)
     {
         $user = $this->users->get($id);

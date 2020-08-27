@@ -39,22 +39,25 @@ class NoticeController extends Controller
     public function actionIndex()
     {
         $user = $this->findModel();
-        $form = new NoticeForm($user->notice);
-        //scr::p(\Yii::$app->request->post());
-        if ($form->load(\Yii::$app->request->post()) /*&& $form->validate()*/) {
-            try {
-                scr::p($form->review);
-                $this->service->setNotice($user->id, $form);
-                return $this->redirect(['/cabinet/notice']);
-            } catch (\DomainException $e) {
-                \Yii::$app->errorHandler->logException($e);
-                \Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
+
         return $this->render('notice', [
             'notice' => $user->notice,
-            'model' => $form,
         ]);
+    }
+
+    public function actionAjax()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $item = $params['item'];
+            $field = $params['field'];
+            $value = (bool)$params['set'];
+            $user = $this->findModel();
+            $notice = $user->notice;
+            $notice->$item->$field = $value;
+            $user->updateNotice($notice);
+            $user->save($user);
+        }
     }
 
     private function findModel()

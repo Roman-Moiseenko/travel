@@ -5,8 +5,13 @@ namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\Review;
 
-class ReviewRepository
+class ReviewTourRepository
 {
+
+    public function getByTour($tour_id): array
+    {
+        return Review::find()->andWhere(['tours_id'=>$tour_id])->all();
+    }
 
     public function get($id): Review
     {

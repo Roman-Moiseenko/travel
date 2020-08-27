@@ -4,6 +4,8 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -160,9 +162,15 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->id;
     }
 
-    public function getAdminId(): int
+    public function getAdmin(): User
     {
-        return $this->calendar->tour->user_id;
+        $id = $this->calendar->tour->user_id;
+        return User::findOne($id);
     }
 
+    public function getLegal(): UserLegal
+    {
+        $id = $this->calendar->tour->legal_id;
+        return UserLegal::findOne($id);
+    }
 }

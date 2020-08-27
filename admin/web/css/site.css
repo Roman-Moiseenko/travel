@@ -123,3 +123,6 @@ div.required label.control-label:after {
     outline: none;
 }
 
+.label-not-bold > table >tbody > tr > td >div >label {
+    font-weight: 400 !important;
+}
