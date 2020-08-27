@@ -34,6 +34,8 @@ class PayController extends Controller
             //отправляем СМС
             //через форму ждем код
             //если совпал, то подтверждение
+
+
             return $this->redirect(['/cabinet/tour/view', 'id' => $id]);
         }
     }
