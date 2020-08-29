@@ -205,7 +205,7 @@ $tour = $booking->calendar->tour;
                                 <tr>
                                     <th><?= Html::encode($extra->name) ?></th>
                                     <td><?= Html::encode($extra->description) ?></td>
-                                    <td><?= Html::encode(CurrencyHelper::get($extra->cost)) ?></td>
+                                    <td><?= CurrencyHelper::get($extra->cost) ?></td>
                                 </tr>
                             <?php endif; ?>
                         <?php endforeach; ?>

@@ -2,6 +2,7 @@
 
 use booking\entities\Currency;
 use booking\entities\Lang;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\UserHelper;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
@@ -24,9 +25,9 @@ use yii\helpers\Url;
             </li>
             <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link"
-                   data-toggle="dropdown"><?= UserHelper::Currency(Currency::current()) ?></a>
+                   data-toggle="dropdown"><?= CurrencyHelper::currentString() ?></a>
                 <div class="dropdown-menu">
-                    <?php foreach (UserHelper::listCurrency() as $key => $currency): ?>
+                    <?php foreach (CurrencyHelper::listCurrency() as $key => $currency): ?>
                         <a class="dropdown-item"
                            href="<?= Html::encode(Url::to(['/cabinet/user/currency', 'currency' => $key])) ?>">
                             <?= $currency ?>

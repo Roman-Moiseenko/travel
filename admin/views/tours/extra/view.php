@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'cost',
                                 'label' => 'Цена',
                                 'value' => function (Extra $model) {
-                                    return CurrencyHelper::get($model->cost);
+                                    return CurrencyHelper::cost($model->cost);
                                 },
                                 'options' => ['width' => '60px'],
                             ],
