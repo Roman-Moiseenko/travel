@@ -64,7 +64,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function signup(string $username, string $email, string $password): self
     {
         $user = User::create($username, $email, $password);
-        $user->status = self::STATUS_INACTIVE;
+        $user->status = self::STATUS_ACTIVE;
         $user->generateEmailVerificationToken();
         return $user;
     }

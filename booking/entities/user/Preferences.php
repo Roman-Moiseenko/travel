@@ -4,6 +4,7 @@
 namespace booking\entities\user;
 
 
+use booking\entities\Currency;
 use yii\db\ActiveRecord;
 
 /**
@@ -19,7 +20,7 @@ use yii\db\ActiveRecord;
 
 class Preferences extends ActiveRecord
 {
-    public static function create($lang = 'ru', $currency = 'руб', $smocking = false)
+    public static function create($lang = 'ru', $currency = Currency::RUB, $smocking = false)
     {
         $preferences = new static();
         $preferences->lang = $lang;
