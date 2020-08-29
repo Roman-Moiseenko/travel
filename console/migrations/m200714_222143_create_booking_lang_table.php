@@ -14,13 +14,13 @@ class m200714_222143_create_booking_lang_table extends Migration
     {
         $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         $this->createTable('{{%booking_lang}}', [
-            'ru' => $this->text(),
-            'en' => $this->text(),
-            'pl' => $this->text(),
-            'de' => $this->text(),
-            'fr' => $this->text(),
-            'lv' => $this->text(),
-            'lt' => $this->text(),
+            'ru' => $this->string(),
+            'en' => $this->string(),
+            'pl' => $this->string(),
+            'de' => $this->string(),
+            'fr' => $this->string(),
+            'lv' => $this->string(),
+            'lt' => $this->string(),
         ], $tableOptions);
         $this->createIndex('{{%idx-booking_lang-ru}}', '{{%booking_lang}}', 'ru');
     }

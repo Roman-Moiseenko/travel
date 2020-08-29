@@ -24,7 +24,7 @@ class m200724_100207_create_booking_tours_type_table extends Migration
             'sort' => '1'
         ]);
         $this->insert('{{%booking_tours_type}}',[
-            'name' => 'Выездные экскурсия',
+            'name' => 'Выездные экскурсии',
             'sort' => '2'
         ]);
         $this->insert('{{%booking_tours_type}}',[
@@ -50,6 +50,10 @@ class m200724_100207_create_booking_tours_type_table extends Migration
         $this->insert('{{%booking_tours_type}}',[
             'name' => 'Детские',
             'sort' => '8'
+        ]);
+        $this->insert('{{%booking_tours_type}}',[
+            'name' => 'Куршская коса',
+            'sort' => '9'
         ]);
     }
 
