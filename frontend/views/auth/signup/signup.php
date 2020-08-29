@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?= Lang::t('Пожалуйста, заполните следующие поля для регистрации:') ?></p>
+    <p><?= Lang::t('Пожалуйста, заполните следующие поля для регистрации') ?>:</p>
 
     <div class="row">
         <div class="col-lg-5">
