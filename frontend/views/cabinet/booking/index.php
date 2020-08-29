@@ -14,7 +14,6 @@ if ($active) {
     $this->title = Lang::t('Мои бронирования');
 } else {
     $this->title = Lang::t('Прошедшие бронирования');
-
 }
 if (!$active)
     $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
@@ -72,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php if ($active): ?>
 <div class="d-flex justify-content-center pt-4">
     <div>
-        <a href="<?= Url::to(['/cabinet/booking/history']) ?>" class="btn-lg btn-primary">Прошедшие бронирования</a>
+        <a href="<?= Url::to(['/cabinet/booking/history']) ?>" class="btn-lg btn-primary"><?= Lang::t('Прошедшие бронирования') ?></a>
     </div>
 
 </div>

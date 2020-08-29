@@ -51,27 +51,27 @@ AppAsset::register($this);
                 <div class="col-sm-3">
                     <h5><?= Lang::t('Информация') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="<?=Html::encode(Url::to(['/about']))?>">О Сайте (*)</a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/']))?>">Служба поддержки (*)</a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/policy']))?>">Политика конфиденциальности (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/about']))?>"><?= Lang::t('О сайте') ?> (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/']))?>"><?= Lang::t('Служба поддержки') ?> (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/policy']))?>"><?= Lang::t('Политика конфиденциальности') ?> (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5><?= Lang::t('Жилье') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Отели (*)</a></li>
-                        <li><a href="">Хостелы (*)</a></li>
-                        <li><a href="">Аппартаменты (*)</a></li>
-                        <li><a href="">Загородные дома (виллы) (*)</a></li>
+                        <li><a href=""><?= Lang::t('Отели') ?> (*)</a></li>
+                        <li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li>
+                        <li><a href=""><?= Lang::t('Аппартаменты') ?> (*)</a></li>
+                        <li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5><?= Lang::t('Другие услуги') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="">Прокат автомобиля (*)</a></li>
+                        <li><a href=""><?= Lang::t('Прокат автомобиля') ?> (*)</a></li>
                         <li><a href="<?= Url::to(['/tours'])?>"><?= Lang::t('Найти тур') ?></a></li>
-                        <li><a href="">Заказать столик в ресторане (*)</a></li>
-                        <li><a href="">Купить билет на представление (*)</a></li>
+                        <li><a href=""><?= Lang::t('Заказать столик в ресторане') ?> (*)</a></li>
+                        <li><a href=""><?= Lang::t('Купить билет на представление') ?> (*)</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">

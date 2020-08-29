@@ -6,7 +6,8 @@
 use booking\entities\Lang;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
-use yii\helpers\Url; ?>
+use yii\helpers\Url;
+?>
 
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 

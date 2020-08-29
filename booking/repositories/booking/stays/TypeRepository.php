@@ -5,13 +5,14 @@ namespace booking\repositories\booking\stays;
 
 
 use booking\entities\booking\stays\Type;
+use booking\entities\Lang;
 
 class TypeRepository
 {
     public function get($id): Type
     {
         if (!$result = Type::findOne('id')) {
-            throw new \DomainException('Не найден тип жилища ' . $id);
+            throw new \DomainException(Lang::t('Не найден тип жилища') . ' ' . $id);
         }
         return $result;
     }
@@ -19,14 +20,14 @@ class TypeRepository
     public function save(Type $type): void
     {
         if (!$type->save()) {
-            throw new \RuntimeException('Тип жилища не сохранен');
+            throw new \RuntimeException(Lang::t('Тип жилища не сохранен'));
         }
     }
 
     public function remove(Type $type)
     {
         if (!$type->delete()) {
-            throw new \RuntimeException('Ошибка удаления типа жилища');
+            throw new \RuntimeException(Lang::t('Ошибка удаления типа жилища'));
         }
     }
 }

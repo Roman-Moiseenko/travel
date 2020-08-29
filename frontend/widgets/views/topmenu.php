@@ -17,7 +17,7 @@ use yii\helpers\Url;
                    aria-haspopup="true" aria-expanded="false">
                     <?= Lang::current() ?></a>
                 <div class="dropdown-menu">
-                    <?php foreach (UserHelper::listLangs() as $lang): ?>
+                    <?php foreach (Lang::listLangs() as $lang): ?>
                         <a class="dropdown-item"
                            href="<?= Html::encode(Url::to(['/cabinet/user/lang', 'lang' => $lang])) ?>"><?= $lang ?></a>
                     <?php endforeach; ?>

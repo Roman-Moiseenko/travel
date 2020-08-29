@@ -3,6 +3,7 @@
 namespace booking\repositories\admin;
 
 use booking\entities\admin\user\User;
+use booking\entities\Lang;
 
 class UserRepository
 {
@@ -44,14 +45,14 @@ class UserRepository
     public function save(User $user): void
     {
         if (!$user->save()) {
-            throw new \RuntimeException('Ошибка сохранения');
+            throw new \RuntimeException(Lang::t('Ошибка сохранения'));
         }
     }
 
     private function getBy(array $condition): User
     {
         if (!$user = User::findOne($condition)) {
-            throw new \DomainException('Пользователь не найден');
+            throw new \DomainException(Lang::t('Пользователь не найден'));
         }
         return $user;
     }

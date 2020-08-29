@@ -35,13 +35,16 @@ class CurrencyHelper
 
     public static function cost($cost)
     {
+        if (empty($cost)) {
+            return 'free';
+        }
         return number_format($cost, 0, '.', ' ') . ' руб.';
     }
 
     public static function get($cost)
     {
         if (empty($cost)) {
-            return 'free';
+            return '<span class="badge badge-pill badge-success">free</span>';
         }
         $current = self::current();
         if ($current != self::RUB) {

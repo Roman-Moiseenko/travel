@@ -8,7 +8,7 @@ use booking\entities\booking\tours\CostCalendar;
 <div class="row pb-2">
     <div class="col-6">
         <input type="hidden" value=""/>
-        <label for="booking-tour-time">Выберите время:</label>
+        <label for="booking-tour-time"><?= Lang::t('Выберите время') ?>:</label>
         <select id="booking-tour-time" name="calendar_id" class="form-control">
             <option value="-1"></option>
             <?php foreach ($day_tours as $calendar): ?>

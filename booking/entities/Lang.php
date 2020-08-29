@@ -70,4 +70,11 @@ class Lang extends ActiveRecord
     {
         return '{{%booking_lang}}';
     }
+
+    public static function listLangs(): array
+    {
+        return [
+            'ru', 'en', 'pl', 'de', 'fr', 'lt', 'lv'
+        ];
+    }
 }

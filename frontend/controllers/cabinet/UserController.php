@@ -4,6 +4,7 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\Lang;
 use booking\helpers\UserHelper;
 use booking\repositories\UserRepository;
 use booking\services\manage\UserManageService;
@@ -30,7 +31,7 @@ class UserController extends Controller
 
     public function actionLang($lang)
     {
-        if (!in_array($lang, UserHelper::listLangs())) $lang = 'ru';
+        if (!in_array($lang, Lang::listLangs())) $lang = 'ru';
         if (\Yii::$app->user->isGuest)
         {
             \Yii::$app->response->cookies->add(new Cookie([

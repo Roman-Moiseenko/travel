@@ -8,7 +8,7 @@ use booking\entities\user\User;
 
 class Currency
 {
-    const RUB = 1;
+   /* const RUB = 1;
     const USD = 2;
     const EURO = 3;
     const PZL = 4;
@@ -20,7 +20,7 @@ class Currency
           //  $data =\Yii::$app->geo->getData();
            // if ($data != null) return $data['country'];
         } else {
-            /** @var \booking\entities\user\User $user */
+
             $user = User::findOne(\Yii::$app->user->id);
             if ($user->preferences == null) {
                 //$data =\Yii::$app->geo->getData();
@@ -30,5 +30,5 @@ class Currency
             }
         }
         return Currency::RUB;
-    }
+    }*/
 }

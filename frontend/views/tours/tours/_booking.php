@@ -2,6 +2,7 @@
 
 
 use booking\entities\booking\tours\Tour;
+use booking\entities\Lang;
 use frontend\assets\DatepickerAsset;
 use yii\helpers\Html;
 
@@ -14,7 +15,7 @@ DatepickerAsset::register($this);
     <div class="card-body">
         <input type="hidden" id="number-tour" value="<?= $tour->id ?>">
         <?= Html::beginForm(['tours/checkout/booking']); ?>
-        <label for="datepicker-tour">Выберите дату</label>
+        <label for="datepicker-tour"><?= Lang::t('Выберите дату') ?></label>
         <div class="input-group date pb-2" id="datepicker-tour">
             <div class="input-group-prepend">
                 <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
@@ -25,7 +26,7 @@ DatepickerAsset::register($this);
         <p></p>
         <div class="form-group">
             <?= Html::submitButton(
-                'Приобрести',
+                Lang::t('Приобрести'),
                 [
                     'class' => 'btn btn-primary btn-lg btn-block',
                     'disabled' => 'disabled',
@@ -35,9 +36,9 @@ DatepickerAsset::register($this);
         </div>
         <?= Html::endForm() ?>
         <?php if (\Yii::$app->user->isGuest): ?>
-        <div class="card-footer">
-            Для приобретения билетов, зарергистрируйтесь на сайте.
-        </div>
+            <div class="card-footer">
+                <?= Lang::t('Для приобретения билетов, зарергистрируйтесь на сайте') ?>.
+            </div>
         <?php endif; ?>
     </div>
 </div>

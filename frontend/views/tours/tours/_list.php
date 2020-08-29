@@ -1,6 +1,7 @@
 <?php
 
 
+use booking\entities\Lang;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -22,16 +23,16 @@ use yii\widgets\LinkPager;
     <div class="col-md-4 col-sm-7">
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-                <span class="input-group-text">Сортировать:</span>
+                <span class="input-group-text"><?= Lang::t('Сортировать') ?>:</span>
             </div>
             <select id="input-sort" class="form-control" onchange="location = this.value;">
                 <?php
                 $values = [
-                    '' => 'по умолчанию',
-                    'name' => 'по имени (А-Я)',
-                    '-name' => 'по имени (Я-А)',
-                    'rating' => 'по рейтингу (высокий рейтинг)',
-                    '-rating' => 'по рейтингу (низкий рейтинг)',
+                    '' => Lang::t('по умолчанию'),
+                    'name' => Lang::t('по имени (А-Я)'),
+                    '-name' => Lang::t('по имени (Я-А)'),
+                    'rating' => Lang::t('по рейтингу (высокий рейтинг)'),
+                    '-rating' => Lang::t('по рейтингу (низкий рейтинг)'),
                 ];
                 $current = Yii::$app->request->get('sort');
                 ?>
@@ -45,7 +46,7 @@ use yii\widgets\LinkPager;
     <div class="col-md-2 col-sm-5">
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-            <span class="input-group-text">Показать:</span>
+                <span class="input-group-text"><?= Lang::t('Показать') ?>:</span>
             </div>
             <select id="input-limit" class="form-control" onchange="location = this.value;">
                 <?php
@@ -73,6 +74,5 @@ use yii\widgets\LinkPager;
             'pagination' => $dataProvider->getPagination(),
         ]) ?>
     </div>
-    <div class="col-sm-6 text-right">Показано <?= $dataProvider->getCount() ?>
-        из <?= $dataProvider->getTotalCount() ?></div>
+    <div class="col-sm-6 text-right"><?= Lang::t('Показано') . ' ' . $dataProvider->getCount() . ' ' . Lang::t('из') . ' ' . $dataProvider->getTotalCount() ?></div>
 </div>

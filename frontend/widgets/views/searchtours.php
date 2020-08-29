@@ -17,7 +17,7 @@ use yii\helpers\Html;
 <div class="topbar-search-tours">
     <div class="row">
         <div class="col-sm-3">
-            <label class="label-search">Дата:</label>
+            <label class="label-search"><?= Lang::t('Дата') ?>:</label>
             <?= DatePicker::widget([
                 'model' => $model,
                 'attribute' => 'date_from',
