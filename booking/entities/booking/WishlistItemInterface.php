@@ -10,4 +10,5 @@ interface WishlistItemInterface
     public function getLink(): string;
     public function getPhoto(): string;
     public function getType(): string;
+    public function getId(): string;
 }

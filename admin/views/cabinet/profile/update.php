@@ -8,7 +8,7 @@ use booking\entities\admin\user\User;
 use booking\forms\admin\PersonalForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
 $this->title = 'Изменить Профиль';

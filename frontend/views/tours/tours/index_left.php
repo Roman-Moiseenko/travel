@@ -1,11 +1,11 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model SearchToursForm */
 
 use booking\forms\booking\tours\SearchToursForm;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = 'Туры, экскурсии, мероприятия';

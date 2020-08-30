@@ -5,8 +5,6 @@
 use booking\entities\admin\user\Notice;
 use booking\entities\admin\user\User;
 use booking\forms\admin\NoticeForm;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 
 /* @var $notice Notice */
 /* @var $model NoticeForm */

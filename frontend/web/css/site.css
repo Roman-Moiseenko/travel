@@ -283,3 +283,7 @@ a.desc:after {
 .select-item {
     font-weight: 600;
 }
+div.required label:after {
+    content: " *";
+    color: red;
+}

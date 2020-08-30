@@ -3,7 +3,7 @@
 use booking\entities\booking\tours\Extra;
 use booking\entities\booking\tours\Tour;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var  $tours Tour */

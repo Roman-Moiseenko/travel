@@ -5,7 +5,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 /* @var $tour Tour */
 
 /* @var $reviewForm ReviewForm */

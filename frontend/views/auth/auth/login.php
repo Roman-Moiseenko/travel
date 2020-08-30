@@ -1,13 +1,13 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 
 /* @var $model \shop\forms\auth\LoginForm */
 
 use booking\entities\Lang;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 $this->title = Lang::t('Вход в личный кабинет');
 $this->params['breadcrumbs'][] = $this->title;

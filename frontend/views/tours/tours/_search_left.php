@@ -5,7 +5,7 @@ use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\ToursHelper;
 use booking\helpers\ToursTypeHelper;
 use kartik\widgets\DatePicker;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $model SearchToursForm */

@@ -14,7 +14,7 @@ class WishlistRepository
     public function getAll($user_id): array
     {
         $tours = WishlistTour::find()->andWhere(['user_id' => $user_id])->all();
-        $stays = null; $cars = null;
+        $stays = []; $cars = [];
         /* ЗАГЛУШКА
         $stays = WishlistStay::find()->andWhere(['user_id' => $user_id])->all();
         $cars = WishlistCar::find()->andWhere(['user_id' => $user_id])->all();

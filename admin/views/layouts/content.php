@@ -1,12 +1,11 @@
 <?php
 /* @var $content string */
 
-use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <?= Alert::widget() ?>
+    <?= \frontend\widgets\AlertWidget::widget() ?>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

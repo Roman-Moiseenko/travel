@@ -4,7 +4,7 @@ use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursParamsForm;
 use booking\helpers\ToursHelper;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model ToursParamsForm */

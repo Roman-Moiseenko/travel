@@ -1,12 +1,13 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \shop\forms\auth\SignupForm */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model SignupForm */
 
 use booking\entities\Lang;
+use booking\forms\auth\SignupForm;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 $this->title = Lang::t('Регистрация');
 $this->params['breadcrumbs'][] = $this->title;

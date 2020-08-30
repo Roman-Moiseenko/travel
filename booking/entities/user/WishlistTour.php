@@ -63,4 +63,9 @@ class WishlistTour extends ActiveRecord implements WishlistItemInterface
     {
         return BookingHelper::BOOKING_TYPE_TOUR;
     }
+
+    public function getId(): string
+    {
+        return $this->tour_id;
+    }
 }
