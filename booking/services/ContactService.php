@@ -26,16 +26,22 @@ class ContactService
 
     public function sendNoticeReview(ReviewInterface $review)
     {
-
-        //TODO
-        $email = '';
-        $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
-            ->setTo($email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый отзыв'])
-            ->setSubject('Новый отзыв о товаре')
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException('Ошибка отправки');
+        $user_admin = $review->getAdmin();
+        $noticeAdmin = $user_admin->notice;
+        $legal = $review->getLegal();
+        $phoneAdmin = $legal->noticePhone;
+        $emailAdmin = $legal->noticeEmail;
+        if ($noticeAdmin->review->phone)
+            $this->sendSMS($phoneAdmin, 'Новый отзыв '. $review->getName());
+        if ($noticeAdmin->review->email) {
+            $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
+                ->setTo($emailAdmin)
+                ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый отзыв'])
+                ->setSubject('Новый отзыв')
+                ->send();
+            if (!$send) {
+                throw new \RuntimeException('Ошибка отправки');
+            }
         }
     }
 

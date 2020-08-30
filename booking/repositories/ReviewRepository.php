@@ -16,4 +16,10 @@ class ReviewRepository
     {
 
     }
+
+    /** @return ReviewInterface[] */
+    public function getByUser($id): array
+    {
+
+    }
 }

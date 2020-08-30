@@ -29,7 +29,7 @@ use yii\helpers\Url;
                     ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/tours/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/finance'],
                     ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tours/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/calendar'],
                     ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tours/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/booking'],
-                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tours/reviews', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reviews'],
+                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tours/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/review'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tours/reports', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reports'],
                 ],
             ]);

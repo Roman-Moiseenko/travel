@@ -5,6 +5,7 @@ namespace frontend\controllers\tours;
 
 
 use booking\entities\booking\tours\Tour;
+use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\scr;
@@ -58,7 +59,7 @@ class ToursController extends Controller
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
-                \Yii::$app->session->setFlash('success', 'Ваш отзыв был отправлен на модерацию. В ближащее время мы его опубликуем. Спасибо!');
+                \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
                 return $this->redirect(['tours/view', 'id' => $id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());

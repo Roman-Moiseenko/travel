@@ -3,9 +3,13 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\admin\user\UserLegal;
+use booking\entities\booking\ReviewInterface;
 use booking\entities\user\User;
+use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * @property int $id
@@ -14,15 +18,22 @@ use yii\db\ActiveRecord;
  * @property int $vote
  * @property string $text
  * @property integer $tours_id
+ * @property Tour $tour
+ * @property int $status
  */
-class Review extends ActiveRecord
+class Review extends ActiveRecord implements ReviewInterface
 {
+    const STATUS_INACTIVE = 1;
+    const STATUS_ACTIVE = 2;
+    const STATUS_CANCEL = 3;
+
     public static function create($userId, int $vote, string $text): self
     {
         $review = new static();
         $review->user_id = $userId;
         $review->vote = $vote;
         $review->text = $text;
+        $review->status = self::STATUS_ACTIVE;
         $review->created_at = time();
         return $review;
     }
@@ -54,8 +65,69 @@ class Review extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getTours(): ActiveQuery
+    public function getTour(): ActiveQuery
     {
         return $this->hasOne(Tour::class, ['id' => 'tours_id']);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getLinks(): array
+    {
+        return [
+            'admin' => Url::to(['tours/review/index', 'id' => $this->tours_id]),
+            'tour' => Url::to(['tours/view', 'id' => $this->tours_id]),
+            'update' => Url::to(['cabinet/review/update', 'id' => $this->id]),
+            'remove' => Url::to(['cabinet/review/delete', 'id' => $this->id]),
+
+        ];
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function getVote(): string
+    {
+        return $this->vote;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->user_id;
+    }
+
+    public function getDate(): int
+    {
+        return $this->created_at;
+    }
+
+    public function getType(): int
+    {
+        return BookingHelper::BOOKING_TYPE_TOUR;
+    }
+
+    public function getName(): string
+    {
+        return $this->tour->name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAdmin(): \booking\entities\admin\user\User
+    {
+        $id = $this->tour->user_id;
+        return \booking\entities\admin\user\User::findOne($id);
+    }
+
+    public function getLegal(): UserLegal
+    {
+        $id = $this->tour->legal_id;
+        return UserLegal::findOne($id);
     }
 }

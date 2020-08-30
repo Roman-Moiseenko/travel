@@ -17,6 +17,7 @@ use booking\forms\booking\tours\ToursParamsForm;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
+use booking\services\ContactService;
 use booking\services\TransactionManager;
 
 class TourService
@@ -34,18 +35,21 @@ class TourService
      * @var ExtraRepository
      */
     private $extra;
+    private $contactService;
 
     public function __construct(
         TourRepository $tours,
         TransactionManager $transaction,
         TypeRepository $types,
-        ExtraRepository $extra
+        ExtraRepository $extra,
+        ContactService $contactService
     )
     {
         $this->tours = $tours;
         $this->transaction = $transaction;
         $this->types = $types;
         $this->extra = $extra;
+        $this->contactService = $contactService;
     }
 
     public function create(ToursCommonForms $form): Tour
