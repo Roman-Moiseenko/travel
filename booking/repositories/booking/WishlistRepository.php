@@ -1,0 +1,24 @@
+<?php
+
+
+namespace booking\repositories\booking;
+
+
+use booking\entities\user\WishlistTour;
+use booking\entities\booking\WishlistItemInterface;
+
+class WishlistRepository
+{
+
+    /** @return WishlistItemInterface[] */
+    public function getAll($user_id): array
+    {
+        $tours = WishlistTour::find()->andWhere(['user_id' => $user_id])->all();
+        $stays = null; $cars = null;
+        /* ЗАГЛУШКА
+        $stays = WishlistStay::find()->andWhere(['user_id' => $user_id])->all();
+        $cars = WishlistCar::find()->andWhere(['user_id' => $user_id])->all();
+        */
+        return array_merge($tours, $stays, $cars);
+    }
+}

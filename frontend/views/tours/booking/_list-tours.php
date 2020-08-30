@@ -3,6 +3,7 @@
 /* @var $day_tours CostCalendar[] */
 
 use booking\entities\booking\tours\CostCalendar;
+use booking\entities\Lang;
 
 ?>
 <div class="row pb-2">

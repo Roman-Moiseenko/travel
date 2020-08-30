@@ -30,6 +30,7 @@ use yii\web\UploadedFile;
  * @property Personal $personal
  * @property Preferences $preferences
  * @property BookingTour[] bookingTours
+ * @property WishlistTour[] wishlistTours
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -135,6 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'personal',
                     'preferences',
                     'bookingTours',
+                    'wishlistTours',
                     ],
             ],
         ];
@@ -197,12 +199,46 @@ class User extends ActiveRecord implements IdentityInterface
         }
         throw new \DomainException(Lang::t('Бронирование не найдено'));
     }
+
+    public function addWishlistTour($tour_id)
+    {
+        $wishlist = $this->wishlistTours;
+        foreach ($wishlist as $item) {
+            if ($item->isFor($tour_id)) {
+                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
+            }
+        }
+        $wishlistTour = WishlistTour::create($tour_id);
+        $wishlist[] = $wishlistTour;
+        $this->wishlistTours = $wishlistTour;
+    }
+
+    public function removeWishlistTour($id)
+    {
+        $wishlist = $this->wishlistTours;
+        foreach ($wishlist as $i => &$item) {
+            if ($item->isFor($id)) {
+                //TODO Проверить
+                $item->delete();
+                unset($wishlist[$i]);
+                $this->wishlistTours = $wishlist;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Избранное не найдено'));
+    }
     /** <=============== Tours*/
+
 
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
     {
         return $this->hasMany(BookingTour::class, ['user_id' => 'id']);
+    }
+
+    public function getWishlistTours(): ActiveQuery
+    {
+        return $this->hasMany(WishlistTour::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

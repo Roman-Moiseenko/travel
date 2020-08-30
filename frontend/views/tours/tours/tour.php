@@ -64,7 +64,7 @@ $countReveiws = $tour->countReviews();
 
                 <div class="btn-group">
                     <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?= Lang::t('В избранное')?>"
-                            href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post">
+                            href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>" data-method="post">
                         <i class="fa fa-heart"></i>
                     </button>
                 </div>

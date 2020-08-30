@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use frontend\widgets\AlertWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -41,7 +42,7 @@ AppAsset::register($this);
             ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
+        <?= AlertWidget::widget() ?>
         <?= $content ?>
     </div>
 

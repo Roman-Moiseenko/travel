@@ -27,7 +27,7 @@ use yii\helpers\Url;
         <div class="caption">
             <h4>
                 <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
-                <button type="button" data-toggle="tooltip" title="<?= Lang::t('В избранное')?>" href="<?= Url::to(['/cabinet/wishlist/add', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
+                <button type="button" data-toggle="tooltip" title="<?= Lang::t('В избранное')?>" href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>" data-method="post"><i class="fa fa-heart"></i></button>
             </h4>
 
             <p><?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 10)) ?></p>

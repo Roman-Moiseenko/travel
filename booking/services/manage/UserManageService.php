@@ -185,6 +185,20 @@ class UserManageService
         $user = $this->users->get($id);
         $user->payBookingTours($booking_id);
         $this->users->save($user);
-    }    
+    }
+
+    public function addWishilstTour($id, $tour_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlistTour($tour_id);
+        $this->users->save($user);
+    }
+
+    public function removeWishilstTour($id, $tour_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlistTour($tour_id);
+        $this->users->save($user);
+    }
     
 }

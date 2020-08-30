@@ -6,6 +6,7 @@ namespace booking\entities;
 
 
 use booking\entities\user\User;
+use booking\helpers\scr;
 use yii\db\ActiveRecord;
 
 /**
@@ -50,7 +51,16 @@ class Lang extends ActiveRecord
 
     public static function t($text): string
     {
-        $lang = Lang::current();
+        //Определяем какой User запросил перевод,
+        //если клиент, то получаем текущий язык
+        if (\Yii::$app->user->identity instanceof \booking\entities\user\User) {
+            $lang = Lang::current();
+        }
+        //иначе ставим Русский
+        if (\Yii::$app->user->identity instanceof \booking\entities\admin\user\User) {
+            $lang = 'ru';
+        }
+
         if (!$result = Lang::findOne(['ru' => $text])) {
             Lang::create($text);
             return $text;
