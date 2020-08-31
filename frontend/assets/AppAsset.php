@@ -18,12 +18,14 @@ class AppAsset extends AssetBundle
         'css/stylesheet.css',
         'css/font-awesome/css/font-awesome.css',
         'css/glyphicon.css',
+        'css/swiper.min.css',
     ];
     public $js = [
         'js/common.js',
         'js/site.js',
         'js/map.js',
         'js/calendar_tour.js',
+        'js/swiper.jquery.js',
 
     ];
     public $depends = [

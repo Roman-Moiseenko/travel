@@ -2,7 +2,7 @@
 
 namespace booking\forms\booking\tours;
 
-use booking\entities\booking\tours\Review;
+use booking\entities\booking\tours\ReviewTour;
 use yii\base\Model;
 
 class ReviewEditForm extends Model
@@ -10,7 +10,7 @@ class ReviewEditForm extends Model
     public $vote;
     public $text;
 
-    public function __construct(Review $review, $config = [])
+    public function __construct(ReviewTour $review, $config = [])
     {
         $this->vote = $review->vote;
         $this->text = $review->text;

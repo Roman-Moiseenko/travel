@@ -15,34 +15,29 @@ use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\forms\booking\tours\ToursParamsForm;
 use booking\repositories\booking\tours\ExtraRepository;
+use booking\repositories\booking\tours\ReviewTourRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
+use booking\repositories\booking\ReviewRepository;
 use booking\services\ContactService;
 use booking\services\TransactionManager;
 
 class TourService
 {
     private $tours;
-    /**
-     * @var TransactionManager
-     */
     private $transaction;
-    /**
-     * @var TypeRepository
-     */
     private $types;
-    /**
-     * @var ExtraRepository
-     */
     private $extra;
     private $contactService;
+    private $reviews;
 
     public function __construct(
         TourRepository $tours,
         TransactionManager $transaction,
         TypeRepository $types,
         ExtraRepository $extra,
-        ContactService $contactService
+        ContactService $contactService,
+        ReviewTourRepository $reviews
     )
     {
         $this->tours = $tours;
@@ -50,6 +45,7 @@ class TourService
         $this->types = $types;
         $this->extra = $extra;
         $this->contactService = $contactService;
+        $this->reviews = $reviews;
     }
 
     public function create(ToursCommonForms $form): Tour
@@ -138,6 +134,23 @@ class TourService
         $this->tours->save($tours);
         $this->contactService->sendNoticeReview($review);
     }
+
+    public function removeReview($review_id)
+    {
+        $review = $this->reviews->get($review_id);
+        $tours = $this->tours->get($review->tours_id);
+        $tours->removeReview($review_id);
+        $this->tours->save($tours);
+    }
+
+    public function editReview($review_id, ReviewForm $form)
+    {
+        $review = $this->reviews->get($review_id);
+        $tours = $this->tours->get($review->tours_id);
+        $tours->editReview($review_id, $form->vote, $form->text);
+        $this->tours->save($tours);
+    }
+
     public function setParams($id, ToursParamsForm $form): void
     {
         $tours = $this->tours->get($id);

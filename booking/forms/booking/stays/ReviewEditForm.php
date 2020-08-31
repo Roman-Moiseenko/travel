@@ -2,7 +2,7 @@
 
 namespace booking\forms\booking\stays;
 
-use booking\entities\booking\stays\Review;
+use booking\entities\booking\stays\ReviewStay;
 use yii\base\Model;
 
 class ReviewEditForm extends Model
@@ -10,7 +10,7 @@ class ReviewEditForm extends Model
     public $vote;
     public $text;
 
-    public function __construct(Review $review, $config = [])
+    public function __construct(ReviewStay $review, $config = [])
     {
         $this->vote = $review->vote;
         $this->text = $review->text;

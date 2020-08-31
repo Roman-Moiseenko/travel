@@ -34,7 +34,6 @@ class CommonController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        //'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

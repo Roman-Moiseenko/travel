@@ -29,7 +29,7 @@ use yii\web\UploadedFile;
  * @property integer $type_id
  * @property BookingAddress $address
  * @property Photo[] $photos
- * @property Review[] $reviews
+ * @property ReviewStay[] $reviews
  * @property Rooms[] $rooms
  * @property Type $type
  * @property Rules $rules
@@ -155,10 +155,10 @@ class Stays extends ActiveRecord
 
     /** Review  ==========>*/
 
-    public function addReview($userId, $vote, $text): Review
+    public function addReview($userId, $vote, $text): ReviewStay
     {
         $reviews = $this->reviews;
-        $review = Review::create($userId, $vote, $text);
+        $review = ReviewStay::create($userId, $vote, $text);
         $reviews[] = $review;
         $this->updateReviews($reviews);
         return $review;
@@ -194,7 +194,7 @@ class Stays extends ActiveRecord
     private function updateReviews(array $reviews): void
     {
         $total = 0;
-        /* @var Review $review */
+        /* @var ReviewStay $review */
         foreach ($reviews as $review) {
                 $total += $review->getRating();
         }
@@ -295,7 +295,7 @@ class Stays extends ActiveRecord
 
     public function getReviews(): ActiveQuery
     {
-        return $this->hasMany(Review::class, ['stays_id' => 'id']);
+        return $this->hasMany(ReviewStay::class, ['stays_id' => 'id']);
     }
 
     public function getPhotos(): ActiveQuery

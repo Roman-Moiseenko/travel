@@ -3,28 +3,28 @@
 
 namespace booking\repositories\booking\stays;
 
-use booking\entities\booking\stays\Review;
+use booking\entities\booking\stays\ReviewStay;
 use booking\entities\Lang;
 
 class ReviewRepository
 {
 
-    public function get($id): Review
+    public function get($id): ReviewStay
     {
-        if (!$review = Review::findOne($id)) {
+        if (!$review = ReviewStay::findOne($id)) {
             throw new \DomainException(Lang::t('Отзыв не найден'));
         }
         return $review;
     }
 
-    public function save(Review $review): void
+    public function save(ReviewStay $review): void
     {
         if (!$review->save()) {
             throw new \RuntimeException(Lang::t('Отзыв не сохранен'));
         }
     }
 
-    public function remove(Review $review)
+    public function remove(ReviewStay $review)
     {
         if (!$review->delete()) {
             throw new \RuntimeException(Lang::t('Ошибка удаления отзыва'));

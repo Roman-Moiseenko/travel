@@ -130,3 +130,28 @@ div.required label:after {
 .label-not-bold > table >tbody > tr > td >div >label {
     font-weight: 400 !important;
 }
+
+
+.rating .fa-stack {
+    font-size: 8px;
+}
+.rating .fa-star-o {
+    color: #999;
+    font-size: 15px;
+}
+.rating .fa-star {
+    color: #FC0;
+    font-size: 15px;
+}
+.rating .fa-star + .fa-star-o {
+    color: #E69500;
+}
+
+.rating .fa-star-half-o {
+    color: #FC0;
+    font-size: 15px;
+}
+.rating .fa-star-half-alt {
+    color: #FC0;
+    font-size: 15px;
+}

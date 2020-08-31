@@ -5,14 +5,14 @@ namespace booking\services;
 use booking\entities\admin\user\User;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
-use booking\entities\booking\tours\Review;
+use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use yii\mail\MailerInterface;
 
 class ContactService
 {
-//TODO Контакт - Сервис СДЕЛАТЬ!!!!!!!!!!!!!!!!!
+//TODO Контакт - Сервис протестировать на домене
     /**
      * @var MailerInterface
      */
@@ -123,7 +123,19 @@ class ContactService
         }
     }
 
-    private function sendEmailReview($email, Review $review, $template)
+    public function sendPetitionReview(ReviewInterface $review)
+    {
+        $send = $this->mailer->compose('petitionReview', ['review' => $review])
+            ->setTo(\Yii::$app->params['supportEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Петиция на отзыв'])
+            ->setSubject($review->getName())
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException('Ошибка отправки');
+        }
+    }
+
+    private function sendEmailReview($email, ReviewTour $review, $template)
     {
         $send = $this->mailer->compose($template, ['review' => $review])
             ->setTo($email)

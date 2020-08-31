@@ -21,7 +21,7 @@ use yii\helpers\Url;
  * @property Tour $tour
  * @property int $status
  */
-class Review extends ActiveRecord implements ReviewInterface
+class ReviewTour extends ActiveRecord implements ReviewInterface
 {
     const STATUS_INACTIVE = 1;
     const STATUS_ACTIVE = 2;
@@ -79,9 +79,9 @@ class Review extends ActiveRecord implements ReviewInterface
     {
         return [
             'admin' => Url::to(['tours/review/index', 'id' => $this->tours_id]),
-            'tour' => Url::to(['tours/view', 'id' => $this->tours_id]),
-            'update' => Url::to(['cabinet/review/update', 'id' => $this->id]),
-            'remove' => Url::to(['cabinet/review/delete', 'id' => $this->id]),
+            'frontend' => Url::to(['tours/view', 'id' => $this->tours_id]),
+            'update' => Url::to(['cabinet/review/update-tour', 'id' => $this->id]),
+            'remove' => Url::to(['cabinet/review/delete-tour', 'id' => $this->id]),
 
         ];
     }

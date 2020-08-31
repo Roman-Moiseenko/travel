@@ -200,5 +200,7 @@ class UserManageService
         $user->removeWishlistTour($tour_id);
         $this->users->save($user);
     }
-    
+
+    //public function
+
 }

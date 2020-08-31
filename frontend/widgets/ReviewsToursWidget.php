@@ -10,6 +10,7 @@ class ReviewsToursWidget extends Widget
 {
 
     public $tours;
+
 //TODO сДЕЛАТЬ Подгрузку отзывов
     public function run()
     {

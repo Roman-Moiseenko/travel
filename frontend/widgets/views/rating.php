@@ -1,7 +1,7 @@
 <?php
 /* @var $rating integer */
 ?>
-
+<div class="rating">
 <?php for ($i = 1; $i <= 5; $i++): ?>
     <span class="fa fa-stack">
     <?php $star = 'far fa-star'; ?>
@@ -13,3 +13,4 @@
         <i class="<?= $star; ?>"></i>
     </span>&nbsp
 <?php endfor; ?>
+</div>
