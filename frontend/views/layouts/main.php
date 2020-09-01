@@ -96,7 +96,7 @@ AppAsset::register($this);
             mode: 'horizontal',
             slidesPerView: 1,
             pagination: '.slideshow0',
-            paginationClickable: true,
+            paginationClickable: false,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
             spaceBetween: 30,

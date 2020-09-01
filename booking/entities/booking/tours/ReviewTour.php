@@ -17,9 +17,10 @@ use yii\helpers\Url;
  * @property int $user_id
  * @property int $vote
  * @property string $text
- * @property integer $tours_id
+ * @property integer $tour_id
  * @property Tour $tour
  * @property int $status
+ * @property User $user
  */
 class ReviewTour extends ActiveRecord implements ReviewInterface
 {
@@ -67,7 +68,7 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
 
     public function getTour(): ActiveQuery
     {
-        return $this->hasOne(Tour::class, ['id' => 'tours_id']);
+        return $this->hasOne(Tour::class, ['id' => 'tour_id']);
     }
 
     public function getId(): int
@@ -78,8 +79,8 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['tours/review/index', 'id' => $this->tours_id]),
-            'frontend' => Url::to(['tours/view', 'id' => $this->tours_id]),
+            'admin' => Url::to(['tours/review/index', 'id' => $this->tour_id]),
+            'frontend' => Url::to(['tours/view', 'id' => $this->tour_id]),
             'update' => Url::to(['cabinet/review/update-tour', 'id' => $this->id]),
             'remove' => Url::to(['cabinet/review/delete-tour', 'id' => $this->id]),
 
@@ -91,7 +92,7 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
         return $this->text;
     }
 
-    public function getVote(): string
+    public function getVote(): int
     {
         return $this->vote;
     }

@@ -16,7 +16,7 @@ class m200721_222606_create_booking_stays_reviews_table extends Migration
 
         $this->createTable('{{%booking_stays_reviews}}', [
             'id' => $this->primaryKey(),
-            'stays_id' => $this->integer()->notNull(),
+            'stay_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->unsigned()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'vote' => $this->integer()->notNull(),

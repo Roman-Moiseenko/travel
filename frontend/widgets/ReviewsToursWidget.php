@@ -15,7 +15,7 @@ class ReviewsToursWidget extends Widget
     public function run()
     {
         $reviews = $this->tours->reviews;
-
+        if (count($reviews) == 0) return;
         return $this->render('review_tour', [
             'reviews' => $reviews,
         ]);

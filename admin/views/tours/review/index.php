@@ -68,6 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div>
                         <?= \frontend\widgets\RatingWidget::widget(['rating' => $review->vote]) ?>
                     </div>
+                    <div class="select-text">
+                        <?= $review->user->personal->fullname->getFullname() ?>
+                    </div>
                     <div class="ml-auto">
                         <?= date('d-m-Y', $review->created_at) ?>
                     </div>
@@ -75,7 +78,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="<?= Url::to(['tours/review/petition', 'id' => $review->id])?>" title="Подать жалобу"><i class="fas fa-share-square"></i></a>
                     </div>
                 </div>
-                <div>
+                <hr/>
+                <div class="p-3">
                     <?= $review->text ?>
                 </div>
 

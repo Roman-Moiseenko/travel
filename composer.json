@@ -1,67 +1,72 @@
 {
-    "name": "yiisoft/yii2-app-advanced",
-    "description": "Yii 2 Advanced Project Template",
-    "keywords": ["yii2", "framework", "advanced", "project template"],
-    "homepage": "http://www.yiiframework.com/",
-    "type": "project",
-    "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
-    },
-    "minimum-stability": "stable",
-    "require": {
-        "php": ">=7.3",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "la-haute-societe/yii2-save-relations-behavior": "*",
-        "yiisoft/yii2-authclient": "*",
-        "kartik-v/yii2-widgets": "*",
-        "kartik-v/yii2-field-range": "*",
-        "paulzi/yii2-nested-sets": "*",
-        "yii-dream-team/yii2-upload-behavior": "*",
-        "bower-asset/font-awesome": "*",
-        "sersid/yii2-font-awesome-asset": "*",
-        "cocur/slugify": "^4.0",
-        "bower-asset/magnific-popup": "*",
-        "alexeevdv/yii2-sms": "~1.0",
-        "div/yii2-geoip": "^1.0",
-        "rmrevin/yii2-fontawesome": "~3.5",
-        "almasaeed2010/adminlte": "~3.0",
-        "hail812/yii2-adminlte3": "*",
-        "mihaildev/yii2-elfinder": "*",
-        "mihaildev/yii2-ckeditor": "*",
-        "yiisoft/yii2-bootstrap4": "^2.0",
-        "bower-asset/bootstrap-datepicker": "^1.9",
-      "ext-json": "*",
-        "wbraganca/yii2-dynamicform": "*",
-      "ext-simplexml": "*"
-    },
-    "require-dev": {
-        "yiisoft/yii2-debug": "~2.1.0",
-        "yiisoft/yii2-gii": "~2.1.0",
-        "yiisoft/yii2-faker": "~2.0.0",
-        "codeception/codeception": "^4.0",
-        "codeception/module-asserts": "^1.0",
-        "codeception/module-yii2": "^1.0",
-        "codeception/module-filesystem": "^1.0",
-        "codeception/verify": "~0.5.0 || ~1.1.0",
-        "symfony/browser-kit": ">=2.7 <=4.2.4"
-    },
-    "config": {
-        "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+  "name": "yiisoft/yii2-app-advanced",
+  "description": "Yii 2 Advanced Project Template",
+  "keywords": [
+    "yii2",
+    "framework",
+    "advanced",
+    "project template"
+  ],
+  "homepage": "http://www.yiiframework.com/",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "support": {
+    "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+    "forum": "http://www.yiiframework.com/forum/",
+    "wiki": "http://www.yiiframework.com/wiki/",
+    "irc": "irc://irc.freenode.net/yii",
+    "source": "https://github.com/yiisoft/yii2"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.3",
+    "yiisoft/yii2": "~2.0.14",
+    "yiisoft/yii2-bootstrap": "~2.0.0",
+    "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+    "la-haute-societe/yii2-save-relations-behavior": "*",
+    "yiisoft/yii2-authclient": "*",
+    "kartik-v/yii2-widgets": "*",
+    "kartik-v/yii2-field-range": "*",
+    "paulzi/yii2-nested-sets": "*",
+    "yii-dream-team/yii2-upload-behavior": "*",
+    "bower-asset/font-awesome": "*",
+    "sersid/yii2-font-awesome-asset": "*",
+    "cocur/slugify": "^4.0",
+    "bower-asset/magnific-popup": "*",
+    "alexeevdv/yii2-sms": "~1.0",
+    "div/yii2-geoip": "^1.0",
+    "rmrevin/yii2-fontawesome": "~3.5",
+    "almasaeed2010/adminlte": "~3.0",
+    "hail812/yii2-adminlte3": "*",
+    "mihaildev/yii2-elfinder": "*",
+    "mihaildev/yii2-ckeditor": "*",
+    "yiisoft/yii2-bootstrap4": "^2.0",
+    "bower-asset/bootstrap-datepicker": "^1.9",
+    "ext-json": "*",
+    "wbraganca/yii2-dynamicform": "*",
+    "ext-simplexml": "*"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "~2.1.0",
+    "yiisoft/yii2-gii": "~2.1.0",
+    "yiisoft/yii2-faker": "~2.0.0",
+    "codeception/codeception": "^4.0",
+    "codeception/module-asserts": "^1.0",
+    "codeception/module-yii2": "^1.0",
+    "codeception/module-filesystem": "^1.0",
+    "codeception/verify": "~0.5.0 || ~1.1.0",
+    "symfony/browser-kit": ">=2.7 <=4.2.4"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }

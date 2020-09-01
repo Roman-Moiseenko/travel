@@ -1,26 +1,13 @@
 <?php
 
-use yii\helpers\Url;
 
-$js=<<<JS
-    $('#slideshow0').swiper({
-        mode: 'horizontal',
-        slidesPerView: 1,
-        pagination: '.slideshow0',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 30,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: true,
-        loop: true
-    });
-JS;
-$this->registerJs($js);
+use yii\helpers\Html;
+use yii\helpers\Url;
+/* @var $reviews \booking\entities\booking\tours\ReviewTour[] */
 ?>
 
 <div class="swiper-viewport">
-    <div id="slideshow0" class="swiper-container">
+    <div id="1slideshow0" class="swiper-container">
         <div class="swiper-wrapper">
             <?php foreach ($reviews as $review): ?>
                 <div class="swiper-slide text-center">
@@ -30,14 +17,15 @@ $this->registerJs($js);
                                 <div>
                                     <?= \frontend\widgets\RatingWidget::widget(['rating' => $review->vote]) ?>
                                 </div>
-                                <div class="ml-auto">
-                                    Юзер
+                                <div class="select-text">
+                                    <?= $review->user->personal->fullname->getFullname() ?>
                                 </div>
-                                <div class="pl-2">
+                                <div class="ml-auto">
                                     <?= date('d-m-Y', $review->created_at) ?>
                                 </div>
                             </div>
-                            <div>
+                            <hr/>
+                            <div class="p-3">
                                 <?= $review->text ?>
                             </div>
 
@@ -47,10 +35,10 @@ $this->registerJs($js);
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="swiper-pagination slideshow0"></div>
-    <div class="swiper-pager">
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+    <div class="1swiper-pagination 1slideshow0"></div>
+    <div class="1swiper-pager">
+        <div class="1swiper-button-next"></div>
+        <div class="1swiper-button-prev"></div>
     </div>
 </div>
 

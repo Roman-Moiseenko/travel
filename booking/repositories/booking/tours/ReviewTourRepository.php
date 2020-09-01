@@ -14,7 +14,7 @@ class ReviewTourRepository
 
     public function getByTour($tour_id): array
     {
-        return ReviewTour::find()->andWhere(['tours_id'=>$tour_id])->orderBy(['created_at' => SORT_DESC])->all();
+        return ReviewTour::find()->andWhere(['tour_id'=>$tour_id])->orderBy(['created_at' => SORT_DESC])->all();
     }
 
     public function get($id): ReviewTour
@@ -42,7 +42,7 @@ class ReviewTourRepository
 
     public function getAllByTour($tour_id): DataProviderInterface
     {
-        $query = ReviewTour::find()->andWhere(['tours_id' => $tour_id]);
+        $query = ReviewTour::find()->andWhere(['tour_id' => $tour_id]);
         return $this->getProvider($query);
     }
 

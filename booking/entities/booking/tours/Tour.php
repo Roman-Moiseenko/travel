@@ -521,7 +521,7 @@ class Tour extends ActiveRecord
     }
     public function getReviews(): ActiveQuery
     {
-        return $this->hasMany(ReviewTour::class, ['tours_id' => 'id']);
+        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id']);
     }
     public function getMainPhoto(): ActiveQuery
     {

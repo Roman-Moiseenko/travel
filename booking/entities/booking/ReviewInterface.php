@@ -16,7 +16,7 @@ interface ReviewInterface
     public function getId(): int;
     public function getLinks(): array;
     public function getText(): string;
-    public function getVote(): string;
+    public function getVote(): int;
     public function getUserId(): string;
     public function getDate(): int;
     public function getType(): int;

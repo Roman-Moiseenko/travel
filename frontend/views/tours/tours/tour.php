@@ -14,6 +14,7 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\LegalWidget;
+use frontend\widgets\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
 use frontend\widgets\ReviewsToursWidget;
 use yii\bootstrap4\ActiveForm;
@@ -21,7 +22,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $tour->name;
-$this->params['breadcrumbs'][] = ['label' =>  Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
@@ -57,18 +58,20 @@ $countReveiws = $tour->countReviews();
         <!-- Заголовок тура-->
         <div class="row pb-3">
             <div class="col-12">
-            <div class="d-flex">
-                <div class="mr-auto">
-                    <h1><?= Html::encode($tour->name) ?></h1>
-                </div>
+                <div class="d-flex">
+                    <div class="mr-auto">
+                        <h1><?= Html::encode($tour->name) ?></h1>
+                    </div>
 
-                <div class="btn-group">
-                    <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?= Lang::t('В избранное')?>"
-                            href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>" data-method="post">
-                        <i class="fa fa-heart"></i>
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" data-toggle="tooltip" class="btn btn-default"
+                                title="<?= Lang::t('В избранное') ?>"
+                                href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>"
+                                data-method="post">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
         <!-- Описание -->
@@ -87,11 +90,12 @@ $countReveiws = $tour->countReviews();
             <div class="col params-tour">
                 <div class="container-hr">
                     <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Стоимость')?></div>
+                    <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
                 </div>
                 <span class="params-item">
                     <?php if ($tour->baseCost->adult): ?>
-                        <i class="fas fa-user"></i>&#160;&#160;<?= Lang::t('Взрослый билет') ?> <span class="price-view">
+                        <i class="fas fa-user"></i>&#160;&#160;<?= Lang::t('Взрослый билет') ?> <span
+                                class="price-view">
                             <?= CurrencyHelper::get($tour->baseCost->adult) ?>
                         </span>
                     <?php endif; ?>
@@ -99,7 +103,8 @@ $countReveiws = $tour->countReviews();
                 <p></p>
                 <span class="params-item">
                     <?php if ($tour->baseCost->child): ?>
-                        <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?> <span class="price-view">
+                        <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?> <span
+                                class="price-view">
                         <?= CurrencyHelper::get($tour->baseCost->child) ?>
                         </span>
                     <?php endif; ?>
@@ -108,7 +113,8 @@ $countReveiws = $tour->countReviews();
                 <p></p>
                 <span class="params-item">
                     <?php if ($tour->baseCost->preference): ?>
-                        <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span class="price-view">
+                        <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
+                                class="price-view">
                         <?= CurrencyHelper::get($tour->baseCost->preference) ?>
                         </span>
                     <?php endif; ?>
@@ -124,7 +130,7 @@ $countReveiws = $tour->countReviews();
             <div class="col params-tour">
                 <div class="container-hr">
                     <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Параметры')?></div>
+                    <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
                 </div>
                 <span class="params-item">
                     <i class="far fa-clock"></i>&#160;&#160;<?= $tour->params->duration ?>
@@ -149,9 +155,9 @@ $countReveiws = $tour->countReviews();
                 <span class="params-item">
                     <i class="fas fa-layer-group"></i>&#160;&#160;
                                     <?php foreach ($tour->types as $type) {
-                                        echo  Lang::t($type->name) . ' | ';
+                                        echo Lang::t($type->name) . ' | ';
                                     }
-                                    echo  Lang::t($tour->type->name); ?>
+                                    echo Lang::t($tour->type->name); ?>
                 </span>
             </div>
         </div>
@@ -182,7 +188,7 @@ $countReveiws = $tour->countReviews();
             <div class="col">
                 <div class="container-hr">
                     <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Координаты')?></div>
+                    <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                 </div>
                 <div class="params-item-map">
                     <div class="row">
@@ -192,7 +198,7 @@ $countReveiws = $tour->countReviews();
                                     data-target="#collapse-map"
                                     aria-expanded="false" aria-controls="collapse-map">
                                 <i class="fas fa-map-marker-alt"></i>
-                            </button>&#160;<?= Lang::t('Место сбора')?>:
+                            </button>&#160;<?= Lang::t('Место сбора') ?>:
                         </div>
                         <div class="col-8">
                             <?= $tour->params->beginAddress->address; ?>
@@ -229,7 +235,7 @@ $countReveiws = $tour->countReviews();
                                     data-target="#collapse-map-2"
                                     aria-expanded="false" aria-controls="collapse-map-2">
                                 <i class="fas fa-map-marker-alt"></i>
-                            </button>&#160;<?= Lang::t('Место окончания')?>:
+                            </button>&#160;<?= Lang::t('Место окончания') ?>:
                         </div>
                         <div class="col-8">
                             <?= $tour->params->endAddress->address; ?>
@@ -266,7 +272,7 @@ $countReveiws = $tour->countReviews();
                                     data-target="#collapse-map-3"
                                     aria-expanded="false" aria-controls="collapse-map-2">
                                 <i class="fas fa-map-marker-alt"></i>
-                            </button>&#160;<?= Lang::t('Место проведение')?>:
+                            </button>&#160;<?= Lang::t('Место проведение') ?>:
                         </div>
                         <div class="col-8">
                             <?= $tour->address->address; ?>
@@ -303,51 +309,29 @@ $countReveiws = $tour->countReviews();
                 <!-- Виджет подгрузки отзывов -->
                 <div class="container-hr">
                     <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Отзывы') . '(' . $countReveiws . ')' ?></div>
+                    <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
                 </div>
                 <div id="review">
                     <?= ReviewsToursWidget::widget(['tours' => $tour]); ?>
                 </div>
-                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                        data-target="#collapse-review"
-                        aria-expanded="false" aria-controls="collapse-review">
-                    <?= Lang::t('Оставить отзыв') ?>
-                </button>
-                <div class="collapse" id="collapse-review">
-                    <?php if (Yii::$app->user->isGuest): ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <?= Lang::t('Пожалуйста') ?>, <?= Html::a( Lang::t('авторизуйтесь'), ['/auth/auth/login']) ?> <?= Lang::t('для написания отзыва') ?>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <?php $form = ActiveForm::begin() ?>
-                        <?= $form->field($reviewForm, 'vote')->dropDownList($reviewForm->voteList(), ['prompt' => '--- ' . Lang::t('Выберите') .' ---'])->label( Lang::t('Рейтинг')); ?>
+                <?= NewReviewTourWidget::widget(['tour_id' => $tour->id]); ?>
 
-                        <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label( Lang::t('Отзыв')); ?>
-
-                        <div class="form-group">
-                            <?= Html::submitButton( Lang::t('Отправить'), ['class' => 'btn btn-primary btn-lg btn-block']) ?>
-                        </div>
-                        <?php ActiveForm::end() ?>
-                    <?php endif; ?>
-                </div>
             </div>
         </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-4">
-        
+
         <?= $this->render('_booking', [
             'tour' => $tour,
         ]); ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>
-                <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">
-                    <?= $countReveiws ?> <?= Lang::t('отзывов') ?></a>
-                &nbsp;/&nbsp;<a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">
-<?= Lang::t('Написать отзыв') ?></a>
+                <a href="#review">
+                    <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
+                </a>
+                &nbsp;
             </p>
             <hr>
 

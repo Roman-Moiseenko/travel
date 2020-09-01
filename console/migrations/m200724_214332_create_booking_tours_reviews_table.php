@@ -16,7 +16,7 @@ class m200724_214332_create_booking_tours_reviews_table extends Migration
 
         $this->createTable('{{%booking_tours_reviews}}', [
             'id' => $this->primaryKey(),
-            'tours_id' => $this->integer()->notNull(),
+            'tour_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->unsigned()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'vote' => $this->integer()->notNull(),
@@ -24,8 +24,8 @@ class m200724_214332_create_booking_tours_reviews_table extends Migration
         ], $tableOptions);
 
         $this->createIndex('{{%idx-booking_tours_reviews-user_id}}', '{{%booking_tours_reviews}}', 'user_id');
-        $this->createIndex('{{%idx-booking_tours_reviews-tours_id}}', '{{%booking_tours_reviews}}', 'tours_id');
-        $this->addForeignKey('{{%fk-booking_tours_reviews-tours_id}}', '{{%booking_tours_reviews}}', 'tours_id', '{{%booking_tours}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->createIndex('{{%idx-booking_tours_reviews-tours_id}}', '{{%booking_tours_reviews}}', 'tour_id');
+        $this->addForeignKey('{{%fk-booking_tours_reviews-tours_id}}', '{{%booking_tours_reviews}}', 'tour_id', '{{%booking_tours}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_tours_reviews-user_id}}', '{{%booking_tours_reviews}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
