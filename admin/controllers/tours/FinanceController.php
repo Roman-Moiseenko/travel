@@ -62,27 +62,27 @@ class FinanceController extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         return $this->render('view', [
-            'tours' => $tours,
+            'tour' => $tour,
         ]);
     }
 
     public function actionUpdate($id)
     {
-        $tours = $this->findModel($id);
-        $form = new ToursFinanceForm($tours);
+        $tour = $this->findModel($id);
+        $form = new ToursFinanceForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->setFinance($tours->id, $form);
-                return $this->redirect(['/tours/finance', 'id' => $tours->id]);
+                $this->service->setFinance($tour->id, $form);
+                return $this->redirect(['/tours/finance', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         return $this->render('update', [
-            'tours' => $tours,
+            'tour' => $tour,
             'model' => $form,
         ]);
     }

@@ -3,6 +3,7 @@
 use booking\entities\booking\tours\Tour;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -40,10 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
                 'label' => 'Название',
-                'options' => ['width' => '35%'],
+                'options' => ['width' => '25%'],
             ],
             [
                 'attribute' => 'description',
+                'value' => function (Tour $model) {
+                    return StringHelper::truncateWords(strip_tags($model->description), 40);
+
+                },
                 'format' => 'ntext',
                 'label' => 'Описание'
             ],

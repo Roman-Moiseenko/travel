@@ -7,11 +7,11 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour*/
+/* @var  $tour Tour*/
 
 
-$this->title = 'Тур ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card card-secondary">
         <div class="card-header with-border">Описание</div>
         <div class="card-body">
-            <?= Yii::$app->formatter->asHtml($tours->description, [
+            <?= Yii::$app->formatter->asHtml($tour->description, [
                 'Attr.AllowedRel' => array('nofollow'),
                 'HTML.SafeObject' => true,
                 'Output.FlashCompat' => true,
@@ -34,16 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-header with-border">Категории</div>
                 <div class="card-body">
                     <?= DetailView::widget([
-                        'model' => $tours,
+                        'model' => $tour,
                         'attributes' => [
                             [
                                 'attribute' => 'type_id',
-                                'value' => ArrayHelper::getValue($tours, 'type.name'),
+                                'value' => ArrayHelper::getValue($tour, 'type.name'),
                                 'label' => 'Главная категория',
                             ],
                             [
                                 'label' => 'Дополнительные категории',
-                                'value' => implode(', ', ArrayHelper::getColumn($tours->types, 'name')),
+                                'value' => implode(', ', ArrayHelper::getColumn($tour->types, 'name')),
                             ],
                         ],
                     ]) ?>
@@ -58,13 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <input id="bookingaddressform-address" class="form-control" width="100%" value="<?= $tours->address->address?>" disabled>
+                            <input id="bookingaddressform-address" class="form-control" width="100%" value="<?= $tour->address->address?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-latitude" class="form-control" width="100%" value="<?= $tours->address->latitude?>" disabled>
+                            <input id="bookingaddressform-latitude" class="form-control" width="100%" value="<?= $tour->address->latitude?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-longitude" class="form-control" width="100%" value="<?= $tours->address->longitude?>" disabled>
+                            <input id="bookingaddressform-longitude" class="form-control" width="100%" value="<?= $tour->address->longitude?>" disabled>
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="form-group">
-        <?= Html::a('Редактировать', Url::to(['/tours/common/update', 'id' => $tours->id]) ,['class' => 'btn btn-success']) ?>
+        <?= Html::a('Редактировать', Url::to(['/tours/common/update', 'id' => $tour->id]) ,['class' => 'btn btn-success']) ?>
     </div>
     
 

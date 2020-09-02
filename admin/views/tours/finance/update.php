@@ -10,14 +10,16 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour*/
+/* @var  $tour Tour*/
 /* @var $model ToursFinanceForm */
 
 
-$this->title = 'Изменить оплату';
-$this->params['id'] = $tours->id;
+$this->title = 'Изменить оплату ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Цены', 'url' => ['/tours/finance', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="tours-view">
 

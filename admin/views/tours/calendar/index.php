@@ -3,15 +3,16 @@
 use booking\entities\booking\tours\Tour;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour */
+/* @var  $tour Tour */
 
-$this->title = 'Календарь ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Календарь ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Календарь';
 ?>
 <div class="tours-view">
-    <input type="hidden" id="number-tour" value="<?=$tours->id?>">
+    <input type="hidden" id="number-tour" value="<?=$tour->id?>">
     <div class="card card-secondary">
         <div class="card-header with-border">Календарь</div>
         <div class="card-body">

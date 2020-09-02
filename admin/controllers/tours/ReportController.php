@@ -5,15 +5,17 @@ namespace admin\controllers\tours;
 
 
 use booking\entities\booking\tours\Tour;
-use booking\forms\booking\tours\ToursParamsForm;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class ParamsController extends Controller
+class ReportController extends Controller
 {
     public  $layout = 'main-tours';
+    /**
+     * @var TourService
+     */
     private $service;
 
     public function __construct($id, $module, TourService $service, $config = [])
@@ -40,30 +42,11 @@ class ParamsController extends Controller
     public function actionIndex($id)
     {
         $tour = $this->findModel($id);
-
-        return $this->render('view', [
-            'tour' => $tour,
+        return $this->render('index', [
+            'tour' => $tour
         ]);
     }
 
-    public function actionUpdate($id)
-    {
-        $tour = $this->findModel($id);
-        $form = new ToursParamsForm($tour->params);
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $this->service->setParams($tour->id, $form);
-                return $this->redirect(['/tours/params', 'id' => $tour->id]);
-            } catch (\DomainException $e) {
-                \Yii::$app->errorHandler->logException($e);
-                \Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
-        return $this->render('update', [
-            'tour' => $tour,
-            'model' => $form,
-        ]);
-    }
 
     protected function findModel($id)
     {

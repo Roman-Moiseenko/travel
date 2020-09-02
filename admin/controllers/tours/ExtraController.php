@@ -54,14 +54,14 @@ class ExtraController extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         $searchModel = new ExtraSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('view', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'tours' => $tours,
+            'tour' => $tour,
         ]);
     }
 
@@ -75,31 +75,31 @@ class ExtraController extends Controller
 
     public function actionCreate($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         $form = new ExtraForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->extraService->create($tours->user_id, $form);
-                return $this->redirect(['/tours/extra', 'id' => $tours->id]);
+                $this->extraService->create($tour->user_id, $form);
+                return $this->redirect(['/tours/extra', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         return $this->render('create', [
-            'tours' => $tours,
+            'tour' => $tour,
             'model' => $form,
         ]);
     }
     public function actionUpdate($id, $extra_id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         $extra = $this->extra->get($extra_id);
         $form = new ExtraForm($extra);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->extraService->edit($extra->id, $form);
-                return $this->redirect(['/tours/extra', 'id' => $tours->id]);
+                return $this->redirect(['/tours/extra', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -107,7 +107,7 @@ class ExtraController extends Controller
         }
 
         return $this->render('update', [
-            'tours' => $tours,
+            'tour' => $tour,
             'extra' => $extra,
             'model' => $form,
         ]);
@@ -115,9 +115,9 @@ class ExtraController extends Controller
 
     public function actionDelete($id, $extra_id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         $this->extraService->remove($extra_id);
-        return $this->redirect(['/tours/extra', 'id' => $tours->id]);
+        return $this->redirect(['/tours/extra', 'id' => $tour->id]);
     }
 
     protected function findModel($id)

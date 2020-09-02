@@ -13,7 +13,8 @@ use yii\helpers\Url;
 $this->title = 'Отзывы на ' . $tour->name;
 $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Отзывы';
 ?>
 <div class="tours-view">
     <div class="row">

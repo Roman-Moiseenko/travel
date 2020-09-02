@@ -8,18 +8,19 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour */
+/* @var  $tour Tour */
 /* @var $searchModel admin\forms\tours\ExtraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Дополнительные услуги ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Дополнительные услуги ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Дополнительные услуги';
 ?>
 <div class="tours-extra-view">
     <div class="form-group">
-        <?= Html::a('Создать услугу', Url::to(['/tours/extra/create', 'id' => $tours->id]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать услугу', Url::to(['/tours/extra/create', 'id' => $tour->id]), ['class' => 'btn btn-success']) ?>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -32,10 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             [
                                 'label' => '',
-                                'value' => function (Extra $model) use ($tours) {
-                                    $checked = $tours->isExtra($model->id) ? 'checked' : '';
+                                'value' => function (Extra $model) use ($tour) {
+                                    $checked = $tour->isExtra($model->id) ? 'checked' : '';
                                     return '<input type="checkbox" class="extra-check" tours-id="' .
-                                        $tours->id . '" extra-id="' . $model->id . '" ' . $checked . '>';
+                                        $tour->id . '" extra-id="' . $model->id . '" ' . $checked . '>';
                                 },
                                 'format' => 'raw',
                                 'filter' => [1 => 'Да', 0 => 'Нет'],
@@ -43,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'name',
-                                'value' => function (Extra $model) use ($tours) {
-                                    return Html::a(Html::encode($model->name), ['/tours/extra/update', ['id' => $tours->id, 'extra_id' => $model->id]]);
+                                'value' => function (Extra $model) use ($tour) {
+                                    return Html::a(Html::encode($model->name), ['/tours/extra/update', ['id' => $tour->id, 'extra_id' => $model->id]]);
                                 },
                                 'format' => 'raw',
                                 'label' => 'Название',
@@ -66,8 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{update} {delete}',
                                 'buttons' => [
-                                    'update' => function ($url, $model, $key) use ($tours) {
-                                        $url = Url::to(['/tours/extra/update', 'id' => $tours->id, 'extra_id' => $model->id]);
+                                    'update' => function ($url, $model, $key) use ($tour) {
+                                        $url = Url::to(['/tours/extra/update', 'id' => $tour->id, 'extra_id' => $model->id]);
                                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-pencil"]);
                                         return Html::a($icon, $url, [
                                             'title' => 'Изменить',
@@ -75,8 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'data-pjax' => 0,
                                         ]   );
                                     },
-                                    'delete' => function ($url, $model, $key) use ($tours) {
-                                        $url = Url::to(['/tours/extra/delete', 'id' => $tours->id, 'extra_id' => $model->id]);
+                                    'delete' => function ($url, $model, $key) use ($tour) {
+                                        $url = Url::to(['/tours/extra/delete', 'id' => $tour->id, 'extra_id' => $model->id]);
                                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
                                         return Html::a($icon, $url, [
                                         'title' => 'Удалить',
@@ -90,7 +91,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-
                 </div>
             </div>
         </div>

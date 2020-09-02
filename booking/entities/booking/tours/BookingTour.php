@@ -24,6 +24,7 @@ use yii\helpers\Url;
  * @property integer $amount
  * @property Cost $count
  * @property integer $status
+ * @property integer $created_at
  */
 class BookingTour extends ActiveRecord implements BookingItemInterface
 {
@@ -37,6 +38,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $booking->calendar_id = $calendar_id;
         $booking->count = $count;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
+        $booking->created_at = time();
         return $booking;
     }
 
@@ -114,9 +116,12 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->calendar->tour->name;
     }
 
-    public function getLink(): string
+    public function getLinks(): array
     {
-        return Url::to(['cabinet/tour/view', 'id' => $this->id]);
+        return [
+            'admin' => Url::to(['tours/booking/index', 'id' => $this->calendar->tours_id]),
+            'frontend' => Url::to(['cabinet/tour/view', 'id' => $this->id]),
+            ];
     }
 
     public function getPhoto(): string
@@ -172,5 +177,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         $id = $this->calendar->tour->legal_id;
         return UserLegal::findOne($id);
+    }
+
+    public function getCreated(): int
+    {
+        return $this->created_at;
     }
 }

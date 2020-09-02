@@ -21,4 +21,5 @@ class WishlistRepository
         */
         return array_merge($tours, $stays, $cars);
     }
+
 }

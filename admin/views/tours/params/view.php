@@ -7,13 +7,14 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour*/
+/* @var  $tour Tour*/
 
 
-$this->title = 'Параметры тура ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Параметры ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Параметры';
 ?>
 <div class="tours-view">
 
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-header with-border">Основные параметры</div>
                 <div class="card-body">
                     <?= DetailView::widget([
-                        'model' => $tours,
+                        'model' => $tour,
                         'attributes' => [
                             [
                                 'attribute' => 'params.duration',
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'params.private',
-                                'value' => ToursHelper::stringPrivate($tours->params->private),
+                                'value' => ToursHelper::stringPrivate($tour->params->private),
                                 'label' => 'Групповой/Индивидуальный',
                             ],
                             [
@@ -61,13 +62,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <input id="bookingaddressform-address" class="form-control" width="100%" value="<?= $tours->params->beginAddress->address ?? ' ' ?>" disabled>
+                            <input id="bookingaddressform-address" class="form-control" width="100%" value="<?= $tour->params->beginAddress->address ?? ' ' ?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-latitude" class="form-control" width="100%" value="<?= $tours->params->beginAddress->latitude ?? '' ?>" disabled>
+                            <input id="bookingaddressform-latitude" class="form-control" width="100%" value="<?= $tour->params->beginAddress->latitude ?? '' ?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-longitude" class="form-control" width="100%" value="<?= $tours->params->beginAddress->longitude ?? '' ?>" disabled>
+                            <input id="bookingaddressform-longitude" class="form-control" width="100%" value="<?= $tour->params->beginAddress->longitude ?? '' ?>" disabled>
                         </div>
                     </div>
 
@@ -85,13 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <input id="bookingaddressform-address-2" class="form-control" width="100%" value="<?= $tours->params->endAddress->address ?? ' ' ?>" disabled>
+                            <input id="bookingaddressform-address-2" class="form-control" width="100%" value="<?= $tour->params->endAddress->address ?? ' ' ?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-latitude-2" class="form-control" width="100%" value="<?= $tours->params->endAddress->latitude ?? '' ?>" disabled>
+                            <input id="bookingaddressform-latitude-2" class="form-control" width="100%" value="<?= $tour->params->endAddress->latitude ?? '' ?>" disabled>
                         </div>
                         <div class="col-2">
-                            <input id="bookingaddressform-longitude-2" class="form-control" width="100%" value="<?= $tours->params->endAddress->longitude ?? '' ?>" disabled>
+                            <input id="bookingaddressform-longitude-2" class="form-control" width="100%" value="<?= $tour->params->endAddress->longitude ?? '' ?>" disabled>
                         </div>
                     </div>
 
@@ -106,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="form-group">
-        <?= Html::a('Редактировать', Url::to(['/tours/params/update', 'id' => $tours->id]) ,['class' => 'btn btn-success']) ?>
+        <?= Html::a('Редактировать', Url::to(['/tours/params/update', 'id' => $tour->id]) ,['class' => 'btn btn-success']) ?>
     </div>
     
 

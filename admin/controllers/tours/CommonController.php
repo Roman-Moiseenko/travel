@@ -44,9 +44,9 @@ class CommonController extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         return $this->render('view', [
-            'tours' => $tours
+            'tour' => $tour
         ]);
     }
 
@@ -56,9 +56,9 @@ class CommonController extends Controller
         $form = new ToursCommonForms();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $tours = $this->service->create($form);
+                $tour = $this->service->create($form);
                 \Yii::$app->session->setFlash('success', 'Тур успешно создан, теперь вы можете загрузить фотографии и настроить остальные параметры');
-                return $this->redirect(['/tours/common', 'id' => $tours->id]);
+                return $this->redirect(['/tours/common', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -71,12 +71,12 @@ class CommonController extends Controller
 
     public function actionUpdate($id)
     {
-        $tours = $this->findModel($id);
-        $form = new ToursCommonForms($tours);
+        $tour = $this->findModel($id);
+        $form = new ToursCommonForms($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($tours->id, $form);
-                return $this->redirect(['/tours/common', 'id' => $tours->id]);
+                $this->service->edit($tour->id, $form);
+                return $this->redirect(['/tour/common', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -84,7 +84,7 @@ class CommonController extends Controller
         }
         return $this->render('update', [
             'model' => $form,
-            'tours' => $tours
+            'tour' => $tour
         ]);
 
     }

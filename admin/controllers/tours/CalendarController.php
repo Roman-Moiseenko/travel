@@ -61,12 +61,12 @@ class CalendarController extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
-        if ($tours->user_id != \Yii::$app->user->id) {
+        $tour = $this->findModel($id);
+        if ($tour->user_id != \Yii::$app->user->id) {
             throw new \DomainException('У вас нет прав для данного тура');
         }
         return $this->render('index', [
-            'tours' => $tours,
+            'tour' => $tour,
         ]);
     }
 

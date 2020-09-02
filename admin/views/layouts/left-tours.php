@@ -30,7 +30,7 @@ use yii\helpers\Url;
                     ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tours/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/calendar'],
                     ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tours/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/booking'],
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tours/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/review'],
-                    ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tours/reports', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/reports'],
+                    ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tours/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'tours/report'],
                 ],
             ]);
             ?>

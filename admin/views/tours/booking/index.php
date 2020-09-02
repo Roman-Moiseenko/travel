@@ -1,9 +1,10 @@
 <?php
 
-$this->title = 'Бронирования по ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Бронирования по ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Бронирования';
 ?>
 
 Показать ближащие бронирования:<br>

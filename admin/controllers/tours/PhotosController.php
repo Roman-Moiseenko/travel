@@ -55,11 +55,11 @@ class PhotosController extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         $form = new PhotosForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->addPhotos($tours->id, $form);
+                $this->service->addPhotos($tour->id, $form);
                 return $this->redirect(['/tours/photos/index', 'id' => $id, '#' => 'photos']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
@@ -67,11 +67,10 @@ class PhotosController extends Controller
             }
         }
         return $this->render('view', [
-            'tours' => $tours,
+            'tour' => $tour,
             'photosForm' => $form,
         ]);
     }
-
 
     public function actionDeletePhoto($id, $photo_id)
     {

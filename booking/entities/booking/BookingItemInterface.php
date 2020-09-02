@@ -16,8 +16,9 @@ interface BookingItemInterface
     public function getUserId(): int;
     public function getId(): int;
     public function getDate(): int;
+    public function getCreated(): int;
     public function getName(): string;
-    public function getLink(): string;
+    public function getLinks(): array;
     public function getPhoto(): string;
     public function getType(): string;
     public function getAdd(): string;

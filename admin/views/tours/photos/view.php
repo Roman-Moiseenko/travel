@@ -7,13 +7,14 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour*/
+/* @var  $tour Tour*/
 /* @var $photosForm PhotosForm */
 
-$this->title = 'Тур ' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Фотографии ' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Фотографии';
 ?>
 <div class="tours-view">
 
@@ -21,19 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-header with-border">Фотографии</div>
         <div class="card-body">
             <div class="row">
-                <?php foreach ($tours->photos as $photo): ?>
+                <?php foreach ($tour->photos as $photo): ?>
                     <div class="col-md-2 col-xs-3" style="text-align: center">
                         <div class="btn-group">
-                            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-photo-up', 'id' => $tours->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-photo-up', 'id' => $tour->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                             ]); ?>
-                            <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo', 'id' => $tours->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo', 'id' => $tour->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                                 'data-confirm' => 'Remove photo?',
                             ]); ?>
-                            <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-photo-down', 'id' => $tours->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-photo-down', 'id' => $tour->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                             ]); ?>

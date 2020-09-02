@@ -34,9 +34,12 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
         // TODO: Implement getName() method.
     }
 
-    public function getLink(): string
+    public function getLinks(): array
     {
-        return Url::to(['cabinet/stay/view', 'id' => $this->id]);
+        return [
+            'admin' => Url::to(['stay/booking/index', 'id' => $this->id]),
+            'frontend' => Url::to(['cabinet/stay/view', 'id' => $this->id]),
+        ];
     }
 
     public function getPhoto(): string
@@ -90,5 +93,10 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     public function getLegal(): UserLegal
     {
         // TODO: Implement getLegal() method.
+    }
+
+    public function getCreated(): int
+    {
+        return $this->created_at;
     }
 }

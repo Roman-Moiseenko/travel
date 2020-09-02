@@ -5,15 +5,16 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var  $tours Tour */
+/* @var  $tour Tour */
 /* @var $searchModel admin\forms\tours\ExtraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Создать доп.услугу ';
-$this->params['id'] = $tours->id;
+$this->title = 'Создать доп.услугу';
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = ['label' => 'Дополнительные услуги ' . $tours->name, 'url' => ['/tours/extra', 'id' => $tours->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Дополнительные услуги', 'url' => ['/tours/extra', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Создать';
 ?>
 <div class="tours-extra-view">
 

@@ -41,9 +41,9 @@ class BookingController  extends Controller
 
     public function actionIndex($id)
     {
-        $tours = $this->findModel($id);
+        $tour = $this->findModel($id);
         return $this->render('index', [
-            'tours' => $tours
+            'tour' => $tour
         ]);
     }
 

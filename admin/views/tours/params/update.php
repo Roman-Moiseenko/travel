@@ -8,12 +8,14 @@ use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model ToursParamsForm */
-/* @var $tours Tour */
+/* @var $tour Tour */
 
-$this->title = 'Редактировать Тур' . $tours->name;
-$this->params['id'] = $tours->id;
+$this->title = 'Редактировать Тур' . $tour->name;
+$this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tours/common', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Параметры', 'url' => ['/tours/params', 'id' => $tour->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="product-create">
 
