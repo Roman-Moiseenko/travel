@@ -4,7 +4,9 @@
 namespace admin\controllers\tours;
 
 
+use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Tour;
+use booking\repositories\booking\tours\BookingTourRepository;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -17,11 +19,16 @@ class BookingController  extends Controller
      * @var TourService
      */
     private $service;
+    /**
+     * @var BookingTourRepository
+     */
+    private $bookings;
 
-    public function __construct($id, $module, TourService $service, $config = [])
+    public function __construct($id, $module, TourService $service, BookingTourRepository $bookings, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->bookings = $bookings;
     }
 
     public function behaviors()
@@ -41,12 +48,25 @@ class BookingController  extends Controller
 
     public function actionIndex($id)
     {
+        /** @var BookingTour[] $bookings */
+        $params = \Yii::$app->request->bodyParams;
+        $only_pay = false;
+        if (isset($params['only_pay']) && $params['only_pay'] == true) $only_pay = true;
+
+        $bookings = $this->bookings->getActiveByTour($id, $only_pay);
+
+        $sort_bookings = [];
+        foreach ($bookings as $booking) {
+            $sort_bookings[$booking->calendar->tour_at][$booking->calendar->time_at][] = $booking;
+        }
+
         $tour = $this->findModel($id);
         return $this->render('index', [
-            'tour' => $tour
+            'tour' => $tour,
+            'sort_bookings' => $sort_bookings,
+            'only_pay' => $only_pay,
         ]);
     }
-
 
     protected function findModel($id)
     {

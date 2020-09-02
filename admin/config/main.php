@@ -71,6 +71,9 @@ return [
 
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'tours' => 'site/tours',
+                'stays' => 'site/stays',
+                'cars' => 'site/cars',
+                'discount' => 'site/discount',
                 'tours/common' => 'tours/common/index',
                 'tours/photos' => 'tours/photos/index',
                 'tours/params' => 'tours/params/index',

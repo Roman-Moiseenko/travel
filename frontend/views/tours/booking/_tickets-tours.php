@@ -10,7 +10,7 @@ use booking\helpers\CurrencyHelper;
 
 <div class="col-12">
     <input type="hidden" value="" />
-    <label for="booking-tour-time"><?= Lang::t('Укажите кол-во билетов') ?>:</label>
+    <label for="booking-tour-time"><b><?= Lang::t('Укажите кол-во билетов') ?>:</b></label>
     <table>
     <?php if ($current->cost->adult): ?>
     <tr>
@@ -37,5 +37,8 @@ use booking\helpers\CurrencyHelper;
             </tr>
         <?php endif; ?>
     </table>
+
     <label id="label-count-tickets" data-count="<?= $current->getFreeTickets()?>"><?= Lang::t('Осталось билетов') . ':' . $current->getFreeTickets()?></label>
+    <p><b><?= Lang::t('Промо-код') . ':' ?></b></p>
+    <input class="form-control" id="discount" name="discount" type="text" value=""/>
 </div>

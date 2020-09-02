@@ -7,6 +7,7 @@ namespace booking\repositories\booking\tours;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\Lang;
+use booking\helpers\BookingHelper;
 
 class BookingTourRepository
 {
@@ -29,6 +30,42 @@ class BookingTourRepository
                 CostCalendar::find()->select('id')->andWhere(['tours_id' => $tours_id])
             ]
         )->all();
+    }
+
+    public function getActiveByTour($tours_id, $only_pay = false): array
+    {
+        if ($only_pay) {
+            $status = ['status' => BookingHelper::BOOKING_STATUS_PAY];
+        } else {
+            $status = ['IN', 'status', [
+                BookingHelper::BOOKING_STATUS_NEW,
+                BookingHelper::BOOKING_STATUS_PAY
+            ]];
+        }
+
+        $result = BookingTour::find()->andWhere($status)->andWhere(
+            [
+                'IN',
+                'calendar_id',
+                CostCalendar::find()->select('id')->andWhere(['tours_id' => $tours_id])->andWhere(['>=', 'tour_at', time()])
+            ]
+        )
+            ->all();
+        usort($result, function ($a, $b) {
+            if ($a->getDate() == $b->getDate()) {
+                if ($a->getAdd() > $b->getAdd()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+            if ($a->getDate() > $b->getDate()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        return $result;
     }
 
 

@@ -38,7 +38,9 @@ class CheckoutController extends Controller
                     $params['count-adult'] ?? 0,
                     $params['count-child'] ?? 0,
                     $params['count-preference'] ?? 0
-                ));
+                ),
+                $params['discount']
+            );
             return $this->redirect(['/cabinet/tour/view', 'id' => $booking->id]);
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);

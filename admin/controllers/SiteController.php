@@ -38,6 +38,21 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['discount'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['stays'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['cars'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -86,6 +101,26 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionStays()
+    {
+       /* $searchModel = new StaySearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
+        return $this->render('stays', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]); */
+    }
+    public function actionCars()
+    {
+        /* $searchModel = new CarsSearch();
+         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
+         return $this->render('cars', [
+             'searchModel' => $searchModel,
+             'dataProvider' => $dataProvider,
+         ]); */
+    }
     public function actionToursDelete($id)
     {
 //TODO Сделать удаление туров
@@ -96,5 +131,9 @@ class SiteController extends Controller
          */
     }
 
+    public function actionDiscount()
+    {
+        return $this->render('discount', []);
+    }
 
 }

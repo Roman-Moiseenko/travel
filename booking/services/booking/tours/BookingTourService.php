@@ -9,43 +9,40 @@ use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
+use booking\services\booking\DiscountService;
 use booking\services\ContactService;
 
 
 class BookingTourService
 {
-    /**
-     * @var BookingTourRepository
-     */
     private $bookings;
-    /**
-     * @var CostCalendarRepository
-     */
     private $calendar;
-    /**
-     * @var ContactService
-     */
     private $contact;
+    private $discount;
 
     public function __construct(
         BookingTourRepository $bookings,
         CostCalendarRepository $calendar,
-        ContactService $contact)
+        ContactService $contact,
+        DiscountService $discount
+    )
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
         $this->contact = $contact;
+        $this->discount = $discount;
     }
 
-    public function create($calendar_id, Cost $count): BookingTour
+    public function create($calendar_id, Cost $count, $discount): BookingTour
     {
-        $calendar = $this->calendar->get($calendar_id);
+/*        $calendar = $this->calendar->get($calendar_id);
 
         $amount = $count->adult * ($calendar->cost->adult ?? 0) +
             $count->child * ($calendar->cost->child ?? 0) +
-            $count->preference * ($calendar->cost->preference ?? 0);
-
-        $booking = BookingTour::create($amount, $calendar_id, $count);
+            $count->preference * ($calendar->cost->preference ?? 0);*/
+        $calendar = $this->calendar->get($calendar_id);
+        $discount_id = $this->discount->get($discount, BookingTour::class, $calendar->tours_id); //TODO
+        $booking = BookingTour::create($calendar_id, $count, $discount_id);
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;
@@ -54,12 +51,12 @@ class BookingTourService
     public function edit($booking_id, Cost $count)
     {
         $booking = $this->bookings->get($booking_id);
-        $calendar = $booking->calendar;
-        $amount = $count->adult * ($calendar->cost->adult ?? 0) +
-            $count->child * ($calendar->cost->child ?? 0) +
-            $count->preference * ($calendar->cost->preference ?? 0);
-
-        $booking->edit($amount, $count);
+        /*      $calendar = $booking->calendar;
+         $amount = $count->adult * ($calendar->cost->adult ?? 0) +
+                 $count->child * ($calendar->cost->child ?? 0) +
+                 $count->preference * ($calendar->cost->preference ?? 0);
+     */
+        $booking->edit($count);
         $this->bookings->save($booking);
         return $booking;
     }

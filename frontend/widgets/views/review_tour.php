@@ -1,7 +1,5 @@
 <?php
-
 /* @var $array array */
-
 $script = <<<JS
 $(document).ready(function() {
     var i = 0;

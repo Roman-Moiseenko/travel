@@ -7,6 +7,7 @@ namespace booking\entities\booking\tours;
 use booking\entities\admin\user\User;
 use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\Discount;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
@@ -21,30 +22,32 @@ use yii\helpers\Url;
  * @property integer $calendar_id
  * @property integer $user_id
  * @property CostCalendar $calendar
- * @property integer $amount
  * @property Cost $count
  * @property integer $status
  * @property integer $created_at
+ * @property integer $discount_id
+ * @property Discount $discount
  */
 class BookingTour extends ActiveRecord implements BookingItemInterface
 {
     public $count;
 
-    public static function create($amount, $calendar_id, Cost $count): self
+    public static function create($calendar_id, Cost $count, $discount_id): self
     {
         $booking = new static();
         $booking->user_id = \Yii::$app->user->id;
-        $booking->amount = $amount;
+       // $booking->amount = $amount;
         $booking->calendar_id = $calendar_id;
         $booking->count = $count;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
         $booking->created_at = time();
+        $booking->discount_id = $discount_id;
         return $booking;
     }
 
-    public function edit($amount, Cost $count): void
+    public function edit(Cost $count): void
     {
-        $this->amount = $amount;
+        //$this->amount = $amount;
         $this->count = $count;
     }
 
@@ -77,10 +80,12 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
     }
+
     public static function tableName()
     {
         return '{{%booking_tours_calendar_booking}}';
     }
+
     public function afterFind(): void
     {
         $this->count = new Cost(
@@ -99,12 +104,30 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 
         return parent::beforeSave($insert);
     }
+
     public function getCalendar(): ActiveQuery
     {
         return $this->hasOne(CostCalendar::class, ['id' => 'calendar_id']);
     }
 
+    public function setDiscount($discount_id)
+    {
+        $this->discount_id = $discount_id;
+    }
 
+    public function getDiscount(): ActiveQuery
+    {
+        return $this->hasOne(Discount::class, ['id' => 'discount_id']);
+    }
+    public function getAmountPay()
+    {
+        return $this->getAmount() * (1 - $this->discount->percent); // - Скидка
+    }
+    public function getAmountPayAdmin()
+    {
+        if ($this->discount->who == Discount::WHO_ADMIN) return $this->getAmountPay();
+        return $this->getAmount();
+    }
     /** ==========> Interface для личного кабинета */
     public function getDate(): int
     {
@@ -146,7 +169,12 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 
     public function getAmount(): int
     {
-        return $this->amount;
+
+        return  $this->count->adult * $this->calendar->cost->adult ?? 0 +
+                $this->count->child * $this->calendar->cost->child ?? 0 +
+                $this->count->preference * $this->calendar->cost->preference ?? 0 ;
+
+            //$this->amount;
     }
 
     public function setStatus($status)

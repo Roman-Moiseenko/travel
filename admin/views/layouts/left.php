@@ -25,6 +25,7 @@ use yii\helpers\Url;
                     ['label' => 'Мои Жилища', 'icon' => 'hotel', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                     ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
                     ['label' => 'Мои Туры', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
+                    ['label' => 'Промо-коды', 'icon' => 'percent', 'url' => ['/discount'], 'active' => $this->context->id == 'discount'],
                 ],
             ]);
             ?>

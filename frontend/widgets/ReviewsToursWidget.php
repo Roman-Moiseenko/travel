@@ -3,13 +3,11 @@
 
 namespace frontend\widgets;
 
-
 use yii\base\Widget;
 
 class ReviewsToursWidget extends Widget
 {
     public $tours;
-
     public function run()
     {
         $reviews = $this->tours->reviews;
