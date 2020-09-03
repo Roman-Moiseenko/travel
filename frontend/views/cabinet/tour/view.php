@@ -84,12 +84,20 @@ $tour = $booking->calendar->tour;
                             <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$booking->calendar->cost->preference) ?> </td>
                         </tr>
                     <?php endif; ?>
+                    <?php if ($booking->discount != null): ?>
+                    <tr class="py-2 my-2">
+                        <th class="py-3 my-2"><?= Lang::t('Скидка') ?></th>
+                        <td></td>
+                        <td></td>
+                        <td><?= CurrencyHelper::get($booking->getAmount() * $booking->discount->percent/100) . ' (' .  $booking->discount->promo . ')' ?> </td>
+                    </tr>
+                    <?php endif; ?>
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get((int)$booking->amount) ?> </td>
+                        <td><?= CurrencyHelper::get((int)$booking->getAmountPay()) ?> </td>
                     </tr>
                     </tbody>
                 </table>

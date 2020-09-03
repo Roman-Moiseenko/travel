@@ -54,7 +54,6 @@ class BookingRepository
     /** @return  BookingItemInterface[] */
     public function getByAdmin($admin_id, $last_day = 1): array
     {
-
         $tours = BookingTour::find()
             ->andWhere(['>=', 'created_at', time() - 3600 * 24 * $last_day])
             ->andWhere(

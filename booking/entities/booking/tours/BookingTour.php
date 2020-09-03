@@ -32,7 +32,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 {
     public $count;
 
-    public static function create($calendar_id, Cost $count, $discount_id): self
+    public static function create($calendar_id, Cost $count): self
     {
         $booking = new static();
         $booking->user_id = \Yii::$app->user->id;
@@ -41,7 +41,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $booking->count = $count;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
         $booking->created_at = time();
-        $booking->discount_id = $discount_id;
+        //$booking->discount_id = $discount_id;
         return $booking;
     }
 
@@ -115,20 +115,29 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $this->discount_id = $discount_id;
     }
 
+
+
+
+    /** ==========> Interface для личного кабинета */
+
     public function getDiscount(): ActiveQuery
     {
         return $this->hasOne(Discount::class, ['id' => 'discount_id']);
     }
+
     public function getAmountPay()
     {
-        return $this->getAmount() * (1 - $this->discount->percent); // - Скидка
+        if (!$this->discount) return $this->getAmount();
+        return $this->getAmount() * (1 - $this->discount->percent/100); // - Скидка
     }
     public function getAmountPayAdmin()
     {
+
+        if (!$this->discount) return $this->getAmount();
         if ($this->discount->who == Discount::WHO_ADMIN) return $this->getAmountPay();
         return $this->getAmount();
     }
-    /** ==========> Interface для личного кабинета */
+
     public function getDate(): int
     {
         return $this->calendar->tour_at;
@@ -169,12 +178,9 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 
     public function getAmount(): int
     {
-
-        return  $this->count->adult * $this->calendar->cost->adult ?? 0 +
-                $this->count->child * $this->calendar->cost->child ?? 0 +
-                $this->count->preference * $this->calendar->cost->preference ?? 0 ;
-
-            //$this->amount;
+        return  ($this->count->adult * $this->calendar->cost->adult ?? 0) +
+            ($this->count->child * $this->calendar->cost->child ?? 0) +
+            ($this->count->preference * $this->calendar->cost->preference ?? 0) ;
     }
 
     public function setStatus($status)
@@ -210,5 +216,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getCreated(): int
     {
         return $this->created_at;
+    }
+
+    public function getParentId(): int
+    {
+        return $this->calendar->tours_id;
     }
 }

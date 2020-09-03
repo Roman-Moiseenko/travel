@@ -13,6 +13,7 @@ interface BookingItemInterface
     public function getAdmin(): User;
     public function getLegal(): UserLegal;
     /** get field */
+    public function getParentId(): int;
     public function getUserId(): int;
     public function getId(): int;
     public function getDate(): int;

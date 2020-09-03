@@ -33,16 +33,11 @@ class BookingTourService
         $this->discount = $discount;
     }
 
-    public function create($calendar_id, Cost $count, $discount): BookingTour
+    public function create($calendar_id, Cost $count, $promo_code): BookingTour
     {
-/*        $calendar = $this->calendar->get($calendar_id);
-
-        $amount = $count->adult * ($calendar->cost->adult ?? 0) +
-            $count->child * ($calendar->cost->child ?? 0) +
-            $count->preference * ($calendar->cost->preference ?? 0);*/
-        $calendar = $this->calendar->get($calendar_id);
-        $discount_id = $this->discount->get($discount, BookingTour::class, $calendar->tours_id); //TODO
-        $booking = BookingTour::create($calendar_id, $count, $discount_id);
+        $booking = BookingTour::create($calendar_id, $count);
+        $discount_id = $this->discount->get($promo_code, $booking);
+        $booking->setDiscount($discount_id);
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;
@@ -51,11 +46,6 @@ class BookingTourService
     public function edit($booking_id, Cost $count)
     {
         $booking = $this->bookings->get($booking_id);
-        /*      $calendar = $booking->calendar;
-         $amount = $count->adult * ($calendar->cost->adult ?? 0) +
-                 $count->child * ($calendar->cost->child ?? 0) +
-                 $count->preference * ($calendar->cost->preference ?? 0);
-     */
         $booking->edit($count);
         $this->bookings->save($booking);
         return $booking;
@@ -74,6 +64,7 @@ class BookingTourService
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
     }
+
     public function cancelPay($id)
     {
         $booking = $this->bookings->get($id);
@@ -81,6 +72,7 @@ class BookingTourService
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
     }
+
     public function pay($id)
     {
         $booking = $this->bookings->get($id);
