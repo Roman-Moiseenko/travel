@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="ml-auto align-self-center">
                         <div class="row price-list">
                             <div class="col-12">
-                                <?= CurrencyHelper::get($booking->getAmount()); ?>
+                                <?= CurrencyHelper::get($booking->getAmountPay()); ?>
                             </div>
                         </div>
                         <div class="row">

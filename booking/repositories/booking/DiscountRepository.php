@@ -15,4 +15,18 @@ class DiscountRepository
         }
         return $result;
     }
+
+    public function save(Discount $discount): void
+    {
+        if (!$discount->save()) {
+            throw new \RuntimeException('Скидка не сохранена');
+        }
+    }
+
+    public function remove(Discount $discount)
+    {
+        if (!$discount->delete()) {
+            throw new \RuntimeException('Ошибка удаления скидки');
+        }
+    }
 }
