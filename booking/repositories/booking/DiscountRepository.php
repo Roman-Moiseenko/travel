@@ -38,7 +38,7 @@ class DiscountRepository
         $discount = Discount::find()->andWhere(['promo' => $promo_code])->andWhere(['>', 'count', 0])->one();
         if (!$discount) return null;
         //Проверка на количество
-        if ($this->countNotUsed($discount->id) <= '0')
+        if ($discount->countNotUsed() <= '0')
             throw new \DomainException('Данный промо-код был использован');
 
         //Проверка на сущности
@@ -56,19 +56,6 @@ class DiscountRepository
             if ($booking->getParentId() == $discount->entities_id) return $discount->id;
         }
         throw new \DomainException('Данный промо-код не подходит к данному бронированию');
-    }
-
-    private function countNotUsed($id)
-    {
-        $discount = $this->get($id);
-        $discount->count;
-        $tour = BookingTour::find()->andWhere(['discount_id' => $id])->count();
-        // TODO Заглушка Stay Car
-        $stay = 0; $car = 0;
-        /*
-        $stay = BookingStay::find()->andWhere(['discount_id' => $id])->count();
-        $car = BookingCar::find()->andWhere(['discount_id' => $id])->count();*/
-        return $discount->count - ($tour + $stay + $car);
     }
 
     public function save(Discount $discount): void

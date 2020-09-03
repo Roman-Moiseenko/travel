@@ -76,7 +76,6 @@ class DiscountService
         }
         $time = time();
         $div = ($time - 1.5 *(10 ** 9)) * rand(1, 9) + \Yii::$app->user->id * (10 ** 11);
-        //return $div;
         while (true) {
             $mod = $div % 36;
             $result .= $code[$mod];

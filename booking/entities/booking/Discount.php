@@ -64,6 +64,17 @@ class Discount extends ActiveRecord
         return $this->id == $id;
     }
 
+    public function countNotUsed(): int
+    {
+        $tour = BookingTour::find()->andWhere(['discount_id' => $this->id])->count();
+        // TODO Заглушка Stay Car
+        $stay = 0; $car = 0;
+        /*
+        $stay = BookingStay::find()->andWhere(['discount_id' => $this->id])->count();
+        $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->count();*/
+        return $this->count - ($tour + $stay + $car);
+    }
+
     public static function listEntities(): array
     {
         return [
@@ -73,6 +84,18 @@ class Discount extends ActiveRecord
             BookingStay::class,
             BookingCar::class
         ];
+    }
+
+    public function getCaption()
+    {
+        switch ($this->entities) {
+            case Discount::E_OFFICE_USER: return 'Провайдер'; break;
+            case Discount::E_ADMIN_USER: return 'Все объекты'; break;
+            case Discount::E_USER_LEGAL: return 'На организацию'; break;
+            case Discount::E_BOOKING_TOUR: return 'На туры'; break;
+            case Discount::E_BOOKING_STAY: return 'На жилище'; break;
+            case Discount::E_BOOKING_CAR: return 'На авто'; break;
+        }
     }
 
 }

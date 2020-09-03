@@ -7,9 +7,6 @@ use booking\entities\booking\tours\Type;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
-/**
- * ProductSearch represents the model behind the search form of `shop\entities\shop\product\Product`.
- */
 class TourSearch extends Tour
 {
 
