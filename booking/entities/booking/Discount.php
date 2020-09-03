@@ -16,7 +16,6 @@ use yii\db\ActiveRecord;
  * @package booking\entities\booking
  * @property int $id
  * @property int $created_at
- * @property int $who
  * @property string $entities
  * @property int $entities_id
  * @property string $promo
@@ -25,13 +24,17 @@ use yii\db\ActiveRecord;
  */
 class Discount extends ActiveRecord
 {
-    const WHO_ADMIN = 1;
-    const WHO_PROVIDER = 2;
 
-    public static function create($who, $entities, $entities_id, $promo, $percent, $count = 1): self
+    const E_ADMIN_USER = \booking\entities\admin\user\User::class;
+    const E_OFFICE_USER = \booking\entities\office\user\User::class;
+    const E_USER_LEGAL = UserLegal::class;
+    const E_BOOKING_TOUR = BookingTour::class;
+    const E_BOOKING_STAY = BookingStay::class;
+    const E_BOOKING_CAR = BookingCar::class;
+
+    public static function create($entities, $entities_id, $promo, $percent, $count = 1): self
     {
         $discount = new static();
-        $discount->who = $who;
         $discount->created_at = time();
         $discount->entities = $entities;
         $discount->entities_id = $entities_id;
@@ -54,11 +57,6 @@ class Discount extends ActiveRecord
     public function isActive(): bool
     {
         return $this->count > 0;
-    }
-
-    public function getBookings()
-    {
-        //TODO !!!!!!!!!!!!!!!!!
     }
 
 

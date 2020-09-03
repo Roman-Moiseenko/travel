@@ -15,7 +15,6 @@ class m200902_212029_create_booking_discount_table extends Migration
         $this->createTable('{{%booking_discount}}', [
             'id' => $this->primaryKey(),
             'created_at' => $this->integer(),
-            'who' => $this->integer(),
             'entities' => $this->string(),
             'entities_id' => $this->integer(),
             'promo' => $this->string(),

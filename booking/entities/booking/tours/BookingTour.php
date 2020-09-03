@@ -125,16 +125,17 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->hasOne(Discount::class, ['id' => 'discount_id']);
     }
 
+    /**  === Сумма для оплаты (со скидкой) */
     public function getAmountPay()
     {
         if (!$this->discount) return $this->getAmount();
         return $this->getAmount() * (1 - $this->discount->percent/100); // - Скидка
     }
+    /**  === Сумма которую видят партнеры, без скидки провайдера */
     public function getAmountPayAdmin()
     {
-
         if (!$this->discount) return $this->getAmount();
-        if ($this->discount->who == Discount::WHO_ADMIN) return $this->getAmountPay();
+        if ($this->discount->entities == Discount::E_OFFICE_USER) return $this->getAmountPay();
         return $this->getAmount();
     }
 
@@ -176,6 +177,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->status;
     }
 
+    /**  === Сумма базовая */
     public function getAmount(): int
     {
         return  ($this->count->adult * $this->calendar->cost->adult ?? 0) +

@@ -7,6 +7,7 @@ namespace booking\services\booking\tours;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
+use booking\repositories\booking\DiscountRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\services\booking\DiscountService;
@@ -18,25 +19,26 @@ class BookingTourService
     private $bookings;
     private $calendar;
     private $contact;
-    private $discount;
+    private $discounts;
 
     public function __construct(
         BookingTourRepository $bookings,
         CostCalendarRepository $calendar,
         ContactService $contact,
-        DiscountService $discount
+        DiscountService $discount,
+        DiscountRepository $discounts
     )
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
         $this->contact = $contact;
-        $this->discount = $discount;
+        $this->discounts = $discounts;
     }
 
     public function create($calendar_id, Cost $count, $promo_code): BookingTour
     {
         $booking = BookingTour::create($calendar_id, $count);
-        $discount_id = $this->discount->get($promo_code, $booking);
+        $discount_id = $this->discounts->find($promo_code, $booking);
         $booking->setDiscount($discount_id);
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);

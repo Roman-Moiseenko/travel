@@ -4,7 +4,11 @@
 namespace booking\repositories\booking;
 
 
+use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
+use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\Discount;
+use booking\entities\booking\tours\BookingTour;
 
 class DiscountRepository
 {
@@ -14,6 +18,57 @@ class DiscountRepository
             throw new \DomainException('Скидка на найдена');
         }
         return $result;
+    }
+
+    /** @return BookingItemInterface[] */
+    public function getBookings($id): array
+    {
+        $tour = BookingTour::find()->andWhere(['discount_id' => $id])->all();
+        // TODO Заглушка Stay Car
+        $stay = []; $car = [];
+        /*
+        $stay = BookingStay::find()->andWhere(['discount_id' => $id])->all();
+        $car = BookingCar::find()->andWhere(['discount_id' => $id])->all();*/
+        return array_merge($tour, $stay, $car);
+    }
+
+    public function find($promo_code, BookingItemInterface $booking)
+    {
+        /** @var Discount $discount */
+        $discount = Discount::find()->andWhere(['promo' => $promo_code])->andWhere(['>', 'count', 0])->one();
+        if (!$discount) return null;
+        //Проверка на количество
+        if ($this->countNotUsed($discount->id) <= '0')
+            throw new \DomainException('Данный промо-код был использован');
+
+        //Проверка на сущности
+        if ($discount->entities == Discount::E_OFFICE_USER) return $discount->id; //Скидка от провайдера
+        if ($discount->entities == Discount::E_ADMIN_USER) {
+            $admin = $booking->getAdmin();
+            if ($admin->id == $discount->entities_id) return $discount->id;
+        }
+        if ($discount->entities == Discount::E_USER_LEGAL) {
+            $legal = $booking->getLegal();
+            if ($legal->id == $discount->entities_id) return $discount->id;
+        }
+        if (get_class($booking) == $discount->entities) {
+            if ($discount->entities_id == null) return $discount->id;
+            if ($booking->getParentId() == $discount->entities_id) return $discount->id;
+        }
+        throw new \DomainException('Данный промо-код не подходит к данному бронированию');
+    }
+
+    private function countNotUsed($id)
+    {
+        $discount = $this->get($id);
+        $discount->count;
+        $tour = BookingTour::find()->andWhere(['discount_id' => $id])->count();
+        // TODO Заглушка Stay Car
+        $stay = 0; $car = 0;
+        /*
+        $stay = BookingStay::find()->andWhere(['discount_id' => $id])->count();
+        $car = BookingCar::find()->andWhere(['discount_id' => $id])->count();*/
+        return $discount->count - ($tour + $stay + $car);
     }
 
     public function save(Discount $discount): void
