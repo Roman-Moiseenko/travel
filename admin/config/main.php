@@ -68,7 +68,6 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'tours' => 'site/tours',
                 'stays' => 'site/stays',

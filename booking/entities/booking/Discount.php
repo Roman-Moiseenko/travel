@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * Class Discount
  * @package booking\entities\booking
  * @property int $id
+ * @property int $user_id
  * @property int $created_at
  * @property string $entities
  * @property int $entities_id
@@ -24,7 +25,6 @@ use yii\db\ActiveRecord;
  */
 class Discount extends ActiveRecord
 {
-
     const E_ADMIN_USER = \booking\entities\admin\user\User::class;
     const E_OFFICE_USER = \booking\entities\office\user\User::class;
     const E_USER_LEGAL = UserLegal::class;
@@ -59,6 +59,10 @@ class Discount extends ActiveRecord
         return $this->count > 0;
     }
 
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
+    }
 
     public static function listEntities(): array
     {

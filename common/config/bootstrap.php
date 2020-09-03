@@ -1,7 +1,7 @@
 <?php
 Yii::setAlias('@common', dirname(__DIR__));
 Yii::setAlias('@frontend', dirname(dirname(__DIR__)) . '/frontend');
-Yii::setAlias('@backend', dirname(dirname(__DIR__)) . '/backend');
+Yii::setAlias('@office', dirname(dirname(__DIR__)) . '/office');
 Yii::setAlias('@console', dirname(dirname(__DIR__)) . '/console');
 Yii::setAlias('@booking', dirname(dirname(__DIR__)) . '/booking');
 Yii::setAlias('@static', dirname(dirname(__DIR__)) . '/static');

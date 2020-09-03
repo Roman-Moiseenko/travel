@@ -6,13 +6,16 @@ namespace booking\services\admin;
 use booking\entities\admin\user\User;
 use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\BookingAddress;
+use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\NoticeForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
+use booking\forms\booking\DiscountForm;
 use booking\repositories\admin\UserRepository;
+use booking\services\booking\DiscountService;
 use booking\services\TransactionManager;
 
 class UserManageService
@@ -62,7 +65,6 @@ class UserManageService
         $user->updateNotice($notice);
         $this->users->save($user);
     }
-
 
     public function newLegal($id, UserLegalForm $form): UserLegal
     {
@@ -128,6 +130,28 @@ class UserManageService
         $this->users->save($user);
     }
 
+    public function addDiscount($user_id, DiscountForm $form): Discount
+    {
+        $user = $this->users->get($user_id);
+        $promo = DiscountService::generatePromo($form->entities);
+        $discount = Discount::create(
+            $form->entities,
+            $form->entities_id,
+            $promo,
+            $form->percent,
+            $form->count
+        );
+        $user->addDiscount($discount);
+        $this->users->save($user);
+        return $discount;
+    }
+
+    public function draftDiscount($user_id, $discount_id): void
+    {
+        $user = $this->users->get($user_id);
+        $user->draftDiscount($discount_id);
+        $this->users->save($user);
+    }
 
     public function update($id, UserEditForm $form): User
     {
@@ -141,7 +165,6 @@ class UserManageService
         return $user;
     }
 
-
     private function ExcangeName($name): string
     {
         $name = mb_strtolower($name);
@@ -153,5 +176,4 @@ class UserManageService
         $user = $this->users->get($id);
         $this->users->remove($user);
     }
-
 }

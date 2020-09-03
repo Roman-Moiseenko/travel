@@ -3,7 +3,10 @@
 namespace admin\controllers;
 
 
+use admin\forms\DiscountSearch;
 use admin\forms\TourSearch;
+use booking\repositories\booking\DiscountRepository;
+use booking\services\admin\UserManageService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -15,6 +18,23 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
+
+    /**
+     * @var DiscountRepository
+     */
+    private $discounts;
+    /**
+     * @var UserManageService
+     */
+    private $service;
+
+    public function __construct($id, $module, DiscountRepository $discounts, UserManageService $service, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->discounts = $discounts;
+        $this->service = $service;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -133,7 +153,23 @@ class SiteController extends Controller
 
     public function actionDiscount()
     {
-        return $this->render('discount', []);
+        $searchModel = new DiscountSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        return $this->render('discount', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDiscountDraft($id)
+    {
+        try {
+        $this->service->draftDiscount(\Yii::$app->user->id, $id);
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
 }

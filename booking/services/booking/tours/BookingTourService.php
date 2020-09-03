@@ -25,7 +25,6 @@ class BookingTourService
         BookingTourRepository $bookings,
         CostCalendarRepository $calendar,
         ContactService $contact,
-        DiscountService $discount,
         DiscountRepository $discounts
     )
     {

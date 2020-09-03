@@ -1,6 +1,7 @@
 <?php
 namespace booking\entities\admin\user;
 
+use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use Yii;
@@ -27,6 +28,7 @@ use yii\web\IdentityInterface;
  * @property UserLegal[] $legals
  * @property Personal $personal
  * @property Notice $notice
+ * @property Discount[] $discounts
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -76,6 +78,27 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->notice = $notice;
     }
+
+    public function addDiscount(Discount $discount)
+    {
+        $discounts = $this->discounts;
+        $discounts[] = $discount;
+        $this->discounts = $discounts;
+    }
+
+    public function draftDiscount($id)
+    {
+        $discounts = $this->discounts;
+        foreach ($discounts as &$discount) {
+            if ($discount->isFor($id)) {
+                $discount->draft();
+                $this->discounts = $discounts;
+                return;
+            }
+        }
+        throw new \DomainException('Не найдена скидка');
+    }
+
 
     public function addLegal(UserLegal $legal)
     {
@@ -149,7 +172,7 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['personal', 'legals', 'notice'],
+                'relations' => ['personal', 'legals', 'notice', 'discounts'],
             ],
         ];
     }
