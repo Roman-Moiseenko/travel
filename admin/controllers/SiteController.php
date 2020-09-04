@@ -110,16 +110,7 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionTours()
-    {
-        $searchModel = new TourSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
-        return $this->render('tours', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     public function actionStays()
     {
@@ -141,35 +132,8 @@ class SiteController extends Controller
              'dataProvider' => $dataProvider,
          ]); */
     }
-    public function actionToursDelete($id)
-    {
-//TODO Сделать удаление туров
-        /* $tours =  $this->tours->get($id);
-         if ($tours->user_id != \Yii::$app->user->id) {
-             throw new \DomainException('У вас нет прав для данного тура');
-         }
-         */
-    }
 
-    public function actionDiscount()
-    {
-        $searchModel = new DiscountSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-        return $this->render('discount', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
-    public function actionDiscountDraft($id)
-    {
-        try {
-        $this->service->draftDiscount(\Yii::$app->user->id, $id);
-        } catch (\DomainException $e) {
-            \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-        return $this->redirect(\Yii::$app->request->referrer);
-    }
+
 
 }

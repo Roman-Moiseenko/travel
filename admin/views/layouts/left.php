@@ -17,6 +17,7 @@ use yii\helpers\Url;
         <!-- Sidebar user panel (optional) -->
          <?= ProfileLeftBarWidget::widget()?>
         <!-- Sidebar Menu -->
+
         <nav class="mt-2">
 
             <?php

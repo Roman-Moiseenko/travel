@@ -17,7 +17,7 @@ class m200902_212029_create_booking_discount_table extends Migration
             'created_at' => $this->integer(),
             'entities' => $this->string(),
             'entities_id' => $this->integer(),
-            'promo' => $this->string(),
+            'promo' => $this->string()->unique(),
             'percent' => $this->integer(),
             'count' => $this->integer(),
         ]);

@@ -133,15 +133,17 @@ class UserManageService
     public function addDiscount($user_id, DiscountForm $form): Discount
     {
         $user = $this->users->get($user_id);
-        $promo = DiscountService::generatePromo($form->entities);
-        $discount = Discount::create(
-            $form->entities,
-            $form->entities_id,
-            $promo,
-            $form->percent,
-            $form->count
-        );
-        $user->addDiscount($discount);
+        //$promo = DiscountService::generatePromo($form->entities);
+        for ($i = 1; $i <= $form->repeat; $i++) {
+            $discount = Discount::create(
+                $form->entities,
+                $form->entities_id,
+                DiscountService::generatePromo($form->entities),
+                $form->percent,
+                $form->count
+            );
+            $user->addDiscount($discount);
+        }
         $this->users->save($user);
         return $discount;
     }
