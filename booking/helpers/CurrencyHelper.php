@@ -16,7 +16,8 @@ class CurrencyHelper
 
     public static function current()
     {
-        if (\Yii::$app->user->isGuest) {
+        if (\Yii::$app->user->identity instanceof \booking\entities\admin\user\User) return self::RUB;
+            if (\Yii::$app->user->isGuest) {
             if ($cookie = \Yii::$app->request->cookies->get('currency')) return $cookie->value;
             //  $data =\Yii::$app->geo->getData();
             // if ($data != null) return $data['country'];
@@ -46,6 +47,7 @@ class CurrencyHelper
         if (empty($cost)) {
             return '<span class="badge badge-pill badge-success">free</span>';
         }
+
         $current = self::current();
         if ($current != self::RUB) {
             $currencies = self::get_currencies();

@@ -28,8 +28,6 @@ $(document).ready(function() {
 JS;
 $this->registerJs($script)
 ?>
-<div id="rl">
     <div id="review-load"></div>
     <div id="review-load-next"></div>
-</div>
 

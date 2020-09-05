@@ -28,6 +28,7 @@ use yii\helpers\Url;
  * @property integer $discount_id
  * @property Discount $discount
  * @property integer $bonus
+ * @property \booking\entities\user\User $user
  */
 class BookingTour extends ActiveRecord implements BookingItemInterface
 {
@@ -118,6 +119,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $this->bonus = $bonus;
     }
 
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(\booking\entities\user\User::class, ['id' => 'user_id']);
+    }
     /** ==========> Interface для личного кабинета */
 
     public function getDiscount(): ActiveQuery
@@ -126,13 +131,13 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     }
 
     /**  === Сумма для оплаты (со скидкой) */
-    public function getAmountPay()
+    public function getAmountPay(): int
     {
         if (!$this->discount) return $this->getAmount();
         return $this->getAmount() * (1 - $this->discount->percent/100) - $this->bonus; // - Скидка
     }
     /**  === Сумма которую видят партнеры, без скидки провайдера */
-    public function getAmountPayAdmin()
+    public function getAmountPayAdmin(): int
     {
         if (!$this->discount) return $this->getAmount();
         if ($this->discount->entities != Discount::E_OFFICE_USER) return $this->getAmountPay();

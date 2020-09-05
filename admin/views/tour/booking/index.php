@@ -4,6 +4,7 @@
 
 /* @var  $only_pay boolean */
 
+use booking\helpers\CurrencyHelper;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Бронирования по ' . $tour->name;
@@ -23,13 +24,13 @@ $this->params['breadcrumbs'][] = 'Бронирования';
     <?php foreach ($sort_bookings as $day => $day_bookings): ?>
         <div class="card">
             <div class="card-header">
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
                     <div>
                         <a class="btn btn-success" data-toggle="collapse" href="#collapse<?= $day ?>" role="button"
                            aria-expanded="false" aria-controls="collapse<?= $day ?>">
-                            <h2><?= date('d-m-Y', $day) ?></h2></a>
+                            <h3><?= date('d-m-Y', $day) ?></h3></a>
                     </div>
-                    <div class="ml-auto">
+                    <div class="pl-4">
                         <?php
                         $count = 0;
                         $amount = 0;
@@ -40,8 +41,7 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                             }
                         }
                         ?>
-
-                        Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
+                        <?= $count; ?> билета(ов) <br> <?= CurrencyHelper::get($amount); ?>
                     </div>
                 </div>
             </div>
@@ -49,10 +49,11 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                 <div class="card-body ml-5">
                     <?php foreach ($day_bookings as $time => $bookings): ?>
                         <div class="row">
-                            <div class="d-flex py-2">
-                                <div><h3><span class="badge badge-primary"><?= $time ?></span></h3>
+                            <div class="d-flex align-items-center py-2">
+                                <div>
+                                    <h3 style="margin: 0 0"><span class="badge badge-primary"><?= $time ?></span></h3>
                                 </div>
-                                <div class="ml-auto">
+                                <div class="pl-3">
                                     <?php
                                     $count = 0;
                                     $amount = 0;
@@ -61,29 +62,41 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                         $count += $booking->count->adult + $booking->count->child + $booking->count->preference;
                                     }
                                     ?>
-                                    Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
-
+                                    Билетов <?= $count; ?> на сумму <?= CurrencyHelper::get($amount); ?>
+                                </div>
+                                <div class="pl-5">
+                                    <a class="btn collapse-time" data-status="down" data-toggle="collapse" href="#collapse<?= $day . str_replace(':','', $time) ?>" role="button"
+                                       aria-expanded="false" aria-controls="collapse<?= $day . str_replace(':','', $time) ?>" style="z-index: 9999">
+                                        <i class="fas fa-chevron-down"></i></a>
                                 </div>
                             </div>
                             <hr/>
                         </div>
+                    <div class="collapse multi-collapse" id="collapse<?= $day . str_replace(':','', $time) ?>">
                         <?php foreach ($bookings as $booking): ?>
-                            <div class="row">
-                                <?= $booking->discount->id; ?>
+                            <div class="row pl-2">
+                                <span class="params-item">
+                                <i class="fas fa-user"></i>&#160;&#160;<?= $booking->user->personal->fullname->getFullname(); ?>
+                                </span>
+                                <span class="params-item">
+                                    <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
+                                    <?php if ($booking->discount) echo ' (' . $booking->discount->promo . ')' ?>
+                                </span>
+                                <span class="params-item">
+                                    <i class="fas fa-ticket-alt"></i>&#160;&#160;<?= $booking->count->adult + $booking->count->child + $booking->count->preference;?>
+                                </span>
+                                <span class="params-item">
+                                <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
+                                </span>
+                                <span class="params-item">
+                                    <a href="#" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
+                                </span>
                             </div>
                         <?php endforeach; ?>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
-
-Показать ближащие бронирования:<br>
-Дата 1. <br>
-. . Время. Кол-во билетов. Сумма <br>
-. . . . Список Туристов - Ф.И.О. Кол-во билетов. Сумма<br>
-. . . . Написать сообщение. № телефона.<br>
-
-...<br>
-Дата N. <br>

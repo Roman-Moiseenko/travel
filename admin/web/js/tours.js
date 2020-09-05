@@ -33,4 +33,20 @@ $(document).ready(function() {
             function (data) {
         });
     });
+
+    $('body').on('click', '.collapse-time', function () {
+        let status = $(this).attr('data-status');
+        let id = $(this).attr('aria-controls');
+        if (status === 'down') {
+            $(this).attr('data-status', 'up');
+            $(this).html('<i class="fas fa-chevron-up""></i>');
+            if (!$('#' + id).hasClass('show')) {$('#' + id).collapse('show');}
+        }
+        if (status === 'up') {
+            $(this).attr('data-status', 'down');
+            $(this).html('<i class="fas fa-chevron-down""></i>');
+            if ($('#' + id).hasClass('show')) {$('#' + id).collapse('hide');}
+        }
+    });
+
 });
