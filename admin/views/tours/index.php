@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
     <p>
-        <?= Html::a('Создать Тур', Url::to('tours/common/create'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать Тур', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name',
                 'value' => function (Tour $model) {
-                    return Html::a(Html::encode($model->name), ['/tours/common', 'id' => $model->id]);
+                    return Html::a(Html::encode($model->name), ['/tour/common', 'id' => $model->id]);
                 },
                 'format' => 'raw',
                 'label' => 'Название',
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{delete}',
                 'buttons' => [
                     'delete' => function ($url, $model, $key) {
-                        $url = Url::to(['/tours/tours-delete', 'id' => $model->id]);
+                        $url = Url::to(['/tour/delete', 'id' => $model->id]);
                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
                         return Html::a($icon, $url, [
                             'title' => 'Удалить',

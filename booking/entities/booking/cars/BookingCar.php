@@ -35,7 +35,7 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['cae/booking/index', 'id' => $this->id]),
+            'admin' => Url::to(['car/booking/index', 'id' => $this->id]),
             'frontend' => Url::to(['cabinet/car/view', 'id' => $this->id]),
         ];
     }

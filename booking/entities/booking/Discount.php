@@ -9,6 +9,7 @@ use booking\entities\admin\user\UserLegal;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
+use booking\helpers\BookingHelper;
 use yii\db\ActiveRecord;
 
 /**
@@ -66,12 +67,30 @@ class Discount extends ActiveRecord
 
     public function countNotUsed(): int
     {
-        $tour = BookingTour::find()->andWhere(['discount_id' => $this->id])->count();
+        if ($this->entities == Discount::E_OFFICE_USER) {
+            $amount =  0;
+
+            $tour = BookingTour::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->all();
+            foreach ($tour as $item) {
+                $amount += $item->bonus;
+            }
+/*
+            $stay = BookingStay::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->all();
+            foreach ($stay as $item) {
+                $amount += $item->bonus;
+            }
+            $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->all();
+            foreach ($car as $item) {
+                $amount += $item->bonus;
+            }*/
+            return $this->count - $amount;
+        }
+        $tour = BookingTour::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();
         // TODO Заглушка Stay Car
         $stay = 0; $car = 0;
         /*
-        $stay = BookingStay::find()->andWhere(['discount_id' => $this->id])->count();
-        $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->count();*/
+        $stay = BookingStay::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();
+        $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();*/
         return $this->count - ($tour + $stay + $car);
     }
 

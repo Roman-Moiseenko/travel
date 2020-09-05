@@ -54,7 +54,7 @@ $(document).ready(function () {
             var m = $('#data-day').attr('data-m');
             var y = $('#data-day').attr('data-y');
 
-            $.post('/tours/calendar/copyday',
+            $.post('/tour/calendar/copyday',
                 {
                     year: e.date.getFullYear(),
                     month: e.date.getMonth() + 1,
@@ -70,7 +70,7 @@ $(document).ready(function () {
                 });
         } else {
             //Иначе получаем сведения о тек.дне
-            $.post('/tours/calendar/getday',
+            $.post('/tour/calendar/getday',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {
                     var dateInfo = JSON.parse(data);
@@ -82,7 +82,7 @@ $(document).ready(function () {
     //Событие при выборе месяца
     $('#datepicker').datepicker().on('changeMonth', function (e) {
 
-        $.post('/tours/calendar/getcalendar',
+        $.post('/tour/calendar/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
                 console.log(data);
                 full_array_tours = JSON.parse(data);
@@ -95,7 +95,7 @@ $(document).ready(function () {
             });
     });
     //Загружаем Массив туров по дням за текущий день
-    $.post('/tours/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+    $.post('/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
         console.log(data);
         full_array_tours = JSON.parse(data);
         $('#datepicker').datepicker('update');
@@ -117,7 +117,7 @@ $(document).ready(function () {
             _preference = null;
         }
 
-        $.post('/tours/calendar/setday',
+        $.post('/tour/calendar/setday',
             {
                 year: y, month: m, day: d, tour_id: tour_id,
                 _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference
@@ -138,7 +138,7 @@ $(document).ready(function () {
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
         var calendar_id = $(this).attr('data-id');
-        $.post('/tours/calendar/delday',
+        $.post('/tour/calendar/delday',
             {
                 year: y, month: m, day: d, tour_id: tour_id,
                 calendar_id: calendar_id

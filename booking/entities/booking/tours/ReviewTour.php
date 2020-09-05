@@ -79,8 +79,8 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['tours/review/index', 'id' => $this->tour_id]),
-            'frontend' => Url::to(['tours/view', 'id' => $this->tour_id]),
+            'admin' => Url::to(['tour/review/index', 'id' => $this->tour_id]),
+            'frontend' => Url::to(['tour/view', 'id' => $this->tour_id]),
             'update' => Url::to(['cabinet/review/update-tour', 'id' => $this->id]),
             'remove' => Url::to(['cabinet/review/delete-tour', 'id' => $this->id]),
         ];

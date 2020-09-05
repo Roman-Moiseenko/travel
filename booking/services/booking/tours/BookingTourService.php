@@ -4,6 +4,7 @@
 namespace booking\services\booking\tours;
 
 
+use booking\entities\booking\Discount;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
@@ -39,6 +40,15 @@ class BookingTourService
         $booking = BookingTour::create($calendar_id, $count);
         $discount_id = $this->discounts->find($promo_code, $booking);
         $booking->setDiscount($discount_id);
+
+        if ($booking->discount->entities == Discount::E_OFFICE_USER) {
+            $notUsed = $booking->discount->countNotUsed();
+            $_discount = $booking->getAmount() * $booking->discount->percent / 100;
+            $bonus = $notUsed < $_discount ? $notUsed : $_discount;
+            if ($notUsed <= 0) $bonus = 0;
+            $booking->setBonus($bonus);
+        }
+
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;

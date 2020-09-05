@@ -37,7 +37,7 @@ class DiscountRepository
         /** @var Discount $discount */
         $discount = Discount::find()->andWhere(['promo' => $promo_code])->andWhere(['>', 'count', 0])->one();
         if (!$discount) return null;
-        //Проверка на количество
+        //Проверка на остаток
         if ($discount->countNotUsed() <= '0')
             throw new \DomainException('Данный промо-код был использован');
 
@@ -52,7 +52,7 @@ class DiscountRepository
             if ($legal->id == $discount->entities_id) return $discount->id;
         }
         if (get_class($booking) == $discount->entities) {
-            if ($discount->entities_id == null) return $discount->id;
+            if ($discount->entities_id == null && $discount->user_id == $booking->getAdmin()->id) return $discount->id;
             if ($booking->getParentId() == $discount->entities_id) return $discount->id;
         }
         throw new \DomainException('Данный промо-код не подходит к данному бронированию');

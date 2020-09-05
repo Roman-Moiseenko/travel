@@ -27,6 +27,7 @@ use yii\helpers\Url;
  * @property integer $created_at
  * @property integer $discount_id
  * @property Discount $discount
+ * @property integer $bonus
  */
 class BookingTour extends ActiveRecord implements BookingItemInterface
 {
@@ -36,18 +37,15 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         $booking = new static();
         $booking->user_id = \Yii::$app->user->id;
-       // $booking->amount = $amount;
         $booking->calendar_id = $calendar_id;
         $booking->count = $count;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
         $booking->created_at = time();
-        //$booking->discount_id = $discount_id;
         return $booking;
     }
 
     public function edit(Cost $count): void
     {
-        //$this->amount = $amount;
         $this->count = $count;
     }
 
@@ -115,8 +113,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $this->discount_id = $discount_id;
     }
 
-
-
+    public function setBonus($bonus)
+    {
+        $this->bonus = $bonus;
+    }
 
     /** ==========> Interface для личного кабинета */
 
@@ -129,13 +129,13 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getAmountPay()
     {
         if (!$this->discount) return $this->getAmount();
-        return $this->getAmount() * (1 - $this->discount->percent/100); // - Скидка
+        return $this->getAmount() * (1 - $this->discount->percent/100) - $this->bonus; // - Скидка
     }
     /**  === Сумма которую видят партнеры, без скидки провайдера */
     public function getAmountPayAdmin()
     {
         if (!$this->discount) return $this->getAmount();
-        if ($this->discount->entities == Discount::E_OFFICE_USER) return $this->getAmountPay();
+        if ($this->discount->entities != Discount::E_OFFICE_USER) return $this->getAmountPay();
         return $this->getAmount();
     }
 
@@ -152,7 +152,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['tours/booking/index', 'id' => $this->calendar->tours_id]),
+            'admin' => Url::to(['tour/booking/index', 'id' => $this->calendar->tours_id]),
             'frontend' => Url::to(['cabinet/tour/view', 'id' => $this->id]),
             ];
     }

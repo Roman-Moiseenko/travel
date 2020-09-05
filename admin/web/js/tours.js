@@ -28,12 +28,9 @@ $(document).ready(function() {
         let extra_id = $(this).attr('extra-id');
         let value = 0;
          if ($(this).is(':checked')) {value = 1;} else {value = 0;}
-        $.post("/tours/extra/setextra?tours_id="+tours_id+"&extra_id="+extra_id+"&set="+value,
+        $.post("/tour/extra/setextra?tours_id="+tours_id+"&extra_id="+extra_id+"&set="+value,
             {tours_id: tours_id, extra_id: extra_id, set: value},
             function (data) {
         });
     });
-
-
-
 });

@@ -27,7 +27,7 @@ use yii\helpers\Url;
                     ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/tour/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/params'],
                     ['label' => 'Дополнения', 'icon' => 'donate', 'url' => ['/tour/extra', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/extra'],
                     ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/tour/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/finance'],
-                    ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tours/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/calendar'],
+                    ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tour/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/calendar'],
                     ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tour/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/booking'],
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tour/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/review'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tour/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/report'],

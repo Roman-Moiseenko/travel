@@ -89,7 +89,7 @@ $tour = $booking->calendar->tour;
                         <th class="py-3 my-2"><?= Lang::t('Скидка') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get($booking->getAmount() * $booking->discount->percent/100) . ' (' .  $booking->discount->promo . ')' ?> </td>
+                        <td><?= CurrencyHelper::get($booking->bonus ?? $booking->getAmount() * $booking->discount->percent/100) . ' (' .  $booking->discount->promo . ')' ?> </td>
                     </tr>
                     <?php endif; ?>
                     <tr></tr>

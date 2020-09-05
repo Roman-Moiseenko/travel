@@ -85,4 +85,17 @@ class DiscountController extends Controller
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
+
+    public function actionLoad()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams['set'];
+            //TODO Подгрузка объектов ()
+            return
+                '<div class="card card-secondary"><div class="card-header"><option value="1">'.$params.'</option></div></div>'.
+                '<option value="1">'.$params.'</option>'.
+                '<option value="1">'.$params.'</option>';
+
+        }
+    }
 }

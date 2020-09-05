@@ -21,54 +21,62 @@ $this->params['breadcrumbs'][] = 'Бронирования';
 <?php ActiveForm::end() ?>
 <div class="tours-view">
     <?php foreach ($sort_bookings as $day => $day_bookings): ?>
-    <div class="card">
-        <div class="card-header">
-            <div class="d-flex">
-                <div>
-                    <a class="btn btn-success" data-toggle="collapse" href="#collapse<?= $day ?>" role="button" aria-expanded="false" aria-controls="collapse<?= $day ?>">
-                        <h2><?= date('d-m-Y', $day) ?></h2></a>
-                </div>
-                <div class="ml-auto">
-                    <?php
-                    $count = 0;
-                    $amount = 0;
-                    foreach ($day_bookings as $day_booking) {
-                       foreach ($day_booking as $booking) {
-                           $amount += $booking->getAmountPayAdmin();
-                           $count += $booking->count->adult + $booking->count->child + $booking->count->preference;
-                       }
-                    }
-                    ?>
-
-                    Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
-                </div>
-            </div>
-        </div>
-        <div class="collapse multi-collapse" id="collapse<?= $day ?>">
-            <div class="card-body ml-5">
-            <?php foreach ($day_bookings as $time => $bookings): ?>
-                <div class="d-flex py-2">
-                    <div><h3><span class="badge badge-primary"><?= $time ?></span></h3>
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div>
+                        <a class="btn btn-success" data-toggle="collapse" href="#collapse<?= $day ?>" role="button"
+                           aria-expanded="false" aria-controls="collapse<?= $day ?>">
+                            <h2><?= date('d-m-Y', $day) ?></h2></a>
                     </div>
                     <div class="ml-auto">
                         <?php
                         $count = 0;
                         $amount = 0;
-                        foreach ($bookings as $booking) {
+                        foreach ($day_bookings as $day_booking) {
+                            foreach ($day_booking as $booking) {
                                 $amount += $booking->getAmountPayAdmin();
                                 $count += $booking->count->adult + $booking->count->child + $booking->count->preference;
+                            }
                         }
                         ?>
-                        Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
 
+                        Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
                     </div>
                 </div>
-                <hr/>
-            <?php endforeach; ?>
+            </div>
+            <div class="collapse multi-collapse" id="collapse<?= $day ?>">
+                <div class="card-body ml-5">
+                    <?php foreach ($day_bookings as $time => $bookings): ?>
+                        <div class="row">
+                            <div class="d-flex py-2">
+                                <div><h3><span class="badge badge-primary"><?= $time ?></span></h3>
+                                </div>
+                                <div class="ml-auto">
+                                    <?php
+                                    $count = 0;
+                                    $amount = 0;
+                                    foreach ($bookings as $booking) {
+                                        $amount += $booking->getAmountPayAdmin();
+                                        $count += $booking->count->adult + $booking->count->child + $booking->count->preference;
+                                    }
+                                    ?>
+                                    Всего билетов <?= $count; ?>. Сумма <?= $amount; ?> руб
+
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                        <?php foreach ($bookings as $booking): ?>
+                            <div class="row">
+                                <?= $booking->discount->id; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </div>
 
 Показать ближащие бронирования:<br>
