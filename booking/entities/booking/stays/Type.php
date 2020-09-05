@@ -41,6 +41,6 @@ class Type extends ActiveRecord
 
     public function getStays(): ActiveQuery
     {
-        return $this->hasMany(Stays::class, ['type_id' => 'id']);
+        return $this->hasMany(Stay::class, ['type_id' => 'id']);
     }
 }

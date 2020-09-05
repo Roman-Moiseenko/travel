@@ -1,7 +1,10 @@
 <?php
 namespace booking\entities\admin\user;
 
+use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
+use booking\entities\booking\stays\Stay;
+use booking\entities\booking\tours\Tour;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use Yii;
@@ -365,6 +368,26 @@ class User extends ActiveRecord implements IdentityInterface
     public function getNotice(): ActiveQuery
     {
         return $this->hasOne(Notice::class, ['user_id' => 'id']);
+    }
+
+    public function getTours(): ActiveQuery
+    {
+        return $this->hasMany(Tour::class, ['user_id' => 'id']);
+    }
+
+    public function getStays(): ActiveQuery
+    {
+        return $this->hasMany(Stay::class, ['user_id' => 'id']);
+    }
+
+    public function getCars(): ActiveQuery
+    {
+        return $this->hasMany(Car::class, ['user_id' => 'id']);
+    }
+
+    public function getDiscounts(): ActiveQuery
+    {
+        return $this->hasMany(Discount::class, ['user_id' => 'id']);
     }
     /** <========== getXXX */
 }

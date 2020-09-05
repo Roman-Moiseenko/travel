@@ -37,7 +37,7 @@ use yii\web\UploadedFile;
  * @property Nearby[] $nearby
  *
  */
-class Stays extends ActiveRecord
+class Stay extends ActiveRecord
 {
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 1;
@@ -50,7 +50,7 @@ class Stays extends ActiveRecord
         $stays = new static();
         $stays->created_at = time();
         $stays->name = $name;
-        $stays->status = Stays::STATUS_INACTIVE;
+        $stays->status = Stay::STATUS_INACTIVE;
         $stays->type_id = $typeId;
         $stays->address = $address;
         $stays->stars = $stars;

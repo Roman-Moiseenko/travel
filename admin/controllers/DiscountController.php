@@ -5,7 +5,10 @@ namespace admin\controllers;
 
 
 use admin\forms\DiscountSearch;
+use booking\entities\booking\Discount;
 use booking\forms\booking\DiscountForm;
+use booking\helpers\scr;
+use booking\repositories\admin\UserRepository;
 use booking\repositories\booking\DiscountRepository;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
@@ -24,12 +27,17 @@ class DiscountController extends Controller
      * @var UserManageService
      */
     private $service;
+    /**
+     * @var UserRepository
+     */
+    private $users;
 
-    public function __construct($id, $module, DiscountRepository $discounts, UserManageService $service, $config = [])
+    public function __construct($id, $module, DiscountRepository $discounts, UserManageService $service, UserRepository $users, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->discounts = $discounts;
         $this->service = $service;
+        $this->users = $users;
     }
 
     public function behaviors()
@@ -62,9 +70,10 @@ class DiscountController extends Controller
     {
         $form = new DiscountForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            //scr::p(\Yii::$app->request->post());
             try {
                 $this->service->addDiscount(\Yii::$app->user->id, $form);
-                return $this->redirect(['discount']);
+                return $this->redirect(['/discount']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -90,12 +99,41 @@ class DiscountController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams['set'];
-            //TODO Подгрузка объектов ()
-            return
-                '<div class="card card-secondary"><div class="card-header"><option value="1">'.$params.'</option></div></div>'.
-                '<option value="1">'.$params.'</option>'.
-                '<option value="1">'.$params.'</option>';
-
+            if ($params == '') return '';
+            if ($params == Discount::E_ADMIN_USER) return '<option value="0">Все</option>';
+            $user = $this->users->get(\Yii::$app->user->id);
+            if ($params == Discount::E_USER_LEGAL) {
+                $result = '';
+                $legals = $user->legals;
+                foreach ($legals as $legal) {
+                    $result .= '<option value="' . $legal->id . '">' . $legal->caption . ' (' . $legal->name . ')' . '</option>';
+                }
+                return $result;
+            }
+            if ($params == Discount::E_BOOKING_TOUR) {
+                    $result = '<option value="0">Все</option>';
+                    $tours = $user->tours;
+                    foreach ($tours as $tour) {
+                        $result .= '<option value="' . $tour->id . '">' . $tour->name . '</option>';
+                    }
+                    return $result;
+            }
+            if ($params == Discount::E_BOOKING_STAY) {
+                $result = '<option value="0">Все</option>';
+                $stays = $user->stays;
+                foreach ($stays as $stay) {
+                    $result .= '<option value="' . $stay->id . '">' . $stay->name . '</option>';
+                }
+                return $result;
+            }
+            if ($params == Discount::E_BOOKING_CAR) {
+                $result = '<option value="0">Все</option>';
+                $cars = $user->cars;
+                foreach ($cars as $car) {
+                    $result .= '<option value="' . $car->id . '">' . $car->name . '</option>';
+                }
+                return $result;
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
 
     public function getStays(): ActiveQuery
     {
-        return $this->hasOne(Stays::class, ['id' => 'stays_id']);
+        return $this->hasOne(Stay::class, ['id' => 'stays_id']);
     }
 
     /**

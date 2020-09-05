@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'entities')->dropDownList(DiscountHelper::listEntities(), ['prompt' => '', 'id' => 'discount-entities'])->label('Область скидок') ?>
                 </div>
                 <div class="col-8">
-                    <?= $form->field($model, 'entities')->dropDownList([], ['id' => 'discount-entities-id'])->label('Объект скидок') ?>
+                    <?= $form->field($model, 'entities_id')->dropDownList([], ['id' => 'discount-entities-id'])->label('Объект скидок') ?>
                 </div>
 
             </div>

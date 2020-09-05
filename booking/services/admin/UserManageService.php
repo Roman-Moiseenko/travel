@@ -14,6 +14,7 @@ use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
 use booking\forms\booking\DiscountForm;
+use booking\helpers\scr;
 use booking\repositories\admin\UserRepository;
 use booking\services\booking\DiscountService;
 use booking\services\TransactionManager;
@@ -133,11 +134,11 @@ class UserManageService
     public function addDiscount($user_id, DiscountForm $form): Discount
     {
         $user = $this->users->get($user_id);
-        //$promo = DiscountService::generatePromo($form->entities);
+
         for ($i = 1; $i <= $form->repeat; $i++) {
             $discount = Discount::create(
                 $form->entities,
-                $form->entities_id,
+                $form->entities_id == 0 ? null : $form->entities_id,
                 DiscountService::generatePromo($form->entities),
                 $form->percent,
                 $form->count
