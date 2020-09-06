@@ -77,7 +77,7 @@ class DiscountService
             case Discount::E_BOOKING_CAR: $result = 'C'; break;
         }
         $time = time();
-        $div = ($time - 1.5 *(10 ** 9)) * rand(1, 999) + \Yii::$app->user->id * (10 ** 11);
+        $div = ($time - 1.5 *(10 ** 9)) * rand(1, 999) + \Yii::$app->user->id * (10 ** 11);// + microtime();
         while (true) {
             $mod = $div % 36;
             $result .= $code[$mod];

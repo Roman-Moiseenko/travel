@@ -41,7 +41,7 @@ class BookingTourService
         $discount_id = $this->discounts->find($promo_code, $booking);
         $booking->setDiscount($discount_id);
 
-        if ($booking->discount->entities == Discount::E_OFFICE_USER) {
+        if ($booking->discount && $booking->discount->entities == Discount::E_OFFICE_USER) {
             $notUsed = $booking->discount->countNotUsed();
             $_discount = $booking->getAmount() * $booking->discount->percent / 100;
             $bonus = $notUsed < $_discount ? $notUsed : $_discount;

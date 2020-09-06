@@ -119,7 +119,7 @@ class UserManageService
         $user->setLang($lang);
         $this->users->save($user);
     }
-
+    //TODO Не используется .......
     public function addBookingTours($id, BookingToursForm $form): BookingTour
     {
         $user = $this->users->get($id);
@@ -133,7 +133,7 @@ class UserManageService
             $amount += $calendar->cost->child * $form->count->child;
         if ($calendar->cost->preference && $form->count->preference)
             $amount += $calendar->cost->preference * $form->count->preference;
-        //TODO Сделать скидку на $amount
+
         $user->addBookingTours(
             $amount,
             $form->calendar_id,
@@ -161,7 +161,6 @@ class UserManageService
             $amount += $calendar->cost->child * $form->count->child;
         if ($calendar->cost->preference && $form->count->preference)
             $amount += $calendar->cost->preference * $form->count->preference;
-        //TODO Сделать скидку на $amount
         $user->editBookingTours(
             $booking_id,
             $amount,
@@ -186,6 +185,8 @@ class UserManageService
         $user->payBookingTours($booking_id);
         $this->users->save($user);
     }
+
+    /** ............................................  */
 
     public function addWishilstTour($id, $tour_id)
     {
