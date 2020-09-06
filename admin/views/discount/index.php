@@ -1,7 +1,6 @@
 <?php
 
-$this->title = 'Промо-коды';
-$this->params['breadcrumbs'][] = $this->title;
+
 
 use booking\entities\admin\user\User;
 use booking\entities\admin\user\UserLegal;
@@ -16,6 +15,9 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel admin\forms\DiscountSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Промо-коды';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
     <p>
         <?= Html::a('Создать Промо-код', Url::to('discount/create'), ['class' => 'btn btn-success']) ?>

@@ -89,6 +89,9 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                 <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                                 </span>
                                 <span class="params-item">
+                                <i class="far fa-clock"></i>&#160;&#160;<?= date('d-m-Y H:i', $booking->created_at); ?>
+                                </span>
+                                <span class="params-item">
                                     <a href="#" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
                                 </span>
                             </div>

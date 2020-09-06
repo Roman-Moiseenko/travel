@@ -14,6 +14,8 @@ use booking\services\booking\tours\TourService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
+
+//TODO Переименовать!!!!!!!!!!!!!!
 class ToursController extends Controller
 {
     public $layout = 'tours';

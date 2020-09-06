@@ -37,7 +37,7 @@ class SideBarWidget extends Widget
                 'link' => $review->getLinks()['admin'],
                 ];
         }
-        $bookings = $this->bookings->getByAdmin(\Yii::$app->user->id);
+        $bookings = $this->bookings->getByAdmin(\Yii::$app->user->id, 1);
         foreach ($bookings as $booking) {
             $events[] = [
                 'date' => $booking->getCreated(),

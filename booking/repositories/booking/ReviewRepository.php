@@ -51,7 +51,9 @@ class ReviewRepository
                 'IN',
                 'legal_id',
                 UserLegal::find()->select('id')->andWhere(['user_id' => $admin_id])])
-            ])->orderBy(['created_at' => SORT_DESC])->all();
+            ])
+            ->andWhere(['>=', 'created_at', $old])
+            ->orderBy(['created_at' => SORT_DESC])->all();
         $stays = []; $cars = [];
         /* ЗАГЛУШКА
         $stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();

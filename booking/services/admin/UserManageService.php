@@ -10,6 +10,7 @@ use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\NoticeForm;
+use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
@@ -168,6 +169,13 @@ class UserManageService
         });
 
         return $user;
+    }
+
+    public function newPassword(int $id, PasswordEditForm $form)
+    {
+        $user = $this->users->get($id);
+        $user->setPassword($form->password);
+        $this->users->save($user);
     }
 
     private function ExcangeName($name): string

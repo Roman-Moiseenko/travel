@@ -5,6 +5,7 @@ namespace admin\controllers\cabinet;
 
 
 use booking\entities\admin\user\User;
+use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\UserEditForm;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
@@ -48,7 +49,7 @@ class AuthController extends Controller
     public function actionUpdate()
     {
         $user = $this->findModel();
-        $form = new UserEditForm($user->id, $user);
+        $form = new UserEditForm($user);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->update($user->id, $form);
@@ -59,7 +60,25 @@ class AuthController extends Controller
             }
         }
         return $this->render('update', [
-            'user' => $user,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionPassword()
+    {
+        $user = $this->findModel();
+        $form = new PasswordEditForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->newPassword($user->id, $form);
+                \Yii::$app->session->setFlash('success', 'Пароль успешно изменен.');
+                return $this->redirect(['/cabinet/auth']);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('password', [
             'model' => $form,
         ]);
     }
