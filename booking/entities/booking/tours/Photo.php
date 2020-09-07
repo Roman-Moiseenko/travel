@@ -56,6 +56,7 @@ class Photo extends ActiveRecord
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 240],
                     'tours_list' => ['width' => 150, 'height' => 150],
+                    'top_widget_list'=> ['width' => 30, 'height' => 30],
                     'tours_widget_list' => ['width' => 57, 'height' => 57],
                     'cabinet_list' => ['width' => 70, 'height' => 70],
                     'catalog_list' => ['width' => 228, 'height' => 228],

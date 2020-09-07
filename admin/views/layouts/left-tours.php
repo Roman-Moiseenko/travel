@@ -1,7 +1,8 @@
 <?php
 
 use admin\widgest\ProfileLeftBarWidget;
-use yii\helpers\Url;
+use booking\helpers\BookingHelper;
+use booking\helpers\ToursHelper;
 
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -28,8 +29,10 @@ use yii\helpers\Url;
                     ['label' => 'Дополнения', 'icon' => 'donate', 'url' => ['/tour/extra', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/extra'],
                     ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/tour/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/finance'],
                     ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/tour/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/calendar'],
-                    ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tour/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/booking'],
-                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tour/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/review'],
+                    ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/tour/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/booking',
+                        'badge' => '<span class="right badge badge-info">'. ToursHelper::getCountActiveBooking($this->params['id']) . '</span>'],
+                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tour/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/review',
+                        'badge' => '<span class="right badge badge-warning">'. ToursHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tour/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/report'],
                 ],
             ]);

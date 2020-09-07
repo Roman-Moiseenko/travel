@@ -68,7 +68,6 @@ class BookingTourRepository
         return $result;
     }
 
-
     public function save(BookingTour $booking)
     {
         if (!$booking->save()) {

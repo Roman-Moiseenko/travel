@@ -5,6 +5,9 @@ namespace booking\helpers;
 
 
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\tours\BookingTour;
+use booking\entities\booking\tours\CostCalendar;
+use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Lang;
 
 class BookingHelper
@@ -82,4 +85,6 @@ class BookingHelper
     {
         return $booking->getUserId() . '.' . $booking->getId() . $booking->getType() / 10;
     }
+
+
 }

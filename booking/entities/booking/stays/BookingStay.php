@@ -42,7 +42,7 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
         ];
     }
 
-    public function getPhoto(): string
+    public function getPhoto(string $photo = 'cabinet_list'): string
     {
         // TODO: Implement getPhoto() method.
     }

@@ -1,11 +1,10 @@
 <?php
 
 use admin\widgest\BookingTopBarWidget;
+use admin\widgest\MessageTopBarWidget;
 use admin\widgest\ProfileTopBarWidget;
 use admin\widgest\ReviewTopBarWidget;
 use yii\helpers\Html;
-use yii\helpers\Url;
-
 ?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -21,13 +20,15 @@ use yii\helpers\Url;
         </li>
     </ul>
 
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <?= ReviewTopBarWidget::widget() ?>
-        <!-- Notifications Dropdown Menu -->
-        <?= BookingTopBarWidget::widget() ?>
+        <?= MessageTopBarWidget::widget() ?>
+        <?php //TODO Параметр days брать с параметров user->params->item Новая Entities!!! ?>
+        <!-- Review Dropdown Menu -->
+        <?= ReviewTopBarWidget::widget(['days' => 7]) ?>
+        <!-- Booking Dropdown Menu -->
+        <?= BookingTopBarWidget::widget(['days' => 7]) ?>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>

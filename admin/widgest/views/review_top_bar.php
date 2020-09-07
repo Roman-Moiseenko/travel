@@ -9,7 +9,7 @@ use frontend\widgets\RatingWidget; ?>
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-comments"></i>
-        <span class="badge badge-danger navbar-badge"><?= $count?></span>
+        <span class="badge badge-warning navbar-badge"><?= $count?></span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <?php foreach ($reviews as $review):?>
@@ -34,6 +34,6 @@ use frontend\widgets\RatingWidget; ?>
         </a>
         <?php endif; ?>
         <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item dropdown-footer">Отзывы за последние <?= $last_day ?> дней</a>
+        <span class="dropdown-item dropdown-footer">Отзывы за последние <?= $last_day ?> дней</span>
     </div>
 </li>

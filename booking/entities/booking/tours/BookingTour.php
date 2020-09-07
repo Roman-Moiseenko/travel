@@ -162,9 +162,9 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
             ];
     }
 
-    public function getPhoto(): string
+    public function getPhoto(string $photo = 'cabinet_list'): string
     {
-        return $this->calendar->tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list');
+        return $this->calendar->tour->mainPhoto->getThumbFileUrl('file', $photo);
     }
 
     public function getType(): string
