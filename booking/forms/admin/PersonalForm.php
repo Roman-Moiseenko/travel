@@ -5,6 +5,7 @@ namespace booking\forms\admin;
 
 
 use booking\entities\admin\user\Personal;
+use booking\entities\PersonalInterface;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
 use booking\forms\manage\FullNameForm;
@@ -25,11 +26,11 @@ class PersonalForm extends CompositeForm
     public $position;
     public $datebornform;
 
-    public function __construct(Personal $personal, $config = [])
+    public function __construct(PersonalInterface $personal, $config = [])
     {
         $this->datebornform = date('d-m-Y', $personal->dateborn);
         $this->phone = $personal->phone;
-        $this->position = $personal->position;
+        $this->position = $personal->position ?? null;
         $this->address = new UserAddressForm($personal->address);
         $this->fullname = new FullNameForm($personal->fullname);
         $this->photo = new PhotosForm();

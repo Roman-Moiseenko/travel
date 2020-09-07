@@ -393,6 +393,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->verification_token = null;
     }
 
+    public function updatePersonal(Personal $personal)
+    {
+        $this->personal = $personal;
+    }
+
     /** <=============== Identity*/
 
 

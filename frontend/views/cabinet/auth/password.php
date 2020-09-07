@@ -1,15 +1,19 @@
 <?php
 
 
-use booking\forms\admin\UserEditForm;
+use booking\entities\Lang;
+use booking\entities\user\User;
+use booking\forms\admin\PasswordEditForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
-/* @var $model UserEditForm */
+/* @var $model PasswordEditForm */
+/* @var $user User */
 
-
-$this->title = 'Изменить';
+$this->title = 'Изменить Пароль';
 $this->params['breadcrumbs'][] = ['label' => 'Аутентификация', 'url' => ['/cabinet/auth']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Профиль'), 'url' => Url::to(['/cabinet/profile'])];;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auth-update">
@@ -17,14 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => ['enctype' => 'multipart/form-data'],
     ]); ?>
     <div class="card card-secondary">
-        <div class="card-header with-border">Входные данные</div>
+        <div class="card-header with-border">Новый пароль</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
-                    <?= $form->field($model, 'username')->textInput()->label('логин'); ?>
+                    <?= $form->field($model, 'password')->passwordInput()->label('Новый пароль'); ?>
                 </div>
                 <div class="col-md-3">
-                    <?= $form->field($model, 'email')->textInput()->label('email'); ?>
+                    <?= $form->field($model, 'password2')->passwordInput()->label('Повторите пароль'); ?>
                 </div>
             </div>
         </div>

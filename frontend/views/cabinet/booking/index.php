@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php foreach ($bookings as $booking): ?>
         <div class="card mt-4 shadow">
             <div class="card-body">
-                <div class="d-flex flex-row">
-                    <div>
+                <div class="d-flex flex-row justify-content-end">
+                    <div class="">
                         <img src="<?= $booking->getPhoto(); ?>" alt="<?= Html::encode($booking->getName()); ?>"
                              style="border-radius: 12px;"/>
                     </div>
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                     </div>
-                    <div class="ml-auto align-self-center">
+                    <div class="ml-auto  align-self-center">
                         <div class="row price-list">
                             <div class="col-12">
                                 <?= CurrencyHelper::get($booking->getAmountPay()); ?>

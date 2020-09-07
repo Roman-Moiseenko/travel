@@ -58,9 +58,9 @@ class CurrencyHelper
                 default: $code = 'RUB';
             }
             $cost = $cost / $currencies[$code];
-            return number_format($cost, 2, '.', ' ') . ' ' . self::Currency($current);
+            return number_format($cost, 2, '.', '&#160;') . '&#160;' . self::Currency($current);
         }
-        return number_format($cost, 0, '.', ' ') . ' ' . self::Currency($current);
+        return number_format($cost, 0, '.', '&#160;') . '&#160;' . self::Currency($current);
     }
 
     public static function listCurrency(): array

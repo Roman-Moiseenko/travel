@@ -287,3 +287,12 @@ div.required label:after {
     content: " *";
     color: red;
 }
+.price-card {
+    color: #444;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.category-card {
+    color: #19355f;
+}

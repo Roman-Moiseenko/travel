@@ -47,7 +47,7 @@ class UserManageService
         $personal->phone = $form->phone;
         $personal->dateborn = $form->dateborn;
         $personal->position = $form->position;
-        $personal->address =  new UserAddress('ru', $form->address->town, $form->address->address, $form->address->index);
+        $personal->address =  new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
         $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
         $user->updatePersonal($personal);
         $this->users->save($user);

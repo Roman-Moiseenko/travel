@@ -5,6 +5,7 @@ namespace booking\entities\admin\user;
 
 
 //use shop\services\WaterMarker;
+use booking\entities\PersonalInterface;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use yii\db\ActiveRecord;
@@ -24,7 +25,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $position
  * @mixin ImageUploadBehavior
  */
-class Personal extends ActiveRecord
+class Personal extends ActiveRecord implements PersonalInterface
 {
 
     public $fullname;

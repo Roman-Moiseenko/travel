@@ -7,10 +7,14 @@ namespace booking\services\manage;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
+use booking\entities\user\FullName;
 use booking\entities\user\User;
+use booking\entities\user\UserAddress;
+use booking\forms\admin\PersonalForm;
 use booking\forms\booking\tours\BookingToursForm;
-use booking\forms\manage\user\UserCreateForm;
-use booking\forms\manage\user\UserEditForm;
+use booking\forms\manage\UserCreateForm;
+use booking\forms\manage\UserEditForm;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\UserRepository;
@@ -72,9 +76,23 @@ class UserManageService
             if (!empty($form->password)) $user->setPassword($form->password);
             $this->users->save($user);
         });
-
         return $user;
     }
+
+    public function setPersonal($id, PersonalForm $form)
+    {
+        $user = $this->users->get($id);
+        $personal = $user->personal;
+        if ($form->photo->files != null)
+            $personal->setPhoto($form->photo->files[0]);
+        $personal->phone = $form->phone;
+        $personal->dateborn = $form->dateborn;
+        $personal->address =  new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index);
+        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
+        $user->updatePersonal($personal);
+        $this->users->save($user);
+    }
+
 /*
     public function setContact($id, ContactDataForm $form)
     {

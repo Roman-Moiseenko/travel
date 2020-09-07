@@ -4,7 +4,8 @@
 namespace booking\helpers\country;
 
 use booking\entities\Lang;
-use booking\entities\user\User;
+use booking\helpers\scr;
+
 
 class CountryHelper
 {
@@ -12,7 +13,7 @@ class CountryHelper
     public static function listCountry(): array
     {
         $lang = Lang::current();
-        return require '/data/' . $lang . '/country.php';
+        return require 'data/' . $lang . '/country.php';
     }
 
     public static function name($code): string

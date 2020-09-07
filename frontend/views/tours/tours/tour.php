@@ -58,11 +58,10 @@ $countReveiws = $tour->countReviews();
         <!-- Заголовок тура-->
         <div class="row pb-3">
             <div class="col-12">
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
                     <div class="mr-auto">
                         <h1><?= Html::encode($tour->name) ?></h1>
                     </div>
-
                     <div class="btn-group">
                         <button type="button" data-toggle="tooltip" class="btn btn-default"
                                 title="<?= Lang::t('В избранное') ?>"

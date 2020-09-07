@@ -13,12 +13,6 @@ use yii\widgets\LinkPager;
 
 <div class="row">
     <div class="col-md-6 hidden-sm">
-        <div class="btn-group btn-group-sm">
-            <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="Списком"><i
-                        class="fa fa-th-list"></i></button>
-            <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="Сеткой"><i
-                        class="fa fa-th"></i></button>
-        </div>
     </div>
     <div class="col-md-4 col-sm-7">
         <div class="input-group input-group-sm">
@@ -62,11 +56,13 @@ use yii\widgets\LinkPager;
     </div>
 </div>
 <div class="row pt-3">
+    <div class="row row-cols-1 row-cols-md-4 m-1 p-1" >
     <?php foreach ($dataProvider->getModels() as $tour): ?>
         <?= $this->render('_tour', [
             'tour' => $tour
         ]) ?>
     <?php endforeach; ?>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-6 text-left">

@@ -28,6 +28,8 @@ use yii\helpers\Url; ?>
 <a class="<?= $class ?>"
    href="<?= Html::encode(Url::to(['/contacts/message'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
 <a class="<?= $class ?>"
+   href="<?= Html::encode(Url::to(['/cabinet/auth'])) ?>"><?= Lang::t('Аутентификация') ?></a>
+<a class="<?= $class ?>"
    href="<?= Html::encode(Url::to(['/cabinet/profile/options'])) ?>"><?= Lang::t('Настройки') ?></a>
 <a class="<?= $class ?>"
    href="<?= Html::encode(Url::to(['/auth/auth/logout'])) ?>" data-method="post"><?= Lang::t('Выйти') ?></a>

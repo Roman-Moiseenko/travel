@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\manage\user;
+namespace booking\forms\manage;
 
 
 use booking\entities\user\User;
@@ -12,8 +12,8 @@ class UserEditForm extends Model
     public $username;
     public $email;
     public $_user;
-    public $role;
     public $password;
+    public $password2;
     public $id;
 
     public function __construct(User $user, $config = [])
@@ -28,11 +28,16 @@ class UserEditForm extends Model
     public function rules(): array
     {
         return [
-            [['username', 'email', 'role'], 'required'],
+            [['username', 'email'], 'required'],
             ['email', 'email'],
             [['username', 'email'], 'string', 'max' => 255],
             [['username', 'email'], 'unique', 'targetClass' => User::class, 'filter' => ['<>', 'id', $this->_user->id]],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 4],
+            [['password', 'password2'], 'string', 'min' => 4],
+            [
+                'password2', 'compare', 'compareAttribute' => 'password',
+                'message' => "Пароли не совпадают",
+            ],
         ];
     }
 

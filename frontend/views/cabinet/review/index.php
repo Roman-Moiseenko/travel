@@ -17,28 +17,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col">
 
                         <div class="d-flex flex-row">
-                            <div>
-                                <div class="row caption-list">
-                                    <div class="col-12">
-                                        <a href="<?= $review->getLinks()['frontend'] ?>"><?= $review->getName(); ?></a>
-                                    </div>
-                                </div>
-
+                            <div class="caption-list">
+                                <a href="<?= $review->getLinks()['frontend'] ?>"><?= $review->getName(); ?></a>
                             </div>
-                            <div class="flex-grow-1 align-self-center pl-4">
-
+                            <div class="align-self-center pl-4">
                                 <?= \frontend\widgets\RatingWidget::widget([
                                     'rating' => $review->getVote()
                                 ]) ?>
-
                             </div>
-                            <div class="ml-auto align-self-center   ">
+                            <div class="ml-auto align-self-center">
+
                                 <a class="caption-list" href="<?= $review->getLinks()['update'] ?>"
-                                   title="<?= Lang::t('Изменить') ?>"
-                                   style="position: relative; z-index: 9999;"><i class="fas fa-pencil-alt"></i></a>
+                                   title="<?= Lang::t('Изменить') ?>" style="position: relative; z-index: 9999;"><i
+                                            class="fas fa-pencil-alt"></i></a>
                                 <a class="caption-list" href="<?= $review->getLinks()['remove'] ?>"
-                                   title="<?= Lang::t('Удалить') ?>"
-                                   style="position: relative; z-index: 9999;"><i class="far fa-trash-alt"></i></a>
+                                   title="<?= Lang::t('Удалить') ?>" style="position: relative; z-index: 9999;"><i
+                                            class="far fa-trash-alt"></i></a>
                             </div>
                         </div>
                     </div>

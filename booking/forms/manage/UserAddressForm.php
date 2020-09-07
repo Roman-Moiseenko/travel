@@ -9,6 +9,7 @@ use yii\base\Model;
 
 class UserAddressForm extends Model
 {
+    public $country;
     public $town;
     public $address;
     public $index;
@@ -16,6 +17,7 @@ class UserAddressForm extends Model
     public function __construct(UserAddress $address, $config = [])
     {
         if ($address) {
+            $this->country = $address->country;
             $this->town = $address->town;
             $this->address = $address->address;
             $this->index = $address->index;
@@ -26,7 +28,7 @@ class UserAddressForm extends Model
     {
         return [
             [['town', 'address', 'index'], 'required'],
-            [['town', 'address'], 'string'],
+            [['town', 'address', 'country'], 'string'],
             ['index', 'string', 'length' => 6],
             ['index', 'match', 'pattern' => '/^[0-9]*$/i'],
         ];
