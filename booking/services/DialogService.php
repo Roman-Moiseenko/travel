@@ -15,23 +15,37 @@ class DialogService
      * @var DialogRepository
      */
     private $dialogs;
+    /**
+     * @var TransactionManager
+     */
+    private $transaction;
 
-    public function __construct(DialogRepository $dialogs)
+    public function __construct(DialogRepository $dialogs, TransactionManager $transaction)
     {
         $this->dialogs = $dialogs;
+        $this->transaction = $transaction;
     }
 
-    public function create($user_id, $typeDialog, $optional, DialogForm $form, $provider_id = null)
+    public function create($user_id, $typeDialog, $optional, DialogForm $form, $provider_id = null): Dialog
     {
         $dialog = Dialog::create($user_id, $typeDialog, $provider_id, $form->theme_id, $optional);
         $dialog->addConversation($form->text);
         $this->dialogs->save($dialog);
+        return $dialog;
+
     }
 
     public function addConversation($dialog_id, ConversationForm $form)
     {
         $dialog = $this->dialogs->get($dialog_id);
         $dialog->addConversation($form->text);
+        $this->dialogs->save($dialog);
+    }
+
+    public function readConversation($dialog_id)
+    {
+        $dialog = $this->dialogs->get($dialog_id);
+        $dialog->readConversation();
         $this->dialogs->save($dialog);
     }
 

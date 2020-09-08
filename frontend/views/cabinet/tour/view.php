@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирова�
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 
+
 $tour = $booking->calendar->tour;
 ?>
     <!-- Фото + Название + Ссылка -->
@@ -36,7 +37,13 @@ $tour = $booking->calendar->tour;
         </div>
         <div class="flex-grow-1 align-self-center caption-list pl-3">
             <a href="<?= Url::to(['/tours/view', 'id' => $tour->id]); ?>"><?= $tour->name ?></a>
+
         </div>
+        <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW || $booking->status == BookingHelper::BOOKING_STATUS_PAY):?>
+        <div class="ml-auto align-self-center  caption-list pl-3">
+            <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)]) ?>"><i class="fas fa-shipping-fast" title="<?=Lang::t('Задать вопросы по бронированию')?>"></i></a>
+        </div>
+        <?php endif ?>
     </div>
     <!-- Блок от статуса -->
     <div class="booking-view">

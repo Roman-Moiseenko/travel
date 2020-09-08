@@ -64,6 +64,39 @@ class Dialog extends ActiveRecord
         $this->conversations = $conversations;
     }
 
+    public function lastConversation(): int
+    {
+        $conversations = $this->conversations;
+        $last = 0;
+        foreach ($conversations as $conversation) {
+            if ($conversation->created_at > $last)
+                $last = $conversation->created_at;
+        }
+        return $last;
+    }
+
+    public function readConversation()
+    {
+        $conversations = $this->conversations;
+        foreach ($conversations as &$conversation) {
+            if ($conversation->isNew()) {
+                $conversation->read();
+            }
+        }
+        $this->conversations = $conversations;
+    }
+
+    public function countNewConversation(): int
+    {
+        $count = 0;
+        $conversations = $this->conversations;
+        foreach ($conversations as $conversation) {
+            if ($conversation->author != get_class(\Yii::$app->user->identity) && $conversation->isNew())
+                $count++;
+        }
+        return $count;
+    }
+
     public function deleteConversation($id)
     {
         $conversations = $this->conversations;
@@ -78,7 +111,6 @@ class Dialog extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
@@ -95,7 +127,7 @@ class Dialog extends ActiveRecord
 
     public function getConversations(): ActiveQuery
     {
-        return $this->hasMany(Conversation::class, ['dialog_id', 'id']);
+        return $this->hasMany(Conversation::class, ['dialog_id' => 'id']);
     }
 
     public function getTheme(): ActiveQuery

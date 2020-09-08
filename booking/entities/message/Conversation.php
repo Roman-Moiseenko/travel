@@ -19,15 +19,16 @@ use yii\db\ActiveRecord;
 
 class Conversation extends ActiveRecord
 {
-    const STATUS_ACTIVE = 1;
+    const STATUS_NEW = 1;
     const STATUS_DELETED = 2;
+    const STATUS_READ = 3;
 
     public static function create($text): self
     {
         $conversation = new static();
         $conversation->text = $text;
         $conversation->author = get_class(\Yii::$app->user->identity);
-        $conversation->status = self::STATUS_ACTIVE;
+        $conversation->status = self::STATUS_NEW;
         $conversation->created_at = time();
         return $conversation;
     }
@@ -47,9 +48,14 @@ class Conversation extends ActiveRecord
         return $this->status == self::STATUS_DELETED;
     }
 
-    public function isActive(): bool
+    public function isNew(): bool
     {
-        return $this->status == self::STATUS_ACTIVE;
+        return $this->status == self::STATUS_NEW;
+    }
+
+    public function read()
+    {
+        $this->status = self::STATUS_READ;
     }
 
     public static function tableName()

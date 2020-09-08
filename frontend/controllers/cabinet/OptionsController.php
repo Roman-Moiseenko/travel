@@ -19,7 +19,6 @@ class OptionsController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        //'actions' => ['edit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

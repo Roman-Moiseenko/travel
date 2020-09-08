@@ -40,7 +40,16 @@ class DialogRepository
 
     public function getAdminByUser($user_id)
     {
-        return Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['typeDialog' => Dialog::CLIENT_PROVIDER])->all();
+        $dialogs = Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['typeDialog' => Dialog::CLIENT_PROVIDER])->all();
+        usort($dialogs, function (Dialog $a, Dialog $b) {
+            if ($a->lastConversation() > $b->lastConversation()) {
+                return 1;
+            } else {
+                return -1;
+            }
+
+        });
+        return $dialogs;
     }
 
     public function getUserByAdmin($admin_id)

@@ -4,7 +4,9 @@
 namespace booking\entities\message;
 
 
+use booking\entities\Lang;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class ThemeDialog
@@ -27,6 +29,14 @@ class ThemeDialog extends ActiveRecord
 
     public static function tableName()
     {
-        return '{{%booking_dialog_theme}}';
+        return '{{%booking_dialog_themes}}';
+    }
+
+    public static function getList($typeDialog): array
+    {
+        $list = ThemeDialog::find()->andWhere(['type_dialog' => $typeDialog])->all();
+        return ArrayHelper::map($list, 'id', function (ThemeDialog $theme) {
+            return Lang::t($theme->caption);
+        });
     }
 }
