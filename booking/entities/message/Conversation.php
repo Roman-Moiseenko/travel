@@ -32,7 +32,7 @@ class Conversation extends ActiveRecord
         return $conversation;
     }
 
-    public function delete()
+    public function deleted()
     {
         $this->status = self::STATUS_DELETED;
     }
