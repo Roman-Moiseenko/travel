@@ -18,10 +18,10 @@ class BookingHelper
     const BOOKING_STATUS_CANCEL_PAY = 4;
     const BOOKING_STATUS_EXECUTE = 5;
 
-    const BOOKING_TYPE_TOUR = 10;
-    const BOOKING_TYPE_STAY = 20;
-    const BOOKING_TYPE_CAR = 30;
-    const BOOKING_TYPE_TICKET = 40;
+    const BOOKING_TYPE_TOUR = 1;
+    const BOOKING_TYPE_STAY = 2;
+    const BOOKING_TYPE_CAR = 3;
+    const BOOKING_TYPE_TICKET = 4;
 
 
     public static function list(): array
@@ -83,7 +83,7 @@ class BookingHelper
 
     public static function number(BookingItemInterface $booking): string
     {
-        return $booking->getUserId() . '.' . $booking->getId() . $booking->getType() / 10;
+        return $booking->getUserId() . '.' . $booking->getId() . $booking->getType();
     }
 
 

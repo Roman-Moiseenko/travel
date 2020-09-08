@@ -52,6 +52,7 @@ class WishlistController extends Controller
             try {
                 $user_id = \Yii::$app->user->id;
                 $this->service->addWishilstTour($user_id, $id);
+                \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);

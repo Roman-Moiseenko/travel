@@ -210,7 +210,7 @@ class User extends ActiveRecord implements IdentityInterface
         }
         $wishlistTour = WishlistTour::create($tour_id);
         $wishlist[] = $wishlistTour;
-        $this->wishlistTours = $wishlistTour;
+        $this->wishlistTours = $wishlist;
     }
 
     public function removeWishlistTour($id)
