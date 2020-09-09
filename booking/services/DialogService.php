@@ -19,11 +19,16 @@ class DialogService
      * @var TransactionManager
      */
     private $transaction;
+    /**
+     * @var ContactService
+     */
+    private $contact;
 
-    public function __construct(DialogRepository $dialogs, TransactionManager $transaction)
+    public function __construct(DialogRepository $dialogs, TransactionManager $transaction, ContactService $contact)
     {
         $this->dialogs = $dialogs;
         $this->transaction = $transaction;
+        $this->contact = $contact;
     }
 
     public function create($user_id, $typeDialog, $optional, DialogForm $form, $provider_id = null): Dialog
@@ -31,8 +36,8 @@ class DialogService
         $dialog = Dialog::create($user_id, $typeDialog, $provider_id, $form->theme_id, $optional);
         $dialog->addConversation($form->text);
         $this->dialogs->save($dialog);
+        $this->contact->sendNoticeMessage($dialog);
         return $dialog;
-
     }
 
     public function addConversation($dialog_id, ConversationForm $form)
@@ -40,6 +45,7 @@ class DialogService
         $dialog = $this->dialogs->get($dialog_id);
         $dialog->addConversation($form->text);
         $this->dialogs->save($dialog);
+        $this->contact->sendNoticeMessage($dialog);
     }
 
     public function readConversation($dialog_id)

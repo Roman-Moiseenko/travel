@@ -53,7 +53,7 @@ AppAsset::register($this);
                     <h5><?= Lang::t('Информация') ?></h5>
                     <ul class="list-unstyled">
                         <li><a href="<?=Html::encode(Url::to(['/about']))?>"><?= Lang::t('О сайте') ?> (*)</a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/']))?>"><?= Lang::t('Служба поддержки') ?> (*)</a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/support']))?>"><?= Lang::t('Служба поддержки') ?></a></li>
                         <li><a href="<?=Html::encode(Url::to(['/policy']))?>"><?= Lang::t('Политика конфиденциальности') ?> (*)</a></li>
                     </ul>
                 </div>
@@ -81,7 +81,7 @@ AppAsset::register($this);
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/index'])) ?>"><?= Lang::t('Кабинет') ?></a></li>
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"><?= Lang::t('Бронирования') ?></a></li>
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>"><?= Lang::t('Избранное') ?></a></li>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/message/index'])) ?>"><?= Lang::t('Сообщения') ?></a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/dialogs'])) ?>"><?= Lang::t('Сообщения') ?></a></li>
                     </ul>
                 </div>
             </div>

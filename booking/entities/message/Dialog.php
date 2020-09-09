@@ -79,7 +79,7 @@ class Dialog extends ActiveRecord
     {
         $conversations = $this->conversations;
         foreach ($conversations as &$conversation) {
-            if ($conversation->isNew()) {
+            if ($conversation->author != get_class(\Yii::$app->user->identity) && $conversation->isNew()) {
                 $conversation->read();
             }
         }

@@ -15,7 +15,7 @@ use yii\helpers\Url;
         <ul class="nav justify-content-end">
                 <li class="nav-item">
                     <span class="hidden-xs hidden-sm hidden-md">
-                        <a class="nav-link" href="<?= Url::to(['/cabinet/dialog/index']) ?>" title="<?= Lang::t('Сообщения') ?>">
+                        <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>" title="<?= Lang::t('Сообщения') ?>">
                             <i class="fas fa-envelope"></i><span class="badge badge-danger"><?= MessageHelper::countNew()?></span>
                         </a>
                     </span>

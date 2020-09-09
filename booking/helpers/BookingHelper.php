@@ -5,6 +5,8 @@ namespace booking\helpers;
 
 
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\ReviewTour;
@@ -22,7 +24,13 @@ class BookingHelper
     const BOOKING_TYPE_STAY = 2;
     const BOOKING_TYPE_CAR = 3;
     const BOOKING_TYPE_TICKET = 4;
+    const LIST_BOOKING_TYPE = [
+        self::BOOKING_TYPE_TOUR => BookingTour::class,
+        self::BOOKING_TYPE_STAY => BookingStay::class,
+        self::BOOKING_TYPE_CAR => BookingCar::class,
+        self::BOOKING_TYPE_TICKET => null,
 
+        ];
 
     public static function list(): array
     {
@@ -86,5 +94,19 @@ class BookingHelper
         return $booking->getUserId() . '.' . $booking->getId() . $booking->getType();
     }
 
-
+    public static function getByNumber($number):? BookingItemInterface
+    {
+        if (empty($number)) return null;
+        try {
+            $point = strpos($number, '.');
+            //$user_id = substr($number, 0, $point);
+            $temp = substr($number, $point + 1, strlen($number) - ($point + 1));
+            $booking_id = intdiv((int)$temp, 10);
+            $typeBooking = (int)$temp % 10;
+            $class = self::LIST_BOOKING_TYPE[$typeBooking];
+            return $class::findOne($booking_id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', Lang::t('Ошибка в номере бронирования') . ' => ' . $e->getMessage());
+        }
+    }
 }

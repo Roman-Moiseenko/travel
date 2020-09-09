@@ -74,6 +74,11 @@ return [
                 'tours' => 'tours/tours/index',
                 'tours/<id:\d+>' => 'tours/tours/tour',
                 'tours/category/<id:\d+>' => 'tours/tours/type',
+                'cabinet/dialogs' => 'cabinet/dialog/index',
+                'cabinet/dialog' => 'cabinet/dialog/dialog',
+                'cabinet/petition' => 'cabinet/dialog/petition',
+                'conversation' => 'cabinet/dialog/conversation',
+                'support' => 'cabinet/dialog/support',
                 'blog' => 'blog/post/index',
                 'blog/tag/<slug:[\w\-]+>' => 'blog/post/tag',
                 'blog/<id:\d+>' => 'blog/post/post',
@@ -90,7 +95,6 @@ return [
                 '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+' => '<_c>/<_a>',
             ],
         ],
-
     ],
     'params' => $params,
 ];

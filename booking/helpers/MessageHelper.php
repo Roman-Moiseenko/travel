@@ -17,6 +17,5 @@ class MessageHelper
             $count += $dialog->countNewConversation();
         }
         return $count == 0 ? '' : $count;
-
     }
 }

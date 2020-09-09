@@ -15,7 +15,7 @@ class m200908_145448_create_booking_dialog_conversation_table extends Migration
         $this->createTable('{{%booking_dialog_conversation}}', [
             'id' => $this->primaryKey(),
             'dialog_id' => $this->integer()->notNull(),
-            'text' => $this->string(),
+            'text' => $this->text(),
             'author' => $this->string(),
             'created_at' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),

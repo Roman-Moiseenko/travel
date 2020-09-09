@@ -4,7 +4,9 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
+use booking\forms\message\ConversationForm;
 use booking\forms\message\DialogForm;
 use booking\helpers\scr;
 use booking\repositories\DialogRepository;
@@ -79,12 +81,40 @@ class DialogController extends Controller
             }
             return $this->render('create', [
                 'model' => $form,
-                'typeDialog' => Dialog::CLIENT_PROVIDER
+                'typeDialog' => Dialog::CLIENT_PROVIDER,
+                'optional' => $id,
             ]);
         }
     }
 
-    public function actionNewSupport()
+
+    public function actionConversation($id)
+    {
+
+        $form = new ConversationForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->addConversation($id, $form);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        $dialog = $this->dialogs->get($id);
+        $conversations = $dialog->conversations;
+        usort($conversations, function (Conversation $a, Conversation $b) {
+            if ($a->created_at > $b->created_at) return -1;
+            return 1;
+        });
+        $this->service->readConversation($dialog->id);
+        return $this->render('conversation', [
+            'dialog' => $dialog,
+            'model' => $form,
+            'conversations' => $conversations,
+        ]);
+    }
+
+
+    public function actionSupport()
     {
         $form = new DialogForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
@@ -102,25 +132,13 @@ class DialogController extends Controller
         }
         return $this->render('create', [
             'model' => $form,
-            'typeDialog' => Dialog::CLIENT_SUPPORT
+            'typeDialog' => Dialog::CLIENT_SUPPORT,
+            'optional' => null,
         ]);
     }
 
-    public function actionConversation($id)
+    public function actionPetition($id)
     {
-        $dialog = $this->dialogs->get($id);
-
-        return $this->render('conversation', [
-            'dialog' => $dialog,
-        ]);
-    }
-
-
-    public function actionSupport()
-    {
-        $dialogs = $this->dialogs->getSupportUser(\Yii::$app->user->id);
-        return $this->render('support', [
-            'dialogs' => $dialogs,
-        ]);
+        //TODO Создать жалобу на диалог с провайдером в автоматическом режиме
     }
 }

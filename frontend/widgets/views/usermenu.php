@@ -3,6 +3,7 @@
 /* @var $class string */
 
 use booking\entities\Lang;
+use booking\helpers\MessageHelper;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url; ?>
@@ -21,12 +22,12 @@ use yii\helpers\Url; ?>
 <!-- Меню для Кабинета-->
 <?php if ($type === UserMenuWidget::CABINET_USERMENU): ?>
 <a class="<?= $class ?>"
-   href="<?= Html::encode(Url::to(['/cabinet/dialog/index'])) ?>"><?= Lang::t('Сообщения') ?></a>
+   href="<?= Html::encode(Url::to(['/cabinet/dialogs'])) ?>"><?= Lang::t('Сообщения') ?> <span class="badge badge-danger"><?= MessageHelper::countNew()?></span></a>
     <a class="<?= $class ?>"
        href="<?= Html::encode(Url::to(['/cabinet/booking/history'])) ?>"><?= Lang::t('История') ?></a>
 <?php endif; ?>
 <a class="<?= $class ?>"
-   href="<?= Html::encode(Url::to(['/contacts/dialog/support'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
+   href="<?= Html::encode(Url::to(['/support'])) ?>"><?= Lang::t('Служба поддержки') ?></a>
 <a class="<?= $class ?>"
    href="<?= Html::encode(Url::to(['/cabinet/auth'])) ?>"><?= Lang::t('Аутентификация') ?></a>
 <a class="<?= $class ?>"

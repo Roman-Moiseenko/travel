@@ -19,11 +19,7 @@ class DialogRepository
 
     public function findByOptional(string $code)
     {
-        /*$point = strpos($code, '.');
-        $user_id = substr($code, 0, $point - 1);
-        $temp = substr($code, $point + 1, strlen($code) - ($point + 1));
-        $booking_id = intdiv((int)$temp, 10);
-        $typeBooking = (int)$temp % 10;*/
+
 
         return Dialog::find()->andWhere(['optional'=>$code])->one();
     }

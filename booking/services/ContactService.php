@@ -7,6 +7,7 @@ use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Lang;
+use booking\entities\message\Dialog;
 use booking\helpers\BookingHelper;
 use yii\mail\MailerInterface;
 
@@ -45,8 +46,12 @@ class ContactService
         }
     }
 
-    public function sendNoticeMessage()
+    public function sendNoticeMessage(Dialog $dialog)
     {
+        //TODO Отправка уведомления при новом письме
+        // Провайдеру
+        // Клиенту
+        // в зависимости от типа, и кто author (!== тек.классу User) сообщения
 
     }
 
