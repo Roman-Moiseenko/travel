@@ -5,6 +5,8 @@ use admin\widgest\MessageTopBarWidget;
 use admin\widgest\ProfileTopBarWidget;
 use admin\widgest\ReviewTopBarWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -16,7 +18,7 @@ use yii\helpers\Html;
             <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Главная</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Служба поддержки</a>
+            <a href="<?= Url::to(['/cabinet/dialog/support'])?>" class="nav-link">Служба поддержки</a>
         </li>
     </ul>
 

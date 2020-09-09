@@ -89,7 +89,6 @@ class DialogController extends Controller
         }
     }
 
-
     public function actionConversation($id)
     {
         $form = new ConversationForm();
@@ -114,7 +113,6 @@ class DialogController extends Controller
             'conversations' => $conversations,
         ]);
     }
-
 
     public function actionSupport()
     {

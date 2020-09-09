@@ -7,6 +7,7 @@
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Бронирования по ' . $tour->name;
 $this->params['id'] = $tour->id;
@@ -99,7 +100,7 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                 <i class="fas fa-bookmark"></i>&#160;&#160;<?= BookingHelper::number($booking); ?>
                                 </span>
                                     <span class="params-item">
-                                    <a href="#" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
+                                    <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)])?>" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
                                 </span>
                                 </div>
                             <?php endforeach; ?>

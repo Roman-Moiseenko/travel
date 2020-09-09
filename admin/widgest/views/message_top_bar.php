@@ -23,7 +23,6 @@ if ($count > 0) {$message_count = $count  . ' сообщений';} else {$messa
             <i class="fas fa-envelope mr-2"></i><span class="badge badge-danger"><?= $item['count'] ?></span> <?= $item['theme'] ?>
         </a>
         <?php endforeach; ?>
-        <a href="<?= Url::to(['cabinet/dialog'])?>" class="dropdown-item">Все сообщения
-        </a>
+        <a href="<?= Url::to(['cabinet/dialog'])?>" class="dropdown-item">Все сообщения</a>
     </div>
 </li>
