@@ -159,7 +159,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->bookingTours = $bookings;
     }
 
-//TODO Проверит работу ссылок
+    //Не используется
     public function editBookingTours($id, $amount, Cost $cost)
     {
 
@@ -218,7 +218,6 @@ class User extends ActiveRecord implements IdentityInterface
         $wishlist = $this->wishlistTours;
         foreach ($wishlist as $i => &$item) {
             if ($item->isFor($id)) {
-                //TODO Проверить
                 $item->delete();
                 unset($wishlist[$i]);
                 $this->wishlistTours = $wishlist;

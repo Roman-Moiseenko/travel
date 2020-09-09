@@ -145,7 +145,6 @@ class DialogController extends Controller
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        //TODO Создать жалобу на диалог с провайдером в автоматическом режиме
         \Yii::$app->session->setFlash('success', Lang::t('Жалоба подана. Ожидайте решение службы поддержки') . '.');
         return $this->redirect(\Yii::$app->request->referrer);
     }
