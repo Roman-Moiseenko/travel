@@ -29,7 +29,6 @@ class LegalController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        //   'actions' => ['edit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

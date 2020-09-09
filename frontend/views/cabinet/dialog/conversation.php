@@ -22,7 +22,7 @@ $booking = BookingHelper::getByNumber($dialog->optional);
 ?>
 <div class="conversation">
     <div class="dialog-caption">
-        <?php if ($booking): ?>
+        <?php if ($dialog->provider_id): ?>
         <div class="caption pb-2"><?= '№ бронирования: '?> <a href="<?= $booking->getLinks()['frontend'] ?>"><?= $dialog->optional ?></a></div>
         <a href="<?= $booking->getLinks()['entities'] ?>" class="caption-list">
         <?= $booking->getName() ?>
@@ -58,7 +58,7 @@ $booking = BookingHelper::getByNumber($dialog->optional);
             </div>
             <?php endforeach; ?>
         </div>
-        <?php if ($booking): ?>
+        <?php if ($dialog->provider_id): ?>
             <div class="card-footer">
                 <a href="<?= Url::to(['cabinet/petition', 'id' => $dialog->id])?>"><?= Lang::t('Подать жалобу') ?></a>
             </div>

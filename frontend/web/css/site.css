@@ -301,3 +301,9 @@ div.required label:after {
 .category-card {
     color: #19355f;
 }
+
+.link:hover {
+    color: #216178;
+    background-color: #949797 !important;
+    cursor: pointer
+}

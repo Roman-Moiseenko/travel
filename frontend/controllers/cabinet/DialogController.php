@@ -4,8 +4,10 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
+use booking\entities\message\ThemeDialog;
 use booking\forms\message\ConversationForm;
 use booking\forms\message\DialogForm;
 use booking\helpers\scr;
@@ -50,7 +52,7 @@ class DialogController extends Controller
 
     public function actionIndex()
     {
-        $dialogs = $this->dialogs->getAdminByUser(\Yii::$app->user->id);
+        $dialogs = $this->dialogs->getByUser(\Yii::$app->user->id);
         return $this->render('index', [
             'dialogs' => $dialogs,
         ]);
@@ -90,7 +92,6 @@ class DialogController extends Controller
 
     public function actionConversation($id)
     {
-
         $form = new ConversationForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -139,6 +140,13 @@ class DialogController extends Controller
 
     public function actionPetition($id)
     {
+        try {
+            $this->service->petition(ThemeDialog::PETITION_PROVIDER, Dialog::CLIENT_SUPPORT, $id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         //TODO Создать жалобу на диалог с провайдером в автоматическом режиме
+        \Yii::$app->session->setFlash('success', Lang::t('Жалоба подана. Ожидайте решение службы поддержки') . '.');
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

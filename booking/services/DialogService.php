@@ -4,9 +4,12 @@
 namespace booking\services;
 
 
+use booking\entities\Lang;
 use booking\entities\message\Dialog;
+use booking\entities\message\ThemeDialog;
 use booking\forms\message\ConversationForm;
 use booking\forms\message\DialogForm;
+use booking\helpers\BookingHelper;
 use booking\repositories\DialogRepository;
 
 class DialogService
@@ -60,5 +63,20 @@ class DialogService
         $dialog = $this->dialogs->get($dialog_id);
         $dialog->deleteConversation($id);
         $this->dialogs->save($dialog);
+    }
+
+    public function petition($theme_id, $typeDialog, $id)
+    {
+        $text = '';
+        if ($theme_id == ThemeDialog::PETITION_REVIEW) {
+            $review_id = intdiv($id, 10);
+            $class = BookingHelper::LIST_BOOKING_TYPE[$id % 10];
+            $text = Lang::t('Жалоба на отзыв /' . $class . '/ ID=' . $review_id );
+        }
+        if ($theme_id == ThemeDialog::PETITION_PROVIDER) $text = Lang::t('Жалоба на диалог' . ' ID=' . $id);
+        $dialog = Dialog::create(\Yii::$app->user->id, $typeDialog, null, $theme_id, null);
+        $dialog->addConversation($text);
+        $this->dialogs->save($dialog);
+        $this->contact->sendNoticeMessage($dialog);
     }
 }

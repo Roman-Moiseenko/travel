@@ -44,7 +44,7 @@ use yii\helpers\Url;
                 </div>
             </li>
             <li class="nav-item"> <span class="hidden-xs hidden-sm hidden-md"><a class="nav-link"
-                                                                                 href="<?= Url::to(['/contact']) ?>"><i
+                                                                                 href="<?= Url::to(['/support']) ?>"><i
                                 class="fa fa-phone"></i><?= Lang::t('Служба поддержки') ?></a></span>
             </li>
             <li class="dropdown nav-item"><a href="/index.php?route=account/account"

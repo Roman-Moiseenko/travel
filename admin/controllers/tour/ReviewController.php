@@ -73,20 +73,5 @@ class ReviewController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionPetition($id)
-    {
-        try {
-            $review = $this->reviews->get($id);
 
-            //TODO Создать сервис и Сущность сообщений (Жалоб)
-            $this->contact->sendPetitionReview($review);
-
-            \Yii::$app->session->setFlash('success', 'Петиция подана. Ожидайте решение комиссии по жалобам');
-        } catch (\DomainException $e) {
-            \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-        return $this->redirect(\Yii::$app->request->referrer);
-
-    }
 }

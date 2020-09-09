@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use booking\entities\booking\tours\Tour;
+use booking\helpers\BookingHelper;
 use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -76,7 +77,7 @@ $this->params['breadcrumbs'][] = 'Отзывы';
                         <?= date('d-m-Y', $review->created_at) ?>
                     </div>
                     <div class="pl-2">
-                        <a href="<?= Url::to(['tour/review/petition', 'id' => $review->id])?>" title="Подать жалобу"><i class="fas fa-share-square"></i></a>
+                        <a href="<?= Url::to(['cabinet/dialog/petition', 'id' => $review->id . BookingHelper::BOOKING_TYPE_TOUR])?>" title="Подать жалобу"><i class="fas fa-share-square"></i></a>
                     </div>
                 </div>
                 <hr/>

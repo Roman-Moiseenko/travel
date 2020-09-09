@@ -34,14 +34,14 @@ class DialogRepository
         return Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['typeDialog' => Dialog::PROVIDER_SUPPORT])->all();
     }
 
-    public function getAdminByUser($user_id)
+    public function getByUser($user_id)
     {
-        $dialogs = Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['typeDialog' => Dialog::CLIENT_PROVIDER])->all();
+        $dialogs = Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['!=', 'typeDialog', Dialog::PROVIDER_SUPPORT])->all();
         usort($dialogs, function (Dialog $a, Dialog $b) {
             if ($a->lastConversation() > $b->lastConversation()) {
-                return 1;
-            } else {
                 return -1;
+            } else {
+                return 1;
             }
 
         });
