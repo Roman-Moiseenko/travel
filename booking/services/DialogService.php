@@ -72,9 +72,20 @@ class DialogService
             $review_id = intdiv($id, 10);
             $class = BookingHelper::LIST_BOOKING_TYPE[$id % 10];
             $text = Lang::t('Жалоба на отзыв /' . $class . '/ ID=' . $review_id );
+
         }
-        if ($theme_id == ThemeDialog::PETITION_PROVIDER) $text = Lang::t('Жалоба на диалог' . ' ID=' . $id);
-        $dialog = Dialog::create(\Yii::$app->user->id, $typeDialog, null, $theme_id, null);
+        if ($typeDialog == Dialog::CLIENT_SUPPORT) {
+            $user = \Yii::$app->user->id;
+            $provider_id = null;
+        } else {
+            $user = null;
+            $provider_id = \Yii::$app->user->id;
+        }
+        if ($theme_id == ThemeDialog::PETITION_PROVIDER) {
+            $text = Lang::t('Жалоба на диалог' . ' ID=' . $id);
+
+        }
+        $dialog = Dialog::create($user, $typeDialog, $provider_id, $theme_id, null);
         $dialog->addConversation($text);
         $this->dialogs->save($dialog);
         $this->contact->sendNoticeMessage($dialog);

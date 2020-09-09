@@ -4,6 +4,7 @@
 
 /* @var  $only_pay boolean */
 
+use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use yii\bootstrap4\ActiveForm;
 
@@ -65,38 +66,44 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                     Билетов <?= $count; ?> на сумму <?= CurrencyHelper::get($amount); ?>
                                 </div>
                                 <div class="pl-5">
-                                    <a class="btn collapse-time" data-status="down" data-toggle="collapse" href="#collapse<?= $day . str_replace(':','', $time) ?>" role="button"
-                                       aria-expanded="false" aria-controls="collapse<?= $day . str_replace(':','', $time) ?>" style="z-index: 9999">
+                                    <a class="btn collapse-time" data-status="down" data-toggle="collapse"
+                                       href="#collapse<?= $day . str_replace(':', '', $time) ?>" role="button"
+                                       aria-expanded="false"
+                                       aria-controls="collapse<?= $day . str_replace(':', '', $time) ?>"
+                                       style="z-index: 9999">
                                         <i class="fas fa-chevron-down"></i></a>
                                 </div>
                             </div>
                             <hr/>
                         </div>
-                    <div class="collapse multi-collapse" id="collapse<?= $day . str_replace(':','', $time) ?>">
-                        <?php foreach ($bookings as $booking): ?>
-                            <div class="row pl-2">
+                        <div class="collapse multi-collapse" id="collapse<?= $day . str_replace(':', '', $time) ?>">
+                            <?php foreach ($bookings as $booking): ?>
+                                <div class="row pl-2">
                                 <span class="params-item">
                                 <i class="fas fa-user"></i>&#160;&#160;<?= $booking->user->personal->fullname->getFullname(); ?>
                                 </span>
-                                <span class="params-item">
+                                    <span class="params-item">
                                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
-                                    <?php if ($booking->discount) echo ' (' . $booking->discount->promo . ')' ?>
+                                        <?php if ($booking->discount) echo ' (' . $booking->discount->promo . ')' ?>
                                 </span>
-                                <span class="params-item">
-                                    <i class="fas fa-ticket-alt"></i>&#160;&#160;<?= $booking->count->adult + $booking->count->child + $booking->count->preference;?>
+                                    <span class="params-item">
+                                    <i class="fas fa-ticket-alt"></i>&#160;&#160;<?= $booking->count->adult + $booking->count->child + $booking->count->preference; ?>
                                 </span>
-                                <span class="params-item">
+                                    <span class="params-item">
                                 <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                                 </span>
-                                <span class="params-item">
+                                    <span class="params-item">
                                 <i class="far fa-clock"></i>&#160;&#160;<?= date('d-m-Y H:i', $booking->created_at); ?>
                                 </span>
-                                <span class="params-item">
+                                    <span class="params-item">
+                                <i class="fas fa-bookmark"></i>&#160;&#160;<?= BookingHelper::number($booking); ?>
+                                </span>
+                                    <span class="params-item">
                                     <a href="#" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
                                 </span>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>

@@ -15,7 +15,7 @@ class m200908_134714_create_booking_dialog_table extends Migration
         $this->createTable('{{%booking_dialog}}', [
             'id' => $this->primaryKey(),
             'typeDialog' => $this->integer()->notNull(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer(),
             'provider_id' => $this->integer(),
             'theme_id' => $this->integer()->notNull(),
             'optional' => $this->string(),

@@ -167,3 +167,9 @@ div.required label:after {
     font-size: 14px;
     display: inline-block;
 }
+
+.link:hover {
+    color: #216178;
+    background-color: #949797 !important;
+    cursor: pointer
+}

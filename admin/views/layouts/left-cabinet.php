@@ -1,6 +1,7 @@
 <?php
 
 use admin\widgest\ProfileLeftBarWidget;
+use booking\helpers\MessageHelper;
 use yii\helpers\Url;
 
 ?>
@@ -26,7 +27,8 @@ use yii\helpers\Url;
                     ['label' => 'Мои организации', 'icon' => 'registered', 'url' => ['/cabinet/legal'], 'active' => $this->context->id == 'cabinet/legal'],
                     ['label' => 'Аутентификация', 'icon' => 'key', 'url' => ['/cabinet/auth'], 'active' => $this->context->id == 'cabinet/auth'],
                     ['label' => 'Уведомления', 'icon' => 'mail-bulk', 'url' => ['/cabinet/notice'], 'active' => $this->context->id == 'cabinet/notice'],
-
+                    ['label' => 'Сообщения', 'icon' => 'envelope', 'url' => ['/cabinet/dialog'], 'active' => $this->context->id == 'cabinet/dialog',
+                        'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNew() . '</span>'],
                 ],
             ]);
             ?>

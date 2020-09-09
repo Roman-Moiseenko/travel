@@ -91,7 +91,7 @@ class BookingHelper
 
     public static function number(BookingItemInterface $booking): string
     {
-        return $booking->getUserId() . '.' . $booking->getId() . $booking->getType();
+        return $booking->getAdmin()->id . '.' . $booking->getId() . $booking->getType();
     }
 
     public static function getByNumber($number):? BookingItemInterface

@@ -6,8 +6,10 @@ namespace admin\controllers\cabinet;
 
 use booking\entities\admin\user\User;
 use booking\entities\Lang;
+use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\forms\message\ConversationForm;
 use booking\repositories\DialogRepository;
 use booking\services\DialogService;
 use yii\filters\AccessControl;
@@ -41,6 +43,38 @@ class DialogController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $dialogs = $this->dialogs->getByAdmin(\Yii::$app->user->id);
+        return $this->render('index', [
+            'dialogs' => $dialogs,
+        ]);
+    }
+
+    public function actionConversation($id)
+    {
+        $form = new ConversationForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->addConversation($id, $form);
+                $this->redirect(\Yii::$app->request->referrer);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        $dialog = $this->dialogs->get($id);
+        $conversations = $dialog->conversations;
+        usort($conversations, function (Conversation $a, Conversation $b) {
+            if ($a->created_at > $b->created_at) return -1;
+            return 1;
+        });
+        $this->service->readConversation($dialog->id);
+        return $this->render('conversation', [
+            'dialog' => $dialog,
+            'model' => $form,
+            'conversations' => $conversations,
+        ]);
+    }
 
     public function actionPetition($id)
     {

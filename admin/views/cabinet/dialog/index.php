@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?php if ($dialog->typeDialog == Dialog::CLIENT_SUPPORT):?>
+                    <?php if ($dialog->typeDialog == Dialog::PROVIDER_SUPPORT):?>
                         <span class="badge badge-info p-1" style="font-size: 100% !important;">Служба поддержки</span>
                     <?php else: ?>
                         <?php $booking = BookingHelper::getByNumber($dialog->optional) ?>

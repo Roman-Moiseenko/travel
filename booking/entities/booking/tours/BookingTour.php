@@ -157,7 +157,8 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['tour/booking/index', 'id' => $this->calendar->tours_id]),
+            'admin' => Url::to(['tour/common', 'id' => $this->calendar->tours_id]),
+            'booking' => Url::to(['tour/booking/index', 'id' => $this->calendar->tours_id]),
             'frontend' => Url::to(['cabinet/tour/view', 'id' => $this->id]),
             'entities' => Url::to(['tours/view', 'id' => $this->calendar->tours_id]),
             ];

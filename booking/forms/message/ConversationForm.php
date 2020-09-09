@@ -13,6 +13,7 @@ class ConversationForm extends Model
     public function rules()
     {
         return [
+            ['text', 'required'],
             ['text', 'string'],
         ];
     }

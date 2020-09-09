@@ -96,6 +96,7 @@ class DialogController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addConversation($id, $form);
+                $this->redirect(\Yii::$app->request->referrer);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -124,7 +125,8 @@ class DialogController extends Controller
                     \Yii::$app->user->id,
                     Dialog::CLIENT_SUPPORT,
                     null,
-                    $form
+                    $form,
+                    null
                 );
                 $this->redirect(['/cabinet/dialog/conversation',  'id' => $dialog->id]);
             } catch (\DomainException $e) {
