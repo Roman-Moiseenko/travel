@@ -77,7 +77,13 @@ $countReveiws = $tour->countReviews();
         <div class="row">
             <div class="col-8 params-tour">
                 <p class="text-justify">
-                    <?= \Yii::$app->formatter->asNtext($tour->description) ?>
+                    <?= Yii::$app->formatter->asHtml($tour->description, [
+                        'Attr.AllowedRel' => array('nofollow'),
+                        'HTML.SafeObject' => true,
+                        'Output.FlashCompat' => true,
+                        'HTML.SafeIframe' => true,
+                        'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                    ]) ?>
                 </p>
             </div>
             <div class="col-4">

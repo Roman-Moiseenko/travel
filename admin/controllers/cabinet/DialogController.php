@@ -3,7 +3,6 @@
 
 namespace admin\controllers\cabinet;
 
-
 use booking\entities\admin\user\User;
 use booking\entities\Lang;
 use booking\entities\message\Conversation;
@@ -141,10 +140,5 @@ class DialogController extends Controller
         }
         \Yii::$app->session->setFlash('success', Lang::t('Жалоба подана. Ожидайте решение службы поддержки') . '.');
         return $this->redirect(\Yii::$app->request->referrer);
-    }
-
-    private function findModel()
-    {
-        return User::findOne(\Yii::$app->user->id);
     }
 }

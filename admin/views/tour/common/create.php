@@ -2,6 +2,7 @@
 
 use booking\forms\booking\tours\ToursCommonForms;
 use booking\helpers\ToursTypeHelper;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -26,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название тура') ?>
                 </div>
             </div>
-            <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')//->widget(CKEditor::class)   ?>
+            <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class) ?>
         </div>
     </div>
 

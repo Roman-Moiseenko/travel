@@ -44,7 +44,7 @@ class ProfileController extends Controller
 
     public function actionIndex()
     {
-        $user = $this->findModel();
+        $user = \Yii::$app->user->identity;
         return $this->render('index', [
             'user' => $user,
         ]);
@@ -52,7 +52,7 @@ class ProfileController extends Controller
 
     public function actionUpdate()
     {
-        $user = $this->findModel();
+        $user = \Yii::$app->user->identity;
         $form = new PersonalForm($user->personal);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -69,20 +69,4 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function actionOptions()
-    {
-        return $this->render('options', [
-
-        ]);
-    }
-
-    public function actionUpdateOptions()
-    {
-
-    }
-
-    protected function findModel()
-    {
-        return User::findOne(\Yii::$app->user->id);
-    }
 }

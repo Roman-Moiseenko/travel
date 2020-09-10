@@ -12,6 +12,7 @@ use booking\entities\user\User;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\PersonalForm;
 use booking\forms\booking\tours\BookingToursForm;
+use booking\forms\manage\PreferencesForm;
 use booking\forms\manage\UserCreateForm;
 use booking\forms\manage\UserEditForm;
 use booking\helpers\scr;
@@ -90,6 +91,22 @@ class UserManageService
         $personal->address =  new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index);
         $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
         $user->updatePersonal($personal);
+        $this->users->save($user);
+    }
+
+    public function setPreferences($id, PreferencesForm $form)
+    {
+        $user = $this->users->get($id);
+        $preferences = $user->preferences;
+        $preferences->lang = $form->lang;
+        $preferences->currency = $form->currency;
+        $preferences->smocking = $form->smocking;
+        $preferences->stars = $form->stars;
+        $preferences->disabled = $form->disabled;
+        $preferences->newsletter = $form->newsletter;
+        $preferences->notice_dialog = $form->notice_dialog;
+
+        $user->updatePreferences($preferences);
         $this->users->save($user);
     }
 

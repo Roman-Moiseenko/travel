@@ -74,6 +74,17 @@ class CurrencyHelper
         ];
     }
 
+    public static function listCurrencyDropDown(): array
+    {
+        /** Руб, Дол, Евро, Злоты */
+        return [
+            CurrencyHelper::RUB => 'RUB',
+            CurrencyHelper::USD => 'USD',
+            CurrencyHelper::EUR => 'EUR',
+            CurrencyHelper::PLN => 'PLN'
+        ];
+    }
+
     public static function Currency($code): string
     {
         $list = self::listCurrency();

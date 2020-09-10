@@ -62,4 +62,10 @@ class UserController extends Controller
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
+
+    public function actionSmocking($smocking)
+    {
+
+    }
+
 }

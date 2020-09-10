@@ -397,6 +397,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->personal = $personal;
     }
 
+    public function updatePreferences(Preferences $preferences)
+    {
+        $this->preferences = $preferences;
+    }
+
     /** <=============== Identity*/
 
 

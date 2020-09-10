@@ -16,25 +16,15 @@ use yii\web\NotFoundHttpException;
 class BookingController extends Controller
 {
     public $layout = 'cabinet';
-
-    /**
-     * @var BookingTourRepository
-     */
-    private $bookingTours;
-    /**
-     * @var BookingRepository
-     */
     private $bookings;
 
     public function __construct(
         $id,
         $module,
-        BookingTourRepository $bookingTours, //?
         BookingRepository $bookings,
         $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->bookingTours = $bookingTours;
         $this->bookings = $bookings;
     }
 

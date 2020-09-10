@@ -86,4 +86,11 @@ class Lang extends ActiveRecord
             'ru', 'en', 'pl', 'de', 'fr', 'lt', 'lv'
         ];
     }
+
+    public static function listLangsDropDown(): array
+    {
+        return [
+            'ru' => 'ru', 'en' => 'en', 'pl' => 'pl', 'de' => 'de', 'fr' => 'fr', 'lt' => 'lt', 'lv' => 'lv'
+        ];
+    }
 }

@@ -37,6 +37,7 @@ class UserRepository
     {
         return $this->getBy(['username' => $username]);
     }
+
     public function existsByPasswordResetToken(string $token): bool
     {
         return (bool) User::findByPasswordResetToken($token);

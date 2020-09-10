@@ -15,28 +15,32 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property string $lang
  * @property string $currency
- * @property bool $smocking
- *
+ * @property integer $smocking
+ * @property integer $stars
+ * @property boolean $disabled
+ * @property boolean $newsletter
+ * @property boolean $notice_dialog
  */
 
 class Preferences extends ActiveRecord
 {
-    public static function create($lang = 'ru', $currency = CurrencyHelper::RUB, $smocking = false)
+    public static function create($lang = 'ru', $currency = CurrencyHelper::RUB)
     {
         $preferences = new static();
         $preferences->lang = $lang;
         $preferences->currency = $currency;
-        $preferences->smocking = $smocking;
+
+        $preferences->smocking = false;
+        $preferences->stars = 0;
+        $preferences->disabled = false;
+        $preferences->newsletter = false;
+        $preferences->notice_dialog = true;
+
         return $preferences;
     }
     public function setLang($lang)
     {
         $this->lang = $lang;
-    }
-
-    public function edit($lang = 'ru', $currency = 'руб', $smocking = false)
-    {
-
     }
 
     public static function tableName()

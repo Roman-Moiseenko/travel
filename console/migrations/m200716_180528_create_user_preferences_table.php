@@ -22,7 +22,6 @@ class m200716_180528_create_user_preferences_table extends Migration
         ], $tableOptions);
 
         $this->createIndex('{{%idx-user_preferences-user_id}}', '{{%user_preferences}}', 'user_id');
-
         $this->addForeignKey('{{%fk-user_preferences-user_id}}', '{{%user_preferences}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
 
     }

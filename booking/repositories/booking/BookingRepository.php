@@ -83,7 +83,6 @@ class BookingRepository
         return $this->sort_merge($tours, $stays, $cars, -1);
     }
 
-
     public function getByAdminNextDay($admin_id, $days = 1): array
     {
         $result = [];
@@ -142,6 +141,10 @@ class BookingRepository
                 return -1 * $arrow;
             }
         });
+        /** @var BookingItemInterface $booking */
+        foreach ($result as $booking) {
+            if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) $booking->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
+        }
         return $result;
     }
 }
