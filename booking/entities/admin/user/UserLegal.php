@@ -7,6 +7,8 @@ namespace booking\entities\admin\user;
 use booking\entities\booking\BookingAddress;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
@@ -30,6 +32,8 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $office
  * @property string $noticePhone
  * @property string $noticeEmail
+ * @property ContactAssignment[] $contactAssignment
+ * @property Contact[] $contacts
  */
 class UserLegal extends ActiveRecord
 {
@@ -125,6 +129,52 @@ class UserLegal extends ActiveRecord
                     'profile' => ['width' => 400, 'height' => 400],
                 ],
             ],
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => ['contactAssignment'],
+            ],
         ];
     }
+
+    public function addContact(int $contact_id, string $value, string $description, string $link)
+    {
+        $contacts = $this->contactAssignment;
+        $contact = ContactAssignment::create($contact_id, $value, $description, $link);
+        $contacts[] = $contact;
+        $this->contactAssignment = $contacts;
+    }
+
+    public function updateContact($contact_id, string $value, string $description, string $link)
+    {
+        $contacts = $this->contactAssignment;
+        foreach ($contacts as &$contact) {
+            if ($contact->isFor($contact_id)) {
+                $contact->edit($value, $description, $link);
+            }
+        }
+        $this->contactAssignment = $contacts;
+    }
+
+    public function removeContact($contact_id)
+    {
+        $contacts = $this->contactAssignment;
+        foreach ($contacts as $i => $contact) {
+            if ($contact->isFor($contact_id)) {
+                unset($contacts[$i]);
+                $this->contactAssignment = $contacts;
+                return;
+            }
+        }
+    }
+
+    public function getContactAssignment(): ActiveQuery
+    {
+        return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id']);
+    }
+
+    public function getContacts(): ActiveQuery
+    {
+        return $this->hasMany(Contact::class, ['id' => 'contact_id'])->via('contactAssignment');
+    }
+
 }

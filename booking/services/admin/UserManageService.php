@@ -9,6 +9,7 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\NoticeForm;
 use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\PersonalForm;
@@ -47,7 +48,7 @@ class UserManageService
         $personal->phone = $form->phone;
         $personal->dateborn = $form->dateborn;
         $personal->position = $form->position;
-        $personal->address =  new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
+        $personal->address = new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
         $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
         $user->updatePersonal($personal);
         $this->users->save($user);
@@ -132,6 +133,44 @@ class UserManageService
         $this->users->save($user);
     }
 
+    public function addLegalContact($legal_id, ContactAssignmentForm $form)
+    {
+        $user = $this->users->get($legal_id);
+        $legal = $user->getLegal($legal_id);
+        $legal->addContact(
+            $form->contact_id,
+            $form->value,
+            $form->description,
+            $form->link
+        );
+        $this->users->save($user);
+    }
+
+    public function updateLegalContact($legal_id, $contact_id, ContactAssignmentForm $form)
+    {
+        $user = $this->users->get($legal_id);
+        $legal = $user->getLegal($legal_id);
+        $legal->updateContact(
+            $contact_id,
+            $form->value,
+            $form->description,
+            $form->link
+        );
+        $this->users->save($user);
+    }
+
+    public function removeLegalContact($legal_id, $contact_id)
+    {
+        $user = $this->users->get($legal_id);
+        $legals = $user->legals;
+        foreach ($legals as $legal) {
+            if ($legal->isFor($legal_id)) {
+                $legal->removeContact($contact_id);
+            }
+        }
+        $this->users->save($user);
+    }
+
     public function addDiscount($user_id, DiscountForm $form): Discount
     {
         $user = $this->users->get($user_id);
@@ -163,11 +202,10 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $user->edit($form->username, $form->email);
-        $this->transaction->wrap(function () use($user, $form) {
+        $this->transaction->wrap(function () use ($user, $form) {
             if (!empty($form->password)) $user->setPassword($form->password);
             $this->users->save($user);
         });
-
         return $user;
     }
 

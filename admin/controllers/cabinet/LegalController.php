@@ -5,7 +5,9 @@ namespace admin\controllers\cabinet;
 
 
 use admin\forms\user\LegalSearch;
+use booking\entities\admin\user\ContactAssignment;
 use booking\entities\admin\user\User;
+use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\UserLegalForm;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
@@ -39,24 +41,18 @@ class LegalController extends Controller
 
     public function actionIndex()
     {
-        $user = $this->findModel();
-
         $searchModel = new LegalSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'user' => $user,
         ]);
     }
 
     public function actionCreate()
     {
         $user = $this->findModel();
-
         $form = new UserLegalForm();
-
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $legal = $this->service->newLegal($user->id, $form);
@@ -67,7 +63,6 @@ class LegalController extends Controller
             }
         }
         return $this->render('create', [
-            'user' => $user,
             'model' => $form,
         ]);
 
@@ -92,7 +87,6 @@ class LegalController extends Controller
             'model' => $form,
             'legal' => $legal,
         ]);
-
     }
 
     public function actionView($id)
@@ -102,13 +96,64 @@ class LegalController extends Controller
         return $this->render('view', [
             'legal' => $legal,
         ]);
-
     }
+
     public function actionDelete($id)
     {
         $user = $this->findModel();
         $this->service->removeLegal($user->id, $id);
         return $this->redirect(['/cabinet/legal']);
+    }
+
+    public function actionContacts($id)
+    {
+        $user = $this->findModel();
+        $legal = $user->getLegal($id);
+        $form = new ContactAssignmentForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->addLegalContact($legal->id, $form);
+                return $this->redirect(\Yii::$app->request->referrer);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('contacts', [
+            'legal' => $legal,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionContactUpdate($id)
+    {
+        $user = $this->findModel();
+        $contact = ContactAssignment::findOne($id);
+        $legal = $user->getLegal($contact->legal_id);
+        $form = new ContactAssignmentForm($contact);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->updateLegalContact($legal->id, $id, $form);
+                return $this->redirect(\Yii::$app->request->referrer);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('contact-update', [
+            'legal' => $legal,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionContactRemove($id)
+    {
+        $user = $this->findModel();
+        $legal_id = ContactAssignment::find()->andWhere(['id' => $id])->select('legal_id');
+            try {
+                $this->service->removeLegalContact($legal_id, $id);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     private function findModel()

@@ -3,6 +3,7 @@
 namespace booking\repositories\admin;
 
 use booking\entities\admin\user\User;
+use booking\entities\admin\user\UserLegal;
 use booking\entities\Lang;
 
 class UserRepository
@@ -47,6 +48,12 @@ class UserRepository
         if (!$user->save()) {
             throw new \RuntimeException(Lang::t('Ошибка сохранения'));
         }
+    }
+
+    public function getByLegal($id): User
+
+    {
+        return User::find()->andWhere(['id' => UserLegal::find()->select('user_id')->andWhere(['id' => $id])])->one();
     }
 
     private function getBy(array $condition): User

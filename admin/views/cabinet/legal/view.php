@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Контакты', ['contacts', 'id' => $legal->id], ['class' => 'btn btn-info ml-5']) ?>
     </p>
     <div class="card card-secondary">
         <div class="card-header with-border">Основные</div>
