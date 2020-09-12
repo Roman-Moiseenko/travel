@@ -14,14 +14,20 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $id
  * @property string $photo
  * @property string $name
+ * @property integer $type
+ * @property string $prefix
  */
 class Contact extends ActiveRecord
 {
+    const NO_LINK = 0;
+    const LINK = 1;
 
-    public static function create($name): self
+    public static function create($name, $type = 0, $prefix = ''): self
     {
         $contact = new static();
         $contact->name = $name;
+        $contact->type = $type;
+        $contact->prefix = $prefix;
         return $contact;
     }
 
@@ -48,9 +54,10 @@ class Contact extends ActiveRecord
                 'thumbUrl' => '@static/cache/files_contacts/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'icon' => ['width' => 32, 'height' => 32],
-                    'list' => ['width' => 60, 'height' => 60],
+                    'list' => ['width' => 20, 'height' => 20],
                 ],
             ],
         ];
     }
+
 }

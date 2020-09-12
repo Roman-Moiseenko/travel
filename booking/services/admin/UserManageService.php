@@ -17,6 +17,7 @@ use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
 use booking\forms\booking\DiscountForm;
 use booking\helpers\scr;
+use booking\repositories\admin\UserLegalRepository;
 use booking\repositories\admin\UserRepository;
 use booking\services\booking\DiscountService;
 use booking\services\TransactionManager;
@@ -32,11 +33,16 @@ class UserManageService
      * @var TransactionManager
      */
     private $transaction;
+    /**
+     * @var UserLegalRepository
+     */
+    private $legals;
 
-    public function __construct(UserRepository $users, TransactionManager $transaction)
+    public function __construct(UserRepository $users, TransactionManager $transaction, UserLegalRepository $legals)
     {
         $this->users = $users;
         $this->transaction = $transaction;
+        $this->legals = $legals;
     }
 
     public function setPersonal($id, PersonalForm $form)
@@ -135,43 +141,34 @@ class UserManageService
 
     public function addLegalContact($legal_id, ContactAssignmentForm $form)
     {
-        $user = $this->users->get($legal_id);
-        $legal = $user->getLegal($legal_id);
+        $legal = $this->legals->get($legal_id);
         $legal->addContact(
             $form->contact_id,
             $form->value,
-            $form->description,
-            $form->link
+            $form->description
         );
-        $this->users->save($user);
+        $this->legals->save($legal);
     }
 
     public function updateLegalContact($legal_id, $contact_id, ContactAssignmentForm $form)
     {
-        $user = $this->users->get($legal_id);
-        $legal = $user->getLegal($legal_id);
+        $legal = $this->legals->get($legal_id);
         $legal->updateContact(
             $contact_id,
             $form->value,
-            $form->description,
-            $form->link
+            $form->description
         );
-        $this->users->save($user);
+        $this->legals->save($legal);
     }
 
     public function removeLegalContact($legal_id, $contact_id)
     {
-        $user = $this->users->get($legal_id);
-        $legals = $user->legals;
-        foreach ($legals as $legal) {
-            if ($legal->isFor($legal_id)) {
-                $legal->removeContact($contact_id);
-            }
-        }
-        $this->users->save($user);
+        $legal = $this->legals->get($legal_id);
+        $legal->removeContact($contact_id);
+        $this->legals->save($legal);
     }
 
-    public function addDiscount($user_id, DiscountForm $form): Discount
+    public function addDiscount($user_id, DiscountForm $form): void
     {
         $user = $this->users->get($user_id);
         ini_set('max_execution_time', $form->repeat * 2);
@@ -188,7 +185,6 @@ class UserManageService
         }
         $this->users->save($user);
         ini_set('max_execution_time', 30);
-        return $discount;
     }
 
     public function draftDiscount($user_id, $discount_id): void

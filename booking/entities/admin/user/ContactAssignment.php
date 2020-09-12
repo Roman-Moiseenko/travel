@@ -4,6 +4,7 @@
 namespace booking\entities\admin\user;
 
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,27 +15,24 @@ use yii\db\ActiveRecord;
  * @property integer $contact_id
  * @property string $value
  * @property string $description
- * @property string $link
  */
 
 class ContactAssignment extends ActiveRecord
 {
 
-    public static function create($contact_id, $value, $description, $link): self
+    public static function create($contact_id, $value, $description): self
     {
         $assignment = new static();
         $assignment->contact_id = $contact_id;
         $assignment->value = $value;
         $assignment->description = $description;
-        $assignment->link = $link;
         return $assignment;
     }
 
-    public function edit($value, $description, $link)
+    public function edit($value, $description)
     {
         $this->value = $value;
         $this->description = $description;
-        $this->link = $link;
     }
 
     public function isFor($id): bool
@@ -45,5 +43,10 @@ class ContactAssignment extends ActiveRecord
     public static function tableName()
     {
         return '{{%admin_user_legal_contact_assignment}}';
+    }
+
+    public function getContact(): ActiveQuery
+    {
+        return $this->hasOne(Contact::class, ['id' => 'contact_id'])->orderBy(['id' =>  SORT_ASC]);
     }
 }

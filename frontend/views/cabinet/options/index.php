@@ -1,15 +1,11 @@
 <?php
 
-use booking\entities\Currency;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\manage\PreferencesForm;
-use booking\helpers\country\CountryHelper;
 use booking\helpers\CurrencyHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /* @var $user User */
 /* @var $model PreferencesForm */

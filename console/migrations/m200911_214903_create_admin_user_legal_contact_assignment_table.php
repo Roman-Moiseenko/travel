@@ -17,8 +17,7 @@ class m200911_214903_create_admin_user_legal_contact_assignment_table extends Mi
             'legal_id' => $this->integer(),
             'contact_id' => $this->integer(),
             'value' => $this->string(),
-            'description' => $this->string(),
-            'link' => $this->string()
+            'description' => $this->string()
         ]);
 
         $this->createIndex('{{%idx-admin_user_legal_contact_assignment-legal_id}}', '{{%admin_user_legal_contact_assignment}}', 'legal_id');

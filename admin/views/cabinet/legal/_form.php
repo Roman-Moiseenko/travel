@@ -2,6 +2,7 @@
 
 use booking\forms\admin\UserLegalForm;
 use kartik\widgets\FileInput;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -44,7 +45,7 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'caption')->textInput()->label('Заголовок (торговая марка)') ?>
                     <?= $form->field($model, 'description')
                         ->textarea(['rows' => 6])
-                        ->label('Описание')
+                        ->label('Описание')->widget(CKEditor::class)
                         ->hint('Баг: При изменении адреса, внесите изменение в описание, иначе не сохраняет новый адрес.') ?>
                 </div>
                 <div class="col-md-4" style="text-align: center">

@@ -133,7 +133,7 @@ class LegalController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->updateLegalContact($legal->id, $id, $form);
-                return $this->redirect(\Yii::$app->request->referrer);
+                return $this->redirect(['/cabinet/legal/contacts', 'id' => $legal->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

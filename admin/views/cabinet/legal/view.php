@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card card-secondary">
         <div class="card-header with-border">Контакты</div>
         <div class="card-body">
-            Перечень + новые, - старые, динам.виджет
+            <?= Html::a('Контакты', ['contacts', 'id' => $legal->id], ['class' => 'btn btn-info']) ?>
         </div>
     </div>
 </div>

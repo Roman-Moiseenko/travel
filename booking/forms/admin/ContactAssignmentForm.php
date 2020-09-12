@@ -12,7 +12,6 @@ class ContactAssignmentForm extends Model
     public $contact_id;
     public $value;
     public $description;
-    public $link;
 
     public function __construct(ContactAssignment $contact = null, $config = [])
     {
@@ -20,7 +19,6 @@ class ContactAssignmentForm extends Model
             $this->contact_id = $contact->contact_id;
             $this->value = $contact->value;
             $this->description = $contact->description;
-            $this->link = $contact->link;
         }
         parent::__construct($config);
     }
@@ -30,7 +28,7 @@ class ContactAssignmentForm extends Model
         return [
             [['contact_id', 'value'], 'required'],
             ['contact_id', 'integer'],
-            [['value', 'description', 'link'], 'string'],
+            [['value', 'description'], 'string'],
         ];
     }
 }

@@ -7,6 +7,7 @@ namespace booking\entities\admin\user;
 use booking\entities\booking\BookingAddress;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use booking\helpers\scr;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -136,20 +137,20 @@ class UserLegal extends ActiveRecord
         ];
     }
 
-    public function addContact(int $contact_id, string $value, string $description, string $link)
+    public function addContact(int $contact_id, string $value, string $description)
     {
         $contacts = $this->contactAssignment;
-        $contact = ContactAssignment::create($contact_id, $value, $description, $link);
+        $contact = ContactAssignment::create($contact_id, $value, $description);
         $contacts[] = $contact;
         $this->contactAssignment = $contacts;
     }
 
-    public function updateContact($contact_id, string $value, string $description, string $link)
+    public function updateContact($contact_id, string $value, string $description)
     {
         $contacts = $this->contactAssignment;
         foreach ($contacts as &$contact) {
             if ($contact->isFor($contact_id)) {
-                $contact->edit($value, $description, $link);
+                $contact->edit($value, $description);
             }
         }
         $this->contactAssignment = $contacts;
@@ -169,7 +170,7 @@ class UserLegal extends ActiveRecord
 
     public function getContactAssignment(): ActiveQuery
     {
-        return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id']);
+        return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id'])->orderBy(['contact_id' =>  SORT_ASC]);
     }
 
     public function getContacts(): ActiveQuery
