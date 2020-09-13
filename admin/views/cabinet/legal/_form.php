@@ -1,5 +1,6 @@
 <?php
 
+use booking\entities\admin\user\UserLegal;
 use booking\forms\admin\UserLegalForm;
 use kartik\widgets\FileInput;
 use mihaildev\ckeditor\CKEditor;
@@ -8,6 +9,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model UserLegalForm */
+/* @var $legal UserLegal */
 ?>
 
 
@@ -94,7 +96,6 @@ use yii\widgets\ActiveForm;
             <div class="row">
                 <div id="map" style="width: 100%; height: 400px"></div>
             </div>
-
         </div>
     </div>
     <div class="form-group">

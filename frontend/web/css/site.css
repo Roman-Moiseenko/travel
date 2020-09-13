@@ -307,3 +307,22 @@ div.required label:after {
     background-color: #949797 !important;
     cursor: pointer
 }
+
+.btn-wish {
+    border-radius: 20px !important;
+}
+
+.holder{
+    position:relative;
+}
+.block-wishlist{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    left: calc(100% - 45px);
+    display:none;
+}
+.holder:hover .block-wishlist{
+    display:block;
+}

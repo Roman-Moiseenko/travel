@@ -56,7 +56,7 @@ use yii\widgets\LinkPager;
     </div>
 </div>
 <div class="row pt-3">
-    <div class="row row-cols-1 row-cols-md-4 m-1 p-1" >
+    <div class="row row-cols-1 row-cols-md-4" >
     <?php foreach ($dataProvider->getModels() as $tour): ?>
         <?= $this->render('_tour', [
             'tour' => $tour
