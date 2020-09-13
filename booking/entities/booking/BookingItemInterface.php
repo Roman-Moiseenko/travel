@@ -27,6 +27,7 @@ interface BookingItemInterface
     public function getAmount(): int;
     public function getAmountPay(): int;
     public function getAmountPayAdmin(): int;
+    public function getConfirmation(): string;
     /** set */
     public function setStatus(int $status);
 

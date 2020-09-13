@@ -7,6 +7,7 @@ namespace booking\services\booking\tours;
 use booking\entities\booking\Discount;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
+use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\DiscountRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
@@ -91,4 +92,21 @@ class BookingTourService
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
     }
+
+    public function confirmation($id)
+    {
+        $booking = $this->bookings->get($id);
+        if (!empty($booking->confirmation)) return;
+        $code = uniqid();
+        $booking->confirmation = $code;
+        $this->bookings->save($booking);
+        $this->contact->sendNoticeConfirmation($booking);
+    }
+
+    public function isConfirmation($id, ConfirmationForm $form): bool
+    {
+        $booking = $this->bookings->get($id);
+        return $booking->confirmation == $form->confirmation;
+    }
+
 }

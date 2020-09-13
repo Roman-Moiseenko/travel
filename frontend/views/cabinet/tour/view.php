@@ -115,7 +115,7 @@ $tour = $booking->calendar->tour;
                                class="btn btn-default"><?= Lang::t('Отменить') ?></a>
                         </div>
                         <div class="ml-auto">
-                            <a href="<?= Url::to(['/cabinet/pay/yandex', 'id' => $booking->id]) ?>"
+                            <a href="<?= Url::to(['/cabinet/pay/tour', 'id' => $booking->id]) ?>"
                                class="btn btn-primary"><?= Lang::t('Оплатить') ?></a>
                         </div>
                     </div>

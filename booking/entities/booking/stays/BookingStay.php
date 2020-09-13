@@ -107,4 +107,9 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     {
         // TODO: Implement getParentId() method.
     }
+
+    public function getConfirmation(): string
+    {
+        return $this->confirmation;
+    }
 }

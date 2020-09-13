@@ -140,6 +140,11 @@ class ContactService
         }
     }
 
+    public function sendNoticeConfirmation(BookingItemInterface $booking)
+    {
+        $booking->getConfirmation();
+    }
+
     private function sendEmailReview($email, ReviewTour $review, $template)
     {
         $send = $this->mailer->compose($template, ['review' => $review])

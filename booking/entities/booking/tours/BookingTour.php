@@ -22,6 +22,7 @@ use yii\helpers\Url;
  * @property integer $calendar_id
  * @property integer $user_id
  * @property CostCalendar $calendar
+ * @property string $confirmation
  * @property Cost $count
  * @property integer $status
  * @property integer $created_at
@@ -230,5 +231,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getParentId(): int
     {
         return $this->calendar->tours_id;
+    }
+
+    public function getConfirmation(): string
+    {
+        return $this->confirmation;
     }
 }
