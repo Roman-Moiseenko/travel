@@ -6,6 +6,7 @@ namespace admin\controllers\tour;
 
 use booking\entities\booking\tours\Tour;
 use booking\helpers\CalendarHelper;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
@@ -15,8 +16,6 @@ use yii\web\NotFoundHttpException;
 
 class CalendarController extends Controller
 {
-
-    //TODO СДЕЛАТЬ РЕФАКТОРИНГ, => ч/з render()
     public $layout = 'main-tours';
     private $service;
     /**
@@ -57,7 +56,6 @@ class CalendarController extends Controller
             ],
         ];
     }
-
 
     public function actionIndex($id)
     {
@@ -148,6 +146,38 @@ class CalendarController extends Controller
         }
     }
 
+    public function actionCopyweek()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            if (isset($params['current_month'])) {
+                $month = date('m');
+                $year = date('Y');
+                $day = date('d');
+            } else {
+                $month = $params['month'];
+                $year = $params['year'];
+                $day = $params['day'];
+            }
+            $tours = $this->findModel($params['tour_id']);
+            $array_days = $this->getWeekDays(json_decode($params['json'], true), strtotime($day . '-' . $month . '-' . $year . ' 00:00:00'));
+            foreach ($array_days as $new_day) {
+                try {
+                    $tours->clearCostCalendar($new_day);
+                    $this->tours->save($tours);
+                    $tours->copyCostCalendar(
+                        $new_day,
+                        strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
+                    );
+                    $this->tours->save($tours);
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                }
+            }
+            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year));
+        }
+    }
+
     public function actionDelday()
     {
         if (\Yii::$app->request->isAjax) {
@@ -164,114 +194,31 @@ class CalendarController extends Controller
 
     private function getInfoDay($Y, $M, $D, $id, $errors = [])
     {
+        $this->layout = 'main_ajax';
         //Получаем данные
         $tours = $this->findModel($id);
         $day_tours = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
         //Отображаем, если есть
-        $listTours = <<<HTML
-                <div id="data-day" data-d="$D" data-m="$M" data-y="$Y"></div>
-<div class="row">
-    <span style="font-size: larger; font-weight: bold">На $D число</span> 
-</div>
-HTML;
-        if (isset($errors) && isset($errors['del-day'])) {
-            $error_del_day = $errors['del-day'];
-            $listTours .= <<<HTML
-<div class="row">
-    <span style="font-size: larger; font-weight: bold; color: #c12e2a">$error_del_day</span> 
-</div>
-HTML;
-        }
-        foreach ($day_tours as $costCalendar) {
-            $id_calendar = $costCalendar->id;
-            $time = $costCalendar->time_at;
-            $tickets = $costCalendar->tickets;
-            $adult = $costCalendar->cost->adult;
-            $child = $costCalendar->cost->child ?? '--';
-            $preference = $costCalendar->cost->preference ?? '--';
-
-            $listTours .= <<<HTML
-
-<div class="row">
-    <span style="font-size: larger"><i class="far fa-clock"></i>$time <a href="#" class="del-day" data-id="$id_calendar"><i class="far fa-trash-alt"></i></a></span> 
-</div>
-<div class="row">
-    &nbsp;&nbsp;&nbsp;$tickets билетов. Цена: $adult/$child/$preference 
-</div>
-HTML;
-        }
-        if ($day_tours != null) {
-            $listTours .= <<<HTML
-<div class="row">
-<label class="container">
-    <input type="checkbox" id="data-day-copy"><span>Копировать на другие дни</span>
-    </label>
-    <i>Поставьте флажок, и выбирайте дни. После снимите флажок и выберите любой день</i>
-</div>
-HTML;
-        } else {
-            $listTours .= <<<HTML
-<div class="row">
-    <span style="font-size: larger; font-weight: bold">туры не заданы</span> 
-</div>
-HTML;
-        }
-
-        $adult = $tours->baseCost->adult;
-        $newTours = <<<HTML
-
-                <div class="row">
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label>Начало</label>
-                            <input class="form-control" id="_time" type="time" width="100px" value="00:00" required>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="form-group">
-                            <label>Билеты</label>
-                            <input class="form-control" id="_tickets" type="number" min="1" value="1" width="100px" required>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за взрослый билет</label>
-                            <input class="form-control" id="_adult" type="number" value="$adult" min="0" step="50" width="100px" required>
-                        </div>
-                    </div>
-HTML;
-        if ($tours->baseCost->child != null) {
-            $child = $tours->baseCost->child;
-            $newTours .= <<<HTML
-                     <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за детский билет</label>
-                            <input class="form-control" id="_child" type="number" value="$child" min="0" step="50" width="100px">
-                        </div>
-                    </div>
-HTML;
-        }
-        if ($tours->baseCost->preference != null) {
-            $preference = $tours->baseCost->preference;
-            $newTours .= <<<HTML
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label>Цена за льготный билет</label>
-                            <input class="form-control" id="_preference" type="number" value="$preference" min="0" step="50" width="100px">
-                        </div>
-                    </div>
-                    HTML;
-        }
-        $newTours .= <<<HTML
-</div>
-<div class="row">
-                    <div class="col-1">
-                        <a href="#" class="btn btn-success" id="send-new-tour">Добавить</a>
-                    </div>
-                </div>
-HTML;
-        $result = ['_list' => $listTours, '_new' => $newTours, 'full_array_tours' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
+        $_list = $this->render('_list_tours', [
+            'D' => $D, 'M' => $M, 'Y' => $Y,
+            'day_tours' => $day_tours,
+            'errors' => $errors,
+        ]);
+        $_new = $this->render('_new_tour', ['tour' => $tours]);
+        $result = ['_list' => $_list, '_new' => $_new, 'full_array_tours' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
         return json_encode($result);
+    }
+
+    private function getWeekDays($weeks, $begin)
+    {
+        $result = [];
+        //$begin = strtotime(date('d-m-Y', time()) . ' 00:00:00');
+        $end = strtotime($weeks[0]);
+        $count_days = intdiv($end - $begin, 3600 * 24);
+        for ($i = 1; $i <= $count_days; $i++) {
+            $day = $begin + $i * 24 * 3600;
+            if ($weeks[date('N', $day)]) $result[] = $day;
+        }
+        return $result;
     }
 }

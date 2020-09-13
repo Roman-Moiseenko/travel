@@ -39,14 +39,17 @@ use yii\helpers\Url;
             <?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 10)) ?>
         </div>
         <div class="category-card pt-4">
-            <?php foreach ($tour->types as $type): ?>
-                <a href=""><?= Lang::t($type->name) ?></a>&#160;|&#160;
-            <?php endforeach; ?>
-            <?= Lang::t($tour->type->name) ?>
+
         </div>
         </p>
     </div>
-    <div class="mt-auto card-footer" style="background-color: white;">
+    <div class="mr-auto card-footer" style="border: 0 !important; background-color: white !important;">
+        <?php foreach ($tour->types as $type): ?>
+            <a href=""><?= Lang::t($type->name) ?></a>&#160;|&#160;
+        <?php endforeach; ?>
+        <a href=""><?= Lang::t($tour->type->name) ?></a>
+    </div>
+    <div class="mt-auto card-footer" style="background-color: #f6f7f5; border-color: #f6f7f5;">
         <div class="p-2">
             <span class="price-card"><?= CurrencyHelper::get($tour->baseCost->adult) ?></span>
         </div>

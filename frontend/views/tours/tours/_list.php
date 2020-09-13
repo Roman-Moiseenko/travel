@@ -11,13 +11,12 @@ use yii\widgets\LinkPager;
 
 ?>
 
-<div class="row">
-    <div class="col-md-6 hidden-sm">
-    </div>
-    <div class="col-md-4 col-sm-7">
+<div class="d-flex justify-content-end">
+
+    <div>
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-                <span class="input-group-text"><?= Lang::t('Сортировать') ?>:</span>
+                <span class="input-group-text"><i class="fas fa-sort"></i></span>
             </div>
             <select id="input-sort" class="form-control" onchange="location = this.value;">
                 <?php
@@ -37,10 +36,10 @@ use yii\widgets\LinkPager;
             </select>
         </div>
     </div>
-    <div class="col-md-2 col-sm-5">
+    <div class="ml-2">
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-                <span class="input-group-text"><?= Lang::t('Показать') ?>:</span>
+                <span class="input-group-text"><i class="far fa-eye"></i></span>
             </div>
             <select id="input-limit" class="form-control" onchange="location = this.value;">
                 <?php
@@ -55,15 +54,15 @@ use yii\widgets\LinkPager;
         </div>
     </div>
 </div>
-<div class="row pt-3">
-    <div class="row row-cols-1 row-cols-md-4" >
+
+<div class="row row-cols-1 row-cols-md-4">
     <?php foreach ($dataProvider->getModels() as $tour): ?>
         <?= $this->render('_tour', [
             'tour' => $tour
         ]) ?>
     <?php endforeach; ?>
-    </div>
 </div>
+
 <div class="row">
     <div class="col-sm-6 text-left">
         <?= LinkPager::widget([

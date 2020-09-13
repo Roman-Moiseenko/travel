@@ -84,7 +84,6 @@ $(document).ready(function () {
 
         $.post('/tour/calendar/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
-                console.log(data);
                 full_array_tours = JSON.parse(data);
                 $('#datepicker').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
                 $('#datepicker').datepicker('update');
@@ -96,7 +95,6 @@ $(document).ready(function () {
     });
     //Загружаем Массив туров по дням за текущий день
     $.post('/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
-        console.log(data);
         full_array_tours = JSON.parse(data);
         $('#datepicker').datepicker('update');
     });
@@ -144,7 +142,6 @@ $(document).ready(function () {
                 calendar_id: calendar_id
             },
             function (data) {
-                console.log(data);
                 var dateInfo = JSON.parse(data);
                 $('.list-tours').html(dateInfo._list);
                 $('.new-tours').html(dateInfo._new);
@@ -157,10 +154,33 @@ $(document).ready(function () {
     $(document).on('click', '#data-day-copy', function () {
         if ($('#data-day-copy').is(':checked')) {
             $('.new-tours').addClass('hidden');
+            $('#data-week-copy').prop("disabled", true);
         } else {
             $('.new-tours').removeClass('hidden');
+            $('#data-week-copy').prop("disabled", false);
         }
     });
+    $(document).on('click', '#data-week-copy', function () {
+        var d = $('#data-day').attr('data-d');
+        var m = $('#data-day').attr('data-m');
+        var y = $('#data-day').attr('data-y');
+        let week = [];
+        week[0] = $('#end-day').val();
+        for (let i = 1; i <= 7; i++) {
+            week[i] = $('#data-week-' + i).is(':checked');
+        }
+        $.post('/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
+            function (data) {
+            console.log(data);
+                full_array_tours = JSON.parse(data);
+                $('#datepicker').datepicker('update');
+                //Очищаем чекбоксы
+                for (let i = 1; i <= 7; i++) {
+                    $('#data-week-' + i).prop('checked', false);
+                }
+            });
+    });
+
 });
 
 

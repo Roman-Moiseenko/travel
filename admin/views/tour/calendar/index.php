@@ -17,12 +17,12 @@ $this->params['breadcrumbs'][] = 'Календарь';
         <div class="card-header with-border">Календарь</div>
         <div class="card-body">
             <div class="row">
-                <div class="col-9">
+                <div class="col-md-9">
                     <div id="datepicker">
                         <input type="hidden" id="datepicker_value" value="">
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <div class="list-tours"></div>
                 </div>
             </div>

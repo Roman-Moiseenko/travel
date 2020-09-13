@@ -312,6 +312,18 @@ class Tour extends ActiveRecord
         return $calendar;
     }
 
+    public function clearCostCalendar($new_day)
+    {
+        $calendars = $this->actualCalendar;
+        foreach ($calendars as $i =>$calendar) {
+            if ($calendar->tour_at === $new_day) {
+                unset($calendars[$i]);
+            }
+        }
+        $this->actualCalendar = $calendars;
+        return;
+    }
+
     public function copyCostCalendar($new_day, $copy_day)
     {
         $calendars = $this->actualCalendar;
@@ -321,6 +333,7 @@ class Tour extends ActiveRecord
                 unset($calendars[$i]);
             }
             if ($calendar->tour_at === $copy_day) {
+
                 $calendar_copy = CostCalendar::create(
                     $new_day,
                     $calendar->time_at,

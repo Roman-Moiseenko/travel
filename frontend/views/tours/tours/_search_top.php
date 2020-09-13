@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
 /* @var $model SearchToursForm */
 ?>
-
+<div class="row">
 <?php $form = ActiveForm::begin([
     //  'action' => 'tours/tours/index',
     'method' => 'GET'
@@ -57,3 +57,4 @@ use yii\helpers\Html;
     </div>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
