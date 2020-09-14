@@ -68,8 +68,7 @@ class ContactService
         //Получаем параметры уведомления
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) {
             //Новое бронирование  => Рассылка
-            //TODO  Параметры уведомлений клиента
-            $this->sendSMS($phoneUser, Lang::t('У Вас новое бронирование ') . $booking->getName() . '.' . Lang::t('Не забудьте оплатить'));
+            //$this->sendSMS($phoneUser, Lang::t('У Вас новое бронирование ') . $booking->getName() . '.' . Lang::t('Не забудьте оплатить'));
             $this->sendEmailBooking($emailUser, $booking, 'noticeBookingNewUser');
 
             if ($noticeAdmin->bookingNew->phone)
@@ -80,7 +79,7 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY) {
             //Бронирование оплачено  => Рассылка
-            $this->sendSMS($phoneUser, Lang::t('Вы оплатили бронирование ') . $booking->getName() . '.' . Lang::t('Спасибо, что с нами'));
+            $this->sendSMS($phoneUser, Lang::t('Ваше бронирование подтверждено') . '. ' . $booking->getName() . '. ' . Lang::t('Спасибо, что с нами'));
             $this->sendEmailBooking($emailUser, $booking, 'noticeBookingPayUser');
             if ($noticeAdmin->bookingPay->phone)
                 $this->sendSMS($phoneAdmin, 'Подтверждено бронирование '. $booking->getName() . ' на сумму ' . $booking->getAmount());
