@@ -1,10 +1,8 @@
 <?php
 
-use booking\entities\Currency;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\MessageHelper;
-use booking\helpers\UserHelper;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -74,7 +72,7 @@ use yii\helpers\Url;
 
 
 <div class="container">
-    <nav id="menu" class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id="top-menu" class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -83,17 +81,30 @@ use yii\helpers\Url;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Html::encode(Url::to(['site/index'])) ?>"><i
-                                class="fas fa-hotel">&#160;<?= Lang::t('Жилье') ?></i></a>
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/stays'])) ?>">
+                        <i class="fas fa-hotel"></i>
+                        &#160;<?= Lang::t('Жилье') ?>
+                    </a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/cars'])) ?>"><i
-                                class="fas fa-car">&#160;<?= Lang::t('Авто') ?></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/tours'])) ?>"><i
-                                class="fas fa-map-marked-alt">&#160;<?= Lang::t('Туры') ?></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= Html::encode(Url::to(['/tickets'])) ?>"><i
-                                class="fas fa-ticket-alt">&#160;<?= Lang::t('Билеты') ?></i></a></li>
-            </ul>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/cars'])) ?>">
+                        <i class="fas fa-car"></i>
+                        &#160;<?= Lang::t('Авто')?>
 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/tours'])) ?>" >
+                        <i class="fas fa-map-marked-alt"></i>
+                        &#160;<?= Lang::t('Туры') ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tickets/tickets' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/tickets'])) ?>">
+                        <i class="fas fa-ticket-alt"></i>
+                        &#160;<?= Lang::t('Билеты') ?></a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>

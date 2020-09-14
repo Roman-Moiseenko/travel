@@ -19,13 +19,7 @@ use yii\web\NotFoundHttpException;
 class ToursController extends Controller
 {
     public $layout = 'tours';
-    /**
-     * @var TourRepository
-     */
     private $tours;
-    /**
-     * @var TourService
-     */
     private $service;
 
     public function __construct($id, $module, TourRepository $tours, TourService $service, $config = [])
