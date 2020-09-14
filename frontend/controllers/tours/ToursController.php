@@ -3,7 +3,6 @@
 
 namespace frontend\controllers\tours;
 
-
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
@@ -15,7 +14,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 
-//TODO Переименовать!!!!!!!!!!!!!!
 class ToursController extends Controller
 {
     public $layout = 'tours';

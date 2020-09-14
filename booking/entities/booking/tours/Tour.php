@@ -296,8 +296,17 @@ class Tour extends ActiveRecord
 
     /** <========== AssignType */
 
-    /** CostCalendar  ==========>*/
+    /** CostCalendar  ==========>
+     * @param $tour_at
+     * @param $time_at
+     * @param $tickets
+     * @param $cost_adult
+     * @param null $cost_child
+     * @param null $cost_preference
+     * @return CostCalendar
+     */
     //TODO Возможно ускорение, нискоуровневым запросом
+
     public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
         $calendar = CostCalendar::create(
