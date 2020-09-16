@@ -55,7 +55,13 @@ class ContactService
         /** @var Conversation $conversation */
         $conversation = $dialog->lastConversation();
         if ($admin && get_class($admin) !== $conversation->author) {
-            $this->mailerMessage($admin->email, $dialog, 'noticeConversationAdmin');
+            $booking = BookingHelper::getByNumber($dialog->optional);
+            $legal = $booking->getLegal();
+            $noticeAdmin = $admin->notice;
+            if ($noticeAdmin->messageNew->phone)
+                $this->sendSMS($legal->noticePhone, 'Новое сообщение');
+            if ($noticeAdmin->messageNew->email)
+                $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin');
         }
         if (get_class($user) !== $conversation->author) {
             if ($user->preferences->notice_dialog) {
