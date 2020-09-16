@@ -4,6 +4,7 @@
 namespace booking\entities\message;
 
 
+use booking\entities\user\User;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -22,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property Conversation[] $conversations
  * @property ThemeDialog $theme
+ * @property User $user
+ * @property \booking\entities\admin\user\User $admin
  */
 
 class Dialog extends ActiveRecord
@@ -133,5 +136,17 @@ class Dialog extends ActiveRecord
     public function getTheme(): ActiveQuery
     {
         return $this->hasOne(ThemeDialog::class, ['id' => 'theme_id']);
+    }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getAdmin(): ActiveQuery
+    {
+        if ($this->provider_id !== null)
+            return $this->hasOne(\booking\entities\admin\user\User::class, ['id' => 'user_id']);
+        return null;
     }
 }

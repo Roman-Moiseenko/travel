@@ -31,7 +31,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td></td>
             <td>
-                <h2><?= Lang::t('Уважаемый') . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
+                <h2><?= Lang::t('Добрый день') . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
             </td>
         </tr>
         <tr>
@@ -43,7 +43,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
                 </a>
                 <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) ?></b>.<br>
                 <?= Lang::t('Сумма к оплате') ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
-                <?= Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически') ?>
+                <?= Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
             </td>
             <td style="width: 25%"></td>
         </tr>
