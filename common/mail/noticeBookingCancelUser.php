@@ -1,10 +1,19 @@
 <?php
 
+use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
+use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 
+/* @var $booking BookingItemInterface */
+
+$user = User::findOne($booking->getUserId());
+$url = \Yii::$app->params['frontendHostInfo'];
+
+
 ?>
+
 <div class="mail-notice" style="color: #0b0b0b;">
     <table style="width: 100%; border: 0;color: #0b0b0b;">
         <tr>
@@ -28,12 +37,11 @@ use booking\helpers\CurrencyHelper;
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('Ваш платеж обработан, с Вашего счета списано') . ' ' . CurrencyHelper::get($booking->getAmountPay()) . ' ' . Lang::t('в счет оплаты ') ?>
+                <?= Lang::t('Было отменено Ваше бронирование') ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) ?></b>.<br>
-
             </td>
             <td style="width: 25%"></td>
         </tr>

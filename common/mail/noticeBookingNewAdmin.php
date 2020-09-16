@@ -7,7 +7,6 @@ $url = \Yii::$app->params['adminHostInfo'];
 
 
 use booking\entities\booking\BookingItemInterface;
-use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper; ?>
 
@@ -16,7 +15,7 @@ use booking\helpers\CurrencyHelper; ?>
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
-                <?= Lang::t('Номер бронирования') ?>:&#160;
+                <?= 'Номер бронирования' ?>:&#160;
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['booking'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
@@ -28,7 +27,7 @@ use booking\helpers\CurrencyHelper; ?>
         <tr>
             <td></td>
             <td>
-                <h2><?= 'Добрый день, ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
+                <h2><?= 'Добрый день, ' ?><span style="color: #062b31"><?= $booking->getLegal()->name ?></span>!</h2>
             </td>
         </tr>
         <tr>
@@ -38,8 +37,8 @@ use booking\helpers\CurrencyHelper; ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
                     <?= $booking->getName() ?>
                 </a>
-                <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) ?></b>.<br>
-                <?= Lang::t('Сумма бронирования') ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
+                <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) ?></b>.<br>
+                <?= 'Сумма бронирования' ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
                 <?= 'Дождитесь оплаты или автоматической отмены бронирования в течение суток.' ?>
             </td>
             <td style="width: 25%"></td>

@@ -126,9 +126,9 @@ class ContactService
 /// УВЕДОМЛЕНИЕ С КОДОМ ДЛЯ ПОДТВЕРЖДЕНИЯ БРОНИРОВАНИЯ
     public function sendNoticeConfirmation(BookingItemInterface $booking)
     {
-        $confirmation = $booking->getConfirmation();
+        //$confirmation = $booking->getConfirmation();
         $user = \booking\entities\user\User::findOne($booking->getUserId());
-        $send = $this->mailer->compose('noticeConfirmation', ['confirmation' => $confirmation])
+        $send = $this->mailer->compose('noticeConfirmation', ['booking' => $booking])
             ->setTo($user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Подтверждение бронирования')])
             ->setSubject($booking->getName())
