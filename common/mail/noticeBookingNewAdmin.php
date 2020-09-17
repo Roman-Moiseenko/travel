@@ -37,7 +37,7 @@ use booking\helpers\CurrencyHelper; ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
                     <?= $booking->getName() ?>
                 </a>
-                <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) ?></b>.<br>
+                <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
                 <?= 'Сумма бронирования' ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
                 <?= 'Дождитесь оплаты или автоматической отмены бронирования в течение суток.' ?>
             </td>

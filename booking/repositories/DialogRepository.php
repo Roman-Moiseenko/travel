@@ -28,7 +28,7 @@ class DialogRepository
     {
         $dialogs = Dialog::find()->andWhere(['user_id'=>$user_id])->andWhere(['!=', 'typeDialog', Dialog::PROVIDER_SUPPORT])->all();
         usort($dialogs, function (Dialog $a, Dialog $b) {
-            if ($a->lastConversation() > $b->lastConversation()) {
+            if ($a->lastConversation()->created_at > $b->lastConversation()->created_at) {
                 return -1;
             } else {
                 return 1;
@@ -42,7 +42,7 @@ class DialogRepository
     {
         $dialogs =  Dialog::find()->andWhere(['provider_id'=>$admin_id])->all();
         usort($dialogs, function (Dialog $a, Dialog $b) {
-            if ($a->lastConversation() > $b->lastConversation()) {
+            if ($a->lastConversation()->created_at > $b->lastConversation()->created_at) {
                 return -1;
             } else {
                 return 1;

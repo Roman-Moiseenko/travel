@@ -2,10 +2,8 @@
 
 namespace booking\services;
 
-use booking\entities\admin\user\User;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
-use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
@@ -14,7 +12,6 @@ use yii\mail\MailerInterface;
 
 class ContactService
 {
-//TODO Контакт - Сервис протестировать на домене
     /**
      * @var MailerInterface
      */
@@ -50,22 +47,26 @@ class ContactService
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ ИЛИ ПРОВАЙДЕРУ О НОВОМ СООБЩЕНИИ
     public function sendNoticeMessage(Dialog $dialog)
     {
-        $user = $dialog->user;
-        $admin = $dialog->admin;
         /** @var Conversation $conversation */
         $conversation = $dialog->lastConversation();
-        if ($admin && get_class($admin) !== $conversation->author) {
-            $booking = BookingHelper::getByNumber($dialog->optional);
-            $legal = $booking->getLegal();
-            $noticeAdmin = $admin->notice;
-            if ($noticeAdmin->messageNew->phone)
-                $this->sendSMS($legal->noticePhone, 'Новое сообщение');
-            if ($noticeAdmin->messageNew->email)
-                $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin');
+        if ($dialog->typeDialog == Dialog::PROVIDER_SUPPORT || $dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
+            if (\booking\entities\admin\user\User::class !== $conversation->author) {
+                $admin = $dialog->admin;
+                $booking = BookingHelper::getByNumber($dialog->optional);
+                $legal = $booking->getLegal();
+                $noticeAdmin = $admin->notice;
+                if ($noticeAdmin->messageNew->phone)
+                    $this->sendSMS($legal->noticePhone, 'Новое сообщение');
+                if ($noticeAdmin->messageNew->email)
+                    $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
+            }
         }
-        if (get_class($user) !== $conversation->author) {
-            if ($user->preferences->notice_dialog) {
-                $this->mailerMessage($user->email, $dialog, 'noticeConversationUser');
+        if ($dialog->typeDialog == Dialog::CLIENT_SUPPORT || $dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
+            if (\booking\entities\user\User::class !== $conversation->author) {
+                $user = $dialog->user;
+                if ($user->preferences->notice_dialog) {
+                    $this->mailerMessage($user->email, $dialog, 'noticeConversationUser', $user->personal->fullname->getFullname());
+                }
             }
         }
     }
@@ -158,9 +159,9 @@ class ContactService
         }
     }
 
-    private function mailerMessage($email, Dialog $dialog, $template)
+    private function mailerMessage($email, Dialog $dialog, $template, $user_name = '')
     {
-        $send = $this->mailer->compose($template, ['dialog' => $dialog])
+        $send = $this->mailer->compose($template, ['dialog' => $dialog, 'user_name' => $user_name])
             ->setTo($email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Новое сообщение')])
             ->setSubject($dialog->theme->caption)

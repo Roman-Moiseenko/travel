@@ -4,6 +4,7 @@ namespace booking\entities\booking\tours;
 
 
 use booking\entities\admin\user\UserLegal;
+use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
@@ -130,4 +131,5 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
         $id = $this->tour->legal_id;
         return UserLegal::findOne($id);
     }
+
 }

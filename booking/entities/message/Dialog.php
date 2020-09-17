@@ -67,15 +67,19 @@ class Dialog extends ActiveRecord
         $this->conversations = $conversations;
     }
 
-    public function lastConversation(): int
+    public function lastConversation(): Conversation
     {
         $conversations = $this->conversations;
         $last = 0;
+        $lastConversation = null;
         foreach ($conversations as $conversation) {
-            if ($conversation->created_at > $last)
+            if ($conversation->created_at > $last) {
                 $last = $conversation->created_at;
+                $lastConversation = $conversation;
+            }
+
         }
-        return $last;
+        return $lastConversation;
     }
 
     public function readConversation()
@@ -146,7 +150,7 @@ class Dialog extends ActiveRecord
     public function getAdmin(): ActiveQuery
     {
         if ($this->provider_id !== null)
-            return $this->hasOne(\booking\entities\admin\user\User::class, ['id' => 'user_id']);
+            return $this->hasOne(\booking\entities\admin\user\User::class, ['id' => 'provider_id']);
         return null;
     }
 }

@@ -30,7 +30,7 @@ class BookingHelper
         self::BOOKING_TYPE_CAR => BookingCar::class,
         self::BOOKING_TYPE_TICKET => null,
 
-        ];
+    ];
 
     public static function list(): array
     {
@@ -94,7 +94,7 @@ class BookingHelper
         return $booking->getAdmin()->id . '.' . $booking->getId() . $booking->getType();
     }
 
-    public static function getByNumber($number):? BookingItemInterface
+    public static function getByNumber($number): ?BookingItemInterface
     {
         if (empty($number)) return null;
         try {
@@ -107,6 +107,23 @@ class BookingHelper
             return $class::findOne($booking_id);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', Lang::t('Ошибка в номере бронирования') . ' => ' . $e->getMessage());
+        }
+    }
+
+    public static function fieldAddToString(BookingItemInterface $booking): string
+    {
+        $datetime2 = $booking->getAdd();
+        switch ($booking->getType()) {
+            case BookingHelper::BOOKING_TYPE_TICKET:
+            case BookingHelper::BOOKING_TYPE_TOUR:
+                return $booking->getAdd();
+                break;
+            case BookingHelper::BOOKING_TYPE_CAR:
+                return '';
+                break;
+            case BookingHelper::BOOKING_TYPE_STAY:
+                return Lang::t('по') . ' ' . date('d-m-Y', $datetime2);
+                break;
         }
     }
 }

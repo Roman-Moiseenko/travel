@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $dialog->theme->caption ?>
                 </td>
                 <td>
-                    <?= date('d-m-Y H:i:s', $dialog->lastConversation()) ?>
+                    <?= date('d-m-Y H:i:s', $dialog->lastConversation()->created_at) ?>
                 </td>
             </tr>
         <?php endforeach; ?>
