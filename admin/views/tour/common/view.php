@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="form-group">
-    <?= '';//StatusHelper::statusToHTML($tour->status) ?>
     <?= StatusActionWidget::widget([
             'object_status' => $tour->status,
         'object_id' => $tour->id,

@@ -44,7 +44,9 @@
     "bower-asset/bootstrap-datepicker": "^1.9",
     "ext-json": "*",
     "wbraganca/yii2-dynamicform": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "robregonm/yii2-pdf": "dev-master",
+    "kartik-v/yii2-mpdf": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

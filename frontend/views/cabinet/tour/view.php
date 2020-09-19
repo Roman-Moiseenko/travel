@@ -135,14 +135,14 @@ $tour = $booking->calendar->tour;
                             <div class="nowrap-child">
                                 <?= Lang::t('Распечатать подверждение')?>
                                 <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
+                                   href="<?= Url::to(['/cabinet/print/tour', 'id' => $booking->id]) ?>">
                                     <i class="fas fa-print"></i></a>
                             </div>
                         </li>
                         <li>
                             <?= Lang::t('Распечатать чек об оплате')?>
                             <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/tour', 'id' => $booking->id]) ?>">
+                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
                                 <i class="fas fa-print"></i></a>
                         </li>
                     </ul>
