@@ -4,6 +4,7 @@ use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\user\User;
 use booking\forms\message\ConversationForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => Lang::t('Сообщения'), 'url
 $this->params['breadcrumbs'][] = $this->title;
 if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
     $booking = BookingHelper::getByNumber($dialog->optional);
-    $who = 'Клиент';
+    $who = User::findOne($booking->getUserId())->personal->fullname->getFullname();
 } else {
     $booking = null;
     $who = 'Служба поддержки';

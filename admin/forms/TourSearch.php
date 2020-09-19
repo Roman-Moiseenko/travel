@@ -16,7 +16,7 @@ class TourSearch extends Tour
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status'], 'integer'],
+            [['type_id', 'status'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -52,6 +52,7 @@ class TourSearch extends Tour
         $query->andFilterWhere([
             'id' => $this->id,
             'type_id' => $this->type_id,
+            'status' => $this->status,
 
         ]);
 

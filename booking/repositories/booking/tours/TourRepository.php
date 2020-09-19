@@ -7,6 +7,7 @@ use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
 use booking\forms\booking\tours\SearchToursForm;
 use booking\helpers\scr;
+use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
@@ -25,13 +26,13 @@ class TourRepository
 
     public function getAll(): DataProviderInterface
     {
-        $query = Tour::find()->alias('t');
-        return$this->getProvider($query);
+        $query = Tour::find()->alias('t')->andWhere(['t.status' => StatusHelper::STATUS_ACTIVE]);
+        return $this->getProvider($query);
     }
 
     public function search(SearchToursForm $form = null): DataProviderInterface
     {
-        $query = Tour::find()->alias('t')->with('type', 'mainPhoto');
+        $query = Tour::find()->alias('t')->andWhere(['t.status' => StatusHelper::STATUS_ACTIVE])->with('type', 'mainPhoto');
         if ($form == null) {
             $query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);

@@ -1,6 +1,9 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
+use booking\helpers\BookingHelper;
+use booking\helpers\StatusHelper;
+use booking\helpers\ToursHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
@@ -18,10 +21,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Создать Тур', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
     </p>
 
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            [
+                'attribute' => 'id',
+                'label' => '#ID',
+                'options' => ['width' => '20px', 'style' => 'text-align: center;'],
+            ],
             [
                 'value' => function (Tour $model) {
                     return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
@@ -32,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'label' => 'Статус',
-                'options' => ['width' => '40px'],
+                'value' => function (Tour $model) {
+                    return StatusHelper::statusToHTML($model->status);
+                },
+                'options' => ['width' => '150px'],
+                'format' => 'raw',
+                'filter' => StatusHelper::listStatus(),
             ],
             [
                 'attribute' => 'name',

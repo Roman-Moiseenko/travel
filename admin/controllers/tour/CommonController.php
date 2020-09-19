@@ -89,6 +89,71 @@ class CommonController extends Controller
 
     }
 
+    public function actionVerify($id)
+    {
+        $tour = $this->findModel($id);
+        try {
+            $this->service->verify($tour->id);
+            \Yii::$app->session->setFlash('success', 'Ваш тур успешно отправлен на Модерацию. Мы постараемся проверить Вашу информацию в кратчайшие сроки. Дождитесь, пожалуйста, результата. ');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionCancel($id)
+    {
+        $tour = $this->findModel($id);
+        try {
+            $this->service->cancel($tour->id);
+            \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию тура');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionDraft($id)
+    {
+        $tour = $this->findModel($id);
+        try {
+            $this->service->draft($tour->id);
+            \Yii::$app->session->setFlash('success', 'Тур снят с публикации.');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionActivate($id)
+    {
+        $tour = $this->findModel($id);
+        try {
+            $this->service->activate($tour->id);
+            \Yii::$app->session->setFlash('success', 'Тур опубликован.');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionSupport($id)
+    {
+        $tour = $this->findModel($id);
+        try {
+            $this->service->support($tour->id);
+            \Yii::$app->session->setFlash('success', 'Запрос отправлен в поддержку');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e);
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {
@@ -99,4 +164,6 @@ class CommonController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

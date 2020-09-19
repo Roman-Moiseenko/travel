@@ -9,6 +9,7 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\Extra;
 use booking\entities\booking\tours\ReviewTour;
+use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 
 class ToursHelper

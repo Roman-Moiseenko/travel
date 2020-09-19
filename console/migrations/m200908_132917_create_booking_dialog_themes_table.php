@@ -1,5 +1,7 @@
 <?php
 
+use booking\entities\booking\tours\Tour;
+use booking\entities\message\ThemeDialog;
 use yii\db\Migration;
 
 /**
@@ -18,15 +20,25 @@ class m200908_132917_create_booking_dialog_themes_table extends Migration
             'type_dialog' => $this->integer(),
         ]);
         $this->insert('{{%booking_dialog_themes}}', [
-            'id' => 1,
+            'id' => ThemeDialog::PETITION_REVIEW,
             'caption' => 'Жалоба на отзыв',
             'type_dialog' => 2
         ]);
 
         $this->insert('{{%booking_dialog_themes}}', [
-            'id' => 2,
+            'id' => ThemeDialog::PETITION_PROVIDER,
             'caption' => 'Жалоба на провайдера',
             'type_dialog' => 3
+        ]);
+        $this->insert('{{%booking_dialog_themes}}', [
+            'id' => ThemeDialog::ACTIVATED,
+            'caption' => 'Активация объекта',
+            'type_dialog' => 2
+        ]);
+        $this->insert('{{%booking_dialog_themes}}', [
+            'id' => 99,
+            'caption' => '<--Блокировка-->',
+            'type_dialog' => 0
         ]);
     }
 

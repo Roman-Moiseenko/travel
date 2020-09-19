@@ -1,6 +1,10 @@
 <?php
 
+use admin\widgest\StatusActionWidget;
 use booking\entities\booking\tours\Tour;
+use booking\helpers\BookingHelper;
+use booking\helpers\StatusHelper;
+use booking\helpers\ToursHelper;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -15,6 +19,16 @@ $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="form-group">
+    <?= '';//StatusHelper::statusToHTML($tour->status) ?>
+    <?= StatusActionWidget::widget([
+            'object_status' => $tour->status,
+        'object_id' => $tour->id,
+        'object_type' => BookingHelper::BOOKING_TYPE_TOUR,
+    ]); ?>
+</div>
+
 <div class="tours-view">
     <div class="card card-secondary">
         <div class="card-header with-border">Описание</div>
@@ -75,10 +89,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
-
-
-
     <div class="form-group">
         <?= Html::a('Редактировать', Url::to(['/tour/common/update', 'id' => $tour->id]) ,['class' => 'btn btn-success']) ?>
     </div>

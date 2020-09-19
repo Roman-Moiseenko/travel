@@ -10,6 +10,7 @@ use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\queries\ToursQueries;
 use booking\helpers\SlugHelper;
+use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -45,9 +46,11 @@ use yii\web\UploadedFile;
  */
 class Tour extends ActiveRecord
 {
-    const STATUS_LOCK = 0;
+  /*  const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 1;
     const STATUS_ACTIVE = 2;
+    const STATUS_VERIFY = 3;
+    const STATUS_DRAFT = 4;*/
 
     const TOUR_FULL = 11;
     const TOUR_CANCEL = 12;
@@ -64,7 +67,7 @@ class Tour extends ActiveRecord
         $tour = new static();
         $tour->user_id = \Yii::$app->user->id;
         $tour->created_at = time();
-        $tour->status = Tour::STATUS_INACTIVE;
+        $tour->status = StatusHelper::STATUS_INACTIVE;
         $tour->name = $name;
         $tour->slug = SlugHelper::slug($name);
         $tour->type_id = $type_id;
@@ -103,6 +106,10 @@ class Tour extends ActiveRecord
         $this->cancellation = $cancellation;
     }
 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     public function isCancellation($date_tours)
     {

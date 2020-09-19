@@ -20,6 +20,7 @@ class ThemeDialog extends ActiveRecord
 {
     const PETITION_REVIEW = 1;
     const PETITION_PROVIDER = 2;
+    const ACTIVATED = 3;
 
     public static function create($caption, $typeDialog): self
     {

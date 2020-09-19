@@ -7,6 +7,8 @@ use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\Cost;
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\TourParams;
+use booking\entities\message\Dialog;
+use booking\entities\message\ThemeDialog;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\CostForm;
@@ -14,12 +16,15 @@ use booking\forms\booking\tours\ToursCommonForms;
 use booking\forms\booking\tours\ToursExtraForm;
 use booking\forms\booking\tours\ToursFinanceForm;
 use booking\forms\booking\tours\ToursParamsForm;
+use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\repositories\booking\tours\ReviewTourRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\repositories\booking\ReviewRepository;
+use booking\repositories\DialogRepository;
 use booking\services\ContactService;
+use booking\services\DialogService;
 use booking\services\TransactionManager;
 
 class TourService
@@ -30,6 +35,10 @@ class TourService
     private $extra;
     private $contactService;
     private $reviews;
+    /**
+     * @var DialogRepository
+     */
+    private $dialogs;
 
     public function __construct(
         TourRepository $tours,
@@ -37,7 +46,8 @@ class TourService
         TypeRepository $types,
         ExtraRepository $extra,
         ContactService $contactService,
-        ReviewTourRepository $reviews
+        ReviewTourRepository $reviews,
+        DialogRepository $dialogs
     )
     {
         $this->tours = $tours;
@@ -46,11 +56,12 @@ class TourService
         $this->extra = $extra;
         $this->contactService = $contactService;
         $this->reviews = $reviews;
+        $this->dialogs = $dialogs;
     }
 
     public function create(ToursCommonForms $form): Tour
     {
-        $tours = Tour::create(
+        $tour = Tour::create(
             $form->name,
             $form->types->main,
             $form->description,
@@ -60,20 +71,18 @@ class TourService
                 $form->address->longitude
             )
         );
-
         foreach ($form->types->others as $otherId) {
             $type = $this->types->get($otherId);
-            $tours->assignType($type->id);
+            $tour->assignType($type->id);
         }
-        $this->tours->save($tours);
-
-        return $tours;
+        $this->tours->save($tour);
+        return $tour;
     }
 
     public function edit($id, ToursCommonForms $form): void
     {
-        $tours = $this->tours->get($id);
-        $tours->edit(
+        $tour = $this->tours->get($id);
+        $tour->edit(
             $form->name,
             $form->types->main,
             $form->description,
@@ -83,78 +92,77 @@ class TourService
                 $form->address->longitude
             )
         );
-        $this->transaction->wrap(function () use ($form, $tours) {
-            $tours->clearType();
-            $this->tours->save($tours);
+        $this->transaction->wrap(function () use ($form, $tour) {
+            $tour->clearType();
+            $this->tours->save($tour);
             foreach ($form->types->others as $otherId) {
                 $type = $this->types->get($otherId);
-                $tours->assignType($type->id);
+                $tour->assignType($type->id);
             }
-            $this->tours->save($tours);
+            $this->tours->save($tour);
         });
-
     }
 
     public function addPhotos($id, PhotosForm $form)
     {
         //echo '<pre>';var_dump($form); exit();
-        $tours = $this->tours->get($id);
+        $tour = $this->tours->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
-                $tours->addPhoto($file);
+                $tour->addPhoto($file);
             }
-        $this->tours->save($tours);
+        $this->tours->save($tour);
     }
 
     public function movePhotoUp($id, $photoId): void
     {
-        $tours = $this->tours->get($id);
-        $tours->movePhotoUp($photoId);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($id);
+        $tour->movePhotoUp($photoId);
+        $this->tours->save($tour);
     }
 
     public function movePhotoDown($id, $photoId): void
     {
-        $tours = $this->tours->get($id);
-        $tours->movePhotoDown($photoId);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($id);
+        $tour->movePhotoDown($photoId);
+        $this->tours->save($tour);
     }
 
     public function removePhoto($id, $photoId): void
     {
-        $tours = $this->tours->get($id);
-        $tours->removePhoto($photoId);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($id);
+        $tour->removePhoto($photoId);
+        $this->tours->save($tour);
     }
 
-    public function addReview($tours_id, $user_id, ReviewForm $form)
+    public function addReview($tour_id, $user_id, ReviewForm $form)
     {
-        $tours = $this->tours->get($tours_id);
-        $review =$tours->addReview($user_id, $form->vote, $form->text);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($tour_id);
+        $review =$tour->addReview($user_id, $form->vote, $form->text);
+        $this->tours->save($tour);
         $this->contactService->sendNoticeReview($review);
     }
 
     public function removeReview($review_id)
     {
         $review = $this->reviews->get($review_id);
-        $tours = $this->tours->get($review->tours_id);
-        $tours->removeReview($review_id);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($review->tour_id);
+        $tour->removeReview($review_id);
+        $this->tours->save($tour);
     }
 
     public function editReview($review_id, ReviewForm $form)
     {
         $review = $this->reviews->get($review_id);
-        $tours = $this->tours->get($review->tours_id);
-        $tours->editReview($review_id, $form->vote, $form->text);
-        $this->tours->save($tours);
+        $tour = $this->tours->get($review->tour_id);
+        $tour->editReview($review_id, $form->vote, $form->text);
+        $this->tours->save($tour);
     }
 
     public function setParams($id, ToursParamsForm $form): void
     {
-        $tours = $this->tours->get($id);
-        $tours->setParams(
+        $tour = $this->tours->get($id);
+        $tour->setParams(
             new TourParams(
                 $form->duration,
                 new BookingAddress(
@@ -177,20 +185,20 @@ class TourService
                 $form->groupMax
             )
         );
-        $this->tours->save($tours);
+        $this->tours->save($tour);
     }
 
     public function setExtra($id, $extra_id, $set /*ToursExtraForm $form*/): void
     {
 
-        $tours = $this->tours->get($id);
+        $tour = $this->tours->get($id);
         echo $id . $extra_id . $set;
         if ($set) {
-            $tours->assignExtra($extra_id);
+            $tour->assignExtra($extra_id);
         } else {
-            $tours->revokeExtra($extra_id);
+            $tour->revokeExtra($extra_id);
         }
-        $this->tours->save($tours);
+        $this->tours->save($tour);
         /*
         $this->transaction->wrap(function () use ($form, $tours) {
             $tours->clearExtra();
@@ -206,17 +214,17 @@ class TourService
 
     public function setFinance($id, ToursFinanceForm $form): void
     {
-        $tours = $this->tours->get($id);
-        $tours->setLegal($form->legal_id);
-        $tours->setCost(
+        $tour = $this->tours->get($id);
+        $tour->setLegal($form->legal_id);
+        $tour->setCost(
             new Cost(
                 $form->baseCost->adult,
                 $form->baseCost->child,
                 $form->baseCost->preference
             )
         );
-        $tours->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
-        $this->tours->save($tours);
+        $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+        $this->tours->save($tour);
     }
 
 
@@ -226,6 +234,54 @@ class TourService
     public function save(Tour $tours)
     {
         throw new \DomainException('ОШИБКА!!!!!!!!!!!!!!!!!!!!! БЛЯДЬ ОТКУДА!!!!!!!!!!!!!!!!!!!!11');
+    }
+
+    public function verify($id)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setStatus(StatusHelper::STATUS_VERIFY);
+        $dialog = Dialog::create(
+            null,
+            Dialog::PROVIDER_SUPPORT,
+            \Yii::$app->user->id,
+            ThemeDialog::ACTIVATED,
+            ''
+        );
+        $dialog->addConversation('ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
+        $this->dialogs->save($dialog);
+        $this->contactService->sendNoticeMessage($dialog);
+        $this->tours->save($tour);
+    }
+
+    public function cancel(int $id)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setStatus(StatusHelper::STATUS_INACTIVE);
+        $dialog = Dialog::create(
+            null,
+            Dialog::PROVIDER_SUPPORT,
+            \Yii::$app->user->id,
+            ThemeDialog::ACTIVATED,
+            ''
+        );
+        $dialog->addConversation('ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_INACTIVE);
+        $this->dialogs->save($dialog);
+        $this->contactService->sendNoticeMessage($dialog);
+        $this->tours->save($tour);
+    }
+
+    public function draft(int $id)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setStatus(StatusHelper::STATUS_DRAFT);
+        $this->tours->save($tour);
+    }
+
+    public function activate(int $id)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setStatus(StatusHelper::STATUS_ACTIVE);
+        $this->tours->save($tour);
     }
 
 
