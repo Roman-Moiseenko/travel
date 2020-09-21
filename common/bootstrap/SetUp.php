@@ -8,8 +8,10 @@ use booking\repositories\UserRepository;
 
 use booking\services\auth\PasswordResetService;
 use booking\services\ContactService;
+use booking\services\pdf\pdfServiceController;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\base\Module;
 use yii\di\Instance;
 use yii\web\Cookie;
 
@@ -30,11 +32,13 @@ class SetUp implements BootstrapInterface
                 new UserRepository());
         });
 
+        $container->setSingleton(pdfServiceController::class, function () use ($app) {
+            return new pdfServiceController('pdf_controller', new Module('pdf_module'));
+        });
+
         $container->setSingleton(ContactService::class, function () use ($app) {
             return new ContactService(
-              //  [$app->params['supportEmail'] => 'Уведомления с сайта'],
-              //  $app->params['adminEmail'],
-                $app->mailer
+                $app->mailer, new pdfServiceController('pdf_controller', new Module('pdf_module'))
             );
         });
 /*

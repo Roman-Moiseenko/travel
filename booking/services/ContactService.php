@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\helpers\BookingHelper;
+use booking\services\pdf\pdfServiceController;
 use yii\mail\MailerInterface;
 
 class ContactService
@@ -16,10 +17,15 @@ class ContactService
      * @var MailerInterface
      */
     private $mailer;
+    /**
+     * @var pdfServiceController
+     */
+    private $pdf;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, pdfServiceController $pdf)
     {
         $this->mailer = $mailer;
+        $this->pdf = $pdf;
     }
 
 /// УВЕДОМЛЕНИЕ ПРОВАЙДЕРУ ОБ ОТЗЫВЕ
@@ -154,10 +160,11 @@ class ContactService
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])
             ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking->getStatus()));
         if ($attach_pdf) {
-
-            $message = $message->attach(\Yii::$app->params['staticPath'] . '/files/temp/file_name.pdf');
+            $file = $this->pdf->pdfFile($booking, true);
+            $message = $message->attach($file);
         }
         $send = $message->send();
+        if (isset($file)) unlink($file);
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }

@@ -6,6 +6,7 @@ namespace admin\controllers\cabinet;
 
 use booking\entities\admin\user\User;
 use booking\forms\admin\PersonalForm;
+use booking\helpers\scr;
 use booking\services\admin\UserManageService;
 use booking\services\booking\tours\TourService;
 
