@@ -9,6 +9,7 @@ return [
     'adminHostInfo' => 'http://admin.travel.loc',
     'staticPath' => dirname(__DIR__, 2) . '/static',
     'supportEmail' => 'admin@kupi41.ru',
+    'supportPhone' => '+7-800-000-0101',
     'NotSend' => true,
     'NotPay' => true,
 ];

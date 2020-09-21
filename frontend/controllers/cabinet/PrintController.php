@@ -4,7 +4,9 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
+use booking\repositories\booking\tours\BookingTourRepository;
 use kartik\mpdf\Pdf;
 use Mpdf\MpdfException;
 use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
@@ -39,29 +41,20 @@ class PrintController extends Controller
     public function actionTour($id)
     {
 
-        $content = $this->renderPartial('tour');
+        $booking = BookingTour::findOne($id);
+        $content = $this->renderPartial('tour', [
+            'booking' => $booking,
+            ]);
 
-        // setup kartik\mpdf\Pdf component
         $pdf = new Pdf([
-            // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
-            // A4 paper format
             'format' => Pdf::FORMAT_A4,
-            // portrait orientation
             'orientation' => Pdf::ORIENT_PORTRAIT,
-            // stream to browser inline
             'destination' => Pdf::DEST_BROWSER,
-            // your html content input
             'content' => $content,
-            // format content from your own css file if needed or use the
-            // enhanced bootstrap css built by Krajee for mPDF formatting
             'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
-           // 'cssFile' => '',
-            // any css to be embedded if required
             'cssInline' => '.kv-heading-1{font-size:18px}',
-            // set mPDF properties on the fly
             'options' => ['title' => 'Krajee Report Title'],
-            // call mPDF methods on the fly
             'methods' => [
                 'SetTitle' => Lang::t('Подтверждение бронирования'),
                 'SetHeader'=>['Koenigs.travel'],
@@ -72,7 +65,6 @@ class PrintController extends Controller
             ]
         ]);
 
-        // return the pdf output as per the destination setting
         try {
             return $pdf->render();
         } catch (MpdfException $e) {
@@ -82,9 +74,45 @@ class PrintController extends Controller
         } catch (InvalidConfigException $e) {
         }
 
-        /*  \Yii::$app->response->format = 'pdf';
+         // \Yii::$app->response->format = 'pdf';
 
-          $this->layout = '//print';
-          return $this->renderPartial('tour', []);*/
+         // $this->layout = '//print';
+        //  return $this->renderPartial('tour', ['booking' => $booking,]);
+    }
+    public function actionTourFile($id)
+    {
+
+        $booking = BookingTour::findOne($id);
+        $content = $this->renderPartial('tour', [
+            'booking' => $booking,
+        ]);
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8,
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_FILE,
+            'content' => $content,
+            'filename' => \Yii::$app->params['staticPath'] . '/files/temp/file_name.pdf',
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => ['title' => 'Krajee Report Title'],
+            'methods' => [
+                'SetTitle' => Lang::t('Подтверждение бронирования'),
+                'SetHeader'=>['Koenigs.travel'],
+                'SetFooter'=>['{PAGENO}'],
+                'SetAuthor' => 'Koenigs.Travel',
+                'SetCreator' => 'Koenigs.Travel',
+                'SetKeywords' => 'travel russia koenigsberg booking',
+            ]
+        ]);
+
+        try {
+            $pdf->render();
+        } catch (MpdfException $e) {
+        } catch (CrossReferenceException $e) {
+        } catch (PdfTypeException $e) {
+        } catch (PdfParserException $e) {
+        } catch (InvalidConfigException $e) {
+        }
     }
 }

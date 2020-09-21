@@ -45,7 +45,6 @@
     "ext-json": "*",
     "wbraganca/yii2-dynamicform": "*",
     "ext-simplexml": "*",
-    "robregonm/yii2-pdf": "dev-master",
     "kartik-v/yii2-mpdf": "dev-master"
   },
   "require-dev": {

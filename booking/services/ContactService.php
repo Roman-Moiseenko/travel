@@ -97,7 +97,7 @@ class ContactService
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY) {
             //Бронирование оплачено  => Рассылка
             $this->sendSMS($phoneUser, Lang::t('Ваше бронирование подтверждено') . '. ' . $booking->getName() . '. ' . Lang::t('Спасибо, что с нами'));
-            $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser');
+            $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
             if ($noticeAdmin->bookingPay->phone)
                 $this->sendSMS($phoneAdmin, 'Подтверждено бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount());
             if ($noticeAdmin->bookingPay->email)
@@ -147,13 +147,17 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения'));
     }
 
-    private function mailerBooking($email, BookingItemInterface $booking, $template)
+    private function mailerBooking($email, BookingItemInterface $booking, $template, $attach_pdf = false)
     {
-        $send = $this->mailer->compose($template, ['booking' => $booking])
+        $message = $this->mailer->compose($template, ['booking' => $booking])
             ->setTo($email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])
-            ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking->getStatus()))
-            ->send();
+            ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking->getStatus()));
+        if ($attach_pdf) {
+
+            $message = $message->attach(\Yii::$app->params['staticPath'] . '/files/temp/file_name.pdf');
+        }
+        $send = $message->send();
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
