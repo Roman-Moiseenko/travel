@@ -3,7 +3,7 @@
 
 namespace booking\services\admin;
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\forms\auth\LoginForm;
 use booking\repositories\admin\UserRepository;
 

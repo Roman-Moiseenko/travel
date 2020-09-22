@@ -4,8 +4,8 @@
 namespace booking\entities\booking;
 
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 
 interface ReviewInterface
 {

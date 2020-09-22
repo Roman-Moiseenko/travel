@@ -3,8 +3,8 @@
 
 namespace booking\services\admin;
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\Discount;
 use booking\entities\user\FullName;

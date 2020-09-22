@@ -4,8 +4,8 @@
 namespace booking\entities\booking;
 
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
@@ -26,8 +26,8 @@ use yii\db\ActiveRecord;
  */
 class Discount extends ActiveRecord
 {
-    const E_ADMIN_USER = \booking\entities\admin\user\User::class;
-    const E_OFFICE_USER = \booking\entities\office\user\User::class;
+    const E_ADMIN_USER = \booking\entities\admin\User::class;
+    const E_OFFICE_USER = \booking\entities\office\User::class;
     const E_USER_LEGAL = UserLegal::class;
     const E_BOOKING_TOUR = BookingTour::class;
     const E_BOOKING_STAY = BookingStay::class;

@@ -5,7 +5,7 @@ namespace frontend\controllers\cabinet;
 
 
 use booking\entities\user\User;
-use booking\forms\manage\PreferencesForm;
+use booking\forms\user\PreferencesForm;
 use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;

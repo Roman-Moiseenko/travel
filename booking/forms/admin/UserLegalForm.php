@@ -2,7 +2,7 @@
 
 namespace booking\forms\admin;
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\BookingAddress;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\booking\PhotosForm;

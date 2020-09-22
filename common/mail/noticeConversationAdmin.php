@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;

@@ -4,7 +4,7 @@
 namespace admin\widgest;
 
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\repositories\admin\UserRepository;
 use yii\base\Widget;
 use yii\helpers\Url;

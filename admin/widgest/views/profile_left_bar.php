@@ -1,6 +1,6 @@
 <?php
 
-/* @var $user booking\entities\admin\user\User */
+/* @var $user \booking\entities\admin\User */
 /* @var $userImage string */
 /* @var $userName string */
 use yii\helpers\Url; ?>

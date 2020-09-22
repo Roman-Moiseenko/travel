@@ -4,7 +4,7 @@
 namespace admin\controllers\cabinet;
 
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\forms\admin\NoticeForm;
 use booking\helpers\scr;
 use booking\services\admin\UserManageService;

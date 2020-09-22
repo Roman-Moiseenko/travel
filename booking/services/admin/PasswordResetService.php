@@ -5,7 +5,7 @@ namespace booking\services\admin;
 
 
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\forms\admin\PasswordResetRequestForm;
 use booking\forms\admin\ResendVerificationEmailForm;
 use booking\forms\auth\ResetPasswordForm;
@@ -47,7 +47,7 @@ class PasswordResetService
 
     public function request(PasswordResetRequestForm $form)
     {
-        /* @var $user \booking\entities\admin\user\User */
+        /* @var $user \booking\entities\admin\User */
         $user = $this->repository->getByEmail($form->email);
 
         $user->requestPasswordReset();

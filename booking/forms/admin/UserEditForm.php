@@ -3,7 +3,7 @@
 
 namespace booking\forms\admin;
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use yii\base\Model;
 
 class UserEditForm extends Model

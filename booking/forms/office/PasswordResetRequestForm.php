@@ -1,8 +1,7 @@
 <?php
 namespace booking\forms\office;
 
-
-use booking\entities\office\user\User;
+use booking\entities\office\User;
 use yii\base\Model;
 
 
@@ -23,7 +22,7 @@ class PasswordResetRequestForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'exist',
-                'targetClass' => '\booking\entities\office\user\User',
+                'targetClass' => '\booking\entities\office\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => 'Пользователь с таким email существует'
             ],

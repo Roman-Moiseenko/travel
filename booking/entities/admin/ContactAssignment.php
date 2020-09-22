@@ -1,9 +1,10 @@
 <?php
 
 
-namespace booking\entities\admin\user;
+namespace booking\entities\admin;
 
 
+use booking\entities\admin\Contact;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

@@ -1,7 +1,7 @@
 <?php
 
-use booking\entities\admin\user\Contact;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\Contact;
+use booking\entities\admin\UserLegal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;

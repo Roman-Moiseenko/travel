@@ -2,7 +2,7 @@
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\manage\PreferencesForm;
+use booking\forms\user\PreferencesForm;
 use booking\helpers\CurrencyHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;

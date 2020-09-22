@@ -4,7 +4,7 @@
 namespace booking\helpers;
 
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\entities\message\Dialog;
 
 class MessageHelper

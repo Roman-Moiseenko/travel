@@ -1,9 +1,10 @@
 <?php
 
 
-namespace booking\entities\admin\user;
+namespace booking\entities\admin;
 
 
+use booking\entities\admin\NoticeItem;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use yii\db\ActiveRecord;

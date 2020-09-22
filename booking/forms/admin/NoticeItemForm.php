@@ -4,7 +4,7 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\user\NoticeItem;
+use booking\entities\admin\NoticeItem;
 use yii\base\Model;
 
 class NoticeItemForm extends Model

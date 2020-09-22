@@ -5,7 +5,7 @@ namespace booking\services\office;
 
 
 use booking\forms\office\SignupForm;
-use booking\entities\office\user\User;
+use booking\entities\office\User;
 use booking\repositories\office\UserRepository;
 use booking\services\TransactionManager;
 use Yii;

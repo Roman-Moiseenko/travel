@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\Contact;
+use booking\entities\admin\Contact;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;

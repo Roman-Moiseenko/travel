@@ -4,8 +4,8 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\user\Contact;
-use booking\entities\admin\user\ContactAssignment;
+use booking\entities\admin\Contact;
+use booking\entities\admin\ContactAssignment;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
 use yii\base\Model;

@@ -2,8 +2,8 @@
 
 namespace booking\repositories\admin;
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 use booking\entities\Lang;
 
 class UserRepository

@@ -1,7 +1,7 @@
 <?php
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;

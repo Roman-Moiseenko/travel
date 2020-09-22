@@ -26,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property ThemeDialog $theme
  * @property ThemeDialog $themeDialog
  * @property User $user
- * @property \booking\entities\admin\user\User $admin
+ * @property \booking\entities\admin\User $admin
  */
 
 class Dialog extends ActiveRecord
@@ -161,7 +161,7 @@ class Dialog extends ActiveRecord
     public function getAdmin(): ActiveQuery
     {
         if ($this->provider_id !== null)
-            return $this->hasOne(\booking\entities\admin\user\User::class, ['id' => 'provider_id']);
+            return $this->hasOne(\booking\entities\admin\User::class, ['id' => 'provider_id']);
         return null;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\manage;
+namespace booking\forms\user;
 
 
 use booking\entities\user\Preferences;

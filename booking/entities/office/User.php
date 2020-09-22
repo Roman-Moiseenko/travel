@@ -1,17 +1,11 @@
 <?php
-namespace booking\entities\admin\user;
+namespace booking\entities\office;
 
-use booking\entities\booking\cars\Car;
-use booking\entities\booking\Discount;
-use booking\entities\booking\stays\Stay;
-use booking\entities\booking\tours\Tour;
-use booking\entities\user\FullName;
-use booking\entities\user\UserAddress;
-use Yii;
+
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -28,10 +22,6 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property UserLegal[] $legals
- * @property Personal $personal
- * @property Notice $notice
- * @property Discount[] $discounts
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -50,8 +40,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = time();
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
-        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), '');
-        $user->notice = Notice::create();
+
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -72,69 +61,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public function updatePersonal(Personal $personal)
-    {
-        $this->personal = $personal;
-    }
 
-    public function updateNotice(Notice $notice)
-    {
-        $this->notice = $notice;
-    }
-
-    public function addDiscount(Discount $discount)
-    {
-        $discounts = $this->discounts;
-        $discounts[] = $discount;
-        $this->discounts = $discounts;
-    }
-
-    public function draftDiscount($id)
-    {
-        $discounts = $this->discounts;
-        foreach ($discounts as &$discount) {
-            if ($discount->isFor($id)) {
-                $discount->draft();
-                $this->discounts = $discounts;
-                return;
-            }
-        }
-        throw new \DomainException('Не найдена скидка');
-    }
-
-
-    public function addLegal(UserLegal $legal)
-    {
-        $legals = $this->legals;
-        $legals[] = $legal;
-        $this->legals = $legals;
-    }
-
-    public function updateLegal($id, UserLegal $legal_new)
-    {
-        $legals = $this->legals;
-        foreach ($legals as $i => $legal) {
-            if ($legal->isFor($id)) {
-                $legals[$i] = $legal_new;
-                $this->legals = $legals;
-                return;
-            }
-        }
-        throw new \DomainException('Фирма не найдена');
-    }
-
-    public function removeLegal($id)
-    {
-        $legals = $this->legals;
-        foreach ($legals as $i => $legal) {
-            if ($legal->isFor($id)) {
-                unset($legals[$i]);
-                $this->legals = $legals;
-                return;
-            }
-        }
-        throw new \DomainException('Фирма не найдена');
-    }
 
     public function isActive(): bool
     {
@@ -163,20 +90,21 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%admin_users}}';
+        return '{{%office_users}}';
     }
 
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
             TimestampBehavior::class,
-            [
+          /*  [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['personal', 'legals', 'notice', 'discounts'],
-            ],
+                'relations' => ['personal', 'legals', 'notice'],
+            ],*/
         ];
     }
 
@@ -345,49 +273,4 @@ class User extends ActiveRecord implements IdentityInterface
         $this->verification_token = null;
     }
 
-    /** getXXX ==========> */
-    public function getLegals(): ActiveQuery
-    {
-        return $this->hasMany(UserLegal::class, ['user_id' => 'id']);
-    }
-
-    public function getLegal($id): UserLegal
-    {
-        $legals = $this->legals;
-        foreach ($legals as $legal) {
-            if ($legal->isFor($id)) return $legal;
-        }
-        throw new \DomainException('Not Founded legal by $id = ' . $id);
-    }
-
-    public function getPersonal(): ActiveQuery
-    {
-        return $this->hasOne(Personal::class, ['user_id' => 'id']);
-    }
-
-    public function getNotice(): ActiveQuery
-    {
-        return $this->hasOne(Notice::class, ['user_id' => 'id']);
-    }
-
-    public function getTours(): ActiveQuery
-    {
-        return $this->hasMany(Tour::class, ['user_id' => 'id']);
-    }
-
-    public function getStays(): ActiveQuery
-    {
-        return $this->hasMany(Stay::class, ['user_id' => 'id']);
-    }
-
-    public function getCars(): ActiveQuery
-    {
-        return $this->hasMany(Car::class, ['user_id' => 'id']);
-    }
-
-    public function getDiscounts(): ActiveQuery
-    {
-        return $this->hasMany(Discount::class, ['user_id' => 'id']);
-    }
-    /** <========== getXXX */
 }

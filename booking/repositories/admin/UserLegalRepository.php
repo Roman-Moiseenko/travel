@@ -4,7 +4,7 @@
 namespace booking\repositories\admin;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 
 class UserLegalRepository
 {

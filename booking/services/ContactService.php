@@ -56,7 +56,7 @@ class ContactService
         /** @var Conversation $conversation */
         $conversation = $dialog->lastConversation();
         if ($dialog->typeDialog == Dialog::PROVIDER_SUPPORT || $dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
-            if (\booking\entities\admin\user\User::class !== $conversation->author) {
+            if (\booking\entities\admin\User::class !== $conversation->author) {
                 $admin = $dialog->admin;
                 $booking = BookingHelper::getByNumber($dialog->optional);
                 $legal = $booking->getLegal();

@@ -1,7 +1,7 @@
 <?php
 
-use booking\entities\admin\user\ContactAssignment;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\ContactAssignment;
+use booking\entities\admin\UserLegal;
 use booking\forms\admin\ContactAssignmentForm;
 use booking\helpers\ContactHelper;
 use yii\helpers\Html;

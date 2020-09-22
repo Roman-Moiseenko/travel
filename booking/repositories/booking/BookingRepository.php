@@ -4,7 +4,7 @@
 namespace booking\repositories\booking;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;

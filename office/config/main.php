@@ -17,13 +17,13 @@ return [
             'csrfParam' => '_csrf-office',
         ],
         'user' => [
-            'identityClass' => 'booking\entities\office\user\User',
+            'identityClass' => 'booking\entities\office\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-office', 'httpOnly' => true],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'advanced-office',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -55,6 +55,7 @@ return [
                 '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',
             ],
         ],
+
 
     ],
     'params' => $params,

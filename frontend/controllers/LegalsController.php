@@ -4,7 +4,7 @@
 namespace frontend\controllers;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 

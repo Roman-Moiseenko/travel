@@ -5,7 +5,7 @@ namespace booking\services\admin;
 
 
 use booking\forms\admin\SignupForm;
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\repositories\admin\UserRepository;
 use booking\services\TransactionManager;
 use Yii;

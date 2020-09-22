@@ -5,8 +5,8 @@ namespace admin\controllers\cabinet;
 
 
 use admin\forms\user\LegalSearch;
-use booking\entities\admin\user\ContactAssignment;
-use booking\entities\admin\user\User;
+use booking\entities\admin\ContactAssignment;
+use booking\entities\admin\User;
 use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\UserLegalForm;
 use booking\services\admin\UserManageService;

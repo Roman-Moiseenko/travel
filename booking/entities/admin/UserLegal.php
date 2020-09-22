@@ -1,9 +1,11 @@
 <?php
 
 
-namespace booking\entities\admin\user;
+namespace booking\entities\admin;
 
 
+use booking\entities\admin\Contact;
+use booking\entities\admin\ContactAssignment;
 use booking\entities\booking\BookingAddress;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;

@@ -4,7 +4,7 @@
 namespace booking\helpers;
 
 
-use booking\entities\admin\user\Contact;
+use booking\entities\admin\Contact;
 use yii\helpers\ArrayHelper;
 
 class ContactHelper

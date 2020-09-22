@@ -3,7 +3,7 @@
 namespace booking\entities\booking\tours;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\user\User;
@@ -120,10 +120,10 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
     /**
      * @inheritDoc
      */
-    public function getAdmin(): \booking\entities\admin\user\User
+    public function getAdmin(): \booking\entities\admin\User
     {
         $id = $this->tour->user_id;
-        return \booking\entities\admin\user\User::findOne($id);
+        return \booking\entities\admin\User::findOne($id);
     }
 
     public function getLegal(): UserLegal

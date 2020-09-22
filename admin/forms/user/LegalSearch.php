@@ -4,7 +4,7 @@
 namespace admin\forms\user;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use yii\data\ActiveDataProvider;
 
 class LegalSearch extends UserLegal

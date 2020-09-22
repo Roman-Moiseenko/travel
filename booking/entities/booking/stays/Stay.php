@@ -4,7 +4,7 @@
 namespace booking\entities\booking\stays;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\rooms\Rooms;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\rules\Rules;

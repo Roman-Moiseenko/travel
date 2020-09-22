@@ -3,8 +3,8 @@
 
 namespace booking\forms\office;
 
-
-use booking\entities\office\user\User;
+use booking\entities\office\User;
+use yii\base\Model;
 
 class ResendVerificationEmailForm extends Model
 {
@@ -24,7 +24,7 @@ class ResendVerificationEmailForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'exist',
-                'targetClass' => '\booking\entities\office\user\User',
+                'targetClass' => '\booking\entities\office\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
                 'message' => 'Нет пользователя с таким email',
             ],

@@ -1,9 +1,9 @@
 <?php
 
-/* @var $user User */
+/* @var $user \booking\entities\admin\User */
 
-use booking\entities\admin\user\Notice;
-use booking\entities\admin\user\User;
+use booking\entities\admin\Notice;
+use booking\entities\admin\User;
 use booking\forms\admin\NoticeForm;
 
 /* @var $notice Notice */

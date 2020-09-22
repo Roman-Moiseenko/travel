@@ -1,10 +1,10 @@
 <?php
 
-/* @var $user User */
+/* @var $user \booking\entities\admin\User */
 
 /* @var $model PersonalForm */
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use booking\forms\admin\PersonalForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;

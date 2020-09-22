@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\ToursHelper;
 use kartik\widgets\DatePicker;

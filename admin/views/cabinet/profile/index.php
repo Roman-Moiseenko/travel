@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;

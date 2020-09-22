@@ -1,7 +1,7 @@
 <?php
 
 
-namespace office\controllers\auth;
+namespace office\controllers;
 
 
 use booking\forms\auth\LoginForm;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
 
-class   AuthController extends Controller
+class  AuthController extends Controller
 {
     public  $layout = 'main-login';
     /**

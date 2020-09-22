@@ -39,7 +39,7 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'booking\entities\admin\user\User',
+            'identityClass' => 'booking\entities\admin\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-admin', 'httpOnly' => true],
         ],

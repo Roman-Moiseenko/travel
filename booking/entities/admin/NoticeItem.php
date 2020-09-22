@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\entities\admin\user;
+namespace booking\entities\admin;
 
 
 class NoticeItem

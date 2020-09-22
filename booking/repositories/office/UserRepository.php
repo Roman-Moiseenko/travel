@@ -4,7 +4,7 @@ namespace booking\repositories\office;
 
 
 use booking\entities\Lang;
-use booking\entities\office\user\User;
+use booking\entities\office\User;
 
 class UserRepository
 {

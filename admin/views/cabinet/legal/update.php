@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\forms\admin\UserLegalForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

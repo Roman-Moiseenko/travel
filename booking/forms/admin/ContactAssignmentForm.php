@@ -4,7 +4,7 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\user\ContactAssignment;
+use booking\entities\admin\ContactAssignment;
 use yii\base\Model;
 
 class ContactAssignmentForm extends Model

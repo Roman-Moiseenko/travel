@@ -16,7 +16,7 @@ class CurrencyHelper
 
     public static function current()
     {
-        if (\Yii::$app->user->identity instanceof \booking\entities\admin\user\User) return self::RUB;
+        if (\Yii::$app->user->identity instanceof \booking\entities\admin\User) return self::RUB;
             if (\Yii::$app->user->isGuest) {
             if ($cookie = \Yii::$app->request->cookies->get('currency')) return $cookie->value;
             //  $data =\Yii::$app->geo->getData();

@@ -2,8 +2,8 @@
 
 
 
-use booking\entities\admin\user\User;
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\User;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
 use booking\entities\booking\stays\Stay;

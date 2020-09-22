@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
-use booking\entities\admin\user\User;
+use booking\entities\admin\User;
 
 /* @var $user User */
 

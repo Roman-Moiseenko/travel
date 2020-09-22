@@ -20,6 +20,14 @@ return [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
           ],
+        'migrate' => [
+            'class' => '\fishvision\migrate\controllers\MigrateController',
+            'autoDiscover' => true,
+            'migrationPath' => [
+                '@console/migrations',
+                '@vendor/yiisoft/yii2/rbac/migrations',
+            ],
+        ],
     ],
     'components' => [
         'log' => [

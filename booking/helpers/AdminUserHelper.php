@@ -4,7 +4,7 @@
 namespace booking\helpers;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use yii\helpers\ArrayHelper;
 
 class AdminUserHelper

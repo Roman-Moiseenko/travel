@@ -4,8 +4,7 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\user\Notice;
-use booking\entities\admin\user\NoticeItem;
+use booking\entities\admin\Notice;
 use booking\forms\CompositeForm;
 
 /**

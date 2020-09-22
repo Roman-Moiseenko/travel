@@ -4,7 +4,7 @@
 namespace booking\services\office;
 
 
-use booking\entities\office\user\User;
+use booking\entities\office\User;
 
 use booking\repositories\office\UserRepository;
 use yii\mail\MailerInterface;

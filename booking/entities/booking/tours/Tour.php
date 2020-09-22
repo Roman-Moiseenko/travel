@@ -4,7 +4,7 @@
 namespace booking\entities\booking\tours;
 
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;

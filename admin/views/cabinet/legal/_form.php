@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\user\UserLegal;
+use booking\entities\admin\UserLegal;
 use booking\forms\admin\UserLegalForm;
 use kartik\widgets\FileInput;
 use mihaildev\ckeditor\CKEditor;

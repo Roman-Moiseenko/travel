@@ -4,7 +4,7 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\user\Personal;
+use booking\entities\admin\Personal;
 use booking\entities\PersonalInterface;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
