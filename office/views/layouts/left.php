@@ -4,7 +4,7 @@ use admin\widgest\ProfileLeftBarWidget;
 use yii\helpers\Url;
 
 ?>
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-green elevation-4">
     <!-- Brand Logo -->
     <a href="<?=\yii\helpers\Url::home()?>" class="brand-link">
         <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -23,12 +23,16 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Провайдеры', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
-                    ['label' => 'Клиенты', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
-                    ['label' => 'Справочники', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
-                    ['label' => 'Пользователи', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
-                    ['label' => 'Отзывы', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
-                    ['label' => 'Диалоги', 'icon' => '', 'url' => ['/'], 'active' => $this->context->id == ''],
+                    ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
+                    ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
+                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/reviews'], 'active' => $this->context->id == 'reviews'],
+                    ['label' => 'Диалоги', 'icon' => 'comments', 'url' => ['/dialogs'], 'active' => $this->context->id == 'dialogs'],
+                    ['label' => 'Справочники', 'icon' => 'book', 'items' => [
+                        ['label' => 'Туры (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
+                        ['label' => 'Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
+                        ['label' => 'Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
+                    ]],
+                    ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
                 ],
             ]);
             ?>

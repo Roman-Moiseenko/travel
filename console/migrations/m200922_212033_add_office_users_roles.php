@@ -14,15 +14,17 @@ class m200922_212033_add_office_users_roles extends Migration
     {
         //TODO ДОБАВИТЬ РОЛИ !!!!!!!!!!!!!!!!
         $this->batchInsert('{{%auth_items}}', ['type', 'name', 'description'], [
-            [1, 'user', 'User'],
+            [1, 'support', 'Support'],
+            [1, 'manager', 'Manager'],
             [1, 'admin', 'Admin'],
         ]);
 
         $this->batchInsert('{{%auth_item_children}}', ['parent', 'child'], [
-            ['admin', 'user'],
+            ['admin', 'manager'],
+            ['manager', 'support'],
         ]);
 
-        $this->execute('INSERT INTO {{%auth_assignments}} (item_name, user_id) SELECT \'user\', u.id FROM {{%users}} u ORDER BY u.id');
+        $this->execute('INSERT INTO {{%auth_assignments}} (item_name, user_id) SELECT \'admin\', u.id FROM {{%office_users}} u ORDER BY u.id');
     }
 
     /**
@@ -30,7 +32,7 @@ class m200922_212033_add_office_users_roles extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%auth_items}}', ['name' => ['user', 'admin']]);
+        $this->delete('{{%auth_items}}', ['name' => ['support', 'manager', 'admin']]);
     }
 
     /*

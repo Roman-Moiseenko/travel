@@ -17,9 +17,6 @@ use yii\helpers\Url;
         <li class="nav-item d-none d-sm-inline-block">
             <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Главная</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= Url::to(['/cabinet/dialog/support'])?>" class="nav-link">Служба поддержки</a>
-        </li>
     </ul>
 
     <!-- Right navbar links -->
