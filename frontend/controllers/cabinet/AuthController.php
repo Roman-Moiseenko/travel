@@ -7,7 +7,7 @@ namespace frontend\controllers\cabinet;
 use booking\entities\user\User;
 use booking\forms\admin\PasswordEditForm;
 use booking\forms\manage\UserEditForm;
-use booking\services\manage\UserManageService;
+use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 

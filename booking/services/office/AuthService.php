@@ -1,13 +1,14 @@
 <?php
 
 
-namespace booking\services;
-
+namespace booking\services\office;
 
 use booking\entities\Lang;
-use booking\entities\user\User;
+
+use booking\entities\office\user\User;
 use booking\forms\auth\LoginForm;
-use booking\repositories\UserRepository;
+use booking\repositories\office\UserRepository;
+
 
 class AuthService
 {

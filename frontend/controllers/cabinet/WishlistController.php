@@ -6,7 +6,7 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\Lang;
 use booking\repositories\booking\WishlistRepository;
-use booking\services\manage\UserManageService;
+use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 

@@ -7,7 +7,7 @@ namespace frontend\controllers\cabinet;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\repositories\UserRepository;
+use booking\repositories\user\UserRepository;
 use booking\services\booking\tours\BookingTourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;

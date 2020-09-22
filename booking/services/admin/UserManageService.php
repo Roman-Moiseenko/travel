@@ -16,7 +16,6 @@ use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
 use booking\forms\booking\DiscountForm;
-use booking\helpers\scr;
 use booking\repositories\admin\UserLegalRepository;
 use booking\repositories\admin\UserRepository;
 use booking\services\booking\DiscountService;

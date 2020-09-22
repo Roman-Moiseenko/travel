@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\services\manage;
+namespace booking\services\user;
 
 
 use booking\entities\booking\tours\BookingTour;
@@ -18,7 +18,7 @@ use booking\forms\manage\UserEditForm;
 use booking\helpers\scr;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
-use booking\repositories\UserRepository;
+use booking\repositories\user\UserRepository;
 use booking\services\TransactionManager;
 
 class UserManageService

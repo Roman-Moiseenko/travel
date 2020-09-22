@@ -1,10 +1,10 @@
 <?php
 
 
-namespace booking\forms\admin;
+namespace booking\forms\office;
 
 
-use booking\entities\admin\user\User;
+use booking\entities\office\user\User;
 
 class ResendVerificationEmailForm extends Model
 {
@@ -24,7 +24,7 @@ class ResendVerificationEmailForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'exist',
-                'targetClass' => '\booking\entities\admin\user\User',
+                'targetClass' => '\booking\entities\office\user\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
                 'message' => 'Нет пользователя с таким email',
             ],

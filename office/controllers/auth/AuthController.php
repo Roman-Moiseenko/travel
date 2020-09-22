@@ -1,20 +1,20 @@
 <?php
 
 
-namespace frontend\controllers\auth;
+namespace office\controllers\auth;
 
 
 use booking\forms\auth\LoginForm;
-use booking\helpers\scr;
-use booking\services\user\AuthService;
+use booking\services\office\AuthService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class   AuthController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'main-login';
     /**
      * @var AuthService
      */
@@ -64,21 +64,20 @@ class   AuthController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+           return $this->goHome();
         }
 
         $form = new LoginForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $user = $this->authService->auth($form);
-                \Yii::$app->user->login($user, ($form->rememberMe == '1') ? 3600 * 24 * 30 : 0);
+                Yii::$app->user->login($user, $form->rememberMe ? 3600 * 24 * 30 : 0);
                 return $this->goBack();
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         $form->password = '';
-        $this->layout = 'cabinet';
         return $this->render('login', ['model' => $form]);
 
     }
@@ -91,7 +90,7 @@ class   AuthController extends Controller
     public function actionLogout()
     {
         \Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect( Url::to(['/login']));
     }
 
 }

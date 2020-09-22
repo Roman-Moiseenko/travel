@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace office\assets;
 
 use yii\web\AssetBundle;
 

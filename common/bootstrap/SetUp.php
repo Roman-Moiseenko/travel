@@ -4,15 +4,14 @@
 namespace common\bootstrap;
 
 
-use booking\repositories\UserRepository;
+use booking\repositories\user\UserRepository;
 
-use booking\services\auth\PasswordResetService;
+use booking\services\user\PasswordResetService;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
-use yii\di\Instance;
 use yii\web\Cookie;
 
 class SetUp implements BootstrapInterface

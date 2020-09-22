@@ -1,6 +1,6 @@
 <?php
 
-namespace booking\repositories;
+namespace booking\repositories\user;
 
 use booking\entities\Lang;
 use booking\entities\user\User;

@@ -5,8 +5,8 @@ namespace frontend\controllers\auth;
 
 
 use booking\entities\Lang;
-use booking\forms\auth\SignupForm;
-use booking\services\auth\SignupService;
+use booking\forms\user\SignupForm;
+use booking\services\user\SignupService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -53,7 +53,7 @@ class SignupController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $user = $this->signupService->signup($form);
             if (\Yii::$app->getUser()->login($user)) {
-                \Yii::$app->session->setFlash('success', Lang::t('Для входа на сайт Подтвердите свой email. Письмо с подтверждением было отправленно Вам на почту!'));
+                \Yii::$app->session->setFlash('success', Lang::t('Вы зарегистрировались. Для входа на сайт используйте логин или электронную почту'));
                 return $this->goHome();
             }
         }

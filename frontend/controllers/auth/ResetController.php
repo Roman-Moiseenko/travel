@@ -5,10 +5,10 @@ namespace frontend\controllers\auth;
 
 
 use booking\entities\Lang;
-use booking\forms\auth\PasswordResetRequestForm;
-use booking\forms\auth\ResendVerificationEmailForm;
+use booking\forms\user\PasswordResetRequestForm;
+use booking\forms\user\ResendVerificationEmailForm;
 use booking\forms\auth\ResetPasswordForm;
-use booking\services\auth\PasswordResetService;
+use booking\services\user\PasswordResetService;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;

@@ -1,12 +1,13 @@
 <?php
 
 
-namespace booking\services\admin;
+namespace booking\services\user;
 
-use booking\entities\admin\user\User;
+
+use booking\entities\Lang;
+use booking\entities\user\User;
 use booking\forms\auth\LoginForm;
-use booking\repositories\admin\UserRepository;
-
+use booking\repositories\user\UserRepository;
 
 class AuthService
 {
@@ -25,7 +26,7 @@ class AuthService
         /** @var User $user */
         $user = $this->users->getByUsernameEmail($form->username);
         if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
-            throw new \DomainException('Неверный логин или пароль');
+            throw new \DomainException(Lang::t('Неверный логин или пароль'));
         }
         return $user;
     }

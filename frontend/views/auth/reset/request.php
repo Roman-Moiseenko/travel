@@ -2,10 +2,10 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model PasswordResetRequestForm */
+/* @var $model \booking\forms\user\PasswordResetRequestForm */
 
 use booking\entities\Lang;
-use booking\forms\auth\PasswordResetRequestForm;
+use booking\forms\user\PasswordResetRequestForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 

@@ -1,15 +1,12 @@
 <?php
 
 
-namespace booking\services\admin;
+namespace booking\services\office;
 
 
+use booking\entities\office\user\User;
 
-use booking\entities\admin\user\User;
-use booking\forms\admin\PasswordResetRequestForm;
-use booking\forms\admin\ResendVerificationEmailForm;
-use booking\forms\auth\ResetPasswordForm;
-use booking\repositories\admin\UserRepository;
+use booking\repositories\office\UserRepository;
 use yii\mail\MailerInterface;
 
 class PasswordResetService
@@ -47,7 +44,7 @@ class PasswordResetService
 
     public function request(PasswordResetRequestForm $form)
     {
-        /* @var $user \booking\entities\admin\user\User */
+        /* @var $user User */
         $user = $this->repository->getByEmail($form->email);
 
         $user->requestPasswordReset();
@@ -94,7 +91,7 @@ class PasswordResetService
     {
         $user = $this->repository->getByPasswordResetToken($token);
         $user->resetPassword($form->password);
-        $this->repository->save($user);
+        $this->repository->save($user, false);
     }
 
     public function verifyEmail($token): User

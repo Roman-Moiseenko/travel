@@ -1,13 +1,13 @@
 <?php
 
 
-namespace booking\services\auth;
+namespace booking\services\user;
 
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\auth\SignupForm;
-use booking\repositories\UserRepository;
+use booking\forms\user\SignupForm;
+use booking\repositories\user\UserRepository;
 use booking\services\TransactionManager;
 use Yii;
 

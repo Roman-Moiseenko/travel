@@ -6,8 +6,8 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\Lang;
 use booking\helpers\UserHelper;
-use booking\repositories\UserRepository;
-use booking\services\manage\UserManageService;
+use booking\repositories\user\UserRepository;
+use booking\services\user\UserManageService;
 use yii\web\Controller;
 use yii\web\Cookie;
 

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace booking\services\auth;
+namespace booking\services\user;
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\auth\PasswordResetRequestForm;
-use booking\forms\auth\ResendVerificationEmailForm;
+use booking\forms\user\PasswordResetRequestForm;
+use booking\forms\user\ResendVerificationEmailForm;
 use booking\forms\auth\ResetPasswordForm;
-use booking\repositories\UserRepository;
+use booking\repositories\user\UserRepository;
 use Yii;
 use yii\mail\MailerInterface;
 

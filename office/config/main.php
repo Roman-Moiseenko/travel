@@ -17,9 +17,9 @@ return [
             'csrfParam' => '_csrf-office',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'booking\entities\office\user\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity-office', 'httpOnly' => true],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
