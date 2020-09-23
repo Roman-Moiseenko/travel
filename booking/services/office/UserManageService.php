@@ -4,8 +4,11 @@
 namespace booking\services\office;
 
 
+use booking\entities\office\User;
 use booking\forms\admin\PasswordEditForm;
+use booking\forms\office\UserForm;
 use booking\repositories\office\UserRepository;
+use booking\services\RoleManager;
 use booking\services\TransactionManager;
 
 class UserManageService
@@ -19,12 +22,17 @@ class UserManageService
      * @var TransactionManager
      */
     private $transaction;
+    /**
+     * @var RoleManager
+     */
+    private $roles;
 
 
-    public function __construct(UserRepository $users, TransactionManager $transaction)
+    public function __construct(UserRepository $users, TransactionManager $transaction, RoleManager $roles)
     {
         $this->users = $users;
         $this->transaction = $transaction;
+        $this->roles = $roles;
     }
 /*
     public function setPersonal($id, PersonalForm $form)
@@ -45,13 +53,30 @@ class UserManageService
 
 
 */
-    public function update($id, UserEditForm $form): User
+
+    public function create(UserForm $form): User
+    {
+        $user = User::create(
+            $form->username,
+            $form->email,
+            $form->password
+        );
+
+        $this->transaction->wrap(function () use($user, $form) {
+            $this->users->save($user);
+            $this->roles->assign($user->id, $form->role);
+        });
+        return $user;
+    }
+
+    public function update($id, UserForm $form): User
     {
         $user = $this->users->get($id);
         $user->edit($form->username, $form->email);
-        $this->transaction->wrap(function () use ($user, $form) {
+        $this->transaction->wrap(function () use($user, $form) {
             if (!empty($form->password)) $user->setPassword($form->password);
             $this->users->save($user);
+            $this->roles->assign($user->id, $form->role);
         });
         return $user;
     }

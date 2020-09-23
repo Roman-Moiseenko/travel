@@ -14,9 +14,9 @@ class m200922_212033_add_office_users_roles extends Migration
     {
         //TODO ДОБАВИТЬ РОЛИ !!!!!!!!!!!!!!!!
         $this->batchInsert('{{%auth_items}}', ['type', 'name', 'description'], [
-            [1, 'support', 'Support'],
-            [1, 'manager', 'Manager'],
-            [1, 'admin', 'Admin'],
+            [1, 'support', 'Поддержка'],
+            [1, 'manager', 'Менеджер'],
+            [1, 'admin', 'Админ'],
         ]);
 
         $this->batchInsert('{{%auth_item_children}}', ['parent', 'child'], [

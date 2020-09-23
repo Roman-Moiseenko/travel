@@ -6,6 +6,7 @@ namespace common\bootstrap;
 
 use booking\repositories\user\UserRepository;
 
+use booking\services\RoleManager;
 use booking\services\user\PasswordResetService;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
@@ -39,6 +40,9 @@ class SetUp implements BootstrapInterface
             return new ContactService(
                 $app->mailer, new pdfServiceController('pdf_controller', new Module('pdf_module'))
             );
+        });
+        $container->setSingleton(RoleManager::class, function () use ($app) {
+            return new RoleManager($app->get('authManager'));
         });
 /*
         $container->setSingleton(SignupService::class, function () {
