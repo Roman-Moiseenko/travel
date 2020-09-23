@@ -51,6 +51,13 @@ class UserManageService
         $this->users->save($user);
     }
 
+    public function unlock($id)
+    {
+        $user = $this->users->get($id);
+        $user->status = User::STATUS_ACTIVE;
+        $this->users->save($user);
+    }
+
     public function setPersonal($id, PersonalForm $form)
     {
         $user = $this->users->get($id);

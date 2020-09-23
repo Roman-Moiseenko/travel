@@ -16,7 +16,7 @@ class ProvidersSearch extends User
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'status'], 'integer'],
             [['username', 'email'], 'safe'],
         ];
     }
@@ -33,12 +33,9 @@ class ProvidersSearch extends User
             $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
         $query->andFilterWhere([
             'u.id' => $this->id,
             'u.status' => $this->status,
-            //'role'
         ]);
 
         $query

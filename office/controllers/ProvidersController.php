@@ -7,6 +7,7 @@ namespace office\controllers;
 use booking\entities\admin\User;
 use booking\entities\Rbac;
 use booking\services\admin\UserManageService;
+use office\forms\ProviderLegalSearch;
 use office\forms\ProvidersSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -61,8 +62,13 @@ class ProvidersController extends Controller
 
     public function actionView($id)
     {
+        $searchModel = new ProviderLegalSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -71,6 +77,18 @@ class ProvidersController extends Controller
         try {
             $this->service->lock($id);
             \Yii::$app->session->setFlash('success', 'Провайдер заблокирован');
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionUnlock($id)
+    {
+        try {
+            $this->service->unlock($id);
+            \Yii::$app->session->setFlash('success', 'Провайдер разблокирован');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());

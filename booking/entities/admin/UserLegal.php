@@ -97,6 +97,7 @@ class UserLegal extends ActiveRecord
     {
         return '{{%admin_user_legals}}';
     }
+
     public function afterFind(): void
     {
         $this->address = new BookingAddress(
@@ -114,6 +115,7 @@ class UserLegal extends ActiveRecord
         $this->setAttribute('adr_longitude', $this->address->longitude);
         return parent::beforeSave($insert);
     }
+
     public function behaviors(): array
     {
         return [
@@ -172,7 +174,7 @@ class UserLegal extends ActiveRecord
 
     public function getContactAssignment(): ActiveQuery
     {
-        return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id'])->orderBy(['contact_id' =>  SORT_ASC]);
+        return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id'])->orderBy(['contact_id' => SORT_ASC]);
     }
 
     public function getContacts(): ActiveQuery
