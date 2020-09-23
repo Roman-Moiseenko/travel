@@ -1,13 +1,8 @@
 <?php
 
-
 namespace common\bootstrap;
 
-
-use booking\repositories\user\UserRepository;
-
 use booking\services\RoleManager;
-use booking\services\user\PasswordResetService;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
 use yii\base\Application;
@@ -25,13 +20,23 @@ class SetUp implements BootstrapInterface
     public function bootstrap($app)
     {
         $container = \Yii::$container;
-        $container->setSingleton(PasswordResetService::class, function () use ($app) {
-            return new PasswordResetService(
-                [$app->params['supportEmail'] => $app->name . ' robot'],
+
+        $container->setSingleton(\booking\services\admin\PasswordResetService::class, function () use ($app) {
+
+            return new \booking\services\admin\PasswordResetService(
+                [ $app->params['supportEmail'] => $app->name . ' robot'],
                 $app->mailer,
-                new UserRepository());
+                new \booking\repositories\admin\UserRepository());
         });
 
+        $container->setSingleton(\booking\services\user\PasswordResetService::class, function () use ($app) {
+
+            return new \booking\services\user\PasswordResetService(
+                [ $app->params['supportEmail'] => $app->name . ' robot'],
+                $app->mailer,
+                new \booking\repositories\user\UserRepository());
+        });
+        //
         $container->setSingleton(pdfServiceController::class, function () use ($app) {
             return new pdfServiceController('pdf_controller', new Module('pdf_module'));
         });

@@ -100,7 +100,6 @@ class PasswordResetService
     public function verifyEmail($token): User
     {
         $user = $this->repository->getByEmailConfirmToken($token);
-
         $user->status = User::STATUS_ACTIVE;
         $user->removeVerificationToken();
         $this->repository->save($user);

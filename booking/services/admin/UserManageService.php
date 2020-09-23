@@ -44,6 +44,13 @@ class UserManageService
         $this->legals = $legals;
     }
 
+    public function lock($id)
+    {
+        $user = $this->users->get($id);
+        $user->status = User::STATUS_LOCK;
+        $this->users->save($user);
+    }
+
     public function setPersonal($id, PersonalForm $form)
     {
         $user = $this->users->get($id);

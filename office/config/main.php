@@ -10,7 +10,11 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'office\controllers',
-    'bootstrap' => ['log'],
+
+    'bootstrap' => [
+        'log',
+        'common\bootstrap\SetUp',
+    ],
     'modules' => [],
     'components' => [
         'request' => [
