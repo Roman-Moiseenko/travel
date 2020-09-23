@@ -22,6 +22,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
     </head>
     <body class="hold-transition login-page">
     <?php $this->beginBody() ?>
+    <?= \frontend\widgets\AlertWidget::widget() ?>
     <div class="login-box">
         <div class="login-logo">
             <a href="<?= Yii::$app->homeUrl ?>"><b>Kenig</b>Travel</a>

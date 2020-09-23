@@ -14,9 +14,9 @@ $this->params['breadcrumbs'][] = ['label' => $user->username, 'url' => ['view', 
 $this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="user-update">
-<div class="">
-    <div class="box">
-        <div class="box-body">
+
+    <div class="card">
+        <div class="card-body">
             <div class="user-form">
 
                 <?php $form = ActiveForm::begin(); ?>
@@ -35,5 +35,5 @@ $this->params['breadcrumbs'][] = 'Изменить';
             </div>
         </div>
     </div>
-</div>
+
 </div>

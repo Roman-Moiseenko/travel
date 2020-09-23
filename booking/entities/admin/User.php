@@ -145,6 +145,18 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    public function isInactive(): bool
+    {
+        if ($this->status === self::STATUS_INACTIVE) return true;
+        return false;
+    }
+
+    public function isLock(): bool
+    {
+        if ($this->status === self::STATUS_LOCK) return true;
+        return false;
+    }
+
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {

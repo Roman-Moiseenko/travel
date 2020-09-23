@@ -18,4 +18,9 @@ class UserAddress
         $this->address = $address;
         $this->index = $index;
     }
+
+    public function getAddress()
+    {
+        return $this->index . ',' . $this->town . ', ' . $this->address;
+    }
 }

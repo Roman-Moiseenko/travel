@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">
-    <div class="box">
-        <div class="box-body">
+    <div class="card">
+        <div class="card-body">
             <div class="user-form">
                 <?php $form = ActiveForm::begin(); ?>
                 <?= $form->field($model, 'username')->textInput()->label('Логин') ?>

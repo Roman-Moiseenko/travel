@@ -24,9 +24,17 @@ class AuthService
     {
         /** @var User $user */
         $user = $this->users->getByUsernameEmail($form->username);
-        if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
+
+        if (!$user || !$user->validatePassword($form->password)) {
             throw new \DomainException('Неверный логин или пароль');
         }
+        if ($user->isInactive()) {
+            throw new \DomainException('Пользователь не подтвержден');
+        }
+        if ($user->isLock()) {
+            throw new \DomainException('Пользователь заблокирован');
+        }
+
         return $user;
     }
 }

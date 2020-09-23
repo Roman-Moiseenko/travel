@@ -111,8 +111,6 @@ class ResetController extends Controller
         {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-
-
         return $this->goHome();
     }
 
@@ -134,7 +132,6 @@ class ResetController extends Controller
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-
         return $this->render('resend', [
             'model' => $form
         ]);

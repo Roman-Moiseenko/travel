@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $model->username;
             ],
         ]) ?>
     </p>
-<div class="box">
-    <div class="box-body">
+<div class="card">
+    <div class="card-body">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

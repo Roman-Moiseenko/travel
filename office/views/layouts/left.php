@@ -24,7 +24,7 @@ use yii\helpers\Url;
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
-                    ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
+                    ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
                     ['label' => 'Жилища', 'icon' => 'hotel', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                     ['label' => 'Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
                     ['label' => 'Туры', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
@@ -35,6 +35,7 @@ use yii\helpers\Url;
                         ['label' => 'Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
                         ['label' => 'Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
                     ]],
+                    ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
                 ],
             ]);

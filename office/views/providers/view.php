@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $model->username;
             ],
         ]) ?>
     </p>
-<div class="box">
-    <div class="box-body">
+<div class="card">
+    <div class="card-body">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -44,12 +44,6 @@ $this->params['breadcrumbs'][] = $model->username;
                 'label' => 'Почта'
             ],
             [
-                'value' => implode(', ', OfficeUserHelper::roles($model->id)),
-                'format' => 'raw',
-                'label' => 'Уровень доступа'
-            ],
-            'password_reset_token',
-            [
                 'attribute' =>'created_at',
                 'format' => 'datetime',
                 'label' => 'Создан'
@@ -59,9 +53,37 @@ $this->params['breadcrumbs'][] = $model->username;
                 'format' => 'datetime',
                 'label' => 'Изменен'
             ],
-            'verification_token',
         ],
     ]) ?>
     </div>
 </div>
+    <div class="card">
+        <div class="card-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    [
+                        'value' => $model->personal->fullname->getFullname(),
+                        'label' => 'ФИО'
+                    ],
+                    [
+                        'value' => $model->personal->phone,
+                        'label' => 'Телефон'
+                    ],
+                    [
+                        'value' => $model->personal->address->getAddress(),
+                        'label' => 'Адрес'
+                    ],
+                    [
+                        'value' => date('d-m-Y', $model->personal->dateborn),
+                        'label' => 'Дата рождения'
+                    ],
+                    [
+                        'value' => $model->personal->position,
+                        'label' => 'Должность'
+                    ],
+                ],
+            ]) ?>
+        </div>
+    </div>
 </div>
