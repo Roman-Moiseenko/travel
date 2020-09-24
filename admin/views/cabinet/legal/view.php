@@ -1,14 +1,14 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 
 /* @var $user User */
-/* @var $legal UserLegal */
+/* @var $legal Legal */
 
 $this->title = $legal->name;
 $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['index']];

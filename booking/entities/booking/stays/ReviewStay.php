@@ -3,7 +3,7 @@
 namespace booking\entities\booking\stays;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
@@ -72,7 +72,7 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
         // TODO: Implement getAdmin() method.
     }
 
-    public function getLegal(): UserLegal
+    public function getLegal(): Legal
     {
         // TODO: Implement getLegal() method.
     }

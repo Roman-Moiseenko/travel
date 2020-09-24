@@ -4,7 +4,7 @@
 namespace booking\services\admin;
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
@@ -88,10 +88,10 @@ class UserManageService
         $this->users->save($user);
     }
 
-    public function newLegal($id, UserLegalForm $form): UserLegal
+    public function newLegal($id, UserLegalForm $form): Legal
     {
         $user = $this->users->get($id);
-        $legal = UserLegal::create(
+        $legal = Legal::create(
             $form->name,
             $form->BIK,
             $form->account,

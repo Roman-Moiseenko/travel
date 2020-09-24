@@ -1,14 +1,14 @@
 <?php
 
 use booking\entities\admin\ContactAssignment;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\forms\admin\ContactAssignmentForm;
 use booking\helpers\ContactHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-/* @var  $legal UserLegal */
+/* @var  $legal Legal */
 /* @var $model ContactAssignmentForm */
 
 

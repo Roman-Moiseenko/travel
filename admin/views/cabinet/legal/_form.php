@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\forms\admin\UserLegalForm;
 use kartik\widgets\FileInput;
 use mihaildev\ckeditor\CKEditor;
@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model UserLegalForm */
-/* @var $legal UserLegal */
+/* @var $legal Legal */
 ?>
 
 

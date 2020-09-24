@@ -5,7 +5,7 @@ namespace booking\entities\booking;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
@@ -28,7 +28,7 @@ class Discount extends ActiveRecord
 {
     const E_ADMIN_USER = \booking\entities\admin\User::class;
     const E_OFFICE_USER = \booking\entities\office\User::class;
-    const E_USER_LEGAL = UserLegal::class;
+    const E_USER_LEGAL = Legal::class;
     const E_BOOKING_TOUR = BookingTour::class;
     const E_BOOKING_STAY = BookingStay::class;
     const E_BOOKING_CAR = BookingCar::class;
@@ -98,7 +98,7 @@ class Discount extends ActiveRecord
     {
         return [
             User::class,
-            UserLegal::class,
+            Legal::class,
             BookingTour::class,
             BookingStay::class,
             BookingCar::class

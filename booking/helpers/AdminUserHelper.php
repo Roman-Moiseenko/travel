@@ -5,7 +5,7 @@ namespace booking\helpers;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\helpers\ArrayHelper;
 
 class AdminUserHelper
@@ -13,7 +13,7 @@ class AdminUserHelper
     public static function listLegals(): array
     {
         $id = \Yii::$app->user->id;
-        return ArrayHelper::map(UserLegal::find()->andWhere(['user_id' => $id])->asArray()->all(),
+        return ArrayHelper::map(Legal::find()->andWhere(['user_id' => $id])->asArray()->all(),
             'id',
             function (array $legal) {
             return $legal['name'];

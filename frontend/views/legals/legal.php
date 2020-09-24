@@ -1,14 +1,14 @@
 <?php
 
 use booking\entities\admin\Contact;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-/* @var $legal UserLegal */
+/* @var $legal Legal */
 
 $this->title = $legal->name;
 $this->params['breadcrumbs'][] = $this->title;

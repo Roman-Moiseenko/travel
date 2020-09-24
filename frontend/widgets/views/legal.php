@@ -1,7 +1,7 @@
 <?php
-/* @var $legal \booking\entities\admin\UserLegal */
+/* @var $legal \booking\entities\admin\Legal */
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\helpers\Html;
 use yii\helpers\Url; ?>
 

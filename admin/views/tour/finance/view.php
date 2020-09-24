@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\ToursHelper;
 use kartik\widgets\DatePicker;
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = 'Цены';
                                 'attribute' => 'legal_id',
                                 'label' => 'Организация',
                                 'value' => function () use ($tour) {
-                                    $legal = UserLegal::findOne($tour->legal_id);
+                                    $legal = Legal::findOne($tour->legal_id);
                                     return $legal ? $legal->name : '';
                                 },
                             ],

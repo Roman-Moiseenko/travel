@@ -1,11 +1,9 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
-use booking\helpers\OfficeUserHelper;
+use booking\entities\admin\Legal;
 use office\forms\ProviderLegalSearch;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -99,15 +97,15 @@ $this->params['breadcrumbs'][] = $model->username;
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     [
-                        'value' => function (UserLegal $model) {
-                            return '';//$model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
+                        'value' => function (Legal $model) {
+                            return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
                         },
                         'format' => 'raw',
                         'contentOptions' => ['style' => 'width: 100px'],
                     ],
                     [
                         'label' => 'Торговая марка',
-                        'value' => function (UserLegal $model) {
+                        'value' => function (Legal $model) {
                             return Html::a(Html::encode($model->caption), ['/legals/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
@@ -116,7 +114,7 @@ $this->params['breadcrumbs'][] = $model->username;
                     ],
                     [
                         'label' => 'Организация',
-                        'value' => function (UserLegal $model) {
+                        'value' => function (Legal $model) {
                             return Html::a(Html::encode($model->name), ['/legals/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',

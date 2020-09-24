@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     [
-                        'value' => function (UserLegal $model) {
+                        'value' => function (Legal $model) {
                             return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
                         },
                         'format' => 'raw',
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'label' => 'Торговая марка',
-                        'value' => function (UserLegal $model) {
+                        'value' => function (Legal $model) {
                             return Html::a(Html::encode($model->caption), ['/cabinet/legal/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'label' => 'Организация',
-                        'value' => function (UserLegal $model) {
+                        'value' => function (Legal $model) {
                             return Html::a(Html::encode($model->name), ['/cabinet/legal/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',

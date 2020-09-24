@@ -4,7 +4,7 @@
 namespace booking\repositories\booking;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
@@ -69,7 +69,7 @@ class BookingRepository
                                 [
                                     'IN',
                                     'legal_id',
-                                    UserLegal::find()->select('id')->andWhere(['user_id' => $admin_id])
+                                    Legal::find()->select('id')->andWhere(['user_id' => $admin_id])
                                 ]
                             )
                         ]
@@ -100,7 +100,7 @@ class BookingRepository
                                     [
                                         'IN',
                                         'legal_id',
-                                        UserLegal::find()->select('id')->andWhere(['user_id' => $admin_id])
+                                        Legal::find()->select('id')->andWhere(['user_id' => $admin_id])
                                     ]
                                 )
                             ]

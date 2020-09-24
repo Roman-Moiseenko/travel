@@ -3,7 +3,7 @@ namespace booking\entities\admin;
 
 use booking\entities\admin\Notice;
 use booking\entities\admin\Personal;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
 use booking\entities\booking\stays\Stay;
@@ -31,7 +31,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property UserLegal[] $legals
+ * @property Legal[] $legals
  * @property Personal $personal
  * @property Notice $notice
  * @property Discount[] $discounts
@@ -106,14 +106,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-    public function addLegal(UserLegal $legal)
+    public function addLegal(Legal $legal)
     {
         $legals = $this->legals;
         $legals[] = $legal;
         $this->legals = $legals;
     }
 
-    public function updateLegal($id, UserLegal $legal_new)
+    public function updateLegal($id, Legal $legal_new)
     {
         $legals = $this->legals;
         foreach ($legals as $i => $legal) {
@@ -363,10 +363,10 @@ class User extends ActiveRecord implements IdentityInterface
     /** getXXX ==========> */
     public function getLegals(): ActiveQuery
     {
-        return $this->hasMany(UserLegal::class, ['user_id' => 'id']);
+        return $this->hasMany(Legal::class, ['user_id' => 'id']);
     }
 
-    public function getLegal($id): UserLegal
+    public function getLegal($id): Legal
     {
         $legals = $this->legals;
         foreach ($legals as $legal) {

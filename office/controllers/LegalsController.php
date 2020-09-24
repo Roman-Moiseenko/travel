@@ -5,14 +5,13 @@ namespace office\controllers;
 
 
 use booking\entities\Rbac;
-use office\forms\ClientsSearch;
+use office\forms\LegalsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class ClientsController extends Controller
+class LegalsController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -37,7 +36,7 @@ class ClientsController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new ClientsSearch();
+        $searchModel = new LegalsSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [

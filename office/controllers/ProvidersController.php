@@ -48,7 +48,6 @@ class ProvidersController extends Controller
         ];
     }
 
-
     public function actionIndex()
     {
         $searchModel = new ProvidersSearch();

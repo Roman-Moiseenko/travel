@@ -5,7 +5,7 @@ namespace booking\entities\booking\cars;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -88,7 +88,7 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
         // TODO: Implement getAdminId() method.
     }
 
-    public function getLegal(): UserLegal
+    public function getLegal(): Legal
     {
         // TODO: Implement getLegal() method.
     }

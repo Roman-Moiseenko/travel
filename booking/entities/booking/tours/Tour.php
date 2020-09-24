@@ -4,7 +4,7 @@
 namespace booking\entities\booking\tours;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
@@ -559,7 +559,7 @@ class Tour extends ActiveRecord
 
     public function getLegal(): ActiveQuery
     {
-        return $this->hasOne(UserLegal::class, ['id' => 'legal_id']);
+        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
     }
     public function getActualCalendar(): ActiveQuery
     {

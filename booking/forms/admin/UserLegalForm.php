@@ -2,7 +2,7 @@
 
 namespace booking\forms\admin;
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\booking\PhotosForm;
@@ -27,7 +27,7 @@ class UserLegalForm extends CompositeForm
     public $noticeEmail;
 
 
-    public function __construct(UserLegal $legal = null, $config = [])
+    public function __construct(Legal $legal = null, $config = [])
     {
         if ($legal) {
             $this->name = $legal->name;

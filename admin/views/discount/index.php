@@ -3,7 +3,7 @@
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
 use booking\entities\booking\stays\Stay;
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($model->entities == Discount::E_ADMIN_USER) return '';
                 if ($model->entities_id == null) return 'Все';
                 if ($model->entities == Discount::E_USER_LEGAL) {
-                    $legal = UserLegal::findOne($model->entities_id);
+                    $legal = Legal::findOne($model->entities_id);
                     return $legal->caption . ' (' . $legal->name . ')';
                 }
                 if ($model->entities == Discount::E_BOOKING_TOUR) {

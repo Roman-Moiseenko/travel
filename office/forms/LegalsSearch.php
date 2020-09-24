@@ -1,23 +1,27 @@
 <?php
 
 
-namespace admin\forms\user;
+namespace office\forms;
 
 
 use booking\entities\admin\Legal;
 use yii\data\ActiveDataProvider;
 
-class LegalSearch extends Legal
+class LegalsSearch extends Legal
 {
+
+
     public function rules()
     {
         return [
+            [['id', 'created_at'], 'integer'],
+            [['name', 'caption'], 'safe'],
         ];
     }
 
     public function search($params): ActiveDataProvider
     {
-        $query = Legal::find()->andWhere(['user_id' => \Yii::$app->user->id]);
+        $query = Legal::find();
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -34,7 +38,15 @@ class LegalSearch extends Legal
             $query->where('0=1');
             return $dataProvider;
         }
+        $query->andFilterWhere([
+            'id' => $this->id,
+            //'role'
+        ]);
 
+
+        $query
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'caption', $this->caption]);
         return $dataProvider;
     }
 }

@@ -38,7 +38,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property ContactAssignment[] $contactAssignment
  * @property Contact[] $contacts
  */
-class UserLegal extends ActiveRecord
+class Legal extends ActiveRecord
 {
     public $address;
 

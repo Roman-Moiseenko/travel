@@ -4,7 +4,7 @@
 namespace booking\repositories\booking;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
@@ -50,7 +50,7 @@ class ReviewRepository
             Tour::find()->select('id')->andWhere([
                 'IN',
                 'legal_id',
-                UserLegal::find()->select('id')->andWhere(['user_id' => $admin_id])])
+                Legal::find()->select('id')->andWhere(['user_id' => $admin_id])])
             ])
             ->andWhere(['>=', 'created_at', $old])
             ->orderBy(['created_at' => SORT_DESC])->all();

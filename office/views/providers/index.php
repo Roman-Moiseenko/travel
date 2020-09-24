@@ -1,12 +1,7 @@
 <?php
 
-$this->title = 'Провайдеры';
-$this->params['breadcrumbs'][] = $this->title;
-
 use booking\entities\admin\User;
 use booking\helpers\AdminUserHelper;
-use booking\helpers\OfficeUserHelper;
-use office\widgets\RoleColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -14,6 +9,9 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel office\forms\ProvidersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Провайдеры';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="providers-list">
 

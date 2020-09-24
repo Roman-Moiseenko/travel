@@ -4,10 +4,10 @@
 namespace office\forms;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\data\ActiveDataProvider;
 
-class ProviderLegalSearch extends UserLegal
+class ProviderLegalSearch extends Legal
 {
     public function rules()
     {
@@ -17,7 +17,7 @@ class ProviderLegalSearch extends UserLegal
 
     public function search($params): ActiveDataProvider
     {
-        $query = UserLegal::find()->andWhere(['user_id' => \Yii::$app->user->id]);
+        $query = Legal::find()->andWhere(['user_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

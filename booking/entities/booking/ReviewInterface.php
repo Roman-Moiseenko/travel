@@ -5,13 +5,13 @@ namespace booking\entities\booking;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 
 interface ReviewInterface
 {
     /** get entities */
     public function getAdmin(): User;
-    public function getLegal(): UserLegal;
+    public function getLegal(): Legal;
     /** get field */
     public function getId(): int;
     public function getLinks(): array;

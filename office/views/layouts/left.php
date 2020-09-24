@@ -23,6 +23,7 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
+                    ['label' => 'Финансы', 'icon' => 'file-invoice-dollar', 'url' => ['/finance'], 'active' => $this->context->id == 'finance'],
                     ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
                     ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
                     ['label' => 'Жилища', 'icon' => 'hotel', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],

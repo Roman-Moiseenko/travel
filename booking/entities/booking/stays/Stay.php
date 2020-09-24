@@ -4,7 +4,7 @@
 namespace booking\entities\booking\stays;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\rooms\Rooms;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\rules\Rules;
@@ -290,7 +290,7 @@ class Stay extends ActiveRecord
 
     public function getLegal(): ActiveQuery
     {
-        return $this->hasOne(UserLegal::class, ['id' => 'legal_id']);
+        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
     }
 
     public function getReviews(): ActiveQuery

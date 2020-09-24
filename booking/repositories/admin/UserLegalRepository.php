@@ -4,16 +4,16 @@
 namespace booking\repositories\admin;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 
 class UserLegalRepository
 {
-    public function get($id): UserLegal
+    public function get($id): Legal
     {
-        return UserLegal::findOne($id);
+        return Legal::findOne($id);
     }
 
-    public function save(UserLegal $legal)
+    public function save(Legal $legal)
     {
         if (!$legal->save()) {
             throw new \DomainException('Ошибка сохранения организации');

@@ -5,7 +5,7 @@ namespace booking\entities\booking\tours;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\Discount;
 use booking\entities\Lang;
@@ -218,10 +218,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return User::findOne($id);
     }
 
-    public function getLegal(): UserLegal
+    public function getLegal(): Legal
     {
         $id = $this->calendar->tour->legal_id;
-        return UserLegal::findOne($id);
+        return Legal::findOne($id);
     }
 
     public function getCreated(): int

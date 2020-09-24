@@ -3,7 +3,7 @@
 namespace booking\repositories\admin;
 
 use booking\entities\admin\User;
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use booking\entities\Lang;
 
 class UserRepository
@@ -53,7 +53,7 @@ class UserRepository
     public function getByLegal($id): User
 
     {
-        return User::find()->andWhere(['id' => UserLegal::find()->select('user_id')->andWhere(['id' => $id])])->one();
+        return User::find()->andWhere(['id' => Legal::find()->select('user_id')->andWhere(['id' => $id])])->one();
     }
 
     private function getBy(array $condition): User

@@ -42,8 +42,8 @@ class PersonalForm extends CompositeForm
         return [
             [['position'], 'string'],
             ['datebornform', 'safe'],
-            ['phone', 'string', 'length' => 10],
-            ['phone', 'match', 'pattern' => '/^[0-9]*$/i'],
+            ['phone', 'string', 'min' => 10, 'max' => 13],
+            ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
             ['phone', 'required'],
         ];
     }

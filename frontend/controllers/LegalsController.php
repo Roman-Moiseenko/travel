@@ -4,7 +4,7 @@
 namespace frontend\controllers;
 
 
-use booking\entities\admin\UserLegal;
+use booking\entities\admin\Legal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -28,7 +28,7 @@ class LegalsController extends Controller
 
     private function findModel($id)
     {
-        if (($model = UserLegal::findOne($id)) !== null) {
+        if (($model = Legal::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
