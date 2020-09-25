@@ -239,6 +239,8 @@ class TourService
     public function verify($id)
     {
         $tour = $this->tours->get($id);
+        if (!$tour->isInactive())
+            throw new \DomainException('Нельзя отправить на модерацию');
         $tour->setStatus(StatusHelper::STATUS_VERIFY);
         $dialog = Dialog::create(
             null,
@@ -256,6 +258,8 @@ class TourService
     public function cancel(int $id)
     {
         $tour = $this->tours->get($id);
+        if (!$tour->isVerify())
+            throw new \DomainException('Нельзя отменить');
         $tour->setStatus(StatusHelper::STATUS_INACTIVE);
         $dialog = Dialog::create(
             null,
@@ -273,6 +277,8 @@ class TourService
     public function draft(int $id)
     {
         $tour = $this->tours->get($id);
+        if (!$tour->isActive())
+            throw new \DomainException('Нельзя отправить в черновики');
         $tour->setStatus(StatusHelper::STATUS_DRAFT);
         $this->tours->save($tour);
     }
@@ -280,9 +286,18 @@ class TourService
     public function activate(int $id)
     {
         $tour = $this->tours->get($id);
-        $tour->setStatus(StatusHelper::STATUS_ACTIVE);
-        $this->tours->save($tour);
+        if ($tour->isDraft() || $tour->isVerify()) {
+            $tour->setStatus(StatusHelper::STATUS_ACTIVE);
+            $this->tours->save($tour);
+        } else {
+            throw new \DomainException('Нельзя активировать');
+        }
     }
 
-
+    public function lock(int $id)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setStatus(StatusHelper::STATUS_LOCK);
+        $this->tours->save($tour);
+    }
 }

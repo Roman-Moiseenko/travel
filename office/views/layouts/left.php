@@ -26,9 +26,9 @@ use yii\helpers\Url;
                     ['label' => 'Финансы', 'icon' => 'file-invoice-dollar', 'url' => ['/finance'], 'active' => $this->context->id == 'finance'],
                     ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
                     ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
+                    ['label' => 'Туры', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
                     ['label' => 'Жилища', 'icon' => 'hotel', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                     ['label' => 'Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
-                    ['label' => 'Туры', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/reviews'], 'active' => $this->context->id == 'reviews'],
                     ['label' => 'Диалоги', 'icon' => 'comments', 'url' => ['/dialogs'], 'active' => $this->context->id == 'dialogs'],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [

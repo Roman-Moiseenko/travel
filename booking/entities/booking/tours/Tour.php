@@ -46,12 +46,6 @@ use yii\web\UploadedFile;
  */
 class Tour extends ActiveRecord
 {
-  /*  const STATUS_LOCK = 0;
-    const STATUS_INACTIVE = 1;
-    const STATUS_ACTIVE = 2;
-    const STATUS_VERIFY = 3;
-    const STATUS_DRAFT = 4;*/
-
     const TOUR_FULL = 11;
     const TOUR_CANCEL = 12;
     const TOUR_CURRIENT = 13;
@@ -109,6 +103,26 @@ class Tour extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === StatusHelper::STATUS_ACTIVE;
+    }
+
+    public function isVerify(): bool
+    {
+        return $this->status === StatusHelper::STATUS_VERIFY;
+    }
+
+    public function isDraft(): bool
+    {
+        return $this->status === StatusHelper::STATUS_DRAFT;
+    }
+
+    public function isInactive(): bool
+    {
+        return $this->status === StatusHelper::STATUS_INACTIVE;
     }
 
     public function isCancellation($date_tours)
