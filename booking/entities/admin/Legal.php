@@ -7,6 +7,9 @@ namespace booking\entities\admin;
 use booking\entities\admin\Contact;
 use booking\entities\admin\ContactAssignment;
 use booking\entities\booking\BookingAddress;
+use booking\entities\booking\cars\Car;
+use booking\entities\booking\stays\Stay;
+use booking\entities\booking\tours\Tour;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\helpers\scr;
@@ -37,6 +40,10 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $noticeEmail
  * @property ContactAssignment[] $contactAssignment
  * @property Contact[] $contacts
+ * @property User $user
+ * @property Tour[] $tours
+ * @property Stay[] $stays
+ * @property Car[] $cars
  */
 class Legal extends ActiveRecord
 {
@@ -180,6 +187,26 @@ class Legal extends ActiveRecord
     public function getContacts(): ActiveQuery
     {
         return $this->hasMany(Contact::class, ['id' => 'contact_id'])->via('contactAssignment');
+    }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getTours(): ActiveQuery
+    {
+        return $this->hasOne(Tour::class, ['legal_id' => 'id']);
+    }
+
+    public function getStays(): ActiveQuery
+    {
+        return $this->hasOne(Stay::class, ['legal_id' => 'id']);
+    }
+
+    public function getCars(): ActiveQuery
+    {
+        return $this->hasOne(Car::class, ['legal_id' => 'id']);
     }
 
 }

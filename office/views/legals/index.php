@@ -1,6 +1,8 @@
 <?php
 
+use booking\entities\admin\Legal;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel office\forms\LegalsSearch */
@@ -23,20 +25,32 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'INN',
-                            'label' => 'ИНН'
+                            'label' => 'ИНН',
+                            'options' => ['width' => '150px',]
                         ],
                         [
                             'attribute' => 'name',
-                            'label' => 'Название (ссылка+)'
+                            'value' => function (Legal $model) {
+                                return Html::a($model->name, ['legals/view', 'id' => $model->id]);
+                            },
+                            'label' => 'Название',
+                            'format' => 'raw',
                         ],
                         [
                             'attribute' => 'caption',
-
-                            'label' => 'Заголовок (ссылка+)'
+                            'value' => function (Legal $model) {
+                                return Html::a($model->caption, ['legals/view', 'id' => $model->id]);
+                            },
+                            'label' => 'Заголовок',
+                            'format' => 'raw',
                         ],
                         [
                             'attribute' => 'user_id',
-                            'label' => 'Провайдер (ссылка+)'
+                            'value' => function (Legal $model) {
+                                return Html::a($model->user->username, ['providers/view', 'id' => $model->user_id]);
+                            },
+                            'label' => 'Провайдер',
+                            'format' => 'raw',
                         ],
                         [
                             'attribute' => 'created_at',

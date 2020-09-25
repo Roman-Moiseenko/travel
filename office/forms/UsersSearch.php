@@ -34,12 +34,9 @@ class UsersSearch extends User
             $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
         $query->andFilterWhere([
             'u.id' => $this->id,
             'u.status' => $this->status,
-            //'role'
         ]);
 
         if (!empty($this->role)) {

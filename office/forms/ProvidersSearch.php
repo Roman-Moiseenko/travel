@@ -29,7 +29,6 @@ class ProvidersSearch extends User
         ]);
         $this->load($params);
         if (!$this->validate()) {
-
             $query->where('0=1');
             return $dataProvider;
         }
@@ -37,7 +36,6 @@ class ProvidersSearch extends User
             'u.id' => $this->id,
             'u.status' => $this->status,
         ]);
-
         $query
             ->andFilterWhere(['like', 'u.username', $this->username])
             ->andFilterWhere(['like', 'u.email', $this->email]);

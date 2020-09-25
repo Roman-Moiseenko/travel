@@ -61,7 +61,9 @@ class ProvidersController extends Controller
 
     public function actionView($id)
     {
-        $searchModel = new ProviderLegalSearch();
+        $searchModel = new ProviderLegalSearch([
+            'user_id' => $id,
+        ]);
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('view', [

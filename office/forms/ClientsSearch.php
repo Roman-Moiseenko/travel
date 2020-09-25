@@ -36,7 +36,6 @@ class ClientsSearch extends User
         $query->andFilterWhere([
             'u.id' => $this->id,
         ]);
-
         $query
             ->andFilterWhere(['like', 'u.username', $this->username])
             ->andFilterWhere(['like', 'u.email', $this->email]);

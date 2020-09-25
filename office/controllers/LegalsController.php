@@ -4,6 +4,7 @@
 namespace office\controllers;
 
 
+use booking\entities\admin\Legal;
 use booking\entities\Rbac;
 use office\forms\LegalsSearch;
 use yii\filters\AccessControl;
@@ -42,6 +43,14 @@ class LegalsController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        if (!$legal = Legal::findOne($id)) throw new \DomainException('Организация не найдена');
+        return $this->render('view', [
+            'legal' => $legal,
         ]);
     }
 }
