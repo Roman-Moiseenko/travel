@@ -196,17 +196,17 @@ class Legal extends ActiveRecord
 
     public function getTours(): ActiveQuery
     {
-        return $this->hasOne(Tour::class, ['legal_id' => 'id']);
+        return $this->hasMany(Tour::class, ['legal_id' => 'id']);
     }
 
     public function getStays(): ActiveQuery
     {
-        return $this->hasOne(Stay::class, ['legal_id' => 'id']);
+        return $this->hasMany(Stay::class, ['legal_id' => 'id']);
     }
 
     public function getCars(): ActiveQuery
     {
-        return $this->hasOne(Car::class, ['legal_id' => 'id']);
+        return $this->hasMany(Car::class, ['legal_id' => 'id']);
     }
 
 }

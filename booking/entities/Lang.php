@@ -54,7 +54,7 @@ class Lang extends ActiveRecord
         //Определяем какой User запросил перевод,
         //если клиент, то получаем текущий язык
         //иначе ставим Русский
-        if (\Yii::$app->user->identity instanceof admin\User) {
+        if (\Yii::$app->user->identity instanceof admin\User || \Yii::$app->user->identity instanceof office\User) {
             $lang = 'ru';
         } else {
             $lang = Lang::current();
