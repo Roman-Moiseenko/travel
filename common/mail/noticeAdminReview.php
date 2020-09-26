@@ -1,13 +1,9 @@
 <?php
 
 use booking\entities\booking\ReviewInterface;
-
-
 /* @var $review ReviewInterface */
 
 $url = \Yii::$app->params['adminHostInfo'];
-
-
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">

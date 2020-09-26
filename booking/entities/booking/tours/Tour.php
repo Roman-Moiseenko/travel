@@ -43,6 +43,7 @@ use yii\web\UploadedFile;
  * @property Cost $baseCost
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
+ * @property Legal $legal
  */
 class Tour extends ActiveRecord
 {
@@ -123,6 +124,11 @@ class Tour extends ActiveRecord
     public function isInactive(): bool
     {
         return $this->status === StatusHelper::STATUS_INACTIVE;
+    }
+
+    public function isLock()
+    {
+        return $this->status === StatusHelper::STATUS_LOCK;
     }
 
     public function isCancellation($date_tours)
@@ -585,4 +591,6 @@ class Tour extends ActiveRecord
     {
         return new ToursQueries(static::class);
     }
+
+
 }

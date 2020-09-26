@@ -181,4 +181,16 @@ class ContactService
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
     }
+
+    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
+    {
+        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
+            ->setTo($tour->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($tour->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
 }

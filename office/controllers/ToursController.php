@@ -7,6 +7,7 @@ namespace office\controllers;
 use booking\entities\booking\tours\Tour;
 use booking\entities\Rbac;
 use booking\services\booking\tours\TourService;
+use office\forms\ToursSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -81,6 +82,12 @@ class ToursController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionUnlock($id)
+    {
+        $tour = $this->find($id);
+        $this->service->unlock($tour->id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
     public function find($id)
     {
         if (!$tour = Tour::findOne($id))

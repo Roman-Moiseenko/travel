@@ -6,6 +6,7 @@ namespace admin\controllers\tour;
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ToursCommonForms;
+use booking\helpers\BookingHelper;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
@@ -145,7 +146,7 @@ class CommonController extends Controller
     {
         $tour = $this->findModel($id);
         try {
-            $this->service->support($tour->id);
+            $this->service->support($tour->id, BookingHelper::BOOKING_TYPE_TOUR);
             \Yii::$app->session->setFlash('success', 'Запрос отправлен в поддержку');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);

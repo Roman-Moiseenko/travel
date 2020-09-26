@@ -299,5 +299,21 @@ class TourService
         $tour = $this->tours->get($id);
         $tour->setStatus(StatusHelper::STATUS_LOCK);
         $this->tours->save($tour);
+        $this->contactService->sendLockTour($tour);
     }
+
+    public function unlock(int $id)
+    {
+        $tour = $this->tours->get($id);
+        if (!$tour->isLock())
+            throw new \DomainException('Нельзя разблокировать');
+        $tour->setStatus(StatusHelper::STATUS_INACTIVE);
+        $this->tours->save($tour);
+    }
+
+    public function support(int $id, $type)
+    {
+        //TODO !!!!! отправка жалобы на заблокированный объект
+    }
+
 }
