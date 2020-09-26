@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
         'css/glyphicon.css',
     ];
     public $js = [
+        'js/map.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
