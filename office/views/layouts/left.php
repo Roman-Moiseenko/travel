@@ -33,7 +33,7 @@ use yii\helpers\Url;
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/reviews'], 'active' => $this->context->id == 'reviews'],
                     ['label' => 'Диалоги', 'icon' => 'comments', 'url' => ['/dialogs'], 'active' => $this->context->id == 'dialogs'],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
-                        ['label' => 'Туры (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
+                        ['label' => 'Туры (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
                         ['label' => 'Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
                         ['label' => 'Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/'], 'active' => $this->context->id == 'guides/'],
                     ]],

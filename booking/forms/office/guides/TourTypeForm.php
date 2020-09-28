@@ -1,21 +1,19 @@
 <?php
 
 
-namespace booking\forms\booking\rooms;
+namespace booking\forms\office\guides;
 
 
-use booking\entities\booking\rooms\Type;
+use booking\entities\booking\tours\Type;
 use yii\base\Model;
 
-class RoomsTypeForm extends Model
+class TourTypeForm extends Model
 {
-    public $stays_id;
     public $name;
 
     public function __construct(Type $type = null, $config = [])
     {
         if ($type != null) {
-            $this->stays_id = $type->stays_id;
             $this->name = $type->name;
         }
         parent::__construct($config);
@@ -24,9 +22,8 @@ class RoomsTypeForm extends Model
     public function rules()
     {
         return [
-            ['stays_id', 'integer'],
             ['name', 'string'],
-            [['name', 'stays_id'], 'required'],
+            ['name', 'required'],
         ];
     }
 }

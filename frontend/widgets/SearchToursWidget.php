@@ -4,7 +4,7 @@
 namespace frontend\widgets;
 
 
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use yii\base\Widget;
 
 class SearchToursWidget extends Widget
@@ -17,7 +17,7 @@ class SearchToursWidget extends Widget
     public function run()
     {
 
-        $form = new SearchToursForm();
+        $form = new SearchTourForm();
         return $this->render('searchtours', [
             'model' => $form,
         ]);

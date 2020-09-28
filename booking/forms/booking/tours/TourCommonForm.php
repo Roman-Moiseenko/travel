@@ -13,9 +13,9 @@ use yii\base\Model;
 
 /**
  * @property BookingAddressForm $address
- * @property ToursTypeForm $types
+ * @property TourTypeForm $types
  */
-class ToursCommonForms extends CompositeForm
+class TourCommonForm extends CompositeForm
 {
     public $name;
     public $description;
@@ -28,10 +28,10 @@ class ToursCommonForms extends CompositeForm
             $this->name = $tours->name;
             $this->description = $tours->description;
             $this->address = new BookingAddressForm($tours->address);
-            $this->types = new ToursTypeForm($tours);
+            $this->types = new TourTypeForm($tours);
         } else {
             $this->address = new BookingAddressForm();
-            $this->types = new ToursTypeForm();
+            $this->types = new TourTypeForm();
         }
         parent::__construct($config);
     }

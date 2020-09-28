@@ -5,7 +5,7 @@ namespace booking\services\booking\stays;
 
 
 use booking\entities\booking\stays\Type;
-use booking\forms\booking\stays\StaysTypeForm;
+use booking\forms\booking\stays\StayTypeForm;
 use booking\repositories\booking\stays\TypeRepository;
 
 class TypeService
@@ -17,14 +17,14 @@ class TypeService
         $this->staysType = $staysType;
     }
 
-    public function create(StaysTypeForm $form): Type
+    public function create(StayTypeForm $form): Type
     {
         $staysType = Type::create($form->name, $form->mono);
         $this->staysType->save($staysType);
         return $staysType;
     }
 
-    public function edit($id, StaysTypeForm $form): void
+    public function edit($id, StayTypeForm $form): void
     {
         $staysType = $this->staysType->get($id);
         $staysType->edit($form->name, $form->name);

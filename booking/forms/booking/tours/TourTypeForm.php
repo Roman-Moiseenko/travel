@@ -7,7 +7,7 @@ use booking\entities\booking\tours\Tour;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
-class ToursTypeForm extends Model
+class TourTypeForm extends Model
 {
     public $main;
     public $others = [];

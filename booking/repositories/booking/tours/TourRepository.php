@@ -5,7 +5,7 @@ namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
@@ -30,7 +30,7 @@ class TourRepository
         return $this->getProvider($query);
     }
 
-    public function search(SearchToursForm $form = null): DataProviderInterface
+    public function search(SearchTourForm $form = null): DataProviderInterface
     {
         $query = Tour::find()->alias('t')->active('t')->with('type', 'mainPhoto');
         if ($form == null) {

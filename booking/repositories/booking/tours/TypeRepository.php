@@ -29,4 +29,19 @@ class TypeRepository
             throw new \RuntimeException('Ошибка удаления категории тура');
         }
     }
+
+    public function getMaxSort()
+    {
+        return Type::find()->max('sort');
+    }
+
+    public function getAll()
+    {
+        return Type::find()->orderBy(['sort' => SORT_ASC])->all();
+    }
+
+    public function getMinSort()
+    {
+        return Type::find()->min('sort');
+    }
 }

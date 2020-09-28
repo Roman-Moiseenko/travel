@@ -6,7 +6,7 @@ namespace frontend\controllers\tours;
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use booking\helpers\scr;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
@@ -29,7 +29,7 @@ class ToursController extends Controller
 
     public function actionIndex()
     {
-        $form = new SearchToursForm();
+        $form = new SearchTourForm();
         if (isset(\Yii::$app->request->queryParams['SearchToursForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();

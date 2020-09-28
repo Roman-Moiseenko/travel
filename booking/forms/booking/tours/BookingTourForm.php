@@ -12,7 +12,7 @@ use booking\forms\CompositeForm;
  * @package booking\forms\booking\tours
  * @property CostForm $count
  */
-class BookingToursForm extends CompositeForm
+class BookingTourForm extends CompositeForm
 {
     public $calendar_id;
 

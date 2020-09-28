@@ -5,7 +5,8 @@ namespace booking\services\booking\tours;
 
 
 use booking\entities\booking\tours\Type;
-use booking\forms\booking\tours\ToursTypeForm;
+use booking\forms\office\guides\TourTypeForm;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\TypeRepository;
 
 class TypeService
@@ -17,23 +18,60 @@ class TypeService
         $this->toursType = $toursType;
     }
 
-    public function create(ToursTypeForm $form): Type
+    public function create(TourTypeForm $form): Type
     {
-        $toursType = Type::create($form->name);
-        $this->toursType->save($toursType);
-        return $toursType;
+        $tourType = Type::create($form->name);
+        $sort = $this->toursType->getMaxSort();
+        $tourType->setSort($sort + 1);
+        $this->toursType->save($tourType);
+        return $tourType;
     }
 
-    public function edit($id, ToursTypeForm $form): void
+    public function edit($id, TourTypeForm $form): void
     {
-        $toursType = $this->toursType->get($id);
-        $toursType->edit($form->name);
-        $this->toursType->save($toursType);
+        $tourType = $this->toursType->get($id);
+        $tourType->edit($form->name);
+        $this->toursType->save($tourType);
+    }
+
+    public function moveUp($id)
+    {
+        $types = $this->toursType->getAll();
+        foreach ($types as $i => $type) {
+            if ($type->isFor($id) && $i != 0) {
+                $t1 = $types[$i - 1];
+                $t2 = $type;
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->toursType->save($t1);
+                $this->toursType->save($t2);
+                return;
+            }
+        }
+    }
+
+    public function moveDown($id)
+    {
+        $types = $this->toursType->getAll();
+        $maxSort = $this->toursType->getMaxSort();
+        foreach ($types as $i => $type) {
+            if ($type->isFor($id) && $i != count($types) - 1) {
+                $t1 = $type;
+                $t2 = $types[$i + 1];
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->toursType->save($t1);
+                $this->toursType->save($t2);
+                return;
+            }
+        }
     }
 
     public function remove($id): void
     {
-        $staysType = $this->toursType->get($id);
-        $this->toursType->remove($staysType);
+        $tourType = $this->toursType->get($id);
+        $this->toursType->remove($tourType);
     }
 }

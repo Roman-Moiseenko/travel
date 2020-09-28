@@ -6,7 +6,7 @@ namespace booking\forms\booking\tours;
 
 use yii\base\Model;
 
-class SearchToursForm extends Model
+class SearchTourForm extends Model
 {
 
     public $date_from;

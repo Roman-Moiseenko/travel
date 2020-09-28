@@ -5,7 +5,7 @@ namespace admin\controllers\tour;
 
 
 use booking\entities\booking\tours\Tour;
-use booking\forms\booking\tours\ToursFinanceForm;
+use booking\forms\booking\tours\TourFinanceForm;
 use booking\helpers\CalendarHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
@@ -71,7 +71,7 @@ class FinanceController extends Controller
     public function actionUpdate($id)
     {
         $tour = $this->findModel($id);
-        $form = new ToursFinanceForm($tour);
+        $form = new TourFinanceForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->setFinance($tour->id, $form);

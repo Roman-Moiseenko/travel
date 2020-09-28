@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * @package booking\entities\booking\tours
  * @property integer $id
  * @property string $name
+ * @property integer $sort
  */
 
 class Type extends ActiveRecord
@@ -26,6 +27,16 @@ class Type extends ActiveRecord
     public function edit($name): void
     {
         $this->name = $name;
+    }
+
+    public function setSort($sort): void
+    {
+        $this->sort = $sort;
+    }
+
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
     }
 
     public static function tableName()

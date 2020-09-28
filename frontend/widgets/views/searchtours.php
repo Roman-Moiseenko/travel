@@ -1,14 +1,14 @@
 <?php
 
 use booking\entities\Lang;
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use booking\helpers\ToursHelper;
 use booking\helpers\ToursTypeHelper;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
-/* @var $model SearchToursForm */
+/* @var $model SearchTourForm */
 ?>
 
 <?php $form = ActiveForm::begin([

@@ -11,7 +11,7 @@ use booking\entities\user\FullName;
 use booking\entities\user\User;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\PersonalForm;
-use booking\forms\booking\tours\BookingToursForm;
+use booking\forms\booking\tours\BookingTourForm;
 use booking\forms\user\PreferencesForm;
 use booking\forms\user\UserCreateForm;
 use booking\forms\user\UserEditForm;
@@ -155,7 +155,7 @@ class UserManageService
         $this->users->save($user);
     }
     //TODO Не используется .......
-    public function addBookingTours($id, BookingToursForm $form): BookingTour
+    public function addBookingTours($id, BookingTourForm $form): BookingTour
     {
         $user = $this->users->get($id);
         $calendar = $this->calendarsTours->get($form->calendar_id);
@@ -181,7 +181,7 @@ class UserManageService
         $this->users->save($user);
     }
 
-    public function editBookingTours($id, $booking_id, BookingToursForm $form)
+    public function editBookingTours($id, $booking_id, BookingTourForm $form)
     {
         $user = $this->users->get($id);
         $calendar = $this->calendarsTours->get($form->calendar_id);

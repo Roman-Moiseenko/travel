@@ -8,7 +8,7 @@ use booking\entities\booking\tours\Tour;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
-class ToursExtraForm extends Model
+class TourExtraForm extends Model
 {
     public $assign = [];
 

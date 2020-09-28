@@ -6,7 +6,7 @@ namespace booking\forms\booking\stays;
 use booking\entities\booking\stays\Type;
 use yii\base\Model;
 
-class StaysTypeForm extends Model
+class StayTypeForm extends Model
 {
     public $name;
     public $mono;

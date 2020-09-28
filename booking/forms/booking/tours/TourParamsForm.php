@@ -19,7 +19,7 @@ use yii\base\Model;
  * @property AgeLimitForm $ageLimit
  */
 
-class ToursParamsForm extends CompositeForm
+class TourParamsForm extends CompositeForm
 {
     public $duration;
     public $private;

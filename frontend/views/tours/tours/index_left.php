@@ -1,9 +1,9 @@
 <?php
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model SearchToursForm */
+/* @var $model SearchTourForm */
 
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;

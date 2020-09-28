@@ -1,14 +1,14 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
-use booking\forms\booking\tours\ToursCommonForms;
+use booking\forms\booking\tours\TourCommonForm;
 use booking\helpers\ToursTypeHelper;
 use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model ToursCommonForms */
+/* @var $model TourCommonForm */
 /* @var $tour Tour */
 
 $this->title = 'Редактировать ' . $tour->name;

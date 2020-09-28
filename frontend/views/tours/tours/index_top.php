@@ -1,11 +1,11 @@
 <?php
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model SearchToursForm */
+/* @var $model SearchTourForm */
 /* @var $dataProvider DataProviderInterface */
 
 use booking\entities\Lang;
-use booking\forms\booking\tours\SearchToursForm;
+use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 

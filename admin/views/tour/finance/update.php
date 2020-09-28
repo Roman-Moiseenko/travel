@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
-use booking\forms\booking\tours\ToursFinanceForm;
+use booking\forms\booking\tours\TourFinanceForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\ToursHelper;
 use yii\bootstrap4\ActiveForm;
@@ -11,7 +11,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var  $tour Tour*/
-/* @var $model ToursFinanceForm */
+/* @var $model TourFinanceForm */
 
 
 $this->title = 'Изменить оплату ' . $tour->name;

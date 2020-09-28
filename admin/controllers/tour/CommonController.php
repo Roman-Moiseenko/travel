@@ -5,7 +5,7 @@ namespace admin\controllers\tour;
 
 
 use booking\entities\booking\tours\Tour;
-use booking\forms\booking\tours\ToursCommonForms;
+use booking\forms\booking\tours\TourCommonForm;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
@@ -54,7 +54,7 @@ class CommonController extends Controller
     public function actionCreate()
     {
         $this->layout = 'main-tours-create';
-        $form = new ToursCommonForms();
+        $form = new TourCommonForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $tour = $this->service->create($form);
@@ -73,7 +73,7 @@ class CommonController extends Controller
     public function actionUpdate($id)
     {
         $tour = $this->findModel($id);
-        $form = new ToursCommonForms($tour);
+        $form = new TourCommonForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($tour->id, $form);

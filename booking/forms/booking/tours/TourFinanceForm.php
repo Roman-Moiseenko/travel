@@ -13,7 +13,7 @@ use yii\base\Model;
  * @package booking\forms\booking\tours
  * @property CostForm $baseCost
  */
-class ToursFinanceForm extends CompositeForm
+class TourFinanceForm extends CompositeForm
 {
     public $legal_id;
     public $cancellation;

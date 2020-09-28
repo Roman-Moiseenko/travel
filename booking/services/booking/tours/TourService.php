@@ -12,10 +12,10 @@ use booking\entities\message\ThemeDialog;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\CostForm;
-use booking\forms\booking\tours\ToursCommonForms;
-use booking\forms\booking\tours\ToursExtraForm;
-use booking\forms\booking\tours\ToursFinanceForm;
-use booking\forms\booking\tours\ToursParamsForm;
+use booking\forms\booking\tours\TourCommonForm;
+use booking\forms\booking\tours\TourExtraForm;
+use booking\forms\booking\tours\TourFinanceForm;
+use booking\forms\booking\tours\TourParamsForm;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\repositories\booking\tours\ReviewTourRepository;
@@ -59,7 +59,7 @@ class TourService
         $this->dialogs = $dialogs;
     }
 
-    public function create(ToursCommonForms $form): Tour
+    public function create(TourCommonForm $form): Tour
     {
         $tour = Tour::create(
             $form->name,
@@ -79,7 +79,7 @@ class TourService
         return $tour;
     }
 
-    public function edit($id, ToursCommonForms $form): void
+    public function edit($id, TourCommonForm $form): void
     {
         $tour = $this->tours->get($id);
         $tour->edit(
@@ -159,7 +159,7 @@ class TourService
         $this->tours->save($tour);
     }
 
-    public function setParams($id, ToursParamsForm $form): void
+    public function setParams($id, TourParamsForm $form): void
     {
         $tour = $this->tours->get($id);
         $tour->setParams(
@@ -212,7 +212,7 @@ class TourService
 
     }
 
-    public function setFinance($id, ToursFinanceForm $form): void
+    public function setFinance($id, TourFinanceForm $form): void
     {
         $tour = $this->tours->get($id);
         $tour->setLegal($form->legal_id);
