@@ -36,19 +36,19 @@ class ActiveController extends Controller
     public function actionIndex()
     {
         $searchModelTours = new ToursSearch([
-            'active' => true,
+            'verify' => true,
         ]);
         $dataProviderTours = $searchModelTours->search(\Yii::$app->request->queryParams);
 
         //TODO StaysSearch, CarsSearch
 /*
         $searchModelStays = new StaysSearch([
-            'active' => true,
+            'verify' => true,
         ]);
         $dataProviderStays = $searchModelStays->search(\Yii::$app->request->queryParams);
 
         $searchModelCars = new CarsSearch([
-            'active' => true,
+            'verify' => true,
         ]);
         $dataProviderCars = $searchModelCars->search(\Yii::$app->request->queryParams);
         */

@@ -26,13 +26,13 @@ class TourRepository
 
     public function getAll(): DataProviderInterface
     {
-        $query = Tour::find()->alias('t')->andWhere(['t.status' => StatusHelper::STATUS_ACTIVE]);
+        $query = Tour::find()->alias('t')->active('t');
         return $this->getProvider($query);
     }
 
     public function search(SearchToursForm $form = null): DataProviderInterface
     {
-        $query = Tour::find()->alias('t')->andWhere(['t.status' => StatusHelper::STATUS_ACTIVE])->with('type', 'mainPhoto');
+        $query = Tour::find()->alias('t')->active('t')->with('type', 'mainPhoto');
         if ($form == null) {
             $query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);

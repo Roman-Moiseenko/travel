@@ -16,7 +16,7 @@ class ActiveTopWidget extends Widget
     {
         $count = 0;
         $objects = [];
-        $tours = Tour::find()->andWhere(['status' => StatusHelper::STATUS_VERIFY])->all();
+        $tours = Tour::find()->verify()->all();
         foreach ($tours as $tour) {
             $objects[] = ['name' => $tour->name,
                 'photo' => $tour->mainPhoto->getThumbFileUrl('file', 'top_widget_list'),

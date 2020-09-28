@@ -12,7 +12,7 @@ use yii\data\ActiveDataProvider;
 class ToursSearch extends Tour
 {
 
-    public $active = false;
+    public $verify = false;
 
     public function __construct($config = [])
     {
@@ -30,7 +30,7 @@ class ToursSearch extends Tour
     public function search($params): ActiveDataProvider
     {
         $query = Tour::find();
-        if ($this->active) $query = $query->andWhere(['status' => StatusHelper::STATUS_VERIFY]);
+        if ($this->verify) $query = $query->verify();
        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [

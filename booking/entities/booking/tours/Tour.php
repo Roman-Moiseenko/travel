@@ -8,7 +8,7 @@ use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
-use booking\entities\booking\tours\queries\ToursQueries;
+use booking\entities\booking\tours\queries\TourQueries;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -587,9 +587,9 @@ class Tour extends ActiveRecord
     }
     /** <========== getXXX */
 
-    public static function find(): ToursQueries
+    public static function find(): TourQueries
     {
-        return new ToursQueries(static::class);
+        return new TourQueries(static::class);
     }
 
 

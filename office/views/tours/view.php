@@ -26,18 +26,17 @@ MagnificPopupAsset::register($this);
     <div class="user-view">
 
         <p>
-            <?php if ($tour->status == StatusHelper::STATUS_VERIFY) {
+            <?php if ($tour->isVerify()) {
                 echo Html::a('Активировать', ['active', 'id' => $tour->id], ['class' => 'btn btn-warning']);
             } ?>
 
             <?php
             //TODO Добавить отдельное окно с выбором причины блокировки ... ?
-            if ($tour->status == StatusHelper::STATUS_LOCK) {
+            if ($tour->isLock()) {
                 echo Html::a('Разблокировать', ['unlock', 'id' => $tour->id], ['class' => 'btn btn-success']);
             } else {
                 echo Html::a('Заблокировать', ['lock', 'id' => $tour->id], ['class' => 'btn btn-danger']);
             }
-
             ?>
 
         </p>
