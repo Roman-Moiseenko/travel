@@ -8,20 +8,19 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel office\forms\ToursSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModelTours office\forms\ToursSearch */
+/* @var $dataProviderTours yii\data\ActiveDataProvider */
 
-$this->title = 'Туры';
+$this->title = 'Активация объектов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="providers-list">
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <div class="card">
+    <div class="card card-info">
+        <div class="card-header">Туры</div>
         <div class="card-body">
             <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
+                'dataProvider' => $dataProviderTours,
+                'filterModel' => $searchModelTours,
                 'columns' => [
                     [
                         'attribute' => 'id',
@@ -40,16 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'datetime',
                         'label' => 'Создан',
                     ],
-                    [
-                        'attribute' => 'status',
-                        'filter' => StatusHelper::listStatus(),
-                        'value' => function (Tour $model) {
-                            return StatusHelper::statusToHTML($model->status);
-                        },
-                        'format' => 'raw',
-                        'label' => 'Статус',
-                    ],
-
                     ['class' => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',
                         'buttons' => [
@@ -94,6 +83,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
             ]); ?>
+        </div>
+    </div>
+</div>
+
+<div class="providers-list">
+    <div class="card card-info">
+        <div class="card-header">Жилища</div>
+        <div class="card-body">
+        </div>
+    </div>
+</div>
+
+<div class="providers-list">
+    <div class="card card-info">
+        <div class="card-header">Авто</div>
+        <div class="card-body">
         </div>
     </div>
 </div>

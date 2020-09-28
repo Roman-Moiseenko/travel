@@ -4,6 +4,7 @@ use admin\widgest\BookingTopBarWidget;
 use admin\widgest\MessageTopBarWidget;
 use admin\widgest\ProfileTopBarWidget;
 use admin\widgest\ReviewTopBarWidget;
+use office\widgets\ActiveTopWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -27,7 +28,7 @@ use yii\helpers\Url;
         <!-- Review Dropdown Menu -->
         <?= ''//ReviewTopBarWidget::widget(['days' => 7]) ?>
         <!-- Booking Dropdown Menu -->
-        <?= ''//BookingTopBarWidget::widget(['days' => 7]) ?>
+        <?= ActiveTopWidget::widget() ?>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>

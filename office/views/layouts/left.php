@@ -24,6 +24,7 @@ use yii\helpers\Url;
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Финансы', 'icon' => 'file-invoice-dollar', 'url' => ['/finance'], 'active' => $this->context->id == 'finance'],
+                    ['label' => 'Активация', 'icon' => 'external-link-alt', 'url' => ['/active'], 'active' => $this->context->id == 'active'],
                     ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
                     ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
                     ['label' => 'Туры', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],

@@ -6,10 +6,18 @@ namespace office\forms;
 
 use booking\entities\admin\Legal;
 use booking\entities\booking\tours\Tour;
+use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
 
 class ToursSearch extends Tour
 {
+
+    public $active = false;
+
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+    }
 
     public function rules()
     {
@@ -22,6 +30,7 @@ class ToursSearch extends Tour
     public function search($params): ActiveDataProvider
     {
         $query = Tour::find();
+        if ($this->active) $query = $query->andWhere(['status' => StatusHelper::STATUS_VERIFY]);
        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
