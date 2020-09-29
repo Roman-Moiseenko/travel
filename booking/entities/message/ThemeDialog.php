@@ -30,6 +30,11 @@ class ThemeDialog extends ActiveRecord
         return $theme;
     }
 
+    public function edit($caption): void
+    {
+        $this->caption = $caption;
+    }
+
     public static function tableName()
     {
         return '{{%booking_dialog_themes}}';
@@ -42,4 +47,14 @@ class ThemeDialog extends ActiveRecord
             return Lang::t($theme->caption);
         });
     }
+
+    public static function getTypeList(): array
+    {
+        return [
+            Dialog::CLIENT_PROVIDER => 'Клиент - Провайдер',
+            Dialog::PROVIDER_SUPPORT => 'Провайдер - Поддержка',
+            Dialog::CLIENT_SUPPORT => 'Клиент - Поддержка',
+        ];
+    }
+
 }

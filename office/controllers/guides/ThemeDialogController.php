@@ -5,22 +5,28 @@ namespace office\controllers\guides;
 
 
 use booking\entities\booking\tours\Type;
+use booking\entities\message\ThemeDialog;
 use booking\entities\Rbac;
+use booking\forms\office\guides\ThemeDialogForm;
 use booking\forms\office\guides\TourTypeForm;
+use booking\services\office\guides\ThemeDialogService;
 use booking\services\office\guides\TypeService;
+use booking\services\DialogService;
+use office\forms\ThemeDialogSearch;
+use yii\base\Theme;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class TourTypeController extends Controller
+class ThemeDialogController extends Controller
 {
 
     /**
-     * @var TypeService
+     * @var DialogService
      */
     private $service;
 
-    public function __construct($id, $module, TypeService $service, $config = [])
+    public function __construct($id, $module, ThemeDialogService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -50,19 +56,29 @@ class TourTypeController extends Controller
 
     public function actionIndex()
     {
-        $types = Type::find()->orderBy(['sort' => SORT_ASC])->all();
+       // $themes = ThemeDialog::find()->orderBy(['type_dialog' => SORT_ASC])->all();
+
+
+
+                $searchModel = new ThemeDialogSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
         return $this->render('index', [
-            'types' => $types,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
+     /*   return $this->render('index', [
+            'themes' => $themes,
+        ]);*/
     }
 
     public function actionCreate()
     {
-        $form = new TourTypeForm();
+        $form = new ThemeDialogForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->create($form);
-                return $this->redirect(['guides/tour-type/index']);
+                return $this->redirect(['guides/theme-dialog/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -76,11 +92,11 @@ class TourTypeController extends Controller
     public function actionUpdate($id)
     {
         $type = $this->find($id);
-        $form = new TourTypeForm($type);
+        $form = new ThemeDialogForm($type);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($id, $form);
-                return $this->redirect(['guides/tour-type/index']);
+                return $this->redirect(['guides/theme-dialog/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -97,21 +113,10 @@ class TourTypeController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionMoveUp($id)
-    {
-        $this->service->moveUp($id);
-        return $this->redirect(['index']);
-    }
-
-    public function actionMoveDown($id)
-    {
-        $this->service->moveDown($id);
-        return $this->redirect(['index']);
-    }
 
     private function find($id)
     {
-        if (!$result = Type::findOne($id))
+        if (!$result = ThemeDialog::findOne($id))
             throw new \DomainException('Не найден элемент');
         return $result;
     }

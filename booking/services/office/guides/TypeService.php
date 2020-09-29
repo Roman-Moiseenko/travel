@@ -1,12 +1,11 @@
 <?php
 
 
-namespace booking\services\booking\tours;
+namespace booking\services\office\guides;
 
 
 use booking\entities\booking\tours\Type;
 use booking\forms\office\guides\TourTypeForm;
-use booking\helpers\scr;
 use booking\repositories\booking\tours\TypeRepository;
 
 class TypeService

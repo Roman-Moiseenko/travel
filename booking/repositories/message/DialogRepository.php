@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\repositories;
+namespace booking\repositories\message;
 
 
 use booking\entities\Lang;

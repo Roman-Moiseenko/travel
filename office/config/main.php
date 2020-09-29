@@ -20,6 +20,17 @@ return [
     ],
     'modules' => [],
     'components' => [
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'class' => 'yii\bootstrap4\BootstrapAsset'
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'class' => 'yii\bootstrap4\BootstrapPluginAsset'
+                ]
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-office',
         ],

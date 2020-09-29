@@ -11,7 +11,7 @@ use booking\entities\message\ThemeDialog;
 use booking\forms\message\ConversationForm;
 use booking\forms\message\DialogForm;
 use booking\helpers\BookingHelper;
-use booking\repositories\DialogRepository;
+use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
 use yii\filters\AccessControl;
 use yii\web\Controller;

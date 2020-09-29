@@ -31,6 +31,13 @@ class Contact extends ActiveRecord
         return $contact;
     }
 
+    public function edit($name, $type = 0, $prefix = ''): void
+    {
+        $this->name = $name;
+        $this->type = $type;
+        $this->prefix = $prefix;
+    }
+
     public function setPhoto(UploadedFile $file)
     {
         $this->photo = $file;

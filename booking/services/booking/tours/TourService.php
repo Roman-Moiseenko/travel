@@ -22,7 +22,7 @@ use booking\repositories\booking\tours\ReviewTourRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\repositories\booking\ReviewRepository;
-use booking\repositories\DialogRepository;
+use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\DialogService;
 use booking\services\TransactionManager;

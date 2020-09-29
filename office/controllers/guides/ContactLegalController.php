@@ -4,23 +4,19 @@
 namespace office\controllers\guides;
 
 
-use booking\entities\booking\tours\Type;
+use booking\entities\admin\Contact;
 use booking\entities\Rbac;
-use booking\forms\office\guides\TourTypeForm;
-use booking\services\office\guides\TypeService;
+use booking\forms\office\guides\ContactLegalForm;
+use booking\services\office\guides\ContactLegalService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class TourTypeController extends Controller
+class ContactLegalController extends Controller
 {
-
-    /**
-     * @var TypeService
-     */
     private $service;
 
-    public function __construct($id, $module, TypeService $service, $config = [])
+    public function __construct($id, $module, ContactLegalService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -50,19 +46,20 @@ class TourTypeController extends Controller
 
     public function actionIndex()
     {
-        $types = Type::find()->orderBy(['sort' => SORT_ASC])->all();
+        $contacts = Contact::find()->all();
+
         return $this->render('index', [
-            'types' => $types,
+            'contacts' => $contacts,
         ]);
     }
 
     public function actionCreate()
     {
-        $form = new TourTypeForm();
+        $form = new ContactLegalForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->create($form);
-                return $this->redirect(['guides/tour-type/index']);
+                return $this->redirect(['guides/contact-legal/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -75,12 +72,12 @@ class TourTypeController extends Controller
 
     public function actionUpdate($id)
     {
-        $type = $this->find($id);
-        $form = new TourTypeForm($type);
+        $contact = $this->find($id);
+        $form = new ContactLegalForm($contact);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($id, $form);
-                return $this->redirect(['guides/tour-type/index']);
+                return $this->redirect(['guides/contact-legal/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -88,6 +85,7 @@ class TourTypeController extends Controller
         }
         return $this->render('update', [
             'model' => $form,
+            'contact' => $contact,
         ]);
     }
 
@@ -97,21 +95,10 @@ class TourTypeController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionMoveUp($id)
-    {
-        $this->service->moveUp($id);
-        return $this->redirect(['index']);
-    }
-
-    public function actionMoveDown($id)
-    {
-        $this->service->moveDown($id);
-        return $this->redirect(['index']);
-    }
 
     private function find($id)
     {
-        if (!$result = Type::findOne($id))
+        if (!$result = Contact::findOne($id))
             throw new \DomainException('Не найден элемент');
         return $result;
     }

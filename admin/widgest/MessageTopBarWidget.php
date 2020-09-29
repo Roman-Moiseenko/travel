@@ -6,7 +6,7 @@ namespace admin\widgest;
 
 use booking\entities\message\Dialog;
 use booking\repositories\booking\BookingRepository;
-use booking\repositories\DialogRepository;
+use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
