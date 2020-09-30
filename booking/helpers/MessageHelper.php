@@ -26,4 +26,25 @@ class MessageHelper
         }
         return $count == 0 ? '' : $count;
     }
+
+    public static function countNewSupportByType($type)
+    {
+        if (\Yii::$app->user->isGuest) return '';
+        $dialogs = Dialog::find()->andWhere(['typeDialog' => $type])->all();
+        $count = 0;
+        foreach ($dialogs as $dialog) {
+            $count += $dialog->countNewConversation();
+        }
+        return $count == 0 ? '' : $count;
+    }
+
+    public static function countNewSupport()
+    {
+        $provider = self::countNewSupportByType(Dialog::PROVIDER_SUPPORT);
+        $client = self::countNewSupportByType(Dialog::CLIENT_SUPPORT);
+        $count = ($provider == '' ? 0 : $provider) + ($client == '' ? 0 : $client);
+        return  $count == 0 ? '' : $count;
+    }
+
+
 }

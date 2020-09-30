@@ -1,10 +1,9 @@
 <?php
 
-use admin\widgest\BookingTopBarWidget;
-use admin\widgest\MessageTopBarWidget;
-use admin\widgest\ProfileTopBarWidget;
-use admin\widgest\ReviewTopBarWidget;
+
+
 use office\widgets\ActiveTopWidget;
+use office\widgets\SupportMessageTopBarWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -23,7 +22,7 @@ use yii\helpers\Url;
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <?= ''//MessageTopBarWidget::widget() ?>
+        <?= SupportMessageTopBarWidget::widget() ?>
 
         <!-- Review Dropdown Menu -->
         <?= ''//ReviewTopBarWidget::widget(['days' => 7]) ?>
