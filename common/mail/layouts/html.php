@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View view component instance */
@@ -13,7 +14,7 @@ use yii\helpers\Html;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+    <meta http-equiv="Content-Type" content="text/html; charset=<?= \Yii::$app->charset ?>" />
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
@@ -24,10 +25,13 @@ use yii\helpers\Html;
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: left; width: 50%">
-                <img src="<?= \Yii::$app->params['staticHostInfo'] .'/files/images/logo-mail.png'?>" style="width: auto; height: 58px; top: 2px;"/>
+
+
+                <img src="<?= \Yii::$app->params['staticHostInfo'] .'/files/images/logo-mail.png' ?>" style="width: auto; height: 58px; top: 2px;"/>
                 <!-- \Yii::$app->params['staticPath'] . $message->embed(Swift_Image::fromPath(\Yii::$app->params['staticPath'] . '/files/images/logo-mail.png'))
 $message->embed(Swift_Image::fromPath('http://static.travel.loc/files/images/logo-mail.png'));
                 \Yii::$app->params['staticHostInfo'] .'/files/images/logo-mail.png'
+
                 -->
             </td>
             <td style="width: 25%"></td>
