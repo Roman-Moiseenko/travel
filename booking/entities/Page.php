@@ -5,11 +5,11 @@ namespace booking\entities;
 
 
 use booking\entities\behaviors\MetaBehavior;
+use booking\entities\queries\CategoryQuery;
+use booking\helpers\SlugHelper;
 use paulzi\nestedsets\NestedSetsBehavior;
 
-use shop\entities\shop\queries\CategoryQuery;
-use shop\forms\manage\MetaForm;
-use shop\helpers\SlugHelper;
+
 use yii\db\ActiveRecord;
 /**
  * @property integer $id

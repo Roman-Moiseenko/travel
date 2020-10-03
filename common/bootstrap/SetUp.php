@@ -2,12 +2,15 @@
 
 namespace common\bootstrap;
 
+use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
+use frontend\urls\PageUrlRule;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
+use yii\di\Instance;
 use yii\web\Cookie;
 
 class SetUp implements BootstrapInterface
@@ -58,13 +61,16 @@ class SetUp implements BootstrapInterface
             return $app->cache;
         });
 
-       /* $container->setSingleton(Cart::class, function () use ($app) {
-            return new Cart(
-                new HybridStorage($app->get('user'), 'cart', 3600 * 24, $app->db),
-               // new CookieStorage('cart', 3600*24*30),
-                new DynamicCost(new SimpleCost())
-            );
-        });*/
+        $container->setSingleton('cache', function () use ($app) {
+            return $app->cache;
+        });
+
+        $container->set(PageUrlRule::class, [], [
+            Instance::of(PageRepository::class),
+            Instance::of('cache'),
+        ]);
+
+
         if (!\Yii::$app->request->cookies->get('lang')) {
             if (!$data =\Yii::$app->geo->getData()) {
                 $lang = 'ru';

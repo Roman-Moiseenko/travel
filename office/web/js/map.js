@@ -10,9 +10,11 @@ function init() {
 
 
     if (document.getElementById("map")) {
+        let data_zoom = $('this').attr('data-zoom');
+        if (data_zoom === undefined) data_zoom = 10;
         var myMap = new ymaps.Map(document.getElementById("map"), {
             center: [54.74639455404805, 20.537801017695948],
-            zoom: 10
+            zoom: data_zoom
         }, {
             restrictMapArea: [
                 [54.256, 19.586],

@@ -17,8 +17,30 @@ return [
     'bootstrap' => [
         'log',
         'common\bootstrap\SetUp',
+        'office\bootstrap\SetUp',
     ],
     'modules' => [],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\Controller',
+            'access' => ['@'],
+            'plugin' => [
+                [
+                    'class'=>'\mihaildev\elfinder\plugin\Sluggable',
+                    'lowercase' => true,
+                    'replacement' => '-'
+                ]
+            ],
+            'roots' => [
+                [
+                    'baseUrl'=>'@static',
+                    'basePath'=> '@staticRoot',
+                    'path' => 'images',
+                    'name' => 'Global'
+                ],
+            ],
+        ],
+    ],
     'components' => [
         'assetManager' => [
             'appendTimestamp' => true,

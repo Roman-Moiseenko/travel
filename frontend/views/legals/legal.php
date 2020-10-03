@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="row">
-                        <div id="map-view" style="width: 100%; height: 300px"></div>
+                        <div id="map-view" style="width: 100%; height: 300px" data-zoom="5"></div>
                     </div>
                 </div>
             </div>

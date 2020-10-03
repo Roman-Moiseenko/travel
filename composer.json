@@ -46,7 +46,8 @@
     "wbraganca/yii2-dynamicform": "*",
     "ext-simplexml": "*",
     "fishvision/yii2-migrate": "^1.0",
-    "kartik-v/yii2-mpdf": "dev-master"
+    "kartik-v/yii2-mpdf": "dev-master",
+    "ext-gd": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
