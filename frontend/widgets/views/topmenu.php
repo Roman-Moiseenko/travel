@@ -11,13 +11,15 @@ use yii\helpers\Url;
 <div class="container">
     <div id="top-links">
         <ul class="nav justify-content-end">
-                <li class="nav-item">
+            <li class="nav-item">
                     <span class="hidden-xs hidden-sm hidden-md">
-                        <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>" title="<?= Lang::t('Сообщения') ?>">
-                            <i class="fas fa-envelope"></i><span class="badge badge-danger"><?= MessageHelper::countNew()?></span>
+                        <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>"
+                           title="<?= Lang::t('Сообщения') ?>">
+                            <i class="fas fa-envelope"></i><span
+                                    class="badge badge-danger"><?= MessageHelper::countNew() ?></span>
                         </a>
                     </span>
-                </li>
+            </li>
             <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button"
                    aria-haspopup="true" aria-expanded="false">
@@ -41,30 +43,36 @@ use yii\helpers\Url;
                     <?php endforeach; ?>
                 </div>
             </li>
-            <li class="nav-item"> <span class="hidden-xs hidden-sm hidden-md"><a class="nav-link"
-                                                                                 href="<?= Url::to(['/support']) ?>"><i
-                                class="fa fa-phone"></i><?= Lang::t('Служба поддержки') ?></a></span>
+            <li class="nav-item">
+                <span class="hidden-xs hidden-sm hidden-md">
+                    <a class="nav-link" href="<?= Url::to(['/support']) ?>" title="<?= Lang::t('Служба поддержки') ?>">
+                        <i class="far fa-question-circle"></i>
+                    </a>
+                </span>
             </li>
-            <li class="dropdown nav-item"><a href="/index.php?route=account/account"
-                                             title="<?= Lang::t('Мой личный кабинет') ?>"
-                                             class="dropdown-toggle nav-link" data-toggle="dropdown"><i
-                            class="fa fa-user"></i>
-                    <span
-                            class="hidden-xs hidden-sm hidden-md"><?= Lang::t('Мой личный кабинет') ?></span> <span
-                            class="caret"></span></a>
+            <li class="dropdown nav-item">
+                <?php if (Yii::$app->user->isGuest): ?>
+                    <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
                 <div class="dropdown-menu">
-                    <?php if (Yii::$app->user->isGuest): ?>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>"><?= Lang::t('Войти') ?></a>
-                        <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
-                    <?php else: ?>
+                    <a class="dropdown-item"
+                       href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>"><?= Lang::t('Войти') ?></a>
+                    <a class="dropdown-item"
+                       href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
+                </div>
+                <?php else: ?>
+                <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <i class="fa fa-user"></i>
+                    <span class="hidden-xs hidden-sm hidden-md">
+                        <?=  \Yii::$app->user->identity->personal->fullname->isEmpty() ? \Yii::$app->user->identity->username : \Yii::$app->user->identity->personal->fullname->getShortname()?>
+                    </span> <span class="caret"></span>
+                </a>
+                    <div class="dropdown-menu">
                         <?= UserMenuWidget::widget([
                             'type' => UserMenuWidget::TOP_USERMENU,
                             'class_list' => 'dropdown-item',
                         ]) ?>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </li>
         </ul>
     </div>
@@ -81,26 +89,30 @@ use yii\helpers\Url;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/stays'])) ?>">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/stays'])) ?>">
                         <i class="fas fa-hotel"></i>
                         &#160;<?= Lang::t('Жилье') ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/cars'])) ?>">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/cars'])) ?>">
                         <i class="fas fa-car"></i>
-                        &#160;<?= Lang::t('Авто')?>
+                        &#160;<?= Lang::t('Авто') ?>
 
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/tours'])) ?>" >
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/tours'])) ?>">
                         <i class="fas fa-map-marked-alt"></i>
                         &#160;<?= Lang::t('Туры') ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tickets/tickets' ? 'active' : '' ?>" href="<?= Html::encode(Url::to(['/tickets'])) ?>">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tickets/tickets' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/tickets'])) ?>">
                         <i class="fas fa-ticket-alt"></i>
                         &#160;<?= Lang::t('Билеты') ?></a>
                 </li>

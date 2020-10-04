@@ -34,7 +34,7 @@ AppAsset::register($this);
 
     <div id="common-home" class="container content-container">
         <?= Breadcrumbs::widget([
-
+            'options' => ['class' => 'breadcrumb-site'],
             'homeLink' => [
                 'label' => Lang::t('Главная'),
                 'url' => Yii::$app->homeUrl,
