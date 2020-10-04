@@ -43,9 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'slug',
                     'label' => 'Ссылка',
-                    ],
+                ],
                 'title',
                 ['class' => ActionColumn::class],
             ],
         ]); ?>
+    </div>
 </div>

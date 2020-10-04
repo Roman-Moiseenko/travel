@@ -7,6 +7,7 @@ namespace booking\services\booking\tours;
 use booking\entities\booking\Discount;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
+use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\DiscountRepository;
@@ -80,6 +81,13 @@ class BookingTourService
     public function cancelPay($id)
     {
         $booking = $this->bookings->get($id);
+        $tour = $booking->calendar->tour;
+        if ($tour->cancellation == null)
+            throw new \DomainException(Lang::t('Отмена не предусмотрена'));
+        if ($tour->cancellation * 3600 * 24 > $booking->calendar->tour_at - time())
+            throw new \DomainException(Lang::t('Срок отмены истек'));
+        if ($booking->calendar->tour_at < time())
+            throw new \DomainException(Lang::t('Тур завершен'));
         $booking->cancelPay();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);

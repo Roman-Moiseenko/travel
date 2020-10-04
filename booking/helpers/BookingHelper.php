@@ -38,6 +38,7 @@ class BookingHelper
             self::BOOKING_STATUS_NEW => Lang::t('Ждет оплаты'),
             self::BOOKING_STATUS_PAY => Lang::t('Оплачен'),
             self::BOOKING_STATUS_CANCEL => Lang::t('Отменен'),
+            self::BOOKING_STATUS_CANCEL_PAY => Lang::t('Отменен после оплаты'),
             self::BOOKING_STATUS_EXECUTE => Lang::t('Исполнен'),
         ];
     }

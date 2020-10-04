@@ -131,10 +131,11 @@ class Tour extends ActiveRecord
         return $this->status === StatusHelper::STATUS_LOCK;
     }
 
-    public function isCancellation($date_tours)
+    public function isCancellation($date_tour)
     {
         if ($this->cancellation == null) return false;
-        if (($date_tours - time()) / (24 * 3600) < $this->cancellation) return false;
+        if ($date_tour <= time()) return false;
+        if (($date_tour - time()) / (24 * 3600) < $this->cancellation) return false;
         return true;
     }
 

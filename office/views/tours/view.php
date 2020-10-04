@@ -71,7 +71,7 @@ MagnificPopupAsset::register($this);
                         ],
                         [
                             'attribute' => 'description',
-                            'format' => 'ntext',
+                            'format' => 'raw',
                             'label' => 'Описание',
                         ],
 
