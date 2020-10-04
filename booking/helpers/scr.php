@@ -15,7 +15,14 @@ class scr
     public static function p($var)
     {
         echo '<pre>';
-        print_r($var);
+        if (is_array($var)) {
+            foreach ($var as $item) {
+                print_r($item);
+            }
+        } else {
+            print_r($var);
+        }
         exit();
     }
+
 }

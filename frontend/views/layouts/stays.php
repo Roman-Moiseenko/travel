@@ -4,7 +4,7 @@
 /* @var $content string */
 
 ?>
-<?php $this->beginContent('@frontend/views/layouts/main.php') ?>
+<?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
 
 <div class="row">
     <!-- -->
@@ -16,9 +16,6 @@
     <div id="content" class="col-sm-9">
         <?= $content ?>
     </div>
-        <div class="hidden-xs">
-            ВИДЖЕТ ВЫ СМОТРЕЛИ
-        </div>
     </div>
 </div>
 

@@ -77,8 +77,6 @@ use yii\helpers\Url;
         </ul>
     </div>
 </div>
-
-
 <div class="container">
     <nav id="top-menu" class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

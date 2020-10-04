@@ -44,6 +44,7 @@ AppAsset::register($this);
         ]) ?>
         <?= AlertWidget::widget() ?>
         <?= $content ?>
+
     </div>
 
     <footer>

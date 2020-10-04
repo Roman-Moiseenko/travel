@@ -28,7 +28,7 @@ class CategoriesWidget extends Widget
             $active = $this->active && ($this->active->id == $category->id);
             return Html::a(
                 Html::encode($category->name),
-                ['/blog/post/category', 'slug' => $category->slug],
+                ['/post/category', 'slug' => $category->slug],
                 ['class' => $active ? 'list-group-item active' : 'list-group-item']
             );
         }, $this->categories->getAll())), [

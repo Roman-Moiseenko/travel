@@ -418,3 +418,8 @@ div.required label:after {
       -o-transform: rotate(-45deg);
       transform: rotate(-45deg);*/
 }
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}

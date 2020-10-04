@@ -3,6 +3,7 @@
 namespace frontend\urls;
 
 use booking\entities\Page;
+use booking\helpers\scr;
 use booking\repositories\office\PageRepository;
 use yii\base\BaseObject;
 use yii\base\InvalidArgumentException;
@@ -26,7 +27,6 @@ class PageUrlRule extends BaseObject implements UrlRuleInterface
     public function parseRequest($manager, $request)
     {
         $path = $request->pathInfo;
-
         $result = $this->cache->getOrSet(['page_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {
                 return ['id' => null, 'path' => null];
@@ -47,6 +47,7 @@ class PageUrlRule extends BaseObject implements UrlRuleInterface
 
     public function createUrl($manager, $route, $params)
     {
+       // scr::p([$manager, $route, $params]);
         if ($route == 'page/view') {
             if (empty($params['id'])) {
                 throw new InvalidArgumentException('Empty id.');
