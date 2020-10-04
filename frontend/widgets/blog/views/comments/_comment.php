@@ -1,7 +1,8 @@
 <?php
 
 /* @var $item \frontend\widgets\blog\CommentView */
-?>
+
+use booking\entities\Lang; ?>
 
 <div class="comment-item" data-id="<?= $item->comment->id ?>">
     <div class="panel panel-default">
@@ -18,7 +19,7 @@
                 <?php if ($item->comment->isActive()): ?>
                     <?= Yii::$app->formatter->asNtext($item->comment->text) ?>
                 <?php else: ?>
-                    <i>Комментарий удален.</i>
+                    <i><?= Lang::t('Комментарий удален') ?>.</i>
                 <?php endif; ?>
             </p>
             <div>
@@ -26,7 +27,7 @@
                     <?= '';//Yii::$app->formatter->asDatetime($item->comment->created_at) ?>
                 </div>
                 <div class="pull-right">
-                    <span class="comment-reply">Ответить</span>
+                    <span class="comment-reply"><?= Lang::t('Ответить') ?></span>
                 </div>
             </div>
         </div>

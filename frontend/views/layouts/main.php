@@ -55,6 +55,7 @@ AppAsset::register($this);
                         <li><a href="<?=Html::encode(Url::to(['/about']))?>"><?= Lang::t('О сайте') ?></a></li>
                         <li><a href="<?=Html::encode(Url::to(['/support']))?>"><?= Lang::t('Служба поддержки') ?></a></li>
                         <li><a href="<?=Html::encode(Url::to(['/policy']))?>"><?= Lang::t('Политика конфиденциальности') ?></a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/post']))?>"><?= Lang::t('Блог') ?></a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">

@@ -1,8 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model shop\entities\Blog\Post\Post */
+/* @var $model Post */
 
+use booking\entities\blog\post\Post;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

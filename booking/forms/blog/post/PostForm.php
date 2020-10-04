@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\blog;
+namespace booking\forms\blog\post;
 
 
 use booking\entities\blog\Category;

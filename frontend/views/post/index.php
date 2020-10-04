@@ -5,9 +5,10 @@
 /* @var $category Category */
 
 use booking\entities\blog\Category;
+use booking\entities\Lang;
 use yii\helpers\Html;
 
-$this->title = 'Блог';
+$this->title = Lang::t('Блог');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

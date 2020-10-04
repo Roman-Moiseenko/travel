@@ -5,11 +5,12 @@
 /* @var $tag Tag */
 
 use booking\entities\blog\Tag;
+use booking\entities\Lang;
 use yii\helpers\Html;
 
-$this->title = 'Посты с тегом ' . $tag->name;
+$this->title = Lang::t('Посты с тегом') . ' ' . $tag->name;
 
-$this->params['breadcrumbs'][] = ['label' => 'Блог', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $tag->name;
 ?>
 

@@ -4,6 +4,7 @@
 /* @var $post Post */
 
 use booking\entities\blog\post\Post;
+use booking\entities\Lang;
 use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
 
@@ -12,8 +13,8 @@ $this->title = $post->getSeoTitle();
 $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
 
-$this->params['breadcrumbs'][] = ['label' => 'Блог', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => ['category', 'slug' => $post->category->slug]];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t($post->category->name), 'url' => ['category', 'slug' => $post->category->slug]];
 $this->params['breadcrumbs'][] = $post->title;
 
 $this->params['active_category'] = $post->category;
@@ -42,7 +43,7 @@ foreach ($post->tags as $tag) {
     ]) ?>
 </article>
 
-<p>Метки: <?= implode(', ', $tagLinks) ?></p>
+<p><?= Lang::t('Метки') ?>: <?= implode(', ', $tagLinks) ?></p>
 
 <?= CommentsWidget::widget([
     'post' => $post,

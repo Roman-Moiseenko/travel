@@ -2,7 +2,7 @@
 
 namespace frontend\widgets\blog;
 
-use shop\entities\blog\post\Comment;
+use booking\entities\blog\post\Comment;
 
 class CommentView
 {

@@ -4,6 +4,12 @@
 namespace frontend\controllers;
 
 
+use booking\entities\Lang;
+use booking\forms\blog\CommentForm;
+use booking\repositories\blog\CategoryRepository;
+use booking\repositories\blog\PostRepository;
+use booking\repositories\blog\TagRepository;
+use booking\services\blog\CommentService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -11,30 +17,18 @@ class PostController extends Controller
 {
 
     public $layout = 'blog';
-    /**
-     * @var PostRepository
-     */
     private $posts;
-    /**
-     * @var CommentService
-     */
     private $service;
-    /**
-     * @var CategoryReadRepository
-     */
     private $categories;
-    /**
-     * @var TagReadRepository
-     */
     private $tags;
 
     public function __construct(
         $id,
         $module,
-        PostReadRepository $posts,
+        PostRepository $posts,
         CommentService $service,
-        CategoryReadRepository $categories,
-        TagReadRepository $tags,
+        CategoryRepository $categories,
+        TagRepository $tags,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -59,7 +53,7 @@ class PostController extends Controller
     public function actionCategory($slug)
     {
         if (!$category = $this->categories->findBySlug($slug)) {
-            throw new NotFoundHttpException('Запрашиваемая страница не существует.');
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница не существует') . '.');
         }
 
         $dataProvider = $this->posts->getAllByCategory($category);
@@ -78,7 +72,7 @@ class PostController extends Controller
     public function actionTag($slug)
     {
         if (!$tag = $this->tags->findBySlug($slug)) {
-            throw new NotFoundHttpException('Запрашиваемая страница не существует.');
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница не существует') . '.');
         }
 
         $dataProvider = $this->posts->getAllByTag($tag);
@@ -97,7 +91,7 @@ class PostController extends Controller
     public function actionPost($id)
     {
         if (!$post = $this->posts->find($id)) {
-            throw new NotFoundHttpException('Запрашиваемая страница не существует.');
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница не существует') . '.');
         }
 
         return $this->render('post', [
@@ -113,7 +107,7 @@ class PostController extends Controller
     public function actionComment($id)
     {
         if (!$post = $this->posts->find($id)) {
-            throw new NotFoundHttpException('Запрашиваемая страница не существует.');
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница не существует') . '.');
         }
 
         $form = new CommentForm();

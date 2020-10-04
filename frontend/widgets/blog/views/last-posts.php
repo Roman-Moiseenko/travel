@@ -1,7 +1,8 @@
 <?php
 
-/** @var $posts shop\entities\blog\post\Post[] */
+/** @var $posts Post[] */
 
+use booking\entities\blog\post\Post;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;

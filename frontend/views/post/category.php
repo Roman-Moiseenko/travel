@@ -2,8 +2,10 @@
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\DataProviderInterface */
-/* @var $category shop\entities\blog\Category */
+/* @var $category Category */
 
+use booking\entities\blog\Category;
+use booking\entities\Lang;
 use yii\helpers\Html;
 
 $this->title = $category->getSeoTitle();
@@ -11,7 +13,7 @@ $this->title = $category->getSeoTitle();
 $this->registerMetaTag(['name' =>'description', 'content' => $category->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $category->meta->keywords]);
 
-$this->params['breadcrumbs'][] = ['label' => 'Блог', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $category->name;
 
 $this->params['active_category'] = $category;

@@ -7,7 +7,7 @@ namespace booking\services\blog;
 use booking\entities\blog\post\Post;
 use booking\entities\blog\Tag;
 use booking\entities\Meta;
-use booking\forms\blog\PostForm;
+use booking\forms\blog\post\PostForm;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\blog\TagRepository;

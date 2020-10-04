@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\blog\post\Post;
-use booking\forms\blog\PostForm;
+use booking\forms\blog\post\PostForm;
 /* @var $this yii\web\View */
 /* @var $post Post */
 /* @var $model PostForm */

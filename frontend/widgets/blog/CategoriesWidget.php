@@ -4,8 +4,8 @@
 namespace frontend\widgets\blog;
 
 
-use shop\entities\blog\Category;
-use shop\readModels\blog\CategoryReadRepository;
+use booking\entities\blog\Category;
+use booking\repositories\blog\CategoryRepository;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -16,7 +16,7 @@ class CategoriesWidget extends Widget
 
     private $categories;
 
-    public function __construct(CategoryReadRepository $categories, $config = [])
+    public function __construct(CategoryRepository $categories, $config = [])
     {
         parent::__construct($config);
         $this->categories = $categories;

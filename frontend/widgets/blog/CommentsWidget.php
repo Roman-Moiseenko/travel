@@ -2,10 +2,9 @@
 
 namespace frontend\widgets\blog;
 
-use shop\entities\blog\post\Comment;
-use frontend\widgets\blog\CommentView;
-use shop\entities\blog\post\Post;
-use shop\forms\blog\CommentForm;
+use booking\entities\blog\post\Comment;
+use booking\entities\blog\post\Post;
+use booking\forms\blog\CommentForm;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 

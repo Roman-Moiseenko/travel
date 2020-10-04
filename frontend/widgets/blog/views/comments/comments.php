@@ -1,18 +1,21 @@
 <?php
 
+use booking\entities\blog\post\Post;
+use booking\entities\Lang;
+use booking\forms\blog\CommentForm;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $post \shop\entities\blog\post\Post */
+/* @var $post Post */
 /* @var $items \frontend\widgets\blog\CommentView[] */
 /* @var $count integer */
-/* @var $commentForm \shop\forms\blog\CommentForm */
+/* @var $commentForm CommentForm */
 ?>
 
 <div id="comments" class="inner-bottom-xs">
-    <h2>Комментарии</h2>
+    <h2><?= Lang::t('Комментарии') ?></h2>
     <?php foreach ($items as $item): ?>
         <?= $this->render('_comment', ['item' => $item]) ?>
     <?php endforeach; ?>
@@ -21,7 +24,7 @@ use yii\helpers\Html;
 <?php if (\Yii::$app->user->isGuest) :?>
     <div class="card">
         <div class="card-body">
-            Пожалуйста, <?= Html::a('авторизуйтесь', ['/auth/auth/login'])?> для написания комментария
+            <?= Lang::t('Пожалуйста') . ', ' . Html::a(Lang::t('авторизуйтесь'), ['/auth/auth/login']) . ' ' . Lang::t('для написания комментария') ?>
         </div>
     </div>
 <?php else: ?>
@@ -34,7 +37,7 @@ use yii\helpers\Html;
     <?= $form->field($commentForm, 'text')->textarea(['rows' => 5])->label('Текст') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

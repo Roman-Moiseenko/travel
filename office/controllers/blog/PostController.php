@@ -4,7 +4,7 @@ namespace office\controllers\blog;
 
 use booking\entities\blog\post\Post;
 use booking\entities\Rbac;
-use booking\forms\blog\PostForm;
+use booking\forms\blog\post\PostForm;
 use booking\services\blog\PostManageService;
 use office\forms\blog\PostSearch;
 use yii\filters\AccessControl;
