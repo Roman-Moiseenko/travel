@@ -4,36 +4,41 @@
 namespace console\controllers;
 
 
+use booking\entities\booking\tours\BookingTour;
+use booking\repositories\booking\BookingRepository;
+use booking\repositories\booking\tours\BookingTourRepository;
 use booking\services\booking\tours\BookingTourService;
 use yii\console\Controller;
 
 class BookingController extends Controller
 {
 
-    private $serviceTour;
-    private $serviceStay;
-    private $serviceCar;
+
+    private $tours;
 
     public function __construct(
         $id,
         $module,
-        BookingTourService $serviceTour,
- //       BookingStayService $serviceStay,
- //       BookingCarService $serviceCar,
+        BookingTourRepository $tours,
+ //       BookingStayRepository $stays,
+ //       BookingCarRepository $cars,
 
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
-        $this->serviceTour = $serviceTour;
-//        $this->serviceStay = $serviceStay;
-//        $this->serviceCar = $serviceCar;
+
+        $this->tours = $tours;
     }
 
     public function actionCancel()
     {
-        $this->serviceTour->cancelNotPay(1);
-  //      $this->serviceStay->cancelNotPay(1);
- //       $this->serviceCar->cancelNotPay(1);
+        /** @var BookingTour[] $bookings */
+        $tours = $this->tours->getNotPay(1);
+        foreach ($tours as $tour) {
+            $tour->cancel();
+            $this->tours->save($tour);
+        }
+
     }
 }

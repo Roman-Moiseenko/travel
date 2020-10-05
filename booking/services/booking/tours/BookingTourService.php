@@ -117,7 +117,7 @@ class BookingTourService
         return $booking->confirmation == $form->confirmation;
     }
 
-    public function cancelNotPay($day = 1)
+    private function cancelNotPay($day = 1)
     {
         /** @var BookingTour[] $bookings */
         $bookings = $this->bookings->getNotPay($day);

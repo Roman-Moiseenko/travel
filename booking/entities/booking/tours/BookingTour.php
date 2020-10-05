@@ -29,6 +29,7 @@ use yii\helpers\Url;
  * @property integer $discount_id
  * @property Discount $discount
  * @property integer $bonus
+ * @property boolean $unload
  * @property \booking\entities\user\User $user
  */
 class BookingTour extends ActiveRecord implements BookingItemInterface
