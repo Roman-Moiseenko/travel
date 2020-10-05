@@ -32,6 +32,11 @@ class BookingTourRepository
         )->all();
     }
 
+    public function getNotPay($day): array
+    {
+        return  BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_NEW])->andWhere(['<=', 'created_at', time() - $day * 3600 * 24])->all();
+    }
+
     public function getActiveByTour($tours_id, $only_pay = false): array
     {
         if ($only_pay) {

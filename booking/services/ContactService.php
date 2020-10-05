@@ -122,7 +122,7 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
             //Бронирование отменено  => Рассылка
-            $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
+           // $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelUser');
             if ($noticeAdmin->bookingCancel->phone)
                 $this->sendSMS($phoneAdmin, 'Отменено бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount());

@@ -4,6 +4,10 @@
 namespace booking\entities\finance;
 
 
+use booking\entities\admin\Legal;
+use booking\entities\booking\BookingItemInterface;
+use booking\entities\user\User;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,6 +20,9 @@ use yii\db\ActiveRecord;
  * @property string $class_booking
  * @property float $amount
  * @property integer $status
+ * @property BookingItemInterface $booking
+ * @property User $user
+ * @property Legal $legal
  */
 
 class Payment extends ActiveRecord
@@ -47,12 +54,31 @@ class Payment extends ActiveRecord
 
     public function pay(): void
     {
-        $this->refund_at = time();
+        $this->payment_at = time();
         $this->status = self::STATUS_PAY;
     }
 
     public static function tableName()
     {
         return '{{%payment}}';
+    }
+
+    /** get XXX */
+
+    public function getBooking(): ActiveQuery
+    {
+        return $this->hasOne($this->class_booking, ['id' => 'booking_id']);
+    }
+
+    public function getUser(): User
+    {
+        $booking = $this->booking;
+        return User::findOne($booking->getUserId());
+    }
+
+    public function getLegal(): Legal
+    {
+        $booking = $this->booking;
+        return $booking->getLegal();
     }
 }

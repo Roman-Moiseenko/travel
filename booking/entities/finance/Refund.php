@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property BookingItemInterface $booking
  * @property User $user
+ * @property Legal $legal
  */
 class Refund extends ActiveRecord
 {
