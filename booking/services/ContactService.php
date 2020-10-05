@@ -141,13 +141,13 @@ class ContactService
     }
 
 /// УВЕДОМЛЕНИЕ С КОДОМ ДЛЯ ПОДТВЕРЖДЕНИЯ БРОНИРОВАНИЯ
-    public function sendNoticeConfirmation(BookingItemInterface $booking)
+    public function sendNoticeConfirmation(BookingItemInterface $booking, $template = 'pay')
     {
         //$confirmation = $booking->getConfirmation();
         $user = \booking\entities\user\User::findOne($booking->getUserId());
-        $send = $this->mailer->compose('noticeConfirmation', ['booking' => $booking])
+        $send = $this->mailer->compose('noticeConfirmation-' . $template, ['booking' => $booking])
             ->setTo($user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Подтверждение бронирования')])
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Подтверждение операции по бронированию')])
             ->setSubject($booking->getName())
             ->send();
         if (!$send) {

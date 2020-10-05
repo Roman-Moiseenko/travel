@@ -84,7 +84,7 @@ class BookingHelper
         if ($status == BookingHelper::BOOKING_STATUS_PAY) {
             return '<span class="big-red-paid-stamp">' . Lang::t('ОПЛАЧЕНО') . '</span>';
         }
-        if ($status == BookingHelper::BOOKING_STATUS_CANCEL) {
+        if ($status == BookingHelper::BOOKING_STATUS_CANCEL || $status == BookingHelper::BOOKING_STATUS_CANCEL_PAY) {
             return '<span class="big-grey-paid-stamp">' . Lang::t('ОТМЕНЕНО') . '</span>';
         }
         return '';

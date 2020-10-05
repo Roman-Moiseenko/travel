@@ -18,12 +18,12 @@ class PayController extends Controller
     /**
      * @var BookingTourService
      */
-    private $service;
+    private $tourService;
 
-    public function __construct($id, $module, BookingTourService $service, $config = [])
+    public function __construct($id, $module, BookingTourService $tourService, $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->service = $service;
+        $this->tourService = $tourService;
     }
 
     public function behaviors()
@@ -47,15 +47,15 @@ class PayController extends Controller
             //генерируем код СМС
             //сохраняем гдето в базе
             //отправляем СМС
-            $this->service->confirmation($id);
+            $this->tourService->confirmation($id);
             $form = new ConfirmationForm();
             $booking = BookingTour::findOne($id);
             //через форму ждем код
             if ($form->load(\Yii::$app->request->post()) && $form->validate()){
                 try {
-                    if ($this->service->isConfirmation($id, $form)) {
+                    if ($this->tourService->isConfirmation($id, $form)) {
                         //если совпал, то подтверждение
-                        $this->service->pay($id);
+                        $this->tourService->pay($id);
                         \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтвержденно'));
                         return $this->redirect(['/cabinet/tour/view', 'id' => $id]);
                     } else {

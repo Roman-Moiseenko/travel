@@ -101,10 +101,14 @@ class BookingTourService
         $this->contact->sendNoticeBooking($booking);
     }
 
-    public function confirmation($id)
+    public function confirmation($id, $template = 'pay')
     {
         $booking = $this->bookings->get($id);
-        if (!empty($booking->confirmation)) return;
+        if (!empty($booking->confirmation))
+        {
+            $this->contact->sendNoticeConfirmation($booking);
+            return;
+        }
         $code = uniqid();
         $booking->confirmation = $code;
         $this->bookings->save($booking);

@@ -163,6 +163,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
             'booking' => Url::to(['tour/booking/index', 'id' => $this->calendar->tours_id]),
             'frontend' => Url::to(['cabinet/tour/view', 'id' => $this->id]),
             'pay' => Url::to(['cabinet/pay/tour', 'id' => $this->id]),
+            'cancelpay' => Url::to(['cabinet/tour/cancelpay', 'id' => $this->id]),
             'entities' => Url::to(['tours/view', 'id' => $this->calendar->tours_id]),
             ];
     }
