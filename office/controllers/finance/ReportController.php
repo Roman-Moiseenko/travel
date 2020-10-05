@@ -1,7 +1,7 @@
 <?php
 
 
-namespace office\controllers;
+namespace office\controllers\finance;
 
 
 use booking\entities\Rbac;
@@ -9,7 +9,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class FinanceController extends Controller
+class ReportController extends Controller
 {
     public function behaviors()
     {
