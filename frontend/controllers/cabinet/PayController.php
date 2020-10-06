@@ -7,6 +7,7 @@ namespace frontend\controllers\cabinet;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
+use booking\helpers\BookingHelper;
 use booking\services\booking\tours\BookingTourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -43,13 +44,13 @@ class PayController extends Controller
 
     public function actionTour($id)
     {
+        $booking = BookingTour::findOne($id);
         if (\Yii::$app->params['NotPay']) {
             //генерируем код СМС
             //сохраняем гдето в базе
             //отправляем СМС
             $this->tourService->confirmation($id);
             $form = new ConfirmationForm();
-            $booking = BookingTour::findOne($id);
             //через форму ждем код
             if ($form->load(\Yii::$app->request->post()) && $form->validate()){
                 try {
@@ -64,13 +65,13 @@ class PayController extends Controller
                 } catch (\DomainException $e) {
                     \Yii::$app->session->setFlash('error', $e->getMessage());
                 }
-
             }
             return $this->render('confirmation', [
                 'model' => $form,
                 'booking' => $booking,
             ]);
         } else {
+            return $this->redirect(['cabinet/robokassa/invoice', 'id' => BookingHelper::number($booking)]);
             //TODO Оплата через кассу
         }
     }

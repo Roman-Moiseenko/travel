@@ -17,8 +17,10 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property integer $payment_at
  * @property integer $booking_id
+ * @property integer $legal_id
  * @property string $class_booking
  * @property float $amount
+ * @property float $pay_legal
  * @property integer $status
  * @property BookingItemInterface $booking
  * @property User $user
@@ -31,15 +33,16 @@ class Payment extends ActiveRecord
     const STATUS_PAY = 1;
 
 
-    public static function create($booking_id, $class_booking, $amount): self
+    public static function create($booking_id, $legal_id, $class_booking, $amount): self
     {
-        $refund = new static();
-        $refund->created_at = time();
-        $refund->booking_id = $booking_id;
-        $refund->class_booking = $class_booking;
-        $refund->amount = $amount;
-        $refund->status = self::STATUS_NEW;
-        return $refund;
+        $payment = new static();
+        $payment->created_at = time();
+        $payment->booking_id = $booking_id;
+        $payment->legal_id = $legal_id;
+        $payment->class_booking = $class_booking;
+        $payment->amount = $amount;
+        $payment->status = self::STATUS_NEW;
+        return $payment;
     }
 
     public function isNew(): bool
@@ -52,9 +55,10 @@ class Payment extends ActiveRecord
         return $this->status === self::STATUS_PAY;
     }
 
-    public function pay(): void
+    public function pay($deduction = 7): void
     {
         $this->payment_at = time();
+        $this->pay_legal = $this->amount * (1 - $deduction / 100);
         $this->status = self::STATUS_PAY;
     }
 
@@ -76,9 +80,8 @@ class Payment extends ActiveRecord
         return User::findOne($booking->getUserId());
     }
 
-    public function getLegal(): Legal
+    public function getLegal(): ActiveQuery
     {
-        $booking = $this->booking;
-        return $booking->getLegal();
+        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
     }
 }

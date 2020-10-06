@@ -12,6 +12,7 @@ class RefundRepository
     {
         if (!$result = Refund::findOne($id))
             throw new \DomainException('Возврат не найден ID=' . $id);
+        return $result;
     }
 
     public function save(Refund $refund): void

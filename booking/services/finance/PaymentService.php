@@ -24,6 +24,7 @@ class PaymentService
     {
         $payment = Payment::create(
             $booking->getId(),
+            $booking->getLegal()->id,
             get_class($booking),
             $booking->getAmountPay()
         );
@@ -31,10 +32,10 @@ class PaymentService
         return $payment;
     }
 
-    public function pay($id): void
+    public function pay($id, $deduction = 7): void
     {
         $payment = $this->payments->get($id);
-        $payment->pay();
+        $payment->pay($deduction);
         $this->payments->save($payment);
     }
 }

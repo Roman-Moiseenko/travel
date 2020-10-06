@@ -14,8 +14,6 @@ $this->title = 'Провайдеры';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="providers-list">
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="card">
         <div class="card-body">
             <?= GridView::widget([

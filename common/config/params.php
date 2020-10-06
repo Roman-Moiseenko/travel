@@ -1,5 +1,7 @@
 <?php
 return [
+    'deduction' => 8.9, //%% удержания с провайдеров = 5% + экваринг робокассы
+    'merchant' => 3.9,
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'cookieDomain' => '.travel.loc',

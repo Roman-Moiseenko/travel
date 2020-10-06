@@ -50,7 +50,7 @@ class Refund extends ActiveRecord
         return $this->status === self::STATUS_PAY;
     }
 
-    public function pay(): void
+    public function refund(): void
     {
         $this->refund_at = time();
         $this->status = self::STATUS_PAY;

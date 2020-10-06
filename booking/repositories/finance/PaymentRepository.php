@@ -12,6 +12,7 @@ class PaymentRepository
     {
         if (!$result = Payment::findOne($id))
             throw new \DomainException('Выплата не найдена ID=' . $id);
+        return $result;
     }
 
     public function save(Payment $payment): void

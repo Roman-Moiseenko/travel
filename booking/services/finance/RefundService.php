@@ -25,16 +25,16 @@ class RefundService
         $refund = Refund::create(
             $booking->getId(),
             get_class($booking),
-            $booking->getAmountPay()
+            $booking->getAmountPay() * (1 - (\Yii::$app->params['merchant'] ?? 4) / 100)
         );
         $this->refunds->save($refund);
         return $refund;
     }
 
-    public function Pay($id): void
+    public function refund($id): void
     {
         $refund = $this->refunds->get($id);
-        $refund->pay();
+        $refund->refund();
         $this->refunds->save($refund);
     }
 }
