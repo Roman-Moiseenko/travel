@@ -34,6 +34,7 @@ class TourRepository
     {
         $query = Tour::find()->alias('t')->active('t')->with('type', 'mainPhoto');
         if ($form == null) {
+
             $query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
             $query->groupBy('t.id');
@@ -71,11 +72,14 @@ class TourRepository
 
         /******  Поиск по Типу ***/
         //var_dump($form->private); exit();
-        if ($form->private !== "") {
+        //scr::v($form->private);
+        if ($form->private !== "" && $form->private !== null) {
             $query->andWhere(['t.params_private' => $form->private]);
         }
         $query->groupBy('t.id');
         //scr::p($form);
+
+        //scr::p([$form, $this->getProvider($query)]);
         return $this->getProvider($query);
         /*
         $pagination = new Pagination([

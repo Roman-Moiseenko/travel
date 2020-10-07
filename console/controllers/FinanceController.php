@@ -26,6 +26,7 @@ class FinanceController extends Controller
 
     public function actionPayment()
     {
+        //TODO Cron+
         $tours = BookingTour::find()
             ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
             ->andWhere(['unload' => false])

@@ -26,7 +26,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $photo
  * @property integer $status
  * @property integer $comments_count
- *
+ * @property integer $public_at
  * @property Meta $meta
  * @property Category $category
  * @property TagAssignment[] $tagAssignments
@@ -75,6 +75,7 @@ class Post extends ActiveRecord
         if ($this->isActive()) {
             throw new \DomainException('Пост уже опубликован.');
         }
+        $this->public_at = time();
         $this->status = self::STATUS_ACTIVE;
     }
 
@@ -83,6 +84,7 @@ class Post extends ActiveRecord
         if ($this->isDraft()) {
             throw new \DomainException('Пост уже снят с публикации');
         }
+        $this->public_at = null;
         $this->status = self::STATUS_DRAFT;
     }
 
@@ -262,6 +264,8 @@ class Post extends ActiveRecord
                     'thumb' => ['width' => 640, 'height' => 480],
                     'blog_list' => ['width' => 1000, 'height' => 150],
                     'widget_list' => ['width' => 228, 'height' => 228],
+                    'widget_top' => ['width' => 1000, 'height' => 150],
+                    'widget_bottom' => ['width' => 300, 'height' => 150],
                     'origin' => ['processor' => [new WaterMarker(1024, 768, '@static/files/images/logo-mail.png'), 'process']],
                 ],
             ],

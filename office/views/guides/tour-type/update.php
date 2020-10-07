@@ -24,8 +24,11 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название категории') ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'slug')->textInput(['maxlength' => true])->label('Ссылка') ?>
                 </div>
             </div>
         </div>

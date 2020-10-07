@@ -45,9 +45,9 @@ use yii\helpers\Url;
     </div>
     <div class="mr-auto card-footer" style="border: 0 !important; background-color: white !important;">
         <?php foreach ($tour->types as $type): ?>
-            <a href=""><?= Lang::t($type->name) ?></a>&#160;|&#160;
+            <a href="<?= Url::to(['/tours/category', 'id' => $type->id])?>"><?= Lang::t($type->name) ?></a>&#160;|&#160;
         <?php endforeach; ?>
-        <a href=""><?= Lang::t($tour->type->name) ?></a>
+        <a href="<?= Url::to(['/tours/category', 'id' => $tour->type->id])?>"><?= Lang::t($tour->type->name) ?></a>
     </div>
     <div class="mt-auto card-footer" style="background-color: #f6f7f5; border-color: #f6f7f5;">
         <div class="p-2">

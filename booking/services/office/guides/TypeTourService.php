@@ -8,7 +8,7 @@ use booking\entities\booking\tours\Type;
 use booking\forms\office\guides\TourTypeForm;
 use booking\repositories\booking\tours\TypeRepository;
 
-class TypeService
+class TypeTourService
 {
     private $toursType;
 
@@ -19,7 +19,7 @@ class TypeService
 
     public function create(TourTypeForm $form): Type
     {
-        $tourType = Type::create($form->name);
+        $tourType = Type::create($form->name, $form->slug);
         $sort = $this->toursType->getMaxSort();
         $tourType->setSort($sort + 1);
         $this->toursType->save($tourType);
@@ -29,7 +29,7 @@ class TypeService
     public function edit($id, TourTypeForm $form): void
     {
         $tourType = $this->toursType->get($id);
-        $tourType->edit($form->name);
+        $tourType->edit($form->name, $form->slug);
         $this->toursType->save($tourType);
     }
 

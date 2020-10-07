@@ -33,6 +33,7 @@ class BookingController extends Controller
 
     public function actionCancel()
     {
+        //TODO Cron+
         /** @var BookingTour[] $bookings */
         $tours = $this->tours->getNotPay(1);
         foreach ($tours as $tour) {

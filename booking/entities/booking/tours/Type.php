@@ -4,6 +4,8 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\helpers\SlugHelper;
+
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -12,21 +14,26 @@ use yii\db\ActiveRecord;
  * @package booking\entities\booking\tours
  * @property integer $id
  * @property string $name
+ * @property string $slug
  * @property integer $sort
  */
 
 class Type extends ActiveRecord
 {
-    public static function create($name): self
+    public static function create($name, $slug): self
     {
         $type = new static();
         $type->name = $name;
+        if (empty($slug)) $slug = SlugHelper::slug($name);
+        $type->slug = $slug;
         return $type;
     }
 
-    public function edit($name): void
+    public function edit($name, $slug): void
     {
         $this->name = $name;
+        if (empty($slug)) $slug = SlugHelper::slug($name);
+        $this->slug = $slug;
     }
 
     public function setSort($sort): void

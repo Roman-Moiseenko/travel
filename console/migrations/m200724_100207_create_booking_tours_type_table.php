@@ -16,6 +16,7 @@ class m200724_100207_create_booking_tours_type_table extends Migration
         $this->createTable('{{%booking_tours_type}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'slug' => $this->string(),
             'sort' => $this->integer(),
         ], $tableOptions);
 

@@ -28,7 +28,7 @@ foreach ($post->tags as $tag) {
 <article>
     <h1><?= Html::encode($post->title) ?></h1>
 
-    <p><span class="glyphicon glyphicon-calendar"></span> <?= Yii::$app->formatter->asDatetime($post->created_at); ?></p>
+    <p><span class="glyphicon glyphicon-calendar"></span> <?= Yii::$app->formatter->asDatetime($post->public_at); ?></p>
 
     <?php if ($post->photo): ?>
         <p><img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>" alt="" class="img-responsive" /></p>

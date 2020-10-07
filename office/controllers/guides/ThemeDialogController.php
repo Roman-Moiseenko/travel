@@ -10,7 +10,7 @@ use booking\entities\Rbac;
 use booking\forms\office\guides\ThemeDialogForm;
 use booking\forms\office\guides\TourTypeForm;
 use booking\services\office\guides\ThemeDialogService;
-use booking\services\office\guides\TypeService;
+use booking\services\office\guides\TypeTourService;
 use booking\services\DialogService;
 use office\forms\ThemeDialogSearch;
 use yii\base\Theme;

@@ -16,6 +16,12 @@ class SearchTourForm extends Model
     public $cost_min;
     public $cost_max;
 
+    /*public function __construct($config = [])
+    {
+        parent::__construct($config);
+        if (isset($config['$type'])) $this->type = $config['$type'];
+    }*/
+
     public function rules()
     {
         return [

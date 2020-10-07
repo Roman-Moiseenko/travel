@@ -44,4 +44,14 @@ class TypeRepository
     {
         return Type::find()->min('sort');
     }
+
+    public function findBySlug($slug)
+    {
+        return Type::find()->andWhere(['slug' => $slug])->one();
+    }
+
+    public function find($id):? Type
+    {
+        return Type::findOne($id);
+    }
 }

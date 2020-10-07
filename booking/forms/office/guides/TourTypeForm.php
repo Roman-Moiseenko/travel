@@ -10,11 +10,13 @@ use yii\base\Model;
 class TourTypeForm extends Model
 {
     public $name;
+    public $slug;
 
     public function __construct(Type $type = null, $config = [])
     {
         if ($type != null) {
             $this->name = $type->name;
+            $this->slug = $type->slug;
         }
         parent::__construct($config);
     }
@@ -22,7 +24,7 @@ class TourTypeForm extends Model
     public function rules()
     {
         return [
-            ['name', 'string'],
+            [['name', 'slug'], 'string'],
             ['name', 'required'],
         ];
     }

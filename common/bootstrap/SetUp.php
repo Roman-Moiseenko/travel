@@ -2,11 +2,13 @@
 
 namespace common\bootstrap;
 
+use booking\repositories\booking\tours\TypeRepository;
 use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
 use frontend\urls\PageUrlRule;
+use frontend\urls\TourTypeUrlRule;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
@@ -61,15 +63,16 @@ class SetUp implements BootstrapInterface
             return $app->cache;
         });
 
-        $container->setSingleton('cache', function () use ($app) {
-            return $app->cache;
-        });
 
-        $container->set(PageUrlRule::class, [], [
+        $container->setSingleton(PageUrlRule::class, [], [
             Instance::of(PageRepository::class),
             Instance::of('cache'),
         ]);
 
+        $container->setSingleton(TourTypeUrlRule::class, [], [
+            Instance::of(TypeRepository::class),
+            Instance::of('cache'),
+        ]);
 
         if (!\Yii::$app->request->cookies->get('lang')) {
             if (!$data =\Yii::$app->geo->getData()) {

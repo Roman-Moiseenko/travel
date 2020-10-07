@@ -7,7 +7,7 @@ namespace office\controllers\guides;
 use booking\entities\booking\tours\Type;
 use booking\entities\Rbac;
 use booking\forms\office\guides\TourTypeForm;
-use booking\services\office\guides\TypeService;
+use booking\services\office\guides\TypeTourService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -16,11 +16,11 @@ class TourTypeController extends Controller
 {
 
     /**
-     * @var TypeService
+     * @var TypeTourService
      */
     private $service;
 
-    public function __construct($id, $module, TypeService $service, $config = [])
+    public function __construct($id, $module, TypeTourService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;

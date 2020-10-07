@@ -18,6 +18,7 @@ class m201003_185800_create_blog_posts_table extends Migration
             'id' => $this->primaryKey(),
             'category_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->unsigned()->notNull(),
+            'public_at' => $this->integer()->unsigned(),
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
             'content' => 'MEDIUMTEXT',

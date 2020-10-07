@@ -75,7 +75,7 @@ class PostRepository
 
     public function getLast($limit): array
     {
-        return Post::find()->andWhere(['status' => Post::STATUS_ACTIVE])->with('category')->orderBy(['id' => SORT_DESC])->limit($limit)->all();
+        return Post::find()->andWhere(['status' => Post::STATUS_ACTIVE])->with('category')->orderBy(['public_at' => SORT_DESC])->limit($limit)->all();
     }
 
     public function getPopular($limit): array

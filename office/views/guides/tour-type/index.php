@@ -2,7 +2,6 @@
 /* @var $this yii\web\View */
 /* @var $types Type[] */
 
-
 $this->title = 'Категории туров';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -21,6 +20,7 @@ use yii\helpers\Url;
                 <tr>
                     <th>#ID</th>
                     <th>Название</th>
+                    <th>Ссылка</th>
                     <th>Сортировка</th>
                     <th></th>
                 </tr>
@@ -30,6 +30,7 @@ use yii\helpers\Url;
                 <tr>
                     <td><?= $type->id ?></td>
                     <td><?= $type->name ?></td>
+                    <td><?= $type->slug ?></td>
                     <td>
                         <?=
                         Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['move-up', 'id' => $type->id],
@@ -46,12 +47,10 @@ use yii\helpers\Url;
                                 'method' => 'post',
                             ],
                         ]) ?>
-
                     </td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
-
             </table>
         </div>
     </div>

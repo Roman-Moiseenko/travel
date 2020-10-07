@@ -8,7 +8,9 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\SearchTourForm;
 use booking\helpers\scr;
+
 use booking\repositories\booking\tours\TourRepository;
+use booking\repositories\booking\tours\TypeRepository;
 use booking\services\booking\tours\TourService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -19,18 +21,23 @@ class ToursController extends Controller
     public $layout = 'tours';
     private $tours;
     private $service;
+    /**
+     * @var TypeRepository
+     */
+    private $categories;
 
-    public function __construct($id, $module, TourRepository $tours, TourService $service, $config = [])
+    public function __construct($id, $module, TourRepository $tours, TypeRepository $categories, TourService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->tours = $tours;
         $this->service = $service;
+        $this->categories = $categories;
     }
 
     public function actionIndex()
     {
-        $form = new SearchTourForm();
-        if (isset(\Yii::$app->request->queryParams['SearchToursForm'])) {
+        $form = new SearchTourForm([]);
+        if (isset(\Yii::$app->request->queryParams['SearchTourForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();
             $dataProvider = $this->tours->search($form);
@@ -63,6 +70,26 @@ class ToursController extends Controller
         return $this->render('tour', [
             'tour' => $tour,
             'reviewForm' => $reviewForm,
+        ]);
+    }
+
+   public function actionCategory($slug)
+    {
+        if (!$category = $this->categories->findBySlug($slug)) {
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
+        }
+        $form = new SearchTourForm(['type' => $category->id]);
+        if (isset(\Yii::$app->request->queryParams['SearchTourForm'])) {
+            $form->load(\Yii::$app->request->get());
+            $form->validate();
+            $dataProvider = $this->tours->search($form);
+        } else {
+            $dataProvider = $this->tours->search($form);
+        }
+        //return $this->redirect();
+        return $this->render('index_top', [
+            'model' => $form,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
