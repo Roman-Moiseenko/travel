@@ -109,7 +109,7 @@ $(document).ready(function () {
         console.log(calendar_id);
         if (calendar_id != -1) {
             $.post('/tours/booking/gettickets', {calendar_id: calendar_id}, function (data) {
-                console.log(data);
+                //console.log(data);
                 $('.tickets-tours').html(data);
                 $('#button-booking-tour').attr('disabled', 'disabled');
             });

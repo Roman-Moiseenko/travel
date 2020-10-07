@@ -98,8 +98,18 @@ return [
                 'stays' => 'stays/stays/index',
                 'cars' => 'cars/cars/index',
                 'tickets' => 'tickets/tickets/index',
-                'tours/<id:\d+>' => 'tours/tours/tour',
-                'tours/category' => 'tours/tours/category',
+                'tours/booking/getcalendar' => 'tours/booking/getcalendar',
+                'tours/booking/gettickets' => 'tours/booking/gettickets',
+                'tours/booking/getlisttours' => 'tours/booking/getlisttours',
+                'tours/booking/getday' => 'tours/booking/getday',
+                'tours/checkout/booking' => 'tours/checkout/booking',
+
+
+                'tour/<slug:[\w\-]+>' =>'tours/tours/tour',
+
+                //'tours/<id:\d+>' => 'tours/tours/tour',
+                //'tours/category' => 'tours/tours/category',
+
                 'tours/<slug:[\w\-]+>' =>'tours/tours/category',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/dialog' => 'cabinet/dialog/dialog',
@@ -117,6 +127,7 @@ return [
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
+                ['class' => 'frontend\urls\TourUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',

@@ -51,7 +51,7 @@ class WishlistTour extends ActiveRecord implements WishlistItemInterface
 
     public function getLink(): string
     {
-        return Url::to(['tours/view', 'id' => $this->tour_id]);
+        return Url::to(['tour/view', 'id' => $this->tour_id]);
     }
 
     public function getPhoto(): string

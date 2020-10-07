@@ -36,7 +36,7 @@ $tour = $booking->calendar->tour;
             </ul>
         </div>
         <div class="flex-grow-1 align-self-center caption-list pl-3">
-            <a href="<?= Url::to(['/tours/view', 'id' => $tour->id]); ?>"><?= $tour->name ?></a>
+            <a href="<?= $booking->getLinks()['entities']; ?>"><?= $tour->name ?></a>
 
         </div>
         <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW || $booking->status == BookingHelper::BOOKING_STATUS_PAY):?>

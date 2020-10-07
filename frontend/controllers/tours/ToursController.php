@@ -51,17 +51,18 @@ class ToursController extends Controller
         ]);
     }
 
-    public function actionTour($id)
+    public function actionTour($slug)
     {
         $this->layout = 'tours_blank';
 
-        $tour = $this->findModel($id);
+        $tour = $this->tours->findBySlug($slug);
         $reviewForm = new ReviewForm();
+        //scr::p($reviewForm);
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($tour->id, \Yii::$app->user->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
-                return $this->redirect(['tours/view', 'id' => $id]);
+                return $this->redirect(['tour/view', 'id' => $tour->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

@@ -112,7 +112,6 @@ $countReveiws = $tour->countReviews();
                         <?= CurrencyHelper::get($tour->baseCost->child) ?>
                         </span>
                     <?php endif; ?>
-
                 </span>
                 <p></p>
                 <span class="params-item">
@@ -197,7 +196,6 @@ $countReveiws = $tour->countReviews();
                 <div class="params-item-map">
                     <div class="row">
                         <div class="col-4">
-
                             <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
                                     data-target="#collapse-map"
                                     aria-expanded="false" aria-controls="collapse-map">
@@ -224,7 +222,6 @@ $countReveiws = $tour->countReviews();
                                            value="<?= $tour->params->beginAddress->longitude ?? '' ?>" type="hidden">
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div id="map-view" style="width: 100%; height: 300px"></div>
                             </div>
@@ -261,7 +258,6 @@ $countReveiws = $tour->countReviews();
                                            value="<?= $tour->params->endAddress->longitude ?? '' ?>" type="hidden">
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div id="map-view-2" style="width: 100%; height: 300px"></div>
                             </div>
@@ -298,7 +294,6 @@ $countReveiws = $tour->countReviews();
                                            value="<?= $tour->address->longitude ?? '' ?>" type="hidden">
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div id="map-view-3" style="width: 100%; height: 300px"></div>
                             </div>
@@ -319,7 +314,6 @@ $countReveiws = $tour->countReviews();
                     <?= ReviewsToursWidget::widget(['tours' => $tour]); ?>
                 </div>
                 <?= NewReviewTourWidget::widget(['tour_id' => $tour->id]); ?>
-
             </div>
         </div>
     </div>

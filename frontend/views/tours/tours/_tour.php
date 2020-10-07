@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $tour Tour */
 ?>
 
-<?php $url = Url::to(['/tours/view', 'id' => $tour->id]) ?>
+<?php $url = Url::to(['/tour/view', 'id' => $tour->id]) ?>
 
 <div class="card mb-3 p-2" style="border: 0 !important; ">
     <div class="holder"> <!-- style="position: relative" -->

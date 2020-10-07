@@ -2,6 +2,7 @@
 
 namespace common\bootstrap;
 
+use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
@@ -9,6 +10,7 @@ use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
 use frontend\urls\PageUrlRule;
 use frontend\urls\TourTypeUrlRule;
+use frontend\urls\TourUrlRule;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
@@ -73,7 +75,10 @@ class SetUp implements BootstrapInterface
             Instance::of(TypeRepository::class),
             Instance::of('cache'),
         ]);
-
+        $container->setSingleton(TourUrlRule::class, [], [
+            Instance::of(TourRepository::class),
+            Instance::of('cache'),
+        ]);
         if (!\Yii::$app->request->cookies->get('lang')) {
             if (!$data =\Yii::$app->geo->getData()) {
                 $lang = 'ru';

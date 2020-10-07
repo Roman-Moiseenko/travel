@@ -207,4 +207,14 @@ class TourRepository
             ]
         );
     }
+
+    public function findBySlug($slug)
+    {
+        return Tour::find()->andWhere(['slug' => $slug])->one();
+    }
+
+    public function find($id):? Tour
+    {
+        return Tour::findOne($id);
+    }
 }

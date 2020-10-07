@@ -11,7 +11,7 @@ use yii\helpers\Html; ?>
     <?= Lang::t('Оставить отзыв') ?>
 </button>
 <div class="collapse" id="collapse-review">
-    <?php $form = ActiveForm::begin(['action' => '/tours/' . $tour_id]) ?>
+    <?php $form = ActiveForm::begin(['action' => ['/tour/view', 'id' => $tour_id]]) ?>
     <?= $form->field($reviewForm, 'vote')->dropDownList($reviewForm->voteList(), ['prompt' => '--- ' . Lang::t('Выберите') . ' ---'])->label(Lang::t('Рейтинг')); ?>
 
     <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Отзыв')); ?>
