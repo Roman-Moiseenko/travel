@@ -6,7 +6,7 @@ namespace booking\repositories\booking\stays;
 use booking\entities\booking\stays\ReviewStay;
 use booking\entities\Lang;
 
-class ReviewRepository
+class ReviewStayRepository
 {
 
     public function get($id): ReviewStay

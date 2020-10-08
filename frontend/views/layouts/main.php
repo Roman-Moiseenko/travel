@@ -93,39 +93,6 @@ AppAsset::register($this);
     </footer>
 
     <?php $this->endBody() ?>
-    <script type="text/javascript"><!--
-        $('#slideshow0').swiper({
-            mode: 'horizontal',
-            slidesPerView: 1,
-            pagination: '.slideshow0',
-            paginationClickable: false,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            spaceBetween: 30,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: true,
-            loop: true
-        });
-        --></script>
-    <script type="text/javascript"><!--
-        $('#carousel0').swiper({
-            mode: 'horizontal',
-            slidesPerView: 5,
-            pagination: '.carousel0',
-            paginationClickable: true,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            autoplay: 2500,
-            loop: true
-        });
-        --></script>
-    <script type="text/javascript"><!--
-        $('#banner0').swiper({
-            effect: 'fade',
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-        });
-        --></script>
     </body>
     </html>
 <?php $this->endPage() ?>

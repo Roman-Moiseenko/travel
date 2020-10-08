@@ -8,21 +8,30 @@ use booking\entities\admin\Legal;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
+use booking\helpers\scr;
 
 class ReviewRepository
 {
     /** @return ReviewInterface[] */
     public function getByLegal($legal_id): array
     {
-        $tours = [];
-        //TODO Сложный запрос по турам
 
-        //ReviewTour::find()->andWhere(['user_id' => $legal_id])->all();
-        $stays = []; $cars = [];
+       // scr::p(Tour::find()->select('id')->andWhere(['legal_id' => $legal_id])->asArray()->all());
+        $tours = ReviewTour::find()
+            ->andWhere([
+                'IN',
+                'tour_id',
+                Tour::find()->select('id')->andWhere(['legal_id' => $legal_id])
+            ])
+            ->all();
+      //  scr::p(count($tours));
+        //TODO Заглушка
+        $stays = [];
+        $cars = [];
         /* ЗАГЛУШКА
-        $stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();
+        $stays = ReviewStay::find()->andWhere(['IN', 'tour_id', Stay::find()->select('id')->andWhere(['legal_id' => $legal_id])->all()])->all();
 
-        $cars = ReviewCar::find()->andWhere(['user_id' => $user_id])->all();
+        $cars = ReviewCar::find()->andWhere(['IN', 'tour_id', Car::find()->select('id')->andWhere(['legal_id' => $legal_id])->all()])->all();
         */
         return $this->sort_merge($tours, $stays, $cars);
     }
@@ -31,7 +40,8 @@ class ReviewRepository
     public function getByUser($user_id): array
     {
         $tours = ReviewTour::find()->andWhere(['user_id' => $user_id])->all();
-        $stays = []; $cars = [];
+        $stays = [];
+        $cars = [];
         /* ЗАГЛУШКА
         $stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();
 
@@ -45,16 +55,17 @@ class ReviewRepository
     {
         $old = time() - 3600 * 24 * $last_day;
         $tours = ReviewTour::find()->andWhere([
-            'IN' ,
+            'IN',
             'tour_id',
             Tour::find()->select('id')->andWhere([
                 'IN',
                 'legal_id',
                 Legal::find()->select('id')->andWhere(['user_id' => $admin_id])])
-            ])
+        ])
             ->andWhere(['>=', 'created_at', $old])
             ->orderBy(['created_at' => SORT_DESC])->all();
-        $stays = []; $cars = [];
+        $stays = [];
+        $cars = [];
         /* ЗАГЛУШКА
         $stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();
 

@@ -19,6 +19,11 @@ class TourRepository
         return Tour::findOne($id);
     }
 
+    public function getByLegal($legal_id): array
+    {
+        return Tour::find()->andWhere(['legal_id' => $legal_id])->all();
+    }
+
     public function getByUser($user_id)
     {
         return Tour::find()->andWhere(['user_id' => $user_id])->orderBy(['created_at' => SORT_DESC]);

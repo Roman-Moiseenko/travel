@@ -131,7 +131,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Другие бронирования от провайдера') ?></div>
         </div>
-        <?= BookingObjectWidget::widget() ?>
+        <?= BookingObjectWidget::widget([
+            'legal_id' => $legal->id,
+        ]) ?>
     </div>
 </div>
 <!-- Отзывы -->
@@ -141,7 +143,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Отзывы') ?></div>
         </div>
-        <?= ReviewsWidget::widget() ?>
+        <?= ReviewsWidget::widget([
+                'legal_id' => $legal->id,
+        ]) ?>
     </div>
 
 </div>
