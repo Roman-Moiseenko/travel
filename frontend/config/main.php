@@ -103,10 +103,8 @@ return [
                 'tours/booking/getlisttours' => 'tours/booking/getlisttours',
                 'tours/booking/getday' => 'tours/booking/getday',
                 'tours/checkout/booking' => 'tours/checkout/booking',
-
-
+                'legals/view' => 'legals/view',
                 'tour/<slug:[\w\-]+>' =>'tours/tours/tour',
-
                 //'tours/<id:\d+>' => 'tours/tours/tour',
                 //'tours/category' => 'tours/tours/category',
 

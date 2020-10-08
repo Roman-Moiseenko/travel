@@ -149,7 +149,7 @@ $tour = $booking->calendar->tour;
                     <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
                         <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить')?> *</a><br>
-                    <label>* <?= Lang::t('В случае отмены платежа, взымается коммисия банка, до 4%')?></label>
+                    <label>* <?= Lang::t('В случае отмены платежа, взымается комиссия банка, до 4%')?></label>
                     <?php endif; ?>
                 </div>
             </div>

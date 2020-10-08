@@ -30,13 +30,13 @@ $countReveiws = $tour->countReviews();
 ?>
 <!-- ФОТО  -->
 <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
-    <div class="col">
+    <div class="col-sm-12">
         <ul class="thumbnails">
             <?php foreach ($tour->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
                     <li><a class="thumbnail" href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
-                                 alt="<?= Html::encode($tour->name); ?>"/>
+                                 alt="<?= Html::encode($tour->name); ?>" class="card-img-top""/>
                         </a>
                     </li>
                 <?php else: ?>
@@ -53,7 +53,7 @@ $countReveiws = $tour->countReviews();
 </div>
 <!-- ОПИСАНИЕ -->
 <div class="row">
-    <div class="col-8">
+    <div class="col-sm-8">
         <!-- Заголовок тура-->
         <div class="row pb-3">
             <div class="col-12">
@@ -74,7 +74,7 @@ $countReveiws = $tour->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-8 params-tour">
+            <div class="col-sm-8 params-tour">
                 <p class="text-justify">
                     <?= Yii::$app->formatter->asHtml($tour->description, [
                         'Attr.AllowedRel' => array('nofollow'),
@@ -85,7 +85,7 @@ $countReveiws = $tour->countReviews();
                     ]) ?>
                 </p>
             </div>
-            <div class="col-4">
+            <div class="col-sm-4">
                 <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
             </div>
         </div>
@@ -318,7 +318,7 @@ $countReveiws = $tour->countReviews();
         </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
-    <div class="col-4">
+    <div class="col-sm-4">
 
         <?= $this->render('_booking', [
             'tour' => $tour,

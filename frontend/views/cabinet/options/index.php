@@ -24,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="params-item-map">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-xs-4 col-sm-3 col-md-6">
                         <?= Lang::t('Язык') ?>:
                     </div>
-                    <div class="col-2">
+                    <div class="col-xs-4 col-sm-3 col-md-2">
                         <?= $form->field($model, 'lang')->dropDownList(Lang::listLangsDropDown())->label(false) ?>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-6">
                         <?= Lang::t('Предпочитаемая валюта') ?>:
                     </div>
-                    <div class="col-2">
+                    <div class="col-xs-4 col-sm-3 col-md-2">
                         <?= $form->field($model, 'currency')->dropDownList(CurrencyHelper::listCurrencyDropDown(), ['format' => 'raw'])->label(false) ?>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-6">
                         <?= Lang::t('Курение в номерах') ?>:
                     </div>
-                    <div class="col-3">
+                    <div class="col-xs-4 col-sm-4 col-md-3">
                         <?= $form->field($model, 'smocking')->dropDownList([
                                 0 => Lang::t('Не важно'),
                             1 => Lang::t('Да'),
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-6">
                         <?= Lang::t('Количество звезд') ?>:
                     </div>
-                    <div class="col-3">
+                    <div class="col-xs-4 col-sm-4 col-md-3">
                         <?= $form->field($model, 'stars')->dropDownList([
                             0 => Lang::t('Любое'),
                             2 => Lang::t('2 и выше'),

@@ -5,6 +5,8 @@ use booking\entities\admin\Legal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
+use frontend\widgets\legal\BookingObjectWidget;
+use frontend\widgets\legal\ReviewsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -121,4 +123,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <span style="font-weight: 600;"><?= Lang::t('Расчетный счет') ?></span>&#160;&#160;<?= $legal->account ?>
         </div>
     </div>
+</div>
+<!-- Объекты бронирования -->
+<div class="row pt-4">
+    <div class="col params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Другие бронирования от провайдера') ?></div>
+        </div>
+        <?= BookingObjectWidget::widget() ?>
+    </div>
+</div>
+<!-- Отзывы -->
+<div class="row pt-4">
+    <div class="col params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Отзывы') ?></div>
+        </div>
+        <?= ReviewsWidget::widget() ?>
+    </div>
+
 </div>
