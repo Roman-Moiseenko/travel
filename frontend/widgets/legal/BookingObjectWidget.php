@@ -8,6 +8,7 @@ use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use yii\base\Widget;
+use yii\helpers\Url;
 
 class BookingObjectWidget extends Widget
 {
@@ -36,11 +37,21 @@ class BookingObjectWidget extends Widget
 
     public function run()
     {
+        $obj= [];
         $tours = $this->tours->getByLegal($this->legal_id);
-        $stays = $this->stays->getByLegal($this->legal_id);
-        $cars = $this->cars->getByLegal($this->legal_id);
+        foreach ($tours as $tour) {
+            $obj[] = [
+                'photo' => $tour->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
+                'name' => $tour->name,
+                'link' => Url::to(['tour/view', 'id' => $tour->id]),
+                'description' => $tour->description,
+            ];
+        }
+        //TODO Заглушка ($stays $cars)
+//        $stays = $this->stays->getByLegal($this->legal_id);
+      //  $cars = $this->cars->getByLegal($this->legal_id);
 
-        $obj = array_merge($tours, $stays, $cars);
+        shuffle($obj);
 
         return $this->render('objects', [
             'objects' => $obj,

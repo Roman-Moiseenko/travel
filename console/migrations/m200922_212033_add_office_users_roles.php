@@ -12,7 +12,6 @@ class m200922_212033_add_office_users_roles extends Migration
      */
     public function safeUp()
     {
-        //TODO ДОБАВИТЬ РОЛИ !!!!!!!!!!!!!!!!
         $this->batchInsert('{{%auth_items}}', ['type', 'name', 'description'], [
             [1, 'support', 'Поддержка'],
             [1, 'manager', 'Менеджер'],

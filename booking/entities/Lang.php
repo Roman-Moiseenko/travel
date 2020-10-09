@@ -82,6 +82,10 @@ class Lang extends ActiveRecord
 
     public static function listLangs(): array
     {
+        //TODO Заглушка на языки
+        return [
+            'ru', 'en',
+        ];
         return [
             'ru', 'en', 'pl', 'de', 'fr', 'lt', 'lv'
         ];
@@ -89,6 +93,10 @@ class Lang extends ActiveRecord
 
     public static function listLangsDropDown(): array
     {
+        return [
+            'ru' => 'ru', 'en' => 'en',
+        ];
+
         return [
             'ru' => 'ru', 'en' => 'en', 'pl' => 'pl', 'de' => 'de', 'fr' => 'fr', 'lt' => 'lt', 'lv' => 'lv'
         ];
