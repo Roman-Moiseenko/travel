@@ -14,4 +14,5 @@ return [
     'supportPhone' => '+7-800-000-0101',
     'NotSend' => true,
     'NotPay' => true,
+    'paginationTour' => 24,
 ];

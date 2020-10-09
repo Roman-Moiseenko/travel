@@ -191,14 +191,17 @@ class TourRepository
                     'defaultOrder' => ['id' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['t.id' => SORT_ASC], 'desc' => ['t.id' => SORT_DESC],
+                            'asc' => ['t.id' => SORT_DESC], 'desc' => ['t.id' => SORT_ASC],
                         ],
                         'name' => [
                             'asc' => ['t.name' => SORT_ASC], 'desc' => ['t.name' => SORT_DESC],
                         ],
-                        /*'price' => [
-                            'asc' => ['p.price_new' => SORT_ASC], 'desc' => ['p.price_new' => SORT_DESC],
-                        ],*/
+                        'date' => [
+                            'asc' => ['t.created_at' => SORT_ASC], 'desc' => ['t.created_at' => SORT_DESC],
+                        ],
+                        'cost' => [
+                            'asc' => ['t.cost_adult' => SORT_ASC], 'desc' => ['t.cost_adult' => SORT_DESC],
+                        ],
                         'rating' => [
                             'asc' => ['t.rating' => SORT_ASC], 'desc' => ['t.rating' => SORT_DESC],
                         ],
@@ -206,8 +209,8 @@ class TourRepository
                     ],
                 ],
                 'pagination' => [
-                    'defaultPageSize' => 15,
-                    'pageSizeLimit' => [15, 100],
+                    'defaultPageSize' => \Yii::$app->params['paginationTour'],
+                    'pageSizeLimit' => [\Yii::$app->params['paginationTour'], \Yii::$app->params['paginationTour']],
                 ],
             ]
         );

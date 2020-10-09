@@ -28,9 +28,7 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-    <nav id="top">
-                <?= TopmenuWidget::widget()?>
-    </nav>
+    <nav id="top"><?= TopmenuWidget::widget()?></nav>
 
     <div id="common-home" class="container content-container">
         <?= Breadcrumbs::widget([
