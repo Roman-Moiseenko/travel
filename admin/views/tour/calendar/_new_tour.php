@@ -3,6 +3,7 @@
 use booking\entities\booking\tours\Tour;
 
 /* @var $tour Tour */
+/* @var $errors array */
 
 ?>
 
@@ -52,4 +53,10 @@ use booking\entities\booking\tours\Tour;
             <a href="#" class="btn btn-success" id="send-new-tour">Добавить</a>
         </div>
     </div>
-
+<?php if (isset($errors['new_tour'])): ?>
+<div class="row">
+    <div class="col">
+        <div class="error-message"><?= $errors['new_tour'] ?></div>
+    </div>
+</div>
+<?php endif; ?>

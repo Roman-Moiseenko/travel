@@ -34,14 +34,14 @@ $countReveiws = $tour->countReviews();
         <ul class="thumbnails">
             <?php foreach ($tour->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
-                    <li><a class="thumbnail" href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">
+                    <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
                                  alt="<?= Html::encode($tour->name); ?>" class="card-img-top""/>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
-                        <a class="thumbnail" href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">&nbsp;
+                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
                                  alt="<?= $tour->name; ?>"/>
                         </a>

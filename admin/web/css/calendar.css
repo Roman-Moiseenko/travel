@@ -52,7 +52,18 @@
     border-radius: 4px;
     border: none;
 }
-
+.tour-day-deselect {
+    font-size: larger;
+    text-align: center;
+    background: #b99265 !important;
+    color: white !important;
+    width: 100px !important;
+    height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
 .hidden {
     display:none;
 }

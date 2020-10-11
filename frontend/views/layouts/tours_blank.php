@@ -3,7 +3,7 @@
 
 /* @var $content string */
 
-?>
+use frontend\widgets\SuggestWidget; ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 
 <div class="row">
@@ -11,7 +11,7 @@
         <?= $content ?>
     </div>
     <div class="hidden-xs">
-        РЕКОМЕНДУЕМ ПОСЕТИТЬ В НАШЕМ РЕГИОНЕ
+        <?= SuggestWidget::widget() ?>
     </div>
 </div>
 </div>

@@ -42,12 +42,17 @@ $(document).ready(function () {
             if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
                 return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
             }
+            //console.log(new Date().getDate());
+           // console.log(date.getDate());
+            /*if (new Date().getDate() === date.getDate()) {
+                return {enabled: false, classes: 'tour-day-deselect', tooltip: '', content: content};
+            } */
             return {enabled: true, classes: 'tour-day', tooltip: '', content: content};
         }
     });
     //Событие при выборе даты
     $('#datepicker').datepicker().on('changeDate', function (e) {
-        console.log(e);
+      //  console.log(e);
         if ($('#data-day-copy').is(':checked')) {
             //Установлен флажок Копировать
             var d = $('#data-day').attr('data-d');
@@ -121,12 +126,12 @@ $(document).ready(function () {
                 _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference
             },
             function (data) {
-
                 var dateInfo = JSON.parse(data);
                 $('.list-tours').html(dateInfo._list);
                 $('.new-tours').html(dateInfo._new);
                 full_array_tours = dateInfo.full_array_tours;
-                console.log(full_array_tours);
+               //console.log(dateInfo._new);
+                // console.log(full_array_tours);
                 $('#datepicker').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
             });
     });
@@ -145,8 +150,9 @@ $(document).ready(function () {
                 var dateInfo = JSON.parse(data);
                 $('.list-tours').html(dateInfo._list);
                 $('.new-tours').html(dateInfo._new);
+                //console.log(dateInfo._new);
                 full_array_tours = dateInfo.full_array_tours;
-                console.log(full_array_tours);
+             //   console.log(full_array_tours);
                 $('#datepicker').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
             });
     });
@@ -171,7 +177,7 @@ $(document).ready(function () {
         }
         $.post('/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
             function (data) {
-            console.log(data);
+            //console.log(data);
                 full_array_tours = JSON.parse(data);
                 $('#datepicker').datepicker('update');
                 //Очищаем чекбоксы

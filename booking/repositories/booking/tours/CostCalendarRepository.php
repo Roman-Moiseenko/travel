@@ -14,6 +14,12 @@ class CostCalendarRepository
         return CostCalendar::findOne($id);
     }
 
+    public function isset($tour_at, $time_at): bool
+    {
+        $calendar = CostCalendar::find()->andWhere(['tour_at' => $tour_at])->andWhere(['time_at' => $time_at])->one();
+        return $calendar ? true : false;
+    }
+
     public function getActual($tours_id)
     {
         return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();

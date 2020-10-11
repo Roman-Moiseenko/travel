@@ -10,6 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 use booking\entities\booking\tours\Type;
 use booking\entities\message\ThemeDialog;
+use booking\helpers\DialogHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -35,9 +36,9 @@ use yii\helpers\Url;
                     ],
                     [
                         'attribute' => 'type_dialog',
-                        'filter' => ThemeDialog::getTypeList(),
+                        'filter' => DialogHelper::getTypeList(),
                         'value' => function (ThemeDialog $model) {
-                            return $model->type_dialog == 0 ? '' : ThemeDialog::getTypeList()[$model->type_dialog];
+                            return $model->type_dialog == 0 ? '' : DialogHelper::getTypeList()[$model->type_dialog];
                         },
                         'format' => 'raw',
                         'label' => 'Тип диалога',

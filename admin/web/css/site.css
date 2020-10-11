@@ -173,3 +173,10 @@ div.required label:after {
     background-color: #949797 !important;
     cursor: pointer
 }
+
+.error-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 120%;
+    color: #dc3545;
+}

@@ -30,7 +30,7 @@ class TourTypeUrlRule extends BaseObject implements UrlRuleInterface
     {
         scr::p([$manager, $request]);
         $path = $request->pathInfo;
-        $result = $this->cache->getOrSet(['page_route', 'path' => $path], function () use ($path) {
+        $result = $this->cache->getOrSet(['tours_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {
                 return ['id' => null, 'path' => null];
             }
@@ -45,7 +45,7 @@ class TourTypeUrlRule extends BaseObject implements UrlRuleInterface
             throw new UrlNormalizerRedirectException(['tours/category', 'id' => $result['id']], 301);
         }
 
-        return ['page/view', ['id' => $result['id']]];
+        return ['tours/category', ['id' => $result['id']]];
     }
 
     public function createUrl($manager, $route, $params)
@@ -57,7 +57,7 @@ class TourTypeUrlRule extends BaseObject implements UrlRuleInterface
             }
             $id = $params['id'];
 
-            $url = $this->cache->getOrSet(['page_route', 'id' => $id], function () use ($id) {
+            $url = $this->cache->getOrSet(['tours_route', 'id' => $id], function () use ($id) {
                 if (!$category = $this->repository->find($id)) {
                     return null;
                 }

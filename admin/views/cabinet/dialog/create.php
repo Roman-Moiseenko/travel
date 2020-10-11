@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\helpers\BookingHelper;
+use booking\helpers\DialogHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
@@ -30,7 +31,7 @@ $booking = BookingHelper::getByNumber($optional);
     <?php $form = ActiveForm::begin() ?>
     <div class="row">
         <div class="col-md-12">
-            <?= $form->field($model, 'theme_id')->dropDownList(ThemeDialog::getList($typeDialog), ['prompt' => '--- ' . Lang::t('Выберите') . ' ---'])->label(Lang::t('Тема сообщения')); ?>
+            <?= $form->field($model, 'theme_id')->dropDownList(DialogHelper::getList($typeDialog), ['prompt' => '--- ' . Lang::t('Выберите') . ' ---'])->label(Lang::t('Тема сообщения')); ?>
             <?= $form->field($model, 'text')->textarea(['rows' => 7])->label(Lang::t('Сообщение')); ?>
         </div>
     </div>

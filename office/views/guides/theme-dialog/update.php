@@ -4,6 +4,7 @@ use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
 use booking\entities\message\ThemeDialog;
 use booking\forms\office\guides\ThemeDialogForm;
+use booking\helpers\DialogHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
             <div class="row">
                 <div class="col-md-9">
                     <?= $form->field($model, 'caption')->textInput(['maxlength' => true])->label('Заголовок темы') ?>
-                    <?= $form->field($model, 'type_dialog')->dropDownList(ThemeDialog::getTypeList(), ['prompt' => ''])->label('Тип диалога') ?>
+                    <?= $form->field($model, 'type_dialog')->dropDownList(DialogHelper::getTypeList(), ['prompt' => ''])->label('Тип диалога') ?>
                 </div>
             </div>
         </div>

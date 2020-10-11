@@ -143,7 +143,7 @@ class BookingRepository
         });
         /** @var BookingItemInterface $booking */
         foreach ($result as $booking) {
-            if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) $booking->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
+            if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW && (time() - $booking->getCreated() > 3600 * 24)) $booking->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
         }
         return $result;
     }

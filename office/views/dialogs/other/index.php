@@ -2,6 +2,7 @@
 
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\helpers\DialogHelper;
 use office\forms\DialogsSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -49,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'theme_id',
-                        'filter' => ThemeDialog::getList(Dialog::CLIENT_PROVIDER),
+                        'filter' => DialogHelper::getList(Dialog::CLIENT_PROVIDER),
                         'value' => function (Dialog $model) {
                             return $model->theme->caption;
                         },

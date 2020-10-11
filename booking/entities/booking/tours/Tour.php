@@ -139,6 +139,11 @@ class Tour extends ActiveRecord
         return true;
     }
 
+    public function isPrivate(): bool
+    {
+        return $this->params->private == true;
+    }
+
     public function behaviors()
     {
         return [

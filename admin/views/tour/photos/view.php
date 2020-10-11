@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = 'Фотографии';
     <div class="card card-secondary" id="photos">
         <div class="card-header with-border">Фотографии</div>
         <div class="card-body">
+            <label>Для более качественного отображения, фотографии должны иметь размер не менее 1280х720</label>
             <div class="row">
                 <?php foreach ($tour->photos as $photo): ?>
                     <div class="col-md-2 col-xs-3" style="text-align: center">

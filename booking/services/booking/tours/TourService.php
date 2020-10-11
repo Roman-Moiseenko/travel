@@ -17,6 +17,7 @@ use booking\forms\booking\tours\TourExtraForm;
 use booking\forms\booking\tours\TourFinanceForm;
 use booking\forms\booking\tours\TourParamsForm;
 use booking\helpers\StatusHelper;
+use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\repositories\booking\tours\ReviewTourRepository;
 use booking\repositories\booking\tours\TourRepository;
@@ -39,6 +40,10 @@ class TourService
      * @var DialogRepository
      */
     private $dialogs;
+    /**
+     * @var CostCalendarRepository
+     */
+    private $calendars;
 
     public function __construct(
         TourRepository $tours,
@@ -47,7 +52,8 @@ class TourService
         ExtraRepository $extra,
         ContactService $contactService,
         ReviewTourRepository $reviews,
-        DialogRepository $dialogs
+        DialogRepository $dialogs,
+        CostCalendarRepository $calendars
     )
     {
         $this->tours = $tours;
@@ -57,6 +63,7 @@ class TourService
         $this->contactService = $contactService;
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
+        $this->calendars = $calendars;
     }
 
     public function create(TourCommonForm $form): Tour
@@ -111,7 +118,9 @@ class TourService
             foreach ($form->files as $file) {
                 $tour->addPhoto($file);
             }
+        ini_set('max_execution_time', 180);
         $this->tours->save($tour);
+        ini_set('max_execution_time', 30);
     }
 
     public function movePhotoUp($id, $photoId): void
@@ -314,6 +323,30 @@ class TourService
     public function support(int $id, $type)
     {
         //TODO !!!!! отправка жалобы на заблокированный объект
+    }
+
+    public function addCostCalendar(int $id, int $tour_at, $time_at, $tickets, $cost_adult, $cost_child, $cost_preference)
+    {
+        /** @var Tour $tour */
+        $tour = $this->tours->get($id);
+        //$test = $tour->isPrivate() . ' ' . $tickets;
+        if ($tour->isPrivate() && $tickets != 1) {
+            return 'Для индивидуального тура кол-во билетов должно быть равно 1';
+        }
+        if ($this->calendars->isset($tour_at, $time_at))
+        {
+            return 'Данное время (' . $time_at . ') уже занято';
+        }
+        $tour->addCostCalendar(
+            $tour_at,
+            $time_at,
+            $tickets,
+            $cost_adult,
+            $cost_child,
+            $cost_preference
+        );
+        $this->tours->save($tour);
+      //  return $test;
     }
 
 }

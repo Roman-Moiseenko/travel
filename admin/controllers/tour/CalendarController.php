@@ -105,12 +105,13 @@ class CalendarController extends Controller
     public function actionSetday()
     {
         if (\Yii::$app->request->isAjax) {
+            $errors = [];
             $params = \Yii::$app->request->bodyParams;
             //Год, Месяц, День, Время, Цена.Взр, Цена.Дет, Цена.Льгот, Кол-воБилетов
-            $tours = $this->findModel($params['tour_id']);
+            $tour = $this->findModel($params['tour_id']);
             try {
-
-                $calendar = $tours->addCostCalendar(
+                $test = $this->service->addCostCalendar(
+                    $tour->id,
                     strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
                     $params['_time'],
                     $params['_tickets'],
@@ -118,13 +119,22 @@ class CalendarController extends Controller
                     $params['_child'],
                     $params['_preference']
                 );
-                $this->tours->save($tours);
-            } catch (\Throwable $e) {
+               /* $calendar = $tours->addCostCalendar(
+                    strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
+                    $params['_time'],
+                    $params['_tickets'],
+                    $params['_adult'],
+                    $params['_child'],
+                    $params['_preference']
+                );
+                $this->tours->save($tours);*/
+               $errors['new_tour'] = $test;
+            } catch (\DomainException $e) {
                 return $e->getMessage();
             }
 
             //return $calendar->time_at;
-            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
+            return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }
 
@@ -204,7 +214,7 @@ class CalendarController extends Controller
             'day_tours' => $day_tours,
             'errors' => $errors,
         ]);
-        $_new = $this->render('_new_tour', ['tour' => $tours]);
+        $_new = $this->render('_new_tour', ['tour' => $tours, 'errors' => $errors]);
         $result = ['_list' => $_list, '_new' => $_new, 'full_array_tours' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
         return json_encode($result);
     }

@@ -1,7 +1,29 @@
+@font-face {
+    font-family: 'Comfortaa';
+    src: local('Comfortaa'),
+    url('../fonts/Comfortaa/Comfortaa-Regular.ttf');
+}
+@font-face {
+    font-family: 'Forum';
+    src: local('Forum'),
+    url('../fonts/Forum/Forum-Regular.ttf');
+}
+@font-face {
+    font-family: 'Didact Gothic';
+    src: local('Didact Gothic'),
+    url('../fonts/Didact_Gothic/DidactGothic.ttf');
+}
 
 
 html,
 body {
+    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
+    font-weight: 400;
+    color: #666;
+    font-size: 12px;
+    line-height: 20px;
+    width: 100%;
     height: 100%;
     /*background: #4f85a5;*/
     --main-light2-color: #3dc7ff;
@@ -9,9 +31,34 @@ body {
     --main-nav-color: #2aabd2;
     --main-dark1-color: #2980a5;
     --main-dark2-color: #226b8a;
-    --seach-menu-color: #f7e59a;
+    --seach-menu-color: #f8e173;
 }
-
+/* Override the bootstrap defaults */
+h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 33px;
+}
+h2 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 27px;
+}
+h3 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 21px;
+}
+h4 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 15px;
+}
+h5 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 12px;
+}
+h6 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 10.2px;
+}
+/*f7e59a*/
 .wrap {
     min-height: 100%;
     height: auto;
@@ -130,7 +177,7 @@ a.desc:after {
 
 .topbar-search-tours {
     padding: 20px 20px;
-    background: #f7e59a;
+    background: var(--seach-menu-color);
     border: #122b40 2px;
     margin: 10px 10px;
     /*font-size: 14px !important;*/
@@ -174,6 +221,7 @@ a.desc:after {
 }
 
 .container-hr {
+    font-family: 'Comfortaa', sans-serif;
     position: relative;
     padding-top: 24px;
 }
@@ -396,7 +444,7 @@ div.required label:after {
 }
 
 .breadcrumb-site a {
-    color: #2aabd2;
+    color: var(--main-nav-color);
 }
 
 .breadcrumb-site > li {
@@ -472,7 +520,7 @@ div.required label:after {
     background-color: #ddfaff;
 }
 .sort-bar>ul>li.select  {
-    background-color: #008009 !important;
+    background-color: #208a2b !important;
     color: white !important;
     border: 0;
 }
@@ -483,7 +531,7 @@ div.required label:after {
 }
 
 .sort-bar >ul>li.select>a:hover  {
-    background-color: #008009 !important;
+    background-color: #208a2b !important;
     color: white !important;
     border: 0;
 }
