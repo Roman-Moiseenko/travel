@@ -86,7 +86,7 @@ AppAsset::register($this);
                 </div>
             </div>
             <hr>
-            <p><?= Lang::t('Разработано') ?> <a href="http://www.mycraft.site" target="_blank"><?= Lang::t('Моисеенко Роман Александрович') ?></a> &copy; 2020</p>
+            <p><?= Lang::t('Разработано') ?> <a href="mailto:r.a.moiseenko@gmail.com" target="_blank"><?= Lang::t('Моисеенко Роман Александрович') ?></a> &copy; 2020 <?= Lang::t('Все права защищены') ?></p>
         </div>
     </footer>
 

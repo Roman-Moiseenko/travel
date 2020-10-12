@@ -2,6 +2,7 @@ $(document).ready(function () {
     var tour_id = $('#number-tour').val(); //Текущий тур
     var full_array_tours; //Массив туров по дням
 //Переводим
+    if ($.fn.datepicker === undefined) return false;
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
         prevText: "Пред",
@@ -49,7 +50,7 @@ $(document).ready(function () {
     });
     //Событие при выборе даты
    $('#datepicker-tour').datepicker().on('changeDate', function (e) {
-        console.log(e);
+        //console.log(e);
             // получаем сведения о тек.дне
             $.post('/tours/booking/getlisttours',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
@@ -65,7 +66,7 @@ $(document).ready(function () {
 
         $.post('/tours/booking/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
-                console.log(data);
+               // console.log(data);
                 full_array_tours = JSON.parse(data);
                 if (full_array_tours === undefined) {
                     $('.list-tours').html();
@@ -82,7 +83,7 @@ $(document).ready(function () {
                     return true;
                 } //Массив по текущему месяцу
                 $('#button-booking-tour').attr('disabled', 'disabled');
-                console.log(tours);
+               // console.log(tours);
                 for (var i = 1; i <= 31; i ++) {
                     if (tours[i] !== undefined) {
                         $('#datepicker-tour').datepicker('update', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + i));
@@ -99,14 +100,14 @@ $(document).ready(function () {
 
     //Загружаем Массив туров по дням за текущий день
     $.post('/tours/booking/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
-        console.log(data);
+        //console.log(data);
         full_array_tours = JSON.parse(data);
         $('#datepicker-tour').datepicker('update');
     });
 
     $(document).on('change', '#booking-tour-time', function () {
         let calendar_id = $(this).val();
-        console.log(calendar_id);
+       // console.log(calendar_id);
         if (calendar_id != -1) {
             $.post('/tours/booking/gettickets', {calendar_id: calendar_id}, function (data) {
                 //console.log(data);

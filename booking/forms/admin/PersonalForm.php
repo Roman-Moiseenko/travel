@@ -4,13 +4,11 @@
 namespace booking\forms\admin;
 
 
-use booking\entities\admin\Personal;
 use booking\entities\PersonalInterface;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
 use booking\forms\manage\FullNameForm;
 use booking\forms\manage\UserAddressForm;
-use yii\web\UploadedFile;
 
 /**
  * Class PersonalForm

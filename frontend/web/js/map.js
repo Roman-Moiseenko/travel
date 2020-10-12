@@ -327,7 +327,7 @@ function init() {
             myMap2.setCenter(coords2);
 
         }, function (e) {
-            console.log(e);
+           // console.log(e);
         });
 
     }

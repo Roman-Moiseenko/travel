@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=travel',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=localhost;dbname=koenigs_booking',
+            'username' => 'koenigs_booking',
+            'password' => 'Koenigs20',
             'charset' => 'utf8',
         ],
         'mailer' => [
@@ -15,13 +15,13 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.beget.com', ///
-                'username' => 'admin@kupi41.ru', ///
+                'username' => 'admin@koenigs.ru', ///
                 'password' => 'Foolprof77', ///
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
             'messageConfig' => [
-                'from' => ['admin@kupi41.ru' => 'shop']
+                'from' => ['admin@koenigs.ru' => 'booking']
             ],
         ],
         'sms' => [

@@ -59,11 +59,15 @@ return [
         'user' => [
             'identityClass' => 'booking\entities\office\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-office', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity-office', 'httpOnly' => true, 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-office',
+            'cookieParams' => [
+                'httponly' => true,
+                'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

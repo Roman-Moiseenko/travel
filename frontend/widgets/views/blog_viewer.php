@@ -9,6 +9,7 @@ use yii\helpers\Url;
 
 $count = count($posts);
 ?>
+<?php if ($count != 0): ?>
 <div class="row">
     <div class="col p-1">
         <div class="card text-white shadow-lg" style="border: 0 !important; ">
@@ -37,3 +38,4 @@ $count = count($posts);
         </div>
     <?php endfor; ?>
 </div>
+<?php endif; ?>

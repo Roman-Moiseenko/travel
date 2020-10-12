@@ -20,7 +20,7 @@ use yii\helpers\Url;
             <div class="list-group">
                 <?php if (\Yii::$app->user->isGuest): ?>
                     <a href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>" class="list-group-item"><?= Lang::t('Вход') ?></a>
-                    <a href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"
+                    <a href="<?= Html::encode(Url::to(['/signup'])) ?>"
                        class="list-group-item"><?= Lang::t('Регистрация') ?></a>
                 <?php else: ?>
                     <?= UserMenuWidget::widget([

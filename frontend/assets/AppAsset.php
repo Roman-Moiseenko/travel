@@ -16,7 +16,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         //'css/opencart.css',
         'css/stylesheet.css',
-        'css/font-awesome/css/font-awesome.css',
+    //    'css/font-awesome/css/font-awesome.css',
         'css/glyphicon.css',
         'css/swiper.min.css',
     ];

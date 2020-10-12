@@ -24,8 +24,8 @@ class m200721_222606_create_booking_stays_reviews_table extends Migration
         ], $tableOptions);
 
         $this->createIndex('{{%idx-booking_stays_reviews-user_id}}', '{{%booking_stays_reviews}}', 'user_id');
-        $this->createIndex('{{%idx-booking_stays_reviews-stays_id}}', '{{%booking_stays_reviews}}', 'stays_id');
-        $this->addForeignKey('{{%fk-booking_stays_reviews-stays_id}}', '{{%booking_stays_reviews}}', 'stays_id', '{{%booking_stays}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->createIndex('{{%idx-booking_stays_reviews-stay_id}}', '{{%booking_stays_reviews}}', 'stay_id');
+        $this->addForeignKey('{{%fk-booking_stays_reviews-stay_id}}', '{{%booking_stays_reviews}}', 'stay_id', '{{%booking_stays}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_stays_reviews-user_id}}', '{{%booking_stays_reviews}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
 
     }

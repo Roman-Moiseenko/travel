@@ -32,16 +32,25 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+
         ],
         'user' => [
             'identityClass' => 'booking\entities\user\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
+            'identityCookie' => [
+                'name' => '_identity-frontend',
+                'httpOnly' => true,
+                'domain' => $params['cookieDomain'],
+                'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
             'loginUrl' => ['auth/auth/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
+            'cookieParams' => [
+                'httponly' => true,
+                'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

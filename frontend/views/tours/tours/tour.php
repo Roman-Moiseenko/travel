@@ -17,7 +17,6 @@ use frontend\widgets\LegalWidget;
 use frontend\widgets\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
 use frontend\widgets\ReviewsToursWidget;
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -333,13 +332,7 @@ $countReveiws = $tour->countReviews();
             </p>
             <hr>
 
-            <div class="addthis_toolbox addthis_default_style"
-                 data-url="https://demo.opencart.com/index.php?route=product/product&amp;product_id=47">
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count">
-                </a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a>
-                <a class="addthis_counter addthis_pill_style"></a></div>
-            <script type="text/javascript"
-                    src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
+
 
         </div>
     </div>
