@@ -12,22 +12,30 @@ use yii\widgets\LinkPager;
 $current = \Yii::$app->request->get('sort') ?? '';
 $up = Lang::t('По возрастанию');
 $down = Lang::t('По убыванию');
+$values = [
+    '' => Lang::t('по умолчанию'),
+    'name' => Lang::t('по имени (А-Я)'),
+    '-rating' => Lang::t('по рейтингу (сначала высокий)'),
+    'cost' => Lang::t('по цене (сначала дешевле)'),
+
+];
 ?>
-<div class="sort-bar">
+<div class="sort-bar d-none d-sm-block">
     <ul>
-        <li <?php if ($current === '' ): ?>class="select"<?php endif; ?>>
-            <a href="<?= Html::encode(Url::current(['sort' => ''])) ?>"><?= Lang::t('по умолчанию') ?></a>
+        <?php foreach ($values as $value => $label): ?>
+        <li <?php if ($current === $value ): ?>class="select"<?php endif; ?>>
+            <a href="<?= Html::encode(Url::current(['sort' => $value])) ?>"><?= $label ?></a>
         </li>
-        <li <?php if ($current === 'name'): ?>class="select"<?php endif; ?>>
-            <a href="<?= Html::encode(Url::current(['sort' => 'name'])) ?>"><?= Lang::t('по имени (А-Я)') ?></a>
-        </li>
-        <li <?php if ($current === '-rating'): ?>class="select"<?php endif; ?>>
-            <a href="<?= Html::encode(Url::current(['sort' => '-rating'])) ?>"><?= Lang::t('по рейтингу (сначала высокий)') ?></a>
-        </li>
-        <li <?php if ($current === 'cost'): ?>class="select"<?php endif; ?>>
-            <a href="<?= Html::encode(Url::current(['sort' => 'cost'])) ?>"><?= Lang::t('по цене (сначала дешевле)') ?></i></a>
-        </li>
+        <?php endforeach;?>
     </ul>
+</div>
+<div class="sort-bar d-sm-none">
+    <select id="input-sort" class="form-control" onchange="location = this.value;">
+        <?php foreach ($values as $value => $label): ?>
+            <option value="<?=Html::encode(Url::current(['sort' => $value ?: null]))?>"
+                    <?php if ($value === $current):?>selected="selected"<?php endif; ?>><?=$label?></option>
+        <?php endforeach;?>
+    </select>
 </div>
 
 <div class="row row-cols-1 row-cols-md-4">

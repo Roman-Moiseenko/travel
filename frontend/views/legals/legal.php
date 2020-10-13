@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- Контакты -->
 <div class="row pt-4">
     <div class="col">
-        <div class="container-hr">
+        <div class="container-hr pb-3">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Контакты') ?></div>
         </div>
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col params-tour">
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><?= Lang::t('Другие бронирования от провайдера') ?></div>
+            <div class="text-left-hr"><?= Lang::t('Бронирования от провайдера') ?></div>
         </div>
         <?= BookingObjectWidget::widget([
             'legal_id' => $legal->id,

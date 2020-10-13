@@ -34,8 +34,12 @@ JS;
 $this->registerJs($script)
 ?>
 
-<div class="pb-2">
+<div class="pb-2 pt-1">
+    <?php if ($rating >0): ?>
     <?= Lang::t('Рейтинг по отзывам') ?>: <span class="badge badge-success" style="font-size: 16px"><?= number_format($rating, 2, '.', ' ') ?></span>
+    <?php else: ?>
+        <span style="font-size: 14px">Отзывов пока нет</span>
+    <?php endif; ?>
 </div>
 
 <div class="swiper-container swiper1">

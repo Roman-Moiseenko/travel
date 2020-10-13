@@ -52,6 +52,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="col-md-4" style="text-align: center">
                     <?= $form->field($model->photo, 'files')->label('Логотип')->widget(FileInput::class, [
+                            'language' => 'ru',
                         'options' => [
                             'accept' => 'image/*',
                             'multiple' => false,
