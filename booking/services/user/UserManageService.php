@@ -84,8 +84,33 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $personal = $user->personal;
-        if ($form->photo->files != null)
+        if ($form->photo->files != null) {
             $personal->setPhoto($form->photo->files[0]);
+            $filename = $form->photo->files[0]->tempName;
+            $exif = exif_read_data($filename);
+            if ($exif && isset($exif['Orientation'])) {
+                $orientation = $exif['Orientation'];
+                if ($orientation != 1) {
+                    $img = imagecreatefromjpeg($filename);
+                    $deg = 0;
+                    switch ($orientation) {
+                        case 3:
+                            $deg = 180;
+                            break;
+                        case 6:
+                            $deg = 270;
+                            break;
+                        case 8:
+                            $deg = 90;
+                            break;
+                    }
+                    if ($deg) {
+                        $img = imagerotate($img, $deg, 0);
+                    }
+                    imagejpeg($img, $filename, 95);
+                }
+            }
+        }
         $personal->phone = $form->phone;
         $personal->dateborn = $form->dateborn;
         $personal->address =  new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index);

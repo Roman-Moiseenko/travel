@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $user->personal->getThumbFileUrl('photo', 'profile'),
                             ],
                             'initialPreviewAsData' => true,
-                            'overwriteInitial' => false,
+                            'overwriteInitial' => true,
                         ],
                     ]) ?>
                 </div>
