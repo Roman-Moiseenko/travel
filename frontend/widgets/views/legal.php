@@ -7,8 +7,8 @@ use yii\helpers\Url; ?>
 
 <div class="row align-content-center">
     <div class="col-12"><a href="<?=Url::to(['legals/view', 'id' => $legal->id])?>">
-    <img src="<?= $legal->getThumbFileUrl('photo', 'cart_list'); ?>"
-         alt="<?= Html::encode($legal->name); ?>"/>
+    <img src="<?= $legal->getThumbFileUrl('photo', 'profile'); ?>"
+         alt="<?= Html::encode($legal->name); ?>" class="img-responsive"/>
     </a>
     </div>
 </div>

@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+    'tableOptions' => [
+        'class' => 'table table-adaptive table-striped table-bordered',
+
+    ],
     'columns' => [
         [
             'label' => 'Статус',
@@ -38,7 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 return '<span class="badge badge-success">new</span>';
             },
             'format' => 'raw',
-            'contentOptions' => ['style' => 'width: 100px'],
+            'options' => ['style' => 'width: 100px'],
+            'contentOptions' => ['data-label' => 'Статус'],
         ],
         [
             'attribute' => 'entities',
@@ -47,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->getCaption();
             },
             'options' => ['width' => '40px'],
+            'contentOptions' => ['data-label' => 'Область действий'],
         ],
         [
             'attribute' => 'entities_id',
@@ -73,17 +79,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'raw',
             'label' => 'Объект',
             'options' => ['width' => '25%'],
+            'contentOptions' => ['data-label' => 'Объект'],
         ],
         [
             'attribute' => 'promo',
-            'label' => 'Промо-код'
+            'label' => 'Промо-код',
+            'contentOptions' => ['data-label' => 'Промо-код'],
         ],
         [
             'attribute' => 'percent',
             'value' => function (Discount $model) {
                 return $model->percent . '%';
             },
-            'label' => 'Скидка'
+            'label' => 'Скидка',
+            'contentOptions' => ['data-label' => 'Скидка'],
         ],
         [
             'attribute' => 'count',
@@ -92,13 +101,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->count < 0 ? 'Заблокирован' : $model->count;
             },
             'options' => ['width' => '100px'],
+            'contentOptions' => ['data-label' => 'Кол-во применений'],
         ],
         [
             'value' => function (Discount $model) {
                 if ($model->count < 0) return 'Заблокирован';
                 return $model->countNotUsed();
             },
-            'label' => 'Остаток'
+            'label' => 'Остаток',
+            'contentOptions' => ['data-label' => 'Остаток'],
         ],
         ['class' => 'yii\grid\ActionColumn',
             'template' => '{delete}',

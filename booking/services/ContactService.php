@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\services\pdf\pdfServiceController;
 use yii\mail\MailerInterface;
 
@@ -163,10 +164,11 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения'));
     }
 
-    private function mailerBooking($email, BookingItemInterface $booking, $template, $attach_pdf = false)
+    private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)
     {
+      // scr::v($email);
         $message = $this->mailer->compose($template, ['booking' => $booking])
-            ->setTo($email)
+            ->setTo((string)$_email)//$email
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])
             ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking->getStatus()));
         if ($attach_pdf) {

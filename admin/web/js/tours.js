@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var baseUrl ='/admin';
     $('body').on('input', '#toursparamsform-duration', function () {
         let value = $(this).val();
         if (value == 1) {
@@ -28,7 +28,7 @@ $(document).ready(function() {
         let extra_id = $(this).attr('extra-id');
         let value = 0;
          if ($(this).is(':checked')) {value = 1;} else {value = 0;}
-        $.post("/tour/extra/setextra?tours_id="+tours_id+"&extra_id="+extra_id+"&set="+value,
+        $.post(baseUrl + "/tour/extra/setextra?tours_id="+tours_id+"&extra_id="+extra_id+"&set="+value,
             {tours_id: tours_id, extra_id: extra_id, set: value},
             function (data) {
         });

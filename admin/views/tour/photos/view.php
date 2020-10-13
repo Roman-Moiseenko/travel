@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = 'Фотографии';
             ]); ?>
 
             <?= $form->field($photosForm, 'files[]')->label(false)->widget(FileInput::class, [
+                    'language' => 'ru',
                 'options' => [
                     'accept' => 'image/*',
                     'multiple' => true,

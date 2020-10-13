@@ -23,13 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
                     [
                         'value' => function (Legal $model) {
                             return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
                         },
                         'format' => 'raw',
-                        'contentOptions' => ['style' => 'width: 100px'],
+                        'contentOptions' => ['data-label' => 'Логотип'],
+                        'options' => ['width' => '100px'],
                     ],
                     [
                         'label' => 'Торговая марка',
@@ -39,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'attribute' => 'name',
                         'options' => ['width' => '40%',],
+                        'contentOptions' => ['data-label' => 'Торговая марка'],
                     ],
                     [
                         'label' => 'Организация',
@@ -47,10 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                         'attribute' => 'name',
+                        'contentOptions' => ['data-label' => 'Организация'],
                     ],
                     [
                         'label' => 'ИНН',
                         'attribute' => 'INN',
+                        'contentOptions' => ['data-label' => 'ИНН'],
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',

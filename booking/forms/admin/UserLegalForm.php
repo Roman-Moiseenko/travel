@@ -53,7 +53,7 @@ class UserLegalForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name', 'BIK', 'account', 'INN', 'caption', 'description', 'noticePhone'], 'required'],
+            [['name', 'BIK', 'account', 'INN', 'caption', 'description', 'noticePhone', 'noticeEmail'], 'required'],
             ['name', 'string'],
             ['account', 'string', 'length' => 20],
             ['INN', 'string', 'min' => 10, 'max' => 12],

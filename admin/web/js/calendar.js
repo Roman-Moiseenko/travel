@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var tour_id = $('#number-tour').val(); //Текущий тур
     var full_array_tours; //Массив туров по дням
+    var baseUrl ='/admin';
 //Переводим
     if ($.fn.datepicker === undefined) return false;
     $.fn.datepicker.dates['ru'] = {
@@ -60,7 +61,7 @@ $(document).ready(function () {
             var m = $('#data-day').attr('data-m');
             var y = $('#data-day').attr('data-y');
 
-            $.post('/tour/calendar/copyday',
+            $.post(baseUrl + '/tour/calendar/copyday',
                 {
                     year: e.date.getFullYear(),
                     month: e.date.getMonth() + 1,
@@ -76,7 +77,7 @@ $(document).ready(function () {
                 });
         } else {
             //Иначе получаем сведения о тек.дне
-            $.post('/tour/calendar/getday',
+            $.post(baseUrl + '/tour/calendar/getday',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {
                     var dateInfo = JSON.parse(data);
@@ -88,7 +89,7 @@ $(document).ready(function () {
     //Событие при выборе месяца
     $('#datepicker').datepicker().on('changeMonth', function (e) {
 
-        $.post('/tour/calendar/getcalendar',
+        $.post(baseUrl + '/tour/calendar/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
                 full_array_tours = JSON.parse(data);
                 $('#datepicker').datepicker('setDate', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/01'));
@@ -100,7 +101,8 @@ $(document).ready(function () {
             });
     });
     //Загружаем Массив туров по дням за текущий день
-    $.post('/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+    $.post(baseUrl + '/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+        console.log(data);
         full_array_tours = JSON.parse(data);
         $('#datepicker').datepicker('update');
     });
@@ -121,7 +123,7 @@ $(document).ready(function () {
             _preference = null;
         }
 
-        $.post('/tour/calendar/setday',
+        $.post(baseUrl + '/tour/calendar/setday',
             {
                 year: y, month: m, day: d, tour_id: tour_id,
                 _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference
@@ -142,7 +144,7 @@ $(document).ready(function () {
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
         var calendar_id = $(this).attr('data-id');
-        $.post('/tour/calendar/delday',
+        $.post(baseUrl + '/tour/calendar/delday',
             {
                 year: y, month: m, day: d, tour_id: tour_id,
                 calendar_id: calendar_id
@@ -176,7 +178,7 @@ $(document).ready(function () {
         for (let i = 1; i <= 7; i++) {
             week[i] = $('#data-week-' + i).is(':checked');
         }
-        $.post('/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
+        $.post(baseUrl + '/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
             function (data) {
             //console.log(data);
                 full_array_tours = JSON.parse(data);
