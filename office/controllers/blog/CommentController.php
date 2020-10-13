@@ -40,7 +40,7 @@ class CommentController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [Rbac::ROLE_MANAGER],
+                        'roles' => [Rbac::ROLE_BLOGGER],
                     ],
                 ],
             ],

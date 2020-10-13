@@ -16,8 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="<?= Html::encode($user->personal->getThumbFileUrl('photo', 'profile')) ?>" alt=""
-                         class="img-responsive"/>
+                    <?php if (!empty($user->personal->photo)): ?>
+                        <img src="<?= Html::encode($user->personal->getThumbFileUrl('photo', 'profile')) ?>" alt=""
+                             class="img-responsive"/>
+                    <?php else: ?>
+                        <img src="<?= Url::to('@static/files/images/no_user.png') ?>" alt=""
+                             class="img-responsive"/>
+                    <?php endif; ?>
                 </div>
                 <div class="col-md-6">
                     <?= DetailView::widget([

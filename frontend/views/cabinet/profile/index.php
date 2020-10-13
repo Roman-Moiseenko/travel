@@ -17,8 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-4">
+            <?php if (!empty($user->personal->photo)): ?>
             <img src="<?= Html::encode($user->personal->getThumbFileUrl('photo', 'profile')) ?>" alt=""
                  class="img-responsive" style="max-width:100%;height:auto;"/>
+            <?php else: ?>
+                <img src="<?= Url::to('@static/files/images/no_user.png') ?>" alt=""
+                     class="img-responsive" style="max-width:100%;height:auto;"/>
+            <?php endif; ?>
         </div>
         <div class="col-md-8">
             <?= DetailView::widget([

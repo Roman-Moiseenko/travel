@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-6" style="text-align: center">
             <?= $form->field($model->photo, 'files')->label(false)->widget(FileInput::class, [
+                'language' => Lang::current(),
                 'options' => [
                     'accept' => 'image/*',
                     'multiple' => false,
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'initialPreviewAsData' => true,
                     'overwriteInitial' => true,
+                    'showRemove' => false,
                 ],
             ]) ?>
         </div>

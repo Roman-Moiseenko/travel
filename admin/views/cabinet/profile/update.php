@@ -1,15 +1,13 @@
 <?php
 
-/* @var $user \booking\entities\admin\User */
-
-/* @var $model PersonalForm */
-
-use booking\entities\admin\User;
 use booking\forms\admin\PersonalForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+
+/* @var $user \booking\entities\admin\User */
+/* @var $model PersonalForm */
 
 $this->title = 'Изменить Профиль';
 $this->params['breadcrumbs'][] = ['label' => 'Профиль', 'url' => ['/cabinet/profile']];
@@ -27,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-4" style="text-align: center">
                     <?= $form->field($model->photo, 'files')->label(false)->widget(FileInput::class, [
+                        'language' => 'ru',
                         'options' => [
                             'accept' => 'image/*',
                             'multiple' => false,
@@ -37,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'initialPreviewAsData' => true,
                             'overwriteInitial' => true,
+                            'showRemove' => false,
                         ],
                     ]) ?>
                 </div>
