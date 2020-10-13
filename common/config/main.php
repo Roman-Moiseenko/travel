@@ -7,14 +7,7 @@ return [
     'bootstrap' => [],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'robokassa' => [
-            'class' => '\robokassa\Merchant',
-            'baseUrl' => 'https://auth.robokassa.ru/Merchant/Index.aspx',
-            'sMerchantLogin' => '',
-            'sMerchantPass1' => '',
-            'sMerchantPass2' => '',
-            'isTest' => !YII_ENV_PROD,
-        ],
+
         'cache' => [
             'class' => 'yii\caching\FileCache',
             'cachePath' => '@common/runtime/cache',

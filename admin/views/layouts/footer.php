@@ -4,5 +4,5 @@
         Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://mycraft.site">Моисеенко Роман Александрович</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2014-2019 <a href="mailto:r.a.moiseenko@gmail.com" target="_blank">Моисеенко Роман Александрович</a>.</strong> All rights reserved.
 </footer>

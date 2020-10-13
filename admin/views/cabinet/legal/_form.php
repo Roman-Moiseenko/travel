@@ -75,7 +75,7 @@ use yii\widgets\ActiveForm;
             <div class="row">
                 <div class="col-6">
                     <?= $form->field($model, 'noticePhone')->
-                    textInput(['maxlength' => true, 'style' => 'width:100%'])->label('Телефон для уведомлений')->hint('Только цифры, без кода страны: 9110001234') ?>
+                    textInput(['maxlength' => true, 'style' => 'width:100%'])->label('Телефон для уведомлений')->hint('Шаблон: +79110001234') ?>
                 </div>
                 <div class="col-6">
                     <?= $form->field($model, 'noticeEmail')->

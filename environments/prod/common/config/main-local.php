@@ -15,14 +15,22 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.beget.com', ///
-                'username' => 'admin@koenigs.ru', ///
-                'password' => 'Foolprof77', ///
+                'username' => 'support@koenigs.ru', ///
+                'password' => 'Foolprof01', ///
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
             'messageConfig' => [
                 'from' => ['admin@koenigs.ru' => 'booking']
             ],
+        ],
+        'robokassa' => [
+            'class' => '\robokassa\Merchant',
+            'baseUrl' => 'https://auth.robokassa.ru/Merchant/Index.aspx',
+            'sMerchantLogin' => '',
+            'sMerchantPass1' => '',
+            'sMerchantPass2' => '',
+            'isTest' => !YII_ENV_PROD,
         ],
         'sms' => [
             'class' => alexeevdv\sms\Sms::class,

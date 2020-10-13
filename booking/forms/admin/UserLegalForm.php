@@ -62,7 +62,7 @@ class UserLegalForm extends CompositeForm
             ['OGRN', 'string', 'min' => 13, 'max' => 15],
             [['BIK', 'KPP', 'INN', 'account', 'OGRN'], 'match', 'pattern' => '/^[0-9]*$/i'],
             [['caption', 'description', 'office'], 'string'],
-            [['noticePhone'], 'match', 'pattern' => '/^[0-9]{10}$/i'],
+            [['noticePhone'], 'match', 'pattern' => '/^[+][0-9]{11}$/i'],
             [['noticeEmail'], 'email'],
         ];
     }

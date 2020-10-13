@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'dateborn',
-                                'value' => date('d-m-Y', $user->personal->dateborn),
+                                'value' => $user->personal->dateborn ? date('d-m-Y', $user->personal->dateborn) : '',
                                 'label' => 'Дата рождения',
                             ],
                             [

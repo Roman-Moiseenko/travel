@@ -180,3 +180,9 @@ div.required label:after {
     font-size: 120%;
     color: #dc3545;
 }
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
