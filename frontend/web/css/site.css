@@ -224,6 +224,7 @@ a.desc:after {
     font-family: 'Comfortaa', sans-serif;
     position: relative;
     padding-top: 24px;
+    padding-bottom: 10px;
 }
 
 .text-left-hr {

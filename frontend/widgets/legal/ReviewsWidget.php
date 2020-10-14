@@ -29,7 +29,7 @@ class ReviewsWidget extends Widget
         foreach ($reviews as $review) {
             $votes += $review->getVote();
         }
-        $rating = $votes / count($reviews);
+        $rating = count($reviews) == 0 ? 0 : $votes / count($reviews);
 
         return $this->render('reviews', [
             'reviews' => $reviews,
