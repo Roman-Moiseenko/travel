@@ -93,7 +93,7 @@ class   AuthController extends Controller
 
         \Yii::$app->user->logout();
        // scr::p(\Yii::$app->user->id);
-        //return $this->goHome();
+        return $this->goHome();
     }
 
 }
