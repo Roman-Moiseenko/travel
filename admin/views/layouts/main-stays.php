@@ -22,7 +22,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=ec80b990-9f0f-4371-8872-4040ba6373b3&lang=ru_RU" type="text/javascript">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI']?>&lang=ru_RU" type="text/javascript">
     </script>
 </head>
 <body class="hold-transition sidebar-mini">
