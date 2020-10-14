@@ -26,6 +26,7 @@ class PageUrlRule extends BaseObject implements UrlRuleInterface
 
     public function parseRequest($manager, $request)
     {
+        //scr::p([$manager, $request]);
         $path = $request->pathInfo;
         $result = $this->cache->getOrSet(['page_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {
@@ -47,7 +48,7 @@ class PageUrlRule extends BaseObject implements UrlRuleInterface
 
     public function createUrl($manager, $route, $params)
     {
-       // scr::p([$manager, $route, $params]);
+        //scr::p([$manager, $route, $params]);
         if ($route == 'page/view') {
             if (empty($params['id'])) {
                 throw new InvalidArgumentException('Empty id.');

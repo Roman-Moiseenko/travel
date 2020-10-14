@@ -22,6 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class' => 'table table-adaptive table-striped table-bordered',
+
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -29,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Категории',
                 'filter' => $searchModel->categoriesList(),
                 'value' => 'category.name',
+                'contentOptions' => ['data-label' => 'Категории'],
             ],
             [
                 'attribute' => 'created_at',
@@ -44,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'yyyy-mm-dd',
                     ],
                 ]),
+                'contentOptions' => ['data-label' => 'Дата создания'],
             ],
             [
                 'attribute' => 'title',
@@ -52,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a(Html::encode($post->title), ['view', 'id' => $post->id]);
                 },
                 'format' => 'raw',
+                'contentOptions' => ['data-label' => 'Заголовок'],
             ],
             [
                 'attribute' => 'status',
@@ -60,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function (Post $model) {
                     return PostHelper::statusLabel($model->status);
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'contentOptions' => ['data-label' => 'Статус'],
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],

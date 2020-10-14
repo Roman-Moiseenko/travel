@@ -22,10 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'attribute' => 'user_id',
@@ -33,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->user->username . ' (' . $model->user->personal->fullname->getFullname() . ')', ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'label' => 'Клиент'
+                        'label' => 'Клиент',
+                        'contentOptions' => ['data-label' => 'Клиент'],
                     ],
                     [
                         'attribute' => 'provider_id',
@@ -41,12 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->admin->username . ' (' . $model->admin->personal->fullname->getFullname() . ')', ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'label' => 'Провайдер'
+                        'label' => 'Провайдер',
+                        'contentOptions' => ['data-label' => 'Провайдер'],
                     ],
                     [
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                         'label' => 'Создан',
+                        'contentOptions' => ['data-label' => 'Создан'],
                     ],
                     [
                         'attribute' => 'theme_id',
@@ -56,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                         'label' => 'Статус',
+                        'contentOptions' => ['data-label' => 'Статус'],
                     ],
                 ],
             ]); ?>

@@ -25,17 +25,30 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
-                    'id',
+                    [
+                        'attribute' => 'id',
+                        'label' => '',
+                        'contentOptions' => ['data-label' => 'ID'],
+                    ],
                     [
                         'attribute' => 'name',
                         'value' => function (Tag $model) {
                             return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'label' => 'Тег'
+                        'label' => 'Тег',
+                        'contentOptions' => ['data-label' => 'Тег'],
                     ],
-                    'slug',
+                    [
+                        'attribute' => 'slug',
+                        'label' => 'Ссылка',
+                        'contentOptions' => ['data-label' => 'Ссылка'],
+                    ],
                     ['class' => ActionColumn::class],
                 ],
             ]); ?>

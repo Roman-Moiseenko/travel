@@ -35,7 +35,7 @@ $countReveiws = $tour->countReviews();
                 <?php if ($i == 0): ?>
                     <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
-                                 alt="<?= Html::encode($tour->name); ?>" class="card-img-top""/>
+                                 alt="<?= Html::encode($tour->name); ?>" class="card-img-top"/>
                         </a>
                     </li>
                 <?php else: ?>
@@ -73,8 +73,7 @@ $countReveiws = $tour->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-sm-8 params-tour">
-                <p class="text-justify">
+            <div class="col-sm-8 params-tour text-justify">
                     <?= Yii::$app->formatter->asHtml($tour->description, [
                         'Attr.AllowedRel' => array('nofollow'),
                         'HTML.SafeObject' => true,
@@ -82,7 +81,7 @@ $countReveiws = $tour->countReviews();
                         'HTML.SafeIframe' => true,
                         'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                     ]) ?>
-                </p>
+
             </div>
             <div class="col-sm-4">
                 <?= LegalWidget::widget(['legal' => $tour->legal]) ?>

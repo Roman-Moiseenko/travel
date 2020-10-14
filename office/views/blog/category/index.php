@@ -22,23 +22,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class' => 'table table-adaptive table-striped table-bordered',
+
+        ],
         'columns' => [
             [
                 'attribute' => 'name',
-                'label' => 'Категория'
+                'label' => 'Категория',
+                'contentOptions' => ['data-label' => 'Категория'],
             ],
             [
                 'attribute' =>'slug',
-                'label' => 'Ссылка'
+                'label' => 'Ссылка',
+                'contentOptions' => ['data-label' => 'Ссылка'],
             ],
             [
                 'attribute' =>'title',
-                'label' => 'Заголовок'
+                'label' => 'Заголовок',
+                'contentOptions' => ['data-label' => 'Заголовок'],
             ],
             [
                 'attribute' =>'description',
                 'format' => 'ntext',
-                'label' => 'Описание'
+                'label' => 'Описание',
+                'contentOptions' => ['data-label' => 'Описание'],
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

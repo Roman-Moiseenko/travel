@@ -96,6 +96,7 @@ return [
             'cache' => false,
             'rules' => [
                 '' => 'site/index',
+
                 'contact' => 'contact/index',
                 'signup' => 'auth/signup/index',
                 'reset/<_a:[\w-]+>' => 'auth/reset/<_a>',
@@ -114,6 +115,7 @@ return [
                 'tours/checkout/booking' => 'tours/checkout/booking',
                 'legals/view' => 'legals/view',
                 'tour/<slug:[\w\-]+>' =>'tours/tours/tour',
+
                 //'tours/<id:\d+>' => 'tours/tours/tour',
                 //'tours/category' => 'tours/tours/category',
 
@@ -132,6 +134,7 @@ return [
                 'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
                 'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
+                '/<slug:[\w\-]+>' =>'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],

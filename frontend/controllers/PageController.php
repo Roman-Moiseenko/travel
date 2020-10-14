@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use booking\entities\Lang;
+use booking\helpers\scr;
 use booking\repositories\office\PageRepository;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,9 +21,10 @@ class PageController extends Controller
         $this->pages = $pages;
     }
 
-    public function actionView($id)
+    public function actionView($slug)
     {
-        if (!$page = $this->pages->find($id)) {
+      //  scr::p($slug);
+        if (!$page = $this->pages->findBySlug($slug)) {
             throw new NotFoundHttpException(Lang::t('Страница не найдена'));
         }
 

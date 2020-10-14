@@ -35,7 +35,7 @@ use yii\helpers\Url;
             <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
         </h4>
         <p class="card-text" style="height: available">
-        <div class="mb-auto">
+        <div class="mb-auto text-justify">
             <?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 20)) ?>
         </div>
         <div class="category-card pt-4">

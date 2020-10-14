@@ -21,10 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProviderTours,
                 'filterModel' => $searchModelTours,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'attribute' => 'name',
@@ -32,12 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->name, ['tours/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'label' => 'Название'
+                        'label' => 'Название',
+                        'contentOptions' => ['data-label' => 'Название'],
                     ],
                     [
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                         'label' => 'Создан',
+                        'contentOptions' => ['data-label' => 'Создан'],
                     ],
                     ['class' => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',

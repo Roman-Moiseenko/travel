@@ -22,6 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
                     [
                         'value' => function (Dialog $model) {
@@ -33,10 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                         'options' => ['width' => '70px',],
+                        'contentOptions' => ['data-label' => 'Сообщения'],
                     ],
                     [
                         'attribute' => 'id',
                         'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
 
                     [
@@ -45,7 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->admin->username . ' (' . $model->admin->personal->fullname->getFullname() . ')', ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
-                        'label' => 'Провайдер'
+                        'label' => 'Провайдер',
+                        'contentOptions' => ['data-label' => 'Провайдер'],
                     ],
 
                     [
@@ -56,11 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                         'label' => 'Тема',
+                        'contentOptions' => ['data-label' => 'Тема'],
                     ],
                     [
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                         'label' => 'Создан',
+                        'contentOptions' => ['data-label' => 'Создан'],
                     ],
                 ],
             ]); ?>

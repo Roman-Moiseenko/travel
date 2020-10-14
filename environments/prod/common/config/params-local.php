@@ -11,4 +11,5 @@ return [
     'supportPhone' => '+7-800-000-0101',
     'NotSend' => true,
     'NotPay' => true,
+    'YandexAPI' => 'f2af7b42-59f9-44b0-a60b-38c7d431e657',
     ];

@@ -15,34 +15,44 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'value' => function (\booking\entities\user\User $model) {
                             return $model->personal->fullname->getFullname();
                         },
-                        'label' => 'ФИО'
+                        'label' => 'ФИО',
+                        'contentOptions' => ['data-label' => 'ФИО'],
                     ],
                     [
                         'attribute' => 'username',
-                        'label' => 'Логин'
+                        'label' => 'Логин',
+                        'contentOptions' => ['data-label' => 'Логин'],
                     ],
                     [
                         'attribute' => 'email',
                         'format' => 'email',
-                        'label' => 'Почта'
+                        'label' => 'Почта',
+                        'contentOptions' => ['data-label' => 'Почта'],
                     ],
                     [
                         'attribute' => 'personal.phone',
-                        'label' => 'Телефон'
+                        'label' => 'Телефон',
+                        'contentOptions' => ['data-label' => 'Телефон'],
                     ],
                     [
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                         'label' => 'Создан',
+                        'contentOptions' => ['data-label' => 'Создан'],
                     ],
                 ],
             ]); ?>

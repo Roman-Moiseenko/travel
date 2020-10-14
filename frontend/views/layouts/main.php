@@ -23,7 +23,7 @@ AppAsset::register($this);
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <script src="https://api-maps.yandex.ru/2.1/?apikey=b38651ca-314e-4dd0-8919-28dd226e14e1&lang=ru_RU" type="text/javascript">
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI']?>&lang=ru_RU" type="text/javascript">
         </script>
     </head>
     <body>
@@ -45,14 +45,14 @@ AppAsset::register($this);
 
     </div>
 
-    <footer>
+    <footer class="pb-2">
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
                     <h5><?= Lang::t('Информация') ?></h5>
                     <ul class="list-unstyled">
                         <li><a href="<?=Html::encode(Url::to(['/about']))?>"><?= Lang::t('О сайте') ?></a></li>
-                        <li><a href="<?=Html::encode(Url::to(['/support']))?>"><?= Lang::t('Служба поддержки') ?></a></li>
+                        <li><a href="<?=Html::encode(Url::to(['/contacts']))?>"><?= Lang::t('Контакты') ?></a></li>
                         <li><a href="<?=Html::encode(Url::to(['/policy']))?>"><?= Lang::t('Политика конфиденциальности') ?></a></li>
                         <li><a href="<?=Html::encode(Url::to(['/post']))?>"><?= Lang::t('Блог') ?></a></li>
                     </ul>

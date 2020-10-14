@@ -13,8 +13,6 @@ use yii\helpers\Url;
 
 $this->title = 'Выплаты клиентам';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 <div class="finance-list">
     <div class="card">

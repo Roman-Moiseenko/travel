@@ -25,18 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class' => 'table table-adaptive table-striped table-bordered',
+
+        ],
         'columns' => [
             [
                 'attribute' => 'id',
                 'label' => '#ID',
                 'options' => ['width' => '20px', 'style' => 'text-align: center;'],
+                'contentOptions' => ['data-label' => 'ID'],
             ],
             [
                 'value' => function (Tour $model) {
                     return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
                 },
                 'format' => 'raw',
-                'contentOptions' => ['style' => 'width: 100px'],
+                'options' => ['width' => '100px'],
+                'contentOptions' => ['data-label' => 'Фото'],
             ],
             [
                 'attribute' => 'status',
@@ -47,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['width' => '150px'],
                 'format' => 'raw',
                 'filter' => StatusHelper::listStatus(),
+                'contentOptions' => ['data-label' => 'Статус'],
             ],
             [
                 'attribute' => 'name',
@@ -56,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => 'Название',
                 'options' => ['width' => '25%'],
+                'contentOptions' => ['data-label' => 'Название'],
             ],
             [
                 'attribute' => 'description',
@@ -64,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
                 'format' => 'ntext',
-                'label' => 'Описание'
+                'label' => 'Описание',
+                'contentOptions' => ['data-label' => 'Описание'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',

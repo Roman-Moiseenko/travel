@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'tableOptions' => [
+                            'class' => 'table table-adaptive table-striped table-bordered',
+
+                        ],
                         'columns' => [
                             [
                                 'label' => '',
@@ -41,6 +45,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                                 'format' => 'raw',
                                 'filter' => [1 => 'Да', 0 => 'Нет'],
                                 'options' => ['width' => '20px'],
+                                'contentOptions' => ['data-label' => 'Применить'],
                             ],
                             [
                                 'attribute' => 'name',
@@ -50,11 +55,13 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                                 'format' => 'raw',
                                 'label' => 'Название',
                                 'options' => ['width' => '30%'],
+                                'contentOptions' => ['data-label' => 'Название'],
                             ],
                             [
                                 'attribute' => 'description',
                                 'format' => 'ntext',
-                                'label' => 'Описание'
+                                'label' => 'Описание',
+                                'contentOptions' => ['data-label' => 'Описание'],
                             ],
                             [
                                 'attribute' => 'cost',
@@ -63,6 +70,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                                     return CurrencyHelper::cost($model->cost);
                                 },
                                 'options' => ['width' => '60px'],
+                                'contentOptions' => ['data-label' => 'Цена'],
                             ],
                             ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{update} {delete}',
