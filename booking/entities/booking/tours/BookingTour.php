@@ -29,6 +29,7 @@ use yii\helpers\Url;
  * @property integer $discount_id
  * @property Discount $discount
  * @property integer $bonus
+ * @property integer $pincode
  * @property boolean $unload
  * @property \booking\entities\user\User $user
  */
@@ -44,6 +45,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $booking->count = $count;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
         $booking->created_at = time();
+        $booking->pincode = rand(1001, 9900);
         return $booking;
     }
 
@@ -239,5 +241,10 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getConfirmation(): string
     {
         return $this->confirmation;
+    }
+
+    public function getPinCode(): int
+    {
+        return $this->pincode;
     }
 }

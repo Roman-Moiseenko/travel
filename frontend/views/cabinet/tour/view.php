@@ -57,6 +57,10 @@ $tour = $booking->calendar->tour;
                         <td><?= BookingHelper::number($booking) ?></td>
                     </tr>
                     <tr>
+                        <th><?= Lang::t('ПИН-код') ?>:</th>
+                        <td><?= $booking->getPinCode() ?></td>
+                    </tr>
+                    <tr>
                         <th><?= Lang::t('Дата тура')?>:</th>
                         <td><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
                         <td>

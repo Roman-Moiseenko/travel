@@ -30,14 +30,18 @@ $legal = $booking->getLegal();
                     <td width="70%"><?= BookingHelper::number($booking) ?></td>
                 </tr>
                 <tr style="background-color: #e4e4e4">
+                    <th><?= Lang::t('ПИН-код') ?>:</th>
+                    <td><?= $booking->getPinCode() ?></td>
+                </tr>
+                <tr>
                     <td><b><?= Lang::t('Тур') ?>:</b></td>
                     <td><?= $booking->calendar->tour->name ?></td>
                 </tr>
-                <tr>
+                <tr style="background-color: #e4e4e4">
                     <td><b><?= Lang::t('Дата') ?>:</b></td>
                     <td><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
                 </tr>
-                <tr style="background-color: #e4e4e4">
+                <tr>
                     <td><b><?= Lang::t('Время') ?>:</b></td>
                     <td><?= $booking->calendar->time_at ?></td>
                 </tr>

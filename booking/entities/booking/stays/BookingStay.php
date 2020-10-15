@@ -112,4 +112,9 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     {
         return $this->confirmation;
     }
+
+    public function getPinCode(): int
+    {
+        return $this->pincode;
+    }
 }

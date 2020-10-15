@@ -49,11 +49,11 @@ class pdfServiceController extends Controller
             'options' => ['title' => 'Krajee Report Title'],
             'methods' => [
                 'SetTitle' => Lang::t('Подтверждение бронирования'),
-                'SetHeader'=>['Koenigs.travel'],
+                'SetHeader'=>['Koenigs.ru'],
                 'SetFooter'=>['{PAGENO}'],
-                'SetAuthor' => 'Koenigs.Travel',
-                'SetCreator' => 'Koenigs.Travel',
-                'SetKeywords' => 'travel russia koenigsberg booking',
+                'SetAuthor' => 'Koenigs.ru',
+                'SetCreator' => 'Koenigs.ru',
+
             ]
         ]);
 

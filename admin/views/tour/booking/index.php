@@ -100,7 +100,11 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                 <i class="fas fa-bookmark"></i>&#160;&#160;<?= BookingHelper::number($booking); ?>
                                 </span>
                                     <span class="params-item">
-                                    <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)])?>" title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
+                                <i class="fas fa-key"></i>&#160;&#160;<?= $booking->getPinCode(); ?>
+                                </span>
+                                    <span class="params-item">
+                                    <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)]) ?>"
+                                       title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
                                 </span>
                                 </div>
                             <?php endforeach; ?>
