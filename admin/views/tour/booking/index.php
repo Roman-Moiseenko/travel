@@ -80,6 +80,15 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                         <div class="collapse multi-collapse" id="collapse<?= $day . str_replace(':', '', $time) ?>">
                             <?php foreach ($bookings as $booking): ?>
                                 <div class="row pl-2">
+
+                                <span class="params-item" style="margin-right: -20px !important; ">
+                                    <?php if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY): ?>
+                                        <span class="badge badge-pill badge-success"><i class="far fa-check-circle"></i></span>
+                                    <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW): ?>
+                                        <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
+                                    <?php endif ?>
+                                </span>
+
                                 <span class="params-item">
                                 <i class="fas fa-user"></i>&#160;&#160;<?= $booking->user->personal->fullname->getFullname(); ?>
                                 </span>
