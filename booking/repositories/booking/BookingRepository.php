@@ -120,7 +120,7 @@ class BookingRepository
         foreach ($tours as $tour) {
             $result[$tour->getName()] = [
                 'photo' => $tour->getPhoto('tours_widget_list'),
-                'link' => $tour->getLinks()['admin'],
+                'link' => $tour->getLinks()['booking'],
                 'name' => $tour->getName(),
                 'count' => $tour->countTickets() + (isset($result[$tour->getName()]) ? $result[$tour->getName()]['count'] : 0),
             ];
