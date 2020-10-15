@@ -16,10 +16,10 @@ use yii\helpers\Url;
     </p>
     <div class="card" style="width: 70% !important;">
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-adaptive table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>#ID</th>
+                    <th>ID</th>
                     <th>Рис.</th>
                     <th>Название</th>
                     <th>Ссылка</th>
@@ -30,11 +30,11 @@ use yii\helpers\Url;
                 <tbody>
                 <?php foreach ($contacts as $contact): ?>
                 <tr>
-                    <td><?= $contact->id ?></td>
-                    <td><img src="<?= $contact->getThumbFileUrl('photo', 'icon') ?>"></td>
-                    <td><?= $contact->name ?></td>
-                    <td><?= $contact->type == 0 ? '' : 'Да' ?></td>
-                    <td><?= $contact->prefix ?></td>
+                    <td data-label="ID"><?= $contact->id ?></td>
+                    <td data-label="Рисунок"><img src="<?= $contact->getThumbFileUrl('photo', 'icon') ?>"></td>
+                    <td data-label="Название"><?= $contact->name ?></td>
+                    <td data-label="Ссылка"><?= $contact->type == 0 ? '' : 'Да' ?></td>
+                    <td data-label="Префикс (для ссылки)"><?= $contact->prefix ?></td>
                     <td>
                         <a href="<?= Url::to(['update', 'id' => $contact->id])?>"><span class="glyphicon glyphicon-pencil"></span></a>
                         <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $contact->id], [

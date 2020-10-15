@@ -18,15 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'tableOptions' => [
+                        'class' => 'table table-adaptive table-striped table-bordered',
+                    ],
                     'columns' => [
                         [
                             'attribute' => 'id',
-                            'options' => ['width' => '20px',]
+                            'options' => ['width' => '20px',],
+                            'contentOptions' => ['data-label' => 'ID'],
                         ],
                         [
                             'attribute' => 'INN',
                             'label' => 'ИНН',
-                            'options' => ['width' => '150px',]
+                            'options' => ['width' => '150px',],
+                            'contentOptions' => ['data-label' => 'ИНН'],
                         ],
                         [
                             'attribute' => 'name',
@@ -35,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'label' => 'Название',
                             'format' => 'raw',
+                            'contentOptions' => ['data-label' => 'Название'],
                         ],
                         [
                             'attribute' => 'caption',
@@ -43,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'label' => 'Заголовок',
                             'format' => 'raw',
+                            'contentOptions' => ['data-label' => 'Заголовок'],
                         ],
                         [
                             'attribute' => 'user_id',
@@ -51,11 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'label' => 'Провайдер',
                             'format' => 'raw',
+                            'contentOptions' => ['data-label' => 'Провайдер'],
                         ],
                         [
                             'attribute' => 'created_at',
                             'format' => 'datetime',
                             'label' => 'Создан',
+                            'contentOptions' => ['data-label' => 'Создан'],
                         ],
                     ],
                 ]); ?>

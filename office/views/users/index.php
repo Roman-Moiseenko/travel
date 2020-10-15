@@ -24,31 +24,39 @@ use yii\helpers\Html;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'attribute' => 'username',
                         'format' => 'text',
-                        'label' => 'Логин'
+                        'label' => 'Логин',
+                        'contentOptions' => ['data-label' => 'Логин'],
                     ],
                     [
                         'attribute' => 'email',
                         'format' => 'email',
-                        'label' => 'Почта'
+                        'label' => 'Почта',
+                        'contentOptions' => ['data-label' => 'Почта'],
                     ],
                     [
                         'attribute' =>'created_at',
                         'format' => 'datetime',
                         'label' => 'Создан',
+                        'contentOptions' => ['data-label' => 'Создан'],
                     ],
                     [
                         'attribute' => 'role',
                         'label' => 'Роль',
                         'class' => RoleColumn::class,
                         'filter' => OfficeUserHelper::rolesList(),
+                        'contentOptions' => ['data-label' => 'Роль'],
                     ],
                     ['class' => 'yii\grid\ActionColumn'],
                 ],

@@ -13,10 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="finance-list">
 <div class="card">
     <div class="card-body">
-        <table class="table table-striped">
+        <table class="table table-adaptive table-striped table-bordered">
             <thead>
             <tr>
-                <th>#ID</th>
+                <th>ID</th>
                 <th>Организация</th>
                 <th>ИНН</th>
                 <th>Общая сумма платежей</th>
@@ -28,13 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach ($payments as $payment): ?>
                 <tr>
-                    <td><?= $payment['legal_id']?></td>
-                    <td><?= Html::a($payment['name'], Url::to(['finance/provider/view', 'id' => $payment['legal_id']]))?></td>
-                    <td><?= $payment['INN']?></td>
-                    <td><?= CurrencyHelper::cost($payment['amount'])?></td>
-                    <td><?= CurrencyHelper::cost($payment['pay_legal'])?></td>
-                    <td><?= CurrencyHelper::cost($payment['amount'] - $payment['pay_legal'])?></td>
-                    <td>
+                    <td data-label="ID"><?= $payment['legal_id']?></td>
+                    <td data-label="Организация"><?= Html::a($payment['name'], Url::to(['finance/provider/view', 'id' => $payment['legal_id']]))?></td>
+                    <td data-label="ИНН"><?= $payment['INN']?></td>
+                    <td data-label="Общая сумма платежей"><?= CurrencyHelper::cost($payment['amount'])?></td>
+                    <td data-label="Сумма к выплате"><?= CurrencyHelper::cost($payment['pay_legal'])?></td>
+                    <td data-label="Вознаграждение"><?= CurrencyHelper::cost($payment['amount'] - $payment['pay_legal'])?></td>
+                    <td data-label="">
                         <?= Html::a('<i class="fas fa-cash-register"></i>', Url::to(['finance/provider/pay', 'id' => $payment['legal_id']]), ['title' => 'Отметить как выплаченные']) ?>
 
                     </td>

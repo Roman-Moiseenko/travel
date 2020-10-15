@@ -25,14 +25,19 @@ use yii\helpers\Url;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'attribute' => 'caption',
-                        'label' => 'Заголовок'
+                        'label' => 'Заголовок',
+                        'contentOptions' => ['data-label' => 'Заголовок'],
                     ],
                     [
                         'attribute' => 'type_dialog',
@@ -42,6 +47,7 @@ use yii\helpers\Url;
                         },
                         'format' => 'raw',
                         'label' => 'Тип диалога',
+                        'contentOptions' => ['data-label' => 'Тип диалога'],
                     ],
 
                     ['class' => 'yii\grid\ActionColumn',

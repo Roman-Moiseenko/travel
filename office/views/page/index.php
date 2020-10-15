@@ -21,6 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'tableOptions' => [
+                'class' => 'table table-adaptive table-striped table-bordered',
+            ],
             'columns' => [
                 [
                     'attribute' => 'title',
@@ -29,7 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $indent . Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
                     },
                     'format' => 'raw',
-                    'label' => 'Заголовок'
+                    'label' => 'Заголовок',
+                    'contentOptions' => ['data-label' => 'Заголовок'],
                 ],
                 [
                     'value' => function (Page $model) {
@@ -38,13 +42,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             Html::a('<span class="glyphicon glyphicon-arrow-down"></span>', ['move-down', 'id' => $model->id]);
                     },
                     'format' => 'raw',
-                    'contentOptions' => ['style' => 'text-align: center'],
+                    'label' => 'Сортировка',
+                    'options' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['data-label' => 'Сортировка'],
                 ],
                 [
                     'attribute' => 'slug',
                     'label' => 'Ссылка',
+                    'contentOptions' => ['data-label' => 'Ссылка'],
                 ],
-                'title',
+                [
+                    'attribute' => 'title',
+                    'label' => 'Заголовок',
+                    'contentOptions' => ['data-label' => 'Заголовок'],
+                    ],
                 ['class' => ActionColumn::class],
             ],
         ]); ?>

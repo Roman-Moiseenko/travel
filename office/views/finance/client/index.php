@@ -20,17 +20,22 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'tableOptions' => [
+                    'class' => 'table table-adaptive table-striped table-bordered',
+                ],
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['width' => '20px',]
+                        'options' => ['width' => '20px',],
+                        'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
                         'value' => function (Refund $model) {
                             return $model->user->personal->fullname->getShortname();
                         },
                         'format' => 'raw',
-                        'label' => 'Клиент'
+                        'label' => 'Клиент',
+                        'contentOptions' => ['data-label' => 'Клиент'],
                     ],
                     [
                         'attribute' => 'booking_id',
@@ -38,13 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->booking->getName();
                         },
                         'label' => 'Объект бронирования',
+                        'contentOptions' => ['data-label' => 'Объект бронирования'],
                     ],
                     [
                         'attribute' => 'amount',
                         'value' => function (Refund $model) {
                             return CurrencyHelper::cost($model->amount);
                         },
-                        'label' => 'Сумма возврата'
+                        'label' => 'Сумма возврата',
+                        'contentOptions' => ['data-label' => 'Сумма возврата'],
                     ],
 
                     ['class' => 'yii\grid\ActionColumn',

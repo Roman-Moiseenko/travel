@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'tableOptions' => [
                     'class' => 'table table-adaptive table-striped table-bordered',
-
                 ],
                 'columns' => [
                     [

@@ -88,7 +88,6 @@ $this->params['breadcrumbs'][] = 'Бронирования';
                                         <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
                                     <?php endif ?>
                                 </span>
-
                                 <span class="params-item">
                                 <i class="fas fa-user"></i>&#160;&#160;<?= $booking->user->personal->fullname->getFullname(); ?>
                                 </span>

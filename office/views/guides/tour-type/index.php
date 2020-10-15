@@ -15,10 +15,10 @@ use yii\helpers\Url;
     </p>
     <div class="card" style="width: 70% !important;">
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-adaptive table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>#ID</th>
+                    <th>ID</th>
                     <th>Название</th>
                     <th>Ссылка</th>
                     <th>Сортировка</th>
@@ -28,10 +28,10 @@ use yii\helpers\Url;
                 <tbody>
                 <?php foreach ($types as $type): ?>
                 <tr>
-                    <td><?= $type->id ?></td>
-                    <td><?= $type->name ?></td>
-                    <td><?= $type->slug ?></td>
-                    <td>
+                    <td data-label="ID"><?= $type->id ?></td>
+                    <td data-label="Название"><?= $type->name ?></td>
+                    <td data-label="Ссылка"><?= $type->slug ?></td>
+                    <td data-label="Сортировка">
                         <?=
                         Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['move-up', 'id' => $type->id],
                             ['data-method' => 'post',]) .
