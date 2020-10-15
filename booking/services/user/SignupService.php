@@ -51,12 +51,12 @@ class SignupService
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['html' => 'noticeSignup'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Lang::t('Регистрация kenig.travel')])
+            ->setFrom([Yii::$app->params['supportEmail'] => Lang::t('Регистрация')])
             ->setTo($user->email)
-            ->setSubject(Lang::t('Account registration at KenigTravel'))
+            ->setSubject(Lang::t('Регистрация на Кёнигс'))
             ->send();
     }
 }
