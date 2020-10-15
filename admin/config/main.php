@@ -67,7 +67,7 @@ return [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'hostInfo' => $params['adminHostInfo'],
-            'baseUrl' => '',
+            //'baseUrl' => '',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

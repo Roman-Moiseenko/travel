@@ -20,6 +20,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property UserAddress $address
  * @property Fullname $fullname
  * @property string $photo
+ * @property bool $agreement
  */
 
 class Personal extends ActiveRecord implements PersonalInterface
@@ -28,22 +29,24 @@ class Personal extends ActiveRecord implements PersonalInterface
     public $fullname;
     public $address;
 
-    public static function create($phone, $dateborn, UserAddress $address, FullName $fullName): self
+    public static function create($phone, $dateborn, UserAddress $address, FullName $fullName, $agreement = false): self
     {
         $personal = new static();
         $personal->phone = $phone;
         $personal->dateborn = $dateborn;
         $personal->address = $address;
         $personal->fullname = $fullName;
+        $personal->agreement = $agreement;
         return $personal;
     }
 
-    public function edit($phone, $dateborn, UserAddress $address, FullName $fullName)
+    public function edit($phone, $dateborn, UserAddress $address, FullName $fullName, $agreement)
     {
         $this->phone = $phone;
         $this->dateborn = $dateborn;
         $this->address = $address;
         $this->fullname = $fullName;
+        $this->agreement = $agreement;
     }
 
     public function setPhoto(UploadedFile $file)

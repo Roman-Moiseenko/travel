@@ -78,6 +78,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model->address, 'address')->textInput()->label(Lang::t('Адрес'))->hint(Lang::t('Улица, Дом, Кв')); ?>
         </div>
     </div>
+    <div class="row">
+        <?= $form->field($model, 'agreement')->checkbox()
+            ->label(Lang::t('Согласие на обработку Персональных данных'))
+            ->hint(
+                Lang::t('Подтверждая данный выбор, я принимаю ') .
+                Html::a(Lang::t('Политику конфиденциальности'), Url::to(['/policy']), ['target' => '_blank'])
+            ); ?>
+    </div>
     <div class="form-group">
         <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn btn-success']) ?>
     </div>

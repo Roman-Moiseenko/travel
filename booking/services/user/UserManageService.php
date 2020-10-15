@@ -82,6 +82,8 @@ class UserManageService
 
     public function setPersonal($id, PersonalForm $form)
     {
+      /*  if ($form->agreement == false)
+            throw new \DomainException(Lang::t('Вы не подтвердили Согласие'));*/
         $user = $this->users->get($id);
         $personal = $user->personal;
         if ($form->photo->files != null) {
@@ -111,10 +113,17 @@ class UserManageService
                 }
             }
         }
-        $personal->phone = $form->phone;
+        $personal->edit(
+            $form->phone,
+            $form->dateborn,
+            new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index),
+            new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname),
+            $form->agreement
+        );
+        /*$personal->phone = $form->phone;
         $personal->dateborn = $form->dateborn;
         $personal->address =  new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index);
-        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
+        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);*/
         $user->updatePersonal($personal);
         $this->users->save($user);
     }

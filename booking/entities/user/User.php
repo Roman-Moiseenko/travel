@@ -49,7 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = time();
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->generateAuthKey();
-        $user->personal = Personal::create('', null, new UserAddress(), new FullName());
+        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), false);
         $user->preferences = Preferences::create();
         //$user->generateEmailVerificationToken();
         return $user;

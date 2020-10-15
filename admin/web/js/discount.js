@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var baseUrl ='/admin';
+    var baseUrl ='';
     $('body').on('change', '#discount-entities', function () {
         let value = $(this).val();
         $.post(baseUrl + "/discount/load", {set: value}, function (data) {

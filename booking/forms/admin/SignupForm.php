@@ -1,6 +1,7 @@
 <?php
 namespace booking\forms\admin;
 
+use booking\entities\Lang;
 use yii\base\Model;
 
 /**
@@ -11,7 +12,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    public $agreement;
 
     /**
      * {@inheritdoc}
@@ -32,6 +33,10 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 4],
+
+           // ['agreement', 'required'],
+            ['agreement', 'boolean'],
+            ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => 'Необходимо согласие'],
         ];
     }
 

@@ -5,6 +5,7 @@ use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $user \booking\entities\admin\User */
 /* @var $model PersonalForm */
@@ -81,6 +82,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <?= $form->field($model, 'agreement')
+            ->checkbox()
+            ->label('Согласие на обработку Персональных данных')
+            ->hint(
+                    'Подтверждая данный выбор, я принимаю '.
+                    Html::a('Политику конфиденциальности', Url::to(\Yii::$app->params['frontendHostInfo'] . '/policy', true), ['target' => '_blank'])
+            ); ?>
     </div>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

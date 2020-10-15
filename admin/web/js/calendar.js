@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var tour_id = $('#number-tour').val(); //Текущий тур
     var full_array_tours; //Массив туров по дням
-    var baseUrl ='/admin';
+    var baseUrl ='';
 //Переводим
     if ($.fn.datepicker === undefined) return false;
     $.fn.datepicker.dates['ru'] = {

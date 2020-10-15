@@ -7,6 +7,7 @@
 use booking\forms\user\SignupForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,7 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'email')->label('Электронная почта') ?>
 
                 <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
-
+            <?= $form->field($model, 'agreement')->checkbox()
+                ->label(
+                    'Настоящим я принимаю ' .
+                    Html::a('Пользовательское соглашение',
+                        Url::to(\Yii::$app->params['frontendHostInfo'] .'/agreement', true), ['target' => '_blank'])
+                ) ?>
                 <div class="form-group">
                     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>

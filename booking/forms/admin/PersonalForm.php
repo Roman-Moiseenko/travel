@@ -4,6 +4,7 @@
 namespace booking\forms\admin;
 
 
+use booking\entities\Lang;
 use booking\entities\PersonalInterface;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
@@ -23,6 +24,7 @@ class PersonalForm extends CompositeForm
     public $phone;
     public $position;
     public $datebornform;
+    public $agreement;
 
     public function __construct(PersonalInterface $personal, $config = [])
     {
@@ -32,6 +34,7 @@ class PersonalForm extends CompositeForm
         $this->address = new UserAddressForm($personal->address);
         $this->fullname = new FullNameForm($personal->fullname);
         $this->photo = new PhotosForm();
+        $this->agreement = $personal->agreement;
         parent::__construct($config);
     }
 
@@ -39,10 +42,15 @@ class PersonalForm extends CompositeForm
     {
         return [
             [['position'], 'string'],
+            ['agreement', 'boolean'],
             ['datebornform', 'safe'],
             ['phone', 'string', 'min' => 10, 'max' => 13],
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
-            ['phone', 'required'],
+            [['phone'], 'required'],
+
+            //['agreement', 'required' ],
+            ['agreement', 'boolean'],
+            ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
         ];
     }
 

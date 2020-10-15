@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var baseUrl ='/admin';
+    var baseUrl ='';
     $('body').on('click', '.notice-ajax', function () {
         let item = $(this).attr('data-item');
         let field = $(this).attr('data-field');

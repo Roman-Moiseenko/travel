@@ -55,9 +55,9 @@ use yii\helpers\Url;
                     <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>"><?= Lang::t('Войти') ?></a>
+                       href="<?= Html::encode(Url::to(['/login'])) ?>"><?= Lang::t('Войти') ?></a>
                     <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/auth/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
+                       href="<?= Html::encode(Url::to(['/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
                 </div>
                 <?php else: ?>
                 <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown">

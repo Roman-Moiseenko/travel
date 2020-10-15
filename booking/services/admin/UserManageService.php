@@ -91,11 +91,19 @@ class UserManageService
                 }
             }
         }
-        $personal->phone = $form->phone;
+        $personal->edit(
+            $form->phone,
+            $form->dateborn,
+            new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index),
+            new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname),
+            $personal->position = $form->position,
+            $form->agreement
+        );
+       /* $personal->phone = $form->phone;
         $personal->dateborn = $form->dateborn;
         $personal->position = $form->position;
         $personal->address = new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
-        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
+        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);*/
         $user->updatePersonal($personal);
         $this->users->save($user);
        /* if ($form->photo->files != null) {

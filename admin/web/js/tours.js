@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var baseUrl ='/admin';
+    var baseUrl ='';
     $('body').on('input', '#toursparamsform-duration', function () {
         let value = $(this).val();
         if (value == 1) {

@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $agreement;
 
 
     /**
@@ -32,8 +33,13 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' =>  Lang::t('Данный email уже используется')],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 4],
+            ['password', 'required', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
+            ['password', 'string', 'min' => 6],
+            //['password', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
+
+         //   ['agreement', 'required'],
+            ['agreement', 'boolean'],
+            ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
         ];
     }
 
