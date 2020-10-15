@@ -23,12 +23,12 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message' => Lang::t('Обязательно для заполнения')],
             ['username', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' => Lang::t('Имя пользователя уже занято')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => Lang::t('Обязательно для заполнения')],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' =>  Lang::t('Данный email уже используется')],

@@ -3,7 +3,7 @@
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\admin\UserEditForm;
+use booking\forms\user\UserEditForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 

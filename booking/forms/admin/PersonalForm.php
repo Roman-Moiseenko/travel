@@ -46,7 +46,7 @@ class PersonalForm extends CompositeForm
             ['datebornform', 'safe'],
             ['phone', 'string', 'min' => 10, 'max' => 13],
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
-            [['phone'], 'required'],
+            [['phone'], 'required', 'message' => Lang::t('Обязательное поле. Формат +КодСтраныЦифры, например +79990001111')],
 
             //['agreement', 'required' ],
             ['agreement', 'boolean'],
