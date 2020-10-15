@@ -30,7 +30,7 @@ use yii\helpers\Url;
         <!-- Review Dropdown Menu -->
         <?= ReviewTopBarWidget::widget(['days' => 7]) ?>
         <!-- Booking Dropdown Menu -->
-        <?= BookingTopBarWidget::widget(['days' => 7]) ?>
+        <?= BookingTopBarWidget::widget() ?>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>

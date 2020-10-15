@@ -83,7 +83,7 @@ class BookingRepository
         return $this->sort_merge($tours, $stays, $cars, -1);
     }
 
-    public function getByAdminNextDay($admin_id, $days = 1): array
+    public function getByAdminNextDay($admin_id): array
     {
         $result = [];
         $tours = BookingTour::find()
@@ -106,9 +106,16 @@ class BookingRepository
                             ]
                         )
                         ->andWhere(['>=', 'tour_at', time()])
-                        ->andWhere(['<=', 'tour_at', time() + 24 * 3600 * $days])
+                    //  ->andWhere(['<=', 'tour_at', time() + 24 * 3600 * $days])
                 ]
             )
+            ->andWhere([
+                'IN',
+                'status', [
+                    BookingHelper::BOOKING_STATUS_NEW,
+                    BookingHelper::BOOKING_STATUS_PAY
+                ]
+            ])
             ->all();
         foreach ($tours as $tour) {
             $result[$tour->getName()] = [

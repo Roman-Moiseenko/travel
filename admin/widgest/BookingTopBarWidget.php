@@ -8,7 +8,6 @@ use yii\base\Widget;
 
 class BookingTopBarWidget extends Widget
 {
-    public $days = 1;
 
     /**
      * @var BookingRepository
@@ -23,7 +22,7 @@ class BookingTopBarWidget extends Widget
 
     public function run()
     {
-        $bookings = $this->bookings->getByAdminNextDay(\Yii::$app->user->id, $this->days);
+        $bookings = $this->bookings->getByAdminNextDay(\Yii::$app->user->id);
         $count = 0;
         foreach ($bookings as $booking){
             $count += (int)$booking['count'];

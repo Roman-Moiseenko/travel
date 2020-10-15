@@ -30,6 +30,6 @@ use booking\entities\booking\BookingItemInterface;
                 </a>
             </div>
         <?php endforeach; ?>
-        <span class="dropdown-item dropdown-footer">На последующие <?= 7 ?> дней</span>
+        <span class="dropdown-item dropdown-footer"></span>
     </div>
 </li>
