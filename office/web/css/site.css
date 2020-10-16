@@ -154,13 +154,16 @@ table.table-adaptive {
 
 }
 
+@media screen and (min-width: 600px){
+    .adaptive-width-70 {
+        width: 70% !important;
+    }
+}
+
 @media screen and (max-width: 600px) {
     table.table-adaptive {
         border: 0;
     }
-
-
-
     table.table-adaptive thead {
         border: none;
         clip: rect(0 0 0 0);

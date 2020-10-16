@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'datebornform')->label(Lang::t('Дата рождения'))->widget(DatePicker::class, [
                 'type' => DatePicker::TYPE_INPUT,
                 'language' => 'ru',
+
                 'pluginOptions' => [
                     'format' => 'dd-mm-yyyy',
                     'autoclose' => true,

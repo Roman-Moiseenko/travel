@@ -26,10 +26,10 @@ class UserEditForm extends Model
     public function rules(): array
     {
         return [
-            [['username', 'email'], 'required'],
+            [['username', 'email'], 'required', 'message' => 'Обязательное поле'],
             ['email', 'email'],
             [['username', 'email'], 'string', 'max' => 255],
-            [['username', 'email'], 'unique', 'targetClass' => User::class, 'filter' => ['<>', 'id', $this->_user->id]],
+            [['username', 'email'], 'unique', 'targetClass' => User::class, 'filter' => ['<>', 'id', $this->_user->id], 'message' => 'Такой пользователь уже имеется'],
             ['password', 'string', 'min' => 6],
         ];
     }

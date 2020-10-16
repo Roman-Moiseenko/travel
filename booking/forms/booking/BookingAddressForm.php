@@ -27,7 +27,7 @@ class BookingAddressForm extends Model
     {
         return [
             [['address'], 'string'],
-            [['latitude', 'longitude'], 'required'],
+            [['latitude', 'longitude'], 'required', 'message' => 'Обязательное поле'],
         ];
     }
 }

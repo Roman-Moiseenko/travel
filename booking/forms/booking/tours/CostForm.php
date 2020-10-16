@@ -25,7 +25,7 @@ class CostForm extends Model
     public function rules()
     {
         return [
-            ['adult', 'required'],
+            ['adult', 'required', 'message' => 'Обязательное поле'],
             [['adult', 'child', 'preference'], 'integer'],
         ];
     }

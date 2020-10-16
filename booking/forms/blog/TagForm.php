@@ -26,10 +26,14 @@ class TagForm extends Model
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => 'Обязательное поле'],
             [['name', 'slug'], 'string', 'max' => 255],
             ['slug', SlugValidator::class],
-            [['name', 'slug'], 'unique', 'targetClass' => Tag::class, 'filter' => $this->_tag ? ['<>', 'id', $this->_tag->id] : null],
+            [
+                ['name', 'slug'],
+                'unique',
+                'targetClass' => Tag::class,
+                'filter' => $this->_tag ? ['<>', 'id', $this->_tag->id] : null, 'message' => 'Не уникальная комбинация имя+ссылка'],
         ];
 
     }

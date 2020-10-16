@@ -13,7 +13,7 @@ class ConfirmationForm extends Model
     public function rules()
     {
         return [
-            [['confirmation'], 'required'],
+            [['confirmation'], 'required', 'message' => 'Обязательное поле'],
             [['confirmation'], 'string'],
         ];
     }

@@ -40,7 +40,7 @@ class TourCommonForm extends CompositeForm
     {
         return [
             [['name', 'description'], 'string'],
-            ['name', 'required'],
+            ['name', 'required', 'message' => 'Обязательное поле'],
         ];
     }
 

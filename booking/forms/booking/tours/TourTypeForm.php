@@ -24,7 +24,7 @@ class TourTypeForm extends Model
     public function rules(): array
     {
         return [
-            ['main', 'required'],
+            ['main', 'required', 'message' => 'Обязательное поле'],
             ['main', 'integer'],
             ['others', 'each', 'rule' => ['integer']],
         ];

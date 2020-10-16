@@ -19,7 +19,7 @@ use yii\helpers\Url;
     <p>
         <?= Html::a('Создать Тему', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <div class="card" style="width: 70% !important;">
+    <div class="card adaptive-width-70">
         <div class="card-body">
 
             <?= GridView::widget([

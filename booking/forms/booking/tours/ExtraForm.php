@@ -27,7 +27,7 @@ class ExtraForm extends Model
     {
         return [
             [['name', 'description'], 'string'],
-            ['name', 'required'],
+            ['name', 'required', 'message' => 'Обязательное поле'],
             ['cost', 'integer'],
         ];
     }

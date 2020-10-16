@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model \booking\forms\user\SignupForm */
+/* @var $model \booking\forms\admin\SignupForm */
 
 use booking\forms\user\SignupForm;
 use yii\helpers\Html;
@@ -31,6 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'Настоящим я принимаю ' .
                     Html::a('Пользовательское соглашение',
                         Url::to(\Yii::$app->params['frontendHostInfo'] .'/agreement', true), ['target' => '_blank'])
+                ) ?>
+            <?= $form->field($model, 'offer')->checkbox()
+                ->label(
+                    'Настоящим я принимаю ' .
+                    Html::a('Оферту для Провайдеров',
+                        Url::to(\Yii::$app->params['frontendHostInfo'] .'/offer', true), ['target' => '_blank'])
                 ) ?>
                 <div class="form-group">
                     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

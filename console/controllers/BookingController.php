@@ -33,13 +33,18 @@ class BookingController extends Controller
 
     public function actionCancel()
     {
-        //TODO Cron+
+        echo 'НАЧАЛО';
         /** @var BookingTour[] $bookings */
         $tours = $this->tours->getNotPay(1);
+        echo 'Нашлось ' . count($tours);
         foreach ($tours as $tour) {
             $tour->cancel();
+            echo 'ID = ' . $tours->id;
             $this->tours->save($tour);
         }
+        echo 'КОНЕЦ';
+        //TODO Заглушка stays, cars
+
 
     }
 }

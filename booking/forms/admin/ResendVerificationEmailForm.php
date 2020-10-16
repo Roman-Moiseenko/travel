@@ -21,7 +21,7 @@ class ResendVerificationEmailForm extends Model
     {
         return [
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => 'Обязательное поле'],
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => '\booking\entities\admin\User',

@@ -26,7 +26,7 @@ class ContactAssignmentForm extends Model
     public function rules()
     {
         return [
-            [['contact_id', 'value'], 'required'],
+            [['contact_id', 'value'], 'required', 'message' => 'Обязательное поле'],
             ['contact_id', 'integer'],
             [['value', 'description'], 'string'],
         ];

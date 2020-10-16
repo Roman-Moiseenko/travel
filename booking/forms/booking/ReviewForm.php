@@ -29,7 +29,7 @@ class ReviewForm extends Model
     public function rules()
     {
         return [
-            [['vote', 'text'], 'required'],
+            [['vote', 'text'], 'required', 'message' => 'Обязательное поле'],
             [['vote'], 'in', 'range' => $this->voteList()],
             ['text', 'string'],
         ];

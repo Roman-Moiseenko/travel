@@ -38,7 +38,7 @@ class ContactForm extends CompositeForm
     public function rules()
     {
         return [
-            ['name', 'required'],
+            ['name', 'required', 'message' => 'Обязательное поле'],
             [['name', 'prefix'], 'string'],
             ['type', 'integer']
         ];

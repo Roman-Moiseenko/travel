@@ -31,7 +31,7 @@ class TourFinanceForm extends CompositeForm
         return [
             ['legal_id', 'integer'],
             ['cancellation', 'integer'],
-            ['legal_id', 'required'],
+            ['legal_id', 'required', 'message' => 'Обязательное поле'],
         ];
     }
 

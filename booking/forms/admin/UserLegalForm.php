@@ -53,7 +53,7 @@ class UserLegalForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name', 'BIK', 'account', 'INN', 'caption', 'description', 'noticePhone', 'noticeEmail'], 'required'],
+            [['name', 'BIK', 'account', 'INN', 'caption', 'description', 'noticePhone', 'noticeEmail'], 'required', 'message' => 'Обязательное поле'],
             ['name', 'string'],
             ['account', 'string', 'length' => 20],
             ['INN', 'string', 'min' => 10, 'max' => 12],
@@ -62,7 +62,8 @@ class UserLegalForm extends CompositeForm
             ['OGRN', 'string', 'min' => 13, 'max' => 15],
             [['BIK', 'KPP', 'INN', 'account', 'OGRN'], 'match', 'pattern' => '/^[0-9]*$/i'],
             [['caption', 'description', 'office'], 'string'],
-            [['noticePhone'], 'match', 'pattern' => '/^[+][0-9]{11}$/i'],
+
+            [['noticePhone'], 'match', 'pattern' => '/^[+][0-9]{11}$/i', 'message' => 'Формат +КодНомер, например +79990001111'],
             [['noticeEmail'], 'email'],
         ];
     }

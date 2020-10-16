@@ -26,7 +26,7 @@ class RoomTypeForm extends Model
         return [
             ['stays_id', 'integer'],
             ['name', 'string'],
-            [['name', 'stays_id'], 'required'],
+            [['name', 'stays_id'], 'required', 'message' => 'Обязательное поле'],
         ];
     }
 }

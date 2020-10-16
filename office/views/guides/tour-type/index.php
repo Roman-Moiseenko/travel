@@ -13,7 +13,7 @@ use yii\helpers\Url;
     <p>
         <?= Html::a('Создать Категорию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <div class="card" style="width: 70% !important;">
+    <div class="card adaptive-width-70">
         <div class="card-body">
             <table class="table table-adaptive table-striped table-bordered">
                 <thead>

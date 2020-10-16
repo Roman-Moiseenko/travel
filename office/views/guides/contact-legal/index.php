@@ -14,7 +14,7 @@ use yii\helpers\Url;
     <p>
         <?= Html::a('Создать Контакт', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <div class="card" style="width: 70% !important;">
+    <div class="card adaptive-width-70">
         <div class="card-body">
             <table class="table table-adaptive table-striped table-bordered">
                 <thead>
@@ -33,7 +33,7 @@ use yii\helpers\Url;
                     <td data-label="ID"><?= $contact->id ?></td>
                     <td data-label="Рисунок"><img src="<?= $contact->getThumbFileUrl('photo', 'icon') ?>"></td>
                     <td data-label="Название"><?= $contact->name ?></td>
-                    <td data-label="Ссылка"><?= $contact->type == 0 ? '' : 'Да' ?></td>
+                    <td data-label="Ссылка"><?= $contact->type == 0 ? 'Нет' : 'Да' ?></td>
                     <td data-label="Префикс (для ссылки)"><?= $contact->prefix ?></td>
                     <td>
                         <a href="<?= Url::to(['update', 'id' => $contact->id])?>"><span class="glyphicon glyphicon-pencil"></span></a>

@@ -44,7 +44,7 @@ class PostForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['categoryId', 'title'], 'required'],
+            [['categoryId', 'title'], 'required', 'message' => 'Обязательное поле'],
             [['title'], 'string', 'max' => 255],
             [['categoryId'], 'integer'],
             [['description', 'content'], 'string'],

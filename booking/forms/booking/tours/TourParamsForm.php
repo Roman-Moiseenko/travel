@@ -50,6 +50,7 @@ class TourParamsForm extends CompositeForm
     public function rules()
     {
         return [
+            [['duration', 'private', 'groupMax', 'groupMin'], 'required', 'message' => 'Обязательное поле'],
             [['duration'], 'string'],
             [['groupMin', 'groupMax'], 'integer', 'min' => 1],
             [['private'], 'integer'],

@@ -28,7 +28,7 @@ class PersonalForm extends CompositeForm
 
     public function __construct(PersonalInterface $personal, $config = [])
     {
-        $this->datebornform = date('d-m-Y', $personal->dateborn);
+        $this->datebornform = $personal->dateborn ? date('d-m-Y', $personal->dateborn) : '';
         $this->phone = $personal->phone;
         $this->position = $personal->position ?? null;
         $this->address = new UserAddressForm($personal->address);
@@ -42,13 +42,14 @@ class PersonalForm extends CompositeForm
     {
         return [
             [['position'], 'string'],
-            ['agreement', 'boolean'],
+
             ['datebornform', 'safe'],
+            ['datebornform', 'required', 'message' => Lang::t('Обязательное поле.')],
+            
             ['phone', 'string', 'min' => 10, 'max' => 13],
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
             [['phone'], 'required', 'message' => Lang::t('Обязательное поле. Формат +КодСтраныЦифры, например +79990001111')],
 
-            //['agreement', 'required' ],
             ['agreement', 'boolean'],
             ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
         ];

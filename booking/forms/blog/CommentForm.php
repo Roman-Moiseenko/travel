@@ -14,7 +14,7 @@ class CommentForm extends Model
     public function rules()
     {
         return [
-            [['text'], 'required'],
+            [['text'], 'required', 'message' => 'Обязательное поле'],
             ['text', 'string'],
             ['parentId', 'integer'],
         ];

@@ -27,7 +27,7 @@ class StayTypeForm extends Model
     {
         return [
             ['name', 'string'],
-            ['name', 'required'],
+            ['name', 'required', 'message' => 'Обязательное поле'],
             ['mono', 'boolean'],
         ];
     }

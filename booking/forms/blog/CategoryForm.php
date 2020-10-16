@@ -45,12 +45,17 @@ class CategoryForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => 'Обязательное поле'],
             [['sort'], 'integer'],
             [['name', 'slug', 'title'], 'string', 'max' => 255],
             [['description'], 'string'],
             ['slug', SlugValidator::class],
-            [['name', 'slug'], 'unique', 'targetClass' => Category::class, 'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null]
+            [
+                ['name', 'slug'],
+                'unique',
+                'targetClass' => Category::class,
+                'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null, 'message' => 'Не уникальная комбинация имя+ссылка'
+            ],
 
         ];
     }

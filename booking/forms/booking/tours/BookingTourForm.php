@@ -31,7 +31,7 @@ class BookingTourForm extends CompositeForm
     {
         return [
             ['calendar_id', 'integer'],
-            ['calendar_id', 'required'],
+            ['calendar_id', 'required', 'message' => 'Обязательное поле'],
         ];
     }
 

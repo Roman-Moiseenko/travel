@@ -14,8 +14,8 @@ class PasswordEditForm extends Model
     public function rules()
     {
         return [
-            [['password', 'password2'], 'required'],
-            [['password', 'password2'], 'string', 'min' => 4],
+            [['password', 'password2'], 'required', 'message' => 'Обязательное поле'],
+            [['password', 'password2'], 'string', 'min' => 6, 'message' => 'Минимальное кол-во знаков - 6'],
             [
                 'password2', 'compare', 'compareAttribute' => 'password',
                 'message' => "Пароли не совпадают",

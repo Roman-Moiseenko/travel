@@ -33,6 +33,8 @@ use yii\helpers\Url;
  * @property boolean $unload
  * @property \booking\entities\user\User $user
  */
+
+// unload - выгружен или нет для отчета в finance
 class BookingTour extends ActiveRecord implements BookingItemInterface
 {
     public $count;

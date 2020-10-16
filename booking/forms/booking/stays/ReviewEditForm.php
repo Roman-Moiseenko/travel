@@ -20,7 +20,7 @@ class ReviewEditForm extends Model
     public function rules(): array
     {
         return [
-            [['vote', 'text'], 'required'],
+            [['vote', 'text'], 'required', 'message' => 'Обязательное поле'],
             [['vote'], 'in', 'range' => [1, 2, 3, 4, 5]],
             ['text', 'string'],
         ];

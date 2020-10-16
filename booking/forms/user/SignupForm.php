@@ -16,6 +16,7 @@ class SignupForm extends Model
     public $agreement;
 
 
+
     /**
      * {@inheritdoc}
      */
@@ -40,6 +41,7 @@ class SignupForm extends Model
          //   ['agreement', 'required'],
             ['agreement', 'boolean'],
             ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
+
         ];
     }
 

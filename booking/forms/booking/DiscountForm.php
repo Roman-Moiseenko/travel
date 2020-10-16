@@ -24,7 +24,7 @@ class DiscountForm extends Model
     public function rules()
     {
         return [
-            [['entities', 'percent', 'count', 'repeat'], 'required'],
+            [['entities', 'percent', 'count', 'repeat'], 'required', 'message' => 'Обязательное поле'],
             [['entities_id', 'percent', 'count', 'repeat'], 'integer'],
             [['entities'], 'string'],
         ];

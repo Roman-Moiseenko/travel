@@ -15,10 +15,27 @@ use yii\helpers\Url;
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Главная</a>
+            <a href="<?= \yii\helpers\Url::home() ?>" class="nav-link">Главная</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= Url::to(['/cabinet/dialog/support'])?>" class="nav-link">Служба поддержки</a>
+            <a href="<?= Url::to(['/cabinet/dialog/support']) ?>" class="nav-link">Служба поддержки</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                Документы
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+                <span class="dropdown-header">Документы</span>
+                <div class="dropdown-divider"></div>
+                <a href="<?= Url::to(\Yii::$app->params['frontendHostInfo'] . '/agreement', true) ?>"
+                   class="dropdown-item" target="_blank">
+                    Пользовательское соглашение
+                </a>
+                <a href="<?= Url::to(\Yii::$app->params['frontendHostInfo'] . '/offer', true) ?>" class="dropdown-item" target="_blank">
+                    Оферта
+                </a>
+                <span class="dropdown-item dropdown-footer"></span>
+            </div>
         </li>
     </ul>
 
@@ -37,7 +54,7 @@ use yii\helpers\Url;
         <?= ProfileTopBarWidget::widget() ?>
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-                    class="fas fa-th-large"></i></a>
+                        class="fas fa-th-large"></i></a>
         </li>
     </ul>
 </nav>
