@@ -45,10 +45,8 @@ class PayController extends Controller
     public function actionTour($id)
     {
         $booking = BookingTour::findOne($id);
-        if (\Yii::$app->params['NotPay']) {
-            //генерируем код СМС
-            //сохраняем гдето в базе
-            //отправляем СМС
+        if (isset(\Yii::$app->params['NotPay']) && \Yii::$app->params['NotPay']) {
+            //генерируем код СМС, сохраняем гдето в базе, отправляем СМС
             $this->tourService->confirmation($id);
             $form = new ConfirmationForm();
             //через форму ждем код

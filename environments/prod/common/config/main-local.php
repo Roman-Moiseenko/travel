@@ -27,9 +27,9 @@ return [
         'robokassa' => [
             'class' => '\robokassa\Merchant',
             'baseUrl' => 'https://auth.robokassa.ru/Merchant/Index.aspx',
-            'sMerchantLogin' => '',
-            'sMerchantPass1' => '',
-            'sMerchantPass2' => '',
+            'sMerchantLogin' => 'koenigs',
+            'sMerchantPass1' => 'suXGG5Q1KF8nWeO4Brf4',
+            'sMerchantPass2' => 'b4wCL73EZaXHvi8fYr0z',
             'isTest' => !YII_ENV_PROD,
         ],
         'sms' => [

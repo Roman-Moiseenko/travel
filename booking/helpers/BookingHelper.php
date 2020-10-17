@@ -90,9 +90,12 @@ class BookingHelper
         return '';
     }
 
-    public static function number(BookingItemInterface $booking): string
+    public static function number(BookingItemInterface $booking, $forPay = false): string
     {
-        return $booking->getAdmin()->id . '.' . $booking->getId() . $booking->getType();
+        if (!$forPay)
+            return $booking->getAdmin()->id . '.' . $booking->getId() . $booking->getType();
+        return $booking->getId() . $booking->getType();
+
     }
 
     public static function getByNumber($number): ?BookingItemInterface
@@ -101,7 +104,11 @@ class BookingHelper
         try {
             $point = strpos($number, '.');
             //$user_id = substr($number, 0, $point);
-            $temp = substr($number, $point + 1, strlen($number) - ($point + 1));
+            if ($point == 0) {
+                $temp = $number;
+            } else {
+                $temp = substr($number, $point + 1, strlen($number) - ($point + 1));
+            }
             $booking_id = intdiv((int)$temp, 10);
             $typeBooking = (int)$temp % 10;
             $class = self::LIST_BOOKING_TYPE[$typeBooking];

@@ -60,12 +60,8 @@ class RobokassaController extends Controller
 
     public function successCallback($merchant, $nInvId, $nOutSum, $shp)
     {
-        //TODO Тестировать после подключения!!!!
-        return $this->goBack();
-    }
 
-    public function resultCallback($merchant, $nInvId, $nOutSum, $shp)
-    {
+
         $booking = BookingHelper::getByNumber($nInvId);
         //$order = $this->loadModel($nInvId);
         try {
@@ -74,6 +70,12 @@ class RobokassaController extends Controller
         } catch (\DomainException $e) {
             return $e->getMessage();
         }
+    }
+
+    public function resultCallback($merchant, $nInvId, $nOutSum, $shp)
+    {
+        //TODO Тестировать после подключения!!!!
+        return $this->goBack();
     }
 
     public function failCallback($merchant, $nInvId, $nOutSum, $shp)

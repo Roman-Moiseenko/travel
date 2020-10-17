@@ -20,7 +20,7 @@ use yii\helpers\Url;
         <li class="nav-item d-none d-sm-inline-block">
             <a href="<?= Url::to(['/cabinet/dialog/support']) ?>" class="nav-link">Служба поддержки</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none d-sm-inline-block">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 Документы
             </a>

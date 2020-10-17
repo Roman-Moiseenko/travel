@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'tableOptions' => [
             'class' => 'table table-adaptive table-striped table-bordered',
-
         ],
         'columns' => [
             [
@@ -77,16 +76,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
+                'template' => '{view}',
                 'buttons' => [
-                    'delete' => function ($url, $model, $key) {
-                        $url = Url::to(['/tour/delete', 'id' => $model->id]);
-                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-trash"]);
+                    'view' => function ($url, $model, $key) {
+                        $url = Url::to(['/tour/common/index', 'id' => $model->id]);
+                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-eye-open"]);
                         return Html::a($icon, $url, [
-                            'title' => 'Удалить',
-                            'aria-label' => 'Удалить',
+                            'title' => 'Просмотр',
+                            'aria-label' => 'Просмотр',
                             'data-pjax' => 0,
-                            'data-confirm' => 'Вы уверены, что хотите удалить Тур ' . $model->name . '?',
                             'data-method' => 'post',
                         ]);
                     },
