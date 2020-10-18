@@ -44,7 +44,7 @@ foreach ($post->tags as $tag) {
 </article>
 
 <p><?= Lang::t('Метки') ?>: <?= implode(', ', $tagLinks) ?></p>
-
+<div class="addthis_inline_share_toolbox"></div>
 <?= CommentsWidget::widget([
     'post' => $post,
 ]) ?>

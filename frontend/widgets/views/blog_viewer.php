@@ -16,7 +16,9 @@ $count = count($posts);
             <img src="<?= $posts[0]->getThumbFileUrl('photo', 'widget_top') ?>" class="card-img">
             <div class="card-img-overlay">
                 <h4 class="card-title" style="color: white; text-shadow: black 2px 2px 1px"><?= $posts[0]->title ?></h4>
+                <div class=" d-none d-sm-block">
                 <p class="card-text"><?= Html::encode(StringHelper::truncateWords(strip_tags($posts[0]->description), 60)) ?></p>
+                </div>
             </div>
             <a href="<?= Url::to(['post/view', 'id' => $posts[0]->id]) ?>" class="stretched-link"></a>
         </div>
@@ -31,7 +33,9 @@ $count = count($posts);
                 <div class="card-img-overlay">
                     <h4 class="card-title"
                         style="color: white; text-shadow: black 2px 2px 1px"><?= $posts[$i]->title ?></h4>
+                    <div class=" d-none d-sm-block">
                     <p class="card-text"><?= Html::encode(StringHelper::truncateWords(strip_tags($posts[$i]->description), 20)) ?></p>
+                    </div>
                 </div>
                 <a href="<?= Url::to(['post/view', 'id' => $posts[$i]->id]) ?>" class="stretched-link"></a>
             </div>
