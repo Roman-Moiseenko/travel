@@ -8,6 +8,7 @@ namespace booking\entities;
 use booking\entities\user\User;
 use booking\helpers\scr;
 use yii\db\ActiveRecord;
+use yii\web\Cookie;
 
 /**
  * Class Lang
@@ -100,5 +101,30 @@ class Lang extends ActiveRecord
         return [
             'ru' => 'ru', 'en' => 'en', 'pl' => 'pl', 'de' => 'de', 'fr' => 'fr', 'lt' => 'lt', 'lv' => 'lv'
         ];
+    }
+
+    public static function isset($lang): bool
+    {
+        return in_array($lang, Lang::listLangs());
+    }
+
+    public static function setCurrent($lang)
+    {
+        $language = $lang;
+        if (!self::isset($lang)) return;
+        if (\Yii::$app->user->isGuest)
+        {
+            \Yii::$app->response->cookies->add(new Cookie([
+                'name' => 'lang',
+                'value' => $lang,
+                'expire' => time() + 3600 * 24 * 365
+            ]));
+        } else {
+            // Сохраняем язык в базе пользователя
+            $user = \Yii::$app->user->identity;
+            $user->setLang($lang);
+            $user->save();
+        }
+        \Yii::$app->language = $lang;
     }
 }

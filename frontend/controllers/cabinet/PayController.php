@@ -69,7 +69,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         } else {
-            return $this->redirect(['cabinet/robokassa/invoice', 'id' => BookingHelper::number($booking)]);
+            return $this->redirect(['cabinet/robokassa/invoice', 'id' => BookingHelper::number($booking, true)]);
             //TODO Оплата через кассу
         }
     }

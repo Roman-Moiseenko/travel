@@ -4,8 +4,10 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\user\PreferencesForm;
+use booking\helpers\scr;
 use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -47,7 +49,7 @@ class OptionsController extends Controller
         if ($form->load(\Yii::$app->request->post())) {
             try {
                 $this->service->setPreferences($user->id, $form);
-                return $this->redirect(\Yii::$app->request->referrer);
+                return $this->redirect(['/cabinet/options', 'lang' => $form->lang]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

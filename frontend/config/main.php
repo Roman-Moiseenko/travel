@@ -32,13 +32,14 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'class' => 'frontend\urls\LangRequest',
 
         ],
         'user' => [
             'identityClass' => 'booking\entities\user\User',
             'enableAutoLogin' => true,
             'identityCookie' => [
-                'name' => '_identity-frontend',
+                'name' => '_identity-koenigs',
                 'httpOnly' => true,
                 'domain' => $params['cookieDomain'],
                 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
@@ -89,11 +90,13 @@ return [
             ]
         ],
         'urlManager' => [
-            'class' => 'yii\web\UrlManager',
+            'class' => 'frontend\urls\LangUrlManager',
+//            'class' => 'yii\web\UrlManager',
             'hostInfo' => $params['frontendHostInfo'],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'cache' => false,
+
             'rules' => [
                 '' => 'site/index',
 

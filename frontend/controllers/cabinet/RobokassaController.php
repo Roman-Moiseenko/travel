@@ -4,7 +4,9 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\services\finance\PayManageService;
 use robokassa\FailAction;
 use robokassa\Merchant;
@@ -62,7 +64,9 @@ class RobokassaController extends Controller
     {
 
 
+/*
         $booking = BookingHelper::getByNumber($nInvId);
+        //scr::p([$merchant, $nInvId, $nOutSum, $shp]);
         //$order = $this->loadModel($nInvId);
         try {
             $this->service->payBooking($booking);
@@ -70,12 +74,24 @@ class RobokassaController extends Controller
         } catch (\DomainException $e) {
             return $e->getMessage();
         }
+*/
+        //TODO Тестировать после подключения!!!!
+        /** @var BookingItemInterface $booking */
+
+        $booking = BookingHelper::getByNumber((int)$nInvId);
+        return $this->redirect($booking->getLinks()['frontend']);
     }
 
     public function resultCallback($merchant, $nInvId, $nOutSum, $shp)
     {
-        //TODO Тестировать после подключения!!!!
-        return $this->goBack();
+        $booking = BookingHelper::getByNumber((int)$nInvId);
+        try {
+            $this->service->payBooking($booking);
+            return 'OK' . $nInvId;
+        } catch (\DomainException $e) {
+            return $e->getMessage();
+        }
+
     }
 
     public function failCallback($merchant, $nInvId, $nOutSum, $shp)

@@ -27,7 +27,7 @@ use yii\helpers\Url;
                 <div class="dropdown-menu">
                     <?php foreach (Lang::listLangs() as $lang): ?>
                         <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/cabinet/user/lang', 'lang' => $lang])) ?>"><?= $lang ?></a>
+                           href="<?= Html::encode(Url::to(['/', 'lang' => $lang])) ?>"><?= $lang ?></a>
                     <?php endforeach; ?>
                 </div>
             </li>
