@@ -12,6 +12,7 @@ use robokassa\FailAction;
 use robokassa\Merchant;
 use robokassa\ResultAction;
 use robokassa\SuccessAction;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -89,7 +90,9 @@ class RobokassaController extends Controller
             $this->service->payBooking($booking);
             return 'OK' . $nInvId;
         } catch (\DomainException $e) {
-            return $e->getMessage();
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(Url::to(['/']));
+           // return $e->getMessage();
         }
 
     }

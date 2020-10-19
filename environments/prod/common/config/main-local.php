@@ -44,8 +44,8 @@ return [
             'clients' => [
                 'google' => [
                     'class' => 'yii\authclient\clients\Google',
-                    'clientId' => '460552206737-3l609bqkkil7n3t9c8r992q7b5es15g4.apps.googleusercontent.com',
-                    'clientSecret' => 'LcABQes7j3YuhxeR0Mo80GKV',
+                    'clientId' => '302202821703-9c5mgkhgj5kfuv49t82gmli6tfiu8l98.apps.googleusercontent.com',
+                    'clientSecret' => 'R-7nsqqT1lEekOopHWFFxRD7',
                 ],
             ],
         ],

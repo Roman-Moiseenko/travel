@@ -50,6 +50,16 @@ class Lang extends ActiveRecord
         $lang->save();
     }
 
+    public function edit($en, $pl, $de, $fr, $lt, $lv): void
+    {
+        $this->en = $en;
+        $this->pl = $pl;
+        $this->de = $de;
+        $this->fr = $fr;
+        $this->lt = $lt;
+        $this->lv = $lv;
+    }
+
     public static function t($text): string
     {
         //Определяем какой User запросил перевод,

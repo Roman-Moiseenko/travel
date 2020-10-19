@@ -92,6 +92,7 @@ class ContactService
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ И ПРОВАЙДЕРУ О БРОНИРОВАНИИ/НОВОМ СТАТУСЕ
     public function sendNoticeBooking(BookingItemInterface $booking)
     {
+
         $user_admin = $booking->getAdmin();
         $user = \booking\entities\user\User::findOne(\Yii::$app->user->id);
         $noticeAdmin = $user_admin->notice;
@@ -100,6 +101,7 @@ class ContactService
         $phoneAdmin = $legal->noticePhone;
         $emailUser = $user->email;
         $emailAdmin = $legal->noticeEmail;
+
         //Получаем параметры уведомления
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) {
             //Новое бронирование  => Рассылка
@@ -114,10 +116,11 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY) {
             //Бронирование оплачено  => Рассылка
-            $this->sendSMS($phoneUser, Lang::t('Ваше бронирование подтверждено') . '. ' . $booking->getName() . '. ' . Lang::t('Спасибо, что с нами'));
+           // scr::p($phoneUser);
+            $this->sendSMS($phoneUser, Lang::t('Бронирование подтверждено') . '. ' . $booking->getName() . '. ' . Lang::t('Спасибо, что Вы с нами'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
             if ($noticeAdmin->bookingPay->phone)
-                $this->sendSMS($phoneAdmin, 'Подтверждено бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount());
+                $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
             if ($noticeAdmin->bookingPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
 
@@ -127,7 +130,7 @@ class ContactService
            // $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelUser');
             if ($noticeAdmin->bookingCancel->phone)
-                $this->sendSMS($phoneAdmin, 'Отменено бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount());
+                $this->sendSMS($phoneAdmin, 'Отменено ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
             if ($noticeAdmin->bookingCancel->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelAdmin');
         }
@@ -136,7 +139,7 @@ class ContactService
             $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено. Оплата поступит в течении 72 часов'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelPayUser');
             if ($noticeAdmin->bookingCancelPay->phone)
-                $this->sendSMS($phoneAdmin, 'Отменено оплаченое бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount());
+                $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount(). ')');
             if ($noticeAdmin->bookingCancelPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelPayAdmin');
         }
@@ -159,12 +162,18 @@ class ContactService
 
     private function sendSMS($phone, $message)
     {
-        if (\Yii::$app->params['NotSend']) return;
-        sms::send($phone, $message);
-        /*
+        //echo 1;
+        if (isset(\Yii::$app->params['NotSend']) and \Yii::$app->params['NotSend']) {
+          //  scr::v(\Yii::$app->params['NotSend']);
+            return;
+        }
+        //echo 2;
+        //sms::send($phone, $message);
+        //scr::v($phone);
+
         $result = \Yii::$app->sms->send($phone, $message);
         if (!$result)
-            throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения')); */
+            throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения'));
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)

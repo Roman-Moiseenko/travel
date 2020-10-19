@@ -28,7 +28,7 @@ class TourTypeUrlRule extends BaseObject implements UrlRuleInterface
 
     public function parseRequest($manager, $request)
     {
-        scr::p([$manager, $request]);
+        //scr::p([$manager, $request]);
         $path = $request->pathInfo;
         $result = $this->cache->getOrSet(['tours_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {

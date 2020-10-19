@@ -190,7 +190,11 @@ div.required label:after {
 table.table-adaptive {
 
 }
-
+@media screen and (min-width: 600px){
+    .adaptive-width-80 {
+        width: 80% !important;
+    }
+}
 @media screen and (max-width: 600px) {
     table.table-adaptive {
         border: 0;

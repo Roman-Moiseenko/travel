@@ -1,6 +1,7 @@
 <?php
 namespace booking\forms\auth;
 
+use booking\entities\Lang;
 use yii\base\Model;
 
 /**
@@ -18,12 +19,9 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
+            [['password'], 'required', 'message' => Lang::t('Необходимо ввести пароль')],
+            [['username'], 'required', 'message' => Lang::t('Необходимо ввести логин или email')],
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            //['password', 'validatePassword'],
         ];
     }
 

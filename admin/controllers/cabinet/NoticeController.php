@@ -8,6 +8,7 @@ use booking\entities\admin\User;
 use booking\forms\admin\NoticeForm;
 use booking\helpers\scr;
 use booking\services\admin\UserManageService;
+use booking\sms\sms;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -63,5 +64,11 @@ class NoticeController extends Controller
     private function findModel()
     {
         return User::findOne(\Yii::$app->user->id);
+    }
+
+    public function actionSend()
+    {
+        //sms::send('+79118589719', 'koenigs.ru');
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

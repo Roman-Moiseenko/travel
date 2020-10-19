@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
 use booking\services\booking\tours\BookingTourService;
+use booking\services\ContactService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -20,11 +21,16 @@ class PayController extends Controller
      * @var BookingTourService
      */
     private $tourService;
+    /**
+     * @var ContactService
+     */
+    private $contact;
 
-    public function __construct($id, $module, BookingTourService $tourService, $config = [])
+    public function __construct($id, $module, BookingTourService $tourService, ContactService $contact, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->tourService = $tourService;
+        $this->contact = $contact;
     }
 
     public function behaviors()
@@ -69,6 +75,9 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         } else {
+            /*$booking->pay();
+            $this->contact->sendNoticeBooking($booking);
+            return $this->redirect(\Yii::$app->request->referrer); */
             return $this->redirect(['cabinet/robokassa/invoice', 'id' => BookingHelper::number($booking, true)]);
             //TODO Оплата через кассу
         }

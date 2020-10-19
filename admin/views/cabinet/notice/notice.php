@@ -5,6 +5,7 @@
 use booking\entities\admin\Notice;
 use booking\entities\admin\User;
 use booking\forms\admin\NoticeForm;
+use yii\helpers\Url;
 
 /* @var $notice Notice */
 /* @var $model NoticeForm */
@@ -14,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div>
-    <div class="card card-secondary">
+    <div class="card card-secondary adaptive-width-80">
         <div class="card-body label-not-bold">
-            <table width="80%">
+            <table width="80%" class ='table table-adaptive table-striped table-bordered'>
                 <tbody>
                 <tr>
                     <th>Отзывы</th>
@@ -160,5 +161,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </table>
         </div>
     </div>
-
 </div>
