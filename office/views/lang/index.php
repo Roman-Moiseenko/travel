@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $searchModel office\forms\LangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Сообщения от провайдеров';
+$this->title = 'Перевод';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="provider-list">

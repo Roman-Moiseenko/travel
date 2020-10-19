@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <label for="review-phone">
                                 <input id="review-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="review"
-                                       data-field="phone" <?= $notice->review->phone ? 'checked' : '' ?>>
+                                       data-field="phone" <?= $notice->review->phone ? 'checked' : '' ?> disabled>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <label for="bookingNew-phone">
                                 <input id="bookingNew-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingNew"
-                                       data-field="phone" <?= $notice->bookingNew->phone ? 'checked' : '' ?>>
+                                       data-field="phone" <?= $notice->bookingNew->phone ? 'checked' : '' ?> disabled>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <label for="bookingCancel-phone">
                                 <input id="bookingCancel-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingCancel"
-                                       data-field="phone" <?= $notice->bookingCancel->phone ? 'checked' : '' ?>>
+                                       data-field="phone" <?= $notice->bookingCancel->phone ? 'checked' : '' ?> disabled>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -150,7 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <label for="messageNew-phone">
                                 <input id="messageNew-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="messageNew"
-                                       data-field="phone" <?= $notice->messageNew->phone ? 'checked' : '' ?>>
+                                       data-field="phone" <?= $notice->messageNew->phone ? 'checked' : '' ?> disabled>
                                 Уведомление по СМС
                             </label>
                         </div>

@@ -10,6 +10,7 @@ use booking\entities\message\Dialog;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\services\pdf\pdfServiceController;
+use booking\sms\sms;
 use yii\mail\MailerInterface;
 
 class ContactService
@@ -159,9 +160,11 @@ class ContactService
     private function sendSMS($phone, $message)
     {
         if (\Yii::$app->params['NotSend']) return;
+        sms::send($phone, $message);
+        /*
         $result = \Yii::$app->sms->send($phone, $message);
         if (!$result)
-            throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения'));
+            throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения')); */
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)

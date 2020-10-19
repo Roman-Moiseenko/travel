@@ -9,7 +9,8 @@ return [
     'supportEmail' => 'support@koenigs.ru',
     'adminEmail' => 'admin@koenigs.ru',
     'supportPhone' => '+7-800-000-0101',
-    'NotSend' => true,
-    'NotPay' => true,
+    'NotSend' => false,
+    'NotPay' => false,
     'YandexAPI' => 'f2af7b42-59f9-44b0-a60b-38c7d431e657',
+    'SMS_API' => '1ECCA5B2-DAF8-E0EA-88AA-9E47CD456813',
     ];

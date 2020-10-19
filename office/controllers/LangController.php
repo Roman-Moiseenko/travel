@@ -36,4 +36,9 @@ class LangController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionUpdate($id)
+    {
+        //TODO
+    }
 }
