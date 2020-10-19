@@ -61,7 +61,7 @@ class PayController extends Controller
                     if ($this->tourService->isConfirmation($id, $form)) {
                         //если совпал, то подтверждение
                         $this->tourService->pay($id);
-                        \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтвержденно'));
+                        \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтверждено'));
                         return $this->redirect(['/cabinet/tour/view', 'id' => $id]);
                     } else {
                         \Yii::$app->session->setFlash('error', Lang::t('Неверный код подтверждения'));

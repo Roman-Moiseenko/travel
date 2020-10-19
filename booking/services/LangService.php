@@ -39,4 +39,10 @@ class LangService
         //$this->langs->save($lang);
         return $lang;
     }
+
+    public function remove($id)
+    {
+        $lang = Lang::findOne(['ru' => $id]);
+        $lang->delete();
+    }
 }

@@ -22,7 +22,7 @@ class m200714_222143_create_booking_lang_table extends Migration
             'lv' => $this->string(),
             'lt' => $this->string(),
         ], $tableOptions);
-        $this->createIndex('{{%idx-booking_lang-ru}}', '{{%booking_lang}}', 'ru');
+        $this->addPrimaryKey('{{%pk-booking_lang}}', '{{%booking_lang}}', ['ru']);
     }
 
     /**

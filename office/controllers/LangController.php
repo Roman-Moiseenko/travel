@@ -64,6 +64,7 @@ class LangController extends Controller
 
     public function actionDelete($id)
     {
-        scr::p($id);
+        $this->service->remove($id);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

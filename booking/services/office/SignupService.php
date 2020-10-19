@@ -52,9 +52,9 @@ class SignupService
                 ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => 'Регистрация kenig.travel'])
+            ->setFrom([Yii::$app->params['supportEmail'] => 'Регистрация на koenigs.ru'])
             ->setTo($user->email)
-            ->setSubject('Account registration at KenigTravel')
+            ->setSubject('Аккаунт зарегистрирован на koenigs.ru')
             ->send();
     }
 }

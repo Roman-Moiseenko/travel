@@ -13,12 +13,26 @@ use yii\helpers\Html;
 $js = <<<JS
 $('#translateModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
-  var recipient = button.data('whatever'); // Extract info from data-* attributes
+  var _ru = button.data('ru'); // Extract info from data-* attributes
+  var _en = button.data('en'); // Extract info from data-* attributes
+  var _pl = button.data('pl'); // Extract info from data-* attributes
+  var _de = button.data('de'); // Extract info from data-* attributes
+  var _fr = button.data('fr'); // Extract info from data-* attributes
+  var _lt = button.data('lt'); // Extract info from data-* attributes
+  var _lv = button.data('lv'); // Extract info from data-* attributes
+  
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this);
-  modal.find('.modal-title').text(recipient);
-  modal.find('#langform-ru').val(recipient);
+  modal.find('.modal-title').text(_ru);
+  modal.find('#langform-ru').val(_ru);
+  modal.find('#langform-en').val(_en);
+  modal.find('#langform-pl').val(_pl);
+  modal.find('#langform-de').val(_de);
+  modal.find('#langform-fr').val(_fr);
+  modal.find('#langform-lt').val(_lt);   
+  modal.find('#langform-lv').val(_lv);
+
 })
 JS;
 
@@ -70,16 +84,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'template' => '{update}{delete}',
                         'buttons' => [
                             'update' => function ($url, $model, $key) {
-                                return '<button title="Перевод" type="button" class="btn btn-sm" data-toggle="modal" data-target="#translateModal" data-whatever="' .
-                                    $model->ru .
-                                    '" style="color: #34a0cf; font-size: 1rem"><i class="fas fa-language"></i></button>';
+                                return '<button title="Перевод" type="button" class="btn btn-sm" data-toggle="modal" data-target="#translateModal" ' .
+                                    'data-ru="' . $model->ru . '" data-en="'. $model->en . '" data-pl="' .$model->pl . '" ' .
+                                    'data-de="' . $model->de . '" data-fr="'. $model->fr . '" data-lt="' .$model->lt . '" data-lv="' .$model->lv . '"' .
+                                    ' style="color: #34a0cf; font-size: 1rem"><i class="fas fa-language"></i></button>';
                             },
                             'delete'  => function ($url, $model, $key) {
                                 return Html::a('<i class="far fa-trash-alt"></i>', $url, [
-                                    'title' => 'Заблокировать',
-                                    'aria-label' => 'Заблокировать',
+                                    'title' => 'Удалить',
+                                    'aria-label' => 'Удалить',
                                     'data-pjax' => 0,
-                                    'data-confirm' => 'Вы уверены, что хотите заблокировать Промо-код ' . $model->ru . '?',
+                                    'data-confirm' => 'Вы уверены, что хотите Удалить ' . $model->ru . '?',
                                     'data-method' => 'post',
                                     'style' => 'color: #34a0cf; font-size: 1rem',
                                 ]);
