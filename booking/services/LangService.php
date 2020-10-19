@@ -6,6 +6,7 @@ namespace booking\services;
 
 use booking\entities\Lang;
 use booking\forms\LangForm;
+use booking\helpers\scr;
 use booking\repositories\LangRepository;
 
 class LangService
@@ -13,16 +14,18 @@ class LangService
     /**
      * @var LangRepository
      */
-    private $langs;
+    //private $langs;
 
     public function __construct(LangRepository $langs)
     {
-        $this->langs = $langs;
+       // $this->langs = $langs;
     }
 
     public function save(LangForm $form): Lang
     {
-        $lang = $this->langs->get($form->ru);
+        //$lang = $this->langs->get($form->ru);
+        $lang = Lang::findOne(['ru' => $form->ru]);
+        //scr::v($lang);
         $lang->edit(
             $form->en,
             $form->pl,
@@ -31,7 +34,9 @@ class LangService
             $form->lt,
             $form->lv
         );
-        $this->langs->remove($lang);
+        //scr::v($lang);
+        $lang->save();
+        //$this->langs->save($lang);
         return $lang;
     }
 }

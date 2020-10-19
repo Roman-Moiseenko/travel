@@ -6,6 +6,7 @@ namespace office\controllers;
 
 use booking\entities\Rbac;
 use booking\forms\LangForm;
+use booking\helpers\scr;
 use booking\services\LangService;
 use office\forms\LangSearch;
 use yii\filters\AccessControl;
@@ -44,11 +45,11 @@ class LangController extends Controller
     {
         $searchModel = new LangSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-
         $form = new LangForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->save($form);
+                $form = new LangForm();
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -61,8 +62,8 @@ class LangController extends Controller
         ]);
     }
 
-    public function actionUpdate($id)
+    public function actionDelete($id)
     {
-        //TODO
+        scr::p($id);
     }
 }

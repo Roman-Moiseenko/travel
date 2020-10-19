@@ -1,14 +1,9 @@
 <?php
 
-use booking\entities\message\Dialog;
-use booking\entities\message\ThemeDialog;
 use booking\forms\LangForm;
-use booking\helpers\DialogHelper;
-use office\forms\DialogsSearch;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel office\forms\LangSearch */
@@ -17,13 +12,13 @@ use yii\helpers\Url;
 
 $js = <<<JS
 $('#translateModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever'); // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text(recipient)
-  modal.find('.modal-body #recipient-name').val(recipient)
+  var modal = $(this);
+  modal.find('.modal-title').text(recipient);
+  modal.find('#langform-ru').val(recipient);
 })
 JS;
 
@@ -72,23 +67,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
 
                     ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{update}',
+                        'template' => '{update}{delete}',
                         'buttons' => [
                             'update' => function ($url, $model, $key) {
-
-                                    //$url = Url::to(['/', 'id' => $model->ru]);
-                                    //$icon = Html::tag('i', '', ['class' => "fas fa-user-lock"]);
-                                    return '<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#translateModal" data-whatever="'.
-                                        $model->ru.
-                                        '"><i class="fas fa-language"></i></button>';
-                                    return Html::a($icon, $url, [
-                                        'title' => 'Перевод',
-                                        'aria-label' => 'Перевод',
-                                        'data-pjax' => 0,
-                                        'data-method' => 'post',
-                                    ]);
-
+                                return '<button title="Перевод" type="button" class="btn btn-sm" data-toggle="modal" data-target="#translateModal" data-whatever="' .
+                                    $model->ru .
+                                    '" style="color: #34a0cf; font-size: 1rem"><i class="fas fa-language"></i></button>';
                             },
+                            'delete'  => function ($url, $model, $key) {
+                                return Html::a('<i class="far fa-trash-alt"></i>', $url, [
+                                    'title' => 'Заблокировать',
+                                    'aria-label' => 'Заблокировать',
+                                    'data-pjax' => 0,
+                                    'data-confirm' => 'Вы уверены, что хотите заблокировать Промо-код ' . $model->ru . '?',
+                                    'data-method' => 'post',
+                                    'style' => 'color: #34a0cf; font-size: 1rem',
+                                ]);
+                            }
                         ],
                     ],
                 ],
@@ -96,7 +91,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="modal fade" id="translateModal" tabindex="-1" role="dialog" aria-labelledby="translateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="translateModal" tabindex="-1" role="dialog" aria-labelledby="translateModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,27 +101,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <?php $form = ActiveForm::begin([
+                ]); ?>
                 <div class="modal-body">
-                    <?php $form = ActiveForm::begin([
-                    ]); ?>
-                    <?= $form->field($model, 'ru')->textInput()?>
-                    <?= $form->field($model, 'en')->textInput()?>
-                    <?= $form->field($model, 'pl')->textInput()?>
-                    <?= $form->field($model, 'de')->textInput()?>
-                    <?= $form->field($model, 'fr')->textInput()?>
-                    <?= $form->field($model, 'lt')->textInput()?>
-                    <?= $form->field($model, 'lv')->textInput()?>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">ru:</label>
-                            <input type="text" class="form-control" id="recipient-name" disabled>
-                        </div>
-                    <?php ActiveForm::end(); ?>
+                    <?= $form->field($model, 'ru')->textInput(['readonly' => true])->label(false) ?>
+                    <?= $form->field($model, 'en')->textInput(['placeholder' => 'en'])->label(false) ?>
+                    <?= $form->field($model, 'pl')->textInput(['placeholder' => 'pl'])->label(false)  ?>
+                    <?= $form->field($model, 'de')->textInput(['placeholder' => 'de'])->label(false)  ?>
+                    <?= $form->field($model, 'fr')->textInput(['placeholder' => 'fr'])->label(false)  ?>
+                    <?= $form->field($model, 'lt')->textInput(['placeholder' => 'lt'])->label(false)  ?>
+                    <?= $form->field($model, 'lv')->textInput(['placeholder' => 'lv'])->label(false)  ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <div class="form-group">
+                        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                    </div>
                 </div>
+                <?php ActiveForm::end(); ?>
             </div>
         </div>
     </div>
 </div>
+
