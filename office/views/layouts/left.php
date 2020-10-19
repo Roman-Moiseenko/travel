@@ -12,7 +12,7 @@ use yii\helpers\Url;
     <a href="<?= \yii\helpers\Url::home() ?>" class="brand-link">
         <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Kenig Travel</span>
+        <span class="brand-text font-weight-light">Office Koenigs.RU</span>
     </a>
 
     <!-- Sidebar -->
