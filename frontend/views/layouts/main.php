@@ -34,8 +34,7 @@ AppAsset::register($this);
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f83859ccbf60e8b">
             var addthis_config = {data_ga_property: 'UA-180784525-1'};
         </script>
-
-        <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI']?>&lang=ru_RU" type="text/javascript">
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI']?>&lang=<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>" type="text/javascript">
         </script>
     </head>
     <body>

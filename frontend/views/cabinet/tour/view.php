@@ -210,9 +210,9 @@ $tour = $booking->calendar->tour;
                     <span class="params-item">
                     <i class="fas fa-layer-group"></i>&#160;&#160;
                                     <?php foreach ($tour->types as $type) {
-                                        echo $type->name . ' | ';
+                                        echo Lang::t($type->name) . ' | ';
                                     }
-                                    echo $tour->type->name; ?>
+                                    echo Lang::t($tour->type->name); ?>
                 </span>
                 </div>
             </div>
@@ -225,7 +225,9 @@ $tour = $booking->calendar->tour;
                     </div>
                     <table class="table table-bordered">
                         <tbody>
-                        <?php foreach ($tour->extra as $extra): ?>
+                        <?php
+                        //TODO Перевод
+                        foreach ($tour->extra as $extra): ?>
                             <?php if (!empty($extra->name)): ?>
                                 <tr>
                                     <th><?= Html::encode($extra->name) ?></th>
