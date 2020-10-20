@@ -17,7 +17,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
-                <?= Lang::t('Номер бронирования') ?>:&#160;
+                <?= Lang::t('Номер брони') ?>:&#160;
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['pay'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>

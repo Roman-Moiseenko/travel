@@ -17,7 +17,7 @@ use booking\helpers\CurrencyHelper;
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
-                <?= 'Номер бронирования' ?>:&#160;
+                <?= 'Номер брони' ?>:&#160;
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['booking'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
