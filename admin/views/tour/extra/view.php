@@ -50,18 +50,30 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                             [
                                 'attribute' => 'name',
                                 'value' => function (Extra $model) use ($tour) {
-                                    return Html::a(Html::encode($model->name), ['/tour/extra/update', ['id' => $tour->id, 'extra_id' => $model->id]]);
+                                    return Html::a(Html::encode($model->name), Url::to(['/tour/extra/update', 'id' => $tour->id, 'extra_id' => $model->id]));
                                 },
                                 'format' => 'raw',
                                 'label' => 'Название',
-                                'options' => ['width' => '30%'],
+                                'options' => ['width' => '20%'],
                                 'contentOptions' => ['data-label' => 'Название'],
+                            ],
+                            [
+                                'attribute' => 'name_en',
+                                'label' => 'Название (En)',
+                                'options' => ['width' => '20%'],
+                                'contentOptions' => ['data-label' => 'Название (En)'],
                             ],
                             [
                                 'attribute' => 'description',
                                 'format' => 'ntext',
                                 'label' => 'Описание',
                                 'contentOptions' => ['data-label' => 'Описание'],
+                            ],
+                            [
+                                'attribute' => 'description_en',
+                                'format' => 'ntext',
+                                'label' => 'Описание',
+                                'contentOptions' => ['data-label' => 'Описание (En)'],
                             ],
                             [
                                 'attribute' => 'cost',

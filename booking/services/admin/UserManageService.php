@@ -169,7 +169,9 @@ class UserManageService
             $form->noticePhone,
             $form->noticeEmail,
             $form->OGRN,
-            $form->KPP
+            $form->KPP,
+            $form->caption_en,
+            $form->description_en
         );
         if ($form->photo->files != null)
             $legal->setPhoto($form->photo->files[0]);
@@ -198,7 +200,9 @@ class UserManageService
             $form->noticePhone,
             $form->noticeEmail,
             $form->OGRN,
-            $form->KPP
+            $form->KPP,
+            $form->caption_en,
+            $form->description_en
         );
 
         if ($form->photo->files != null)

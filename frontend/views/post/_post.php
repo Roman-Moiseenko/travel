@@ -20,8 +20,8 @@ $url = Url::to(['post', 'id' => $model->id]);
             </a>
         </div>
     <?php endif; ?>
-    <h2><a href="<?= Html::encode($url) ?>"><?= Html::encode($model->title) ?></a></h2>
-    <p><?= Yii::$app->formatter->asNtext($model->description) ?></p>
+    <h2><a href="<?= Html::encode($url) ?>"><?= Html::encode($model->getTitle()) ?></a></h2>
+    <p><?= Yii::$app->formatter->asNtext($model->getDescription()) ?></p>
 </div>
 
 

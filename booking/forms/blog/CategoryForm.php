@@ -21,6 +21,10 @@ class CategoryForm extends CompositeForm
     public $description;
     public $sort;
 
+    public $name_en;
+    public $title_en;
+    public $description_en;
+
     private $_category;
 
     public function __construct(Category $category = null, $config = [])
@@ -34,6 +38,9 @@ class CategoryForm extends CompositeForm
             $this->meta = new MetaForm($category->meta);
             $this->_category = $category;
 
+            $this->title_en = $category->title_en;
+            $this->name_en = $category->name_en;
+            $this->description_en = $category->description_en;
             $this->sort = $category->sort;
         } else {
             $this->meta = new MetaForm();
@@ -47,8 +54,8 @@ class CategoryForm extends CompositeForm
         return [
             [['name'], 'required', 'message' => 'Обязательное поле'],
             [['sort'], 'integer'],
-            [['name', 'slug', 'title'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['name', 'slug', 'title', 'name_en', 'title_en'], 'string', 'max' => 255],
+            [['description', 'description_en'], 'string'],
             ['slug', SlugValidator::class],
             [
                 ['name', 'slug'],

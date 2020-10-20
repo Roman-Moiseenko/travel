@@ -9,6 +9,7 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\queries\TourQueries;
+use booking\entities\Lang;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -22,12 +23,14 @@ use yii\web\UploadedFile;
  * @property integer $id
  * @property integer $user_id
  * @property string $name
+ * @property string $name_en
  * @property string $slug
  * @property integer $legal_id
  * @property integer $created_at
  * @property integer $main_photo_id
  * @property integer $status
  * @property string $description
+ * @property string $description_en
  * @property integer type_id
  * @property float $rating
  * @property integer $cancellation
@@ -57,7 +60,7 @@ class Tour extends ActiveRecord
     public $baseCost;
 
     /** base Data */
-    public static function create($name, $type_id, $description, BookingAddress $address): self
+    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en): self
     {
         $tour = new static();
         $tour->user_id = \Yii::$app->user->id;
@@ -68,15 +71,19 @@ class Tour extends ActiveRecord
         $tour->type_id = $type_id;
         $tour->address = $address;
         $tour->description = $description;
+        $tour->name_en = $name_en;
+        $tour->description_en = $description_en;
         return $tour;
     }
 
-    public function edit($name, $type_id, $description, BookingAddress $address)
+    public function edit($name, $type_id, $description, BookingAddress $address, $name_en, $description_en)
     {
         $this->name = $name;
         $this->type_id = $type_id;
         $this->address = $address;
         $this->description = $description;
+        $this->name_en = $name_en;
+        $this->description_en = $description_en;
     }
 
     /** params Data */
@@ -591,6 +598,17 @@ class Tour extends ActiveRecord
     {
         return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);
     }
+
+    public function getName()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
+    }
+
+    public function getDescription()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
+    }
+
     /** <========== getXXX */
 
     public static function find(): TourQueries

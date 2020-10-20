@@ -26,6 +26,8 @@ class ExtraService
             $form->cost,
             $sort,
             $form->description,
+            $form->name_en,
+            $form->description_en
             );
         $this->extra->save($extra);
         return $extra;
@@ -37,7 +39,10 @@ class ExtraService
         $extra->edit(
             $form->name,
             $form->cost,
-            $form->description);
+            $form->description,
+            $form->name_en,
+            $form->description_en
+        );
         $this->extra->save($extra);
     }
 

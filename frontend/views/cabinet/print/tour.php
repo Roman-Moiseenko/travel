@@ -35,7 +35,7 @@ $legal = $booking->getLegal();
                 </tr>
                 <tr>
                     <td><b><?= Lang::t('Тур') ?>:</b></td>
-                    <td><?= $booking->calendar->tour->name ?></td>
+                    <td><?= $booking->calendar->tour->getName() ?></td>
                 </tr>
                 <tr style="background-color: #e4e4e4">
                     <td><b><?= Lang::t('Дата') ?>:</b></td>

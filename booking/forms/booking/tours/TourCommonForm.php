@@ -20,6 +20,11 @@ class TourCommonForm extends CompositeForm
     public $name;
     public $description;
 
+    public $name_en;
+    public $description_en;
+
+    public $_tour;
+
     public function __construct(Tour $tours = null, $config = [])
     {
        // $this->photos = new PhotosForm();
@@ -27,8 +32,12 @@ class TourCommonForm extends CompositeForm
         {
             $this->name = $tours->name;
             $this->description = $tours->description;
+            $this->name_en = $tours->name_en;
+            $this->description_en = $tours->description_en;
+
             $this->address = new BookingAddressForm($tours->address);
             $this->types = new TourTypeForm($tours);
+            $this->_tour = $tours;
         } else {
             $this->address = new BookingAddressForm();
             $this->types = new TourTypeForm();
@@ -39,8 +48,10 @@ class TourCommonForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name', 'description'], 'string'],
+            [['name', 'description', 'name_en', 'description_en'], 'string'],
             ['name', 'required', 'message' => 'Обязательное поле'],
+            ['name', 'unique', 'targetClass' => Tour::class, 'filter' => $this->_tour ? ['<>', 'id', $this->_tour->id] : null, 'message' => 'Такое имя уже есть'],
+
         ];
     }
 

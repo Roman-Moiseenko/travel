@@ -14,8 +14,8 @@ $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->descri
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
 
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => Lang::t($post->category->name), 'url' => ['category', 'slug' => $post->category->slug]];
-$this->params['breadcrumbs'][] = $post->title;
+$this->params['breadcrumbs'][] = ['label' => Lang::t($post->category->getName()), 'url' => ['category', 'slug' => $post->category->slug]];
+$this->params['breadcrumbs'][] = $post->getTitle();
 
 $this->params['active_category'] = $post->category;
 
@@ -26,7 +26,7 @@ foreach ($post->tags as $tag) {
 ?>
 
 <article>
-    <h1><?= Html::encode($post->title) ?></h1>
+    <h1><?= Html::encode($post->getTitle()) ?></h1>
 
     <p><span class="glyphicon glyphicon-calendar"></span> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
 
@@ -34,7 +34,7 @@ foreach ($post->tags as $tag) {
         <p><img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>" alt="" class="img-responsive" /></p>
     <?php endif; ?>
 
-    <?= Yii::$app->formatter->asHtml($post->content, [
+    <?= Yii::$app->formatter->asHtml($post->getContent(), [
         'Attr.AllowedRel' => array('nofollow'),
         'HTML.SafeObject' => true,
         'Output.FlashCompat' => true,

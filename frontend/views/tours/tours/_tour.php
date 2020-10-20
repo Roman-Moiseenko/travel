@@ -32,11 +32,11 @@ use yii\helpers\Url;
     </div>
     <div class="card-body">
         <h4 class="card-title">
-            <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->name) ?></a>
+            <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->getName()) ?></a>
         </h4>
         <p class="card-text" style="height: available">
         <div class="mb-auto text-justify">
-            <?= Html::encode(StringHelper::truncateWords(strip_tags($tour->description), 20)) ?>
+            <?= Html::encode(StringHelper::truncateWords(strip_tags($tour->getDescription()), 20)) ?>
         </div>
         <div class="category-card pt-4">
 

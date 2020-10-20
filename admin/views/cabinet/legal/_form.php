@@ -71,6 +71,20 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="card card-secondary">
+        <div class="card-header with-border">Описание (en) для иностранных туристов</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $form->field($model, 'caption_en')->textInput()->label('Заголовок (торговая марка)') ?>
+                    <?= $form->field($model, 'description_en')
+                        ->textarea(['rows' => 6])
+                        ->label('Описание')->widget(CKEditor::class)
+                        ->hint('Баг: При изменении адреса, внесите изменение в описание, иначе не сохраняет новый адрес.') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-secondary">
         <div class="card-header with-border">Контакты</div>
         <div class="card-body">
             <div class="row">

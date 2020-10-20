@@ -1,0 +1,42 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Class m201020_150942_add_booking_tours_en_fields
+ */
+class m201020_150942_add_booking_tours_en_fields extends Migration
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
+    {
+        $this->addColumn('{{%booking_tours}}', 'name_en', $this->string());
+        $this->addColumn('{{%booking_tours}}', 'description_en', $this->text());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
+    {
+        $this->dropColumn('{{%booking_tours}}', 'name_en');
+        $this->dropColumn('{{%booking_tours}}', 'description_en');
+    }
+
+    /*
+    // Use up()/down() to run migration code without a transaction.
+    public function up()
+    {
+
+    }
+
+    public function down()
+    {
+        echo "m201020_150942_add_booking_tours_en_fields cannot be reverted.\n";
+
+        return false;
+    }
+    */
+}

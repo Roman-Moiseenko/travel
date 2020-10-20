@@ -36,7 +36,10 @@ class CategoryManageService
                 $form->meta->title,
                 $form->meta->description,
                 $form->meta->keywords
-            )
+            ),
+            $form->name_en,
+            $form->title_en,
+            $form->description_en
         );
         $this->categories->save($category);
         return $category;
@@ -56,6 +59,9 @@ class CategoryManageService
                 $form->meta->description,
                 $form->meta->keywords
             ),
+            $form->name_en,
+            $form->title_en,
+            $form->description_en
             );
         $this->categories->save($category);
     }

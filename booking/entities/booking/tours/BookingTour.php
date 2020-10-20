@@ -157,7 +157,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 
     public function getName(): string
     {
-        return $this->calendar->tour->name;
+        return $this->calendar->tour->getName();
     }
 
     public function getLinks(): array

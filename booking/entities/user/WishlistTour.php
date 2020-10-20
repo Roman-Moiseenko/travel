@@ -46,7 +46,7 @@ class WishlistTour extends ActiveRecord implements WishlistItemInterface
 
     public function getName(): string
     {
-        return $this->tour->name;
+        return $this->tour->getName();
     }
 
     public function getLink(): string

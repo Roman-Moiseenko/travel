@@ -22,8 +22,8 @@ use yii\helpers\Url;
                 <?php endif; ?>
                 <div>
                     <div class="caption">
-                        <h4><a href="<?= Html::encode($url) ?>"><?= Html::encode($post->title) ?></a></h4>
-                        <p><?= Html::encode(StringHelper::truncateWords(strip_tags($post->description), 20)) ?></p>
+                        <h4><a href="<?= Html::encode($url) ?>"><?= Html::encode($post->getTitle()) ?></a></h4>
+                        <p><?= Html::encode(StringHelper::truncateWords(strip_tags($post->getDescription()), 20)) ?></p>
                     </div>
                 </div>
             </div>

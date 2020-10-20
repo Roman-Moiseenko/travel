@@ -14,17 +14,17 @@ $this->registerMetaTag(['name' =>'description', 'content' => $category->meta->de
 $this->registerMetaTag(['name' =>'keywords', 'content' => $category->meta->keywords]);
 
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $category->name;
+$this->params['breadcrumbs'][] = $category->getName();
 
 $this->params['active_category'] = $category;
 ?>
 
 <h1><?= Html::encode($category->getHeadingTile()) ?></h1>
 
-<?php if (trim($category->description)): ?>
+<?php if (trim($category->getDescription())): ?>
     <div class="card card-default">
         <div class="card-body text-justify">
-            <?= Yii::$app->formatter->asHtml($category->description, [
+            <?= Yii::$app->formatter->asHtml($category->getDescription(), [
                 'Attr.AllowedRel' => array('nofollow'),
                 'HTML.SafeObject' => true,
                 'Output.FlashCompat' => true,

@@ -45,7 +45,10 @@ class PostManageService
                 $form->meta->title,
                 $form->meta->description,
                 $form->meta->keywords
-            )
+            ),
+            $form->title_en,
+            $form->description_en,
+            $form->content_en
         );
 
         if ($form->photo) {
@@ -85,7 +88,10 @@ class PostManageService
                 $form->meta->title,
                 $form->meta->description,
                 $form->meta->keywords
-            )
+            ),
+            $form->title_en,
+            $form->description_en,
+            $form->content_en
         );
 
         if ($form->photo) {

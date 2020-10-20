@@ -74,7 +74,16 @@ MagnificPopupAsset::register($this);
                             'format' => 'raw',
                             'label' => 'Описание',
                         ],
-
+                        [
+                            'attribute' => 'name_en',
+                            'format' => 'text',
+                            'label' => 'Название (En)',
+                        ],
+                        [
+                            'attribute' => 'description_en',
+                            'format' => 'raw',
+                            'label' => 'Описание (En)',
+                        ],
                         [
                             'attribute' => 'type_id',
                             'value' => ArrayHelper::getValue($tour, 'type.name'),

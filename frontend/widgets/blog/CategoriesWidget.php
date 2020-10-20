@@ -27,7 +27,7 @@ class CategoriesWidget extends Widget
         return Html::tag('div', implode(PHP_EOL, array_map(function (Category $category) {
             $active = $this->active && ($this->active->id == $category->id);
             return Html::a(
-                Html::encode($category->name),
+                Html::encode($category->getName()),
                 ['/post/category', 'slug' => $category->slug],
                 ['class' => $active ? 'list-group-item active' : 'list-group-item']
             );

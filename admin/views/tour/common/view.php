@@ -41,6 +41,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
     </div>
+    <div class="card card-secondary">
+        <div class="card-header with-border">Описание EN</div>
+        <div class="card-body">
+            <?= DetailView::widget([
+                'model' => $tour,
+                'attributes' => [
+                    [
+                        'attribute' => 'name_en',
+                        'label' => 'Наименование (En)',
+                    ],
+                ],
+            ]) ?>
+            <?= Yii::$app->formatter->asHtml($tour->description_en, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card card-secondary">

@@ -20,7 +20,7 @@ use frontend\widgets\ReviewsToursWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = $tour->name;
+$this->title = $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -35,14 +35,14 @@ $countReveiws = $tour->countReviews();
                 <?php if ($i == 0): ?>
                     <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
-                                 alt="<?= Html::encode($tour->name); ?>" class="card-img-top"/>
+                                 alt="<?= Html::encode($tour->getName()); ?>" class="card-img-top"/>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
-                                 alt="<?= $tour->name; ?>"/>
+                                 alt="<?= $tour->getName(); ?>"/>
                         </a>
                     </li>
                 <?php endif; ?>
@@ -58,7 +58,7 @@ $countReveiws = $tour->countReviews();
             <div class="col-12">
                 <div class="d-flex align-items-center">
                     <div class="mr-auto">
-                        <h1><?= Html::encode($tour->name) ?></h1>
+                        <h1><?= Html::encode($tour->getName()) ?></h1>
                     </div>
                     <div class="btn-group">
                         <button type="button" data-toggle="tooltip" class="btn btn-default"
@@ -74,7 +74,7 @@ $countReveiws = $tour->countReviews();
         <!-- Описание -->
         <div class="row">
             <div class="col-sm-8 params-tour text-justify">
-                    <?= Yii::$app->formatter->asHtml($tour->description, [
+                    <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
                         'Attr.AllowedRel' => array('nofollow'),
                         'HTML.SafeObject' => true,
                         'Output.FlashCompat' => true,
@@ -174,8 +174,8 @@ $countReveiws = $tour->countReviews();
                     <?php foreach ($tour->extra as $extra): ?>
                         <?php if (!empty($extra->name)): ?>
                             <tr>
-                                <th><?= Html::encode($extra->name) ?></th>
-                                <td><?= Html::encode($extra->description) ?></td>
+                                <th><?= Html::encode($extra->getName()) ?></th>
+                                <td><?= Html::encode($extra->getDescription()) ?></td>
                                 <td><?= CurrencyHelper::get($extra->cost) ?></td>
                             </tr>
                         <?php endif; ?>

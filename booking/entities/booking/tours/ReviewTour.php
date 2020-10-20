@@ -114,7 +114,7 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
 
     public function getName(): string
     {
-        return $this->tour->name;
+        return $this->tour->getName();
     }
 
     /**

@@ -73,6 +73,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'caption',
                     ],
                     [
+                        'label' => 'Заголовок (торговая марка) - EN',
+                        'attribute' => 'caption_en',
+                    ],
+                    [
                         'label' => 'Адрес',
                         'attribute' => 'address.address',
                     ],
@@ -96,6 +100,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-header with-border">Описание</div>
         <div class="card-body">
             <?= Yii::$app->formatter->asHtml($legal->description, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
+    </div>
+    <div class="card card-secondary">
+        <div class="card-header with-border">Описание EN</div>
+        <div class="card-body">
+            <?= Yii::$app->formatter->asHtml($legal->description_en, [
                 'Attr.AllowedRel' => array('nofollow'),
                 'HTML.SafeObject' => true,
                 'Output.FlashCompat' => true,

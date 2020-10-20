@@ -4,6 +4,7 @@
 namespace booking\entities\blog\post;
 
 
+use booking\entities\Lang;
 use booking\services\WaterMarker;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use booking\entities\behaviors\MetaBehavior;
@@ -23,6 +24,9 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $title
  * @property string $description
  * @property string $content
+ * @property string $title_en
+ * @property string $description_en
+ * @property string $content_en
  * @property string $photo
  * @property integer $status
  * @property integer $comments_count
@@ -42,7 +46,7 @@ class Post extends ActiveRecord
 
     public $meta;
 
-    public static function create($categoryId, $title, $description, $content, Meta $meta): self
+    public static function create($categoryId, $title, $description, $content, Meta $meta, $title_en, $description_en, $content_en): self
     {
         $post = new static();
         $post->category_id = $categoryId;
@@ -53,6 +57,10 @@ class Post extends ActiveRecord
         $post->status = self::STATUS_DRAFT;
         $post->created_at = time();
         $post->comments_count = 0;
+
+        $post->title_en = $title_en;
+        $post->description_en = $description_en;
+        $post->content_en = $content_en;
         return $post;
     }
 
@@ -61,13 +69,17 @@ class Post extends ActiveRecord
         $this->photo = $photo;
     }
 
-    public function edit($categoryId, $title, $description, $content, Meta $meta): void
+    public function edit($categoryId, $title, $description, $content, Meta $meta, $title_en, $description_en, $content_en): void
     {
         $this->category_id = $categoryId;
         $this->title = $title;
         $this->description = $description;
         $this->content = $content;
         $this->meta = $meta;
+
+        $this->title_en = $title_en;
+        $this->description_en = $description_en;
+        $this->content_en = $content_en;
     }
 
     public function activate(): void
@@ -100,7 +112,7 @@ class Post extends ActiveRecord
 
     public function getSeoTitle(): string
     {
-        return $this->meta->title ?: $this->title;
+        return $this->meta->title ?: $this->getTitle();
     }
 
     // Tags
@@ -243,6 +255,21 @@ class Post extends ActiveRecord
         return $this->hasMany(Comment::class, ['post_id' => 'id']);
     }
 
+    public function getContent()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->content_en)) ? $this->content : $this->content_en;
+    }
+
+    public function getTitle()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->title_en)) ? $this->title : $this->title_en;
+    }
+
+    public function getDescription()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
+    }
+
     public function behaviors(): array
     {
         return [
@@ -288,4 +315,6 @@ class Post extends ActiveRecord
     {
         return new PostQuery(static::class);
     }
+
+
 }

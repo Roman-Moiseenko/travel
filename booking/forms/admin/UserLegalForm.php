@@ -25,6 +25,8 @@ class UserLegalForm extends CompositeForm
     public $office;
     public $noticePhone;
     public $noticeEmail;
+    public $caption_en;
+    public $description_en;
 
 
     public function __construct(Legal $legal = null, $config = [])
@@ -42,7 +44,8 @@ class UserLegalForm extends CompositeForm
             $this->office = $legal->office;
             $this->noticeEmail = $legal->noticeEmail;
             $this->noticePhone = $legal->noticePhone;
-
+            $this->caption_en = $legal->caption_en;
+            $this->description_en = $legal->description_en;
         } else {
             $this->address = new BookingAddressForm();
         }
@@ -55,13 +58,15 @@ class UserLegalForm extends CompositeForm
         return [
             [['name', 'BIK', 'account', 'INN', 'caption', 'description', 'noticePhone', 'noticeEmail'], 'required', 'message' => 'Обязательное поле'],
             ['name', 'string'],
+
             ['account', 'string', 'length' => 20],
             ['INN', 'string', 'min' => 10, 'max' => 12],
             ['KPP', 'string', 'length' => 9],
             ['BIK', 'string', 'length' => 9],
             ['OGRN', 'string', 'min' => 13, 'max' => 15],
             [['BIK', 'KPP', 'INN', 'account', 'OGRN'], 'match', 'pattern' => '/^[0-9]*$/i'],
-            [['caption', 'description', 'office'], 'string'],
+
+            [['caption', 'description', 'office', 'caption_en', 'description_en'], 'string'],
 
             [['noticePhone'], 'match', 'pattern' => '/^[+][0-9]{11}$/i', 'message' => 'Формат +КодНомер, например +79990001111'],
             [['noticeEmail'], 'email'],

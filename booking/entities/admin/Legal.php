@@ -10,9 +10,11 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
+use booking\entities\Lang;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\helpers\scr;
+use booking\helpers\SlugHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -26,6 +28,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $user_id
  * @property string $name
  * @property string $caption
+ * @property string $caption_en
  * @property string $INN
  * @property string $KPP
  * @property string $OGRN
@@ -33,6 +36,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $account
  * @property string $photo
  * @property string $description
+ * @property string $description_en
  * @property BookingAddress $address
  * @property integer $created_at
  * @property string $office
@@ -52,7 +56,8 @@ class Legal extends ActiveRecord
     public static function create($name, $BIK, $account, $INN,
                                   $caption, $description, BookingAddress $address,
                                   $office, $noticePhone, $noticeEmail,
-                                  $OGRN = null, $KPP = null): self
+                                  $OGRN = null, $KPP = null,
+                                  $caption_en = null, $description_en = null): self
     {
         $legal = new static();
         $legal->name = $name;
@@ -68,6 +73,9 @@ class Legal extends ActiveRecord
         $legal->noticePhone = $noticePhone;
         $legal->noticeEmail = $noticeEmail;
         $legal->created_at = time();
+
+        $legal->caption_en = $caption_en;
+        $legal->description_en = $description_en;
         return $legal;
     }
 
@@ -79,7 +87,9 @@ class Legal extends ActiveRecord
     public function edit($name, $BIK, $account, $INN,
                          $caption, $description, BookingAddress $address,
                          $office, $noticePhone, $noticeEmail,
-                         $OGRN = null, $KPP = null): void
+                         $OGRN = null, $KPP = null,
+                         $caption_en = null, $description_en = null
+    ): void
     {
         $this->name = $name;
         $this->BIK = $BIK;
@@ -93,6 +103,9 @@ class Legal extends ActiveRecord
         $this->office = $office;
         $this->noticePhone = $noticePhone;
         $this->noticeEmail = $noticeEmail;
+
+        $this->caption_en = $caption_en;
+        $this->description_en = $description_en;
     }
 
     public function setPhoto(UploadedFile $file)
@@ -179,6 +192,8 @@ class Legal extends ActiveRecord
         }
     }
 
+    //getXXX
+
     public function getContactAssignment(): ActiveQuery
     {
         return $this->hasMany(ContactAssignment::class, ['legal_id' => 'id'])->orderBy(['contact_id' => SORT_ASC]);
@@ -207,6 +222,24 @@ class Legal extends ActiveRecord
     public function getCars(): ActiveQuery
     {
         return $this->hasMany(Car::class, ['legal_id' => 'id']);
+    }
+
+    public function getName()
+    {
+        return (Lang::current() == Lang::DEFAULT) ? $this->name : SlugHelper::slug($this->name, [
+            'separator' => ' ',
+            'lowercase' => false,
+        ]);
+    }
+
+    public function getCaption()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->caption_en)) ? $this->caption : $this->caption_en;
+    }
+
+    public function getDescription()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
 
 }

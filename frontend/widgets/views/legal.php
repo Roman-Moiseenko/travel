@@ -8,12 +8,12 @@ use yii\helpers\Url; ?>
 <div class="row align-content-center">
     <div class="col-12"><a href="<?=Url::to(['legals/view', 'id' => $legal->id])?>">
     <img src="<?= $legal->getThumbFileUrl('photo', 'profile'); ?>"
-         alt="<?= Html::encode($legal->name); ?>" class="img-responsive"/>
+         alt="<?= Html::encode($legal->getName()); ?>" class="img-responsive"/>
     </a>
     </div>
 </div>
 <div class="row align-content-center">
     <div class="col-12">
-    <a href="<?=Url::to(['legals/view', 'id' => $legal->id])?>"><h5><?= Html::encode($legal->caption); ?></h5></a>
+    <a href="<?=Url::to(['legals/view', 'id' => $legal->id])?>"><h5><?= Html::encode($legal->getCaption()); ?></h5></a>
     </div>
 </div>

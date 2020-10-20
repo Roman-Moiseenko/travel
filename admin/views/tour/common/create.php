@@ -30,7 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class) ?>
         </div>
     </div>
-
+    <div class="card card-secondary">
+        <div class="card-header with-border">Основные EN</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label('Название тура (En)') ?>
+                </div>
+            </div>
+            <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)')->widget(CKEditor::class) ?>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card card-secondary">

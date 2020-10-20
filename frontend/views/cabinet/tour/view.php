@@ -15,7 +15,7 @@ use frontend\assets\MagnificPopupAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = $booking->name;
+$this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
@@ -31,12 +31,12 @@ $tour = $booking->calendar->tour;
                     <a class="thumbnail"
                        href="<?= $tour->mainPhoto->getThumbFileUrl('file', 'catalog_origin'); ?>">
                         <img src="<?= $tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list'); ?>"
-                             alt="<?= Html::encode($tour->name); ?>"/></a>
+                             alt="<?= Html::encode($tour->getName()); ?>"/></a>
                 </li>
             </ul>
         </div>
         <div class="flex-grow-1 align-self-center caption-list pl-3">
-            <a href="<?= $booking->getLinks()['entities']; ?>"><?= $tour->name ?></a>
+            <a href="<?= $booking->getLinks()['entities']; ?>"><?= $tour->getName() ?></a>
 
         </div>
         <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW || $booking->status == BookingHelper::BOOKING_STATUS_PAY):?>
@@ -170,7 +170,7 @@ $tour = $booking->calendar->tour;
                         <div class="text-left-hr"><?= Lang::t('Описание') ?></div>
                     </div>
                     <p class="text-justify">
-                        <?= Yii::$app->formatter->asHtml($tour->description, [
+                        <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
                             'Attr.AllowedRel' => array('nofollow'),
                             'HTML.SafeObject' => true,
                             'Output.FlashCompat' => true,
@@ -230,8 +230,8 @@ $tour = $booking->calendar->tour;
                         foreach ($tour->extra as $extra): ?>
                             <?php if (!empty($extra->name)): ?>
                                 <tr>
-                                    <th><?= Html::encode($extra->name) ?></th>
-                                    <td><?= Html::encode($extra->description) ?></td>
+                                    <th><?= Html::encode($extra->getName()) ?></th>
+                                    <td><?= Html::encode($extra->getDescription()) ?></td>
                                     <td><?= CurrencyHelper::get($extra->cost) ?></td>
                                 </tr>
                             <?php endif; ?>

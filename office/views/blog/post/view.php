@@ -51,6 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Заголовок',
                     ],
                     [
+                        'attribute' => 'title_en',
+                        'label' => 'Заголовок (En)',
+                    ],
+                    [
                         'attribute' => 'category_id',
                         'value' => ArrayHelper::getValue($post, 'category.name'),
                         'label' => 'Категория',
@@ -82,7 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Yii::$app->formatter->asNtext($post->description) ?>
         </div>
     </div>
-
     <div class="card">
         <div class="card-header with-border">Содержимое</div>
         <div class="card-body">
@@ -95,7 +98,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
     </div>
-
+    <div class="card">
+        <div class="card-header with-border">Описание EN</div>
+        <div class="card-body">
+            <?= Yii::$app->formatter->asNtext($post->description_en) ?>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header with-border">Содержимое EN</div>
+        <div class="card-body">
+            <?= Yii::$app->formatter->asHtml($post->content_en, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header with-border">Для SEO</div>
         <div class="card-body">

@@ -12,16 +12,16 @@ use yii\helpers\Url;
 
 /* @var $legal Legal */
 
-$this->title = $legal->name;
+$this->title = $legal->getName();
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <!-- ЛОГОТИП, ОПИСАНИЕ  -->
-<h1><?= $legal->caption ?></h1>
+<h1><?= $legal->getCaption() ?></h1>
 <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
     <div class="col-md-7 params-tour">
         <p class="text-justify">
-            <?= Yii::$app->formatter->asHtml($legal->description, [
+            <?= Yii::$app->formatter->asHtml($legal->getDescription(), [
                 'Attr.AllowedRel' => array('nofollow'),
                 'HTML.SafeObject' => true,
                 'Output.FlashCompat' => true,
@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="text-left-hr"><?= Lang::t('Юридические сведения') ?></div>
         </div>
         <div class="params-item-map">
-            <span style="font-weight: 600;"><?= Lang::t('Наименование организации') ?></span>&#160;&#160;<?= $legal->name ?>
+            <span style="font-weight: 600;"><?= Lang::t('Наименование организации') ?></span>&#160;&#160;<?= $legal->getName() ?>
         </div>
         <div class="params-item-map">
             <span style="font-weight: 600;"><?= Lang::t('ИНН') ?></span>&#160;&#160;<?= $legal->INN ?>

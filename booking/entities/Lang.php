@@ -23,6 +23,7 @@ use yii\web\Cookie;
  */
 class Lang extends ActiveRecord
 {
+    const DEFAULT = 'ru';
 
     public static function current(): string
     {

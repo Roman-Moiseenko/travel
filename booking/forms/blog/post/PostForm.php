@@ -25,6 +25,10 @@ class PostForm extends CompositeForm
     public $content;
     public $photo;
 
+    public $title_en;
+    public $description_en;
+    public $content_en;
+
     public function __construct(Post $post = null, $config = [])
     {
         if ($post) {
@@ -32,6 +36,11 @@ class PostForm extends CompositeForm
             $this->title = $post->title;
             $this->description = $post->description;
             $this->content = $post->content;
+
+            $this->title_en = $post->title_en;
+            $this->description_en = $post->description_en;
+            $this->content_en = $post->content_en;
+
             $this->meta = new MetaForm($post->meta);
             $this->tags = new TagsForm($post);
         } else {
@@ -45,9 +54,9 @@ class PostForm extends CompositeForm
     {
         return [
             [['categoryId', 'title'], 'required', 'message' => 'Обязательное поле'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'title_en'], 'string', 'max' => 255],
             [['categoryId'], 'integer'],
-            [['description', 'content'], 'string'],
+            [['description', 'content', 'description_en', 'content_en'], 'string'],
             [['photo'], 'image'],
         ];
     }
