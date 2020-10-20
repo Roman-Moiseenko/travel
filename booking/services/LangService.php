@@ -25,7 +25,7 @@ class LangService
     {
         //$lang = $this->langs->get($form->ru);
         $lang = Lang::findOne(['ru' => $form->ru]);
-        //scr::v($lang);
+        //scr::v($form->ru);
         $lang->edit(
             $form->en,
             $form->pl,

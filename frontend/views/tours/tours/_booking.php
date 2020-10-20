@@ -37,7 +37,7 @@ DatepickerAsset::register($this);
         <?= Html::endForm() ?>
         <?php if (\Yii::$app->user->isGuest): ?>
             <div class="card-footer">
-                <?= Lang::t('Для приобретения билетов, зарергистрируйтесь на сайте') ?>.
+                <?= Lang::t('Для приобретения билетов, зарегистрируйтесь на сайте') ?>.
             </div>
         <?php endif; ?>
     </div>

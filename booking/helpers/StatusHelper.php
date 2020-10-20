@@ -18,11 +18,11 @@ class StatusHelper
     public static function listStatus(): array
     {
         return [
-            self::STATUS_LOCK => Lang::t('Заблокирован'),
-            self::STATUS_INACTIVE => Lang::t('Новый'),
-            self::STATUS_ACTIVE => Lang::t('Активный'),
-            self::STATUS_VERIFY => Lang::t('На модерации'),
-            self::STATUS_DRAFT => Lang::t('Черновик'),
+            self::STATUS_LOCK => 'Заблокирован',
+            self::STATUS_INACTIVE => 'Новый',
+            self::STATUS_ACTIVE => 'Активный',
+            self::STATUS_VERIFY => 'На модерации',
+            self::STATUS_DRAFT => 'Черновик',
         ];
     }
 

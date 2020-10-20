@@ -71,7 +71,7 @@ class DialogService
         if ($theme_id == ThemeDialog::PETITION_REVIEW) {
             $review_id = intdiv($id, 10);
             $class = BookingHelper::LIST_BOOKING_TYPE[$id % 10];
-            $text = Lang::t('Жалоба на отзыв /' . $class . '/ ID=' . $review_id );
+            $text = 'Жалоба на отзыв /' . $class . '/ ID=' . $review_id;
 
         }
         if ($typeDialog == Dialog::CLIENT_SUPPORT) {
