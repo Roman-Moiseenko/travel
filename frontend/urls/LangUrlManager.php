@@ -12,7 +12,6 @@ class LangUrlManager extends UrlManager
 {
     public function createUrl($params)
     {
-        //scr::v($params);
         if(isset($params['lang']) ){
             //Если указан идентефикатор языка, то делаем попытку найти язык в БД,
             //иначе работаем с языком по умолчанию
@@ -22,10 +21,7 @@ class LangUrlManager extends UrlManager
             //Если не указан параметр языка, то работаем с текущим языком
             $lang = Lang::current();
         }
-
         $url = parent::createUrl($params);
-
         return $url == '/' ? '/' . $lang : '/' . $lang . $url;
     }
-
 }

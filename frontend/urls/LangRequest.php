@@ -4,6 +4,7 @@
 namespace frontend\urls;
 
 use booking\entities\Lang;
+use booking\helpers\scr;
 use yii\base\InvalidConfigException;
 use yii\web\Request;
 
@@ -17,10 +18,11 @@ class LangRequest extends Request
             $this->_lang_url = $this->getUrl();
             $url_list = explode('/', $this->_lang_url);
             $lang_url = isset($url_list[1]) ? $url_list[1] : null;
-            Lang::setCurrent($lang_url);
-            if ($lang_url !== null && $lang_url === Lang::current() &&
-                strpos($this->_lang_url, Lang::current()) === 1) {
-                $this->_lang_url = substr($this->_lang_url, strlen(Lang::current()) + 1);
+            $result = Lang::setCurrent($lang_url);
+            scr::v($lang_url);
+            if ($lang_url !== null && $lang_url === $result /*Lang::current()*/ &&
+                strpos($this->_lang_url, $lang_url) === 1) {
+                $this->_lang_url = substr($this->_lang_url, strlen($lang_url) + 1);
             }
         }
         return $this->_lang_url;
@@ -29,6 +31,7 @@ class LangRequest extends Request
     protected function resolvePathInfo()
     {
         $pathInfo = $this->getLangUrl();
+
         if (($pos = strpos($pathInfo, '?')) !== false) {
             $pathInfo = substr($pathInfo, 0, $pos);
         }
@@ -64,7 +67,6 @@ class LangRequest extends Request
         if (isset($pathInfo[0]) && $pathInfo[0] === '/') {
             $pathInfo = substr($pathInfo, 1);
         }
-
         return (string)$pathInfo;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace common\bootstrap;
 
+use booking\entities\Lang;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\repositories\office\PageRepository;
@@ -80,8 +82,9 @@ class SetUp implements BootstrapInterface
             Instance::of('cache'),
         ]);
         if (!\Yii::$app->request->cookies->get('lang')) {
+            //scr::v(\Yii::$app->language);
             if (!$data =\Yii::$app->geo->getData()) {
-                $lang = 'ru';
+                $lang = Lang::DEFAULT;
             } else {
                 $lang = $data['country'];
             }

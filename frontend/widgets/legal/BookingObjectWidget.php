@@ -42,9 +42,9 @@ class BookingObjectWidget extends Widget
         foreach ($tours as $tour) {
             $obj[] = [
                 'photo' => $tour->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
-                'name' => $tour->name,
+                'name' => $tour->getName(),
                 'link' => Url::to(['tour/view', 'id' => $tour->id]),
-                'description' => $tour->description,
+                'description' => $tour->getDescription(),
             ];
         }
         //TODO Заглушка ($stays $cars)

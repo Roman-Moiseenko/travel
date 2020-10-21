@@ -4,7 +4,6 @@
 namespace booking\entities;
 
 
-
 use booking\entities\user\User;
 use booking\helpers\scr;
 use yii\db\ActiveRecord;
@@ -27,21 +26,30 @@ class Lang extends ActiveRecord
 
     public static function current(): string
     {
+        //scr::v(\Yii::$app->request->cookies->get('lang'));
+        //if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
+        //Если гость
         if (\Yii::$app->user->isGuest) {
+            //Если сохранение языка уже было в куки
             if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
-            $data =\Yii::$app->geo->getData();
-            if ($data != null) return $data['country'];
+            //Если первоначально сохранение языка уже было в Request
+            if (!empty(\Yii::$app->language)) return self::l_()[\Yii::$app->language];
+
+            $data = \Yii::$app->geo->getData();
+            if ($data != null) return strtolower($data['country']);
         } else {
+            if (!(\Yii::$app->user->identity instanceof User)) return self::DEFAULT;
             /** @var \booking\entities\user\User $user */
             $user = User::findOne(\Yii::$app->user->id);
             if ($user->preferences == null) {
-                $data =\Yii::$app->geo->getData();
+                $data = \Yii::$app->geo->getData();
                 if ($data != null) return $data['country'];
             } else {
                 return $user->preferences->lang;
             }
         }
-        return 'ru';
+        //return self::l_()[\Yii::$app->language];
+        return self::DEFAULT;
     }
 
     public static function create($text)
@@ -67,9 +75,9 @@ class Lang extends ActiveRecord
         //если клиент, то получаем текущий язык
         //иначе ставим Русский
         if (\Yii::$app->user->identity instanceof admin\User || \Yii::$app->user->identity instanceof office\User) {
-            $lang = 'ru';
+            $lang = self::DEFAULT;
         } else {
-            $lang = Lang::current();
+            $lang = self::current();
         }
 
         if (!$result = Lang::findOne(['ru' => $text])) {
@@ -114,17 +122,29 @@ class Lang extends ActiveRecord
         ];
     }
 
+    public static function _l(): array
+    {
+        return [
+            'ru' => 'ru-RU', 'en' => 'en-US',
+        ];
+    }
+
+    public static function l_(): array
+    {
+        return [
+            'ru-RU' => 'ru', 'en-US' => 'en',
+        ];
+    }
+
     public static function isset($lang): bool
     {
         return in_array($lang, Lang::listLangs());
     }
 
-    public static function setCurrent($lang)
+    public static function setCurrent($lang): string
     {
-        $language = $lang;
-        if (!self::isset($lang)) return;
-        if (\Yii::$app->user->isGuest)
-        {
+        if (!self::isset($lang)) $lang = self::DEFAULT;
+        if (\Yii::$app->user->isGuest) {
             \Yii::$app->response->cookies->add(new Cookie([
                 'name' => 'lang',
                 'value' => $lang,
@@ -136,6 +156,7 @@ class Lang extends ActiveRecord
             $user->setLang($lang);
             $user->save();
         }
-        \Yii::$app->language = $lang;
+        \Yii::$app->language = self::_l()[$lang];
+        return $lang;
     }
 }
