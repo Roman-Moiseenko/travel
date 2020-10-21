@@ -86,7 +86,7 @@ class SetUp implements BootstrapInterface
             if (!$data =\Yii::$app->geo->getData()) {
                 $lang = Lang::DEFAULT;
             } else {
-                $lang = $data['country'];
+                $lang = strtolower($data['country']);
             }
             \Yii::$app->response->cookies->add(new Cookie([
                 'name' => 'lang',

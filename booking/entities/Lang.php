@@ -30,10 +30,11 @@ class Lang extends ActiveRecord
         //if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
         //Если гость
         if (\Yii::$app->user->isGuest) {
-            //Если сохранение языка уже было в куки
-            if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
             //Если первоначально сохранение языка уже было в Request
             if (!empty(\Yii::$app->language)) return self::l_()[\Yii::$app->language];
+
+            //Если сохранение языка уже было в куки
+            if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
 
             $data = \Yii::$app->geo->getData();
             if ($data != null) return strtolower($data['country']);

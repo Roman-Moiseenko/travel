@@ -31,7 +31,11 @@ class UserController extends Controller
 
     public function actionLang($lang)
     {
-        if (!in_array($lang, Lang::listLangs())) $lang = 'ru';
+        //$old = Lang::current();
+        //Lang::setCurrent($lang);
+        //$link = \Yii::$app->request->referrer;
+        //str_replace('/' . $old, '/'. $lang, $link);
+        /*if (!in_array($lang, Lang::listLangs())) $lang = 'ru';
         if (\Yii::$app->user->isGuest)
         {
             \Yii::$app->response->cookies->add(new Cookie([
@@ -42,8 +46,8 @@ class UserController extends Controller
         } else {
             // Сохраняем язык в базе пользователя
             $this->service->setLang(\Yii::$app->user->id, $lang);
-        }
-        return $this->redirect(\Yii::$app->request->referrer);
+        }*/
+       // return $this->redirect($link);
     }
 
     public function actionCurrency($currency)

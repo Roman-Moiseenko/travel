@@ -1,8 +1,9 @@
 $(document).ready(function () {
     var tour_id = $('#number-tour').val(); //Текущий тур
     var full_array_tours; //Массив туров по дням
-//Переводим
     if ($.fn.datepicker === undefined) return false;
+    var lang = $("#datepicker-tour").data('lang');
+//Переводим
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
         prevText: "Пред",
@@ -24,14 +25,13 @@ $(document).ready(function () {
         $("#datepicker-tour").datepicker({
             format: 'dd/mm/yyyy',
             startDate: '+1d',
-            language: "ru",
+            language: lang,
             autoclose: true,
         });
     });
     $('#datepicker-tour').datepicker({
         startDate: '+1d',
-        language: 'ru',
-
+        language: lang,
         beforeShowDay: function (date) {
             if (full_array_tours === undefined) return {enabled: false};
             var tours = full_array_tours[date.getFullYear()]; //Массив по текущему году

@@ -47,7 +47,7 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col col-sm-3">
             <label class="label-search"><?= Lang::t('Тип') ?>:</label>
             <div class="form-inline">
             <?= $form->field($model, 'private')->dropDownList(ToursHelper::listPrivate(), ['prompt' => ''])->label(false); ?>

@@ -17,14 +17,25 @@ class LangRequest extends Request
         if ($this->_lang_url === null) {
             $this->_lang_url = $this->getUrl();
             $url_list = explode('/', $this->_lang_url);
-            $lang_url = isset($url_list[1]) ? $url_list[1] : null;
+            $lang_url = !empty($url_list[1]) ? $url_list[1] : null;
+
+            $old = Lang::current();
             $result = Lang::setCurrent($lang_url);
-            scr::v($lang_url);
+          /*  if ($result !== $old) {
+                $link = \Yii::$app->request->referrer;
+                $this->_lang_url = substr(parse_url($link, PHP_URL_PATH), strlen($lang_url) + 1);
+                //scr::v($this->_lang_url);
+                //scr::v([$lang_url, $result, $this->_lang_url]);
+                return $this->_lang_url;
+                //var_dump(parse_url($link, PHP_URL_PATH));
+            }*/
+            //scr::v(\Yii::$app->request->referrer);
             if ($lang_url !== null && $lang_url === $result /*Lang::current()*/ &&
                 strpos($this->_lang_url, $lang_url) === 1) {
                 $this->_lang_url = substr($this->_lang_url, strlen($lang_url) + 1);
             }
         }
+        //scr::v([$lang_url, $result, $this->_lang_url]);
         return $this->_lang_url;
     }
 
@@ -67,6 +78,7 @@ class LangRequest extends Request
         if (isset($pathInfo[0]) && $pathInfo[0] === '/') {
             $pathInfo = substr($pathInfo, 1);
         }
+        //scr::v(Lang::current());
         return (string)$pathInfo;
     }
 }

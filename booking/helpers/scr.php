@@ -9,7 +9,13 @@ class scr
     public static function v($var)
     {
         echo '<pre>';
-        var_dump($var);
+        if (is_array($var)) {
+            foreach ($var as $item) {
+                var_dump($item);
+            }
+        } else {
+            var_dump($var);
+        }
         exit();
     }
     public static function p($var)
