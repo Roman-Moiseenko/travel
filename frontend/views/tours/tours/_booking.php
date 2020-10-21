@@ -3,11 +3,13 @@
 
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
+use frontend\assets\CalendarAsset;
 use frontend\assets\DatepickerAsset;
 use yii\helpers\Html;
 
 /* @var $tour Tour */
 DatepickerAsset::register($this);
+//CalendarAsset::register($this);
 ?>
 
 <div class="card bg-booking-widget">

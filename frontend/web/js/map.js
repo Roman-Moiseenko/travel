@@ -91,7 +91,6 @@ function init() {
         myMapView.controls.remove('trafficControl');
         myMapView.controls.remove('geolocationControl');
 
-
         myMapView.setCenter(coords, 12);
         myPlacemark = new ymaps.Placemark(coords, {
             iconCaption: ''
@@ -100,10 +99,12 @@ function init() {
             draggable: false
         });
         myMapView.geoObjects.add(myPlacemark);
-        if ($('#' + suggest).val() === '') {
+       // if ($('#' + suggest).val() === '')
+        {
             ymaps.geocode(coords).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
                 $('#' + suggest).val(firstGeoObject.getAddressLine());
+                $('#address').html(firstGeoObject.getAddressLine());
             });
         }
     }
@@ -137,10 +138,12 @@ function init() {
             draggable: false
         });
         myMapView2.geoObjects.add(myPlacemark2);
-        if ($('#' + suggest + '-2').val() === '') {
+       // if ($('#' + suggest + '-2').val() === '')
+        {
             ymaps.geocode(coords2).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
                 $('#' + suggest + '-2').val(firstGeoObject.getAddressLine());
+                $('#address-2').html(firstGeoObject.getAddressLine());
             });
         }
     }
@@ -174,10 +177,12 @@ function init() {
             draggable: false
         });
         myMapView3.geoObjects.add(myPlacemark3);
-        if ($('#' + suggest + '-3').val() === '') {
+       // if ($('#' + suggest + '-3').val() === '')
+        {
             ymaps.geocode(coords3).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
                 $('#' + suggest + '-3').val(firstGeoObject.getAddressLine());
+                $('#address-3').html(firstGeoObject.getAddressLine());
             });
         }
     }
@@ -236,6 +241,15 @@ function init() {
         ymaps.geocode(coords2).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
             $('#' + suggest + '-2').val(firstGeoObject.getAddressLine());
+        });
+    }
+
+    function fillInput3(coords3) {
+        $('#' + latitude + '-3').val(coords3[0]);
+        $('#' + longitude + '-3').val(coords3[1]);
+        ymaps.geocode(coords3).then(function (res) {
+            var firstGeoObject = res.geoObjects.get(0);
+            $('#' + suggest + '-3').val(firstGeoObject.getAddressLine());
         });
     }
     // Создание метки.

@@ -3,7 +3,6 @@
 use booking\entities\user\User;
 
 /* @var $booking BookingTour */
-
 /* @var $user User */
 
 use booking\entities\booking\tours\BookingTour;
@@ -12,15 +11,16 @@ use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
 use frontend\assets\MagnificPopupAsset;
+use frontend\assets\MapAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 $this->params['breadcrumbs'][] = $this->title;
+
+MapAsset::register($this);
 MagnificPopupAsset::register($this);
-
-
 $tour = $booking->calendar->tour;
 ?>
     <!-- Фото + Название + Ссылка -->
@@ -226,7 +226,6 @@ $tour = $booking->calendar->tour;
                     <table class="table table-bordered">
                         <tbody>
                         <?php
-                        //TODO Перевод
                         foreach ($tour->extra as $extra): ?>
                             <?php if (!empty($extra->name)): ?>
                                 <tr>
@@ -256,9 +255,7 @@ $tour = $booking->calendar->tour;
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место сбора') ?>:
                             </div>
-                            <div class="col-8">
-                                <?= $tour->params->beginAddress->address; ?>
-                            </div>
+                            <div class="col-8" id="address"></div>
                         </div>
                         <div class="collapse" id="collapse-map">
                             <div class="card card-body">
@@ -294,9 +291,7 @@ $tour = $booking->calendar->tour;
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место окончания') ?>:
                             </div>
-                            <div class="col-8">
-                                <?= $tour->params->endAddress->address; ?>
-                            </div>
+                            <div class="col-8" id="address-2"></div>
                         </div>
                         <div class="collapse" id="collapse-map-2">
                             <div class="card card-body">
@@ -331,9 +326,7 @@ $tour = $booking->calendar->tour;
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место проведение') ?>:
                             </div>
-                            <div class="col-8">
-                                <?= $tour->address->address; ?>
-                            </div>
+                            <div class="col-8" id="address-3"></div>
                         </div>
                         <div class="collapse" id="collapse-map-3">
                             <div class="card card-body">

@@ -17,6 +17,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
         <title>Office KenigTravel</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="copyright" content="Моисеенко Роман Александрович">
         <?php $this->registerCsrfMetaTags() ?>
         <?php $this->head() ?>
     </head>

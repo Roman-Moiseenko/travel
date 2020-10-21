@@ -16,4 +16,6 @@ class BookingAddress
         $this->latitude = $latitude;
         $this->longitude = $longitude;
     }
+
+    //public function get
 }

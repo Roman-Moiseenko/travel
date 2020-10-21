@@ -12,7 +12,9 @@ use booking\forms\booking\ReviewForm;
 
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
+use frontend\assets\CalendarAsset;
 use frontend\assets\MagnificPopupAsset;
+use frontend\assets\MapAsset;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
@@ -25,6 +27,9 @@ $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'),
 $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
+MapAsset::register($this);
+//CalendarAsset::register($this);
+
 $countReveiws = $tour->countReviews();
 ?>
 <!-- ФОТО  -->
@@ -74,13 +79,13 @@ $countReveiws = $tour->countReviews();
         <!-- Описание -->
         <div class="row">
             <div class="col-sm-8 params-tour text-justify">
-                    <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
-                        'Attr.AllowedRel' => array('nofollow'),
-                        'HTML.SafeObject' => true,
-                        'Output.FlashCompat' => true,
-                        'HTML.SafeIframe' => true,
-                        'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                    ]) ?>
+                <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
+                    'Attr.AllowedRel' => array('nofollow'),
+                    'HTML.SafeObject' => true,
+                    'Output.FlashCompat' => true,
+                    'HTML.SafeIframe' => true,
+                    'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                ]) ?>
 
             </div>
             <div class="col-sm-4">
@@ -200,16 +205,14 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место сбора') ?>:
                         </div>
-                        <div class="col-8">
-                            <?= $tour->params->beginAddress->address; ?>
-                        </div>
+                        <div class="col-8" id="address"></div>
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address" class="form-control" width="100%"
-                                           value="<?= $tour->params->beginAddress->address ?? ' ' ?>" type="hidden">
+                                           value="<?= $tour->params->beginAddress->address ?? '' ?>" type="hidden">
                                 </div>
                                 <div class="col-2">
                                     <input id="bookingaddressform-latitude" class="form-control" width="100%"
@@ -236,16 +239,14 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место окончания') ?>:
                         </div>
-                        <div class="col-8">
-                            <?= $tour->params->endAddress->address; ?>
-                        </div>
+                        <div class="col-8" id="address-2"></div>
                     </div>
                     <div class="collapse" id="collapse-map-2">
                         <div class="card card-body">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address-2" class="form-control" width="100%"
-                                           value="<?= $tour->params->endAddress->address ?? ' ' ?>" type="hidden">
+                                           value="<?= $tour->params->endAddress->address ?? '' ?>" type="hidden">
                                 </div>
                                 <div class="col-2">
                                     <input id="bookingaddressform-latitude-2" class="form-control" width="100%"
@@ -272,16 +273,14 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место проведение') ?>:
                         </div>
-                        <div class="col-8">
-                            <?= $tour->address->address; ?>
-                        </div>
+                        <div class="col-8" id="address-3"></div>
                     </div>
                     <div class="collapse" id="collapse-map-3">
                         <div class="card card-body">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address-3" class="form-control" width="100%"
-                                           value="<?= $tour->address->address ?? ' ' ?>" type="hidden">
+                                           value="<?= $tour->address->address ?? '' ?>" type="hidden">
                                 </div>
                                 <div class="col-2">
                                     <input id="bookingaddressform-latitude-3" class="form-control" width="100%"

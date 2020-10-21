@@ -5,9 +5,28 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use frontend\assets\MapAsset;
 use yii\helpers\Html;
 
+/* @var $this yii\web\View */
 /* @var $booking BookingTour */
+/*
+ * $latitude = $booking->calendar->tour->params->beginAddress->latitude;
+$longitude = $booking->calendar->tour->params->beginAddress->longitude;
+$js = <<<JS
+//TODO Загрузка адреса по карте
+ymaps.ready(init);
+function init() {
+    var coords = [$latitude, $longitude];
+    ymaps.geocode(coords).then(function (res) {
+        var firstGeoObject = res.geoObjects.get(0);
+        $('#address').html(firstGeoObject.getAddressLine());
+    });
+}
+JS;
+
+$this->registerJs($js);
+*/
 
 $latitude = $booking->calendar->tour->params->beginAddress->latitude;
 $longitude = $booking->calendar->tour->params->beginAddress->longitude;
@@ -83,14 +102,14 @@ $legal = $booking->getLegal();
         </div>
         <div style="height: 300px; border: 2px solid black; border-radius: 10px; margin: 4px">
             <div style="margin-left: 10px; margin-bottom: 30px; margin-top: 12px">
-                    <img src="https://static-maps.yandex.ru/1.x/?ll=<?= $longitude ?>,<?= $latitude?>&size=650,250&z=14&l=map&pt=<?= $longitude ?>,<?= $latitude?>,pmwtm1">
+                <img src="https://static-maps.yandex.ru/1.x/?ll=<?= $longitude ?>,<?= $latitude ?>&size=650,250&z=14&l=map&lang=<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>&pt=<?= $longitude ?>,<?= $latitude ?>,pmwtm1">
             </div>
             <table width="100%" style="border: 0;border-collapse: collapse;">
                 <tbody>
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место сбора') ?>:</b>
                     </td>
-                    <td width="70%"><?= $booking->calendar->tour->params->beginAddress->address ?></td>
+                    <td width="70%"><?= $booking->calendar->tour->params->beginAddress->address ?> <span id="address"></span></td>
                 </tr>
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место окончания') ?>:</b>
@@ -104,7 +123,8 @@ $legal = $booking->getLegal();
     <div class="row">
         <div>
             <br>
-            <?= Lang::t('По любым вопросам, связанным с проведением данного тура, Вы всегда можете связаться с провайдером услуг следующим способом') ?>:<br>
+            <?= Lang::t('По любым вопросам, связанным с проведением данного тура, Вы всегда можете связаться с провайдером услуг следующим способом') ?>
+            :<br>
             <table class="table">
                 <tbody>
                 <?php foreach ($legal->contactAssignment as $contact): ?>
@@ -123,7 +143,8 @@ $legal = $booking->getLegal();
                 </tbody>
             </table>
             <hr/>
-            <?= Lang::t('В случае возникновения технических проблем, которые не может решить провайдер, Вы всегда можете обратиться в службу поддержки с личного кабинета') ?>.
+            <?= Lang::t('В случае возникновения технических проблем, которые не может решить провайдер, Вы всегда можете обратиться в службу поддержки с личного кабинета') ?>
+            .
             <?= Lang::t('Либо связаться с нами по телефону') . ' ' . \Yii::$app->params['supportPhone'] ?>.
         </div>
     </div>

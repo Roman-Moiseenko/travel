@@ -14,18 +14,15 @@ class AppAsset extends AssetBundle
     public $css = [
         '//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700',
         'css/site.css',
-        //'css/opencart.css',
         'css/stylesheet.css',
-    //    'css/font-awesome/css/font-awesome.css',
         'css/glyphicon.css',
         'css/swiper.min.css',
     ];
     public $js = [
         'js/common.js',
         'js/site.js',
-        'js/map.js',
+//        'js/map.js',
         'js/calendar_tour.js',
-      //  'js/swiper.jquery.js',
         'js/swiper.js',
 
     ];
