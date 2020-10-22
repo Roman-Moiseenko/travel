@@ -583,7 +583,8 @@ class Tour extends ActiveRecord
     }
     public function getReviews(): ActiveQuery
     {
-        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id']);
+        /** Только активные отзывы */
+        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])->andWhere([ReviewTour::tableName() .'.status' => ReviewTour::STATUS_ACTIVE]);
     }
     public function getMainPhoto(): ActiveQuery
     {

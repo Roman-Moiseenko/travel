@@ -57,6 +57,22 @@ class ReviewTour extends ActiveRecord implements ReviewInterface
         return $this->id == $id;
     }
 
+    public function isActive(): bool
+    {
+        return $this->status == self::STATUS_ACTIVE;
+    }
+
+    public function draft(): void
+    {
+        $this->status = self::STATUS_INACTIVE;
+    }
+
+    public function activate(): void
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
+
+
     public static function tableName(): string
     {
         return '{{%booking_tours_reviews}}';

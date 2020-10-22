@@ -63,28 +63,18 @@ class RobokassaController extends Controller
 
     public function successCallback($merchant, $nInvId, $nOutSum, $shp)
     {
-
-
-/*
-        $booking = BookingHelper::getByNumber($nInvId);
-        //scr::p([$merchant, $nInvId, $nOutSum, $shp]);
-        //$order = $this->loadModel($nInvId);
-        try {
-            $this->service->payBooking($booking);
-            return 'OK' . $nInvId;
-        } catch (\DomainException $e) {
-            return $e->getMessage();
-        }
-*/
         //TODO Тестировать после подключения!!!!
         /** @var BookingItemInterface $booking */
-
-        $booking = BookingHelper::getByNumber((int)$nInvId);
-        return $this->redirect($booking->getLinks()['frontend']);
+        //scr::v(\Yii::$app->user);
+//        scr::v(\Yii::$app->request->cookies->get('_identity-koenigs'));
+        //$booking = BookingHelper::getByNumber((int)$nInvId);
+        return $this->redirect(\Yii::$app->params['frontendHostInfo']);
+       // return $this->redirect($booking->getLinks()['frontend']);
     }
 
     public function resultCallback($merchant, $nInvId, $nOutSum, $shp)
     {
+
         $booking = BookingHelper::getByNumber((int)$nInvId);
         try {
             $this->service->payBooking($booking);
@@ -92,9 +82,7 @@ class RobokassaController extends Controller
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(Url::to(['/']));
-           // return $e->getMessage();
         }
-
     }
 
     public function failCallback($merchant, $nInvId, $nOutSum, $shp)
@@ -107,8 +95,6 @@ class RobokassaController extends Controller
             return $e->getMessage();
         }
     }
-
-
 
     private function getMerchant(): Merchant
     {

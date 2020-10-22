@@ -23,6 +23,7 @@ class ReviewRepository
                 'tour_id',
                 Tour::find()->select('id')->andWhere(['legal_id' => $legal_id])
             ])
+            ->andWhere(['status' => ReviewTour::STATUS_ACTIVE])
             ->all();
       //  scr::p(count($tours));
         //TODO Заглушка
@@ -39,7 +40,7 @@ class ReviewRepository
     /** @return ReviewInterface[] */
     public function getByUser($user_id): array
     {
-        $tours = ReviewTour::find()->andWhere(['user_id' => $user_id])->all();
+        $tours = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewTour::STATUS_ACTIVE])->all();
         $stays = [];
         $cars = [];
         /* ЗАГЛУШКА
@@ -62,6 +63,7 @@ class ReviewRepository
                 'legal_id',
                 Legal::find()->select('id')->andWhere(['user_id' => $admin_id])])
         ])
+            ->andWhere(['status' => ReviewTour::STATUS_ACTIVE])
             ->andWhere(['>=', 'created_at', $old])
             ->orderBy(['created_at' => SORT_DESC])->all();
         $stays = [];

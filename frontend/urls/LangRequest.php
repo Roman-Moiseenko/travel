@@ -16,6 +16,7 @@ class LangRequest extends Request
     {
         if ($this->_lang_url === null) {
             $this->_lang_url = $this->getUrl();
+            //scr::v($this->_lang_url);
             $url_list = explode('/', $this->_lang_url);
             $lang_url = !empty($url_list[1]) ? $url_list[1] : null;
 

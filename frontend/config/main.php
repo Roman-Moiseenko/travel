@@ -100,13 +100,11 @@ return [
 
             'rules' => [
                 '' => 'site/index',
-
-                'contact' => 'contact/index',
+                //'contact' => 'contact/index',
                 'signup' => 'auth/signup/index',
                 'reset/<_a:[\w-]+>' => 'auth/reset/<_a>',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'site/login' => 'auth/auth/login',
-                //'<_a:about>' => 'site/<_a>',
                 //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
                 'tours' => 'tours/tours/index',
                 'stays' => 'stays/stays/index',
@@ -119,10 +117,6 @@ return [
                 'tours/checkout/booking' => 'tours/checkout/booking',
                 'legals/view' => 'legals/view',
                 'tour/<slug:[\w\-]+>' =>'tours/tours/tour',
-
-                //'tours/<id:\d+>' => 'tours/tours/tour',
-                //'tours/category' => 'tours/tours/category',
-
                 'tours/<slug:[\w\-]+>' =>'tours/tours/category',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/dialog' => 'cabinet/dialog/dialog',

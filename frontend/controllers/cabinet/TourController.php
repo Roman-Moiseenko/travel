@@ -9,6 +9,7 @@ use booking\entities\finance\Refund;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\booking\ConfirmationForm;
+use booking\helpers\scr;
 use booking\repositories\user\UserRepository;
 use booking\services\booking\tours\BookingTourService;
 use booking\services\finance\RefundService;
@@ -63,6 +64,7 @@ class TourController extends Controller
 
     public function actionView($id)
     {
+        //scr::v(\Yii::$app->request->cookies->get('_identity-koenigs'));
         $booking = $this->findModel($id);
         $user = $this->users->get(\Yii::$app->user->id);
         return $this->render('view', [

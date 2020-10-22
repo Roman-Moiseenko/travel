@@ -21,6 +21,7 @@ AppAsset::register($this);
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="copyright" content="Моисеенко Роман Александрович">
+        <meta name="yandex-verification" content="7e8361bb699b88a1" />
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>

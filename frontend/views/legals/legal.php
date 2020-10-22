@@ -5,6 +5,7 @@ use booking\entities\admin\Legal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\ToursHelper;
+use frontend\assets\MapAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
 use yii\helpers\Html;
@@ -12,6 +13,7 @@ use yii\helpers\Url;
 
 /* @var $legal Legal */
 
+MapAsset::register($this);
 $this->title = $legal->getName();
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -89,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php if ($contact->contact->type == Contact::NO_LINK): ?>
                             <?= Html::encode($contact->value) ?>
                         <?php else: ?>
-                            <a href="<?= $contact->contact->prefix . $contact->value ?>"><?= Html::encode($contact->value) ?></a>
+                            <a href="<?= $contact->contact->prefix . $contact->value ?>" target="_blank"><?= Html::encode($contact->value) ?></a>
                         <?php endif; ?>
                     </th>
                     <td><?= Html::encode($contact->description) ?></td>

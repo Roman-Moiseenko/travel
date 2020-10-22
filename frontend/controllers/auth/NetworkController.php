@@ -6,6 +6,7 @@ namespace frontend\controllers\auth;
 
 //use common\auth\Identity;
 
+use booking\helpers\scr;
 use booking\services\NetworkService;
 use Yii;
 use yii\authclient\ClientInterface;
