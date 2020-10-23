@@ -94,7 +94,7 @@ class ContactService
     {
 
         $user_admin = $booking->getAdmin();
-        $user = \booking\entities\user\User::findOne(\Yii::$app->user->id);
+        $user = \booking\entities\user\User::findOne($booking->getUserId());
         $noticeAdmin = $user_admin->notice;
         $legal = $booking->getLegal();
         $phoneUser = $user->personal->phone;
@@ -162,23 +162,14 @@ class ContactService
 
     private function sendSMS($phone, $message)
     {
-        //echo 1;
         if (isset(\Yii::$app->params['NotSend']) and \Yii::$app->params['NotSend']) {
-          //  scr::v(\Yii::$app->params['NotSend']);
             return;
         }
-        //echo 2;
-        //sms::send($phone, $message);
-        //scr::v($phone);
-
-        $result = \Yii::$app->sms->send($phone, $message);
-        if (!$result)
-            throw new \DomainException(Lang::t('Ошибка отправки СМС-сообщения'));
+        sms::send($phone, $message);
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)
     {
-      // scr::v($email);
         $message = $this->mailer->compose($template, ['booking' => $booking])
             ->setTo((string)$_email)//$email
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])

@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <div class="card-body">
         <div class="row">
             <div class="col-md-3">
-                <?= $form->field($model, 'duration')->textInput(['maxlength' => true])->label('Длительность тура (0 ч 00 мин)') ?>
+                <?= $form->field($model, 'duration')->
+                textInput(['maxlength' => true])->
+                label('Длительность тура (0 ч 00 мин)')->hint('Примеры: 4 ч; 2 ч 30 мин; 55 мин. Заполните согласно примеров, это необходимо для автоматического перевода на En') ?>
             </div>
         </div>
         <div class="row">

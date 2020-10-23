@@ -53,6 +53,7 @@ class BookingController  extends Controller
             }
             return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year, $day));
         }
+        return $this->goHome();
     }
 
     public function actionGetday()
@@ -84,6 +85,7 @@ class BookingController  extends Controller
                 'day_tours' => $day_tours,
             ]);
         }
+        return $this->goHome();
     }
 
     public function actionGettickets()
@@ -95,5 +97,6 @@ class BookingController  extends Controller
                 'current' => $current,
             ]);
         }
+        return $this->goHome();
     }
 }

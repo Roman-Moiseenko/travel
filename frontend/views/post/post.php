@@ -14,7 +14,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->descri
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
 
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => Lang::t($post->category->getName()), 'url' => ['category', 'slug' => $post->category->slug]];
+$this->params['breadcrumbs'][] = ['label' => $post->category->getName(), 'url' => ['category', 'slug' => $post->category->slug]];
 $this->params['breadcrumbs'][] = $post->getTitle();
 
 $this->params['active_category'] = $post->category;

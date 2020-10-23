@@ -188,7 +188,7 @@ $tour = $booking->calendar->tour;
                         <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
                     </div>
                     <span class="params-item">
-                    <i class="far fa-clock"></i>&#160;&#160;<?= $tour->params->duration ?>
+                    <i class="far fa-clock"></i>&#160;&#160;<?= Lang::duration($tour->params->duration) ?>
                 </span>
                     <span class="params-item">
                     <?php if ($tour->params->private) {

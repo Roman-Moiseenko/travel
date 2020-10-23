@@ -70,6 +70,15 @@ class Lang extends ActiveRecord
         $this->lv = $lv;
     }
 
+    public static function duration($text): string
+    {
+        $text = str_replace('ч', 'h', $text);
+        $text = str_replace('мин', 'min', $text);
+        $text = str_replace('сек', 'sec', $text);
+        $text = str_replace('д', 'days', $text);
+        return $text;
+    }
+
     public static function t($text): string
     {
         //Определяем какой User запросил перевод,

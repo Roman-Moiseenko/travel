@@ -37,7 +37,7 @@ class RobokassaController extends Controller
     {
         $booking = BookingHelper::getByNumber($id);
 
-        return $this->getMerchant()->payment($booking->getAmountPay(), $id, 'Payment', null, \Yii::$app->user->identity->email);
+        return $this->getMerchant()->payment($booking->getAmountPay() * (1 - \Yii::$app->params['merchant']/100), $id, 'Payment', null, \Yii::$app->user->identity->email);
     }
 
     /**
@@ -80,6 +80,7 @@ class RobokassaController extends Controller
             $this->service->payBooking($booking);
             return 'OK' . $nInvId;
         } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(Url::to(['/']));
         }

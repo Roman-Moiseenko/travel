@@ -13,7 +13,7 @@ use yii\helpers\Html;
 $this->title = Lang::t('Комментарий');
 
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => Lang::t($post->category->name), 'url' => ['category', 'slug' => $post->category->slug]];
+$this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => ['category', 'slug' => $post->category->slug]];
 $this->params['breadcrumbs'][] = ['label' => $post->title, 'url' => ['post', 'id' => $post->id]];
 $this->params['breadcrumbs'][] = $this->title;
 

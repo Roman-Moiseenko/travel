@@ -5,6 +5,7 @@ namespace booking\forms\blog;
 
 
 use booking\entities\blog\Tag;
+use booking\entities\Lang;
 use booking\validators\SlugValidator;
 use yii\base\Model;
 
@@ -26,7 +27,7 @@ class TagForm extends Model
     public function rules()
     {
         return [
-            [['name'], 'required', 'message' => 'Обязательное поле'],
+            [['name'], 'required', 'message' => Lang::t('Обязательное поле')],
             [['name', 'slug'], 'string', 'max' => 255],
             ['slug', SlugValidator::class],
             [
