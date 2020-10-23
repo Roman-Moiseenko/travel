@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="admin-auth">
-            <div class="col-12">
+            <div class="col-12 m-0 p-0">
                 <?= DetailView::widget([
                     'model' => $user,
                     'attributes' => [
@@ -32,4 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/auth/update',]), ['class' => 'btn btn-success']) ?>
     </div>
+    <h3><?= Lang::t('Привязать профиль из социальных сетей') ?></h3>
+    <?= yii\authclient\widgets\AuthChoice::widget([
+        'baseAuthUrl' => ['cabinet/network/attach'],
+    ]); ?>
 </div>

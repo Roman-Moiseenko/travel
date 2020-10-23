@@ -1,18 +1,15 @@
 <?php
 
 
-namespace frontend\controllers\auth;
+namespace frontend\controllers\cabinet;
 
-
-//use common\auth\Identity;
-
+use booking\entities\Lang;
 use booking\helpers\scr;
 use booking\services\NetworkService;
-use Yii;
+use yii\authclient\AuthAction;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-use yii\authclient\AuthAction;
 
 class NetworkController extends Controller
 {
@@ -30,7 +27,7 @@ class NetworkController extends Controller
     public function actions()
     {
         return [
-            'auth' => [
+            'attach' => [
                 'class' => AuthAction::class,
                 'successCallback' => [$this, 'onAuthSuccess'],
             ],
@@ -39,18 +36,15 @@ class NetworkController extends Controller
 
     public function onAuthSuccess(ClientInterface $client): void
     {
-        //scr::v($client);
         $network = $client->getId();
         $attributes = $client->getUserAttributes();
         $identity = ArrayHelper::getValue($attributes, 'id');
-        $email = $attributes['email'] ?? null;
         try {
-            //scr::v($email);
-            $user = $this->networkService->auth($network, $identity, $email);
-            Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+            $this->networkService->attach(\Yii::$app->user->id, $network, $identity);
+            \Yii::$app->session->setFlash('success', Lang::t('Соцсеть была привязана к текущему профилю.'));
         } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
     }
 

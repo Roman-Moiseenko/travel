@@ -67,9 +67,9 @@ class RobokassaController extends Controller
         /** @var BookingItemInterface $booking */
         //scr::v(\Yii::$app->user);
 //        scr::v(\Yii::$app->request->cookies->get('_identity-koenigs'));
-        //$booking = BookingHelper::getByNumber((int)$nInvId);
-        return $this->redirect(\Yii::$app->params['frontendHostInfo']);
-       // return $this->redirect($booking->getLinks()['frontend']);
+        $booking = BookingHelper::getByNumber((int)$nInvId);
+        //return $this->redirect(\Yii::$app->params['frontendHostInfo']);
+        return $this->redirect($booking->getLinks()['frontend']);
     }
 
     public function resultCallback($merchant, $nInvId, $nOutSum, $shp)

@@ -4,6 +4,7 @@ namespace booking\entities\user;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
+use booking\helpers\scr;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\base\NotSupportedException;
@@ -70,13 +71,16 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public static function signupByNetwork($network, $identity): self
+    public static function signupByNetwork($network, $identity, $email = null): self
     {
         $user = new User();
         $user->created_at = time();
+        if ($email) $user->email = $email;
         $user->status = User::STATUS_ACTIVE;
         $user->generateAuthKey();
         $user->networks = [Network::create($network, $identity)];
+        $user->personal = Personal::create('', null, new UserAddress(), new FullName(), false);
+        $user->preferences = Preferences::create();
         return $user;
     }
 
@@ -88,7 +92,7 @@ class User extends ActiveRecord implements IdentityInterface
                 throw new \DomainException(Lang::t('Соцсеть уже подключена'));
             }
         }
-        $networks[] = [Network::create($network, $identity)];
+        $networks[] = Network::create($network, $identity);
         $this->networks = $networks;
     }
 

@@ -4,8 +4,10 @@
 namespace booking\services;
 
 
+use booking\entities\Lang;
 use booking\entities\Rbac;
 use booking\entities\user\User;
+use booking\helpers\scr;
 use booking\repositories\user\UserRepository;
 
 class NetworkService
@@ -30,11 +32,13 @@ class NetworkService
         $this->roles = $roles;
     }
 
-    public function auth($network, $identity)
+    public function auth($network, $identity, $email = null)
     {
         if ($user = $this->users->findByNetworkIdentity($network, $identity))
             return $user;
-        $user = User::signupByNetwork($network, $identity);
+        if ($email && User::find()->where(['email' => $email])->exists())
+            throw new \DomainException(Lang::t('Пользователь с таким email уже существует! Зайдите под Вашим логином и привяжите соц.сеть в кабинете'));
+        $user = User::signupByNetwork($network, $identity, $email);
         $this->transaction->wrap(function () use ($user) {
             $this->users->save($user);
             //$this->roles->assign($user->id, Rbac::ROLE_USER);
@@ -50,6 +54,7 @@ class NetworkService
         }
         $user = $this->users->get($id);
         $user->attachNetwork($network, $identity);
+        //scr::v($user);
         $this->users->save($user);
     }
 

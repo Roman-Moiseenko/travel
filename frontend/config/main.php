@@ -41,17 +41,18 @@ return [
             'enableAutoLogin' => true,
             'identityCookie' => [
                 'name' => '_identity-koenigs',
-                'httpOnly' => true,
+                // 'httpOnly' => true,
                 'domain' => $params['cookieDomain'],
-                'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
+                // 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
+            ],
             'loginUrl' => ['auth/auth/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
             'cookieParams' => [
-                'httponly' => true,
-                'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
+                //'httponly' => true,
+                //'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
             ],
         ],
         'log' => [
@@ -92,7 +93,7 @@ return [
         ],
         'urlManager' => [
             'class' => 'frontend\urls\LangUrlManager',
-//            'class' => 'yii\web\UrlManager',
+            //           'class' => 'yii\web\UrlManager',
             'hostInfo' => $params['frontendHostInfo'],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -101,6 +102,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 //'contact' => 'contact/index',
+//                'auth/network/auth' => 'auth/network/auth',
                 'signup' => 'auth/signup/index',
                 'reset/<_a:[\w-]+>' => 'auth/reset/<_a>',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
@@ -116,8 +118,8 @@ return [
                 'tours/booking/getday' => 'tours/booking/getday',
                 'tours/checkout/booking' => 'tours/checkout/booking',
                 'legals/view' => 'legals/view',
-                'tour/<slug:[\w\-]+>' =>'tours/tours/tour',
-                'tours/<slug:[\w\-]+>' =>'tours/tours/category',
+                'tour/<slug:[\w\-]+>' => 'tours/tours/tour',
+                'tours/<slug:[\w\-]+>' => 'tours/tours/category',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/dialog' => 'cabinet/dialog/dialog',
                 'cabinet/petition' => 'cabinet/dialog/petition',
@@ -132,7 +134,7 @@ return [
                 'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
                 'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
-                '/<slug:[\w\-]+>' =>'page/view',
+                '/<slug:[\w\-]+>' => 'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
