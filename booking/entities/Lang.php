@@ -79,17 +79,18 @@ class Lang extends ActiveRecord
         return $text;
     }
 
-    public static function t($text): string
+    public static function t($text, $lang = null): string
     {
         //Определяем какой User запросил перевод,
         //если клиент, то получаем текущий язык
         //иначе ставим Русский
-        if (\Yii::$app->user->identity instanceof admin\User || \Yii::$app->user->identity instanceof office\User) {
-            $lang = self::DEFAULT;
-        } else {
-            $lang = self::current();
+        if ($lang == null) {
+            if (\Yii::$app->user->identity instanceof admin\User || \Yii::$app->user->identity instanceof office\User) {
+                $lang = self::DEFAULT;
+            } else {
+                $lang = self::current();
+            }
         }
-
         if (!$result = Lang::findOne(['ru' => $text])) {
             Lang::create($text);
             return $text;
@@ -97,10 +98,10 @@ class Lang extends ActiveRecord
         return $result->$lang ?? $text;
     }
 
-    public static function a(array $items): array
+    public static function a(array $items, $lang = null): array
     {
         foreach ($items as $key => $item) {
-            $items[$key] = Lang::t($item);
+            $items[$key] = Lang::t($item, $lang);
         }
         return $items;
     }

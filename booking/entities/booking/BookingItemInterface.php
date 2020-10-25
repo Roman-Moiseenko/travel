@@ -24,9 +24,13 @@ interface BookingItemInterface
     public function getType(): string;
     public function getAdd(): string;
     public function getStatus(): int;
-    public function getAmount(): int;
-    public function getAmountPay(): int;
-    public function getAmountPayAdmin(): int;
+    public function getAmount(): int; //Базовая сумма
+    public function getAmountDiscount(): float; //С учетом скидок
+    public function getMerchant(): float;
+    public function getAmountPayAdmin(): float;
+    public function getPaymentToProvider(): float;
+
+
     public function getConfirmation(): string;
     public function getPinCode(): int;
     /** set */

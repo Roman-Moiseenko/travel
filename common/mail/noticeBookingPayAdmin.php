@@ -40,7 +40,7 @@ use booking\helpers\CurrencyHelper;
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
+                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
                 <?= '' ?>
             </td>
             <td style="width: 25%"></td>

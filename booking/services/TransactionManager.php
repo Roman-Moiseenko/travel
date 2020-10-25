@@ -16,4 +16,12 @@ class TransactionManager
         }
     }
 
+    public function wrapNotSession(callable $function):void
+    {
+        try {
+            \Yii::$app->db->transaction($function);
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+        }
+    }
 }

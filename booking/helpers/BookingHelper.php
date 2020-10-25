@@ -79,12 +79,12 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
     }
 
-    public static function stamp($status): string
+    public static function stamp(BookingItemInterface $booking): string
     {
-        if ($status == BookingHelper::BOOKING_STATUS_PAY) {
+        if ($booking->isPay()) {
             return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t('ОПЛАЧЕНО')) . '</span>';
         }
-        if ($status == BookingHelper::BOOKING_STATUS_CANCEL || $status == BookingHelper::BOOKING_STATUS_CANCEL_PAY) {
+        if ($booking->isCancel()) {
             return '<span class="big-grey-paid-stamp">' . mb_strtoupper(Lang::t('ОТМЕНЕНО')) . '</span>';
         }
         return '';
@@ -132,6 +132,16 @@ class BookingHelper
             case BookingHelper::BOOKING_TYPE_STAY:
                 return Lang::t('по') . ' ' . date('d-m-Y', $datetime2);
                 break;
+        }
+    }
+
+    public static function merchant(BookingItemInterface $booking)
+    {
+        if (!isset(\Yii::$app->params['merchant_payment']) && \Yii::$app->params['merchant_payment'] == false) {
+            return $booking->getAmountDiscount() / (1 + $booking->getMerchant() / 100);
+        } else {
+            $merch = $booking->getMerchant() == 0 ? \Yii::$app->params['merchant'] : 0;
+            return $booking->getAmountDiscount() * (1 + $merch / 100);
         }
     }
 }

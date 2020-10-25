@@ -32,6 +32,8 @@ use yii\helpers\Url;
  * @property integer $pincode
  * @property boolean $unload
  * @property \booking\entities\user\User $user
+ * @property float $payment_provider
+ * @property float $pay_merchant
  */
 
 // unload - выгружен или нет для отчета в finance
@@ -48,6 +50,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
         $booking->created_at = time();
         $booking->pincode = rand(1001, 9900);
+        $booking->unload = false;
         return $booking;
     }
 
@@ -65,6 +68,17 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return $this->status == BookingHelper::BOOKING_STATUS_PAY;
     }
+
+    public function isNew(): bool
+    {
+        return $this->status == BookingHelper::BOOKING_STATUS_NEW;
+    }
+
+    public function isCancel(): bool
+    {
+        return ($this->status == BookingHelper::BOOKING_STATUS_CANCEL || $this->status == BookingHelper::BOOKING_STATUS_CANCEL_PAY);
+    }
+
 
     public function pay()
     {
@@ -129,6 +143,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return $this->hasOne(\booking\entities\user\User::class, ['id' => 'user_id']);
     }
+
     /** ==========> Interface для личного кабинета */
 
     public function getDiscount(): ActiveQuery
@@ -136,18 +151,45 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->hasOne(Discount::class, ['id' => 'discount_id']);
     }
 
-    /**  === Сумма для оплаты (со скидкой) */
-    public function getAmountPay(): int
+    /**  === Сумма базовая */
+    public function getAmount(): int
     {
-        if (!$this->discount) return $this->getAmount();
-        return $this->getAmount() * (1 - $this->discount->percent/100) - $this->bonus; // - Скидка
+        return ($this->count->adult * $this->calendar->cost->adult ?? 0) +
+            ($this->count->child * $this->calendar->cost->child ?? 0) +
+            ($this->count->preference * $this->calendar->cost->preference ?? 0);
     }
-    /**  === Сумма которую видят партнеры, без скидки провайдера */
-    public function getAmountPayAdmin(): int
+
+    /**  === Сумма для оплаты (со скидкой) */
+    public function getAmountDiscount(): float
     {
+        if (!$this->discount) return $this->getAmount(); //Скидок нет
+        if ($this->discount->isOffice()) {
+            return ($this->getAmount() - $this->bonus); // - Скидка от Портала
+        } else {
+            return ($this->getAmount() * (1 - $this->discount->percent / 100)); // - Скидка от Провайдера
+        }
+    }
+
+
+    /**  === Сумма которую видят партнеры, без скидки провайдера */
+    public function getAmountPayAdmin(): float
+    {
+        //TODO ПЕРЕДЕЛАТЬ ИЛИ ПРОВЕРИТЬ
         if (!$this->discount) return $this->getAmount();
-        if ($this->discount->entities != Discount::E_OFFICE_USER) return $this->getAmountPay();
+        if ($this->discount->entities != Discount::E_OFFICE_USER) return $this->getAmountDiscount();
         return $this->getAmount();
+    }
+
+    /** % Оплаты комиссии */
+    public function getMerchant(): float
+    {
+        return $this->pay_merchant;
+    }
+
+    /** Выплата провайдеру с текущей брони */
+    public function getPaymentToProvider(): float
+    {
+        return $this->payment_provider;
     }
 
     public function getDate(): int
@@ -169,7 +211,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
             'pay' => Url::to(['cabinet/pay/tour', 'id' => $this->id]),
             'cancelpay' => Url::to(['cabinet/tour/cancelpay', 'id' => $this->id]),
             'entities' => Url::to(['tour/view', 'id' => $this->calendar->tours_id]),
-            ];
+        ];
     }
 
     public function getPhoto(string $photo = 'cabinet_list'): string
@@ -192,13 +234,6 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->status;
     }
 
-    /**  === Сумма базовая */
-    public function getAmount(): int
-    {
-        return  ($this->count->adult * $this->calendar->cost->adult ?? 0) +
-            ($this->count->child * $this->calendar->cost->child ?? 0) +
-            ($this->count->preference * $this->calendar->cost->preference ?? 0) ;
-    }
 
     public function setStatus($status)
     {

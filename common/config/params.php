@@ -1,7 +1,8 @@
 <?php
 return [
-    'deduction' => 8.9, //%% удержания с провайдеров = 5% + экваринг робокассы
-    'merchant' => 7.0,
+    'deduction' => 2.0, //% удержания с провайдеров
+    'merchant' => 7.0, //экваринг робокассы
+    'merchant_payment' => false,
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'paginationTour' => 24,

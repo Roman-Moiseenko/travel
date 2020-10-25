@@ -62,6 +62,11 @@ $this->params['breadcrumbs'][] = 'Цены';
                                 'label' => 'Отмена брони',
                                 'value' => ToursHelper::cancellation($tour->cancellation),
                             ],
+                            [
+                                'attribute' => 'pay_bank',
+                                'label' => 'Оплата комиссии банка (' . \Yii::$app->params['merchant'] . '%)',
+                                'value' => $tour->pay_bank ? 'Провайдер' : 'Клиент',
+                            ],
                         ],
                     ]) ?>
                 </div>

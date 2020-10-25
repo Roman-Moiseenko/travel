@@ -55,10 +55,9 @@ class Payment extends ActiveRecord
         return $this->status === self::STATUS_PAY;
     }
 
-    public function pay($deduction = 7): void
+    public function pay(): void
     {
         $this->payment_at = time();
-        $this->pay_legal = $this->amount * (1 - $deduction / 100);
         $this->status = self::STATUS_PAY;
     }
 

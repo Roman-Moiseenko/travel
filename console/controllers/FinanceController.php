@@ -45,11 +45,11 @@ class FinanceController extends Controller
         foreach ($tours as $tour) {
             $tour->unload = true;
             echo 'ID = ' . $tour->id;
-            $this->manager->wrap(function (BookingTour $tour) {
+            //$this->manager->wrapNotSession(function ($tour) {
                 $tour->save();
                 $this->service->create($tour);
                 echo 'Транзакция сохранения выполнена';
-            });
+            //});
         }
         echo 'КОНЕЦ';
 

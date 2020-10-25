@@ -117,4 +117,10 @@ class Discount extends ActiveRecord
         }
     }
 
+    public function isOffice()
+    {
+        return $this->entities == Discount::E_OFFICE_USER;
+    }
+
+
 }

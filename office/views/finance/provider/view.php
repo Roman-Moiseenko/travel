@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <?= DetailView::widget([
                 'model' => $legal,
+
                 'attributes' => [
                     [
                         'label' => 'Наименование',
@@ -59,25 +60,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card card-info">
         <div class="card-header">Список бронирования</div>
         <div class="card-body">
-            <table width="100%">
+            <table width="100%" class="table table-adaptive table-striped table-bordered">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>CLASS</th>
                     <th>Дата бронирования</th>
                     <th>Дата исполнения</th>
                     <th>Наименование объекта бронирования</th>
+                    <th>Сумма брони</th>
                     <th>Сумма платежа</th>
                 </tr>
-            <?php foreach ($payments as $payment): ?>
-            <tr>
-                <td> <?= $payment->booking_id ?> </td>
-                <td> <?= $payment->class_booking ?> </td>
-                <td> <?= date('d-m-Y', $payment->booking->getCreated()) ?> </td>
-                <td> <?= date('d-m-Y', $payment->booking->getDate()) ?> </td>
-                <td> <?= Html::a($payment->booking->getName(), $payment->booking->getLinks()['entities']) ?> </td>
-                <td> <?= CurrencyHelper::cost($payment->amount) ?> </td>
-            </tr>
-            <?php endforeach; ?>
+                </thead>
+                <tbody>
+                <?php foreach ($payments as $payment): ?>
+                    <tr>
+                        <td data-label="ID"> <?= $payment->booking_id ?> </td>
+                        <td data-label="CLASS"> <?= $payment->class_booking ?> </td>
+                        <td data-label="Дата бронирования"> <?= date('d-m-Y', $payment->booking->getCreated()) ?> </td>
+                        <td data-label="Дата исполнения"> <?= date('d-m-Y', $payment->booking->getDate()) ?> </td>
+                        <td data-label="Наименование объекта бронирования"> <?= Html::a($payment->booking->getName(), $payment->booking->getLinks()['entities']) ?> </td>
+                        <td data-label="Сумма брони"> <?= CurrencyHelper::cost($payment->booking->getAmountDiscount()) ?> </td>
+                        <td data-label="Сумма платежа"> <?= CurrencyHelper::cost($payment->amount) ?> </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
             </table>
         </div>
     </div>

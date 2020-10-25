@@ -4,6 +4,7 @@
 namespace booking\forms\message;
 
 
+use booking\entities\Lang;
 use yii\base\Model;
 
 class ConversationForm extends Model
@@ -13,7 +14,7 @@ class ConversationForm extends Model
     public function rules()
     {
         return [
-            ['text', 'required'],
+            ['text', 'required', 'message' => Lang::t('Обязательное поле')],
             ['text', 'string'],
         ];
     }

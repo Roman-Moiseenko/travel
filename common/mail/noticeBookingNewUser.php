@@ -42,7 +42,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
                     <?= $booking->getName() ?>
                 </a>
                 <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('Сумма к оплате') ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
+                <?= Lang::t('Сумма к оплате') ?>: <b><?= CurrencyHelper::get(BookingHelper::merchant($booking)) ?></b><br>
                 <?= Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
             </td>
             <td style="width: 25%"></td>

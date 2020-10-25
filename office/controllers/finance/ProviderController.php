@@ -59,9 +59,6 @@ class ProviderController extends Controller
             ->innerJoin(Legal::tableName() . ' l', 'l.id = p.legal_id')
             ->asArray()
             ->all();
-        foreach ($payments as $i => $payment) {
-            $payments[$i]['pay_legal'] = $payment['amount'] * (1 - $deduction/100);
-        }
         return $this->render('index', [
             'payments' => $payments,
         ]);
@@ -77,20 +74,18 @@ class ProviderController extends Controller
         $legal = Legal::findOne($id);
         return $this->render('view', [
             'payments' => $payments,
-            'deduction' => $deduction,
             'legal' => $legal,
         ]);
     }
 
     public function actionPay($id)
     {
-     $deduction = \Yii::$app->params['deduction'];
         $payments = Payment::find()
             ->andWhere(['status' => Payment::STATUS_NEW])
             ->andWhere(['legal_id' => $id])
             ->all();
         foreach ($payments as $payment) {
-            $this->service->pay($payment->id, $deduction);
+            $this->service->pay($payment->id);
         }
 
         return $this->redirect(\Yii::$app->request->referrer);

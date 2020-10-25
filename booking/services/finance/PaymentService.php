@@ -26,16 +26,16 @@ class PaymentService
             $booking->getId(),
             $booking->getLegal()->id,
             get_class($booking),
-            $booking->getAmountPay()
+            $booking->getPaymentToProvider()
         );
         $this->payments->save($payment);
         return $payment;
     }
 
-    public function pay($id, $deduction = 7): void
+    public function pay($id): void
     {
         $payment = $this->payments->get($id);
-        $payment->pay($deduction);
+        $payment->pay();
         $this->payments->save($payment);
     }
 }

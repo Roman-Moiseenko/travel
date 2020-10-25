@@ -39,7 +39,7 @@ $tour = $booking->calendar->tour;
             <a href="<?= $booking->getLinks()['entities']; ?>"><?= $tour->getName() ?></a>
 
         </div>
-        <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW || $booking->status == BookingHelper::BOOKING_STATUS_PAY):?>
+        <?php if ($booking->isNew() || $booking->isPay()):?>
         <div class="ml-auto align-self-center  caption-list pl-3">
             <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)]) ?>"><i class="fas fa-shipping-fast" title="<?=Lang::t('Задать вопросы по бронированию')?>"></i></a>
         </div>
@@ -56,15 +56,17 @@ $tour = $booking->calendar->tour;
                         <th><?= Lang::t('Номер брони') ?>:</th>
                         <td><?= BookingHelper::number($booking) ?></td>
                     </tr>
+                    <?php if ($booking->isPay()): ?>
                     <tr>
                         <th><?= Lang::t('ПИН-код') ?>:</th>
                         <td><?= $booking->getPinCode() ?></td>
                     </tr>
+                    <?php endif; ?>
                     <tr>
                         <th><?= Lang::t('Дата тура')?>:</th>
                         <td><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
                         <td>
-                            <?= BookingHelper::stamp($booking->status) ?>
+                            <?= BookingHelper::stamp($booking) ?>
                         </td>
                     </tr>
                     <tr>
@@ -103,16 +105,24 @@ $tour = $booking->calendar->tour;
                         <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent/100 : $booking->bonus) . ' (' .  $booking->discount->promo . ')' ?> </td>
                     </tr>
                     <?php endif; ?>
+                    <?php if ($booking->getMerchant() != 0): ?>
+                        <tr class="py-2 my-2">
+                            <th class="py-3 my-2"><?= Lang::t('Комиссия банка') . ' (' . $booking->getMerchant() .'%)' ?></th>
+                            <td></td>
+                            <td></td>
+                            <td><?= CurrencyHelper::get($booking->getAmountDiscount() * $booking->getMerchant() /100) ?> </td>
+                        </tr>
+                    <?php endif; ?>
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get((int)$booking->getAmountPay()) ?> </td>
+                        <td><?= CurrencyHelper::get($booking->getAmountDiscount() * (1 + $booking->getMerchant() /100)) ?> </td>
                     </tr>
                     </tbody>
                 </table>
-                <?php if ($booking->status == BookingHelper::BOOKING_STATUS_NEW): ?>
+                <?php if ($booking->isNew()): ?>
                     <div class="d-flex pay-tour py-3">
                         <div>
                             <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
@@ -123,11 +133,14 @@ $tour = $booking->calendar->tour;
                                class="btn btn-primary"><?= Lang::t('Оплатить') ?></a>
                         </div>
                     </div>
+                <div>
+                    <?= Lang::t('Перед оплатой бронирования, ознакомтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
+                </div>
                 <?php endif; ?>
             </div>
         </div>
         <!-- Чеки и бронь -->
-        <?php if ($booking->status == BookingHelper::BOOKING_STATUS_PAY): ?>
+        <?php if ($booking->isPay()): ?>
             <div class="card shadow-sm py-2 my-2">
                 <div class="card-body nowrap-parent">
                     <h2><?= Lang::t('Ваше бронирование подтверждено')?>!</h2>
@@ -144,16 +157,16 @@ $tour = $booking->calendar->tour;
                             </div>
                         </li>
                         <li>
-                            <?= Lang::t('Распечатать чек об оплате')?>
-                            <a class="btn-sm btn-primary"
+                            <?= Lang::t('Чек об оплате был отправлен Вам сервисом оплаты'); //Lang::t('Распечатать чек об оплате')?>
+                            <!--a class="btn-sm btn-primary"
                                href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
-                                <i class="fas fa-print"></i></a>
+                                <i class="fas fa-print"></i></a-->
                         </li>
                     </ul>
                     <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
                         <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить')?> *</a><br>
-                    <label>* <?= Lang::t('В случае отмены платежа, взымается комиссия банка, до 4%')?></label>
+                    <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается')?></label>
                     <?php endif; ?>
                 </div>
             </div>

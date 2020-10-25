@@ -51,6 +51,8 @@ class BookingTourService
             $booking->setBonus($bonus);
         }
 
+        $merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->calendar->tour->pay_bank);
+        $booking->pay_merchant = $merchant; //0 - платит провайдер, <>0 - платит Клиент в %%
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;
@@ -96,6 +98,13 @@ class BookingTourService
     public function pay($id)
     {
         $booking = $this->bookings->get($id);
+        $deduction = \Yii::$app->params['deduction'];
+        $payment_provider = $booking->getAmount();
+        if ($booking->discount && !$booking->discount->isOffice()) {
+            $payment_provider -= $payment_provider * $booking->discount->percent/100;
+        }
+        $payment_provider = $payment_provider * (1 - $deduction / 100 - ($booking->pay_merchant == 0 ? \Yii::$app->params['merchant'] : 0) / 100);
+        $booking->payment_provider = $payment_provider;
         $booking->pay();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
@@ -104,8 +113,7 @@ class BookingTourService
     public function confirmation($id, $template = 'pay')
     {
         $booking = $this->bookings->get($id);
-        if (!empty($booking->confirmation))
-        {
+        if (!empty($booking->confirmation)) {
             $this->contact->sendNoticeConfirmation($booking);
             return;
         }

@@ -42,7 +42,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('Сумма к возврату') ?>: <b><?= CurrencyHelper::get($booking->getAmountPay()) ?></b><br>
+                <?= Lang::t('Сумма к возврату') ?>: <b><?= CurrencyHelper::get($booking->getAmountDiscount() * (1 - $booking->getMerchant() / 100)) ?></b><br>
                 <?= ' ' . Lang::t('Возврат денежных средств происходит в течение 3 банковских дней. Возможно увеличение сроков, в том числе при переводе денежных средств в другую страну') ?>.
             </td>
             <td style="width: 25%"></td>

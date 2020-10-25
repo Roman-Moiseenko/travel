@@ -19,9 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>ID</th>
                 <th>Организация</th>
                 <th>ИНН</th>
-                <th>Общая сумма платежей</th>
                 <th>Сумма к выплате</th>
-                <th>Вознаграждение</th>
                 <th></th>
             </tr>
             </thead>
@@ -31,9 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td data-label="ID"><?= $payment['legal_id']?></td>
                     <td data-label="Организация"><?= Html::a($payment['name'], Url::to(['finance/provider/view', 'id' => $payment['legal_id']]))?></td>
                     <td data-label="ИНН"><?= $payment['INN']?></td>
-                    <td data-label="Общая сумма платежей"><?= CurrencyHelper::cost($payment['amount'])?></td>
-                    <td data-label="Сумма к выплате"><?= CurrencyHelper::cost($payment['pay_legal'])?></td>
-                    <td data-label="Вознаграждение"><?= CurrencyHelper::cost($payment['amount'] - $payment['pay_legal'])?></td>
+                    <td data-label="Сумма к выплате"><?= CurrencyHelper::cost($payment['amount'])?></td>
                     <td data-label="">
                         <?= Html::a('<i class="fas fa-cash-register"></i>', Url::to(['finance/provider/pay', 'id' => $payment['legal_id']]), ['title' => 'Отметить как выплаченные']) ?>
 

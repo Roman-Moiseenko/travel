@@ -47,6 +47,7 @@ use yii\web\UploadedFile;
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
+ * @property bool $pay_bank
  */
 class Tour extends ActiveRecord
 {
@@ -111,6 +112,11 @@ class Tour extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    public function setPayBank($pay_bank)
+    {
+        $this->pay_bank = $pay_bank;
     }
 
     public function isActive(): bool

@@ -39,14 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 </td>
                 <td>
                     <?php if ($dialog->typeDialog == Dialog::CLIENT_SUPPORT):?>
-                        <span class="badge badge-info p-1" style="font-size: 100% !important;">Служба поддержки</span>
+                        <span class="badge badge-info p-1" style="font-size: 100% !important;"><?= Lang::t('Служба поддержки') ?></span>
                     <?php else: ?>
                         <?php $booking = BookingHelper::getByNumber($dialog->optional) ?>
                         <?= $booking->getName()?>
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?= $dialog->theme->caption ?>
+                    <?= Lang::t($dialog->theme->caption) ?>
                 </td>
                 <td>
                     <?= date('d-m-Y H:i:s', $dialog->lastConversation()->created_at) ?>
