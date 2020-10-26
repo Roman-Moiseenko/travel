@@ -54,7 +54,7 @@ class PostRepository
 
     public function getAll(): DataProviderInterface
     {
-        $query = Post::find()->active()->with('category')->orderBy(['created_at' => SORT_DESC]);
+        $query = Post::find()->active()->with('category')->orderBy(['public_at' => SORT_DESC]);
         return $this->getProvider($query);
     }
 
@@ -93,6 +93,10 @@ class PostRepository
         return new ActiveDataProvider([
             'query' => $query,
             'sort' => false,
+            'pagination' => [
+                'defaultPageSize' => \Yii::$app->params['paginationPost'],
+                'pageSizeLimit' => [\Yii::$app->params['paginationPost'], \Yii::$app->params['paginationPost']],
+            ],
         ]);
     }
 }

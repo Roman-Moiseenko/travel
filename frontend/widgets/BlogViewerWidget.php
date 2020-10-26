@@ -20,7 +20,7 @@ class BlogViewerWidget extends Widget
 
     public function run()
     {
-        $posts = $this->posts->getLast(5);
+        $posts = $this->posts->getLast(4);
         return $this->render('blog_viewer', [
             'posts' => $posts,
         ]);

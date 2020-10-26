@@ -14,9 +14,11 @@ use yii\helpers\Html;
 <div class="post-form">
 
     <?php $form = ActiveForm::begin([
-        'options' => ['enctype'=>'multipart/form-data']
+        'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
-
+    <div class="form-group">
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="card card-default">
