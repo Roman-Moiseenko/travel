@@ -4,6 +4,7 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\user\Network;
 use booking\entities\user\User;
 use booking\forms\admin\PasswordEditForm;
 use booking\forms\user\UserEditForm;

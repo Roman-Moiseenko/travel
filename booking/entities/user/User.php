@@ -96,6 +96,19 @@ class User extends ActiveRecord implements IdentityInterface
         $this->networks = $networks;
     }
 
+    public function disconnectNetwork($network, $identity): void
+    {
+        $networks = $this->networks;
+        foreach ($networks as $i => $current) {
+            if ($current->isFor($network, $identity)) {
+                unset($networks[$i]);
+                $this->networks = $networks;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Соцсеть не найдена'));
+    }
+
     public function isActive(): bool
     {
         if ($this->status === self::STATUS_ACTIVE) return true;

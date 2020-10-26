@@ -48,4 +48,20 @@ class NetworkController extends Controller
         }
     }
 
+    public function actionDisconnect()
+    {
+        if (\Yii::$app->request->isGet) {
+            try {
+                $network = \Yii::$app->request->queryParams['network'];
+                $identity = \Yii::$app->request->queryParams['identity'];
+                $this->networkService->disconnect(\Yii::$app->user->id, $network, $identity);
+                \Yii::$app->session->setFlash('success', Lang::t('Соцсеть была привязана к текущему профилю.'));
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
 }

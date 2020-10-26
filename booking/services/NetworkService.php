@@ -54,8 +54,16 @@ class NetworkService
         }
         $user = $this->users->get($id);
         $user->attachNetwork($network, $identity);
-        //scr::v($user);
         $this->users->save($user);
+    }
+    public function disconnect($id, $network, $identity)
+    {
+        if ($user = $this->users->findByNetworkIdentity($network, $identity)) {
+            $user = $this->users->get($id);
+            $user->disconnectNetwork($network, $identity);
+            $this->users->save($user);
+        }
+        throw new \DomainException('Соцсеть не подключена к текущему профилю.');
     }
 
 }

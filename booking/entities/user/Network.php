@@ -29,6 +29,8 @@ class Network extends ActiveRecord
     {
         return $this->network === $network && $this->identity === $identity;
     }
+
+
     public static function tableName(): string
     {
         return '{{%user_networks}}';
