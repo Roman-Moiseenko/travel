@@ -62,6 +62,7 @@ class NetworkService
             $user = $this->users->get($id);
             $user->disconnectNetwork($network, $identity);
             $this->users->save($user);
+            return;
         }
         throw new \DomainException('Соцсеть не подключена к текущему профилю.');
     }

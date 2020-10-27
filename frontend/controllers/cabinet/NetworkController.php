@@ -46,6 +46,7 @@ class NetworkController extends Controller
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
+
     }
 
     public function actionDisconnect()
@@ -55,7 +56,7 @@ class NetworkController extends Controller
                 $network = \Yii::$app->request->queryParams['network'];
                 $identity = \Yii::$app->request->queryParams['identity'];
                 $this->networkService->disconnect(\Yii::$app->user->id, $network, $identity);
-                \Yii::$app->session->setFlash('success', Lang::t('Соцсеть была привязана к текущему профилю.'));
+                \Yii::$app->session->setFlash('success', Lang::t('Соцсеть была отсоединена от текущего профиля.'));
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

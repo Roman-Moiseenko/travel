@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\helpers\UserHelper;
+use Mpdf\Tag\Li;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -35,24 +36,32 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php if (count($user->networks) > 0): ?>
         <h3><?= Lang::t('Привязка к социальным сетям') ?></h3>
-    <table class="table table-adaptive table-striped table-bordered">
-        <thead>
-        <tr>
-            <th><?= Lang::t('Соц.сеть') ?></th>
-            <th><?= Lang::t('Идентификатор') ?></th>
-            <th><?= Lang::t('Отвязать') ?></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($user->networks as $network): ?>
+        <table class="table table-striped table-bordered">
+            <thead>
             <tr>
-                <td><?= UserHelper::iconNetwork($network->network) ?></td>
-                <td><?= $network->identity ?></td>
-                <td><?= Html::a('<i class="fas fa-unlink"></i>', '/cabinet/network/disconnect?network=' . $network->network . '&identity=' . $network->identity) ?></td>
+                <th><?= Lang::t('Социальная сеть') ?></th>
+                <th><?= Lang::t('Идентификатор') ?></th>
+                <th width="50px"><?= Lang::t('Отвязать') ?></th>
             </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <?php foreach ($user->networks as $network): ?>
+                <tr>
+                    <td><?= UserHelper::iconNetwork($network->network) ?></td>
+                    <td><?= $network->identity ?></td>
+                    <td><?= Html::a('<i class="fas fa-unlink"></i>',
+                            '/cabinet/network/disconnect?network=' . $network->network . '&identity=' . $network->identity,
+                            [
+                                'data' => [
+                                    'confirm' => Lang::t('Отсоединить социальную сеть') . ' ' . $network->network . '?',
+                                    'method' => 'get',
+                                ],
+                            ],
+                            ) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     <?php endif; ?>
     <h3><?= Lang::t('Привязать профиль из социальных сетей') ?></h3>
     <?= yii\authclient\widgets\AuthChoice::widget([

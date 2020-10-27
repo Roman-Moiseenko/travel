@@ -7,4 +7,5 @@ return [
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'paginationTour' => 24,
     'paginationPost' => 10,
+    'payment' => true, //false -  Подтверждение бронирования, true - Оплата бронирования
 ];
