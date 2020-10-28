@@ -6,6 +6,8 @@ namespace booking\repositories\booking;
 
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\Tour;
@@ -153,5 +155,15 @@ class BookingRepository
             if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW && (time() - $booking->getCreated() > 3600 * 24)) $booking->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
         }
         return $result;
+    }
+
+    public function getByPaymentId($payment_id): BookingItemInterface
+    {
+        $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
+        if ($result) return $result;
+        $result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
+        if ($result) return $result;
+        $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
+        if ($result) return $result;
     }
 }

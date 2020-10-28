@@ -34,6 +34,7 @@ use yii\helpers\Url;
  * @property \booking\entities\user\User $user
  * @property float $payment_provider
  * @property float $pay_merchant
+ * @property string $payment_id
  */
 
 // unload - выгружен или нет для отчета в finance
@@ -243,6 +244,14 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         }
     }
 
+    public function setPaymentId(string $payment_id)
+    {
+        $this->payment_id = $payment_id;
+        if (!$this->save()) {
+            throw new \DomainException(Lang::t('Ошибка сохранения payment_id - ') . $payment_id);
+        }
+    }
+
     public function getUserId(): int
     {
         return $this->user_id;
@@ -284,4 +293,5 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return $this->pincode;
     }
+
 }

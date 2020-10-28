@@ -115,4 +115,32 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     {
         return $this->pincode;
     }
+
+    public function setPaymentId(string $payment_id)
+    {
+        $this->payment_id = $payment_id;
+        if (!$this->save()) {
+            throw new \DomainException(Lang::t('Ошибка сохранения payment_id - ') . $payment_id);
+        }
+    }
+
+    public function getAmountDiscount(): float
+    {
+        // TODO: Implement getAmountDiscount() method.
+    }
+
+    public function getMerchant(): float
+    {
+        // TODO: Implement getMerchant() method.
+    }
+
+    public function getAmountPayAdmin(): float
+    {
+        // TODO: Implement getAmountPayAdmin() method.
+    }
+
+    public function getPaymentToProvider(): float
+    {
+        // TODO: Implement getPaymentToProvider() method.
+    }
 }

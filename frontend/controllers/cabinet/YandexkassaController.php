@@ -5,6 +5,7 @@ namespace frontend\controllers\cabinet;
 
 
 use booking\helpers\BookingHelper;
+use booking\repositories\booking\BookingRepository;
 use booking\services\finance\PayManageService;
 use YandexCheckout\Client;
 use YandexCheckout\Common\Exceptions\ApiException;
@@ -15,11 +16,15 @@ use YandexCheckout\Common\Exceptions\NotFoundException;
 use YandexCheckout\Common\Exceptions\ResponseProcessingException;
 use YandexCheckout\Common\Exceptions\TooManyRequestsException;
 use YandexCheckout\Common\Exceptions\UnauthorizedException;
+use YandexCheckout\Model\Notification\NotificationSucceeded;
+use YandexCheckout\Model\Notification\NotificationWaitingForCapture;
+use YandexCheckout\Model\NotificationEventType;
 use yii\web\Controller;
 
 class YandexkassaController extends Controller
 {
     private $yandexkassa = [];
+    public $enableCsrfValidation = false;
     /**
      * @var Client
      */
@@ -28,23 +33,25 @@ class YandexkassaController extends Controller
      * @var PayManageService
      */
     private $service;
+    /**
+     * @var BookingRepository
+     */
+    private $bookings;
 
-    public function __construct($id, $module, PayManageService $service, Client $client, $config = [])
+    public function __construct($id, $module, PayManageService $service, Client $client, BookingRepository $bookings, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->client = $client;
         $this->yandexkassa = \Yii::$app->params['yandexkassa'];
         $this->client->setAuth($this->yandexkassa['login'], $this->yandexkassa['password']);
         $this->service = $service;
+        $this->bookings = $bookings;
     }
 
     public function actionInvoice($id)
     {
         $booking = BookingHelper::getByNumber($id);
-
-       // return $this->getMerchant()->payment(BookingHelper::merchant($booking), $id, 'Payment', null, \Yii::$app->user->identity->email);
-
-        // $this->yandexkassa['confirmation']['return_url'] .= $order->id;
+        $redirect = \Yii::$app->request->referrer;
         try {
             $payment = $this->client->createPayment(
                 [
@@ -60,21 +67,26 @@ class YandexkassaController extends Controller
                             [
                                 'description' => 'Бронь ' . $booking->getName(),
                                 'quantity' => 1,
-                                'amount' => ['value' => BookingHelper::merchant($booking)/*$orderItem->price*/, 'currency' => 'RUB'],
+                                'amount' => ['value' => BookingHelper::merchant($booking), 'currency' => 'RUB'],
                                 'vat_code' => 1
                             ],
                         ],
                     ],
                     'confirmation' => [
                         'type' => 'redirect',
-                        'return_url' => 'https://koenigs.ru/cabinet/yandexkassa/responce?id=' . $id,
+                        'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()['frontend'],
                     ],
                     'capture' => true,
-                    'description' => 'Бронь № ' . $id,
+                    'description' => $id,
                 ],
                 uniqid('', true)
             );
-        } catch (BadApiRequestException $e) {
+        $booking->setPaymentId($payment->id);
+
+            $redirect = $payment->getConfirmation()->getConfirmationUrl();
+            //print_r($payment); //exit();
+        $_SESSION['paymentid'] = $payment->id;
+       } catch (BadApiRequestException $e) {
         } catch (ForbiddenException $e) {
         } catch (InternalServerError $e) {
         } catch (NotFoundException $e) {
@@ -87,12 +99,24 @@ class YandexkassaController extends Controller
             return $this->redirect(['/cabinet/order/view', 'id' => $id]);
         }
 
-        $booking->payment_id = $payment->id;
-        $booking->save();
-        $redirect = $payment->getConfirmation()->getConfirmationUrl();
-        //print_r($payment); //exit();
-        $_SESSION['paymentid'] = $payment->id;
         return $this->redirect($redirect);
     }
 
+
+    public function actionResult()
+    {
+        $source = file_get_contents('php://input');
+        $requestBody = json_decode($source, true);
+        try {
+            $notification = ($requestBody['event'] === NotificationEventType::PAYMENT_SUCCEEDED)
+                ? new NotificationSucceeded($requestBody)
+                : new NotificationWaitingForCapture($requestBody);
+            $payment = $notification->getObject();
+            $booking = $this->bookings->getByPaymentId($payment->id);
+            $this->service->payBooking($booking);
+            //$payment_method = $payment->payment_method->getType();
+        } catch (\Exception $e) {
+            // Обработка ошибок при неверных данных
+        }
+    }
 }

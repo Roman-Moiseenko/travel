@@ -35,6 +35,7 @@ interface BookingItemInterface
     public function getPinCode(): int;
     /** set */
     public function setStatus(int $status);
+    public function setPaymentId(string $payment_id);
 
 
 }
