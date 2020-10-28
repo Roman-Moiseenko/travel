@@ -51,7 +51,7 @@ class PayController extends Controller
     public function actionTour($id)
     {
         $booking = BookingTour::findOne($id);
-        if (!isset(\Yii::$app->params['payment']) && \Yii::$app->params['payment'] == false) {
+        if (isset(\Yii::$app->params['confirmation']) && \Yii::$app->params['confirmation'] == true) {
             //генерируем код СМС, сохраняем гдето в базе, отправляем СМС
             $this->tourService->confirmation($id);
             $form = new ConfirmationForm();
@@ -75,12 +75,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         } else {
-            /*$booking->pay();
-            $this->contact->sendNoticeBooking($booking);
-            return $this->redirect(\Yii::$app->request->referrer); */
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
-//            return $this->redirect(['cabinet/robokassa/invoice', 'id' => BookingHelper::number($booking, true)]);
-            //TODO Оплата через кассу
         }
     }
 

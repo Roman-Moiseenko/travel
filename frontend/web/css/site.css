@@ -287,7 +287,7 @@ a.desc:after {
     font-size: 2em;
     color: #c00;
     position: absolute;
-    right: 270px;
+    right: 220px;
     top: 25px;
     padding: 7px 15px;
     border-radius: 3px;
@@ -302,7 +302,7 @@ a.desc:after {
     font-size: 2em;
     color: #656565;
     position: absolute;
-    right: 270px;
+    right: 220px;
     top: 25px;
     padding: 7px 15px;
     border-radius: 3px;
@@ -310,6 +310,17 @@ a.desc:after {
     -webkit-transform: rotate(10deg);
     -ms-transform: rotate(10deg);
     transform: rotate(10deg);
+}
+
+@media screen and (max-width: 600px) {
+    .big-red-paid-stamp {
+        right: 20px; !important;
+        top: -10px;
+    }
+    .big-grey-paid-stamp {
+        right: 20px; !important;
+        top: -10px;
+    }
 }
 
 .reassurance__list {

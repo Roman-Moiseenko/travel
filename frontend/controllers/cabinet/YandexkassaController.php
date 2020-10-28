@@ -4,7 +4,9 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\repositories\booking\BookingRepository;
 use booking\services\finance\PayManageService;
 use YandexCheckout\Client;
@@ -51,7 +53,6 @@ class YandexkassaController extends Controller
     public function actionInvoice($id)
     {
         $booking = BookingHelper::getByNumber($id);
-        $redirect = \Yii::$app->request->referrer;
         try {
             $payment = $this->client->createPayment(
                 [
@@ -61,32 +62,37 @@ class YandexkassaController extends Controller
                     ],
                     'payment_method_data' => $this->yandexkassa['payment_method_data'],
                     'receipt' => [
-                        'email' => \Yii::$app->user->identity->email,
-                        // 'phone' => '7' . $user->phone,
+                        'customer' => [
+                            'full_name' => \Yii::$app->user->identity->username, //personal->fullname->getFullName(),
+                            'email' => \Yii::$app->user->identity->email,
+                        ],
                         'items' => [
                             [
-                                'description' => 'Бронь ' . $booking->getName(),
+                                'description' => $booking->getName(),
                                 'quantity' => 1,
                                 'amount' => ['value' => BookingHelper::merchant($booking), 'currency' => 'RUB'],
                                 'vat_code' => 1
                             ],
                         ],
+                        'email' => \Yii::$app->user->identity->email,
                     ],
                     'confirmation' => [
                         'type' => 'redirect',
                         'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()['frontend'],
+                        'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
                     ],
                     'capture' => true,
-                    'description' => $id,
+                    'description' => $booking->getName() . ' #' . $id,
+                    'metadata' => [
+                        'class' => get_class($booking),
+                        'id' => $booking->id,
+                    ],
                 ],
                 uniqid('', true)
             );
-        $booking->setPaymentId($payment->id);
-
-            $redirect = $payment->getConfirmation()->getConfirmationUrl();
-            //print_r($payment); //exit();
-        $_SESSION['paymentid'] = $payment->id;
-       } catch (BadApiRequestException $e) {
+            $booking->setPaymentId($payment->id);
+            return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
+        } catch (BadApiRequestException $e) {
         } catch (ForbiddenException $e) {
         } catch (InternalServerError $e) {
         } catch (NotFoundException $e) {
@@ -96,12 +102,9 @@ class YandexkassaController extends Controller
         } catch (ApiException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(['/cabinet/order/view', 'id' => $id]);
+            return $this->redirect($booking->getLinks()['frontend']);
         }
-
-        return $this->redirect($redirect);
     }
-
 
     public function actionResult()
     {
@@ -114,9 +117,8 @@ class YandexkassaController extends Controller
             $payment = $notification->getObject();
             $booking = $this->bookings->getByPaymentId($payment->id);
             $this->service->payBooking($booking);
-            //$payment_method = $payment->payment_method->getType();
         } catch (\Exception $e) {
-            // Обработка ошибок при неверных данных
+            \Yii::$app->errorHandler->logException($e);
         }
     }
 }

@@ -10,6 +10,8 @@ use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 
+//TODO Confirmation
+$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -35,12 +37,12 @@ use booking\helpers\CurrencyHelper;
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= 'У Вас новая оплата. ' ?>
+                <?= $confirmation ? 'У Вас новое подтверждение.': 'У Вас новая оплата.' ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                <?= $confirmation ? 'Сумма оплаты составит' : 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
                 <?= '' ?>
             </td>
             <td style="width: 25%"></td>

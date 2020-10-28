@@ -4,7 +4,8 @@
 
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
-
+//TODO Confirmation
+$confirmation = \Yii::$app->params['confirmation'] ?? false;
 
 use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
@@ -33,13 +34,13 @@ use booking\helpers\CurrencyHelper; ?>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= 'Оплаченное бронирование ' ?>
+                <?= $confirmation ? 'Подтвержденное бронирование ' :'Оплаченное бронирование ' ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
                 <?= ' было отменено' ?><br>
-                <?= 'Деньги клиенту вернутся в течение 3 баковских дней.' ?>
+                <?= $confirmation ? '' : 'Деньги клиенту вернутся в течение 7 банковских дней.' ?>
             </td>
             <td style="width: 25%"></td>
         </tr>

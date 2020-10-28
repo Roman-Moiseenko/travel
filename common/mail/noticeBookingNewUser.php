@@ -11,7 +11,8 @@ use booking\helpers\CurrencyHelper;
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
 
-
+//TODO Confirmation
+$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -43,7 +44,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
                 </a>
                 <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
                 <?= Lang::t('Сумма к оплате') ?>: <b><?= CurrencyHelper::get(BookingHelper::merchant($booking)) ?></b><br>
-                <?= Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
+                <?= $confirmation ? Lang::t('Необходимо подтвердить бронирование в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' : Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
             </td>
             <td style="width: 25%"></td>
         </tr>
@@ -51,7 +52,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
             <td style="width: 25%"></td>
             <td style="font-size: 12px; width: 50%;">
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['frontend'] ?>">
-                    <?= Lang::t('Оплатить бронирование Вы можете в личном кабинете') ?>
+                    <?= $confirmation ? Lang::t('Подтвердить бронирование Вы можете в личном кабинете') : Lang::t('Оплатить бронирование Вы можете в личном кабинете') ?>
                 </a>
             </td>
             <td style="width: 25%"></td>

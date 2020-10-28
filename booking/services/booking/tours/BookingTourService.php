@@ -50,9 +50,13 @@ class BookingTourService
             if ($notUsed <= 0) $bonus = 0;
             $booking->setBonus($bonus);
         }
-
-        $merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->calendar->tour->pay_bank);
-        $booking->pay_merchant = $merchant; //0 - платит провайдер, <>0 - платит Клиент в %%
+        //TODO Confirmation
+        $confirmation = \Yii::$app->params['confirmation'] ?? false;
+        if ($confirmation) {
+            $booking->pay_merchant = 0;
+        } else {
+            $booking->pay_merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->calendar->tour->pay_bank);
+        }
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;
@@ -97,17 +101,26 @@ class BookingTourService
 
     public function pay($id)
     {
+        //TODO Confirmation
+        $confirmation = \Yii::$app->params['confirmation'] ?? false;
         $booking = $this->bookings->get($id);
-        $deduction = \Yii::$app->params['deduction'];
-        $payment_provider = $booking->getAmount();
-        if ($booking->discount && !$booking->discount->isOffice()) {
-            $payment_provider -= $payment_provider * $booking->discount->percent/100;
+        if ($confirmation) {
+            $booking->payment_provider = 0;
+            $booking->pay();
+            $this->bookings->save($booking);
+            $this->contact->sendNoticeBooking($booking);
+        } else {
+            $deduction = \Yii::$app->params['deduction'];
+            $payment_provider = $booking->getAmount();
+            if ($booking->discount && !$booking->discount->isOffice()) {
+                $payment_provider -= $payment_provider * $booking->discount->percent / 100;
+            }
+            $payment_provider = $payment_provider * (1 - $deduction / 100 - ($booking->pay_merchant == 0 ? \Yii::$app->params['merchant'] : 0) / 100);
+            $booking->payment_provider = $payment_provider;
+            $booking->pay();
+            $this->bookings->save($booking);
+            $this->contact->sendNoticeBooking($booking);
         }
-        $payment_provider = $payment_provider * (1 - $deduction / 100 - ($booking->pay_merchant == 0 ? \Yii::$app->params['merchant'] : 0) / 100);
-        $booking->payment_provider = $payment_provider;
-        $booking->pay();
-        $this->bookings->save($booking);
-        $this->contact->sendNoticeBooking($booking);
     }
 
     public function confirmation($id, $template = 'pay')

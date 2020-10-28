@@ -72,6 +72,7 @@ class Lang extends ActiveRecord
 
     public static function duration($text): string
     {
+        if (self::current() == self::DEFAULT) return $text;
         $text = str_replace('ч', 'h', $text);
         $text = str_replace('мин', 'min', $text);
         $text = str_replace('сек', 'sec', $text);

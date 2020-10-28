@@ -34,11 +34,13 @@ class BookingHelper
 
     public static function list(): array
     {
+        //TODO Confirmation
+        $confirmation = \Yii::$app->params['confirmation'] ?? false;
         return [
-            self::BOOKING_STATUS_NEW => Lang::t('Ждет оплаты'),
-            self::BOOKING_STATUS_PAY => Lang::t('Оплачен'),
+            self::BOOKING_STATUS_NEW => Lang::t($confirmation ? 'Ждет подтверждения' : 'Ждет оплаты'),
+            self::BOOKING_STATUS_PAY => Lang::t($confirmation ? 'Подтвержден' : 'Оплачен'),
             self::BOOKING_STATUS_CANCEL => Lang::t('Отменен'),
-            self::BOOKING_STATUS_CANCEL_PAY => Lang::t('Отменен после оплаты'),
+            self::BOOKING_STATUS_CANCEL_PAY => Lang::t($confirmation ? 'Отменен после оплаты' : 'Отменен'),
             self::BOOKING_STATUS_EXECUTE => Lang::t('Исполнен'),
         ];
     }
@@ -81,8 +83,10 @@ class BookingHelper
 
     public static function stamp(BookingItemInterface $booking): string
     {
+        //TODO Confirmation
+        $confirmation = \Yii::$app->params['confirmation'] ?? false;
         if ($booking->isPay()) {
-            return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t('ОПЛАЧЕНО')) . '</span>';
+            return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t($confirmation ? 'ПОДТВЕРЖДЕНО' : 'ОПЛАЧЕНО')) . '</span>';
         }
         if ($booking->isCancel()) {
             return '<span class="big-grey-paid-stamp">' . mb_strtoupper(Lang::t('ОТМЕНЕНО')) . '</span>';
@@ -137,11 +141,12 @@ class BookingHelper
 
     public static function merchant(BookingItemInterface $booking)
     {
+        if (isset(\Yii::$app->params['confirmation']) && \Yii::$app->params['confirmation']) return $booking->getAmountDiscount();
         if (!isset(\Yii::$app->params['merchant_payment']) && \Yii::$app->params['merchant_payment'] == false) {
             return $booking->getAmountDiscount() / (1 + $booking->getMerchant() / 100);
         } else {
-            $merch = $booking->getMerchant() == 0 ? \Yii::$app->params['merchant'] : 0;
-            return $booking->getAmountDiscount() * (1 + $merch / 100);
+            $merchant = $booking->getMerchant() == 0 ? \Yii::$app->params['merchant'] : 0;
+            return $booking->getAmountDiscount() * (1 + $merchant / 100);
         }
     }
 }
