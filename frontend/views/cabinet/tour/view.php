@@ -141,7 +141,7 @@ $confirmation = \Yii::$app->params['confirmation'] ?? false;
                     </div>
                     <div>
                         <?php if ($confirmation): ?>
-                            <?= Lang::t('Подтверждение бронирования - бесплатно') ?>
+                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
                         <?php else: ?>
                             <?= Lang::t('Перед оплатой бронирования, ознакомтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>

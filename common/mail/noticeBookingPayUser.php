@@ -37,13 +37,13 @@ $confirmation = \Yii::$app->params['confirmation'] ?? false;
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
                 <?= $confirmation
-                    ? Lang::t('Ваше бронирование подтверждено') . '. ' .Lang::t('Вам необходимо будет оплатить') . ' ' . CurrencyHelper::get(BookingHelper::merchant($booking))
+                    ? Lang::t('Ваше бронирование подтверждено') . '. ' . Lang::t('Вам необходимо будет оплатить') . ' ' . CurrencyHelper::get(BookingHelper::merchant($booking))
                     : Lang::t('Ваш платеж обработан, с Вашего счета списано') . ' ' . CurrencyHelper::get(BookingHelper::merchant($booking)) . ' ' . Lang::t('в счет оплаты ') ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-
+                <?= Lang::t('ПИН-код') . ' #' . $booking->getPinCode() . '. ' . Lang::t('Покажите его Провайдеру') ?>
             </td>
             <td style="width: 25%"></td>
         </tr>

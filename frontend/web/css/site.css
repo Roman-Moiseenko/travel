@@ -487,7 +487,7 @@ div.required label:after {
       transform: rotate(-45deg);*/
 }
 .img-responsive {
-    display: block;
+   /* display: block;*/
     max-width: 100%;
     height: auto;
 }

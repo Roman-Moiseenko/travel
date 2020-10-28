@@ -116,8 +116,12 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY) {
             //Бронирование оплачено  => Рассылка
-           // scr::p($phoneUser);
-            $this->sendSMS($phoneUser, Lang::t('Бронирование подтверждено') . '. ' . $booking->getName() . '. ' . Lang::t('Спасибо, что Вы с нами'));
+            // scr::p($phoneUser);
+            $this->sendSMS($phoneUser,
+                Lang::t('Подтверждено') . '.' .
+                Lang::t('Бронь'). '#' . BookingHelper::number($booking) . '. ' .
+                Lang::t('ПИН'). '#' . $booking->getPinCode() . '. ' .
+                Lang::t('Спасибо, что Вы с нами'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
             if ($noticeAdmin->bookingPay->phone)
                 $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
@@ -127,7 +131,7 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
             //Бронирование отменено  => Рассылка
-           // $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
+            // $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelUser');
             if ($noticeAdmin->bookingCancel->phone)
                 $this->sendSMS($phoneAdmin, 'Отменено ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
@@ -139,7 +143,7 @@ class ContactService
             $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено. Оплата поступит в течении 72 часов'));
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelPayUser');
             if ($noticeAdmin->bookingCancelPay->phone)
-                $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount(). ')');
+                $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
             if ($noticeAdmin->bookingCancelPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelPayAdmin');
         }
@@ -162,9 +166,9 @@ class ContactService
 
     private function sendSMS($phone, $message)
     {
-        if (isset(\Yii::$app->params['NotSend']) and \Yii::$app->params['NotSend']) {
-            return;
-        }
+        //TODO Confirmation
+        if (isset(\Yii::$app->params['confirmation']) and \Yii::$app->params['confirmation']) return;
+        if (isset(\Yii::$app->params['NotSend']) and \Yii::$app->params['NotSend']) return;
         sms::send($phone, $message);
     }
 

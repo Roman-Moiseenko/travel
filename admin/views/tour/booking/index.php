@@ -14,12 +14,14 @@ $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Бронирования';
+//TODO Confirmation
+$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 <?php $form = ActiveForm::begin() ?>
 <div class="custom-control custom-checkbox">
     <input id="only_pay" class="custom-control-input" type="checkbox" name="only_pay" value="1"
            onclick="submit();" <?= $only_pay ? 'checked' : '' ?>>
-    <label class="custom-control-label" for="only_pay">Только оплаченные</label>
+    <label class="custom-control-label" for="only_pay"><?= $confirmation ? 'Только подтвержденные' : 'Только оплаченные' ?></label>
 </div>
 <?php ActiveForm::end() ?>
 <div class="tours-view">
