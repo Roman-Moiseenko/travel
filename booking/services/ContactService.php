@@ -225,4 +225,16 @@ class ContactService
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
     }
+
+    public function noticeNewUser($user)
+    {
+        $send = $this->mailer->compose('signupUser', ['user' => $user])
+            ->setTo(\Yii::$app->params['signupEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Новый пользователь')])
+            ->setSubject('Новый пользователь')
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
 }

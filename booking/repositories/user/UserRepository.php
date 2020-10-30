@@ -43,11 +43,12 @@ class UserRepository
         return (bool) User::findByPasswordResetToken($token);
     }
 
-    public function save(User $user): void
+    public function save(User $user): bool
     {
         if (!$user->save()) {
             throw new \RuntimeException(Lang::t('Ошибка сохранения'));
         }
+        return true;
     }
 
     public function findByNetworkIdentity($network, $identity)

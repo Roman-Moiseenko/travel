@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\user\SignupForm;
 use booking\repositories\user\UserRepository;
+use booking\services\ContactService;
 use booking\services\TransactionManager;
 use Yii;
 
@@ -22,23 +23,27 @@ class SignupService
      * @var UserRepository
      */
     private $users;
+    /**
+     * @var ContactService
+     */
+    private $contact;
 
     public function __construct(
         UserRepository $users,
-        TransactionManager $transaction
+        TransactionManager $transaction,
+        ContactService $contact
     )
     {
         $this->transaction = $transaction;
         $this->users = $users;
+        $this->contact = $contact;
     }
 
     public function signup(SignupForm $form): User
     {
         $user = User::signup($form->username, $form->email, $form->password);
-        $this->transaction->wrap(function () use ($user) {
-            $this->users->save($user);
-          //  $this->roles->assign($user->id, Rbac::ROLE_USER);
-        });
+        if ($this->users->save($user))
+            $this->contact->noticeNewUser($user);
 
         if (!$this->sendEmail($user)) {
             throw new \RuntimeException(Lang::t('Ошибка отправки email'));
