@@ -10,6 +10,7 @@ use booking\helpers\CurrencyHelper;
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
+$lang = $user->preferences->lang;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -17,7 +18,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
-                <?= Lang::t('Номер брони') ?>:&#160;
+                <?= Lang::t('Номер брони', $lang) ?>:&#160;
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['pay'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
@@ -29,18 +30,18 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td></td>
             <td>
-                <h2><?= Lang::t('Добрый день') . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
+                <h2><?= Lang::t('Добрый день', $lang) . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
             </td>
         </tr>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('Подтверждение Вашей брони') ?>: <span style="font-size: 20px; font-weight: 600; color: #021d2e"><?= $booking->getConfirmationCode() ?></span><br>
-                <?= Lang::t('Вы забронировали') ?>
+                <?= Lang::t('Подтверждение Вашей брони', $lang) ?>: <span style="font-size: 20px; font-weight: 600; color: #021d2e"><?= $booking->getConfirmationCode() ?></span><br>
+                <?= Lang::t('Вы забронировали', $lang) ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
-                <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
             </td>
             <td style="width: 25%"></td>
         </tr>
@@ -48,7 +49,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
             <td style="width: 25%"></td>
             <td style="font-size: 12px; width: 50%;">
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['pay'] ?>">
-                    <?= Lang::t('Ввести код подтверждения') ?>
+                    <?= Lang::t('Ввести код подтверждения', $lang) ?>
                 </a>
             </td>
             <td style="width: 25%"></td>

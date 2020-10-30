@@ -12,6 +12,7 @@ $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
 
 $confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION;
+$lang = $user->preferences->lang;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -19,7 +20,7 @@ $confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATI
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
-                <?= Lang::t('Номер брони') ?>:&#160;
+                <?= Lang::t('Номер брони', $lang) ?>:&#160;
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['frontend'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
@@ -31,19 +32,19 @@ $confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATI
         <tr>
             <td></td>
             <td>
-                <h2><?= Lang::t('Добрый день') . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
+                <h2><?= Lang::t('Добрый день', $lang) . ', ' ?><span style="color: #062b31"><?= $user->personal->fullname->getFullname() ?></span>!</h2>
             </td>
         </tr>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('Вы забронировали') ?>
+                <?= Lang::t('Вы забронировали', $lang) ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
-                <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('Сумма к оплате') ?>: <b><?= CurrencyHelper::get(BookingHelper::merchant($booking)) ?></b><br>
-                <?= $confirmation ? Lang::t('Необходимо подтвердить бронирование в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' : Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
+                <?= Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= Lang::t('Сумма к оплате', $lang) ?>: <b><?= CurrencyHelper::get(BookingHelper::merchant($booking)) ?></b><br>
+                <?= $confirmation ? Lang::t('Необходимо подтвердить бронирование в течение суток. В противном случае, Ваше бронирование будет отменено автоматически', $lang). '.' : Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
             </td>
             <td style="width: 25%"></td>
         </tr>
@@ -51,7 +52,7 @@ $confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATI
             <td style="width: 25%"></td>
             <td style="font-size: 12px; width: 50%;">
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['frontend'] ?>">
-                    <?= $confirmation ? Lang::t('Подтвердить бронирование Вы можете в личном кабинете') : Lang::t('Оплатить бронирование Вы можете в личном кабинете') ?>
+                    <?= $confirmation ? Lang::t('Подтвердить бронирование Вы можете в личном кабинете', $lang) : Lang::t('Оплатить бронирование Вы можете в личном кабинете', $lang) ?>
                 </a>
             </td>
             <td style="width: 25%"></td>

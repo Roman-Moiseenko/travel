@@ -16,6 +16,7 @@ use yii\helpers\Url;
 
 $url = \Yii::$app->params['frontendHostInfo'];
 $conversation = $dialog->lastConversation();
+$lang = $user->preferences->lang;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -23,19 +24,19 @@ $conversation = $dialog->lastConversation();
         <tr>
             <td></td>
             <td>
-                <h2><?= Lang::t('Добрый день') . ', ' ?><span style="color: #062b31"><?= $user_name ?></span>!</h2>
+                <h2><?= Lang::t('Добрый день', $lang) . ', ' ?><span style="color: #062b31"><?= $user_name ?></span>!</h2>
             </td>
         </tr>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('У Вас новое сообщение') . ' ' ?>
+                <?= Lang::t('У Вас новое сообщение', $lang) . ' ' ?>
                 <a style="text-decoration: none; color: #0071c2;"
                    href="<?= $url . '/conversation?id=' . $dialog->id ?>">
                     <?= $dialog->theme->caption ?>
                 </a>
                 <?php if (!empty($dialog->optional)): ?>
-                    <?= Lang::t('Номер брони') . ': ' ?>
+                    <?= Lang::t('Номер брони', $lang) . ': ' ?>
                 <?php $booking = BookingHelper::getByNumber($dialog->optional); ?>
                     <a href="<?= $url . $booking->getLinks()['frontend'] ?>"><?= $dialog->optional ?></a>
                 <?php endif; ?>
@@ -59,7 +60,7 @@ $conversation = $dialog->lastConversation();
                 <br>
                 <span style="padding: 10px; margin: 10px">
                 <?php if (!empty($dialog->optional)): ?>
-                    <a href="<?= $url . '/conversation?id=' . $dialog->id ?>"><?= Lang::t('Перейти к диалогу') ?></a>
+                    <a href="<?= $url . '/conversation?id=' . $dialog->id ?>"><?= Lang::t('Перейти к диалогу', $lang) ?></a>
                 <?php endif; ?>
                     </span>
                 <p></p>

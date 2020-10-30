@@ -2,6 +2,7 @@
 
 namespace booking\services;
 
+use booking\entities\admin\User;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\Lang;
@@ -228,10 +229,12 @@ class ContactService
 
     public function noticeNewUser($user)
     {
+        if ($user instanceof User) {$subject = 'Новый Провйдер';}
+        else {$subject = 'Новый Клиент';}
         $send = $this->mailer->compose('signupUser', ['user' => $user])
             ->setTo(\Yii::$app->params['signupEmail'])
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Новый пользователь')])
-            ->setSubject('Новый пользователь')
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый пользователь'])
+            ->setSubject($subject)
             ->send();
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
