@@ -15,6 +15,7 @@ use yii\helpers\Url;
 class BookingCar extends ActiveRecord implements BookingItemInterface
 {
 
+
     public static function tableName()
     {
         return '{{%booking_cars_calendar_booking}}';
@@ -106,7 +107,7 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
         // TODO: Implement getParentId() method.
     }
 
-    public function getConfirmation(): string
+    public function getConfirmationCode(): string
     {
         return $this->confirmation;
     }
@@ -142,5 +143,10 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     public function getPaymentToProvider(): float
     {
         // TODO: Implement getPaymentToProvider() method.
+    }
+
+    public function getCheckBooking(): int
+    {
+        // TODO: Implement getCheckBooking() method.
     }
 }

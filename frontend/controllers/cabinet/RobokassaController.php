@@ -63,7 +63,6 @@ class RobokassaController extends Controller
 
     public function successCallback($merchant, $nInvId, $nOutSum, $shp)
     {
-        //TODO Тестировать после подключения!!!!
         /** @var BookingItemInterface $booking */
         //scr::v(\Yii::$app->user);
 //        scr::v(\Yii::$app->request->cookies->get('_identity-koenigs'));

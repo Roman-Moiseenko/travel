@@ -1,12 +1,12 @@
 <?php
 return [
-    'deduction' => 2.0, //% удержания с провайдеров
-    'merchant' => 7.0, //экваринг робокассы
-    'merchant_payment' => false,
+    'deduction' => 5.0, //% удержания с провайдеров
+    'merchant' => 3.7, //экваринг Яндекс.Кассы
+    'merchant_payment' => true, //Комиссия включена в платеж Агрегатора
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'paginationTour' => 24,
     'paginationPost' => 10,
-    //'payment' => false, //false -  Подтверждение бронирования, true - Оплата бронирования
-    'confirmation'=> true //true -  Подтверждение бронирования, false - Оплата бронирования
+    'mode_confirmation'=> true, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
+    'notSMS' => true,
 ];

@@ -3,10 +3,6 @@
 
 namespace booking\entities\admin;
 
-
-use booking\entities\admin\NoticeItem;
-use booking\entities\user\FullName;
-use booking\entities\user\UserAddress;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 
@@ -29,6 +25,9 @@ class Notice extends ActiveRecord
     public $bookingCancelPay;
     /** @var NoticeItem */
     public $messageNew;
+    /** @var NoticeItem */
+    public $bookingConfirmation;
+
 
     public static function create(): self
     {
@@ -38,13 +37,15 @@ class Notice extends ActiveRecord
         $notice->bookingPay = new NoticeItem();
         $notice->bookingCancel = new NoticeItem();
         $notice->bookingCancelPay = new NoticeItem();
+        $notice->bookingConfirmation = new NoticeItem();
         $notice->messageNew = new NoticeItem();
         return $notice;
     }
 
     public function edit(NoticeItem $review, NoticeItem $bookingNew,
                          NoticeItem $bookingPay, NoticeItem $bookingCancel,
-                         NoticeItem $bookingCancelPay, NoticeItem $messageNew
+                         NoticeItem $bookingCancelPay, NoticeItem $messageNew,
+                         NoticeItem $bookingConfirmation
 )
     {
         $this->review = $review;
@@ -52,6 +53,7 @@ class Notice extends ActiveRecord
         $this->bookingPay = $bookingPay;
         $this->bookingCancel = $bookingCancel;
         $this->bookingCancelPay = $bookingCancelPay;
+        $this->bookingConfirmation = $bookingConfirmation;
         $this->messageNew = $messageNew;
     }
 
@@ -85,6 +87,12 @@ class Notice extends ActiveRecord
         } else {
             $this->bookingCancelPay = new NoticeItem();
         }
+        if (isset($notice['bookingConfirmation'])) {
+            $this->bookingConfirmation = new NoticeItem($notice['bookingConfirmation']['email'], $notice['bookingConfirmation']['phone']);
+        } else {
+            $this->bookingConfirmation = new NoticeItem();
+        }
+
         if (isset($notice['messageNew'])) {
             $this->messageNew = new NoticeItem($notice['messageNew']['email'], $notice['messageNew']['phone']);
         } else {
@@ -102,6 +110,7 @@ class Notice extends ActiveRecord
             'bookingPay' => $this->bookingPay,
             'bookingCancel' => $this->bookingCancel,
             'bookingCancelPay' => $this->bookingCancelPay,
+            'bookingConfirmation' => $this->bookingConfirmation,
             'messageNew' => $this->messageNew
         ]));
 

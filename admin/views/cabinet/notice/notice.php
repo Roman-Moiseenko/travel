@@ -12,6 +12,8 @@ use yii\helpers\Url;
 
 $this->title = 'Уведомления';
 $this->params['breadcrumbs'][] = $this->title;
+
+//TODO Доступ к СМС-уведомлением от уровня оплаченного аккаунта
 ?>
 
 <div>
@@ -83,6 +85,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <input id="bookingPay-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingPay"
                                        data-field="phone" <?= $notice->bookingPay->phone ? 'checked' : '' ?>>
+                                Уведомление по СМС
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Подтверждение бронирования</th>
+                    <td>
+                        <div class="checkbox">
+                            <label for="bookingConfirmation-email">
+                                <input id="bookingConfirmation-email" type="checkbox" class="notice-ajax" value="1"
+                                       data-item="bookingConfirmation"
+                                       data-field="email" <?= $notice->bookingConfirmation->email ? 'checked' : '' ?>>
+                                Уведомление по email
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="checkbox">
+                            <label for="bookingConfirmation-phone">
+                                <input id="bookingConfirmation-phone" type="checkbox" class="notice-ajax" value="1"
+                                       data-item="bookingConfirmation"
+                                       data-field="phone" <?= $notice->bookingConfirmation->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>

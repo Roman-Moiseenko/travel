@@ -51,16 +51,17 @@ class PayController extends Controller
     public function actionTour($id)
     {
         $booking = BookingTour::findOne($id);
-        if (isset(\Yii::$app->params['confirmation']) && \Yii::$app->params['confirmation'] == true) {
-            //генерируем код СМС, сохраняем гдето в базе, отправляем СМС
-            $this->tourService->confirmation($id);
+        //Тур -> оплата на месте
+        if ($booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION) {
+            //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
+            $this->tourService->noticeConfirmation($id);
             $form = new ConfirmationForm();
             //через форму ждем код
             if ($form->load(\Yii::$app->request->post()) && $form->validate()){
                 try {
-                    if ($this->tourService->isConfirmation($id, $form)) {
+                    if ($this->tourService->checkConfirmation($id, $form)) {
                         //если совпал, то подтверждение
-                        $this->tourService->pay($id);
+                        $this->tourService->confirmation($id);
                         \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтверждено'));
                         return $this->redirect(['/cabinet/tour/view', 'id' => $id]);
                     } else {
@@ -74,7 +75,8 @@ class PayController extends Controller
                 'model' => $form,
                 'booking' => $booking,
             ]);
-        } else {
+        }
+        if ($booking->getCheckBooking() == BookingHelper::BOOKING_PAYMENT){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }

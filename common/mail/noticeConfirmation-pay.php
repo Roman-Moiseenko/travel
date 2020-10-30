@@ -35,7 +35,7 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('Подтверждение Вашей брони') ?>: <span style="font-size: 20px; font-weight: 600; color: #021d2e"><?= $booking->getConfirmation() ?></span><br>
+                <?= Lang::t('Подтверждение Вашей брони') ?>: <span style="font-size: 20px; font-weight: 600; color: #021d2e"><?= $booking->getConfirmationCode() ?></span><br>
                 <?= Lang::t('Вы забронировали') ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>

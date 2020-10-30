@@ -10,6 +10,7 @@ use booking\entities\booking\stays\Geo;
 use booking\entities\booking\stays\rules\AgeLimit;
 use booking\entities\booking\tours\queries\TourQueries;
 use booking\entities\Lang;
+use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -35,19 +36,22 @@ use yii\web\UploadedFile;
  * @property float $rating
  * @property integer $cancellation
  * @property BookingAddress $address
+ * @property bool $pay_bank
+ * @property Cost $baseCost
+ * @property Photo $mainPhoto
+ * @property Type $type
+ * @property TourParams $params
+ * Оплата через портал или  провайдера
+ * @property integer $check_booking
  * @property ExtraAssignment[] $extraAssignments
  * @property ReviewTour[] $reviews
- * @property Type $type
  * @property Type[] $types
  * @property Extra[] $extra
- * @property TourParams $params
- * @property Photo $mainPhoto
  * @property Photo[] $photos
- * @property Cost $baseCost
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
- * @property bool $pay_bank
+
  */
 class Tour extends ActiveRecord
 {
@@ -117,6 +121,16 @@ class Tour extends ActiveRecord
     public function setPayBank($pay_bank)
     {
         $this->pay_bank = $pay_bank;
+    }
+
+    public function setCheckBooking($check_booking)
+    {
+        $this->check_booking = $check_booking;
+    }
+
+    public function isConfirmation(): bool
+    {
+        return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool

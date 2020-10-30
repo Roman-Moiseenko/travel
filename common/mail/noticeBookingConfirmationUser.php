@@ -4,20 +4,20 @@ use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
-
+use booking\helpers\CurrencyHelper;
 /* @var $booking BookingItemInterface */
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
-?>
 
+?>
 <div class="mail-notice" style="color: #0b0b0b;">
     <table style="width: 100%; border: 0;color: #0b0b0b;">
         <tr>
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
                 <?= Lang::t('Номер брони') ?>:&#160;
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['pay'] ?>">
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['frontend'] ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
             </td>
@@ -34,20 +34,23 @@ $url = \Yii::$app->params['frontendHostInfo'];
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= Lang::t('Подтверждение отмены Вашей брони') ?>: <span style="font-size: 20px; font-weight: 600; color: #021d2e"><?= $booking->getConfirmationCode() ?></span><br>
-                <?= Lang::t('Вы забронировали') ?>
+                <?=
+                    Lang::t('Ваше бронирование подтверждено') . '. ' . Lang::t('Вам необходимо будет оплатить') . ' ' . CurrencyHelper::get(BookingHelper::merchant($booking))
+                ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
-                <?= Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= ' ' . Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= Lang::t('ПИН-код') . ' #' . $booking->getPinCode() . '. ' . Lang::t('Покажите его Провайдеру') ?>
             </td>
             <td style="width: 25%"></td>
         </tr>
         <tr>
             <td style="width: 25%"></td>
             <td style="font-size: 12px; width: 50%;">
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['cancelpay'] ?>">
-                    <?= Lang::t('Ввести код подтверждения') ?>
+                <?= Lang::t('В случае возникновения вопросов, пожалуйста, свяжитесь со') ?>
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . '/support' ?>">
+                    <?= Lang::t('Службой поддержки') ?>
                 </a>
             </td>
             <td style="width: 25%"></td>

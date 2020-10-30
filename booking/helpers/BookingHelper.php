@@ -19,6 +19,7 @@ class BookingHelper
     const BOOKING_STATUS_CANCEL = 3;
     const BOOKING_STATUS_CANCEL_PAY = 4;
     const BOOKING_STATUS_EXECUTE = 5;
+    const BOOKING_STATUS_CONFIRMATION = 6;
 
     const BOOKING_TYPE_TOUR = 1;
     const BOOKING_TYPE_STAY = 2;
@@ -32,22 +33,33 @@ class BookingHelper
 
     ];
 
+    //Бронирование оплачивается у Провайдера или на Сайте
+    const BOOKING_CONFIRMATION = 101; //При оплате -> Подтверждение
+    const BOOKING_PAYMENT = 102; //При оплате -> Онлайн-оплата
+
     public static function list(): array
     {
-        //TODO Confirmation
-        $confirmation = \Yii::$app->params['confirmation'] ?? false;
         return [
-            self::BOOKING_STATUS_NEW => Lang::t($confirmation ? 'Ждет подтверждения' : 'Ждет оплаты'),
-            self::BOOKING_STATUS_PAY => Lang::t($confirmation ? 'Подтвержден' : 'Оплачен'),
+            self::BOOKING_STATUS_NEW => Lang::t('Новый'),
+            self::BOOKING_STATUS_PAY => Lang::t('Оплачен'),
             self::BOOKING_STATUS_CANCEL => Lang::t('Отменен'),
-            self::BOOKING_STATUS_CANCEL_PAY => Lang::t($confirmation ? 'Отменен после оплаты' : 'Отменен'),
+            self::BOOKING_STATUS_CANCEL_PAY => Lang::t('Отменен после оплаты'),
             self::BOOKING_STATUS_EXECUTE => Lang::t('Исполнен'),
+            self::BOOKING_STATUS_CONFIRMATION => Lang::t('Подтвержден'),
         ];
     }
 
-    public static function status($status): string
+    public static function listCheck(): array
     {
-        switch ($status) {
+        return [
+            self::BOOKING_CONFIRMATION => 'Оплата на месте',
+            self::BOOKING_PAYMENT => 'Оплата через сервис koenigs.ru',
+        ];
+    }
+
+    public static function status(BookingItemInterface $booking): string
+    {
+        switch ($booking->getStatus()) {
             case self::BOOKING_STATUS_NEW:
                 $class = 'badge badge-warning';
                 break;
@@ -58,19 +70,22 @@ class BookingHelper
             case self::BOOKING_STATUS_CANCEL_PAY:
                 $class = 'badge badge-secondary';
                 break;
-            case self::BOOKING_STATUS_EXECUTE:
+            /*case self::BOOKING_STATUS_EXECUTE:
+                $class = 'badge badge-info';
+                break;*/
+            case self::BOOKING_STATUS_CONFIRMATION:
                 $class = 'badge badge-info';
                 break;
             default:
                 $class = 'badge badge-info'; //primary info
         }
 
-        return '<span class="' . $class . '">' . (self::list())[$status] . '</span>';
+        return '<span class="' . $class . '">' . (self::list())[$booking->getStatus()] . '</span>';
     }
 
-    public static function caption($status): string
+    public static function caption(BookingItemInterface $booking): string
     {
-        return (self::list())[$status];
+        return (self::list())[$booking->getStatus()];
     }
 
     public static function icons($type)
@@ -83,10 +98,11 @@ class BookingHelper
 
     public static function stamp(BookingItemInterface $booking): string
     {
-        //TODO Confirmation
-        $confirmation = \Yii::$app->params['confirmation'] ?? false;
         if ($booking->isPay()) {
-            return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t($confirmation ? 'ПОДТВЕРЖДЕНО' : 'ОПЛАЧЕНО')) . '</span>';
+            return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t('ОПЛАЧЕНО')) . '</span>';
+        }
+        if ($booking->isConfirmation()) {
+            return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t('ПОДТВЕРЖДЕНО')) . '</span>';
         }
         if ($booking->isCancel()) {
             return '<span class="big-grey-paid-stamp">' . mb_strtoupper(Lang::t('ОТМЕНЕНО')) . '</span>';
@@ -128,10 +144,10 @@ class BookingHelper
         switch ($booking->getType()) {
             case BookingHelper::BOOKING_TYPE_TICKET:
             case BookingHelper::BOOKING_TYPE_TOUR:
-                return $booking->getAdd();
+                return $datetime2;
                 break;
             case BookingHelper::BOOKING_TYPE_CAR:
-                return '';
+                return $datetime2;
                 break;
             case BookingHelper::BOOKING_TYPE_STAY:
                 return Lang::t('по') . ' ' . date('d-m-Y', $datetime2);
@@ -141,7 +157,7 @@ class BookingHelper
 
     public static function merchant(BookingItemInterface $booking)
     {
-        if (isset(\Yii::$app->params['confirmation']) && \Yii::$app->params['confirmation']) return $booking->getAmountDiscount();
+        if ($booking->getCheckBooking() == self::BOOKING_CONFIRMATION) return $booking->getAmountDiscount();
         if (!isset(\Yii::$app->params['merchant_payment']) && \Yii::$app->params['merchant_payment'] == false) {
             return $booking->getAmountDiscount() / (1 + $booking->getMerchant() / 100);
         } else {

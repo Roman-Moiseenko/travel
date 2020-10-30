@@ -81,6 +81,7 @@ class TourController extends Controller
     public function actionDelete($id)
     {
         $booking = $this->findModel($id);
+        if ($booking->isPay() || $booking->isCancel()) throw new \DomainException(Lang::t('Нельзя отменить бронирование!'));
         $this->bookings->cancel($booking->id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -88,16 +89,18 @@ class TourController extends Controller
     public function actionCancelpay($id)
     {
         $booking = $this->findModel($id);
-        $this->bookings->confirmation($id, 'cancel');
+        if (!$booking->calendar->tour->isCancellation($booking->calendar->tour_at))
+            throw new \DomainException(Lang::t('Нельзя отменить бронирование!'));
+        $this->bookings->noticeConfirmation($id, 'cancel');
         $form = new ConfirmationForm();
         //через форму ждем код
         if ($form->load(\Yii::$app->request->post()) && $form->validate()){
             try {
-                if ($this->bookings->isConfirmation($id, $form)) {
+                if ($this->bookings->checkConfirmation($id, $form)) {
                     //если совпал, то подтверждение
                     $this->bookings->cancelPay($booking->id);
                     $this->refund->create($booking);
-                    \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование отменено. Оплата поступит в течение 3 банковских дней'));
+                    \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование отменено. Оплата поступит в течение 7 банковских дней'));
                     return $this->redirect(['/cabinet/tour/view', 'id' => $id]);
                 } else {
                     \Yii::$app->session->setFlash('error', Lang::t('Неверный код подтверждения'));

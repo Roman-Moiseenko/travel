@@ -2,6 +2,7 @@
 
 use booking\entities\admin\Legal;
 use booking\entities\booking\tours\Tour;
+use booking\helpers\BookingHelper;
 use booking\helpers\ToursHelper;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
@@ -66,6 +67,11 @@ $this->params['breadcrumbs'][] = 'Цены';
                                 'attribute' => 'pay_bank',
                                 'label' => 'Оплата комиссии банка (' . \Yii::$app->params['merchant'] . '%)',
                                 'value' => $tour->pay_bank ? 'Провайдер' : 'Клиент',
+                            ],
+                            [
+                                'attribute' => 'check_booking',
+                                'label' => 'Способ оплаты',
+                                'value' => BookingHelper::listCheck()[$tour->check_booking],
                             ],
                         ],
                     ]) ?>

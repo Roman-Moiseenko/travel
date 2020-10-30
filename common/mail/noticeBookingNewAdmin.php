@@ -11,8 +11,8 @@ use booking\helpers\CurrencyHelper;
 
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
-//TODO Confirmation
-$confirmation = \Yii::$app->params['confirmation'] ?? false;
+
+$confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">

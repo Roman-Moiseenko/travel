@@ -9,9 +9,6 @@ use yii\helpers\Html;
 
 /* @var $tour Tour */
 DatepickerAsset::register($this);
-//CalendarAsset::register($this);
-//TODO Confirmation
-$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 
 <div class="card bg-booking-widget">
@@ -30,7 +27,7 @@ $confirmation = \Yii::$app->params['confirmation'] ?? false;
         <p></p>
         <div class="form-group">
             <?= Html::submitButton(
-                $confirmation ? Lang::t('Забронировать') : Lang::t('Приобрести'),
+                $tour->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести'),
                 [
                     'class' => 'btn btn-primary btn-lg btn-block',
                     'disabled' => 'disabled',

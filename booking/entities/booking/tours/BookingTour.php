@@ -70,6 +70,11 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->status == BookingHelper::BOOKING_STATUS_PAY;
     }
 
+    public function isConfirmation(): bool
+    {
+        return $this->status == BookingHelper::BOOKING_STATUS_CONFIRMATION;
+    }
+
     public function isNew(): bool
     {
         return $this->status == BookingHelper::BOOKING_STATUS_NEW;
@@ -84,6 +89,11 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function pay()
     {
         $this->status = BookingHelper::BOOKING_STATUS_PAY;
+    }
+
+    public function confirmation()
+    {
+        $this->status = BookingHelper::BOOKING_STATUS_CONFIRMATION;
     }
 
     public function cancel()
@@ -175,9 +185,8 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     /**  === Сумма которую видят партнеры, без скидки провайдера */
     public function getAmountPayAdmin(): float
     {
-        //TODO ПЕРЕДЕЛАТЬ ИЛИ ПРОВЕРИТЬ
         if (!$this->discount) return $this->getAmount();
-        if ($this->discount->entities != Discount::E_OFFICE_USER) return $this->getAmountDiscount();
+        if ($this->discount->isOffice()) return $this->getAmountDiscount();
         return $this->getAmount();
     }
 
@@ -284,7 +293,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->calendar->tours_id;
     }
 
-    public function getConfirmation(): string
+    public function getConfirmationCode(): string
     {
         return $this->confirmation;
     }
@@ -292,6 +301,11 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getPinCode(): int
     {
         return $this->pincode;
+    }
+
+    public function getCheckBooking(): int
+    {
+        return $this->calendar->tour->check_booking;
     }
 
 }

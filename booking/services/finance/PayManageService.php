@@ -21,11 +21,11 @@ class PayManageService
         $this->tourService = $tourService;
     }
 
-    public function payBooking(BookingItemInterface $bookingItem)
+    public function payBooking(BookingItemInterface $booking)
     {
-        switch ($bookingItem->getType()) {
+        switch ($booking->getType()) {
             case BookingHelper::BOOKING_TYPE_TOUR:
-                $this->tourService->pay($bookingItem->getId());
+                $this->tourService->pay($booking->getId());
                 break;
             case BookingHelper::BOOKING_TYPE_STAY:
                 //TODO BookingStayService

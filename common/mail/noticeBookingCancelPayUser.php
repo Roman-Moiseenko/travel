@@ -10,9 +10,6 @@ use booking\helpers\CurrencyHelper;
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
-
-//TODO Confirmation
-$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -38,15 +35,13 @@ $confirmation = \Yii::$app->params['confirmation'] ?? false;
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= $confirmation ? Lang::t('Было отменено подтвержденное бронирование') : Lang::t('Было отменено оплаченное бронирование') ?>
+                <?= Lang::t('Было отменено оплаченное бронирование') ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату') ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?php if (!$confirmation): ?>
                 <?= Lang::t('Сумма к возврату') ?>: <b><?= CurrencyHelper::get($booking->getAmountDiscount() * (1 - $booking->getMerchant() / 100)) ?></b><br>
                 <?= ' ' . Lang::t('Возврат денежных средств происходит в течение 3 банковских дней. Возможно увеличение сроков, в том числе при переводе денежных средств в другую страну') ?>.
-                <?php endif; ?>
             </td>
             <td style="width: 25%"></td>
         </tr>

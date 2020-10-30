@@ -1,12 +1,14 @@
 <?php
 
+use booking\entities\booking\BookingItemInterface;
+use booking\helpers\BookingHelper;
+use booking\helpers\CurrencyHelper;
+
 /* @var $booking BookingItemInterface */
 
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
-use booking\entities\booking\BookingItemInterface;
-use booking\helpers\BookingHelper;
-use booking\helpers\CurrencyHelper; ?>
+?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
     <table style="width: 100%; border: 0;color: #0b0b0b;">
@@ -31,13 +33,13 @@ use booking\helpers\CurrencyHelper; ?>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= 'Оплаченное бронирование ' ?>
+                <?= 'У Вас новое подтверждение.' ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= ' было отменено' ?><br>
-                <?= 'Деньги клиенту вернутся в течение 7 банковских дней.' ?>
+                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                <?= '' ?>
             </td>
             <td style="width: 25%"></td>
         </tr>

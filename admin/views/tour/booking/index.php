@@ -14,14 +14,12 @@ $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Бронирования';
-//TODO Confirmation
-$confirmation = \Yii::$app->params['confirmation'] ?? false;
 ?>
 <?php $form = ActiveForm::begin() ?>
 <div class="custom-control custom-checkbox">
     <input id="only_pay" class="custom-control-input" type="checkbox" name="only_pay" value="1"
            onclick="submit();" <?= $only_pay ? 'checked' : '' ?>>
-    <label class="custom-control-label" for="only_pay"><?= $confirmation ? 'Только подтвержденные' : 'Только оплаченные' ?></label>
+    <label class="custom-control-label" for="only_pay"><?= 'Только подтвержденные/оплаченные' ?></label>
 </div>
 <?php ActiveForm::end() ?>
 <div class="tours-view">
@@ -85,9 +83,12 @@ $confirmation = \Yii::$app->params['confirmation'] ?? false;
 
                                 <span class="params-item" style="margin-right: -20px !important; ">
                                     <?php if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY): ?>
-                                        <span class="badge badge-pill badge-success"><i class="far fa-check-circle"></i></span>
+                                        <span class="badge badge-pill badge-success" title="eeee"><i class="far fa-check-circle"></i></span>
                                     <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW): ?>
                                         <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
+                                    <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION): ?>
+                                        <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
+
                                     <?php endif ?>
                                 </span>
                                 <span class="params-item">

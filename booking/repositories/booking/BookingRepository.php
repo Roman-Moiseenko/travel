@@ -115,7 +115,8 @@ class BookingRepository
                 'IN',
                 'status', [
                     BookingHelper::BOOKING_STATUS_NEW,
-                    BookingHelper::BOOKING_STATUS_PAY
+                    BookingHelper::BOOKING_STATUS_PAY,
+                    BookingHelper::BOOKING_STATUS_CONFIRMATION,
                 ]
             ])
             ->all();

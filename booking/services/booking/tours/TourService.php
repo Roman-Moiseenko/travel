@@ -236,6 +236,7 @@ class TourService
                 $form->baseCost->preference
             )
         );
+        $tour->setCheckBooking($form->check_booking);
         $tour->setPayBank($form->pay_bank);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tour);

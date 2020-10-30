@@ -92,7 +92,7 @@ class ContactService
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ И ПРОВАЙДЕРУ О БРОНИРОВАНИИ/НОВОМ СТАТУСЕ
     public function sendNoticeBooking(BookingItemInterface $booking)
     {
-
+        //TODO Отправка СМС-клиенту по уровню оплаченного аккаунта Провайдера СДЕЛАТЬ
         $user_admin = $booking->getAdmin();
         $user = \booking\entities\user\User::findOne($booking->getUserId());
         $noticeAdmin = $user_admin->notice;
@@ -118,7 +118,7 @@ class ContactService
             //Бронирование оплачено  => Рассылка
             // scr::p($phoneUser);
             $this->sendSMS($phoneUser,
-                Lang::t('Подтверждено') . '.' .
+                Lang::t('Оплачено') . '.' .
                 Lang::t('Бронь'). '#' . BookingHelper::number($booking) . '. ' .
                 Lang::t('ПИН'). '#' . $booking->getPinCode() . '. ' .
                 Lang::t('Спасибо, что Вы с нами'));
@@ -147,6 +147,20 @@ class ContactService
             if ($noticeAdmin->bookingCancelPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelPayAdmin');
         }
+        if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION) {
+            //Бронирование отменено  => Рассылка
+            // $this->sendSMS($phoneUser, Lang::t('Бронирование ') . $booking->getName() . ' ' . Lang::t('отменено'));
+            $this->sendSMS($phoneUser,
+                Lang::t('Подтверждено') . '.' .
+                Lang::t('Бронь'). '#' . BookingHelper::number($booking) . '. ' .
+                Lang::t('ПИН'). '#' . $booking->getPinCode() . '. ' .
+                Lang::t('Спасибо, что Вы с нами'));
+            $this->mailerBooking($emailUser, $booking, 'noticeBookingConfirmationUser');
+            if ($noticeAdmin->bookingConfirmation->phone)
+                $this->sendSMS($phoneAdmin, 'Подтверждено ' . $booking->getName() . ' (' . $booking->getAmount() . ')');
+            if ($noticeAdmin->bookingConfirmation->email)
+                $this->mailerBooking($emailAdmin, $booking, 'noticeBookingConfirmationAdmin');
+        }
     }
 
 /// УВЕДОМЛЕНИЕ С КОДОМ ДЛЯ ПОДТВЕРЖДЕНИЯ БРОНИРОВАНИЯ
@@ -166,9 +180,8 @@ class ContactService
 
     private function sendSMS($phone, $message)
     {
-        //TODO Confirmation
-        if (isset(\Yii::$app->params['confirmation']) and \Yii::$app->params['confirmation']) return;
-        if (isset(\Yii::$app->params['NotSend']) and \Yii::$app->params['NotSend']) return;
+        //TODO сделать отправку СМС по платному аккаунту.
+        if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS']) return;
         sms::send($phone, $message);
     }
 
@@ -177,7 +190,7 @@ class ContactService
         $message = $this->mailer->compose($template, ['booking' => $booking])
             ->setTo((string)$_email)//$email
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])
-            ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking->getStatus()));
+            ->setSubject($booking->getName() . ' ' . BookingHelper::caption($booking));
         if ($attach_pdf) {
             $file = $this->pdf->pdfFile($booking, true);
             $message = $message->attach($file);

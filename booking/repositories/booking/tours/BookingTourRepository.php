@@ -40,11 +40,15 @@ class BookingTourRepository
     public function getActiveByTour($tours_id, $only_pay = false): array
     {
         if ($only_pay) {
-            $status = ['status' => BookingHelper::BOOKING_STATUS_PAY];
+            $status = ['IN', 'status', [
+                BookingHelper::BOOKING_STATUS_PAY,
+                BookingHelper::BOOKING_STATUS_CONFIRMATION,
+            ]];
         } else {
             $status = ['IN', 'status', [
                 BookingHelper::BOOKING_STATUS_NEW,
-                BookingHelper::BOOKING_STATUS_PAY
+                BookingHelper::BOOKING_STATUS_PAY,
+                BookingHelper::BOOKING_STATUS_CONFIRMATION,
             ]];
         }
 

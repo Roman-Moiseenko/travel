@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <?= BookingHelper::status($booking->getStatus()) ?>
+                                <?= BookingHelper::status($booking) ?>
                             </div>
                         </div>
                     </div>

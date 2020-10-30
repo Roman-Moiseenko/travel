@@ -31,6 +31,8 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $payment_at
+ * @property integer $payment_level
  * @property Legal[] $legals
  * @property Personal $personal
  * @property Notice $notice
@@ -42,6 +44,11 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    const PAYMENT_FREE = 0;
+    const PAYMENT_BASIC = 1;
+    const PAYMENT_COMFORT = 2;
+    const PAYMENT_FULL = 3;
 
 
     public static function create(string $username, string $email, string $password): self

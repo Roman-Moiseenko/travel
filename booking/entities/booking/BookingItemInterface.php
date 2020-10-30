@@ -27,15 +27,21 @@ interface BookingItemInterface
     public function getAmount(): int; //Базовая сумма
     public function getAmountDiscount(): float; //С учетом скидок
     public function getMerchant(): float;
-    public function getAmountPayAdmin(): float;
-    public function getPaymentToProvider(): float;
-
-
-    public function getConfirmation(): string;
+    //TODO удалить, заменив вывод в ... admin->...->booking
+    public function getAmountPayAdmin(): float; //Удалить
+    public function getPaymentToProvider(): float; //Выплата провайдеру
+    public function getCheckBooking(): int;
+    public function getConfirmationCode(): string;
     public function getPinCode(): int;
+
     /** set */
     public function setStatus(int $status);
     public function setPaymentId(string $payment_id);
+
+    /** is.. */
+    public function isPay(): bool;
+    public function isConfirmation(): bool;
+    public function isCancel(): bool;
 
 
 }
