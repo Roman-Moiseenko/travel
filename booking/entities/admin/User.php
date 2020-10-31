@@ -66,6 +66,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
+    public function setPayment($payment_level, $payment_at = null)
+    {
+        if ($payment_level == self::PAYMENT_FREE || $payment_level == self::PAYMENT_BASIC) $this->notice->notPhone();
+
+        $this->payment_at = $payment_at;
+        $this->payment_level = $payment_level;
+    }
 
     public function edit(string $username, string $email): void
     {
@@ -111,7 +118,6 @@ class User extends ActiveRecord implements IdentityInterface
         }
         throw new \DomainException('Не найдена скидка');
     }
-
 
     public function addLegal(Legal $legal)
     {
@@ -162,6 +168,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if ($this->status === self::STATUS_LOCK) return true;
         return false;
+    }
+
+    public function isSMS(): bool
+    {
+        if ($this->payment_level == self::PAYMENT_FREE || $this->payment_level == self::PAYMENT_BASIC) return false;
+        if ($this->payment_level == self::PAYMENT_FULL) return true;
+        //TODO проверка кол-ва оплаченных СМС для PAYMENT_COMFORT
     }
 
     public function requestPasswordReset(): void
@@ -410,6 +423,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getDiscounts(): ActiveQuery
     {
         return $this->hasMany(Discount::class, ['user_id' => 'id']);
+    }
+
+    public function sendSMS($phone, $message)
+    {
+        //TODO Сохранить в таблице отправленных СМС новую.
     }
     /** <========== getXXX */
 }

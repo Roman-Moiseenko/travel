@@ -27,7 +27,8 @@ class Notice extends ActiveRecord
     public $messageNew;
     /** @var NoticeItem */
     public $bookingConfirmation;
-
+    public $bookingPayClient;
+    public $bookingConfirmationClient;
 
     public static function create(): self
     {
@@ -39,22 +40,11 @@ class Notice extends ActiveRecord
         $notice->bookingCancelPay = new NoticeItem();
         $notice->bookingConfirmation = new NoticeItem();
         $notice->messageNew = new NoticeItem();
-        return $notice;
-    }
 
-    public function edit(NoticeItem $review, NoticeItem $bookingNew,
-                         NoticeItem $bookingPay, NoticeItem $bookingCancel,
-                         NoticeItem $bookingCancelPay, NoticeItem $messageNew,
-                         NoticeItem $bookingConfirmation
-)
-    {
-        $this->review = $review;
-        $this->bookingNew = $bookingNew;
-        $this->bookingPay = $bookingPay;
-        $this->bookingCancel = $bookingCancel;
-        $this->bookingCancelPay = $bookingCancelPay;
-        $this->bookingConfirmation = $bookingConfirmation;
-        $this->messageNew = $messageNew;
+        $notice->bookingPayClient = new NoticeItem();
+        $notice->bookingConfirmationClient = new NoticeItem();
+
+        return $notice;
     }
 
     public function afterFind(): void
@@ -120,5 +110,15 @@ class Notice extends ActiveRecord
     public static function tableName()
     {
         return '{{%admin_user_notice}}';
+    }
+    public function notPhone()
+    {
+        $this->review->phone = false;
+        $this->bookingNew->phone = false;
+        $this->bookingPay->phone = false;
+        $this->bookingCancel->phone = false;
+        $this->bookingCancelPay->phone = false;
+        $this->bookingConfirmation->phone = false;
+        $this->messageNew->phone = false;
     }
 }

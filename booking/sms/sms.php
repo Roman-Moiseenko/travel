@@ -14,15 +14,19 @@ class sms
 
     }
 
-    public static function send($phone, $message)
+    public static function send($phone, $message): bool
     {
         $sms = new SMSRU(\Yii::$app->params['SMS_API']);
         $data = new stdClass();
         $data->to = $phone;
         $data->text = $message;
         $sms = $sms->send_one($data);
-        if ($sms->status != "OK")
-            throw new \DomainException('Ошибка отправки СМС. ' . $sms->status_text . ' (' . $sms->status_code . ')');
+        if ($sms->status == 'OK') {
+            return true;
+        } else {
+            \Yii::error('Ошибка отправки СМС. ' . $sms->status_text . ' (' . $sms->status_code . ')');
+            return false;
+        }
     }
 
 
@@ -33,7 +37,8 @@ class sms
         if ($request->status == "OK") { // Запрос выполнен успешно
             return $request->balance;
         } else {
-            throw new \DomainException('Ошибка отправки СМС. ' . $request->status_text . ' (' . $request->status_code . ')');
+            \Yii::error('Ошибка отправки СМС. ' . $sms->status_text . ' (' . $sms->status_code . ')');
+            return false;
         }
     }
 }

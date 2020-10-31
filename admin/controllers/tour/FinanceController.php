@@ -7,6 +7,7 @@ namespace admin\controllers\tour;
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\TourFinanceForm;
 use booking\helpers\CalendarHelper;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
@@ -74,6 +75,7 @@ class FinanceController extends Controller
         $form = new TourFinanceForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
+                //scr::p([$form->check_booking, \Yii::$app->request->post()]);
                 $this->service->setFinance($tour->id, $form);
                 return $this->redirect(['/tour/finance', 'id' => $tour->id]);
             } catch (\DomainException $e) {

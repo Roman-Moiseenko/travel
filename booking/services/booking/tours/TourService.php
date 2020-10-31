@@ -16,6 +16,7 @@ use booking\forms\booking\tours\TourCommonForm;
 use booking\forms\booking\tours\TourExtraForm;
 use booking\forms\booking\tours\TourFinanceForm;
 use booking\forms\booking\tours\TourParamsForm;
+use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\ExtraRepository;
@@ -236,8 +237,10 @@ class TourService
                 $form->baseCost->preference
             )
         );
-        $tour->setCheckBooking($form->check_booking);
-        $tour->setPayBank($form->pay_bank);
+        //По умолчанию ч/з подтверждение
+        $tour->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
+        //По умолчанию комиссия на Провайдере
+        $tour->setPayBank($form->pay_bank ?? true);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tour);
     }

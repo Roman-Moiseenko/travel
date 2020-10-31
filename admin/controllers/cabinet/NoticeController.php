@@ -43,6 +43,7 @@ class NoticeController extends Controller
 
         return $this->render('notice', [
             'notice' => $user->notice,
+            'user' => $user,
         ]);
     }
 
