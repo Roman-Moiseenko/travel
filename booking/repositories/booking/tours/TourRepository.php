@@ -218,8 +218,10 @@ class TourRepository
 
     public function findBySlug($slug)
     {
-        //TODO Увеличиваем поле views (просмотры) на 1
-        return Tour::find()->andWhere(['slug' => $slug])->one();
+        $tour = Tour::find()->andWhere(['slug' => $slug])->one();
+        $tour->upViews();
+        $this->save($tour);
+        return $tour;
     }
 
     public function find($id):? Tour

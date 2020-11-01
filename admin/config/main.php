@@ -73,6 +73,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
+                'reset' => '/auth/reset/request',
                 'tours' => 'tours/index',
                 'stays' => 'stays/index',
                 'cars' => 'cars/index',

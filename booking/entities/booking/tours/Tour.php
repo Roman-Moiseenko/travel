@@ -21,6 +21,7 @@ use yii\web\UploadedFile;
 /**
  * Class Tours
  * @package booking\entities\booking\tours
+
  * @property integer $id
  * @property integer $user_id
  * @property string $name
@@ -35,14 +36,20 @@ use yii\web\UploadedFile;
  * @property integer type_id
  * @property float $rating
  * @property integer $cancellation
- * @property BookingAddress $address
  * @property bool $pay_bank
+ * @property integer $views
+
+ * ====== Составные поля ===================================
  * @property Cost $baseCost
- * @property Photo $mainPhoto
- * @property Type $type
+ * @property BookingAddress $address
  * @property TourParams $params
- * Оплата через портал или  провайдера
+
+ * ====== Оплата через портал или  провайдера ==============
  * @property integer $check_booking
+
+ * ====== GET-Ы ============================================
+ * @property Type $type
+ * @property Photo $mainPhoto
  * @property ExtraAssignment[] $extraAssignments
  * @property ReviewTour[] $reviews
  * @property Type[] $types
@@ -169,6 +176,11 @@ class Tour extends ActiveRecord
     public function isPrivate(): bool
     {
         return $this->params->private == true;
+    }
+
+    public function upViews(): void
+    {
+        $this->views ++;
     }
 
     public function behaviors()
