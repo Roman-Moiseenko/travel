@@ -38,7 +38,7 @@ $this->registerJs($script)
     <?php if ($rating >0): ?>
     <?= Lang::t('Рейтинг по отзывам') ?>: <span class="badge badge-success" style="font-size: 16px"><?= number_format($rating, 2, '.', ' ') ?></span>
     <?php else: ?>
-        <span style="font-size: 14px">Отзывов пока нет</span>
+        <span style="font-size: 14px"><?= Lang::t('Отзывов пока нет') ?></span>
     <?php endif; ?>
 </div>
 

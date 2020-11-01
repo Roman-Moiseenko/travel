@@ -4,6 +4,7 @@ use booking\entities\admin\Contact;
 use booking\entities\admin\Legal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\SlugHelper;
 use booking\helpers\ToursHelper;
 use frontend\assets\MapAsset;
 use frontend\widgets\legal\BookingObjectWidget;
@@ -47,7 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="params-item-map">
             <div class="row pt-2 pb-4">
                 <div class="col">
-                    <?= $legal->address->address; ?>,&#160;<?= $legal->office; ?>
+                    <span class="col-8" id="address"></span><?= SlugHelper::slug($legal->office, [
+                        'separator' => ' ',
+                        'lowercase' => false,
+                    ]) ?>
                 </div>
             </div>
             <div class="row">
