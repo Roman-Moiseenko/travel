@@ -29,6 +29,9 @@ use yii\helpers\Url;
                 <i class="fa fa-heart"></i>
             </button>
         </div>
+        <?php if ($tour->isNew()):?>
+        <div class="new-object-booking"><span class="new-text">new</span></div>
+        <?php endif; ?>
     </div>
     <div class="card-body">
         <h4 class="card-title">

@@ -3,11 +3,13 @@
     src: local('Comfortaa'),
     url('../fonts/Comfortaa/Comfortaa-Regular.ttf');
 }
+
 @font-face {
     font-family: 'Forum';
     src: local('Forum'),
     url('../fonts/Forum/Forum-Regular.ttf');
 }
+
 @font-face {
     font-family: 'Didact Gothic';
     src: local('Didact Gothic'),
@@ -33,31 +35,38 @@ body {
     --main-dark2-color: #226b8a;
     --seach-menu-color: #f8e173;
 }
+
 /* Override the bootstrap defaults */
 h1 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 33px;
 }
+
 h2 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 27px;
 }
+
 h3 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 21px;
 }
+
 h4 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 15px;
 }
+
 h5 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 12px;
 }
+
 h6 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 10.2px;
 }
+
 /*f7e59a*/
 .wrap {
     min-height: 100%;
@@ -314,11 +323,14 @@ a.desc:after {
 
 @media screen and (max-width: 600px) {
     .big-red-paid-stamp {
-        right: 20px; !important;
+        right: 20px;
+    !important;
         top: -10px;
     }
+
     .big-grey-paid-stamp {
-        right: 20px; !important;
+        right: 20px;
+    !important;
         top: -10px;
     }
 }
@@ -486,8 +498,9 @@ div.required label:after {
       -o-transform: rotate(-45deg);
       transform: rotate(-45deg);*/
 }
+
 .img-responsive {
-   /* display: block;*/
+    /* display: block;*/
     max-width: 100%;
     height: auto;
 }
@@ -500,7 +513,8 @@ div.required label:after {
     margin: 0 -7px;
     box-sizing: border-box;
 }
-.sort-bar>ul {
+
+.sort-bar > ul {
     display: flex;
     flex-wrap: nowrap;
 
@@ -512,14 +526,14 @@ div.required label:after {
     width: 100%;
 }
 
-.sort-bar>ul>li {
+.sort-bar > ul > li {
     border: 1px solid var(--main-nav-color);
     margin-bottom: -1px;
     flex-grow: 1;
     color: var(--main-dark2-color);
 }
 
-.sort-bar>ul>li>a {
+.sort-bar > ul > li > a {
 
     display: block;
     text-decoration: none;
@@ -527,23 +541,49 @@ div.required label:after {
     font-weight: 400;
     padding: 2px 8px;
 }
-.sort-bar>ul>li>a:hover {
+
+.sort-bar > ul > li > a:hover {
     color: var(--main-dark2-color);
     background-color: #ddfaff;
 }
-.sort-bar>ul>li.select  {
+
+.sort-bar > ul > li.select {
     background-color: #208a2b !important;
     color: white !important;
     border: 0;
 }
-.sort-bar>ul>li.select>a  {
+
+.sort-bar > ul > li.select > a {
 
     color: white !important;
 
 }
 
-.sort-bar >ul>li.select>a:hover  {
+.sort-bar > ul > li.select > a:hover {
     background-color: #208a2b !important;
     color: white !important;
     border: 0;
+}
+
+.new-object-booking {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    border: 22px solid transparent;
+    border-left: 22px solid #00a500;
+    border-top: 22px solid #00a500;
+}
+.new-object-booking>.new-text {
+    position: absolute;
+    top: -18px;
+    left: -22px;
+    color: white;
+    font-weight: 700;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
 }

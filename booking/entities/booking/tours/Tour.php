@@ -35,9 +35,10 @@ use yii\web\UploadedFile;
  * @property string $description_en
  * @property integer type_id
  * @property float $rating
- * @property integer $cancellation
- * @property bool $pay_bank
- * @property integer $views
+ * @property integer $cancellation Отмена бронирования - нет/за сколько дней
+ * @property bool $pay_bank Оплата Комиссии банку Провайдером
+ * @property integer $views  Кол-во просмотров
+ * @property integer $public_at Дата публикации
 
  * ====== Составные поля ===================================
  * @property Cost $baseCost
@@ -67,9 +68,14 @@ class Tour extends ActiveRecord
     const TOUR_CURRIENT = 13;
     const TOUR_EMPTY = 14;
 
+    //Кол-во дней от публикации, когда объект "новый"
+    const NEW_DAYS = 7;
+
     public $address;
     public $params;
     public $baseCost;
+
+
 
     /** base Data */
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en): self
@@ -181,6 +187,12 @@ class Tour extends ActiveRecord
     public function upViews(): void
     {
         $this->views ++;
+    }
+
+    public function isNew(): bool
+    {
+        if ($this->public_at == null) return false;
+        return (time() - $this->public_at) / (3600 *24) < self::NEW_DAYS;
     }
 
     public function behaviors()

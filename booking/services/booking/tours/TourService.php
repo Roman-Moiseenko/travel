@@ -302,7 +302,9 @@ class TourService
     public function activate(int $id)
     {
         $tour = $this->tours->get($id);
+        //Активировать можно только из Черновика, или с Модерации
         if ($tour->isDraft() || $tour->isVerify()) {
+            if ($tour->isVerify()) $tour->public_at = time(); //Фиксируем дату публикации
             $tour->setStatus(StatusHelper::STATUS_ACTIVE);
             $this->tours->save($tour);
         } else {

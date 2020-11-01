@@ -20,12 +20,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="form-group">
+<div class="form-group d-flex">
+    <div>
     <?= StatusActionWidget::widget([
             'object_status' => $tour->status,
         'object_id' => $tour->id,
         'object_type' => BookingHelper::BOOKING_TYPE_TOUR,
     ]); ?>
+    </div>
+    <div class="ml-auto">
+    <?= !empty($tour->public_at) ? ' Прошел модерацию <i class="far fa-calendar-alt"></i> ' . date('d-m-y', $tour->public_at) : ''?>
+    </div>
 </div>
 
 <div class="tours-view">

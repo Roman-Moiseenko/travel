@@ -50,13 +50,13 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
                 <div class="card-header with-border">Оплата</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <?= $form->field($model, 'legal_id')->dropDownList(AdminUserHelper::listLegals(), ['prompt' => ''])->label('Организация') ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <?= $form->field($model, 'cancellation')
-                                ->textInput(['maxlength' => true])->label('Отмена бронирования')
-                                ->hint('Оставьте пустым, если отмена не предусмотрена, 0 - если в любой день или укажите кол-во дней, за сколько можно отменить бронирование.') ?>
+                                ->textInput(['maxlength' => true])->label('Отмена бронирования *')
+                                ->hint('Оставьте пустым, если отмена не предусмотрена, 0 - если в любой день или укажите кол-во дней, за сколько можно отменить бронирование.<br>* при оплате через сайт') ?>
                         </div>
                     </div>
                     <div class="row">
