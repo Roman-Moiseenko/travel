@@ -83,6 +83,17 @@ class Notice extends ActiveRecord
             $this->bookingConfirmation = new NoticeItem();
         }
 
+        if (isset($notice['bookingPayClient'])) {
+            $this->bookingPayClient = new NoticeItem($notice['bookingPayClient']['email'], $notice['bookingPayClient']['phone']);
+        } else {
+            $this->bookingPayClient = new NoticeItem();
+        }
+        if (isset($notice['bookingConfirmationClient'])) {
+            $this->bookingConfirmationClient = new NoticeItem($notice['bookingConfirmationClient']['email'], $notice['bookingConfirmationClient']['phone']);
+        } else {
+            $this->bookingConfirmationClient = new NoticeItem();
+        }
+
         if (isset($notice['messageNew'])) {
             $this->messageNew = new NoticeItem($notice['messageNew']['email'], $notice['messageNew']['phone']);
         } else {
@@ -101,6 +112,8 @@ class Notice extends ActiveRecord
             'bookingCancel' => $this->bookingCancel,
             'bookingCancelPay' => $this->bookingCancelPay,
             'bookingConfirmation' => $this->bookingConfirmation,
+            'bookingPayClient' => $this->bookingPayClient,
+            'bookingConfirmationClient' => $this->bookingConfirmationClient,
             'messageNew' => $this->messageNew
         ]));
 

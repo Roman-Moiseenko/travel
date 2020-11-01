@@ -65,7 +65,7 @@ class ContactService
                 $legal = $booking->getLegal();
                 $noticeAdmin = $admin->notice;
                 if ($noticeAdmin->messageNew->phone)
-                    $this->sendSMS($legal->noticePhone, 'Новое сообщение');
+                    $this->sendSMS($legal->noticePhone, 'Новое сообщение', $admin);
                 if ($noticeAdmin->messageNew->email)
                     $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
             }
@@ -75,7 +75,7 @@ class ContactService
             $admin = $dialog->admin;
             $noticeAdmin = $admin->notice;
             if ($noticeAdmin->messageNew->phone)
-                $this->sendSMS($admin->personal->phone, 'Новое сообщение');
+                $this->sendSMS($admin->personal->phone, 'Новое сообщение', $admin);
             if ($noticeAdmin->messageNew->email)
                 $this->mailerMessage($admin->email, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
         }
@@ -223,7 +223,7 @@ class ContactService
     public function noticeNewUser($user)
     {
         if ($user instanceof User) {
-            $subject = 'Новый Провйдер';
+            $subject = 'Новый Провайдер';
         } else {
             $subject = 'Новый Клиент';
         }
@@ -233,7 +233,7 @@ class ContactService
             ->setSubject($subject)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \RuntimeException('Ошибка отправки');
         }
     }
 }

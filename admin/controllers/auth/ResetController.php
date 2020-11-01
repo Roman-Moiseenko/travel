@@ -1,9 +1,6 @@
 <?php
 
-
 namespace admin\controllers\auth;
-
-
 
 use booking\forms\admin\PasswordResetRequestForm;
 use booking\forms\admin\ResendVerificationEmailForm;
@@ -15,7 +12,7 @@ use yii\web\Controller;
 
 class ResetController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'main-login';
     /**
      * @var PasswordResetService
      */

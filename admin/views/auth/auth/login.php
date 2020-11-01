@@ -53,7 +53,7 @@ $fieldOptions2 = [
 
         <?php ActiveForm::end(); ?>
         
-        <a href="#">Забыли пароль?</a><br>
+        <a href="<?= Url::to(['/auth/reset/request'])?>">Забыли пароль?</a><br>
         <a href="<?= Url::to(['/signup'])?>" class="text-center">Регистрация</a>
 
     </div>

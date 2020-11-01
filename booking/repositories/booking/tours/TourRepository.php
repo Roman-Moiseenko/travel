@@ -218,6 +218,7 @@ class TourRepository
 
     public function findBySlug($slug)
     {
+        //TODO Увеличиваем поле views (просмотры) на 1
         return Tour::find()->andWhere(['slug' => $slug])->one();
     }
 
