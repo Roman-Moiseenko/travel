@@ -95,23 +95,26 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
 div.required label.control-label:after {
     content: " *";
     color: red;
 }
+
 div.required label:after {
     content: " *";
     color: red;
 }
+
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;
     border: none;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .nav li > form > button.logout {
-        display:block;
+        display: block;
         text-align: left;
         width: 100%;
         padding: 10px 15px;
@@ -127,7 +130,7 @@ div.required label:after {
     outline: none;
 }
 
-.label-not-bold > table >tbody > tr > td >div >label {
+.label-not-bold > table > tbody > tr > td > div > label {
     font-weight: 400 !important;
 }
 
@@ -135,14 +138,17 @@ div.required label:after {
 .rating .fa-stack {
     font-size: 8px;
 }
+
 .rating .fa-star-o {
     color: #999;
     font-size: 15px;
 }
+
 .rating .fa-star {
     color: #FC0;
     font-size: 15px;
 }
+
 .rating .fa-star + .fa-star-o {
     color: #E69500;
 }
@@ -151,6 +157,7 @@ div.required label:after {
     color: #FC0;
     font-size: 15px;
 }
+
 .rating .fa-star-half-alt {
     color: #FC0;
     font-size: 15px;
@@ -190,11 +197,13 @@ div.required label:after {
 table.table-adaptive {
 
 }
-@media screen and (min-width: 600px){
+
+@media screen and (min-width: 600px) {
     .adaptive-width-80 {
         width: 80% !important;
     }
 }
+
 @media screen and (max-width: 600px) {
     table.table-adaptive {
         border: 0;
@@ -234,4 +243,47 @@ table.table-adaptive {
     table.table-adaptive td:last-child {
         border-bottom: 0;
     }
+}
+
+.form_radio_group {
+    display: inline-block;
+    overflow: hidden;
+}
+.form_radio_group-item {
+    display: inline-block;
+    float: left;
+    background-color: white;
+}
+.form_radio_group input[type=radio] {
+    display: none;
+}
+.form_radio_group label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+    border: 1px solid #999;
+    border-right: none;
+    user-select: none;
+    margin: 0 !important;
+}
+.form_radio_group .form_radio_group-item:first-child label {
+    border-radius: 6px 0 0 6px;
+}
+.form_radio_group .form_radio_group-item:last-child label {
+    border-radius: 0 6px 6px 0;
+    border-right: 1px solid #999;
+}
+/* Checked */
+.form_radio_group input[type=radio]:checked + label {
+    background: #8e8e8e;
+}
+/* Hover */
+.form_radio_group label:hover {
+    color: #666;
+}
+/* Disabled */
+.form_radio_group input[type=radio]:disabled + label {
+    background: #efefef;
+    color: #666;
 }

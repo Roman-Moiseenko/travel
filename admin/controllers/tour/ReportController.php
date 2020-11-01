@@ -5,6 +5,8 @@ namespace admin\controllers\tour;
 
 
 use booking\entities\booking\tours\Tour;
+use booking\forms\admin\ChartForm;
+use booking\helpers\scr;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -12,7 +14,7 @@ use yii\web\NotFoundHttpException;
 
 class ReportController extends Controller
 {
-    public  $layout = 'main-tours';
+    public $layout = 'main-tours';
     /**
      * @var TourService
      */
@@ -41,7 +43,9 @@ class ReportController extends Controller
 
     public function actionIndex($id)
     {
+        $form = new ChartForm();
         $tour = $this->findModel($id);
+        $form->load(\Yii::$app->request->post());
 
         //TODO Определяем тип графика
         // и входные параметры GET
@@ -49,14 +53,12 @@ class ReportController extends Controller
         //TODO Получаем данные в виде массива
 
         //TODO Формируем Массив параметров
-
-        //TODO передаем в виджет
         $data = [
-            'labels' => $this->getLabels(),
+            'labels' => $this->getLabels($form),
             'datasets' => [
                 [
                     'data' => [100, 98, 110, 125, 201, 300, 352, 482, 280, 260, 150, 95],
-                    'label' =>  'Оплачено',
+                    'label' => 'Оплачено',
                     'fill' => false,
                     'lineTension' => 0.1,
                     'backgroundColor' => "rgba(75,192,192,0.4)",
@@ -68,7 +70,7 @@ class ReportController extends Controller
                     'pointBorderColor' => "rgba(75,192,192,1)",
                     'pointBackgroundColor' => "#fff",
                     'pointBorderWidth' => 1,
-                    'pointHoverRadius' => 20,
+                    'pointHoverRadius' => 15,
                     'pointHoverBackgroundColor' => "rgba(75,192,192,1)",
                     'pointHoverBorderColor' => "rgba(220,220,220,1)",
                     'pointHoverBorderWidth' => 2,
@@ -78,7 +80,7 @@ class ReportController extends Controller
                 ],
                 [
                     'data' => [120, 148, 170, 225, 221, 309, 389, 501, 301, 305, 200, 250],
-                    'label' =>  'Забронировано',
+                    'label' => 'Забронировано',
                     'fill' => false,
                     'lineTension' => 0.1,
                     'backgroundColor' => "red",
@@ -90,7 +92,7 @@ class ReportController extends Controller
                     'pointBorderColor' => "red",
                     'pointBackgroundColor' => "#fff",
                     'pointBorderWidth' => 1,
-                    'pointHoverRadius' => 20,
+                    'pointHoverRadius' => 15,
                     'pointHoverBackgroundColor' => "red",
                     'pointHoverBorderColor' => "rgba(220,220,220,1)",
                     'pointHoverBorderWidth' => 2,
@@ -100,9 +102,12 @@ class ReportController extends Controller
                 ]
             ]
         ];
+
+
         return $this->render('index', [
             'tour' => $tour,
             'dataForChart' => $data,
+            'model' => $form,
         ]);
     }
 
@@ -118,19 +123,20 @@ class ReportController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    private function getLabels($month = null, $year = null): array
+    private function getLabels(ChartForm $form): array
     {
+        //TODO Ошибка!!!!!!!
         $result = [];
-        if ($month == null) return ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-        if ($month == 12) {
+        if ($form->month == 0) return ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        if ($form->month == 12) {
             $end_day = 31;
         } else {
-            if ($year == null) $year = (int)date('Y', time());
-            $end_day = (int)date('d', (strtotime('01-' . $month . '-' . $year) - 3600 * 24));
+            $end_day = (int)date('d', (strtotime('01-' . ($form->month + 1) . '-' . $form->year)));
         }
         for ($i = 1; $i <= $end_day; $i++) {
             $result[] = $i;
         }
+        //scr::p([$end_day, $result]);
         return $result;
     }
 
