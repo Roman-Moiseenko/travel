@@ -76,15 +76,10 @@ class TourRepository
         }
 
         /******  Поиск по Типу ***/
-        //var_dump($form->private); exit();
-        //scr::v($form->private);
         if ($form->private !== "" && $form->private !== null) {
             $query->andWhere(['t.params_private' => $form->private]);
         }
         $query->groupBy('t.id');
-        //scr::p($form);
-
-        //scr::p([$form, $this->getProvider($query)]);
         return $this->getProvider($query);
         /*
         $pagination = new Pagination([
@@ -191,7 +186,7 @@ class TourRepository
                     'defaultOrder' => ['id' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['t.id' => SORT_DESC], 'desc' => ['t.id' => SORT_ASC],
+                            'asc' => ['t.public_at' => SORT_DESC], 'desc' => ['t.public_at' => SORT_ASC],
                         ],
                         'name' => [
                             'asc' => ['t.name' => SORT_ASC], 'desc' => ['t.name' => SORT_DESC],

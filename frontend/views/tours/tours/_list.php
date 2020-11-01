@@ -39,6 +39,7 @@ $values = [
 </div>
 
 <div class="row row-cols-1 row-cols-md-4">
+    <?php //TODO Показать из списка рекомендуемых, не более 4 (Виджет). Проплаченные Провайдерами ?>
     <?php foreach ($dataProvider->getModels() as $tour): ?>
         <?= $this->render('_tour', [
             'tour' => $tour
