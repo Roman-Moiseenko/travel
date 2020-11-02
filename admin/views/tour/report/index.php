@@ -31,10 +31,10 @@ for ($i = $begin_year; $i <= $end_year; $i++) {
     <?php $form = ActiveForm::begin([
     ]); ?>
     <div class="row">
-        <div class="col-1">
+        <div class="col-sm-1">
             <?= $form->field($model, 'year')->dropDownList($listYear, ['onchange' => 'submit()'])->label(false) ?>
         </div>
-        <div class="col-6">
+        <div class="col">
             <?= $form->field($model, 'month')
                 ->radioList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [
                     'class' => 'form_radio_group',
@@ -47,12 +47,14 @@ for ($i = $begin_year; $i <= $end_year; $i++) {
                 ])->label(false)
             ?>
         </div>
-
+        <div class="col-sm-2">
+            Всего просмотров: <?=$tour->views?>
+        </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <!--div class="col-sm-2">
             <?= $form->field($model, 'views')->checkbox(['onchange' => 'submit()'])->label('Просмотры')?>
-        </div>
+        </div-->
         <div class="col-sm-2">
             <?= $form->field($model, 'booking')->checkbox(['onchange' => 'submit()'])->label('Забронировано')?>
         </div>

@@ -48,7 +48,7 @@ class ReportController extends Controller
         $form->load(\Yii::$app->request->post());
         $labels = $this->getLabels($form);
         $datasets = [];
-
+/*
         if ($form->views) {
             //TODO получаем $data
             $data =[];
@@ -57,7 +57,7 @@ class ReportController extends Controller
             }
             $datasets[] =  $this->getDataset($data, 'blue', 'Просмотрено');
         }
-
+*/
         if ($form->booking) {
             //TODO получаем $data
             $data =[];
@@ -69,7 +69,7 @@ class ReportController extends Controller
         }
         if ($form->pay) {
             //TODO получаем $data
-            $data =[];
+            $data = [];
             for ($i = 0; $i < count($labels); $i++) {
                 $data[] = rand(100, 250);
             }
@@ -77,7 +77,6 @@ class ReportController extends Controller
             $datasets[] =  $this->getDataset($data, 'green', 'Приобретено');
         }
 
-        //TODO Формируем Массив параметров
         $data = [
             'labels' => $labels,
             'datasets' => $datasets

@@ -223,4 +223,5 @@ class TourRepository
     {
         return Tour::findOne($id);
     }
+
 }
