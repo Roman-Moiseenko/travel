@@ -91,7 +91,7 @@ class BookingTourRepository
                     ->andWhere(['>=', 'c.tour_at', $begin])
                     ->andWhere(['<=', 'c.tour_at', $end]);
                 if ($status) $query = $query->andWhere(['b.status' => $status]);
-                $result[] = $query->count('b.id');
+                $result[] = $query->sum('b.count_adult + b.count_child + b.count_preference') ?? 0;
             }
         } else {
             $t = date('t', strtotime('01-' . $month . '-' . $year));
@@ -104,7 +104,7 @@ class BookingTourRepository
                     ->andWhere(['>=', 'c.tour_at', $begin])
                     ->andWhere(['<=', 'c.tour_at', $end]);
                 if ($status) $query = $query->andWhere(['b.status' => $status]);
-                $result[] = $query->count('b.id');
+                $result[] = $query->sum('b.count_adult + b.count_child + b.count_preference') ?? 0;
             }
         }
         return $result;

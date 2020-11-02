@@ -52,7 +52,7 @@ class ReportController extends Controller
         $datasets = [];
 
         if ($form->confirmation) {
-            $data = $this->bookings->getforChart($tour->id, $form->month, $form->year, BookingHelper::BOOKING_CONFIRMATION);
+            $data = $this->bookings->getforChart($tour->id, $form->month, $form->year, BookingHelper::BOOKING_STATUS_CONFIRMATION);
             $datasets[] =  $this->getDataset($data, 'blue', 'Подтверждено');
         }
 
