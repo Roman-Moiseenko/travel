@@ -46,61 +46,41 @@ class ReportController extends Controller
         $form = new ChartForm();
         $tour = $this->findModel($id);
         $form->load(\Yii::$app->request->post());
+        $labels = $this->getLabels($form);
+        $datasets = [];
 
-        //TODO Определяем тип графика
-        // и входные параметры GET
+        if ($form->views) {
+            //TODO получаем $data
+            $data =[];
+            for ($i = 0; $i < count($labels); $i++) {
+                $data[] = rand(600, 900);
+            }
+            $datasets[] =  $this->getDataset($data, 'blue', 'Просмотрено');
+        }
 
-        //TODO Получаем данные в виде массива
+        if ($form->booking) {
+            //TODO получаем $data
+            $data =[];
+            for ($i = 0; $i < count($labels); $i++) {
+                $data[] = rand(260, 400);
+            }
+
+            $datasets[] =  $this->getDataset($data, 'red', 'Забронировано');
+        }
+        if ($form->pay) {
+            //TODO получаем $data
+            $data =[];
+            for ($i = 0; $i < count($labels); $i++) {
+                $data[] = rand(100, 250);
+            }
+
+            $datasets[] =  $this->getDataset($data, 'green', 'Приобретено');
+        }
 
         //TODO Формируем Массив параметров
         $data = [
-            'labels' => $this->getLabels($form),
-            'datasets' => [
-                [
-                    'data' => [100, 98, 110, 125, 201, 300, 352, 482, 280, 260, 150, 95],
-                    'label' => 'Оплачено',
-                    'fill' => false,
-                    'lineTension' => 0.1,
-                    'backgroundColor' => "rgba(75,192,192,0.4)",
-                    'borderColor' => "rgba(75,192,192,1)",
-                    'borderCapStyle' => 'butt',
-                    'borderDash' => [],
-                    'borderDashOffset' => 0.0,
-                    'borderJoinStyle' => 'miter',
-                    'pointBorderColor' => "rgba(75,192,192,1)",
-                    'pointBackgroundColor' => "#fff",
-                    'pointBorderWidth' => 1,
-                    'pointHoverRadius' => 15,
-                    'pointHoverBackgroundColor' => "rgba(75,192,192,1)",
-                    'pointHoverBorderColor' => "rgba(220,220,220,1)",
-                    'pointHoverBorderWidth' => 2,
-                    'pointRadius' => 5,
-                    'pointHitRadius' => 10,
-                    'spanGaps' => false,
-                ],
-                [
-                    'data' => [120, 148, 170, 225, 221, 309, 389, 501, 301, 305, 200, 250],
-                    'label' => 'Забронировано',
-                    'fill' => false,
-                    'lineTension' => 0.1,
-                    'backgroundColor' => "red",
-                    'borderColor' => "red",
-                    'borderCapStyle' => 'butt',
-                    'borderDash' => [],
-                    'borderDashOffset' => 0.0,
-                    'borderJoinStyle' => 'miter',
-                    'pointBorderColor' => "red",
-                    'pointBackgroundColor' => "#fff",
-                    'pointBorderWidth' => 1,
-                    'pointHoverRadius' => 15,
-                    'pointHoverBackgroundColor' => "red",
-                    'pointHoverBorderColor' => "rgba(220,220,220,1)",
-                    'pointHoverBorderWidth' => 2,
-                    'pointRadius' => 5,
-                    'pointHitRadius' => 10,
-                    'spanGaps' => false,
-                ]
-            ]
+            'labels' => $labels,
+            'datasets' => $datasets
         ];
 
 
@@ -125,19 +105,39 @@ class ReportController extends Controller
 
     private function getLabels(ChartForm $form): array
     {
-        //TODO Ошибка!!!!!!!
         $result = [];
         if ($form->month == 0) return ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-        if ($form->month == 12) {
-            $end_day = 31;
-        } else {
-            $end_day = (int)date('d', (strtotime('01-' . ($form->month + 1) . '-' . $form->year)));
-        }
+        $end_day = (int)date('t', strtotime('01-' . $form->month . '-' . $form->year));
         for ($i = 1; $i <= $end_day; $i++) {
             $result[] = $i;
         }
-        //scr::p([$end_day, $result]);
         return $result;
+    }
+
+    private function getDataset(array $data, string $color, string $label): array
+    {
+        return  [
+            'data' => $data,
+            'label' => $label,
+            'fill' => false,
+            'lineTension' => 0.1,
+            'backgroundColor' => $color,
+            'borderColor' => $color,
+            'borderCapStyle' => 'butt',
+            'borderDash' => [],
+            'borderDashOffset' => 0.0,
+            'borderJoinStyle' => 'miter',
+            'pointBorderColor' => $color,
+            'pointBackgroundColor' => "#fff",
+            'pointBorderWidth' => 1,
+            'pointHoverRadius' => 15,
+            'pointHoverBackgroundColor' => $color,
+            'pointHoverBorderColor' => "rgba(220,220,220,1)",
+            'pointHoverBorderWidth' => 2,
+            'pointRadius' => 5,
+            'pointHitRadius' => 10,
+            'spanGaps' => false,
+        ];
     }
 
 }
