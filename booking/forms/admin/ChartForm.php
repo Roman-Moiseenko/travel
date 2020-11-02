@@ -13,6 +13,7 @@ class ChartForm extends Model
     public $views;
     public $booking;
     public $pay;
+    public $confirmation;
 
     public function __construct($config = [])
     {
@@ -29,7 +30,7 @@ class ChartForm extends Model
         return [
             ['month', 'in', 'range' => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]],
             ['year', 'integer'],
-            [['views', 'booking', 'pay'], 'boolean'],
+            [['views', 'booking', 'pay', 'confirmation'], 'boolean'],
         ];
     }
 }

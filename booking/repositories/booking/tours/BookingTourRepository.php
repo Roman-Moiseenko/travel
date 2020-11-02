@@ -34,7 +34,7 @@ class BookingTourRepository
 
     public function getNotPay($day): array
     {
-        return  BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_NEW])->andWhere(['<=', 'created_at', time() - $day * 3600 * 24])->all();
+        return BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_NEW])->andWhere(['<=', 'created_at', time() - $day * 3600 * 24])->all();
     }
 
     public function getActiveByTour($tours_id, $only_pay = false): array
@@ -74,6 +74,39 @@ class BookingTourRepository
                 return -1;
             }
         });
+        return $result;
+    }
+
+    public function getforChart($tour_id, $month, $year, $status): array
+    {
+        $result = [];
+        if ($month == 0) {
+            for ($i = 1; $i <= 12; $i++) {
+                $begin = strtotime('01-' . $i . '-' . $year . ' 00:00:00');
+                $t = date('t', $begin);
+                $end = strtotime($t .'-' . $i . '-' . $year . ' 23:59:59');
+                $query = BookingTour::find()
+                    ->alias('b')
+                    ->leftJoin(CostCalendar::tableName() . ' c', 'b.calendar_id = c.id')
+                    ->andWhere(['>=', 'c.tour_at', $begin])
+                    ->andWhere(['<=', 'c.tour_at', $end]);
+                if ($status) $query = $query->andWhere(['b.status' => $status]);
+                $result[] = $query->count('b.id');
+            }
+        } else {
+            $t = date('t', strtotime('01-' . $month . '-' . $year));
+            for ($i = 1; $i <= $t; $i++) {
+                $begin = strtotime($i .'-' . $month . '-' . $year . ' 00:00:00');
+                $end = strtotime($i . '-' . $month . '-' . $year . ' 23:59:59');
+                $query = BookingTour::find()
+                    ->alias('b')
+                    ->leftJoin(CostCalendar::tableName() . ' c', 'b.calendar_id = c.id')
+                    ->andWhere(['>=', 'c.tour_at', $begin])
+                    ->andWhere(['<=', 'c.tour_at', $end]);
+                if ($status) $query = $query->andWhere(['b.status' => $status]);
+                $result[] = $query->count('b.id');
+            }
+        }
         return $result;
     }
 

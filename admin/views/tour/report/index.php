@@ -52,9 +52,9 @@ for ($i = $begin_year; $i <= $end_year; $i++) {
         </div>
     </div>
     <div class="row">
-        <!--div class="col-sm-2">
-            <?= $form->field($model, 'views')->checkbox(['onchange' => 'submit()'])->label('Просмотры')?>
-        </div-->
+        <div class="col-sm-2">
+            <?= $form->field($model, 'confirmation')->checkbox(['onchange' => 'submit()'])->label('Подтверждено')?>
+        </div>
         <div class="col-sm-2">
             <?= $form->field($model, 'booking')->checkbox(['onchange' => 'submit()'])->label('Забронировано')?>
         </div>

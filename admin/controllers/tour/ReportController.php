@@ -6,7 +6,9 @@ namespace admin\controllers\tour;
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\admin\ChartForm;
+use booking\helpers\BookingHelper;
 use booking\helpers\scr;
+use booking\repositories\booking\tours\BookingTourRepository;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -16,14 +18,14 @@ class ReportController extends Controller
 {
     public $layout = 'main-tours';
     /**
-     * @var TourService
+     * @var BookingTourRepository
      */
-    private $service;
+    private $bookings;
 
-    public function __construct($id, $module, TourService $service, $config = [])
+    public function __construct($id, $module, BookingTourRepository $bookings, $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->service = $service;
+        $this->bookings = $bookings;
     }
 
     public function behaviors()
@@ -48,32 +50,18 @@ class ReportController extends Controller
         $form->load(\Yii::$app->request->post());
         $labels = $this->getLabels($form);
         $datasets = [];
-/*
-        if ($form->views) {
-            //TODO получаем $data
-            $data =[];
-            for ($i = 0; $i < count($labels); $i++) {
-                $data[] = rand(600, 900);
-            }
-            $datasets[] =  $this->getDataset($data, 'blue', 'Просмотрено');
-        }
-*/
-        if ($form->booking) {
-            //TODO получаем $data
-            $data =[];
-            for ($i = 0; $i < count($labels); $i++) {
-                $data[] = rand(260, 400);
-            }
 
+        if ($form->confirmation) {
+            $data = $this->bookings->getforChart($tour->id, $form->month, $form->year, BookingHelper::BOOKING_CONFIRMATION);
+            $datasets[] =  $this->getDataset($data, 'blue', 'Подтверждено');
+        }
+
+        if ($form->booking) {
+            $data = $this->bookings->getforChart($tour->id, $form->month, $form->year, null);
             $datasets[] =  $this->getDataset($data, 'red', 'Забронировано');
         }
         if ($form->pay) {
-            //TODO получаем $data
-            $data = [];
-            for ($i = 0; $i < count($labels); $i++) {
-                $data[] = rand(100, 250);
-            }
-
+            $data = $this->bookings->getforChart($tour->id, $form->month, $form->year, BookingHelper::BOOKING_STATUS_PAY);
             $datasets[] =  $this->getDataset($data, 'green', 'Приобретено');
         }
 
@@ -82,14 +70,12 @@ class ReportController extends Controller
             'datasets' => $datasets
         ];
 
-
         return $this->render('index', [
             'tour' => $tour,
             'dataForChart' => $data,
             'model' => $form,
         ]);
     }
-
 
     protected function findModel($id)
     {
@@ -99,7 +85,7 @@ class ReportController extends Controller
             }
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Тур не найден ID=' . $id);
     }
 
     private function getLabels(ChartForm $form): array
