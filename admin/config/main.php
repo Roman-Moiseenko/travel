@@ -56,7 +56,7 @@ return [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error'],
                 ],
             ],
         ],
@@ -73,6 +73,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
+                'site/login' => 'auth/auth/login',
                 'reset' => '/auth/reset/request',
                 'tours' => 'tours/index',
                 'stays' => 'stays/index',

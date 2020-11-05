@@ -18,7 +18,7 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
-
+    public $layout = 'main-login';
     /**
      * @var DiscountRepository
      */
@@ -47,29 +47,10 @@ class SiteController extends Controller
                     [
                         'actions' => ['error'],
                         'allow' => true,
+                        //'roles' => ['?'],
                     ],
                     [
                         'actions' => ['index'],
-                        'allow' => true,
-                        //  'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['tours'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['discount'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['stays'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['cars'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -103,6 +84,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main';
         if (\Yii::$app->user->isGuest) {
             return $this->redirect(Url::to(['/login']));
         }

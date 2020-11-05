@@ -39,7 +39,7 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <h5><?= Lang::t('Личный кабинет') ?></h5>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Html::encode(Url::to(['/cabinet/index'])) ?>"><?= Lang::t('Кабинет') ?></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/cabinet/profile'])) ?>"><?= Lang::t('Кабинет') ?></a></li>
                     <li>
                         <a href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"><?= Lang::t('Бронирования') ?></a>
                     </li>

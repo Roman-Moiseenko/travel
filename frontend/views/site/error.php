@@ -3,11 +3,22 @@
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
+
 /* @var $exception Exception */
 
+use booking\entities\Lang;
 use yii\helpers\Html;
 
-$this->title = $name;
+
+if (isset(\Yii::$app->params['errors'][$exception->statusCode])) {
+    $custom_name = \Yii::$app->params['errors'][$exception->statusCode] . ' (' . $exception->statusCode . ')';
+} else {
+    $custom_name = $name;
+}
+
+
+$this->title = $custom_name;
+
 ?>
 <div class="site-error">
 
@@ -16,12 +27,16 @@ $this->title = $name;
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
     </div>
-
+    <span class="params-tour">
     <p>
-        The above error occurred while the Web server was processing your request.
+        <?= Lang::t('Вышеуказанная ошибка произошла, когда веб-сервер обрабатывал ваш запрос.') ?>
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        <?= Lang::t('Пожалуйста, свяжитесь с нами, если вы считаете, что это ошибка сервера. Спасибо.') ?>
+    </p>
+    </span>
+    <p>
+        <img src="http://static.koenigs.ru/images/page/about/koenigs-about-2.jpg" alt="about"/>
     </p>
 
 </div>

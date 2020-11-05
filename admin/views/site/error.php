@@ -9,32 +9,22 @@ use yii\helpers\Html;
 
 $this->title = $name;
 $this->params['breadcrumbs'] = [['label' => $this->title]];
+$custom = isset(\Yii::$app->params['errors'][$exception->statusCode]);
+$custom_name = $custom ? $exception->statusCode : Html::encode($name);
+$custom_message = $custom ? \Yii::$app->params['errors'][$exception->statusCode] : nl2br(Html::encode($message));
 ?>
 <div class="error-page">
     <div class="error-content" style="margin-left: auto;">
-        <h3><i class="fas fa-exclamation-triangle text-danger"></i> <?= Html::encode($name) ?></h3>
+        <h1 style="font-size: 72px"> <span class="badge badge-danger"><?= $custom_name ?></span></h1>
+        <h2>
+            <i class="fas fa-exclamation-triangle text-danger"></i><?= $custom_message ?>
+        </h2>
 
         <p>
-            <?= nl2br(Html::encode($message)) ?>
+            Вышеуказанная ошибка произошла, когда веб-сервер обрабатывал ваш запрос.
+            Пожалуйста, свяжитесь с нами, если вы считаете, что это ошибка сервера. Спасибо!
+            Вы можете <?= Html::a('вернуться на предыдущую страницу', Yii::$app->homeUrl); ?>.
         </p>
-
-        <p>
-            The above error occurred while the Web server was processing your request.
-            Please contact us if you think this is a server error. Thank you.
-            Meanwhile, you may <?= Html::a('return to dashboard', Yii::$app->homeUrl); ?>
-            or try using the search form.
-        </p>
-
-        <form class="search-form" style="margin-right: 190px;">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Search">
-
-                <div class="input-group-append">
-                    <button type="submit" name="submit" class="btn btn-danger"><i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 
