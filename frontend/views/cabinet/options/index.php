@@ -102,22 +102,79 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="params-item-map">
                 <div class="row">
                     <div class="col-6">
-                        <?= Lang::t('Электронная рассылка с предложениями и рекомендациями') ?>:
+                        <?= Lang::t('Получать уведомления о бронировании на почту') ?>:
                     </div>
                     <div class="col-3">
+                        <?= $form->field($model, 'notice_dialog')->checkbox()->label('') ?>
+                    </div>
+                </div>
+            </div>
 
-                            <?= $form->field($model, 'newsletter')->checkbox()->label('') ?>
-
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col">
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Рассылки') ?></div>
+            </div>
+            <div class="params-item-map">
+                <div class="row">
+                    <div class="col-6">
+                        <?= Lang::t('Получать сообщения о новых турах, экскурсиях') ?>:
+                    </div>
+                    <div class="col-3">
+                        <?= $form->field($model->user_mailing, 'new_tours')->checkbox()->label('') ?>
                     </div>
                 </div>
             </div>
             <div class="params-item-map">
                 <div class="row">
                     <div class="col-6">
-                        <?= Lang::t('Получать уведомления на почту') ?>:
+                        <?= Lang::t('Получать сообщения о новых автосредств для проката') ?>:
                     </div>
                     <div class="col-3">
-                        <?= $form->field($model, 'notice_dialog')->checkbox()->label('') ?>
+                        <?= $form->field($model->user_mailing, 'new_cars')->checkbox()->label('') ?>
+                    </div>
+                </div>
+            </div>
+            <div class="params-item-map">
+                <div class="row">
+                    <div class="col-6">
+                        <?= Lang::t('Получать сообщения о новых развлечениях') ?>:
+                    </div>
+                    <div class="col-3">
+                        <?= $form->field($model->user_mailing, 'new_funs')->checkbox()->label('') ?>
+                    </div>
+                </div>
+            </div>
+            <div class="params-item-map">
+                <div class="row">
+                    <div class="col-6">
+                        <?= Lang::t('Получать сообщения о новом жилье') ?>:
+                    </div>
+                    <div class="col-3">
+                        <?= $form->field($model->user_mailing, 'new_stays')->checkbox()->label('') ?>
+                    </div>
+                </div>
+            </div>
+            <div class="params-item-map">
+                <div class="row">
+                    <div class="col-6">
+                        <?= Lang::t('Получать сообщения о новостях в блоге') ?>:
+                    </div>
+                    <div class="col-3">
+                        <?= $form->field($model->user_mailing, 'news_blog')->checkbox()->label('') ?>
+                    </div>
+                </div>
+            </div>
+            <div class="params-item-map">
+                <div class="row">
+                    <div class="col-6">
+                        <?= Lang::t('Получать сообщения об акциях и предложениях') ?>:
+                    </div>
+                    <div class="col-3">
+                        <?= $form->field($model->user_mailing, 'new_promotions')->checkbox()->label('') ?>
                     </div>
                 </div>
             </div>

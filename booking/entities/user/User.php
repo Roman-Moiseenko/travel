@@ -30,6 +30,7 @@ use yii\web\UploadedFile;
  * @property Network[] $networks
  * @property Personal $personal
  * @property Preferences $preferences
+ * @property UserMailing $mailing
  * @property BookingTour[] bookingTours
  * @property WishlistTour[] wishlistTours
  * property string $password write-only password
@@ -52,6 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->generateAuthKey();
         $user->personal = Personal::create('', null, new UserAddress(), new FullName(), false);
         $user->preferences = Preferences::create();
+        $user->mailing = UserMailing::create();
         //$user->generateEmailVerificationToken();
         return $user;
     }
@@ -154,6 +156,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'preferences',
                     'bookingTours',
                     'wishlistTours',
+                    'mailing',
                     ],
             ],
         ];
@@ -167,23 +170,23 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /** Tours ===================> */
-
-    public function addBookingTours($amount, $calendar_id, Cost $count)
+//Не используется
+    public function addBookingTours($calendar_id, Cost $count)
     {
         $bookings = $this->bookingTours;
-        $booking = BookingTour::create($amount, $calendar_id, $count);
+        $booking = BookingTour::create($calendar_id, $count);
         $bookings[] = $booking;
         $this->bookingTours = $bookings;
     }
 
     //Не используется
-    public function editBookingTours($id, $amount, Cost $cost)
+    public function editBookingTours($id, Cost $cost)
     {
 
         $bookings = $this->bookingTours;
         foreach ($bookings as $i => &$booking) {
             if ($booking->isFor($id)) {
-                $booking->edit($amount, $cost);
+                $booking->edit($cost);
                 $this->bookingTours = $bookings;
                 return;
             }
@@ -272,6 +275,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Preferences::class, ['user_id' => 'id']);
     }
 
+    public function getMailing(): ActiveQuery
+    {
+        return $this->hasOne(UserMailing::class,  ['user_id' => 'id']);
+    }
     /** <=============== getXX*/
 
     /** Repository ===================> */
@@ -418,6 +425,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->preferences = $preferences;
     }
+
+    public function updateMailing(UserMailing $mailing)
+    {
+        $this->mailing = $mailing;
+    }
+
 
     /** <=============== Identity*/
 

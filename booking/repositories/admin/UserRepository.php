@@ -71,4 +71,10 @@ class UserRepository
         }
     }
 
+    public function getAllEmail()
+    {
+        return User::find()->select(['email'])->andWhere(['status' => User::STATUS_ACTIVE])->asArray()->column();
+    }
+
+
 }

@@ -44,8 +44,8 @@ $message->embed(Swift_Image::fromPath('http://static.travel.loc/files/images/log
     <tr>
         <td style="width: 20%"></td>
         <td style="width: 60%; text-align: center; font-size: 10px; background-color: #dbdbdb">
-            Copyright © 2020 Koenigs.ru. <?= Lang::t('Все права защищены') ?>. <br>
-        <?= Lang::t('Данное электронное сообщение было отправлено компанией') ?> <a style="text-decoration: none; color: #0071c2;" href="<?= \Yii::$app->params['frontendHostInfo']?>"><?= \Yii::$app->params['frontendHostInfo']?></a>
+            Copyright © 2020 Koenigs.ru. <?= Lang::t('Все права защищены', Lang::DEFAULT) ?>. <br>
+        <?= Lang::t('Данное электронное сообщение было отправлено компанией', Lang::DEFAULT) ?> <a style="text-decoration: none; color: #0071c2;" href="<?= \Yii::$app->params['frontendHostInfo']?>"><?= \Yii::$app->params['frontendHostInfo']?></a>
         </td>
         <td style="width: 20%"></td>
     </tr>

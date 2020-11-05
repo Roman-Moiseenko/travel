@@ -45,7 +45,7 @@ class OptionsController extends Controller
     {
         /** @var User $user */
         $user = \Yii::$app->user->identity;
-        $form = new PreferencesForm($user->preferences);
+        $form = new PreferencesForm($user->preferences, $user->mailing);
         if ($form->load(\Yii::$app->request->post())) {
             try {
                 $this->service->setPreferences($user->id, $form);

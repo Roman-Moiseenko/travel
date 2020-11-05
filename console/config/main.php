@@ -11,11 +11,14 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
+        'console\bootstrap\SetUp',
         ],
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@staticRoot' => $params['staticPath'],
+        '@static' => $params['staticHostInfo'],
     ],
     'controllerMap' => [
         'fixture' => [

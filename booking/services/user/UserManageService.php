@@ -15,6 +15,7 @@ use booking\forms\booking\tours\BookingTourForm;
 use booking\forms\user\PreferencesForm;
 use booking\forms\user\UserCreateForm;
 use booking\forms\user\UserEditForm;
+use booking\forms\user\UserMailingForm;
 use booking\helpers\scr;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
@@ -132,15 +133,25 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $preferences = $user->preferences;
+        $mailing = $user->mailing;
+
         $preferences->lang = $form->lang;
         $preferences->currency = $form->currency;
         $preferences->smocking = $form->smocking;
         $preferences->stars = $form->stars;
         $preferences->disabled = $form->disabled;
-        $preferences->newsletter = $form->newsletter;
         $preferences->notice_dialog = $form->notice_dialog;
 
+        $mailing->new_tours = $form->user_mailing->new_tours;
+        $mailing->new_cars = $form->user_mailing->new_cars;
+        $mailing->new_stays = $form->user_mailing->new_stays;
+        $mailing->new_funs = $form->user_mailing->new_funs;
+        $mailing->new_promotions = $form->user_mailing->new_promotions;
+        $mailing->news_blog = $form->user_mailing->news_blog;
+
         $user->updatePreferences($preferences);
+        $user->updateMailing($mailing);
+
         $this->users->save($user);
     }
 
@@ -204,7 +215,6 @@ class UserManageService
             $amount += $calendar->cost->preference * $form->count->preference;
 
         $user->addBookingTours(
-            $amount,
             $form->calendar_id,
             new Cost(
                 $form->count->adult,
@@ -232,7 +242,6 @@ class UserManageService
             $amount += $calendar->cost->preference * $form->count->preference;
         $user->editBookingTours(
             $booking_id,
-            $amount,
             new Cost(
                 $form->count->adult,
                 $form->count->child,

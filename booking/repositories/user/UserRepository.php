@@ -3,7 +3,10 @@
 namespace booking\repositories\user;
 
 use booking\entities\Lang;
+use booking\entities\mailing\Mailing;
 use booking\entities\user\User;
+use booking\entities\user\UserMailing;
+use booking\helpers\scr;
 
 class UserRepository
 {
@@ -72,6 +75,24 @@ class UserRepository
         if (!$user->delete()) {
             throw new \RuntimeException(Lang::t('Ошибка удаления'));
         }
+    }
+
+    public function getAllEmail($type_mailing = null)
+    {
+        $result = User::find()->alias('u')->select('u.email')->andWhere(['<>', 'u.email', '']);
+        if ($type_mailing) {
+            $field = '';
+            switch ($type_mailing) {
+                case Mailing::NEW_TOURS: $field = 'new_tours'; break;
+                case Mailing::NEW_CARS: $field = 'new_cars'; break;
+                case Mailing::NEW_STAYS: $field = 'new_stays'; break;
+                case Mailing::NEW_FUNS: $field = 'new_funs'; break;
+                case Mailing::PROMOTIONS: $field = 'new_promotions'; break;
+                case Mailing::NEWS_BLOG: $field = 'news_blog'; break;
+            }
+            $result = $result->leftJoin(UserMailing::tableName() . ' m', 'm.user_id = u.id')->andWhere(['m.'.$field => true]);
+        }
+        return $result->asArray()->column();
     }
 
 }

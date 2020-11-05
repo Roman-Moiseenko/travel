@@ -20,7 +20,7 @@ interface BookingItemInterface
     public function getCreated(): int;
     public function getName(): string;
     public function getLinks(): array;
-    public function getPhoto(string $photo): string;
+    public function getPhoto(string $photo = ''): string;
     public function getType(): string;
     public function getAdd(): string;
     public function getStatus(): int;

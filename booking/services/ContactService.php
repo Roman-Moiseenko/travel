@@ -6,10 +6,10 @@ use booking\entities\admin\User;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\Lang;
+use booking\entities\mailing\Mailing;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\services\pdf\pdfServiceController;
 use booking\sms\sms;
 use yii\mail\MailerInterface;
@@ -25,7 +25,10 @@ class ContactService
      */
     private $pdf;
 
-    public function __construct(MailerInterface $mailer, pdfServiceController $pdf)
+    public function __construct(
+        MailerInterface $mailer,
+        pdfServiceController $pdf
+    )
     {
         $this->mailer = $mailer;
         $this->pdf = $pdf;
@@ -40,7 +43,7 @@ class ContactService
         $phoneAdmin = $legal->noticePhone;
         $emailAdmin = $legal->noticeEmail;
         if ($noticeAdmin->review->phone)
-            $this->sendSMS($phoneAdmin, 'Новый отзыв ' . $review->getName());
+            $this->sendSMS($phoneAdmin, 'Новый отзыв ' . $review->getName(), $user_admin);
         if ($noticeAdmin->review->email) {
             $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
                 ->setTo($emailAdmin)
@@ -235,5 +238,21 @@ class ContactService
         if (!$send) {
             throw new \RuntimeException('Ошибка отправки');
         }
+    }
+
+    public function sendMailing(Mailing $mailing, array $emails)
+    {
+        $messages = [];
+        foreach ($emails as $email) {
+            $messages[] = $this->mailer->compose('Mailing', ['subject' => $mailing->subject, 'email' => $email])
+                ->setTo($email)
+                ->setFrom([\Yii::$app->params['supportEmail'] => 'Рассылка от koenigs.ru'])
+                ->setSubject(Mailing::nameTheme($mailing->theme));
+        }
+        $send = $this->mailer->sendMultiple($messages);
+        if (!$send) {
+            throw new \RuntimeException('Ошибка отправки');
+        }
+        return true;
     }
 }

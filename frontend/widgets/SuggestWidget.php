@@ -18,4 +18,8 @@ class SuggestWidget extends Widget
 
         ]);
     }
+    private function getTours()
+    {
+
+    }
 }
