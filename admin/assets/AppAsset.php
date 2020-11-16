@@ -12,19 +12,19 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/site_admin.css',
         'css/glyphicon.css',
-        'css/calendar.css',
+        'css/calendar_admin.css',
     ];
     public $js = [
-        'js/map.js',
-        'js/tours.js',
-        'js/calendar_tour.js',
-        'js/calendar_car.js',
-        'js/booking_car.js',
-        'js/booking_tour.js',
-        'js/notice.js',
-        'js/discount.js',
+        'js/map_admin.js',
+        'js/tours_admin.js',
+        'js/calendar_tour_admin.js',
+        'js/calendar_car_admin.js',
+        'js/booking_car_admin.js',
+        'js/booking_tour_admin.js',
+        'js/notice_admin.js',
+        'js/discount_admin.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

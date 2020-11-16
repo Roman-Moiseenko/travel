@@ -5,7 +5,6 @@
 
 use yii\helpers\Html;
 
-//admin\assets\DatepickerAsset::register($this);
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 ?>
 <?php $this->beginContent('@admin/views/layouts/template.php') ?>
