@@ -10,7 +10,7 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use yii\helpers\Html;
@@ -245,13 +245,13 @@ $tour = $booking->calendar->tour;
                     ?>
                 </span>
                     <span class="params-item">
-                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= ToursHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
+                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= TourHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
                 </span>
                     <span class="params-item">
-                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . ToursHelper::ageLimit($tour->params->agelimit) ?>
+                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . BookingHelper::ageLimit($tour->params->agelimit) ?>
                 </span>
                     <span class="params-item">
-                    <i class="fas fa-ban"></i>&#160;&#160;<?= ToursHelper::cancellation($tour->cancellation) ?>
+                    <i class="fas fa-ban"></i>&#160;&#160;<?= BookingHelper::cancellation($tour->cancellation) ?>
                 </span>
                     <span class="params-item">
                     <i class="fas fa-layer-group"></i>&#160;&#160;

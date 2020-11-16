@@ -11,7 +11,7 @@ class ContactLegalRepository
     public function get($id): Contact
     {
         if (!$result = Contact::findOne($id)) {
-            throw new \DomainException('Тип контакта на найден');
+            throw new \DomainException('Тип контакта не найден');
         }
         return $result;
     }

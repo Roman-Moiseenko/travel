@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel office\forms\ReviewTourSearch */
+/* @var $searchModel office\forms\reviews\ReviewTourSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Отзывы на Туры';

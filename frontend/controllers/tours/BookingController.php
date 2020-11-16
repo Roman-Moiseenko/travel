@@ -4,6 +4,8 @@
 namespace frontend\controllers\tours;
 
 
+use booking\entities\booking\cars\CostCalendar;
+use booking\helpers\CurrencyHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
@@ -98,5 +100,21 @@ class BookingController  extends Controller
             ]);
         }
         return $this->goHome();
+    }
+
+    public function actionGetAmount()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $calendar_id = $params['calendar_id'];
+            $count_adult = $params['count_adult'];
+            $count_child = $params['count_child'];
+            $count_preference = $params['count_preference'];
+            //TODO посчитать сумму
+            $calendar = $this->calendar->get($calendar_id);
+            $result = $count_adult * $calendar->cost->adult + $count_child * $calendar->cost->child + $count_preference * $calendar->cost->preference;
+            return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
+                ($result !== 0 ? CurrencyHelper::get($result) : ' - ') . '</span>';
+        }
     }
 }

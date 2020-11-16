@@ -150,4 +150,25 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     {
         // TODO: Implement getCheckBooking() method.
     }
+
+    public function setGive()
+    {
+        // TODO: Implement setGive() method.
+    }
+
+    /** is.. */
+    public function isPay(): bool
+    {
+        // TODO: Implement isPay() method.
+    }
+
+    public function isConfirmation(): bool
+    {
+        // TODO: Implement isConfirmation() method.
+    }
+
+    public function isCancel(): bool
+    {
+        // TODO: Implement isCancel() method.
+    }
 }

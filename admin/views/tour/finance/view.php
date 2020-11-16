@@ -3,7 +3,7 @@
 use booking\entities\admin\Legal;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = 'Цены';
                             [
                                 'attribute' => 'cancellation',
                                 'label' => 'Отмена брони',
-                                'value' => ToursHelper::cancellation($tour->cancellation),
+                                'value' => BookingHelper::cancellation($tour->cancellation),
                             ],
                             [
                                 'attribute' => 'pay_bank',

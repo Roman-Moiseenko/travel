@@ -1,6 +1,9 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
+use Codeception\PHPUnit\ResultPrinter\HTML;
+use yii\helpers\Url;
+
 
 /* @var $this yii\web\View */
 /* @var  $tour Tour */
@@ -10,6 +13,7 @@ $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Календарь';
+
 ?>
 <div class="tours-view">
     <input type="hidden" id="number-tour" value="<?=$tour->id?>">
@@ -18,7 +22,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
-                    <div id="datepicker">
+                    <div id="datepicker-tour">
                         <input type="hidden" id="datepicker_value" value="">
                     </div>
                 </div>

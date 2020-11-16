@@ -5,6 +5,7 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\tours\AddressHelper;
 use frontend\assets\MapAsset;
 use yii\helpers\Html;
 
@@ -109,12 +110,12 @@ $legal = $booking->getLegal();
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место сбора') ?>:</b>
                     </td>
-                    <td width="70%"><?= $booking->calendar->tour->params->beginAddress->address ?> <span id="address"></span></td>
+                    <td width="70%"><?= AddressHelper::short($booking->calendar->tour->params->beginAddress->address) ?> <span id="address"></span></td>
                 </tr>
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место окончания') ?>:</b>
                     </td>
-                    <td width="70%"><?= $booking->calendar->tour->params->endAddress->address ?></td>
+                    <td width="70%"><?= AddressHelper::short($booking->calendar->tour->params->endAddress->address) ?></td>
                 </tr>
                 </tbody>
             </table>

@@ -4,7 +4,7 @@ use admin\widgest\StatusActionWidget;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -22,14 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="form-group d-flex">
     <div>
-    <?= StatusActionWidget::widget([
+        <?= StatusActionWidget::widget([
             'object_status' => $tour->status,
-        'object_id' => $tour->id,
-        'object_type' => BookingHelper::BOOKING_TYPE_TOUR,
-    ]); ?>
+            'object_id' => $tour->id,
+            'object_type' => BookingHelper::BOOKING_TYPE_TOUR,
+        ]); ?>
     </div>
     <div class="ml-auto">
-    <?= !empty($tour->public_at) ? ' Прошел модерацию <i class="far fa-calendar-alt"></i> ' . date('d-m-y', $tour->public_at) : ''?>
+        <?= !empty($tour->public_at) ? ' Прошел модерацию <i class="far fa-calendar-alt"></i> ' . date('d-m-y', $tour->public_at) : ''?>
     </div>
 </div>
 
@@ -117,7 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <?= Html::a('Редактировать', Url::to(['/tour/common/update', 'id' => $tour->id]) ,['class' => 'btn btn-success']) ?>
     </div>
-    
+
 
 </div>
-

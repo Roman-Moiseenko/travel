@@ -66,9 +66,9 @@ class ExtraController extends Controller
     }
 
 
-    public function actionSetextra($tours_id, $extra_id, $set = false)
+    public function actionSetextra($tour_id, $extra_id, $set = false)
     {
-        $this->service->setExtra($tours_id, $extra_id, $set);
+        $this->service->setExtra($tour_id, $extra_id, $set);
     }
 
 

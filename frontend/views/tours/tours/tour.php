@@ -10,15 +10,17 @@ use booking\forms\booking\ReviewForm;
 
 /* @var $reviewForm ReviewForm */
 
+use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use frontend\assets\CalendarAsset;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\LegalWidget;
-use frontend\widgets\NewReviewTourWidget;
+use frontend\widgets\reviews\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
-use frontend\widgets\ReviewsToursWidget;
+use frontend\widgets\reviews\ReviewsToursWidget;
+use frontend\widgets\reviews\ReviewsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -78,7 +80,7 @@ $countReveiws = $tour->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-sm-8 params-tour text-justify">
+            <div class="col-sm-9 params-tour text-justify">
                 <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
                     'Attr.AllowedRel' => array('nofollow'),
                     'HTML.SafeObject' => true,
@@ -88,7 +90,7 @@ $countReveiws = $tour->countReviews();
                 ]) ?>
 
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
             </div>
         </div>
@@ -150,13 +152,13 @@ $countReveiws = $tour->countReviews();
                     ?>
                 </span>
                 <span class="params-item">
-                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= ToursHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
+                    <i class="fas fa-user-friends"></i>&#160;&#160;<?= TourHelper::group($tour->params->groupMin, $tour->params->groupMax) ?>
                 </span>
                 <span class="params-item">
-                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . ToursHelper::ageLimit($tour->params->agelimit) ?>
+                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . BookingHelper::ageLimit($tour->params->agelimit) ?>
                 </span>
                 <span class="params-item">
-                    <i class="fas fa-ban"></i>&#160;&#160;<?= ToursHelper::cancellation($tour->cancellation) ?>
+                    <i class="fas fa-ban"></i>&#160;&#160;<?= BookingHelper::cancellation($tour->cancellation) ?>
                 </span>
                 <span class="params-item">
                     <i class="fas fa-layer-group"></i>&#160;&#160;
@@ -308,7 +310,7 @@ $countReveiws = $tour->countReviews();
                     <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
                 </div>
                 <div id="review">
-                    <?= ReviewsToursWidget::widget(['tours' => $tour]); ?>
+                    <?= ReviewsWidget::widget(['reviews' => $tour->reviews]); ?>
                 </div>
                 <?= NewReviewTourWidget::widget(['tour_id' => $tour->id]); ?>
             </div>

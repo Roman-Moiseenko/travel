@@ -4,6 +4,7 @@
 namespace booking\forms;
 
 
+use booking\helpers\scr;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -15,15 +16,11 @@ abstract class CompositeForm extends Model
     public function load($data, $formName = null)
     {
         $success = parent::load($data, $formName);
-        $success2 = $success;
         foreach ($this->forms as $name => $form) {
-
             if (is_array($form)) {
-                $success2 = Model::loadMultiple($form, $data, $formName === null  ? null : $name);
-                $success =  $success2 && $success;
+                $success =  Model::loadMultiple($form, $data, $formName === null  ? null : $name) && $success;
             } else {
-                $success2 = $form->load($data, $formName !== '' ? null : $name);
-                $success =  $success2 && $success;
+                $success =  $form->load($data, $formName !== '' ? null : $name) && $success;
             }
         }
         return $success;
@@ -33,15 +30,12 @@ abstract class CompositeForm extends Model
     {
         $parentNames = $attributeNames !== null ? array_filter((array)$attributeNames, 'is_string') : null;
         $success = parent::validate($parentNames, $clearErrors);
-        $success2 = $success;
         foreach ($this->forms as $name => $form) {
             if (is_array($form)) {
-                $success2 = Model::validateMultiple($form);
-                $success = $success2    && $success;
+                $success = Model::validateMultiple($form) && $success;
             } else {
                 $innerNames = $attributeNames !== null ? ArrayHelper::getValue($attributeNames, $name) : null;
-                $success2 = $form->validate($innerNames ?: null, $clearErrors);
-                $success = $success2 && $success;
+                $success = $form->validate($innerNames ?: null, $clearErrors) && $success;
             }
         }
         return $success;

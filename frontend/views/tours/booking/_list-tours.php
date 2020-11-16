@@ -20,6 +20,12 @@ use booking\entities\Lang;
     </div>
 </div>
 <div class="row pb-2">
-    <div class="tickets-tours"></div>
-    <div class="errors-tours"></div>
+    <div class="col">
+        <div class="tickets-tours"></div>
+    </div>
+</div>
+<div class="row pb-2">
+    <div class="col">
+        <div class="errors-tours"></div>
+    </div>
 </div>

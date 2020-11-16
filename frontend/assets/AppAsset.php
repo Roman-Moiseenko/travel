@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'js/site.js',
 //        'js/map.js',
         'js/calendar_tour.js',
+        'js/calendar_car.js',
         'js/swiper.js',
 
     ];

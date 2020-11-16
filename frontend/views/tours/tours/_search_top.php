@@ -2,8 +2,8 @@
 
 use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
-use booking\helpers\ToursHelper;
-use booking\helpers\ToursTypeHelper;
+use booking\helpers\tours\TourHelper;
+use booking\helpers\tours\TourTypeHelper;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -34,7 +34,7 @@ use yii\helpers\Html;
             ]) ?>
         </div>
         <div class="col-sm-3">
-            <?= $form->field($model, 'type')->dropDownList(Lang::a(ToursTypeHelper::list()), ['prompt' => ''])->label(Lang::t('Категория') . ':', ['class' => 'label-search']); ?>
+            <?= $form->field($model, 'type')->dropDownList(Lang::a(TourTypeHelper::list()), ['prompt' => ''])->label(Lang::t('Категория') . ':', ['class' => 'label-search']); ?>
         </div>
         <div class="col-sm-3">
             <label class="label-search"><?= Lang::t('Цена (от и до)') ?>:</label>
@@ -50,7 +50,7 @@ use yii\helpers\Html;
         <div class="col col-sm-3">
             <label class="label-search"><?= Lang::t('Тип') ?>:</label>
             <div class="form-inline">
-            <?= $form->field($model, 'private')->dropDownList(ToursHelper::listPrivate(), ['prompt' => ''])->label(false); ?>
+            <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label(false); ?>
                 &#160;<?= Html::submitButton(Lang::t('Найти'), ['class' => 'btn btn-light']) ?>
             </div>
         </div>

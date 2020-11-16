@@ -11,11 +11,19 @@ class NoticeItemForm extends Model
 {
     public $email;
     public $phone;
-    public function __construct(NoticeItem $noticeItem, $config = [])
+    private $_formName;
+
+    public function __construct(NoticeItem $noticeItem, $formName, $config = [])
     {
         $this->email = $noticeItem->email;
         $this->phone = $noticeItem->phone;
         parent::__construct($config);
+        $this->_formName = $formName;
+    }
+
+    public function formName()
+    {
+        return $this->_formName;
     }
 
     public function rules()

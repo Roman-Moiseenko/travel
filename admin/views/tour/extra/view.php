@@ -11,7 +11,23 @@ use yii\helpers\Url;
 /* @var  $tour Tour */
 /* @var $searchModel admin\forms\tours\ExtraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$js = <<<JS
+$(document).ready(function() {
+    $('body').on('click', '.extra-check', function () {
+        //alert('t');
+        let tour_id = $(this).attr('tour-id');
+        let extra_id = $(this).attr('extra-id');
+        let value = 0;
+         if ($(this).is(':checked')) {value = 1;} else {value = 0;}
+        $.post("/tour/extra/setextra?tour_id="+tour_id+"&extra_id="+extra_id+"&set="+value,
+            {tour_id: tour_id, extra_id: extra_id, set: value},
+            function (data) {
+        });
+    });
+});
+JS;
 
+$this->registerJs($js);
 $this->title = 'Дополнительные услуги ' . $tour->name;
 $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
@@ -39,7 +55,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                                 'label' => '',
                                 'value' => function (Extra $model) use ($tour) {
                                     $checked = $tour->isExtra($model->id) ? 'checked' : '';
-                                    return '<input type="checkbox" class="extra-check" tours-id="' .
+                                    return '<input type="checkbox" class="extra-check" tour-id="' .
                                         $tour->id . '" extra-id="' . $model->id . '" ' . $checked . '>';
                                 },
                                 'format' => 'raw',

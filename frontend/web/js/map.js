@@ -7,7 +7,43 @@ function init() {
     let longitude = 'bookingaddressform-longitude';
 
 
+    if (document.getElementById("map-car-view")) {
+        let count_ = $('#count-points').data('count');
+        let x, y, t;
+        let center_
+        if (count_ !== 0) {
+            center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
+        } else {
+            center_ = [54.74639455404805, 20.537801017695948];
+        }
+        let mapCarView = new ymaps.Map(document.getElementById("map-car-view"), {
+            center: center_,
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapCarView.controls.remove('searchControl');
+        mapCarView.controls.remove('trafficControl');
+        mapCarView.controls.remove('geolocationControl');
+        //Проходим по элементам, если есть список, грузим в карту
 
+        for (let i = 0; i < count_; i++) {
+            t = $('#address-' + (i+1)).val();
+            x = $('#latitude-' + (i+1)).val();
+            y = $('#longitude-' + (i+1)).val();
+            mapCarView.geoObjects.add(new ymaps.Placemark([x, y], {
+                iconContent: i+1,
+                iconCaption: '',
+                balloonContent: t
+            }, {
+                preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                draggable: false
+            }));
+        }
+    }
 
     if (document.getElementById("map")) {
         let data_zoom = $('this').attr('data-zoom');

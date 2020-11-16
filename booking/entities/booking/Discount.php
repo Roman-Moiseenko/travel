@@ -86,11 +86,12 @@ class Discount extends ActiveRecord
             return $this->count - $amount;
         }
         $tour = BookingTour::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();
-        // TODO Заглушка Stay Car
-        $stay = 0; $car = 0;
+        // TODO Заглушка Stay, Funs
+        $stay = 0;
+        $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();
         /*
         $stay = BookingStay::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();
-        $car = BookingCar::find()->andWhere(['discount_id' => $this->id])->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_NEW, BookingHelper::BOOKING_STATUS_PAY]])->count();*/
+        */
         return $this->count - ($tour + $stay + $car);
     }
 

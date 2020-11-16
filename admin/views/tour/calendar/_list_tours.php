@@ -30,12 +30,12 @@ use booking\entities\booking\tours\CostCalendar;
     </div>
 <?php endforeach; ?>
 <?php if ($day_tours != null): ?>
-    <div class="row">
+    <!--div class="row">
         <label class="container">
             <input type="checkbox" id="data-day-copy"><span>&nbsp;Копировать на другие дни</span>
         </label>
         <i>Поставьте флажок, и выбирайте дни. После снимите флажок и выберите любой день</i>
-    </div>
+    </div-->
     <div class="row pt-3">
 
             <label class="container">

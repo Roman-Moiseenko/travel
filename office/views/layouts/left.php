@@ -52,6 +52,8 @@ use yii\helpers\Url;
                         ]],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
                         ['label' => '- Туры (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
+                        ['label' => '- Авто (категории)', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
+                        ['label' => '- Города ', 'icon' => 'city', 'url' => ['/guides/city'], 'active' => $this->context->id == 'guides/city'],
                         ['label' => '- Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/contact-legal'], 'active' => $this->context->id == 'guides/contact-legal'],
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],
                     ]],

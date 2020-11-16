@@ -1,7 +1,7 @@
 <?php
 
 use booking\forms\booking\tours\TourCommonForm;
-use booking\helpers\ToursTypeHelper;
+use booking\helpers\tours\TourTypeHelper;
 use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -72,8 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card card-secondary">
                 <div class="card-header with-border">Категории</div>
                 <div class="card-body">
-                    <?= $form->field($model->types, 'main')->dropDownList(ToursTypeHelper::list(), ['prompt' => ''])->label('Основная') ?>
-                    <?= $form->field($model->types, 'others')->checkboxList(ToursTypeHelper::list())->label('Дополнительно') ?>
+                    <?= $form->field($model->types, 'main')->dropDownList(TourTypeHelper::list(), ['prompt' => ''])->label('Основная') ?>
+                    <?= $form->field($model->types, 'others')->checkboxList(TourTypeHelper::list())->label('Дополнительно') ?>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ namespace booking\entities\booking\tours;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
-use booking\entities\booking\stays\rules\AgeLimit;
+use booking\entities\booking\AgeLimit;
 use booking\entities\booking\tours\queries\TourQueries;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -192,7 +192,7 @@ class Tour extends ActiveRecord
     public function isNew(): bool
     {
         if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 *24) < self::NEW_DAYS;
+        return (time() - $this->public_at) / (3600 *24) < BookingHelper::NEW_DAYS;
     }
 
     public function behaviors()
@@ -621,15 +621,18 @@ class Tour extends ActiveRecord
     {
         return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
+
     public function getTypes(): ActiveQuery
     {
         return $this->hasMany(Type::class, ['id' => 'type_id'])->via('typeAssignments');
     }
+
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
         return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])->andWhere([ReviewTour::tableName() .'.status' => ReviewTour::STATUS_ACTIVE]);
     }
+
     public function getMainPhoto(): ActiveQuery
     {
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
@@ -639,6 +642,7 @@ class Tour extends ActiveRecord
     {
         return $this->hasOne(Legal::class, ['id' => 'legal_id']);
     }
+
     public function getActualCalendar(): ActiveQuery
     {
         return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);

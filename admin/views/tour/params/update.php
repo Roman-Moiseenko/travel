@@ -2,7 +2,7 @@
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\TourParamsForm;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -10,21 +10,20 @@ use yii\bootstrap4\ActiveForm;
 /* @var $model TourParamsForm */
 /* @var $tour Tour */
 
-$this->title = 'Редактировать Тур' . $tour->name;
+$this->title = 'Редактировать Тур ' . $tour->name;
 $this->params['id'] = $tour->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Параметры', 'url' => ['/tour/params', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Редактировать';
 ?>
-<div class="product-create">
+<div class="tour-params">
 
     <?php $form = ActiveForm::begin([
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <div class="card card-secondary"
-    ">
+    <div class="card card-secondary">
     <div class="card-header with-border">Основные параметры</div>
     <div class="card-body">
         <div class="row">
@@ -36,7 +35,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         </div>
         <div class="row">
             <div class="col-md-3">
-                <?= $form->field($model, 'private')->dropDownList(ToursHelper::listPrivate(), ['prompt' => ''])->label('Группа') ?>
+                <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label('Группа') ?>
             </div>
 
             <div class="col-md-3">

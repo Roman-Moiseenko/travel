@@ -40,6 +40,15 @@ class StatusHelper
         if ($status == self::STATUS_VERIFY) return '<span class="badge badge-warning">' . $list[$status] . '</span>';
         if ($status == self::STATUS_ACTIVE) return '<span class="badge badge-success">' . $list[$status] . '</span>';
         if ($status == self::STATUS_DRAFT) return '<span class="badge badge-secondary">' . $list[$status] . '</span>';
+    }
 
+    public static function yes_no($check, array $options = [])
+    {
+        $yes = 'success';
+        $no = 'secondary';
+        if (isset($options['yes'])) $yes = $options['yes'];
+        if (isset($options['no'])) $no = $options['no'];
+
+        return $check ? '<span class="badge badge-' . $yes . '">Да</span>' : '<span class="badge badge-' . $no . '">Нет</span>';
     }
 }

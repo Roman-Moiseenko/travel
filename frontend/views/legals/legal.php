@@ -5,7 +5,7 @@ use booking\entities\admin\Legal;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SlugHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use frontend\assets\MapAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- ЛОГОТИП, ОПИСАНИЕ  -->
 <h1><?= $legal->getCaption() ?></h1>
 <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
-    <div class="col-md-7 params-tour">
+    <div class="col-md-8 params-tour">
         <p class="text-justify">
             <?= Yii::$app->formatter->asHtml($legal->getDescription(), [
                 'Attr.AllowedRel' => array('nofollow'),
@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </p>
     </div>
-    <div class="col-md-5">
-        <img src="<?= $legal->getThumbFileUrl('photo', 'profile'); ?>" alt="<?= Html::encode($legal->name); ?>"/>
+    <div class="col-md-4">
+        <img src="<?= $legal->getThumbFileUrl('photo', 'profile'); ?>" alt="<?= Html::encode($legal->name); ?>" class="img-responsive">
     </div>
 </div>
 
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="params-item-map">
             <div class="row pt-2 pb-4">
                 <div class="col">
-                    <span class="col-8" id="address"></span><?= SlugHelper::slug($legal->office, [
+                    <span class="col-8" id="address"></span><?=Lang::default() ? $legal->office : SlugHelper::slug($legal->office, [
                         'separator' => ' ',
                         'lowercase' => false,
                     ]) ?>

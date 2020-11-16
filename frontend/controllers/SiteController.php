@@ -63,4 +63,10 @@ class SiteController extends Controller
         return $this->redirect(['/tours']);
     }
 
+    public function actionUpdate()
+    {
+        $this->layout ='main-update';
+        return $this->render('update', []);
+    }
+
 }

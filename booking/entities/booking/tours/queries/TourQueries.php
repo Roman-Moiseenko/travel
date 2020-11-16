@@ -1,10 +1,7 @@
 <?php
 
-
 namespace booking\entities\booking\tours\queries;
 
-
-use booking\entities\booking\tours\Tour;
 use booking\helpers\StatusHelper;
 use yii\db\ActiveQuery;
 

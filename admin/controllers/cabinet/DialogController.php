@@ -4,6 +4,7 @@
 namespace admin\controllers\cabinet;
 
 use booking\entities\admin\User;
+use booking\entities\booking\cars\CostCalendar;
 use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
@@ -14,6 +15,7 @@ use booking\helpers\BookingHelper;
 use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class DialogController extends Controller
@@ -56,7 +58,7 @@ class DialogController extends Controller
     {
         $dialog = $this->dialogs->findByOptional($id);
         if ($dialog) {
-            $this->redirect(['/cabinet/dialog/conversation',  'id' => $dialog->id]);
+            $this->redirect(['/cabinet/dialog/conversation', 'id' => $dialog->id]);
         } else {
             $form = new DialogForm();
             if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
@@ -69,7 +71,7 @@ class DialogController extends Controller
                         $form,
                         \Yii::$app->user->id
                     );
-                    $this->redirect(['/cabinet/dialog/conversation',  'id' => $dialog->id]);
+                    $this->redirect(['/cabinet/dialog/conversation', 'id' => $dialog->id]);
                 } catch (\DomainException $e) {
                     \Yii::$app->session->setFlash('error', $e->getMessage());
                 }
@@ -94,7 +96,7 @@ class DialogController extends Controller
                     $form,
                     \Yii::$app->user->id
                 );
-                $this->redirect(['/cabinet/dialog/conversation',  'id' => $dialog->id]);
+                $this->redirect(['/cabinet/dialog/conversation', 'id' => $dialog->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -140,5 +142,33 @@ class DialogController extends Controller
         }
         \Yii::$app->session->setFlash('success', Lang::t('Жалоба подана. Ожидайте решение службы поддержки') . '.');
         return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMassCar($id)
+    {
+        $form = new DialogForm();
+        $calendar = CostCalendar::findOne($id);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                foreach ($calendar->bookings as $booking) {
+                    $this->service->create(
+                        $booking->getUserId(),
+                        Dialog::CLIENT_PROVIDER,
+                        BookingHelper::number($booking),
+                        $form,
+                        \Yii::$app->user->id
+                    );
+                }
+                \Yii::$app->session->setFlash('success', 'Сообщение было отправлено ' . count($calendar->bookings) .' клиентам');
+                return $this->redirect(Url::to(['car/common', 'id' => $calendar->car_id]));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('create-mass', [
+            'model' => $form,
+            'typeDialog' => Dialog::CLIENT_PROVIDER,
+            'calendar' => $calendar
+        ]);
     }
 }

@@ -26,8 +26,8 @@ class BookingAddressForm extends Model
     public function rules()
     {
         return [
-            [['address'], 'string'],
-            [['latitude', 'longitude'], 'required', 'message' => 'Обязательное поле'],
+            [['address', 'latitude', 'longitude'], 'string'],
+            //[['latitude', 'longitude'], 'required', 'message' => 'Обязательное поле'],
         ];
     }
 }

@@ -22,12 +22,12 @@ class NoticeForm extends CompositeForm
 
     public function __construct(Notice $notice, $config = [])
     {
-        $this->review = new NoticeItemForm($notice->review);
-        $this->bookingNew = new NoticeItemForm($notice->bookingNew);
-        $this->bookingPay = new NoticeItemForm($notice->bookingPay);
-        $this->bookingCancel = new NoticeItemForm($notice->bookingCancel);
-        $this->bookingCancelPay = new NoticeItemForm($notice->bookingCancelPay);
-        $this->messageNew = new NoticeItemForm($notice->messageNew);
+        $this->review = new NoticeItemForm($notice->review, 'review');
+        $this->bookingNew = new NoticeItemForm($notice->bookingNew, 'bookingNew');
+        $this->bookingPay = new NoticeItemForm($notice->bookingPay, 'bookingPay');
+        $this->bookingCancel = new NoticeItemForm($notice->bookingCancel, 'bookingCancel');
+        $this->bookingCancelPay = new NoticeItemForm($notice->bookingCancelPay, 'bookingCancelPay');
+        $this->messageNew = new NoticeItemForm($notice->messageNew, 'messageNew');
         parent::__construct($config);
     }
 

@@ -13,7 +13,6 @@ class m200725_102018_create_booking_tours_extra_assign_table extends Migration
     public function safeUp()
     {
         $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
-
         $this->createTable('{{%booking_tours_extra_assign}}', [
             'tours_id' => $this->integer()->notNull(),
             'extra_id' => $this->integer()->notNull(),
@@ -26,7 +25,6 @@ class m200725_102018_create_booking_tours_extra_assign_table extends Migration
 
         $this->addForeignKey('{{%fk-booking_tours_extra_assign-tours_id}}', '{{%booking_tours_extra_assign}}', 'tours_id', '{{%booking_tours}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_tours_extra_assign-extra_id}}', '{{%booking_tours_extra_assign}}', 'extra_id', '{{%booking_tours_extra}}', 'id', 'CASCADE', 'RESTRICT');
-
     }
 
     /**

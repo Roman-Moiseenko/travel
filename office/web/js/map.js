@@ -1,20 +1,62 @@
 ymaps.ready(init);
 
 function init() {
-    var myPlacemark, myPlacemark2, myPlacemark3, coords, coords2, coords3;
+    var myPlacemark, myPlacemark2, coords, coords2;
     let suggest = 'bookingaddressform-address';
     let latitude = 'bookingaddressform-latitude';
     let longitude = 'bookingaddressform-longitude';
 
+    /*** Для MAP-CAR ***/
+    let array_coords = [];
+    let array_playcemark = [];
+    let count_point;
+    let mapCar;
 
+    if (document.getElementById("map-car-view")) {
+        let count_ = $('#count-points').data('count');
+        let x, y, t;
+        let center_
+        if (count_ !== 0) {
+            center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
+        } else {
+            center_ = [54.74639455404805, 20.537801017695948];
+        }
+        let mapCarView = new ymaps.Map(document.getElementById("map-car-view"), {
+            center: center_,
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapCarView.controls.remove('searchControl');
+        mapCarView.controls.remove('trafficControl');
+        mapCarView.controls.remove('geolocationControl');
+        //Проходим по элементам, если есть список, грузим в карту
+
+        for (let i = 0; i < count_; i++) {
+            t = $('#address-' + (i+1)).val();
+            x = $('#latitude-' + (i+1)).val();
+            y = $('#longitude-' + (i+1)).val();
+            mapCarView.geoObjects.add(new ymaps.Placemark([x, y], {
+                iconContent: i+1,
+                iconCaption: '',
+                balloonContent: t
+            }, {
+                preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                draggable: false
+            }));
+        }
+    }
+
+    /********************************************************** MAP-CAR ***/
 
 
     if (document.getElementById("map")) {
-        let data_zoom = $('this').attr('data-zoom');
-        if (data_zoom === undefined) data_zoom = 10;
         var myMap = new ymaps.Map(document.getElementById("map"), {
             center: [54.74639455404805, 20.537801017695948],
-            zoom: data_zoom
+            zoom: 10
         }, {
             restrictMapArea: [
                 [54.256, 19.586],
@@ -68,7 +110,6 @@ function init() {
             setData2(coords2);
         });
     }
-
     if (document.getElementById("map-view")) {
         let coord_la = $('#' + latitude).val();
         let coord_lo = $('#' + longitude).val();
@@ -104,7 +145,6 @@ function init() {
             });
         }
     }
-
     if (document.getElementById("map-view-2")) {
 
         let coord_la2 = $('#' + latitude + '-2').val();
@@ -141,44 +181,6 @@ function init() {
             });
         }
     }
-
-    if (document.getElementById("map-view-3")) {
-
-        let coord_la3 = $('#' + latitude + '-3').val();
-        let coord_lo3 = $('#' + longitude + '-3').val();
-        coords3 = [coord_la3, coord_lo3];
-        //alert(coords2);
-        var myMapView3 = new ymaps.Map(document.getElementById("map-view-3"), {
-            center: [coord_la3, coord_lo3],
-            zoom: 10
-        }, {
-            restrictMapArea: [
-                [54.256, 19.586],
-                [55.317, 22.975]
-            ]
-        });
-
-        myMapView3.controls.remove('searchControl');
-        myMapView3.controls.remove('trafficControl');
-        myMapView3.controls.remove('geolocationControl');
-
-
-        myMapView3.setCenter(coords3, 12);
-        myPlacemark3 = new ymaps.Placemark(coords3, {
-            iconCaption: ''
-        }, {
-            preset: 'islands#violetDotIconWithCaption',
-            draggable: false
-        });
-        myMapView3.geoObjects.add(myPlacemark3);
-        if ($('#' + suggest + '-3').val() === '') {
-            ymaps.geocode(coords3).then(function (res) {
-                var firstGeoObject = res.geoObjects.get(0);
-                $('#' + suggest + '-3').val(firstGeoObject.getAddressLine());
-            });
-        }
-    }
-
     function setData(coords) {
         // Если метка уже создана – просто передвигаем ее.
         if (myPlacemark) {
@@ -218,7 +220,6 @@ function init() {
         getAddress2(coords2);
         fillInput2(coords2);
     }
-
     function fillInput(coords) {
         $('#' + latitude).val(coords[0]);
         $('#' + longitude).val(coords[1]);
@@ -227,6 +228,7 @@ function init() {
             $('#' + suggest).val(firstGeoObject.getAddressLine());
         });
     }
+
     function fillInput2(coords2) {
         $('#' + latitude + '-2').val(coords2[0]);
         $('#' + longitude + '-2').val(coords2[1]);
@@ -235,6 +237,7 @@ function init() {
             $('#' + suggest + '-2').val(firstGeoObject.getAddressLine());
         });
     }
+
     // Создание метки.
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
@@ -259,6 +262,7 @@ function init() {
                 });
         });
     }
+
     function getAddress2(coords2) {
         myPlacemark2.properties.set('iconCaption', 'поиск...');
         ymaps.geocode(coords2).then(function (res) {
@@ -272,9 +276,10 @@ function init() {
                 });
         });
     }
+
     function showResult(obj) {
         // Удаляем сообщение об ошибке, если найденный адрес совпадает с поисковым запросом.
-        $('#'+suggest).removeClass('input_error');
+        $('#' + suggest).removeClass('input_error');
         $('#notice').css('display', 'none');
 
         var mapContainer = $('#map'),
@@ -296,9 +301,10 @@ function init() {
         // Выводим сообщение под картой.
         showMessage(address);
     }
+
     function geocode() {
         // Забираем запрос из поля ввода.
-        var request = $('#'+suggest).val();
+        var request = $('#' + suggest).val();
 
         // Геокодируем введённые данные.
         ymaps.geocode(request).then(function (res) {
@@ -312,9 +318,10 @@ function init() {
         });
 
     }
+
     function geocode2() {
         // Забираем запрос из поля ввода.
-        var request = $('#'+suggest + '-2').val();
+        var request = $('#' + suggest + '-2').val();
 
         // Геокодируем введённые данные.
         ymaps.geocode(request).then(function (res) {
@@ -328,6 +335,7 @@ function init() {
         });
 
     }
+
     function createMap(state, caption) {
         // Если карта еще не была создана, то создадим ее и добавим метку с адресом.
         if (!map) {
@@ -347,9 +355,10 @@ function init() {
             placemark.properties.set({iconCaption: caption, balloonContent: caption});
         }
     }
+
     function showError(message) {
         $('#notice').text(message);
-        $('#'+suggest).addClass('input_error');
+        $('#' + suggest).addClass('input_error');
         $('#notice').css('display', 'block');
         // Удаляем карту.
         if (map) {
@@ -357,6 +366,7 @@ function init() {
             map = null;
         }
     }
+
     function showMessage(message) {
         $('#messageHeader').text('Данные получены:');
         $('#message').text(message);

@@ -16,7 +16,15 @@ use yii\helpers\Url;
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-         <?= ProfileLeftBarWidget::widget()?>
+         <?= ''//ProfileLeftBarWidget::widget()?>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="<?= Url::to('@static/files/images/logo-admin.jpg') ?>" class="img-circle elevation-2" alt="К объектам бронирования">
+            </div>
+            <div class="info">
+                <a href="<?= Url::to(['/'])?>" class="d-block">Мои объекты</a>
+            </div>
+        </div>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
 

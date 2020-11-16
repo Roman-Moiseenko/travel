@@ -10,7 +10,7 @@ use yii\web\Controller;
 
 class ToursController extends Controller
 {
-
+    public $layout ='main';
 
     public function behaviors()
     {

@@ -47,7 +47,10 @@ class SiteController extends Controller
                     [
                         'actions' => ['error'],
                         'allow' => true,
-                        //'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
                     ],
                     [
                         'actions' => ['index'],
@@ -92,30 +95,11 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-
-
-    public function actionStays()
+    public function actionUpdate()
     {
-       /* $searchModel = new StaySearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-
-        return $this->render('stays', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]); */
+        $this->layout ='main-update';
+        return $this->render('update', []);
     }
-    public function actionCars()
-    {
-        /* $searchModel = new CarsSearch();
-         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-
-         return $this->render('cars', [
-             'searchModel' => $searchModel,
-             'dataProvider' => $dataProvider,
-         ]); */
-    }
-
-
 
 
 }

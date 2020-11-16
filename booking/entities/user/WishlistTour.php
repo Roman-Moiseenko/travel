@@ -68,4 +68,9 @@ class WishlistTour extends ActiveRecord implements WishlistItemInterface
     {
         return $this->tour_id;
     }
+
+    public function getRemoveLink(): string
+    {
+        return Url::to(['cabinet/wishlist/del-tour', 'id' => $this->tour_id]);
+    }
 }

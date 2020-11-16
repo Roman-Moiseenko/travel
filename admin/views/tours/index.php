@@ -3,7 +3,7 @@
 use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;

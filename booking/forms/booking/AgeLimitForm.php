@@ -4,7 +4,7 @@
 namespace booking\forms\booking;
 
 
-use booking\entities\booking\stays\rules\AgeLimit;
+use booking\entities\booking\AgeLimit;
 use yii\base\Model;
 
 class AgeLimitForm extends Model

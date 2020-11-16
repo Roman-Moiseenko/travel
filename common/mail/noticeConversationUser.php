@@ -14,9 +14,10 @@ use yii\helpers\Url;
 /* @var $conversation Conversation */
 /* @var $user_name string */
 
+
 $url = \Yii::$app->params['frontendHostInfo'];
 $conversation = $dialog->lastConversation();
-$lang = $user->preferences->lang;
+$lang = $dialog->user->preferences->lang;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">

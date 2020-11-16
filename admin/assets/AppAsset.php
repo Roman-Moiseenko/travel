@@ -19,7 +19,10 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/map.js',
         'js/tours.js',
-        'js/calendar.js',
+        'js/calendar_tour.js',
+        'js/calendar_car.js',
+        'js/booking_car.js',
+        'js/booking_tour.js',
         'js/notice.js',
         'js/discount.js',
     ];

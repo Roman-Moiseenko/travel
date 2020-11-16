@@ -24,7 +24,6 @@ class m200830_144652_create_user_wishlist_tours_table extends Migration
         $this->addForeignKey('{{%fk-user_wishlist_tours-user_id}}', '{{%user_wishlist_tours}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-user_wishlist_tours-tour_id}}', '{{%user_wishlist_tours}}', 'tour_id', '{{%booking_tours}}', 'id', 'CASCADE', 'RESTRICT');
 
-
     }
 
     /**

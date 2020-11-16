@@ -24,6 +24,11 @@ class Lang extends ActiveRecord
 {
     const DEFAULT = 'ru';
 
+    public static function default(): bool
+    {
+        return self::current() == self::DEFAULT;
+    }
+
     public static function current(): string
     {
         //scr::v(\Yii::$app->request->cookies->get('lang'));

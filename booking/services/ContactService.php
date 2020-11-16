@@ -255,4 +255,16 @@ class ContactService
         }
         return true;
     }
+
+    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
+    {
+        $send = $this->mailer->compose('lockCar', ['car' => $car])
+            ->setTo($car->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($car->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
 }

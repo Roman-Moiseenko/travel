@@ -12,6 +12,8 @@ $params = array_merge(
 return [
     'id' => 'app-admin',
     'basePath' => dirname(__DIR__),
+    // перевести сайт в режим обслуживания
+    'catchAll' => ['site/update'],
     'aliases' => [
         '@staticRoot' => $params['staticPath'],
         '@static' => $params['staticHostInfo'],

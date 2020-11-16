@@ -26,15 +26,15 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180784525-1"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'UA-180784525-1');
+            gtag('config', <?= \Yii::$app->params['GoogleAnalyticAPI'] ?>);
         </script>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f83859ccbf60e8b">
-            var addthis_config = {data_ga_property: 'UA-180784525-1'};
+            var addthis_config = {data_ga_property: <?= \Yii::$app->params['GoogleAnalyticAPI'] ?>};
         </script>
         <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI']?>&lang=<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>" type="text/javascript">
         </script>

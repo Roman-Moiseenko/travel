@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     </div>
                     <div class="ml-auto align-self-center   ">
-                        <a class="caption-list" href="<?= Url::to(['cabinet/wishlist/del-tour', 'id' => $wish->getId()])?>" title="<?= Lang::t('Удалить') ?>"
+                        <a class="caption-list" href="<?= $wish->getRemoveLink() ?>" title="<?= Lang::t('Удалить') ?>"
                            style="position: relative; z-index: 9999;"><i class="far fa-trash-alt"></i></a>
                     </div>
                 </div>

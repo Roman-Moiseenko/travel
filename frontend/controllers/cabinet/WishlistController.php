@@ -51,7 +51,7 @@ class WishlistController extends Controller
         } else {
             try {
                 $user_id = \Yii::$app->user->id;
-                $this->service->addWishilstTour($user_id, $id);
+                $this->service->addWishlistTour($user_id, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -74,7 +74,37 @@ class WishlistController extends Controller
     {
         try {
             $user_id = \Yii::$app->user->id;
-            $this->service->removeWishilstTour($user_id, $id);
+            $this->service->removeWishlistTour($user_id, $id);
+            \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionAddCar($id)
+    {
+        if (\Yii::$app->user->isGuest) {
+            \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
+        } else {
+            try {
+                $user_id = \Yii::$app->user->id;
+                $this->service->addWishlistCar($user_id, $id);
+                \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(\Yii::$app->request->referrer);
+            }
+
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionDelCar($id)
+    {
+        try {
+            $user_id = \Yii::$app->user->id;
+            $this->service->removeWishlistCar($user_id, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());

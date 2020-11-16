@@ -7,8 +7,6 @@ use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 
 ?>
-
-<div class="col-12">
     <input type="hidden" value="" />
     <label for="booking-tour-time"><b><?= Lang::t('Укажите кол-во билетов') ?>:</b></label>
     <table>
@@ -41,4 +39,14 @@ use booking\helpers\CurrencyHelper;
     <label id="label-count-tickets" data-count="<?= $current->getFreeTickets()?>"><?= Lang::t('Осталось билетов') . ': ' . $current->getFreeTickets()?></label>
     <p><b><?= Lang::t('Промо-код') . ':' ?></b></p>
     <input class="form-control" id="discount" name="discount" type="text" value=""/>
+<!-- ИТОГО -->
+<div class="row pt-4 pb-2">
+    <div class="col-5 pr-1">
+        <span style="font-size: 14px; font-weight: 600;">ИТОГО:</span>
+    </div>
+    <div class="col-4 px-1" id="rent-car-amount" data-amount="<?= 0 ?>">
+        <span class="badge badge-success" style="font-size: 18px; font-weight: 600;">
+            <?= ' - ' ?>
+        </span>
+    </div>
 </div>

@@ -191,7 +191,13 @@ a.desc:after {
     margin: 10px 10px;
     /*font-size: 14px !important;*/
 }
-
+.leftbar-search-cars {
+    padding: 20px 20px;
+    background: var(--seach-menu-color);
+    border: #122b40 2px;
+   /* margin: 10px 10px;*/
+    /*font-size: 14px !important;*/
+}
 .content-container {
     /* background: #ffffff;*/
 }
@@ -259,6 +265,10 @@ a.desc:after {
 }
 
 .errors-tours {
+    color: #731825;
+}
+
+.errors-cars {
     color: #731825;
 }
 
@@ -587,3 +597,12 @@ div.required label:after {
     transform: rotate(-45deg);
 
 }
+
+.image-car-list {
+    float: left;
+}
+.caption-car-list {
+    min-height: 228px;
+    margin-left: 230px;
+}
+

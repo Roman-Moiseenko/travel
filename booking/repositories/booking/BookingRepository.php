@@ -7,6 +7,7 @@ namespace booking\repositories\booking;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\cars\Car;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
@@ -29,14 +30,12 @@ class BookingRepository
                    ->joinWith('calendar c')
                    ->where(['>=', 'c.stay_at', time()])
                    ->andWhere(['user_id' => $user_id])
-                   ->all();
-               $cars = BookingCar::find()
-                   ->joinWith('calendar c')
-                   ->where(['>=', 'c.car_at', time()])
-                   ->andWhere(['user_id' => $user_id])
                    ->all();*/
+        $cars = BookingCar::find()
+            ->where(['>=', 'begin_at', time()])
+            ->andWhere(['user_id' => $user_id])
+            ->all();
         $stays = [];
-        $cars = [];
         return $this->sort_merge($tours, $stays, $cars);
     }
 
@@ -49,7 +48,10 @@ class BookingRepository
             ->andWhere(['user_id' => $user_id])
             ->all();
         $stays = [];
-        $cars = [];
+        $cars = BookingCar::find()
+            ->where(['<', 'begin_at', time()])
+            ->andWhere(['user_id' => $user_id])
+            ->all();
 
         return $this->sort_merge($tours, $stays, $cars, -1);
     }
@@ -81,6 +83,7 @@ class BookingRepository
             ->all();
         $stays = [];
         $cars = [];
+        //TODO Заглушка Car, Stay
 
         return $this->sort_merge($tours, $stays, $cars, -1);
     }
@@ -98,17 +101,10 @@ class BookingRepository
                             [
                                 'IN',
                                 'tours_id',
-                                Tour::find()->select('id')->andWhere(
-                                    [
-                                        'IN',
-                                        'legal_id',
-                                        Legal::find()->select('id')->andWhere(['user_id' => $admin_id])
-                                    ]
-                                )
+                                Tour::find()->select('id')->andWhere(['user_id' => $admin_id])
                             ]
                         )
                         ->andWhere(['>=', 'tour_at', time()])
-                    //  ->andWhere(['<=', 'tour_at', time() + 24 * 3600 * $days])
                 ]
             )
             ->andWhere([
@@ -135,8 +131,33 @@ class BookingRepository
                 ];
                 */
         }
+        $cars = BookingCar::find()
+            ->andWhere([
+                'IN',
+                'car_id',
+                Car::find()->select('id')
+                    ->andWhere(['user_id' => $admin_id])
+            ])
+            ->andWhere([
+                'IN',
+                'status', [
+                    BookingHelper::BOOKING_STATUS_NEW,
+                    BookingHelper::BOOKING_STATUS_PAY,
+                    BookingHelper::BOOKING_STATUS_CONFIRMATION,
+                ]
+            ])
+            ->all();
+        foreach ($cars as $car) {
+            $result[$car->getName()] = [
+                'photo' => $car->getPhoto('cars_widget_list'),
+                'link' => $car->getLinks()['booking'],
+                'name' => $car->getName(),
+                'count' => $car->count + (isset($result[$car->getName()]) ? $result[$car->getName()]['count'] : 0),
+            ];
+        }
+        //TODO Заглушка Stay Funs
         $stays = [];
-        $cars = [];
+        $funs = [];
 
         return $result; // $this->sort_merge($tours, $stays, $cars, -1);
     }
@@ -166,5 +187,6 @@ class BookingRepository
         if ($result) return $result;
         $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
+        //TODO Заглушка Funs
     }
 }

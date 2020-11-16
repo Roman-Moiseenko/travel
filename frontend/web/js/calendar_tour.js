@@ -40,25 +40,26 @@ $(document).ready(function () {
             if (tours === undefined) return {enabled: false}; //Массив по текущему месяцу
             tours = tours[date.getDate()];
             if (tours === undefined) return {enabled: false}; //Объект по текущему дню
-          //  var dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
-          //  var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
-          /*  if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
-                return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
-            }*/
-            return {enabled: true, classes: 'tour-day'};
+            //  var dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
+            //  var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
+            /*  if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
+                  return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
+              }*/
+            return {enabled: true};
         }
     });
     //Событие при выборе даты
-   $('#datepicker-tour').datepicker().on('changeDate', function (e) {
+    $('#datepicker-tour').datepicker().on('changeDate', function (e) {
         //console.log(e);
-            // получаем сведения о тек.дне
-            $.post('/tours/booking/getlisttours',
-                {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
-                function (data) {
-                    //console.log(data);
-                    $('.list-tours').html(data);
-                    $('#button-booking-tour').attr('disabled', 'disabled');
-                });
+        // получаем сведения о тек.дне
+        $.post('/tours/booking/getlisttours',
+            {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
+            function (data) {
+                //console.log(data);
+                $('.list-tours').html(data);
+                $('#button-booking-tour').attr('disabled', 'disabled');
+            });
+        $('#datepicker-tour').datepicker('hide');
     });
 
     //Событие при выборе месяца
@@ -66,7 +67,7 @@ $(document).ready(function () {
 
         $.post('/tours/booking/getcalendar',
             {tour_id: tour_id, month: e.date.getMonth() + 1, year: e.date.getFullYear()}, function (data) {
-               // console.log(data);
+                // console.log(data);
                 full_array_tours = JSON.parse(data);
                 if (full_array_tours === undefined) {
                     $('.list-tours').html();
@@ -83,8 +84,8 @@ $(document).ready(function () {
                     return true;
                 } //Массив по текущему месяцу
                 $('#button-booking-tour').attr('disabled', 'disabled');
-               // console.log(tours);
-                for (var i = 1; i <= 31; i ++) {
+                // console.log(tours);
+                for (var i = 1; i <= 31; i++) {
                     if (tours[i] !== undefined) {
                         $('#datepicker-tour').datepicker('update', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + i));
                         $.post('/tours/booking/getlisttours',
@@ -99,27 +100,30 @@ $(document).ready(function () {
     });
 
     //Загружаем Массив туров по дням за текущий день
-    $.post('/tours/booking/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
-        //console.log(data);
-        full_array_tours = JSON.parse(data);
-        $('#datepicker-tour').datepicker('update');
-    });
+    if (document.getElementById('datepicker-tour')) {
+        $.post('/tours/booking/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+            //console.log(data);
+            full_array_tours = JSON.parse(data);
+            $('#datepicker-tour').datepicker('update');
+        });
+    }
 
     $(document).on('change', '#booking-tour-time', function () {
         let calendar_id = $(this).val();
-       // console.log(calendar_id);
+        // console.log(calendar_id);
         if (calendar_id != -1) {
             $.post('/tours/booking/gettickets', {calendar_id: calendar_id}, function (data) {
                 //console.log(data);
                 $('.tickets-tours').html(data);
                 $('#button-booking-tour').attr('disabled', 'disabled');
             });
-        } else  {
+        } else {
             $('.tickets-tours').html('');
             $('#button-booking-tour').attr('disabled', 'disabled');
         }
     });
     $(document).on('input', '.count-tickets', function (data) {
+        let calendar_id = $('#booking-tour-time').val();
         let count_tickets = Number($('#label-count-tickets').attr('data-count'));
         let count_adult = $('#count-adult').val();
         if (count_adult === undefined) count_adult = 0;
@@ -139,6 +143,17 @@ $(document).ready(function () {
                 $('#button-booking-tour').attr('disabled', 'disabled');
                 $('.errors-tours').html('Не указано кол-во билетов');
             }
+        }
+        if (calendar_id !== -1) {
+            $.post('/tours/booking/get-amount', {
+                calendar_id: calendar_id,
+                count_adult: count_adult,
+                count_child: count_child,
+                count_preference: count_preference
+            }, function (data) {
+                $('#rent-car-amount').html(data);
+                //$('#show_comment').hide();
+            });
         }
     });
 });

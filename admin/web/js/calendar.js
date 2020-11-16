@@ -3,6 +3,10 @@ $(document).ready(function () {
     var full_array_tours; //Массив туров по дням
     var baseUrl ='';
 //Переводим
+
+
+
+
     if ($.fn.datepicker === undefined) return false;
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
@@ -101,11 +105,13 @@ $(document).ready(function () {
             });
     });
     //Загружаем Массив туров по дням за текущий день
-    $.post(baseUrl + '/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
-        console.log(data);
-        full_array_tours = JSON.parse(data);
-        $('#datepicker').datepicker('update');
-    });
+    if (document.getElementById('datepicker')) {
+        $.post(baseUrl + '/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
+            //console.log(data);
+            full_array_tours = JSON.parse(data);
+            $('#datepicker').datepicker('update');
+        });
+    }
 
     $(document).on('click', '#send-new-tour', function () {
         var d = $('#data-day').attr('data-d');

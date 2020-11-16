@@ -4,6 +4,7 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\repositories\booking\tours\BookingTourRepository;
@@ -53,46 +54,14 @@ class PrintController extends Controller
 
     public function actionTour($id)
     {
-
         $booking = BookingTour::findOne($id);
         return $this->pdf->pdfFile($booking);
-        /*
-        $content = $this->renderPartial('tour', [
-            'booking' => $booking,
-            ]);
+    }
 
-        $pdf = new Pdf([
-            'mode' => Pdf::MODE_UTF8,
-            'format' => Pdf::FORMAT_A4,
-            'orientation' => Pdf::ORIENT_PORTRAIT,
-            'destination' => Pdf::DEST_BROWSER,
-            'content' => $content,
-            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
-            'cssInline' => '.kv-heading-1{font-size:18px}',
-            'options' => ['title' => 'Krajee Report Title'],
-            'methods' => [
-                'SetTitle' => Lang::t('Подтверждение бронирования'),
-                'SetHeader'=>['Koenigs.travel'],
-                'SetFooter'=>['{PAGENO}'],
-                'SetAuthor' => 'Koenigs.Travel',
-                'SetCreator' => 'Koenigs.Travel',
-                'SetKeywords' => 'travel russia koenigsberg booking',
-            ]
-        ]);
-
-        try {
-            return $pdf->render();
-        } catch (MpdfException $e) {
-        } catch (CrossReferenceException $e) {
-        } catch (PdfTypeException $e) {
-        } catch (PdfParserException $e) {
-        } catch (InvalidConfigException $e) {
-        }
-*/
-         // \Yii::$app->response->format = 'pdf';
-
-         // $this->layout = '//print';
-        //  return $this->renderPartial('tour', ['booking' => $booking,]);
+    public function actionCar($id)
+    {
+        $booking = BookingCar::findOne($id);
+        return $this->pdf->pdfFile($booking);
     }
 
 }

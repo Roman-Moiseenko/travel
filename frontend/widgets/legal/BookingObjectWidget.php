@@ -47,9 +47,18 @@ class BookingObjectWidget extends Widget
                 'description' => $tour->getDescription(),
             ];
         }
+        $cars = $this->cars->getByLegal($this->legal_id);
+        foreach ($cars as $car) {
+            $obj[] = [
+                'photo' => $car->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
+                'name' => $car->getName(),
+                'link' => Url::to(['car/view', 'id' => $car->id]),
+                'description' => $car->getDescription(),
+            ];
+        }
         //TODO Заглушка ($stays $cars)
 //        $stays = $this->stays->getByLegal($this->legal_id);
-      //  $cars = $this->cars->getByLegal($this->legal_id);
+      //
 
         shuffle($obj);
 

@@ -4,6 +4,7 @@
 namespace booking\helpers;
 
 
+use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\stays\BookingStay;
@@ -25,13 +26,18 @@ class BookingHelper
     const BOOKING_TYPE_STAY = 2;
     const BOOKING_TYPE_CAR = 3;
     const BOOKING_TYPE_TICKET = 4;
+    const BOOKING_TYPE_FUNS = 5;
+
     const LIST_BOOKING_TYPE = [
         self::BOOKING_TYPE_TOUR => BookingTour::class,
         self::BOOKING_TYPE_STAY => BookingStay::class,
         self::BOOKING_TYPE_CAR => BookingCar::class,
         self::BOOKING_TYPE_TICKET => null,
+        self::BOOKING_TYPE_FUNS => null,
 
     ];
+
+    const NEW_DAYS = 7; //Сколько дней после публикации считать новым
 
     //Бронирование оплачивается у Провайдера или на Сайте
     const BOOKING_CONFIRMATION = 101; //При оплате -> Подтверждение
@@ -94,6 +100,7 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_TOUR) return '<i class="fas fa-map-marked-alt"></i>';
         if ($type == self::BOOKING_TYPE_CAR) return '<i class="fas fa-car"></i>';
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
+        if ($type == self::BOOKING_TYPE_FUNS) return '<i class="fas fa-hot-tub"></i>';
     }
 
     public static function stamp(BookingItemInterface $booking): string
@@ -144,11 +151,10 @@ class BookingHelper
         switch ($booking->getType()) {
             case BookingHelper::BOOKING_TYPE_TICKET:
             case BookingHelper::BOOKING_TYPE_TOUR:
+            case BookingHelper::BOOKING_TYPE_FUNS:
                 return $datetime2;
                 break;
             case BookingHelper::BOOKING_TYPE_CAR:
-                return $datetime2;
-                break;
             case BookingHelper::BOOKING_TYPE_STAY:
                 return Lang::t('по') . ' ' . date('d-m-Y', $datetime2);
                 break;
@@ -163,6 +169,24 @@ class BookingHelper
         } else {
             $merchant = $booking->getMerchant() == 0 ? \Yii::$app->params['merchant'] : 0;
             return $booking->getAmountDiscount() * (1 + $merchant / 100);
+        }
+    }
+
+    public static function cancellation($cancellation): string
+    {
+        if ($cancellation === null) return Lang::t('Отмена не предусмотрена');
+        if ($cancellation === 0) return Lang::t('Отмена в любое время');
+        return Lang::t('Отмена за') . ' ' . $cancellation . ' ' . Lang::t('дней');
+    }
+
+    public static function ageLimit(AgeLimit $ageLimit): string
+    {
+        if ($ageLimit->on == null) return Lang::t('Не задано');
+        if ($ageLimit->on == false) return Lang::t('нет');
+        if ($ageLimit->on == true) {
+            $min = empty($ageLimit->ageMin) ? '' : Lang::t('с') . ' ' . $ageLimit->ageMin . ' ' . Lang::t('лет');
+            $max = empty($ageLimit->ageMax) ? '' : ' ' . Lang::t('до') . ' ' . $ageLimit->ageMax . ' ' . Lang::t('лет');
+            return $min . $max;
         }
     }
 }

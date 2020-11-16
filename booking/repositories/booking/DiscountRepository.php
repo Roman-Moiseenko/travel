@@ -7,6 +7,7 @@ namespace booking\repositories\booking;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\Discount;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
@@ -25,11 +26,12 @@ class DiscountRepository
     public function getBookings($id): array
     {
         $tour = BookingTour::find()->andWhere(['discount_id' => $id])->all();
-        // TODO Заглушка Stay Car
-        $stay = []; $car = [];
+        $car = BookingCar::find()->andWhere(['discount_id' => $id])->all();
+        // TODO Заглушка Stay Funs
+        $stay = [];
         /*
         $stay = BookingStay::find()->andWhere(['discount_id' => $id])->all();
-        $car = BookingCar::find()->andWhere(['discount_id' => $id])->all();*/
+        */
         return array_merge($tour, $stay, $car);
     }
 

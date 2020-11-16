@@ -5,7 +5,7 @@ namespace booking\entities\booking\tours;
 
 
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\stays\rules\AgeLimit;
+use booking\entities\booking\AgeLimit;
 
 class TourParams
 {

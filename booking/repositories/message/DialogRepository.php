@@ -19,8 +19,6 @@ class DialogRepository
 
     public function findByOptional(string $code)
     {
-
-
         return Dialog::find()->andWhere(['optional'=>$code])->one();
     }
 

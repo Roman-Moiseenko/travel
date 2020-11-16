@@ -6,6 +6,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'paginationTour' => 24,
+    'paginationCar' => 16,
     'paginationPost' => 10,
     'mode_confirmation'=> true, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
     'notSMS' => true,

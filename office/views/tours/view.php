@@ -4,8 +4,9 @@ use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
+use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use office\forms\ProviderLegalSearch;
 use yii\grid\GridView;
@@ -99,7 +100,7 @@ MagnificPopupAsset::register($this);
                         ],
                         [
                             'attribute' => 'params.private',
-                            'value' => ToursHelper::stringPrivate($tour->params->private),
+                            'value' => TourHelper::stringPrivate($tour->params->private),
                             'label' => 'Групповой/Индивидуальный',
                         ],
                         [
@@ -112,7 +113,7 @@ MagnificPopupAsset::register($this);
                         ],
                         [
                             'label' => 'Ограничение по возрасту',
-                            'value' => ToursHelper::ageLimit($tour->params->agelimit),
+                            'value' => BookingHelper::ageLimit($tour->params->agelimit),
                         ],
                         [
                             'attribute' => 'baseCost.adult',
@@ -138,7 +139,7 @@ MagnificPopupAsset::register($this);
                         [
                             'attribute' => 'cancellation',
                             'label' => 'Отмена брони',
-                            'value' => ToursHelper::cancellation($tour->cancellation),
+                            'value' => BookingHelper::cancellation($tour->cancellation),
                         ],
                     ],
                 ]) ?>

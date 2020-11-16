@@ -35,6 +35,8 @@ use yii\helpers\Url;
  * @property float $payment_provider
  * @property float $pay_merchant
  * @property string $payment_id
+ * @property bool $give_out
+ * @property integer $give_at
  */
 
 // unload - выгружен или нет для отчета в finance
@@ -308,4 +310,9 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->calendar->tour->check_booking;
     }
 
+    public function setGive()
+    {
+        $this->give_out = true;
+        $this->give_at = time();
+    }
 }

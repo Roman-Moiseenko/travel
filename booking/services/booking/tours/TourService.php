@@ -3,7 +3,7 @@
 namespace booking\services\booking\tours;
 
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\stays\rules\AgeLimit;
+use booking\entities\booking\AgeLimit;
 use booking\entities\booking\tours\Cost;
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\TourParams;
@@ -338,13 +338,13 @@ class TourService
     {
         /** @var Tour $tour */
         $tour = $this->tours->get($id);
-        //$test = $tour->isPrivate() . ' ' . $tickets;
         if ($tour->isPrivate() && $tickets != 1) {
             return 'Для индивидуального тура кол-во билетов должно быть равно 1';
         }
-        if ($this->calendars->isset($tour_at, $time_at))
+
+        if ($this->calendars->isset($tour->id, $tour_at, $time_at))
         {
-            return 'Данное время (' . $time_at . ') уже занято';
+            return 'Данное время (' . $time_at . ') уже занято ';
         }
         $tour->addCostCalendar(
             $tour_at,
@@ -355,7 +355,6 @@ class TourService
             $cost_preference
         );
         $this->tours->save($tour);
-      //  return $test;
     }
 
 }

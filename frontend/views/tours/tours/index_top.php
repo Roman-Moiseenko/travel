@@ -10,7 +10,7 @@ use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Туры, экскурсии, мероприятия');
+$this->title = Lang::t('Туры и экскурсии');
 
 $js = <<<JS
     $(document).ready(function() {
@@ -36,7 +36,7 @@ $this->registerJs($js);
                             href="http://admin.koenigs.ru" target="_blank">http://admin.koenigs.ru</a></span>
                 , <?= Lang::t('либо напишите на почту') ?> <a href="mailto:provider@koenigs.ru" target="_blank">provider@koenigs.ru</a><br>
 
-                <?= Lang::t('После наполнения блока Туры будут подключены блоки по бронированию Авто и Жилья.') ?>
+                <?= Lang::t('После наполнения блока Туры будут подключены блоки по бронированию Авто и Развлечений. Далее - Жилья') ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Lang::t('Прочитал') ?></button>
@@ -44,7 +44,7 @@ $this->registerJs($js);
         </div>
     </div>
 </div>
-<div class="site-resend-verification-email">
+<div class="list-tours">
     <h1><?= Html::encode($this->title) ?></h1>
     <?= $this->render('_search_top', ['model' => $model]) ?>
     <?= $this->render('_list', ['dataProvider' => $dataProvider]) ?>

@@ -37,6 +37,7 @@ interface BookingItemInterface
     /** set */
     public function setStatus(int $status);
     public function setPaymentId(string $payment_id);
+    public function setGive();
 
     /** is.. */
     public function isPay(): bool;

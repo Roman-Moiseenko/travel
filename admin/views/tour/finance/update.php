@@ -4,7 +4,7 @@ use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\TourFinanceForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\BookingHelper;
-use booking\helpers\ToursHelper;
+use booking\helpers\tours\TourHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;

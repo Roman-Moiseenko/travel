@@ -72,15 +72,6 @@ class TourSearch extends Tour
         );
     }
 
-    public function brandList(): array
-    {
-        return ArrayHelper::map(Brand::find()->orderBy('id')->asArray()->all(),
-            'id',
-            function (array $brand) {
-                return $brand['name'];
-            }
-        );
-    }
     public function featured()
     {
         return [false => 'Нет', true => 'Да'];

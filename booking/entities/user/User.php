@@ -1,6 +1,7 @@
 <?php
 namespace booking\entities\user;
 
+use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
@@ -32,7 +33,9 @@ use yii\web\UploadedFile;
  * @property Preferences $preferences
  * @property UserMailing $mailing
  * @property BookingTour[] bookingTours
+ * @property BookingCar[] bookingCars
  * @property WishlistTour[] wishlistTours
+ * @property WishlistCar[] wishlistCars
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -156,6 +159,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'preferences',
                     'bookingTours',
                     'wishlistTours',
+                    'wishlistCars',
                     'mailing',
                     ],
             ],
@@ -248,6 +252,34 @@ class User extends ActiveRecord implements IdentityInterface
     }
     /** <=============== Tours*/
 
+    /** Cars ===================> */
+    public function addWishlistCar($car_id)
+    {
+        $wishlist = $this->wishlistCars;
+        foreach ($wishlist as $item) {
+            if ($item->isFor($car_id)) {
+                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
+            }
+        }
+        $wishlistCar = WishlistCar::create($car_id);
+        $wishlist[] = $wishlistCar;
+        $this->wishlistCars = $wishlist;
+    }
+
+    public function removeWishlistCar($id)
+    {
+        $wishlist = $this->wishlistCars;
+        foreach ($wishlist as $i => &$item) {
+            if ($item->isFor($id)) {
+                $item->delete();
+                unset($wishlist[$i]);
+                $this->wishlistCars = $wishlist;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Избранное не найдено'));
+    }
+    /** <=============== Cars*/
 
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
@@ -258,6 +290,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function getWishlistTours(): ActiveQuery
     {
         return $this->hasMany(WishlistTour::class, ['user_id' => 'id']);
+    }
+
+    public function getBookingCars(): ActiveQuery
+    {
+        return $this->hasMany(BookingCar::class, ['user_id' => 'id']);
+    }
+
+    public function getWishlistCars(): ActiveQuery
+    {
+        return $this->hasMany(WishlistCar::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

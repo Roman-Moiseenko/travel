@@ -41,7 +41,6 @@ class CalendarController extends Controller
         $this->tours = $tours;
     }
 
-
     public function behaviors()
     {
         return [
@@ -90,7 +89,7 @@ class CalendarController extends Controller
                 $year = $params['year'];
                 $day = 1;
             }
-            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year, $day));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
     }
 
@@ -119,21 +118,10 @@ class CalendarController extends Controller
                     $params['_child'],
                     $params['_preference']
                 );
-               /* $calendar = $tours->addCostCalendar(
-                    strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
-                    $params['_time'],
-                    $params['_tickets'],
-                    $params['_adult'],
-                    $params['_child'],
-                    $params['_preference']
-                );
-                $this->tours->save($tours);*/
                $errors['new_tour'] = $test;
             } catch (\DomainException $e) {
                 return $e->getMessage();
             }
-
-            //return $calendar->time_at;
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }
@@ -196,7 +184,7 @@ class CalendarController extends Controller
             $tours = $this->findModel($params['tour_id']);
             $result = $tours->removeCostCalendar($params['calendar_id']);
             $this->tours->save($tours);
-            if (!$result) $errors['del-day'] = 'Нельзя удалить тур с бронированием';
+            if ($result == false) $errors['del-day'] = 'Нельзя удалить тур с бронированием';
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
     }

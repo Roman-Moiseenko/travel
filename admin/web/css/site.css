@@ -3,6 +3,22 @@ body {
     height: 100%;
 }
 
+.breadcrumb-item>a {
+    color: #1e6186;
+}
+
+.breadcrumb-item>a:hover {
+    color: #053f7f;
+}
+
+a.link-admin {
+    color: #1e6186;
+}
+a.link-admin:hover {
+    text-decoration: none;
+    color: #075686;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -286,4 +302,15 @@ table.table-adaptive {
 .form_radio_group input[type=radio]:disabled + label {
     background: #efefef;
     color: #666;
+}
+
+.booking-item {
+    margin: 4px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 22px;
+    color: #444;
+    line-height: 22px;
+    font-size: 14px;
+    display: inline-block;
 }

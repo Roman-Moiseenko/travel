@@ -6,7 +6,213 @@ function init() {
     let latitude = 'bookingaddressform-latitude';
     let longitude = 'bookingaddressform-longitude';
 
+    /*** Для MAP-CAR ***/
+    let array_coords = [];
+    let array_playcemark = [];
+    let count_point;
+    let mapCar;
 
+    if (document.getElementById("map-car-view")) {
+        let count_ = $('#count-points').data('count');
+        let x, y, t;
+        let center_
+        if (count_ !== 0) {
+            center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
+        } else {
+            center_ = [54.74639455404805, 20.537801017695948];
+        }
+        let mapCarView = new ymaps.Map(document.getElementById("map-car-view"), {
+            center: center_,
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapCarView.controls.remove('searchControl');
+        mapCarView.controls.remove('trafficControl');
+        mapCarView.controls.remove('geolocationControl');
+        //Проходим по элементам, если есть список, грузим в карту
+
+        for (let i = 0; i < count_; i++) {
+            t = $('#address-' + (i+1)).val();
+            x = $('#latitude-' + (i+1)).val();
+            y = $('#longitude-' + (i+1)).val();
+            mapCarView.geoObjects.add(new ymaps.Placemark([x, y], {
+                iconContent: i+1,
+                iconCaption: '',
+                balloonContent: t
+            }, {
+                preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                draggable: false
+            }));
+        }
+    }
+
+    if (document.getElementById("map-car")) {
+        count_point = $('#map-points').data('count');
+        let x, y, t;
+        let center_
+        if (count_point !== 0) {
+            center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
+        } else {
+            center_ = [54.74639455404805, 20.537801017695948];
+        }
+        mapCar = new ymaps.Map(document.getElementById("map-car"), {
+            center: center_,
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapCar.controls.remove('searchControl');
+        mapCar.controls.remove('trafficControl');
+        mapCar.controls.remove('geolocationControl');
+        //Проходим по элементам, если есть список, грузим в карту
+
+        //console.log(count_point);
+
+        for (let i = 1; i <= count_point; i++) {
+            t = $('#address-' + (i)).val();
+            x = $('#latitude-' + (i)).val();
+            y = $('#longitude-' + (i)).val();
+            array_coords[i] = [Number(x), Number(y), t];
+            console.log(array_coords[i]);
+            array_playcemark[i] = new ymaps.Placemark(array_coords[i], {
+                iconContent: i,
+                balloonContent: t
+            }, {
+                preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                draggable: true
+            });
+            console.log(array_playcemark[i]);
+            array_playcemark[i].id = i;
+            setDataCar(array_coords[i], i);
+            mapCar.geoObjects.add(array_playcemark[i]);
+            array_playcemark[i].events.add('dragend', function (e) {
+                //console.log(e.originalEvent.target.id);
+                let coords = array_playcemark[e.originalEvent.target.id].geometry.getCoordinates();
+                array_coords[e.originalEvent.target.id] = coords;
+                array_playcemark[e.originalEvent.target.id].properties.set('iconCaption', 'поиск...');
+                setDataCar(coords, e.originalEvent.target.id);
+                /*ymaps.geocode(coords).then(function (res) {
+                    var firstGeoObject = res.geoObjects.get(0);
+                    console.log(e.originalEvent.target.id);
+                    console.log(array_coords);
+                    array_coords[e.originalEvent.target.id][2] = firstGeoObject.getAddressLine();
+                    array_playcemark[e.originalEvent.target.id].properties
+                        .set({
+                            // Формируем строку с данными об объекте.
+                            iconCaption: '',
+                            // В качестве контента балуна задаем строку с адресом объекта.
+                            balloonContent: firstGeoObject.getAddressLine()
+                        });
+                    FillPoints(array_coords);
+                }); */
+
+                /*                getAddress(coords);
+                                fillInput(coords);*/
+            });
+        }
+
+
+
+        mapCar.events.add('click', function (e) {
+            count_point++;
+            array_coords[count_point] = e.get('coords');
+
+            array_playcemark[count_point] = new ymaps.Placemark(array_coords[count_point], {
+                iconContent: count_point
+            }, {
+                preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                draggable: true
+            });
+            array_playcemark[count_point].id = count_point;
+            setDataCar(array_coords[count_point], count_point);
+            //FillPoints(array_coords);
+            //console.log(array_playcemark[count_point]);
+            mapCar.geoObjects.add(array_playcemark[count_point]);
+            // Слушаем событие окончания перетаскивания на метке.
+            array_playcemark[count_point].events.add('dragend', function (e) {
+                //console.log(e.originalEvent.target.id);
+                let coords = array_playcemark[e.originalEvent.target.id].geometry.getCoordinates();
+                array_coords[e.originalEvent.target.id] = coords;
+                array_playcemark[e.originalEvent.target.id].properties.set('iconCaption', 'поиск...');
+                setDataCar(coords, e.originalEvent.target.id);
+                /*ymaps.geocode(coords).then(function (res) {
+                    var firstGeoObject = res.geoObjects.get(0);
+                    console.log(e.originalEvent.target.id);
+                    console.log(array_coords);
+                    array_coords[e.originalEvent.target.id][2] = firstGeoObject.getAddressLine();
+                    array_playcemark[e.originalEvent.target.id].properties
+                        .set({
+                            // Формируем строку с данными об объекте.
+                            iconCaption: '',
+                            // В качестве контента балуна задаем строку с адресом объекта.
+                            balloonContent: firstGeoObject.getAddressLine()
+                        });
+                    FillPoints(array_coords);
+                }); */
+
+/*                getAddress(coords);
+                fillInput(coords);*/
+            });
+
+        });
+    }
+    function setDataCar(coords, id) {
+        ymaps.geocode(coords).then(function (res) {
+            var firstGeoObject = res.geoObjects.get(0);
+            console.log(id);
+            console.log(array_coords);
+            array_coords[id][2] = firstGeoObject.getAddressLine();
+            array_playcemark[id].properties
+                .set({
+                    // Формируем строку с данными об объекте.
+                    iconCaption: '',
+                    // В качестве контента балуна задаем строку с адресом объекта.
+                    balloonContent: firstGeoObject.getAddressLine()
+                });
+            FillPoints();
+        });
+    }
+
+    function FillPoints() {
+        $('#map-points').html('');
+        let s = '';
+        let btn_remove = '';
+        for (let i = 1; i <= count_point; i++) {
+            if (i === count_point) btn_remove = '<span class="glyphicon glyphicon-trash" style="cursor: pointer" id="remove-points"></span>';
+            s = s +
+                '                    <div class="row">\n' +
+                '                        <div class="col-10">\n' +
+                '                            <input name="BookingAddressForm[' + (i-1)  + '][address]" class="form-control" width="100%" value="' + array_coords[i][2] + '" readonly>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-1">\n' +
+                '                        ' + btn_remove + '\n' +
+                '                        </div>\n' +
+                '                        <div class="col-1">\n' +
+                '                            <input name="BookingAddressForm[' + (i-1) + '][longitude]" class="form-control" width="100%" value="' + array_coords[i][1] + '" type="hidden">\n' +
+                '                            <input name="BookingAddressForm[' + (i-1) + '][latitude]" class="form-control" width="100%" value="' + array_coords[i][0] + '" type="hidden">\n' +
+                '                        </div>\n' +
+                '                    </div>';
+        }
+        $('#map-points').html(s);
+
+    }
+
+    $('body').on('click', '#remove-points', function () {
+        delete(array_coords[count_point]);
+        mapCar.geoObjects.remove(array_playcemark[count_point]);
+        //array_playcemark[count_point].destroy();
+        delete(array_playcemark[count_point]);
+        count_point--;
+        FillPoints();
+    });
+    /********************************************************** MAP-CAR ***/
 
 
     if (document.getElementById("map")) {
@@ -66,7 +272,6 @@ function init() {
             setData2(coords2);
         });
     }
-
     if (document.getElementById("map-view")) {
         let coord_la = $('#' + latitude).val();
         let coord_lo = $('#' + longitude).val();
@@ -102,7 +307,6 @@ function init() {
             });
         }
     }
-
     if (document.getElementById("map-view-2")) {
 
         let coord_la2 = $('#' + latitude + '-2').val();
@@ -139,7 +343,6 @@ function init() {
             });
         }
     }
-
     function setData(coords) {
         // Если метка уже создана – просто передвигаем ее.
         if (myPlacemark) {
@@ -179,7 +382,6 @@ function init() {
         getAddress2(coords2);
         fillInput2(coords2);
     }
-
     function fillInput(coords) {
         $('#' + latitude).val(coords[0]);
         $('#' + longitude).val(coords[1]);
@@ -188,6 +390,7 @@ function init() {
             $('#' + suggest).val(firstGeoObject.getAddressLine());
         });
     }
+
     function fillInput2(coords2) {
         $('#' + latitude + '-2').val(coords2[0]);
         $('#' + longitude + '-2').val(coords2[1]);
@@ -196,6 +399,7 @@ function init() {
             $('#' + suggest + '-2').val(firstGeoObject.getAddressLine());
         });
     }
+
     // Создание метки.
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
@@ -220,6 +424,7 @@ function init() {
                 });
         });
     }
+
     function getAddress2(coords2) {
         myPlacemark2.properties.set('iconCaption', 'поиск...');
         ymaps.geocode(coords2).then(function (res) {
@@ -233,9 +438,10 @@ function init() {
                 });
         });
     }
+
     function showResult(obj) {
         // Удаляем сообщение об ошибке, если найденный адрес совпадает с поисковым запросом.
-        $('#'+suggest).removeClass('input_error');
+        $('#' + suggest).removeClass('input_error');
         $('#notice').css('display', 'none');
 
         var mapContainer = $('#map'),
@@ -257,9 +463,10 @@ function init() {
         // Выводим сообщение под картой.
         showMessage(address);
     }
+
     function geocode() {
         // Забираем запрос из поля ввода.
-        var request = $('#'+suggest).val();
+        var request = $('#' + suggest).val();
 
         // Геокодируем введённые данные.
         ymaps.geocode(request).then(function (res) {
@@ -273,9 +480,10 @@ function init() {
         });
 
     }
+
     function geocode2() {
         // Забираем запрос из поля ввода.
-        var request = $('#'+suggest + '-2').val();
+        var request = $('#' + suggest + '-2').val();
 
         // Геокодируем введённые данные.
         ymaps.geocode(request).then(function (res) {
@@ -289,6 +497,7 @@ function init() {
         });
 
     }
+
     function createMap(state, caption) {
         // Если карта еще не была создана, то создадим ее и добавим метку с адресом.
         if (!map) {
@@ -308,9 +517,10 @@ function init() {
             placemark.properties.set({iconCaption: caption, balloonContent: caption});
         }
     }
+
     function showError(message) {
         $('#notice').text(message);
-        $('#'+suggest).addClass('input_error');
+        $('#' + suggest).addClass('input_error');
         $('#notice').css('display', 'block');
         // Удаляем карту.
         if (map) {
@@ -318,6 +528,7 @@ function init() {
             map = null;
         }
     }
+
     function showMessage(message) {
         $('#messageHeader').text('Данные получены:');
         $('#message').text(message);

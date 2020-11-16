@@ -50,9 +50,4 @@ class Type extends ActiveRecord
     {
         return '{{%booking_tours_type}}';
     }
-
-    public function getStays(): ActiveQuery
-    {
-        return $this->hasMany(Tour::class, ['type_id' => 'id']);
-    }
 }

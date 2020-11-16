@@ -60,6 +60,7 @@ class BookingTourRepository
             ]
         )
             ->all();
+
         usort($result, function ($a, $b) {
             if ($a->getDate() == $b->getDate()) {
                 if ($a->getAdd() > $b->getAdd()) {

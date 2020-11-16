@@ -4,6 +4,7 @@
 namespace booking\entities\booking\stays\rules;
 
 
+use booking\entities\booking\AgeLimit;
 use booking\entities\user\Personal;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;

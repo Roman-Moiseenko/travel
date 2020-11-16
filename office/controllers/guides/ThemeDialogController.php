@@ -12,7 +12,7 @@ use booking\forms\office\guides\TourTypeForm;
 use booking\services\office\guides\ThemeDialogService;
 use booking\services\office\guides\TypeTourService;
 use booking\services\DialogService;
-use office\forms\ThemeDialogSearch;
+use office\forms\guides\ThemeDialogSearch;
 use yii\base\Theme;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -53,23 +53,15 @@ class ThemeDialogController extends Controller
         ];
     }
 
-
     public function actionIndex()
     {
-       // $themes = ThemeDialog::find()->orderBy(['type_dialog' => SORT_ASC])->all();
-
-
-
-                $searchModel = new ThemeDialogSearch();
+        $searchModel = new ThemeDialogSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-     /*   return $this->render('index', [
-            'themes' => $themes,
-        ]);*/
     }
 
     public function actionCreate()
@@ -112,7 +104,6 @@ class ThemeDialogController extends Controller
         $this->service->remove($id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
-
 
     private function find($id)
     {

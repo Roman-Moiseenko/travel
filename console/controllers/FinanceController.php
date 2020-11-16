@@ -4,6 +4,7 @@
 namespace console\controllers;
 
 
+use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\helpers\BookingHelper;
@@ -53,7 +54,22 @@ class FinanceController extends Controller
         }
         echo 'КОНЕЦ';
 
-        //TODO Заглушка stays, cars
+        $cars = BookingCar::find()
+            ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
+            ->andWhere(['unload' => false])
+            ->andWhere(['<=', 'begin_at', time()])->all();
+        echo 'Нашлось ' . count($cars);
+        foreach ($cars as $car) {
+            $car->unload = true;
+            echo 'ID = ' . $car->id;
+            //$this->manager->wrapNotSession(function ($tour) {
+            $car->save();
+            $car->service->create($car);
+            echo 'Транзакция сохранения выполнена';
+            //});
+        }
+
+        //TODO Заглушка stays, funs
     }
 
 }

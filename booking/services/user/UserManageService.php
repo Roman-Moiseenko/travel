@@ -266,20 +266,36 @@ class UserManageService
 
     /** ............................................  */
 
-    public function addWishilstTour($id, $tour_id)
+    public function addWishlistTour($id, $tour_id)
     {
         $user = $this->users->get($id);
         $user->addWishlistTour($tour_id);
         $this->users->save($user);
     }
 
-    public function removeWishilstTour($id, $tour_id)
+    public function removeWishlistTour($id, $tour_id)
     {
         $user = $this->users->get($id);
         $user->removeWishlistTour($tour_id);
         $this->users->save($user);
     }
 
+
+
+
+    public function addWishlistCar($id, $car_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlistCar($car_id);
+        $this->users->save($user);
+    }
+
+    public function removeWishlistCar($id, $car_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlistCar($car_id);
+        $this->users->save($user);
+    }
     //public function
 
 }

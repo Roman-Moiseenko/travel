@@ -1,24 +1,52 @@
+#datepicker-booking-car>.datepicker td,
+#datepicker-booking-car>.datepicker th {
+    width: 150px !important;
+    height: 90px !important;
+}
+
+#datepicker-booking-tour>.datepicker td,
+#datepicker-booking-tour>.datepicker th {
+    width: 150px !important;
+    height: 90px !important;
+}
+
 .datepicker td,
 .datepicker th {
     font-size: larger;
     text-align: center;
-    width: 100px !important;
-    height: 60px !important;
+    width: 120px !important;
+    height: 80px !important;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: none;
+}
+#datepicker-booking-tour .table-condensed {
+    width: 1050px !important;
+}
+#datepicker-booking-car .table-condensed {
+    width: 1050px !important;
 }
 
 .table-condensed {
-    width: 700px !important;
+    width: 840px !important;
 }
 
-.tour-day {
-    font-size: larger;
+.calendar-day {
+    font-size: larger;/*ffcd49*/
     text-align: center;
     background: orange !important;
+    background-image: -moz-linear-gradient(to bottom, #FFA500, #f59b00) !important;
+    background-image: -ms-linear-gradient(to bottom, #FFA500, #f59b00) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFA500), to(#f59b00)) !important;
+    background-image: -webkit-linear-gradient(to bottom, #FFA500, #f59b00) !important;
+    background-image: -o-linear-gradient(to bottom, #FFA500, #f59b00) !important;
+    background-image: linear-gradient(to bottom, #FFA500, #f59b00) !important;
+    border-color: #f59b00 #f59b00 #895900 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     color: white !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     width: 100px !important;
     height: 60px !important;
     -webkit-border-radius: 4px;
@@ -26,8 +54,29 @@
     border-radius: 4px;
     border: none;
 }
+.calendar-day-other-month {
+    font-size: larger;/*ffcd49*/
+    text-align: center;
+    background: #ffe192 !important;
+    background-image: -moz-linear-gradient(to bottom, #ffe192, #f5d788) !important;
+    background-image: -ms-linear-gradient(to bottom, #ffe192, #f5d788) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffe192), to(#f5d788)) !important;
+    background-image: -webkit-linear-gradient(to bottom, #ffe192, #f5d788) !important;
+    background-image: -o-linear-gradient(to bottom, #ffe192, #f5d788) !important;
+    background-image: linear-gradient(to bottom, #ffe192, #f5d788) !important;
+    border-color: #f5d788 #f5d788 #895900 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #737373 !important;
 
-.tour-day-select {
+    width: 100px !important;
+    height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+.calendar-day-select {
     background-color: #006dcc;
     background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
     background-image: -ms-linear-gradient(to bottom, #08c, #0044cc);
@@ -52,13 +101,76 @@
     border-radius: 4px;
     border: none;
 }
-.tour-day-deselect {
+.calendar-day-deselect {
     font-size: larger;
     text-align: center;
     background: #b99265 !important;
     color: white !important;
     width: 100px !important;
     height: 60px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+
+.calendar-day-success {
+    font-size: larger;
+    text-align: center;
+    background: #d3ffd1 !important;
+    background-image: -moz-linear-gradient(to bottom, #d3ffd1, #b3dfb1) !important;
+    background-image: -ms-linear-gradient(to bottom, #d3ffd1, #b3dfb1) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d3ffd1), to(#b3dfb1)) !important;
+    background-image: -webkit-linear-gradient(to bottom, #d3ffd1, #b3dfb1) !important;
+    background-image: -o-linear-gradient(to bottom, #d3ffd1, #b3dfb1) !important;
+    background-image: linear-gradient(to bottom, #d3ffd1, #b3dfb1) !important;
+    border-color: #b3dfb1 #b3dfb1 #638563 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #062a06 !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.0);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+
+.calendar-day-danger{
+    font-size: larger;
+    text-align: center;
+    background: #ffffc2 !important;
+    background-image: -moz-linear-gradient(to bottom, #ffffc2, #dddda1) !important;
+    background-image: -ms-linear-gradient(to bottom, #ffffc2, #dddda1) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffc2), to(#dddda1)) !important;
+    background-image: -webkit-linear-gradient(to bottom, #ffffc2, #dddda1) !important;
+    background-image: -o-linear-gradient(to bottom, #ffffc2, #dddda1) !important;
+    background-image: linear-gradient(to bottom, #ffffc2, #dddda1) !important;
+    border-color: #dddda1 #dddda1 #343425 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #292806 !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.0);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+}
+.calendar-day-warning {
+    font-size: larger;/*ffcd49*/
+    text-align: center;
+    background: #b6ecff !important;
+    background-image: -moz-linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
+    background-image: -ms-linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b6ecff), to(#89b7ca)) !important;
+    background-image: -webkit-linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
+    background-image: -o-linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
+    background-image: linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
+
+    border-color: #89b7ca #89b7ca #4e7386 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #0e1532 !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.0);
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;

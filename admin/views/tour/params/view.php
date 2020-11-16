@@ -1,7 +1,8 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
-use booking\helpers\ToursHelper;
+use booking\helpers\BookingHelper;
+use booking\helpers\tours\TourHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Параметры';
                             ],
                             [
                                 'attribute' => 'params.private',
-                                'value' => ToursHelper::stringPrivate($tour->params->private),
+                                'value' => TourHelper::stringPrivate($tour->params->private),
                                 'label' => 'Групповой/Индивидуальный',
                             ],
                             [
@@ -46,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Параметры';
                             [
                                 'label' => 'Ограничение по возрасту',
                                 'value' => function (Tour $model) {
-                                    return ToursHelper::ageLimit($model->params->agelimit);
+                                    return BookingHelper::ageLimit($model->params->agelimit);
                                 },
                             ],
                         ],

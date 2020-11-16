@@ -24,13 +24,16 @@ class StatusActionWidget extends Widget
                 $link = '/tour/common';
                 break;
             case BookingHelper::BOOKING_TYPE_STAY:
-                $link = '/stay';
+                $link = '/stay/common';
                 break;
             case BookingHelper::BOOKING_TYPE_CAR:
-                $link = '/car';
+                $link = '/car/common';
                 break;
             case BookingHelper::BOOKING_TYPE_TICKET:
-                $link = '/ticket';
+                $link = '/ticket/common';
+                break;
+            case BookingHelper::BOOKING_TYPE_FUNS:
+                $link = '/funs/common';
                 break;
             default:
                 throw new \DomainException('Неизвестный тип объекта ' . $this->object_type);

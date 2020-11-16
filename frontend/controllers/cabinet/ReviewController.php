@@ -4,11 +4,13 @@
 namespace frontend\controllers\cabinet;
 
 
+use booking\entities\booking\cars\ReviewCar;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\scr;
 use booking\repositories\booking\ReviewRepository;
+use booking\services\booking\cars\CarService;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -24,17 +26,23 @@ class ReviewController extends Controller
      * @var TourService
      */
     private $tours;
+    /**
+     * @var CarService
+     */
+    private $cars;
 
     public function __construct(
         $id,
         $module,
         ReviewRepository $reviews,
         TourService $tours,
+        CarService $cars,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->reviews = $reviews;
         $this->tours = $tours;
+        $this->cars = $cars;
     }
 
     public function behaviors()
@@ -126,16 +134,16 @@ class ReviewController extends Controller
 
     public function actionDeleteCar($id)
     {
-      /*  try {
+        try {
             $this->cars->removeReview($id);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['cabinet/review/index']);*/
+        return $this->redirect(['cabinet/review/index']);
     }
     public function actionUpdateCar($id)
     {
-       /* if (!$review = ReviewCar::findOne($id)) {
+        if (!$review = ReviewCar::findOne($id)) {
             throw new \DomainException(Lang::t('Отзыв не найден'));
         }
         $form = new ReviewForm($review);
@@ -150,7 +158,7 @@ class ReviewController extends Controller
         return $this->render('update', [
             'model' => $form,
             'review' => $review,
-        ]);*/
+        ]);
     }
 
 }

@@ -23,10 +23,6 @@ class FinanceController extends Controller
     public $layout = 'main-tours';
     private $service;
     /**
-     * @var CostCalendarRepository
-     */
-    private $calendar;
-    /**
      * @var TourRepository
      */
     private $tours;
@@ -36,12 +32,10 @@ class FinanceController extends Controller
         $module,
         TourService $service,
         TourRepository $tours,
-        CostCalendarRepository $calendar,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
-        $this->calendar = $calendar;
         $this->tours = $tours;
     }
 
