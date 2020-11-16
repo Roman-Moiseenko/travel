@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    /** ver 16.11.2020 */
     let tour_id = $('#number-tour').val(); //Текущий тур
     let full_array_tours; //Массив туров по дням
     let baseUrl ='';
