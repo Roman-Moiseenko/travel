@@ -139,7 +139,7 @@ class CalendarController extends Controller
             } catch (\Exception $e) {
                 return $e->getMessage();
             }
-            return json_encode($this->calendar->getCalendarForDatePicker($params['car_id'], $params['month'], $params['year']));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['car_id']));
         }
     }
 
@@ -171,7 +171,7 @@ class CalendarController extends Controller
                     return $e->getMessage();
                 }
             }
-            return json_encode($this->calendar->getCalendarForDatePicker($params['car_id'], $month, $year));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['car_id']));
         }
     }
 
@@ -202,7 +202,7 @@ class CalendarController extends Controller
             'errors' => $errors,
         ]);
         $_new = $this->render('_new_car', ['car' => $car, 'errors' => $errors]);
-        $result = ['_list' => $_list, '_new' => $_new, 'full_array_cars' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
+        $result = ['_list' => $_list, '_new' => $_new, 'full_array_cars' => $this->calendar->getCalendarForDatePickerBackend($id)];
         return json_encode($result);
     }
 

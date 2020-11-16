@@ -25,8 +25,6 @@ use yii\helpers\Url;
         </div>
     </div>
     <?php foreach ($calendar->bookings as $i => $booking): ?>
-
-
         <div class="card">
             <div class="card-header p-0">
             <span class="booking-item">
@@ -36,6 +34,8 @@ use yii\helpers\Url;
                     <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
                 <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION): ?>
                     <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
+                <?php elseif ($booking->isCancel()): ?>
+                    <span class="badge badge-pill badge-secondary"><i class="far fa-check-circle"></i></span>
                 <?php endif ?>
                 </span>
                 <span class="booking-item">
@@ -60,6 +60,7 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                 </span>
+                    <?php if (!$booking->isCancel()): ?>
                     <span class="booking-item">
                     <span class="custom-control custom-checkbox">
                     <input id="giv-out-<?= $i ?>" class="custom-control-input give-out" type="checkbox" value="1"
@@ -68,6 +69,7 @@ use yii\helpers\Url;
                         <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
                     </span><span id="error-set-give"></span>
                 </span>
+                    <?php endif; ?>
                     <br>
                     <span class="booking-item">
                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>

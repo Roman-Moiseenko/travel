@@ -34,9 +34,11 @@ use yii\helpers\Url;
                     <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
                 <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION): ?>
                     <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
+                <?php elseif ($booking->isCancel()): ?>
+                    <span class="badge badge-pill badge-secondary"><i class="far fa-check-circle"></i></span>
                 <?php endif ?>
                 </span>
-                <span class="booking-item">
+                <span class="booking-item"  style="<?= ($booking->isCancel()) ? 'text-decoration: line-through !important' : ''?>">
                 <a class="link-admin" data-toggle="collapse" href="#collapse-<?= $i ?>" role="button"
                    aria-expanded="false" aria-controls="collapseExample">
                     <i class="fas fa-user"></i>&#160;&#160;<?= empty($booking->user->personal->fullname->surname) ? $booking->user->username : $booking->user->personal->fullname->getFullname(); ?>
@@ -58,14 +60,17 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                 </span>
+                    <?php if (!$booking->isCancel()): ?>
                     <span class="booking-item">
                     <span class="custom-control custom-checkbox">
                     <input id="giv-out-<?= $i ?>" class="custom-control-input give-out" type="checkbox" value="1"
                            data-number="<?= BookingHelper::number($booking); ?>"
                     <?= $booking->give_out ? 'disabled checked' : '' ?>>
                         <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
-                    </span><span id="error-set-give"></span>
+                    </span>
+                        <span id="error-set-give"></span>
                 </span>
+                    <?php endif; ?>
                     <br>
                     <span class="booking-item">
                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>

@@ -81,7 +81,7 @@ class CostCalendarRepository
 
             $result = [];
             foreach ($calendars as $calendar) {
-                if ($calendar->getFreeTickets() != 0) {
+                //if ($calendar->getFreeTickets() != 0) {
                     $y = (int)date('Y', $calendar->tour_at);
                     $m = (int)date('m', $calendar->tour_at);
                     $d = (int)date('d', $calendar->tour_at);
@@ -91,7 +91,7 @@ class CostCalendarRepository
                         $result[$y][$m][$d]['count']++;
                         $result[$y][$m][$d]['tickets'] += $calendar->tickets;
                     }
-                }
+               // }
             }
         } catch (\Throwable $e) {
             return $e->getMessage();

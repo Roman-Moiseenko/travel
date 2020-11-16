@@ -17,7 +17,10 @@ use booking\entities\booking\tours\Tour;
     <div class="col-1">
         <div class="form-group">
             <label>Билеты</label>
-            <input class="form-control" id="_tickets" type="number" min="<?= $tour->isPrivate() ? 1 : $tour->params->groupMin?>" value="<?= $tour->isPrivate() ? 1 : $tour->params->groupMax?>" width="100px" required>
+            <input class="form-control" id="_tickets" type="number"
+                   min="<?= $tour->isPrivate() ? 1 : $tour->params->groupMin?>"
+                   value="<?= $tour->isPrivate() ? 1 : $tour->params->groupMax?>"
+                   max="<?= $tour->isPrivate() ? 1 : $tour->params->groupMax?>" width="100px" required>
         </div>
     </div>
 

@@ -140,7 +140,7 @@ class CalendarController extends Controller
             } catch (\Exception $e) {
                 return $e->getMessage();
             }
-            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $params['month'], $params['year']));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
     }
 
@@ -172,7 +172,7 @@ class CalendarController extends Controller
                     return $e->getMessage();
                 }
             }
-            return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
     }
 
@@ -203,7 +203,7 @@ class CalendarController extends Controller
             'errors' => $errors,
         ]);
         $_new = $this->render('_new_tour', ['tour' => $tours, 'errors' => $errors]);
-        $result = ['_list' => $_list, '_new' => $_new, 'full_array_tours' => $this->calendar->getCalendarForDatePicker($id, (int)$M, (int)$Y)];
+        $result = ['_list' => $_list, '_new' => $_new, 'full_array_tours' => $this->calendar->getCalendarForDatePickerBackend($id)];
         return json_encode($result);
     }
 
