@@ -56,7 +56,7 @@ class BookingObjectWidget extends Widget
                 'description' => $car->getDescription(),
             ];
         }
-        //TODO Заглушка ($stays $cars)
+        //TODO Заглушка ($stays $funs)
 //        $stays = $this->stays->getByLegal($this->legal_id);
       //
 

@@ -37,14 +37,4 @@ class ToursController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    public function actionDelete($id)
-    {
-//TODO Сделать удаление туров ?
-        /* $tours =  $this->tours->get($id);
-         if ($tours->user_id != \Yii::$app->user->id) {
-             throw new \DomainException('У вас нет прав для данного тура');
-         }
-         */
-    }
 }

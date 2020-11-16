@@ -36,7 +36,8 @@ class BookingRepository
             ->andWhere(['user_id' => $user_id])
             ->all();
         $stays = [];
-        return $this->sort_merge($tours, $stays, $cars);
+        $funs = [];
+        return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
     /** @return  BookingItemInterface[] */
@@ -69,23 +70,25 @@ class BookingRepository
                         [
                             'IN',
                             'tours_id',
-                            Tour::find()->select('id')->andWhere(
-                                [
-                                    'IN',
-                                    'legal_id',
-                                    Legal::find()->select('id')->andWhere(['user_id' => $admin_id])
-                                ]
-                            )
+                            Tour::find()->select('id')->andWhere(['user_id' => $admin_id])
                         ]
                     )
                 ]
             )
             ->all();
+        $cars = BookingCar::find()
+        ->andWhere(['>=', 'created_at', time() - 3600 * 24 * $last_day])
+        ->andWhere([
+            'IN',
+            'car_id',
+            Car::find()->select('id')->andWhere(['user_id' => $admin_id])
+        ])
+        ->all();
         $stays = [];
-        $cars = [];
-        //TODO Заглушка Car, Stay
+        $funs = [];
+        //TODO Заглушка Funs, Stay
 
-        return $this->sort_merge($tours, $stays, $cars, -1);
+        return $this->sort_merge($tours, $stays, $cars, $funs, -1);
     }
 
     public function getByAdminNextDay($admin_id): array
@@ -162,9 +165,9 @@ class BookingRepository
         return $result; // $this->sort_merge($tours, $stays, $cars, -1);
     }
 
-    private function sort_merge(array $tours, array $stays, array $cars, $arrow = 1): array
+    private function sort_merge(array $tours, array $stays, array $cars, array $funs, $arrow = 1): array
     {
-        $result = array_merge($tours, $stays, $cars);
+        $result = array_merge($tours, $stays, $cars, $funs);
         usort($result, function (BookingItemInterface $a, BookingItemInterface $b) use ($arrow) {
             if ($a->getDate() > $b->getDate()) {
                 return $arrow;

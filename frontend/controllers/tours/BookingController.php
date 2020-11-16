@@ -110,7 +110,6 @@ class BookingController  extends Controller
             $count_adult = $params['count_adult'];
             $count_child = $params['count_child'];
             $count_preference = $params['count_preference'];
-            //TODO посчитать сумму
             $calendar = $this->calendar->get($calendar_id);
             $result = $count_adult * $calendar->cost->adult + $count_child * $calendar->cost->child + $count_preference * $calendar->cost->preference;
             return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .

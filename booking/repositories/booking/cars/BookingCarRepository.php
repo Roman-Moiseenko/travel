@@ -68,8 +68,6 @@ class BookingCarRepository
     public function getforChart($car_id, $month, $year, $status): array
     {
         $result = [];
-        //TODO Переделать для Car
-
         if ($month == 0) {
             for ($i = 1; $i <= 12; $i++) {
                 $begin = strtotime('01-' . $i . '-' . $year . ' 00:00:00');

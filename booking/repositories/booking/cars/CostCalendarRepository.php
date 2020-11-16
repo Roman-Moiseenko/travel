@@ -3,12 +3,9 @@
 
 namespace booking\repositories\booking\cars;
 
-
-use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\CostCalendar;
 use booking\entities\Lang;
-use booking\helpers\BookingHelper;
 use booking\helpers\CalendarHelper;
 
 class CostCalendarRepository
@@ -74,7 +71,6 @@ class CostCalendarRepository
     public function getCalendarForDatePickerBackend($car_id)
     {
         try {
-
             $calendars = CostCalendar::find()
                 ->andWhere(['car_id' => $car_id])
                 ->andWhere(['>', 'car_at', time()]) //На следующий день
