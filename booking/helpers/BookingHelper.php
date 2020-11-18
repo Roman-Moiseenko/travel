@@ -7,10 +7,13 @@ namespace booking\helpers;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\cars\Car;
 use booking\entities\booking\stays\BookingStay;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\ReviewTour;
+use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 
 class BookingHelper
@@ -32,6 +35,15 @@ class BookingHelper
         self::BOOKING_TYPE_TOUR => BookingTour::class,
         self::BOOKING_TYPE_STAY => BookingStay::class,
         self::BOOKING_TYPE_CAR => BookingCar::class,
+        self::BOOKING_TYPE_TICKET => null,
+        self::BOOKING_TYPE_FUNS => null,
+
+    ];
+//TODO Заглушки Funs, Stays
+    const LIST_TYPE = [
+        self::BOOKING_TYPE_TOUR => Tour::class,
+        self::BOOKING_TYPE_STAY => Stay::class,
+        self::BOOKING_TYPE_CAR => Car::class,
         self::BOOKING_TYPE_TICKET => null,
         self::BOOKING_TYPE_FUNS => null,
 

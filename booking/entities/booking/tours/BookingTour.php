@@ -37,6 +37,8 @@ use yii\helpers\Url;
  * @property string $payment_id
  * @property bool $give_out
  * @property integer $give_at
+ * @property integer $give_user_id
+ * @property \booking\entities\check\User $checkUser
  */
 
 // unload - выгружен или нет для отчета в finance
@@ -118,6 +120,7 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return '{{%booking_tours_calendar_booking}}';
     }
 
+
     public function afterFind(): void
     {
         $this->count = new Cost(
@@ -162,6 +165,11 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     public function getDiscount(): ActiveQuery
     {
         return $this->hasOne(Discount::class, ['id' => 'discount_id']);
+    }
+
+    public function getCheckUser(): ActiveQuery
+    {
+        return $this->hasOne(\booking\entities\check\User::class, ['id' => 'give_user_id']);
     }
 
     /**  === Сумма базовая */

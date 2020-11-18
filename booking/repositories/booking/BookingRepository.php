@@ -18,6 +18,34 @@ use booking\helpers\scr;
 class BookingRepository
 {
     /** @return  BookingItemInterface[] */
+    public function getTodayCheck($object_class, $object_id): array
+    {
+
+        if ($object_class == BookingTour::class) {
+            $bookings = BookingTour::find()->alias('b')
+                ->joinWith('calendar c')
+                ->andWhere(['c.tour_at' => $this->today()])
+                ->andWhere(['c.tours_id' => $object_id])
+                ->andWhere(['IN', 'b.status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
+                ->orderBy(['b.give_out' => SORT_ASC])
+                ->all();
+            return $bookings;
+        }
+        if ($object_class == BookingCar::class) {
+            $bookings = BookingCar::find()
+                ->andWhere(['begin_at' => $this->today()])
+                ->andWhere(['car_id' => $object_id])
+                ->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
+                ->orderBy(['give_out' => SORT_ASC])
+                ->all();
+            return $bookings;
+        }
+
+        //TODO Заглушка Funs, Stay
+        return [];
+    }
+
+    /** @return  BookingItemInterface[] */
     public function getActive($user_id): array
     {
         $result = [];
@@ -35,6 +63,7 @@ class BookingRepository
             ->where(['>=', 'begin_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
+        //TODO Заглушка Funs, Stay
         $stays = [];
         $funs = [];
         return $this->sort_merge($tours, $stays, $cars, $funs);
@@ -48,13 +77,15 @@ class BookingRepository
             ->where(['<', 'c.tour_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
+        //TODO Заглушка Funs, Stay
         $stays = [];
+        $funs =[];
         $cars = BookingCar::find()
             ->where(['<', 'begin_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
 
-        return $this->sort_merge($tours, $stays, $cars, -1);
+        return $this->sort_merge($tours, $stays, $cars, $funs, -1);
     }
 
     /** @return  BookingItemInterface[] */
@@ -191,5 +222,10 @@ class BookingRepository
         $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
         //TODO Заглушка Funs
+    }
+
+    private function today()
+    {
+        return strtotime(date('d-m-Y', time() + 24 * 3600) . ' 00:00:00');
     }
 }

@@ -425,9 +425,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Discount::class, ['user_id' => 'id']);
     }
 
+
+    /** <========== getXXX */
+
     public function sendSMS($phone, $message)
     {
         //TODO Сохранить в таблице отправленных СМС новую.
     }
-    /** <========== getXXX */
 }

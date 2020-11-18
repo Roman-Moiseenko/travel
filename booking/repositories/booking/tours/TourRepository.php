@@ -24,6 +24,12 @@ class TourRepository
         return Tour::find()->andWhere(['legal_id' => $legal_id])->all();
     }
 
+    public function getByAdminList($user_id)
+    {
+        return Tour::find()->active()->andWhere(['user_id' => $user_id])->orderBy(['name' => SORT_ASC])->all();
+    }
+
+
     public function getByUser($user_id)
     {
         return Tour::find()->andWhere(['user_id' => $user_id])->orderBy(['created_at' => SORT_DESC]);

@@ -7,3 +7,4 @@ Yii::setAlias('@booking', dirname(dirname(__DIR__)) . '/booking');
 Yii::setAlias('@static', dirname(dirname(__DIR__)) . '/static');
 Yii::setAlias('@api', dirname(dirname(__DIR__)) . '/api');
 Yii::setAlias('@admin', dirname(dirname(__DIR__)) . '/admin');
+Yii::setAlias('@check', dirname(dirname(__DIR__)) . '/check');

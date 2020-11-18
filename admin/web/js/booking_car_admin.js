@@ -90,11 +90,12 @@ $(document).ready(function () {
             });
     });
 
-    $(document).on("click", ".give-out", function () {
+    $(document).on("click", ".give-out-car", function () {
         let check = $(this).is(":checked");
         $(this).prop("disabled", true);
         let booking_number = $(this).data("number");
         //console.log(booking_number);
+        //TODO ошибка при выдаче добавить $i
         $.post("/car/booking/set-give-car", {booking_number: booking_number}, function (data) {
             $("#error-set-give").html(data);
         });

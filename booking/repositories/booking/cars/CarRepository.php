@@ -28,6 +28,10 @@ class CarRepository
         return Car::find()->andWhere(['legal_id' => $legal_id])->all();
     }
 
+    public function getByAdminList($user_id)
+    {
+        return Car::find()->active()->andWhere(['user_id' => $user_id])->orderBy(['name' => SORT_ASC])->all();
+    }
 
     public function getByUser($user_id)
     {
@@ -193,4 +197,5 @@ class CarRepository
         }
         return $car_ids;
     }
+
 }

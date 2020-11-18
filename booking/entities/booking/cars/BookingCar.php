@@ -43,6 +43,7 @@ use yii\helpers\Url;
  * @property BookingCarOnDay[] $days
  * @property Car $car
  * @property \booking\entities\user\User $user
+ * @property \booking\entities\check\User $checkUser
  */
 
 
@@ -155,6 +156,11 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     public function getDiscount(): ActiveQuery
     {
         return $this->hasOne(Discount::class, ['id' => 'discount_id']);
+    }
+
+    public function getCheckUser(): ActiveQuery
+    {
+        return $this->hasOne(\booking\entities\check\User::class, ['admin_id' => 'id']);
     }
 
     public function getDate(): int

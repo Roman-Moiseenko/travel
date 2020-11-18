@@ -41,7 +41,7 @@ $lang = $user->preferences->lang;
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('ПИН-код', $lang) . ' #' . $booking->getPinCode() . '. ' . Lang::t('Покажите его Провайдеру, $lang') ?>
+                <?= Lang::t('ПИН-код', $lang) . ' #' . $booking->getPinCode() . '. ' . Lang::t('Покажите его Провайдеру', $lang) ?>
             </td>
             <td style="width: 25%"></td>
         </tr>

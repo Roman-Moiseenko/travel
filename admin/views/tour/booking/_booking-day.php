@@ -1,6 +1,5 @@
 <?php
 
-use booking\entities\booking\cars\CostCalendar;
 use booking\entities\booking\tours\BookingTour;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
@@ -9,10 +8,7 @@ use yii\helpers\Url;
 /* @var $bookings BookingTour[] */
 
 ?>
-
-
 <span style="font-size: larger; font-weight: bold"> </span>
-
 <?php if (isset($bookings)): ?>
     <div class="row">
         <div class="col d-flex">
@@ -60,17 +56,6 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                 </span>
-                    <?php if (!$booking->isCancel()): ?>
-                    <span class="booking-item">
-                    <span class="custom-control custom-checkbox">
-                    <input id="giv-out-<?= $i ?>" class="custom-control-input give-out" type="checkbox" value="1"
-                           data-number="<?= BookingHelper::number($booking); ?>"
-                    <?= $booking->give_out ? 'disabled checked' : '' ?>>
-                        <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
-                    </span>
-                        <span id="error-set-give"></span>
-                </span>
-                    <?php endif; ?>
                     <br>
                     <span class="booking-item">
                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
@@ -82,7 +67,26 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="far fa-clock"></i>&#160;&#160;<?= date('d-m-Y', $booking->created_at); ?>
                 </span>
-
+                    <br>
+                    <?php if (!$booking->isCancel()): ?>
+                        <span class="booking-item">
+                        <?php if ($booking->give_out): ?>
+                            <label class="" for="giv-out-<?= $i ?>">выдано:</label>
+                            <?php if ($booking->give_user_id == null) {
+                                echo 'Администратором';
+                            } else {
+                                echo $booking->checkUser->fullname . '<br>Касса: ' . $booking->checkUser->box_office . '<br>Время: ' . date('d-m-Y H:i:s', $booking->give_at);
+                            } ?>
+                        <?php else: ?>
+                            <span class="custom-control custom-checkbox">
+                                <input id="giv-out-<?= $i ?>" class="custom-control-input give-out-car" type="checkbox" value="1"
+                                       data-number="<?= BookingHelper::number($booking); ?>" <?= $booking->give_out ? 'disabled checked' : '' ?>>
+                                <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
+                            </span>
+                            <span id="error-set-give-<?= $i ?>"></span>
+                        <?php endif; ?>
+                        </span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

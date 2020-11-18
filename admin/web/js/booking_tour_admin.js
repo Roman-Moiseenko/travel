@@ -83,11 +83,12 @@ $(document).ready(function () {
                 $(".booking-day").html(data);
             });
     });
-    $(document).on("click", ".give-out", function () {
+    $(document).on("click", ".give-out-tour", function () {
         let check = $(this).is(":checked");
         $(this).prop("disabled", true);
         let booking_number = $(this).data("number");
         //console.log(booking_number);
+        //TODO ошибка при выдаче добавить $i
         $.post("/tour/booking/set-give-tour", {booking_number: booking_number}, function (data) {
             $("#error-set-give").html(data);
         });
