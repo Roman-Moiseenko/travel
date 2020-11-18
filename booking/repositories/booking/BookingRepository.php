@@ -226,6 +226,6 @@ class BookingRepository
 
     private function today()
     {
-        return strtotime(date('d-m-Y', time() + 24 * 3600) . ' 00:00:00');
+        return strtotime(date('d-m-Y', time()) . ' 00:00:00');
     }
 }

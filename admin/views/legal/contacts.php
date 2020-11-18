@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 
 $this->title = 'Контакты';
-$this->params['breadcrumbs'][] = ['label' => $legal->name, 'url' => ['/cabinet/legal/view', 'id' => $legal->id]];
+$this->params['breadcrumbs'][] = ['label' => $legal->name, 'url' => ['/legal/view', 'id' => $legal->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -60,8 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $contact->description ?>
                     </td>
                     <td width="80px">
-                        <a href="<?= Url::to(['/cabinet/legal/contact-update', 'id' => $contact->id])?>" title="Изменить"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="<?= Url::to(['/cabinet/legal/contact-remove', 'id' => $contact->id])?>" title="Удалить"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="<?= Url::to(['/legal/contact-update', 'id' => $contact->id])?>" title="Изменить"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="<?= Url::to(['/legal/contact-remove', 'id' => $contact->id])?>" title="Удалить"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

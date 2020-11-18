@@ -86,5 +86,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
         ],
     ]); ?>
-
+    <span>* Адрес для входа сотрудникам - <a href="http://check.koenigs.ru" target="_blank">check.koenigs.ru</a> Оптимизирован под мобильные телефоны</span>
 </div>

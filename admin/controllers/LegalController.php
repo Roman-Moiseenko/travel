@@ -1,7 +1,7 @@
 <?php
 
 
-namespace admin\controllers\cabinet;
+namespace admin\controllers;
 
 
 use admin\forms\user\LegalSearch;
@@ -15,7 +15,7 @@ use yii\web\Controller;
 
 class LegalController extends Controller
 {
-    public $layout = 'main-cabinet';
+    public $layout = 'main';
     private $service;
 
     public function __construct($id, $module, UserManageService $service, $config = [])
@@ -56,7 +56,7 @@ class LegalController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $legal = $this->service->newLegal($user->id, $form);
-                return $this->redirect(['/cabinet/legal/view', 'id' => $legal->id]);
+                return $this->redirect(['/legal/view', 'id' => $legal->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -77,7 +77,7 @@ class LegalController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->editLegal($user->id, $legal->id, $form);
-                return $this->redirect(['/cabinet/legal/view', 'id' => $legal->id]);
+                return $this->redirect(['/legal/view', 'id' => $legal->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -102,7 +102,7 @@ class LegalController extends Controller
     {
         $user = $this->findModel();
         $this->service->removeLegal($user->id, $id);
-        return $this->redirect(['/cabinet/legal']);
+        return $this->redirect(['/legal']);
     }
 
     public function actionContacts($id)
@@ -133,7 +133,7 @@ class LegalController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->updateLegalContact($legal->id, $id, $form);
-                return $this->redirect(['/cabinet/legal/contacts', 'id' => $legal->id]);
+                return $this->redirect(['/legal/contacts', 'id' => $legal->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

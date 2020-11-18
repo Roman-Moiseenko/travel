@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'label' => 'Торговая марка',
                         'value' => function (Legal $model) {
-                            return Html::a(Html::encode($model->caption), ['/cabinet/legal/view', 'id' => $model->id]);
+                            return Html::a(Html::encode($model->caption), ['/legal/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
                         'attribute' => 'name',
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'label' => 'Организация',
                         'value' => function (Legal $model) {
-                            return Html::a(Html::encode($model->name), ['/cabinet/legal/view', 'id' => $model->id]);
+                            return Html::a(Html::encode($model->name), ['/legal/view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
                         'attribute' => 'name',

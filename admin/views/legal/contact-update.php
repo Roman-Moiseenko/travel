@@ -12,8 +12,8 @@ use yii\widgets\ActiveForm;
 
 
 $this->title = 'Контакты';
-$this->params['breadcrumbs'][] = ['label' => $legal->name, 'url' => ['/cabinet/legal/view', 'id' => $legal->id]];
-$this->params['breadcrumbs'][] = ['label' => 'Контакты', 'url' => ['/cabinet/legal/contacts', 'id' => $legal->id]];
+$this->params['breadcrumbs'][] = ['label' => $legal->name, 'url' => ['/legal/view', 'id' => $legal->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Контакты', 'url' => ['/legal/contacts', 'id' => $legal->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
