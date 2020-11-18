@@ -33,6 +33,7 @@ interface BookingItemInterface
     public function getCheckBooking(): int;
     public function getConfirmationCode(): string;
     public function getPinCode(): int;
+    public function getCount(): int;
 
     /** set */
     public function setStatus(int $status);

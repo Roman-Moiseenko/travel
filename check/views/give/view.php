@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <i class="fas fa-key"></i>&#160;&#160;<?= $booking->getPinCode(); ?>
                 </span>
                 <span class="booking-item">
-                    <i class="fas fa-car"></i>&#160;&#160;<?= ''// $booking->getCount(); ?>
+                    <?= BookingHelper::icons($booking->getType())?>&#160;&#160;<?= '1' ?>
                 </span>
                 <br>
                 <?php if (!$booking->give_out): ?>

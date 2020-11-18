@@ -171,4 +171,9 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     {
         // TODO: Implement isCancel() method.
     }
+
+    public function getCount(): int
+    {
+        // TODO: Implement getCount() method.
+    }
 }

@@ -335,4 +335,9 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
         $this->give_out = true;
         $this->give_at = time();
     }
+
+    public function getCount(): int
+    {
+        return $this->count;
+    }
 }

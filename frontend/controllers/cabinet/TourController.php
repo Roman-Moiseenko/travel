@@ -64,7 +64,6 @@ class TourController extends Controller
 
     public function actionView($id)
     {
-        //scr::v(\Yii::$app->request->cookies->get('_identity-koenigs'));
         $booking = $this->findModel($id);
         $user = $this->users->get(\Yii::$app->user->id);
         return $this->render('view', [

@@ -323,4 +323,9 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         $this->give_out = true;
         $this->give_at = time();
     }
+
+    public function getCount(): int
+    {
+        return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
+    }
 }
