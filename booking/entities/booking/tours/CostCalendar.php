@@ -4,10 +4,8 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\booking\CalendarInterface;
 use booking\helpers\BookingHelper;
-use understeam\calendar\ActiveRecordItemTrait;
-use understeam\calendar\CalendarInterface;
-use understeam\calendar\ItemInterface;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -23,8 +21,9 @@ use yii\db\ActiveRecord;
  * @property Cost $cost
  * @property Tour $tour
  * @property BookingTour[] $bookings
+ * @property SellingTour[] $selling
  */
-class CostCalendar extends ActiveRecord // implements ItemInterface
+class CostCalendar extends ActiveRecord  implements CalendarInterface
 {
    // use ActiveRecordItemTrait;
     public $cost;
@@ -83,9 +82,7 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
     public function getFreeTickets(): int 
     {
         $count = 0;
-
         $bookings = $this->bookings;
-       // return count($bookings);
         foreach ($bookings as $booking) {
             $count += $booking->count->adult ?? 0;
             $count += $booking->count->child ?? 0;
@@ -99,5 +96,26 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
         return $this->hasMany(BookingTour::class, ['calendar_id' => 'id'])
             ->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
+    }
+
+    public function getSelling(): ActiveQuery
+    {
+        return $this->hasMany(SellingTour::class, ['calendar_id' => 'id']);
+    }
+
+
+    public function free(): int
+    {
+        $count = 0;
+        $bookings = $this->bookings;
+        foreach ($this->selling as $sale) {
+            $count += $sale->count;
+        }
+        foreach ($bookings as $booking) {
+            $count += $booking->count->adult ?? 0;
+            $count += $booking->count->child ?? 0;
+            $count += $booking->count->preference ?? 0;
+        }
+        return $this->tickets - $count;
     }
 }

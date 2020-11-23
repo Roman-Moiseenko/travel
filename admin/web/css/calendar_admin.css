@@ -1,3 +1,12 @@
+#selling-calendar>.datepicker td,
+#selling-calendar>.datepicker th {
+    width: 50px !important;
+    height: 30px !important;
+}
+#selling-calendar .table-condensed {
+    width: 350px !important;
+}
+
 #datepicker-booking-car>.datepicker td,
 #datepicker-booking-car>.datepicker th {
     width: 150px !important;
@@ -10,12 +19,24 @@
     height: 90px !important;
 }
 
+#datepicker-car>.datepicker td,
+#datepicker-car>.datepicker th {
+    width: 150px !important;
+    height: 90px !important;
+}
+
+#datepicker-tour>.datepicker td,
+#datepicker-tour>.datepicker th {
+    width: 150px !important;
+    height: 90px !important;
+}
+
 .datepicker td,
 .datepicker th {
     font-size: larger;
     text-align: center;
-    width: 120px !important;
-    height: 80px !important;
+    width: 120px;
+    height: 80px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -28,9 +49,13 @@
     width: 1050px !important;
 }
 
-.table-condensed {
+#datepicker-tour .table-condensed {
     width: 840px !important;
 }
+#datepicker-car .table-condensed {
+    width: 840px !important;
+}
+
 
 .calendar-day {
     font-size: larger;/*ffcd49*/

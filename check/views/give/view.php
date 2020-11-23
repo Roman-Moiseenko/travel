@@ -7,13 +7,14 @@ use yii\helpers\Url;
 
 /* @var $bookings BookingItemInterface[] */
 /* @var $name string */
+/* @var $link_selling string */
 
 $this->title = 'Выдача билетов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="d-flex p-2 justify-content-center" style="background-color: #85c17c; color: #134b18; font-size: 26px; font-weight: 600; text-align:  center;">
 
-        <?= '<a class="link-head" href="' . Url::to(['/give/index']). '"><i class="fas fa-reply"></i></a> ' . $name ?>
+        <?= '<a class="link-head" href="' . Url::to(['/give/index']). '"><i class="fas fa-reply"></i></a>&#160;' . $name .'&#160;<a class="link-head" href="' . $link_selling. '"><i class="fas fa-hand-holding-usd"></i></a> ' ?>
     </div>
 <?php foreach ($bookings as $i => $booking): ?>
     <div class="card m-1">

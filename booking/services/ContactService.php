@@ -178,6 +178,7 @@ class ContactService
     private function sendSMS($phone, $message, User $admin_user)
     {
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS']) return;
+        //TODO где нить проверку как берется оплата за объект
         if (!$admin_user->isSMS()) return;
         if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
     }

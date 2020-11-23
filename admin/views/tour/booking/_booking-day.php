@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 ?>
 <span style="font-size: larger; font-weight: bold"> </span>
-<?php if (isset($bookings)): ?>
+<?php if (isset($bookings) && count($bookings) > 0): ?>
     <div class="row">
         <div class="col d-flex">
         <div class="ml-auto booking-item">
@@ -25,7 +25,7 @@ use yii\helpers\Url;
             <div class="card-header p-0">
             <span class="booking-item">
                 <?php if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY): ?>
-                    <span class="badge badge-pill badge-success" title="eeee"><i class="far fa-check-circle"></i></span>
+                    <span class="badge badge-pill badge-success" title=""><i class="far fa-check-circle"></i></span>
                 <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW): ?>
                     <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
                 <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION): ?>

@@ -34,6 +34,7 @@ use booking\helpers\tours\TourHelper;
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/tour/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/review',
                         'badge' => '<span class="right badge badge-warning">'. TourHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tour/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/report'],
+                    ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/tour/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/selling'],
                 ],
             ]);
             ?>

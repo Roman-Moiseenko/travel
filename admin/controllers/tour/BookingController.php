@@ -106,7 +106,7 @@ class BookingController extends Controller
         }
     }
 
-    public function actionSetGiveCar()
+    public function actionSetGiveTour()
     {
         $this->layout = 'main_ajax';
         if (\Yii::$app->request->isAjax) {
@@ -114,12 +114,12 @@ class BookingController extends Controller
             $booking_number = $params['booking_number'];
             /** @var BookingItemInterface $booking */
             $booking = BookingHelper::getByNumber($booking_number);
-            if ($booking && $booking instanceof BookingCar) {
+            if ($booking && $booking instanceof BookingTour) {
                 $booking->setGive();
                 $this->bookings->save($booking);
                 return '';
             } else {
-                \Yii::error('Ошибка! actionSetGiveCar - $booking_number = ' . $booking_number);
+                \Yii::error('Ошибка! actionSetGiveTour - $booking_number = ' . $booking_number);
                 return '<span class="badge badge-danger">error!</span>';
             }
         }

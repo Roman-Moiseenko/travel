@@ -4,12 +4,17 @@
 namespace check\controllers;
 
 
+use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\cars\Car;
+use booking\entities\booking\tours\BookingTour;
+use booking\entities\booking\tours\Tour;
 use booking\entities\check\BookingObject;
 use booking\entities\check\User;
 use booking\helpers\scr;
 use booking\repositories\booking\BookingRepository;
 use booking\services\check\GiveOutService;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class GiveController extends Controller
@@ -62,9 +67,16 @@ class GiveController extends Controller
         $object = BookingObject::findOne($id);
         $bookings = $this->bookings->getTodayCheck($object->classBooking(), $object->object_id);
         $name = $object->classObject()::findOne($object->object_id)->name;
+        //scr::v($object->classObject());
+        if ($object->classObject() == Tour::class)
+            $link_selling = Url::to(['selling-tour/index', 'id' => $object->id]);
+        if ($object->classObject() == Car::class)
+            $link_selling = Url::to(['selling-car/index', 'id' => $object->id]);
+
         return $this->render('view', [
             'bookings' => $bookings,
             'name' => $name,
+            'link_selling' => $link_selling,
         ]);
     }
 

@@ -57,7 +57,7 @@ class BookingCarRepository
                 $y = (int)date('Y', $day->calendar->car_at);
                 $m = (int)date('m', $day->calendar->car_at);
                 $d = (int)date('d', $day->calendar->car_at);
-                $free = $day->calendar->getFreeCount();
+                $free = $day->calendar->free();
                 $all = $day->calendar->count;
                 $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free)];
             }

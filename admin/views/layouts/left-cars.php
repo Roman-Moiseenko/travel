@@ -35,6 +35,7 @@ use booking\helpers\tours\TourHelper;
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'url' => ['/car/review', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/review',
                         'badge' => '<span class="right badge badge-warning">'. CarHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/car/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/report'],
+                    ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/car/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/selling'],
                 ],
             ]);
             ?>

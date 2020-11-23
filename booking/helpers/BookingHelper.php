@@ -24,6 +24,7 @@ class BookingHelper
     const BOOKING_STATUS_CANCEL_PAY = 4;
     const BOOKING_STATUS_EXECUTE = 5;
     const BOOKING_STATUS_CONFIRMATION = 6;
+    const BOOKING_STATUS_SELLING = 7; //Прямая продажа
 
     const BOOKING_TYPE_TOUR = 1;
     const BOOKING_TYPE_STAY = 2;
@@ -168,7 +169,7 @@ class BookingHelper
                 break;
             case BookingHelper::BOOKING_TYPE_CAR:
             case BookingHelper::BOOKING_TYPE_STAY:
-                return Lang::t('по') . ' ' . date('d-m-Y', $datetime2);
+                return Lang::t('по') . ' ' . $datetime2;
                 break;
         }
     }

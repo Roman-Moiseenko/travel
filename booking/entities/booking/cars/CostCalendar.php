@@ -4,6 +4,7 @@
 namespace booking\entities\booking\cars;
 
 
+use booking\entities\booking\CalendarInterface;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -20,8 +21,9 @@ use yii\db\ActiveRecord;
  * @property Car $car
  * @property BookingCarOnDay[] $bookingOnDays
  * @property BookingCar[] $bookings
+ * @property SellingCar[] $selling
  */
-class CostCalendar extends ActiveRecord // implements ItemInterface
+class CostCalendar extends ActiveRecord  implements CalendarInterface
 {
 
     public static function create($car_at, $cost, $count): self
@@ -86,5 +88,23 @@ class CostCalendar extends ActiveRecord // implements ItemInterface
             ->andWhere(['<>', 'booking_cars_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_cars_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
         //BookingCarOnDay::tableName(), ['calendar_id' => 'id']
+    }
+
+    public function getSelling(): ActiveQuery
+    {
+        return $this->hasMany(SellingCar::class, ['calendar_id' => 'id']);
+    }
+
+    public function free(): int
+    {
+        $count = 0;
+        $bookings = $this->bookings;
+        foreach ($this->selling as $sale) {
+            $count += $sale->count;
+        }
+        foreach ($bookings as $booking) {
+            $count += $booking->count;
+        }
+        return $this->count - $count;
     }
 }

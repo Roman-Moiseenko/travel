@@ -37,13 +37,15 @@ use yii\helpers\Url;
                 <span class="dropdown-item dropdown-footer"></span>
             </div>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="<?= Url::to(['/help']) ?>" class="nav-link">Помощь</a>
+        </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <?= MessageTopBarWidget::widget() ?>
-        <?php //TODO Параметр days брать с параметров user->params->item Новая Entities!!! ?>
         <!-- Review Dropdown Menu -->
         <?= ReviewTopBarWidget::widget(['days' => 7]) ?>
         <!-- Booking Dropdown Menu -->

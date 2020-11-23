@@ -28,11 +28,13 @@ class CostCalendarRepository
     {
         return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();
     }
-    public function getDay($tours_id, $date)
+    public function getDay($tours_id, $date, $notFree = true)
     {
         $costCalendar = CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
-        foreach ($costCalendar as $i => $item) {
-            if ($item->getFreeTickets() == 0) unset($costCalendar[$i]);
+        if ($notFree) {
+            foreach ($costCalendar as $i => $item) {
+                if ($item->free() == 0) unset($costCalendar[$i]);
+            }
         }
         return $costCalendar;
     }
@@ -53,7 +55,7 @@ class CostCalendarRepository
             $calendars = $this->getActualInterval($tour_id, $interval['min'], $interval['max']);
             $result = [];
             foreach ($calendars as $calendar) {
-                if ($calendar->getFreeTickets() != 0) {
+                if ($calendar->free() != 0) {
                     $y = (int)date('Y', $calendar->tour_at);
                     $m = (int)date('m', $calendar->tour_at);
                     $d = (int)date('d', $calendar->tour_at);
@@ -109,7 +111,7 @@ class CostCalendarRepository
             $y = (int)date('Y', $calendar->tour_at);
             $m = (int)date('m', $calendar->tour_at);
             $d = (int)date('d', $calendar->tour_at);
-            $free = $calendar->getFreeTickets();
+            $free = $calendar->free();
             $all = $calendar->tickets;
             $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free)];
         }

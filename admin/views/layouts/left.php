@@ -30,6 +30,8 @@ use yii\helpers\Url;
                     ['label' => 'Промо-коды', 'icon' => 'percent', 'url' => ['/discount'], 'active' => $this->context->id == 'discount'],
                     ['label' => 'Мои организации', 'icon' => 'registered', 'url' => ['/legal'], 'active' => $this->context->id == 'legal'],
                     ['label' => 'Сотрудники', 'icon' => 'users', 'url' => ['/staff'], 'active' => $this->context->id == 'staff'],
+                    //['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/selling'], 'active' => $this->context->id == 'selling'],
+
                 ],
             ]);
             ?>

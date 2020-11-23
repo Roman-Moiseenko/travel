@@ -36,7 +36,7 @@ use booking\helpers\CurrencyHelper;
         <?php endif; ?>
     </table>
 
-    <label id="label-count-tickets" data-count="<?= $current->getFreeTickets()?>"><?= Lang::t('Осталось билетов') . ': ' . $current->getFreeTickets()?></label>
+    <label id="label-count-tickets" data-count="<?= $current->free()?>"><?= Lang::t('Осталось билетов') . ': ' . $current->free()?></label>
     <p><b><?= Lang::t('Промо-код') . ':' ?></b></p>
     <input class="form-control" id="discount" name="discount" type="text" value=""/>
 <!-- ИТОГО -->

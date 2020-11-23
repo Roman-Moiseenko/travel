@@ -45,7 +45,7 @@ class BookingCarService
             $date = $begin_date + $i * 3600 * 24;
             $calendar = $this->calendar->find($car_id, $date);
             //Проверяем есть ли свободные авто на эту дату
-            if ($calendar->getFreeCount() < $count) {
+            if ($calendar->free() < $count) {
                 throw new \DomainException(Lang::t('Недостаточно свободных на дату ') . date('d-m-Y', $date));
             };
             //$days_array[] = BookingCarOnDay::create($calendar->id);

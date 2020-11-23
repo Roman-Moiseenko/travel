@@ -205,7 +205,7 @@ class UserManageService
         $user = $this->users->get($id);
         $calendar = $this->calendarsTours->get($form->calendar_id);
         $count_booking = $form->count->adult ?? 0 + $form->count->child ?? 0 + $form->count->preference ?? 0;
-        if ($calendar->getFreeTickets() < $count_booking) {
+        if ($calendar->free() < $count_booking) {
             throw new \DomainException(Lang::t('Количество билетов превышает имеющихся в свободном доступе.'));
         }
         $amount = $calendar->cost->adult * $form->count->adult;
@@ -232,7 +232,7 @@ class UserManageService
         $booking = $this->bookingTours->get($booking_id);
 
         $count_booking = $form->count->adult ?? 0 + $form->count->child ?? 0 + $form->count->preference ?? 0;
-        if ($calendar->getFreeTickets() < $count_booking - $booking->countTickets()) {
+        if ($calendar->free() < $count_booking - $booking->countTickets()) {
             throw new \DomainException(Lang::t('Количество билетов превышает имеющихся в свободном доступе.'));
         }
         $amount = $calendar->cost->adult * $form->count->adult;

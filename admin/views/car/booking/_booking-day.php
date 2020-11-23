@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $calendar CostCalendar */
 
 ?>
-<?php if (isset($calendar->bookings)): ?>
+<?php if (isset($calendar->bookings) && count($calendar->bookings) > 0): ?>
 
     <div class="row">
         <div class="col d-flex">

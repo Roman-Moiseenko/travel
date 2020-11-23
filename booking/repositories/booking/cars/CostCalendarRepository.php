@@ -101,7 +101,7 @@ class CostCalendarRepository
                 ->all();
             $result = [];
             foreach ($calendars as $calendar) {
-                if ($calendar->getFreeCount() !== 0) {
+                if ($calendar->free() !== 0) {
                     $y = (int)date('Y', $calendar->car_at);
                     $m = (int)date('m', $calendar->car_at);
                     $d = (int)date('d', $calendar->car_at);
@@ -121,7 +121,7 @@ class CostCalendarRepository
             $result = [];
             $pred = $date_to;
             foreach ($calendars as $calendar) {
-                if ($calendar->getFreeCount() !== 0) {
+                if ($calendar->free() !== 0) {
                     if ($pred - $calendar->car_at >= 2 * 3600 * 24) break;
                     $pred = $calendar->car_at;
                     $y = (int)date('Y', $calendar->car_at);
@@ -142,7 +142,7 @@ class CostCalendarRepository
             $result = [];
             $pred = $date_from;
             foreach ($calendars as $calendar) {
-                if ($calendar->getFreeCount() !== 0) {
+                if ($calendar->free() !== 0) {
                     if ($calendar->car_at - $pred >= 2 * 3600 * 24) break;
                     $pred = $calendar->car_at;
                     $y = (int)date('Y', $calendar->car_at);
@@ -172,7 +172,7 @@ class CostCalendarRepository
         $max_avto = 999999;
         $amount = 0;
         foreach ($calendars as $calendar) {
-            if ($max_avto > $calendar->getFreeCount()) $max_avto = $calendar->getFreeCount();
+            if ($max_avto > $calendar->free()) $max_avto = $calendar->free();
             $amount += $calendar->cost;
         }
         $result['max_avto'] = $max_avto;
@@ -191,7 +191,7 @@ class CostCalendarRepository
             $y = (int)date('Y', $calendar->car_at);
             $m = (int)date('m', $calendar->car_at);
             $d = (int)date('d', $calendar->car_at);
-            $free = $calendar->getFreeCount();
+            $free = $calendar->free();
             $all = $calendar->count;
             $begin = $calendar->isBegin();
             $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free), 'begin' => $begin];
