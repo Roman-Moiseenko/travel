@@ -38,7 +38,7 @@ use yii\helpers\Url;
             </div>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= Url::to(['/help/view', 'id' => 1]) ?>" class="nav-link">Помощь</a>
+            <a href="<?= Url::to(['/help']) ?>" class="nav-link">Помощь</a>
         </li>
     </ul>
 

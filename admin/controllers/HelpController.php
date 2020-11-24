@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\helpers\scr;
 use booking\repositories\office\HelpRepository;
 use booking\repositories\office\PageRepository;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -20,6 +21,12 @@ class HelpController extends Controller
     {
         parent::__construct($id, $module, $config);
         $this->pages = $pages;
+    }
+
+
+    public function actionIndex()
+    {
+        return $this->redirect(Url::to(['help/view', 'id' => 1]));
     }
 
     public function actionView($id)
