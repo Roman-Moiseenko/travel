@@ -314,3 +314,19 @@ table.table-adaptive {
     font-size: 14px;
     display: inline-block;
 }
+
+.link_admin_help {
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.link_admin_help.active {
+    background-color: #0a73bb;
+}
+.link_admin_help a:hover {
+    color: white !important;
+}
+
+.link_admin_help.active a {
+    color: white !important;
+}

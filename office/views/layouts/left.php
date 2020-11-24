@@ -62,6 +62,7 @@ use yii\helpers\Url;
                     ['label' => 'Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'items' => [
                         ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/file'], 'active' => $this->context->id == 'file'],
                         ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/page'], 'active' => $this->context->id == 'page'],
+                        ['label' => 'Помощь (Провайдер)', 'icon' => 'info', 'url' => ['/help'], 'active' => $this->context->id == 'help'],
                     ]],
                     ['label' => 'Блог', 'icon' => 'blog', 'items' => [
                         ['label' => 'Статьи', 'icon' => 'book', 'url' => ['/blog/post'], 'active' => $this->context->id == 'blog/post'],
