@@ -13,7 +13,6 @@ class HelpForm extends Model
 {
     public $title;
     public $content;
-    public $slug;
     public $icon;
     public $parentId;
 
@@ -24,7 +23,6 @@ class HelpForm extends Model
         if ($page) {
             $this->title = $page->title;
             $this->content = $page->content;
-            $this->slug = $page->slug;
             $this->parentId = $page->parent ? $page->parent->id : null;
             $this->_page = $page;
         }
@@ -36,10 +34,8 @@ class HelpForm extends Model
         return [
             [['title'], 'required'],
             [['parentId'], 'integer'],
-            [['title', 'slug'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['content', 'icon'], 'string'],
-            ['slug', SlugValidator::class],
-            [['slug'], 'unique', 'targetClass' => Help::class, 'filter' => $this->_page ? ['<>', 'id', $this->_page->id] : null]
         ];
     }
 

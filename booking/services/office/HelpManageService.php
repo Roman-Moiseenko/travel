@@ -26,7 +26,6 @@ class HelpManageService
         $parent = $this->pages->get($form->parentId);
         $page = Help::create(
             $form->title,
-            $form->slug,
             $form->content,
             $form->icon
         );
@@ -41,7 +40,6 @@ class HelpManageService
         //$this->assertIsNotRoot($page);
         $page->edit(
             $form->title,
-            $form->slug,
             $form->content,
             $form->icon
         );

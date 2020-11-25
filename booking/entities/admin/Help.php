@@ -12,7 +12,6 @@ use yii\db\ActiveRecord;
 /**
  * @property integer $id
  * @property string $title
- * @property string $slug
  * @property string $content
  * @property string $icon
  * @property integer $lft
@@ -29,24 +28,19 @@ class Help extends ActiveRecord
 {
     public $meta;
 
-    public static function create($title, $slug, $content, $icon): self
+    public static function create($title, $content, $icon): self
     {
         $page = new static();
         $page->title = $title;
-        if (empty($slug)) $slug = SlugHelper::slug($title);
-        $page->slug = $slug;
+
         $page->content = $content;
         $page->icon = $icon;
         return $page;
     }
 
-    public function edit($title, $slug, $content, $icon)
+    public function edit($title, $content, $icon)
     {
         $this->title = $title;
-        if (empty($slug)) {
-            $slug = SlugHelper::slug($title);
-        }
-        $this->slug = $slug;
         $this->content = $content;
         $this->icon = $icon;
     }

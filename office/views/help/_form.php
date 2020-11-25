@@ -21,10 +21,6 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'parentId')->dropDownList($model->parentsList())->label('Родительская страница')?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
             <?= $form->field($model, 'icon')->textInput(['maxlength' => true])->label('Иконка (fas fa-...)') ?>
-            <?= $form->field($model, 'slug')
-                ->textInput(['maxlength' => true])
-                ->label('Ссылка')
-                ->hint('Оставьте пустым, заполнится автоматически') ?>
             <?= $form->field($model, 'content')->widget(CKEditor::class)->label('Текст') ?>
         </div>
     </div>
