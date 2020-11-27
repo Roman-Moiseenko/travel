@@ -36,11 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Заголовок'
                     ],
                     [
-                        'attribute' => 'slug',
-                        'format' => 'text',
-                        'label' => 'Ссылка'
-                    ],
-                    [
                         'attribute' => 'icon',
                         'format' => 'text',
                         'label' => 'Иконка'

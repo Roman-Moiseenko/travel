@@ -18,7 +18,7 @@ class HelpSearch extends Help
     {
         return [
             [['id', 'lft', 'rgt', 'depth'], 'integer'],
-            [['title', 'slug', 'content'], 'safe'],
+            [['title', 'content'], 'safe'],
         ];
     }
 
@@ -45,6 +45,9 @@ class HelpSearch extends Help
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 50,
+            ],
             'sort' => [
                 'defaultOrder' => ['lft' => SORT_ASC],
             ],
@@ -65,7 +68,6 @@ class HelpSearch extends Help
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;

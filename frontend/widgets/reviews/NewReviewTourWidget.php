@@ -21,9 +21,8 @@ class NewReviewTourWidget extends Widget
         //Проверяем есть ли отзыв
         $user_id = \Yii::$app->user->id;
         $reviews = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['tour_id' => $this->tour_id])->all();
-        if (count($reviews) != 0) {
-            return '';
-        }
+        if (count($reviews) != 0) return '';
+
 
         /** @var BookingTour[] $bookings */
         $bookings = BookingTour::find()->andWhere(['user_id' => $user_id])->all();

@@ -69,6 +69,13 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="far fa-clock"></i>&#160;&#160;<?= (($booking->end_at - $booking->begin_at) / (24 * 3600) + 1) . ' дней ' . 'с ' . date('d-m-Y', $booking->begin_at) . ' по ' . date('d-m-Y', $booking->end_at); ?>
                 </span>
+
+                    <?php if ($booking->delivery): ?>
+                        <br>
+                        <span class="booking-item">
+                        <i class="fas fa-truck"></i>&#160;&#160;<?= $booking->comment ?>
+                    </span>
+                    <?php endif; ?>
                     <br>
                     <?php if (!$booking->isCancel()): ?>
                         <span class="booking-item">
@@ -78,10 +85,11 @@ use yii\helpers\Url;
                                 echo 'Администратором';
                             } else {
                                 echo $booking->checkUser->fullname . '<br>Касса: ' . $booking->checkUser->box_office . '<br>Время: ' . date('d-m-Y H:i:s', $booking->give_at);
-                            }    ?>
+                            } ?>
                         <?php else: ?>
                             <span class="custom-control custom-checkbox">
-                                <input id="giv-out-<?= $i ?>" class="custom-control-input give-out-car" type="checkbox" value="1"
+                                <input id="giv-out-<?= $i ?>" class="custom-control-input give-out-car" type="checkbox"
+                                       value="1"
                                        data-number="<?= BookingHelper::number($booking); ?>" <?= $booking->give_out ? 'disabled checked' : '' ?>>
                                 <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
                             </span>

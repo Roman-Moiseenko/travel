@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
-                    <?= $form->field($model, 'min_rent')->textInput(['min' => 1, 'type' => 'number'])->label('Минимальное бронирование (сут)') ?>
+                    <?= $form->field($model, 'min_rent')->textInput(['min' => 1, 'type' => 'number'])->label('Мин. бронирование (сут)') ?>
                 </div>
                 <div class="col-md-3">
                     <?= $form->field($model, 'license')->dropDownList(Car::LICENSE, ['prompt' => ''])->label('Водительские права') ?>

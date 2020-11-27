@@ -27,7 +27,7 @@ class UserAddressForm extends Model
     public function rules()
     {
         return [
-            [['town', 'address', 'index'], 'required'],
+            //[['town', 'address', 'index'], 'required'],
             [['town', 'address', 'country'], 'string'],
             ['index', 'string', 'length' => 6],
             ['index', 'match', 'pattern' => '/^[0-9]*$/i'],

@@ -46,11 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions' => ['data-label' => 'Сортировка'],
                 ],
                 [
-                    'attribute' => 'slug',
-                    'label' => 'Ссылка',
-                    'contentOptions' => ['data-label' => 'Ссылка'],
-                ],
-                [
                     'attribute' => 'title',
                     'label' => 'Заголовок',
                     'contentOptions' => ['data-label' => 'Заголовок'],

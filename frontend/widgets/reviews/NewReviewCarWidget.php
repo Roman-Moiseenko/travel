@@ -21,9 +21,8 @@ class NewReviewCarWidget extends Widget
         //Проверяем есть ли отзыв
         $user_id = \Yii::$app->user->id;
         $reviews = ReviewCar::find()->andWhere(['user_id' => $user_id])->andWhere(['car_id' => $this->car_id])->all();
-        if (count($reviews) != 0) {
-            return '';
-        }
+        if (count($reviews) != 0) return '';
+
 
         /** @var BookingCar[] $bookings */
         $bookings = BookingCar::find()->andWhere(['user_id' => $user_id])->all();

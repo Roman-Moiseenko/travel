@@ -6,6 +6,7 @@ namespace booking\services\office;
 
 use booking\entities\admin\Help;
 use booking\forms\HelpForm;
+use booking\helpers\scr;
 use booking\repositories\office\HelpRepository;
 
 class HelpManageService
@@ -37,7 +38,6 @@ class HelpManageService
     public function edit($id, HelpForm $form): void
     {
         $page = $this->pages->get($id);
-        //$this->assertIsNotRoot($page);
         $page->edit(
             $form->title,
             $form->content,

@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
                 <div class="card-body">
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
+                        //'filterModel' => $searchModel,
                         'tableOptions' => [
                             'class' => 'table table-adaptive table-striped table-bordered',
 

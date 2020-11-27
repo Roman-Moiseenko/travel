@@ -13,8 +13,6 @@ class ExtraSearch extends Extra
     public function rules()
     {
         return [
-            [['id', 'cost'], 'integer'],
-            [['name'], 'safe'],
         ];
     }
 

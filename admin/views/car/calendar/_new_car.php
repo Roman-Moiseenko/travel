@@ -16,7 +16,7 @@ use booking\entities\booking\cars\Car; ?>
 
     <div class="col-7">
         <div class="form-group">
-            <label>Стоимость проката в сутки</label>
+            <label><Прокат></Прокат> в руб/сут</label>
             <input class="form-control" id="_cost" type="number" value="<?= $car->cost ?>" min="0"
                    step="50" width="100px" required>
         </div>

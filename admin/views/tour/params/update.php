@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = 'Редактировать';
             <div class="col-md-3">
                 <?= $form->field($model->ageLimit, 'on')->checkbox()->label('Ограничение по возрасту') ?>
             </div>
-            <div class="col-md-3 agelimit-edit" id="agelimitmin" style="display: none;">
-                <?= $form->field($model->ageLimit, 'ageMin')->textInput(['maxlength' => true, 'visible' => false])->label('Минимальный возраст') ?>
+            <div class="col-md-3 agelimit-edit" id="agelimitmin"  <?= $model->ageLimit->on ? '' : 'style="display: none;"' ?>>
+                <?= $form->field($model->ageLimit, 'ageMin')->textInput(['maxlength' => true])->label('Минимальный возраст') ?>
             </div>
-            <div class="col-md-3 agelimit-edit" style="display: none;">
+            <div class="col-md-3 agelimit-edit"  <?= $model->ageLimit->on ? '' : 'style="display: none;"' ?>>
                 <?= $form->field($model->ageLimit, 'ageMax')->textInput(['maxlength' => true])->label('Максимальный возраст') ?>
             </div>
         </div>

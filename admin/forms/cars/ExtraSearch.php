@@ -12,8 +12,6 @@ class ExtraSearch extends Extra
     public function rules()
     {
         return [
-            [['id', 'cost'], 'integer'],
-            [['name'], 'safe'],
         ];
     }
 
@@ -36,14 +34,6 @@ class ExtraSearch extends Extra
             $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'cost' => $this->cost,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

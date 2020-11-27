@@ -26,7 +26,7 @@ use booking\helpers\BookingHelper;
 <div class="row pb-2">
     <div class="col">
         <?php foreach ($sales as $sale): ?>
-            <?= date('d-m H:s', $sale->created_at) . '&#160;&#160;&#160;' .
+            <?= date('d-m H:i', $sale->created_at) . '&#160;&#160;&#160;' .
                 BookingHelper::icons(BookingHelper::BOOKING_TYPE_TOUR) . ' ' .
                 $sale->count ?> <a id="selling-remove" class="btn" data-id="<?= $sale->id?>"><i class="fas fa-times" style="color: red"></i></a><br>
         <?php endforeach; ?>
