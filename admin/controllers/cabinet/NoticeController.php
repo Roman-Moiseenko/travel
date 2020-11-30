@@ -15,6 +15,7 @@ use yii\web\Controller;
 class NoticeController extends Controller
 {
     public $layout = 'main-cabinet';
+
     private $service;
 
     public function __construct($id, $module, UserManageService $service, $config = [])
@@ -37,6 +38,7 @@ class NoticeController extends Controller
             ],
         ];
     }
+
     public function actionIndex()
     {
         $user = $this->findModel();

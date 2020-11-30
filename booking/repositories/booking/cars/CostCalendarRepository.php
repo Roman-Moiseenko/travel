@@ -3,6 +3,7 @@
 
 namespace booking\repositories\booking\cars;
 
+use booking\entities\admin\User;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\CostCalendar;
 use booking\entities\Lang;

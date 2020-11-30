@@ -42,8 +42,11 @@ interface BookingItemInterface
 
     /** is.. */
     public function isPay(): bool;
+    public function isNew(): bool;
     public function isConfirmation(): bool;
     public function isCancel(): bool;
+    public function isCheckBooking(): bool; //Оплата через сайт (true) или на месте (false)
+
 
 
 }

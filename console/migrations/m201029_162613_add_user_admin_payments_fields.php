@@ -14,8 +14,8 @@ class m201029_162613_add_user_admin_payments_fields extends Migration
     public function safeUp()
     {
         $this->addColumn('{{%admin_users}}', 'payment_at', $this->integer());
-        $this->addColumn('{{%admin_users}}', 'payment_level', $this->integer()->defaultValue(User::PAYMENT_FREE));
-        $this->update('{{%admin_users}}',['payment_level' => User::PAYMENT_FREE]);
+        $this->addColumn('{{%admin_users}}', 'payment_level', $this->integer()->defaultValue(0));
+        $this->update('{{%admin_users}}',['payment_level' => 0]);
     }
 
     /**
@@ -27,18 +27,4 @@ class m201029_162613_add_user_admin_payments_fields extends Migration
         $this->dropColumn('{{%admin_users}}', 'payment_level');
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m201029_162613_add_user_admin_payments_fields cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

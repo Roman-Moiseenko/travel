@@ -168,7 +168,33 @@ class DialogController extends Controller
         return $this->render('create-mass', [
             'model' => $form,
             'typeDialog' => Dialog::CLIENT_PROVIDER,
-            'calendar' => $calendar
+        ]);
+    }
+
+    public function actionMassTour($id)
+    {
+        $form = new DialogForm();
+        $calendar = \booking\entities\booking\tours\CostCalendar::findOne($id);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                foreach ($calendar->bookings as $booking) {
+                    $this->service->create(
+                        $booking->getUserId(),
+                        Dialog::CLIENT_PROVIDER,
+                        BookingHelper::number($booking),
+                        $form,
+                        \Yii::$app->user->id
+                    );
+                }
+                \Yii::$app->session->setFlash('success', 'Сообщение было отправлено ' . count($calendar->bookings) .' клиентам');
+                return $this->redirect(Url::to(['tour/common', 'id' => $calendar->tours_id]));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('create-mass', [
+            'model' => $form,
+            'typeDialog' => Dialog::CLIENT_PROVIDER,
         ]);
     }
 }

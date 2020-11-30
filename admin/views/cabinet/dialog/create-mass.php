@@ -3,7 +3,6 @@
 /* @var $dialog Dialog */
 
 /* @var $typeDialog integer */
-/* @var $calendar CostCalendar */
 
 use booking\entities\booking\cars\CostCalendar;
 use booking\entities\Lang;

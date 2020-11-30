@@ -14,7 +14,6 @@ use yii\helpers\Url;
 $this->title = 'Уведомления';
 $this->params['breadcrumbs'][] = $this->title;
 
-$sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level != User::PAYMENT_FULL) ? 'disabled' : '';
 ?>
 <div>
     <div class="card card-secondary adaptive-width-80">
@@ -38,7 +37,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="review-phone">
                                 <input id="review-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="review"
-                                       data-field="phone" <?= $notice->review->phone ? 'checked' : ''?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->review->phone ? 'checked' : ''?> >
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -61,7 +60,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingNew-phone">
                                 <input id="bookingNew-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingNew"
-                                       data-field="phone" <?= $notice->bookingNew->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingNew->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -84,7 +83,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingPay-phone">
                                 <input id="bookingPay-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingPay"
-                                       data-field="phone" <?= $notice->bookingPay->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingPay->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -107,7 +106,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingConfirmation-phone">
                                 <input id="bookingConfirmation-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingConfirmation"
-                                       data-field="phone" <?= $notice->bookingConfirmation->phone ? 'checked' : ''?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingConfirmation->phone ? 'checked' : ''?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -130,7 +129,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingCancel-phone">
                                 <input id="bookingCancel-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingCancel"
-                                       data-field="phone" <?= $notice->bookingCancel->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingCancel->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -153,7 +152,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingCancelPay-phone">
                                 <input id="bookingCancelPay-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingCancelPay"
-                                       data-field="phone" <?= $notice->bookingCancelPay->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingCancelPay->phone ? 'checked' : '' ?> >
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -176,7 +175,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="messageNew-phone">
                                 <input id="messageNew-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="messageNew"
-                                       data-field="phone" <?= $notice->messageNew->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->messageNew->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -208,7 +207,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingPayClient-phone">
                                 <input id="bookingPayClient-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingPayClient"
-                                       data-field="phone" <?= $notice->bookingPayClient->phone ? 'checked' : '' ?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingPayClient->phone ? 'checked' : '' ?>>
                                 Уведомление по СМС
                             </label>
                         </div>
@@ -231,7 +230,7 @@ $sms = ($user->payment_level != User::PAYMENT_COMFORT && $user->payment_level !=
                             <label for="bookingConfirmationClient-phone">
                                 <input id="bookingConfirmationClient-phone" type="checkbox" class="notice-ajax" value="1"
                                        data-item="bookingConfirmationClient"
-                                       data-field="phone" <?= $notice->bookingConfirmationClient->phone ? 'checked' : ''?> <?= $sms ?>>
+                                       data-field="phone" <?= $notice->bookingConfirmationClient->phone ? 'checked' : ''?>>
                                 Уведомление по СМС
                             </label>
                         </div>

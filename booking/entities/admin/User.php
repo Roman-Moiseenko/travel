@@ -37,6 +37,7 @@ use yii\web\IdentityInterface;
  * @property Personal $personal
  * @property Notice $notice
  * @property Discount[] $discounts
+ * @property Preferences $preferences
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -44,12 +45,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_LOCK = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
-
-    const PAYMENT_FREE = 0;
-    const PAYMENT_BASIC = 1;
-    const PAYMENT_COMFORT = 2;
-    const PAYMENT_FULL = 3;
-
 
     public static function create(string $username, string $email, string $password): self
     {
@@ -62,17 +57,10 @@ class User extends ActiveRecord implements IdentityInterface
         $user->generateAuthKey();
         $user->personal = Personal::create('', null, new UserAddress(), new FullName(), '', false);
         $user->notice = Notice::create();
-        //$user->generateEmailVerificationToken();
+        $user->preferences = Preferences::create();
         return $user;
     }
 
-    public function setPayment($payment_level, $payment_at = null)
-    {
-        if ($payment_level == self::PAYMENT_FREE || $payment_level == self::PAYMENT_BASIC) $this->notice->notPhone();
-
-        $this->payment_at = $payment_at;
-        $this->payment_level = $payment_level;
-    }
 
     public function edit(string $username, string $email): void
     {
@@ -97,6 +85,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function updateNotice(Notice $notice)
     {
         $this->notice = $notice;
+    }
+
+    public function UpdatePreferences(Preferences $preferences)
+    {
+        $this->preferences = $preferences;
     }
 
     public function addDiscount(Discount $discount)
@@ -170,13 +163,6 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-    public function isSMS(): bool
-    {
-        if ($this->payment_level == self::PAYMENT_FREE || $this->payment_level == self::PAYMENT_BASIC) return false;
-        if ($this->payment_level == self::PAYMENT_FULL) return true;
-        //TODO проверка кол-ва оплаченных СМС для PAYMENT_COMFORT
-    }
-
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
@@ -210,7 +196,7 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['personal', 'legals', 'notice', 'discounts'],
+                'relations' => ['personal', 'legals', 'notice', 'discounts', 'preferences'],
             ],
         ];
     }
@@ -425,11 +411,15 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Discount::class, ['user_id' => 'id']);
     }
 
+    public function getPreferences(): ActiveQuery
+    {
+        return $this->hasOne(Preferences::class, ['user_id' => 'id']);
+    }
 
     /** <========== getXXX */
 
     public function sendSMS($phone, $message)
     {
-        //TODO Сохранить в таблице отправленных СМС новую.
+        //TODO !!Сохранить в таблице отправленных СМС новую. Для отчетности!!!!
     }
 }

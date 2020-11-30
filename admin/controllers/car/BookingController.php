@@ -60,6 +60,7 @@ class BookingController  extends Controller
         $car = $this->findModel($id);
         return $this->render('index', [
             'car' => $car,
+            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
         ]);
     }
 
@@ -83,6 +84,7 @@ class BookingController  extends Controller
             $calendar = CostCalendar::find()->andWhere(['car_id' => $car_id])->andWhere(['car_at' => $date])->one();
             return $this->render('_booking-day', [
                 'calendar' => $calendar,
+                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
             ]);
         }
     }

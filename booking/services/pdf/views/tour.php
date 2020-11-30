@@ -15,7 +15,7 @@ use yii\helpers\Html;
  * $latitude = $booking->calendar->tour->params->beginAddress->latitude;
 $longitude = $booking->calendar->tour->params->beginAddress->longitude;
 $js = <<<JS
-//TODO Загрузка адреса по карте
+// Загрузка адреса по карте
 ymaps.ready(init);
 function init() {
     var coords = [$latitude, $longitude];

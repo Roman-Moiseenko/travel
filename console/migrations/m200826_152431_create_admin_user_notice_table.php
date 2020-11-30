@@ -21,7 +21,6 @@ class m200826_152431_create_admin_user_notice_table extends Migration
         ], $tableOptions);
 
         $this->createIndex('{{%idx-admin_user_notice-user_id}}', '{{%admin_user_notice}}', 'user_id');
-
         $this->addForeignKey('{{%fk-admin_user_notice-user_id}}', '{{%admin_user_notice}}', 'user_id', '{{%admin_users}}', 'id', 'CASCADE');
 
     }

@@ -6,6 +6,7 @@ namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\CostCalendar;
 use booking\helpers\CalendarHelper;
+use booking\helpers\scr;
 
 class CostCalendarRepository
 {
@@ -105,16 +106,26 @@ class CostCalendarRepository
     {
         $calendars = CostCalendar::find()
             ->andWhere(['tours_id' => $tour_id])
+            //->andWhere(['tour_at' => strtotime('01-12-2020')])
             ->all();
         $result = [];
         foreach ($calendars as $calendar) {
+
+            //scr::p([$calendar->free(), $calendar->tickets]);
             $y = (int)date('Y', $calendar->tour_at);
             $m = (int)date('m', $calendar->tour_at);
             $d = (int)date('d', $calendar->tour_at);
+            //echo $y . '/' . $m . '/' . $d . '-' . $calendar->free() . '   ';
             $free = $calendar->free();
             $all = $calendar->tickets;
-            $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free)];
+            if (isset($result[$y]) && isset($result[$y][$m]) && isset($result[$y][$m][$d])) {
+                $free += $result[$y][$m][$d]['free'];
+                $all += $result[$y][$m][$d]['all'];
+            }
+
+            $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free), 'all' => $all];
         }
+        //exit();
         return $result;
     }
 }

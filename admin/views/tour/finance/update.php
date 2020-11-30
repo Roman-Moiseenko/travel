@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = 'Изменить';
 
 $mode_confirmation = \Yii::$app->params['mode_confirmation'] ?? false;
 $disabled = $mode_confirmation ? ['disabled' => true] : [];
-$disabled = [];
 ?>
 <div class="tours-view">
 

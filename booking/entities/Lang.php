@@ -34,6 +34,8 @@ class Lang extends ActiveRecord
         //scr::v(\Yii::$app->request->cookies->get('lang'));
         //if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
         //Если гость
+        if (isset(\Yii::$app->params['current_lang'])) return \Yii::$app->params['current_lang'];
+
         if (\Yii::$app->user->isGuest) {
             //Если первоначально сохранение языка уже было в Request
             if (!empty(\Yii::$app->language)) return self::l_()[\Yii::$app->language];
@@ -97,6 +99,9 @@ class Lang extends ActiveRecord
                 $lang = self::current();
             }
         }
+        //Если теущий русский, вернуть текст
+        //if ($lang == self::DEFAULT) return $text;
+
         if (!$result = Lang::findOne(['ru' => $text])) {
             Lang::create($text);
             return $text;
@@ -174,6 +179,7 @@ class Lang extends ActiveRecord
             $user->save();
         }
         \Yii::$app->language = self::_l()[$lang];
+        \Yii::$app->params['current_lang'] = $lang;
         return $lang;
     }
 }

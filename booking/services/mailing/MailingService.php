@@ -5,6 +5,7 @@ namespace booking\services\mailing;
 
 
 use booking\entities\blog\post\Post;
+use booking\entities\booking\cars\Car;
 use booking\entities\booking\tours\Tour;
 use booking\entities\mailing\Mailing;
 use booking\forms\MailingForm;
@@ -115,13 +116,26 @@ class MailingService
     public function createCars():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_CARS);
-        //TODO Заглушка Рассылки
+        $cars = Car::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
+        //Создаем сообщение
+        //echo count($tours);
+        if (count($cars) == 0) return null;
+        $subject = '<h1>Обзор новых туров, экскурсий за неделю</h1>';
+        foreach ($cars as $car) {
+            $row = ' <img src="' . $car->mainPhoto->getThumbFileUrl('file', 'cabinet_list'). '"> <span style="font-size: 16px">' .
+                Html::a($car->name, \Yii::$app->params['frontendHostInfo'] . '/car/'. $car->id) .
+                ' от ' . $car->legal->caption . '</span><br>';
+            $subject .= $row;
+        }
+        $mailing = Mailing::create(Mailing::NEW_CARS, $subject);
+        $this->mailings->save($mailing);
+        return $mailing;
     }
 
     public function createFuns():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_FUNS);
-        //TODO Заглушка Рассылки
+        //TODO Заглушка Рассылки Funs
     }
 
     public function createBlog()

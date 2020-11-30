@@ -328,4 +328,9 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
     {
         return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
     }
+
+    public function isCheckBooking(): bool
+    {
+        return $this->calendar->tour->check_booking;
+    }
 }

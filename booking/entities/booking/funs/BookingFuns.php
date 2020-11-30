@@ -155,4 +155,9 @@ class BookingFuns extends ActiveRecord implements BookingItemInterface
     {
         // TODO: Implement isCancel() method.
     }
+
+    public function isCheckBooking(): bool
+    {
+        // TODO: Implement isCheckBooking() method.
+    }
 }

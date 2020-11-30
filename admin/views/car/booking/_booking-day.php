@@ -6,7 +6,7 @@ use booking\helpers\CurrencyHelper;
 use yii\helpers\Url;
 
 /* @var $calendar CostCalendar */
-
+/* @var $view_cancel bool */
 ?>
 <?php if (isset($calendar->bookings) && count($calendar->bookings) > 0): ?>
 
@@ -21,14 +21,15 @@ use yii\helpers\Url;
         </div>
     </div>
     <?php foreach ($calendar->bookings as $i => $booking): ?>
+    <?php if ($view_cancel == false && $booking->isCancel()) continue; ?>
         <div class="card">
             <div class="card-header p-0">
             <span class="booking-item">
-                <?php if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY): ?>
+                <?php if ($booking->isPay()): ?>
                     <span class="badge badge-pill badge-success" title="eeee"><i class="far fa-check-circle"></i></span>
-                <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW): ?>
+                <?php elseif ($booking->isNew()): ?>
                     <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
-                <?php elseif ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION): ?>
+                <?php elseif ($booking->isConfirmation()): ?>
                     <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
                 <?php elseif ($booking->isCancel()): ?>
                     <span class="badge badge-pill badge-secondary"><i class="far fa-check-circle"></i></span>
@@ -56,7 +57,6 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                 </span>
-
                     <br>
                     <span class="booking-item">
                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
@@ -77,7 +77,7 @@ use yii\helpers\Url;
                     </span>
                     <?php endif; ?>
                     <br>
-                    <?php if (!$booking->isCancel()): ?>
+                    <?php if ($booking->isPay() || $booking->isConfirmation()): ?>
                         <span class="booking-item">
                         <?php if ($booking->give_out): ?>
                             <label class="" for="giv-out-<?= $i ?>">выдано: </label>

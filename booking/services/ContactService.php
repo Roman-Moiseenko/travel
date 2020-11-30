@@ -42,8 +42,8 @@ class ContactService
         $legal = $review->getLegal();
         $phoneAdmin = $legal->noticePhone;
         $emailAdmin = $legal->noticeEmail;
-        if ($noticeAdmin->review->phone)
-            $this->sendSMS($phoneAdmin, 'Новый отзыв ' . $review->getName(), $user_admin);
+        /*if ($noticeAdmin->review->phone)
+            $this->sendSMS($phoneAdmin, 'Новый отзыв ' . $review->getName(), $user_admin);*/
         if ($noticeAdmin->review->email) {
             $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
                 ->setTo($emailAdmin)
@@ -67,8 +67,8 @@ class ContactService
                 $booking = BookingHelper::getByNumber($dialog->optional);
                 $legal = $booking->getLegal();
                 $noticeAdmin = $admin->notice;
-                if ($noticeAdmin->messageNew->phone)
-                    $this->sendSMS($legal->noticePhone, 'Новое сообщение', $admin);
+                /*if ($noticeAdmin->messageNew->phone)
+                    $this->sendSMS($legal->noticePhone, 'Новое сообщение', $admin);*/
                 if ($noticeAdmin->messageNew->email)
                     $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
             }
@@ -77,8 +77,8 @@ class ContactService
         if ($dialog->typeDialog == Dialog::PROVIDER_SUPPORT) {
             $admin = $dialog->admin;
             $noticeAdmin = $admin->notice;
-            if ($noticeAdmin->messageNew->phone)
-                $this->sendSMS($admin->personal->phone, 'Новое сообщение', $admin);
+            /*if ($noticeAdmin->messageNew->phone)
+                $this->sendSMS($admin->personal->phone, 'Новое сообщение', $admin);*/
             if ($noticeAdmin->messageNew->email)
                 $this->mailerMessage($admin->email, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
         }
@@ -109,14 +109,11 @@ class ContactService
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) {
             //Новое бронирование  => Рассылка
             $this->mailerBooking($emailUser, $booking, 'noticeBookingNewUser');
-
-            if ($noticeAdmin->bookingNew->phone)
-                $this->sendSMS($phoneAdmin, 'Новое бронирование ' . $booking->getName() . ' на сумму ' . $booking->getAmount(), $user_admin);
             if ($noticeAdmin->bookingNew->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingNewAdmin');
 
         }
-        if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_PAY) {
+        if ($booking->isCheckBooking() && $booking->isPay()) {
             //Бронирование оплачено  => Рассылка
             if ($noticeAdmin->bookingPayClient->phone)
                 $this->sendSMS($phoneUser,
@@ -125,7 +122,8 @@ class ContactService
                     Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
                     Lang::t('Спасибо, что Вы с нами'), $user_admin);
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
-            if ($noticeAdmin->bookingPay->phone)
+
+            if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone)
                 $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
@@ -134,28 +132,18 @@ class ContactService
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
             //Бронирование отменено  => Рассылка
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelUser');
-            if ($noticeAdmin->bookingCancel->phone)
-                $this->sendSMS($phoneAdmin, 'Отменено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingCancel->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelAdmin');
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL_PAY) {
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelPayUser');
-            if ($noticeAdmin->bookingCancelPay->phone)
+            if ($booking->isCheckBooking() && $noticeAdmin->bookingCancelPay->phone)
                 $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingCancelPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelPayAdmin');
         }
-        if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CONFIRMATION) {
-            if ($noticeAdmin->bookingConfirmationClient->phone)
-                $this->sendSMS($phoneUser,
-                    Lang::t('Подтверждено') . '.' .
-                    Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
-                    Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
-                    Lang::t('Спасибо, что Вы с нами'), $user_admin);
+        if ($booking->isConfirmation()) {
             $this->mailerBooking($emailUser, $booking, 'noticeBookingConfirmationUser');
-            if ($noticeAdmin->bookingConfirmation->phone)
-                $this->sendSMS($phoneAdmin, 'Подтверждено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingConfirmation->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingConfirmationAdmin');
         }
@@ -178,8 +166,6 @@ class ContactService
     private function sendSMS($phone, $message, User $admin_user)
     {
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS']) return;
-        //TODO где нить проверку как берется оплата за объект
-        if (!$admin_user->isSMS()) return;
         if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
     }
 

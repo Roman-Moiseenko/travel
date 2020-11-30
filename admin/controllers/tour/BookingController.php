@@ -57,21 +57,10 @@ class BookingController extends Controller
 
     public function actionIndex($id)
     {
-        /** @var BookingTour[] $bookings */
-        /*  $params = \Yii::$app->request->bodyParams;
-          $only_pay = false;
-          if (isset($params['only_pay']) && $params['only_pay'] == true) $only_pay = true;
-
-          $bookings = $this->bookings->getActiveByTour($id, $only_pay);
-
-          $sort_bookings = [];
-          foreach ($bookings as $booking) {
-              $sort_bookings[$booking->calendar->tour_at][$booking->calendar->time_at][] = $booking;
-          }
-  */
         $tour = $this->findModel($id);
         return $this->render('index', [
             'tour' => $tour,
+            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
         ]);
     }
 
@@ -92,16 +81,23 @@ class BookingController extends Controller
             $params = \Yii::$app->request->bodyParams;
             $tour_id = $params['tour_id'];
             $date = strtotime($params['date']);
-            $bookings = BookingTour::find()
-                ->andWhere(
-                    [
-                        'IN',
-                        'calendar_id',
-                        CostCalendar::find()->select('id')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])
-                    ]
-                )->all();
+            $times = CostCalendar::find()->select('time_at')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->column();
+            $_bookings = [];
+            foreach ($times as $time) {
+                $bookings = BookingTour::find()
+                    ->andWhere(
+                        [
+                            'IN',
+                            'calendar_id',
+                            CostCalendar::find()->select('id')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->andWhere(['time_at' => $time])
+                        ]
+                    )->all();
+                $_bookings[$time] = $bookings;
+            }
+
             return $this->render('_booking-day', [
-                'bookings' => $bookings,
+                'times' => $_bookings,
+                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
             ]);
         }
     }

@@ -340,4 +340,9 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     {
         return $this->count;
     }
+
+    public function isCheckBooking(): bool
+    {
+        return $this->car->check_booking;
+    }
 }

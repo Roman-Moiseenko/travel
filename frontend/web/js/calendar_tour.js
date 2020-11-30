@@ -123,8 +123,18 @@ $(document).ready(function () {
         }
     });
     $(document).on('input', '.count-tickets', function (data) {
+
+        let _count_ = $(this).val();
+        let vl = _count_.replace(/[^\d+]/g, ''); //str.replace(/[^a-zA-Z ]/g, "")
+        if (vl == '') {vl = 0;}
+        if (Number(vl) > 999) vl = 999;
+        $(this).val(vl);
+        $(this).change();
+
+
         let calendar_id = $('#booking-tour-time').val();
         let count_tickets = Number($('#label-count-tickets').attr('data-count'));
+
         let count_adult = $('#count-adult').val();
         if (count_adult === undefined) count_adult = 0;
         let count_child = $('#count-child').val();
