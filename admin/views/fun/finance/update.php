@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Цены', 'url' => ['/fun/finance
 $this->params['breadcrumbs'][] = 'Изменить';
 
 $mode_confirmation = \Yii::$app->params['mode_confirmation'] ?? false;
-$disabled = $mode_confirmation ? ['readOnly' => true] : [];
+$disabled = $mode_confirmation ? ['disabled' => true] : [];
 
 $js = <<<JS
 $(document).ready(function() {
