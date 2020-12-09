@@ -274,10 +274,14 @@ class BookingRepository
     {
         $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
-        $result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
-        if ($result) return $result;
+
+        //TODO Заглушка Stay
+        //$result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
+        //if (!empty($result)) return $result;
+
         $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
+
         $result = BookingFun::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
     }

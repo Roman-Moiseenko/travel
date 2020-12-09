@@ -57,7 +57,7 @@ class YandexkassaController extends Controller
             $payment = $this->client->createPayment(
                 [
                     'amount' => [
-                        'value' => 1,//$order->cost,
+                        'value' => BookingHelper::merchant($booking),
                         'currency' => 'RUB',
                     ],
                     'payment_method_data' => $this->yandexkassa['payment_method_data'],
