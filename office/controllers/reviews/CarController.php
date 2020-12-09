@@ -5,9 +5,7 @@ namespace office\controllers\reviews;
 
 use booking\entities\booking\cars\ReviewCar;
 use booking\entities\Rbac;
-use booking\repositories\booking\cars\ReviewCarRepository;
 use office\forms\reviews\ReviewCarSearch;
-use office\forms\reviews\ReviewTourSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -15,7 +13,7 @@ use yii\web\Controller;
 class CarController extends Controller
 {
 
-    public function __construct($id, $module, ReviewCarRepository $reviews, $config = [])
+    public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
     }

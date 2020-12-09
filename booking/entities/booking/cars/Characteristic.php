@@ -10,7 +10,6 @@ use yii\helpers\Json;
 
 /**
  * Class Characteristic
- * @package shop\entities\shop
  * @property integer $id
  * @property string $name
  * @property string $type_variable

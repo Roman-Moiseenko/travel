@@ -3,7 +3,6 @@
 
 namespace booking\repositories\booking\tours;
 
-
 use booking\entities\booking\tours\CostCalendar;
 use booking\helpers\CalendarHelper;
 use booking\helpers\scr;
@@ -25,10 +24,12 @@ class CostCalendarRepository
     {
         return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();
     }
+
     public function getActualForCalendar($tours_id)
     {
         return CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['>', 'tour_at', time()])->all();
     }
+
     public function getDay($tours_id, $date, $notFree = true)
     {
         $costCalendar = CostCalendar::find()->andWhere(['tours_id' => $tours_id])->andWhere(['tour_at' => $date])->orderBy(['time_at' => SORT_ASC])->all();
@@ -61,10 +62,7 @@ class CostCalendarRepository
                     $m = (int)date('m', $calendar->tour_at);
                     $d = (int)date('d', $calendar->tour_at);
                     if (!isset($result[$y][$m][$d])) {
-                        $result[$y][$m][$d] = ['count' => 1, 'tickets' => $calendar->tickets];
-                    } else {
-                        $result[$y][$m][$d]['count']++;
-                        $result[$y][$m][$d]['tickets'] += $calendar->tickets;
+                        $result[$y][$m][$d] = true;
                     }
                 }
             }
@@ -84,17 +82,15 @@ class CostCalendarRepository
 
             $result = [];
             foreach ($calendars as $calendar) {
-                //if ($calendar->getFreeTickets() != 0) {
-                    $y = (int)date('Y', $calendar->tour_at);
-                    $m = (int)date('m', $calendar->tour_at);
-                    $d = (int)date('d', $calendar->tour_at);
-                    if (!isset($result[$y][$m][$d])) {
-                        $result[$y][$m][$d] = ['count' => 1, 'tickets' => $calendar->tickets];
-                    } else {
-                        $result[$y][$m][$d]['count']++;
-                        $result[$y][$m][$d]['tickets'] += $calendar->tickets;
-                    }
-               // }
+                $y = (int)date('Y', $calendar->tour_at);
+                $m = (int)date('m', $calendar->tour_at);
+                $d = (int)date('d', $calendar->tour_at);
+                if (!isset($result[$y][$m][$d])) {
+                    $result[$y][$m][$d] = ['count' => 1, 'tickets' => $calendar->tickets];
+                } else {
+                    $result[$y][$m][$d]['count']++;
+                    $result[$y][$m][$d]['tickets'] += $calendar->tickets;
+                }
             }
         } catch (\Throwable $e) {
             return $e->getMessage();

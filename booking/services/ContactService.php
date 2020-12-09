@@ -210,6 +210,19 @@ class ContactService
         }
     }
 
+    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
+    {
+        //TODO Сделать шаблон Fun
+        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
+            ->setTo($fun->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($fun->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
+
     public function noticeNewUser($user)
     {
         if ($user instanceof User) {

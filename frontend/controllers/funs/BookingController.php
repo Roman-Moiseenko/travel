@@ -1,0 +1,102 @@
+<?php
+
+
+namespace frontend\controllers\funs;
+
+use booking\entities\booking\funs\Fun;
+use booking\helpers\CurrencyHelper;
+use booking\repositories\booking\funs\CostCalendarRepository;
+use booking\repositories\booking\funs\FunRepository;
+use booking\services\booking\funs\FunService;
+use yii\web\Controller;
+
+class BookingController extends Controller
+{
+    public $layout = 'main_ajax';
+    /**
+     * @var FunService
+     */
+    private $service;
+    /**
+     * @var FunRepository
+     */
+    private $funs;
+    /**
+     * @var CostCalendarRepository
+     */
+    private $calendar;
+
+    public function __construct(
+        $id,
+        $module,
+        FunService $service,
+        FunRepository $funs,
+        CostCalendarRepository $calendar,
+        $config = []
+    )
+    {
+        parent::__construct($id, $module, $config);
+        $this->service = $service;
+        $this->funs = $funs;
+        $this->calendar = $calendar;
+    }
+
+    public function actionGetCalendar()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            //$date = isset($params['date']) ? strtotime($params['date']) : null;
+            return json_encode($this->calendar->getCalendarForDatePickerAll($params['fun_id']));
+        }
+        return $this->goHome();
+    }
+
+    public function actionGetTimes()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $fun = Fun::findOne($params['fun_id']);
+            $fun_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
+            if (Fun::isClearTimes($fun->type_time)) {
+                $current = $this->calendar->getCurrentForClearTime($fun->id, $fun_at);
+                //$current = $this->calendar->getCurrentByTime($fun->id, $time_at);
+                return $this->render('_tickets', [
+                    'current' => $current
+                ]);
+            }
+            $times = $this->calendar->getTimes($fun->id, $fun_at);
+            return $this->render('_times', [
+                'times' => $times,
+            ]);
+        }
+        return $this->goHome();
+    }
+
+    public function actionGetTickets()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $current = $this->calendar->get($params['calendar_id']);
+            return $this->render('_tickets', [
+                'current' => $current
+            ]);
+        }
+        return $this->goHome();
+    }
+
+    public function actionGetAmount()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $calendar_id = $params['calendar_id'];
+            $count_adult = $params['count_adult'];
+            $count_child = $params['count_child'];
+            $count_preference = $params['count_preference'];
+            $calendar = $this->calendar->get($calendar_id);
+            $result = $count_adult * $calendar->cost->adult + $count_child * $calendar->cost->child + $count_preference * $calendar->cost->preference;
+            return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
+                ($result !== 0 ? CurrencyHelper::get($result) : ' - ') . '</span>';
+        }
+        return $this->goHome();
+    }
+}

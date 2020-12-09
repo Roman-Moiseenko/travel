@@ -87,7 +87,7 @@ class CarsController extends Controller
     public function find($id)
     {
         if (!$car = Car::findOne($id))
-            throw new \DomainException('Тур не найден');
+            throw new \DomainException('Авто не найдено');
         return $car;
     }
 }

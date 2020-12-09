@@ -15,7 +15,6 @@ use yii\base\Model;
  */
 class SearchCarForm extends CompositeForm
 {
-
     public $date_from;
     public $date_to;
     public $type;

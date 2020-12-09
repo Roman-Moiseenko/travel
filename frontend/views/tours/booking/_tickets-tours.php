@@ -44,7 +44,7 @@ use booking\helpers\CurrencyHelper;
     <div class="col-5 pr-1">
         <span style="font-size: 14px; font-weight: 600;">ИТОГО:</span>
     </div>
-    <div class="col-4 px-1" id="rent-car-amount" data-amount="<?= 0 ?>">
+    <div class="col-4 px-1" id="tour-amount" data-amount="<?= 0 ?>">
         <span class="badge badge-success" style="font-size: 18px; font-weight: 600;">
             <?= ' - ' ?>
         </span>

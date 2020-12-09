@@ -36,6 +36,7 @@ use yii\web\UploadedFile;
  * @property BookingCar[] bookingCars
  * @property WishlistTour[] wishlistTours
  * @property WishlistCar[] wishlistCars
+ * @property WishlistFun[] wishlistFuns
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -160,6 +161,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'bookingTours',
                     'wishlistTours',
                     'wishlistCars',
+                    'wishlistFuns',
                     'mailing',
                     ],
             ],
@@ -281,6 +283,35 @@ class User extends ActiveRecord implements IdentityInterface
     }
     /** <=============== Cars*/
 
+    /** Funs ===================> */
+    public function addWishlistFun($id)
+    {
+        $wishlist = $this->wishlistFuns;
+        foreach ($wishlist as $item) {
+            if ($item->isFor($id)) {
+                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
+            }
+        }
+        $wishlistFun = WishlistFun::create($id);
+        $wishlist[] = $wishlistFun;
+        $this->wishlistFuns = $wishlist;
+    }
+
+    public function removeWishlistFun($id)
+    {
+        $wishlist = $this->wishlistFuns;
+        foreach ($wishlist as $i => &$item) {
+            if ($item->isFor($id)) {
+                $item->delete();
+                unset($wishlist[$i]);
+                $this->wishlistFuns = $wishlist;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Избранное не найдено'));
+    }
+    /** <=============== Funs*/
+
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
     {
@@ -300,6 +331,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getWishlistCars(): ActiveQuery
     {
         return $this->hasMany(WishlistCar::class, ['user_id' => 'id']);
+    }
+
+    public function getWishlistFuns(): ActiveQuery
+    {
+        return $this->hasMany(WishlistFun::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

@@ -6,6 +6,7 @@ namespace booking\services\mailing;
 
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
+use booking\entities\booking\funs\Fun;
 use booking\entities\booking\tours\Tour;
 use booking\entities\mailing\Mailing;
 use booking\forms\MailingForm;
@@ -93,7 +94,6 @@ class MailingService
         /** @var Tour[] $tours */
         $tours = Tour::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
         //Создаем сообщение
-        //echo count($tours);
         if (count($tours) == 0) return null;
         $subject = '<h1>Обзор новых туров, экскурсий за неделю</h1>';
         foreach ($tours as $tour) {
@@ -110,7 +110,7 @@ class MailingService
     public function createStays():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_STAYS);
-        //TODO Заглушка Рассылки
+        //TODO Заглушка Рассылки Stay
     }
 
     public function createCars():? Mailing
@@ -118,7 +118,6 @@ class MailingService
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_CARS);
         $cars = Car::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
         //Создаем сообщение
-        //echo count($tours);
         if (count($cars) == 0) return null;
         $subject = '<h1>Обзор новых туров, экскурсий за неделю</h1>';
         foreach ($cars as $car) {
@@ -135,16 +134,26 @@ class MailingService
     public function createFuns():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_FUNS);
-        //TODO Заглушка Рассылки Funs
+        $funs = Fun::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
+        //Создаем сообщение
+        if (count($funs) == 0) return null;
+        $subject = '<h1>Обзор новых развлечений и мероприятий за неделю</h1>';
+        foreach ($funs as $fun) {
+            $row = ' <img src="' . $fun->mainPhoto->getThumbFileUrl('file', 'cabinet_list'). '"> <span style="font-size: 16px">' .
+                Html::a($fun->name, \Yii::$app->params['frontendHostInfo'] . '/fun/'. $fun->id) .
+                ' от ' . $fun->legal->caption . '</span><br>';
+            $subject .= $row;
+        }
+        $mailing = Mailing::create(Mailing::NEW_FUNS, $subject);
+        $this->mailings->save($mailing);
+        return $mailing;
     }
 
     public function createBlog()
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEWS_BLOG);
         $posts = Post::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
-
         //Создаем сообщение
-        //echo count($posts);
         if (count($posts) == 0) return null;
         $subject = '<h1>Обзор новых записей в блоге</h1>';
         foreach ($posts as $post) {

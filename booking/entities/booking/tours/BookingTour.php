@@ -254,7 +254,6 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->status;
     }
 
-
     public function setStatus($status)
     {
         $this->status = $status;
@@ -313,11 +312,6 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->pincode;
     }
 
-    public function getCheckBooking(): int
-    {
-        return $this->calendar->tour->check_booking;
-    }
-
     public function setGive()
     {
         $this->give_out = true;
@@ -331,6 +325,6 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
 
     public function isCheckBooking(): bool
     {
-        return $this->calendar->tour->check_booking;
+        return $this->calendar->tour->check_booking == BookingHelper::BOOKING_PAYMENT;
     }
 }

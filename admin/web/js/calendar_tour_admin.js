@@ -81,7 +81,7 @@ $(document).ready(function () {
             //Иначе получаем сведения о тек.дне
             if (e.date === undefined) return;
             if (e.date.getMonth() !== current_month) current_month = e.date.getMonth();
-            console.log(e.date);
+            //console.log(e.date);
             $.post(baseUrl + '/tour/calendar/getday',
                 {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
                 function (data) {

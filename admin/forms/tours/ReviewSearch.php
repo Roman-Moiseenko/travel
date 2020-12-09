@@ -3,10 +3,7 @@
 
 namespace admin\forms\tours;
 
-
-use booking\entities\booking\tours\Extra;
 use booking\entities\booking\tours\ReviewTour;
-use booking\entities\booking\tours\Tour;
 use yii\data\ActiveDataProvider;
 
 class ReviewSearch extends ReviewTour

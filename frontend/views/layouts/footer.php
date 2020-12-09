@@ -33,7 +33,7 @@ use yii\helpers\Url; ?>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотраспорта') ?></a></li>
                     <li><a href="<?= Url::to(['/tours']) ?>"><?= Lang::t('Найти тур') ?></a></li>
-                    <li><a href=""><?= Lang::t('Развлечения') ?> (*)</a></li>
+                    <li><a href="<?= Url::to(['/funs']) ?>"><?= Lang::t('Развлечения') ?></a></li>
                     <li><a href=""><?= Lang::t('Купить билет на представление') ?> (*)</a></li>
                 </ul>
             </div>

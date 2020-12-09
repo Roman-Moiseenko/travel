@@ -3,7 +3,6 @@
 
 namespace booking\forms\booking\tours;
 
-
 use booking\entities\booking\tours\Tour;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;

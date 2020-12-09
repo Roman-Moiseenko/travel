@@ -45,6 +45,40 @@ function init() {
         }
     }
 
+    if (document.getElementById("map-fun-view")) {
+
+        let mapFunView = new ymaps.Map(document.getElementById("map-fun-view"), {
+            center: [54.74639455404805, 20.537801017695948],
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapFunView.controls.remove('searchControl');
+        mapFunView.controls.remove('trafficControl');
+        mapFunView.controls.remove('geolocationControl');
+        //
+        coords = [$('#latitude').val(), $('#longitude').val()];
+        mapFunView.geoObjects.add(new ymaps.Placemark(coords, {
+            iconContent: "",
+            iconCaption: "",
+            balloonContent: $('#address').val()
+        }, {
+            preset: "islands#violetIcon",//'islands#violetDotIconWithCaption',
+            draggable: false
+        }));
+        ymaps.geocode(coords).then(function (res) {
+            var firstGeoObject = res.geoObjects.get(0);
+            $('#' + suggest).val(firstGeoObject.getAddressLine());
+            $('#address').html(firstGeoObject.getAddressLine());
+        });
+
+    }
+
+    /********************************************************** MAP-FUN ***/
+
     if (document.getElementById("map")) {
         let data_zoom = $('this').attr('data-zoom');
         if (data_zoom === undefined) data_zoom = 10;

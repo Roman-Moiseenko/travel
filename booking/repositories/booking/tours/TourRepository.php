@@ -1,16 +1,17 @@
 <?php
 
-
 namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
+use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii\web\NotFoundHttpException;
 
 class TourRepository
 {
@@ -220,6 +221,8 @@ class TourRepository
     public function findBySlug($slug)
     {
         $tour = Tour::find()->andWhere(['slug' => $slug])->one();
+        if (empty($tour))
+            throw new NotFoundHttpException(Lang::t('Неверный адрес') . ': ' . $slug);
         $tour->upViews();
         $this->save($tour);
         return $tour;

@@ -25,7 +25,6 @@ class TourParamsForm extends CompositeForm
     public $private;
     public $groupMin;
     public $groupMax;
-  //  public $children;
 
     public function __construct(TourParams $params = null, $config = [])
     {

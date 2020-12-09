@@ -11,7 +11,6 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Class ToursType
  * @package booking\entities\booking\cars
  * @property integer $id
  * @property string $name

@@ -3,8 +3,7 @@
 
 namespace admin\controllers;
 
-
-use admin\forms\CarSearch;
+use admin\forms\FunSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -29,12 +28,12 @@ class FunsController extends Controller
 
     public function actionIndex()
     {
-        //$searchModel = new FunsSearch();
-        //$dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $searchModel = new FunSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
-//            'searchModel' => $searchModel,
-//            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

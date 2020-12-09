@@ -45,7 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     echo Lang::t('Время') . ': ' . $booking->getAdd(); ?>
                                 <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_CAR)
                                     echo $booking->getAdd(); ?>
-                                <?php //TODO Заглушка Stay Fun ?>
+                                <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_FUNS)
+                                    echo Lang::t('Время') . ': ' . $booking->getAdd(); ?>
+                                <?php //TODO Заглушка Stay ?>
 
                             </div>
                         </div>

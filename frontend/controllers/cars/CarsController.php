@@ -44,20 +44,15 @@ class CarsController extends Controller
     {
         $form = new SearchCarForm([]);
         if (isset(\Yii::$app->request->queryParams['SearchCarForm'])) {
-            //scr::v(\Yii::$app->request->queryParams['SearchCarForm']['type']);
             if (isset(\Yii::$app->request->queryParams['SearchCarForm']['type'])) {
-
                 $form->type = \Yii::$app->request->queryParams['SearchCarForm']['type'];
-                //scr::v($form->type);
                 $form->setAttribute($form->type);
             }
             $form->load(\Yii::$app->request->get());
-            //$form->validate();
             $dataProvider = $this->cars->search($form);
         } else {
             $dataProvider = $this->cars->search();
         }
-        //return $this->redirect();
         return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,
@@ -70,7 +65,6 @@ class CarsController extends Controller
 
         $car = $this->findModel($id);
         $reviewForm = new ReviewForm();
-        //scr::p($reviewForm);
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($car->id, \Yii::$app->user->id, $reviewForm);
@@ -93,6 +87,7 @@ class CarsController extends Controller
             throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
         }
         $form = new SearchCarForm(['type' => $category->id]);
+        $form->setAttribute($category->id);
         if (isset(\Yii::$app->request->queryParams['SearchCarForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();
@@ -100,7 +95,6 @@ class CarsController extends Controller
         } else {
             $dataProvider = $this->cars->search($form);
         }
-        //return $this->redirect();
         return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,

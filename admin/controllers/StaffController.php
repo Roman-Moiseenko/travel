@@ -12,6 +12,7 @@ use booking\forms\check\UserForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\repositories\booking\cars\CarRepository;
+use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\check\UserManageService;
 use yii\filters\AccessControl;
@@ -33,6 +34,10 @@ class StaffController extends Controller
      * @var CarRepository
      */
     private $cars;
+    /**
+     * @var FunRepository
+     */
+    private $funs;
 
     public function __construct(
         $id,
@@ -40,13 +45,15 @@ class StaffController extends Controller
         UserManageService $service,
         TourRepository $tours,
         CarRepository $cars,
-        //TODO Заглушка Funs, Stays
+        FunRepository $funs,
+        //TODO Заглушка Stays
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->tours = $tours;
         $this->cars = $cars;
+        $this->funs = $funs;
     }
 
     public function behaviors()
@@ -99,6 +106,7 @@ class StaffController extends Controller
         $admin_id = \Yii::$app->user->id;
         $tours = $this->tours->getByAdminList($admin_id);
         $cars = $this->cars->getByAdminList($admin_id);
+        $funs = $this->funs->getByAdminList($admin_id);
 
         foreach ($tours as $tour) {
             $objects[] = [
@@ -117,7 +125,15 @@ class StaffController extends Controller
             ];
         }
 
-//TODO Заглушка Funs, Stays
+        foreach ($funs as $fun) {
+            $objects[] = [
+                'check' => $user->existObject(BookingHelper::BOOKING_TYPE_CAR, $fun->id),
+                'type' => BookingHelper::BOOKING_TYPE_FUNS,
+                'name' => $fun->name,
+                'id' => $fun->id
+            ];
+        }
+//TODO Заглушка Stays
 
         return $this->render('view', [
             'user' => $user,

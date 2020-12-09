@@ -13,12 +13,12 @@ class AgeLimitForm extends Model
     public $ageMin;
     public $ageMax;
 
-    public function __construct(AgeLimit $agelimit = null, $config = [])
+    public function __construct(AgeLimit $ageLimit = null, $config = [])
     {
-        if ($agelimit != null) {
-            $this->on = $agelimit->on;
-            $this->ageMin = $agelimit->ageMin;
-            $this->ageMax = $agelimit->ageMax;
+        if ($ageLimit != null) {
+            $this->on = $ageLimit->on;
+            $this->ageMin = $ageLimit->ageMin;
+            $this->ageMax = $ageLimit->ageMax;
         }
         parent::__construct($config);
     }

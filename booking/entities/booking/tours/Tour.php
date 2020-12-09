@@ -389,7 +389,6 @@ class Tour extends ActiveRecord
      * @param null $cost_preference
      * @return CostCalendar
      */
-    //TODO Возможно ускорение, нискоуровневым запросом
 
     public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
@@ -664,6 +663,5 @@ class Tour extends ActiveRecord
     {
         return new TourQueries(static::class);
     }
-
 
 }

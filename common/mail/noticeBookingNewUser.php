@@ -11,7 +11,7 @@ use booking\helpers\CurrencyHelper;
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
 
-$confirmation = $booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION;
+$confirmation = !$booking->isCheckBooking();
 $lang = $user->preferences->lang;
 ?>
 

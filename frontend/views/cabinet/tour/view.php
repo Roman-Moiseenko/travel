@@ -108,7 +108,7 @@ $tour = $booking->calendar->tour;
                             <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent / 100 : $booking->bonus) . ' (' . $booking->discount->promo . ')' ?> </td>
                         </tr>
                     <?php endif; ?>
-                    <?php if ($booking->getCheckBooking() == BookingHelper::BOOKING_PAYMENT && $booking->getMerchant() != 0): ?>
+                    <?php if ($booking->isCheckBooking() && $booking->getMerchant() != 0): ?>
                         <tr class="py-2 my-2">
                             <th class="py-3 my-2"><?= Lang::t('Комиссия банка') . ' (' . $booking->getMerchant() . '%)' ?></th>
                             <td></td>
@@ -139,10 +139,10 @@ $tour = $booking->calendar->tour;
                         </div>
                     </div>
                     <div>
-                        <?php if ($booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION): ?>
-                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
-                        <?php else: ?>
+                        <?php if ($booking->isCheckBooking()): ?>
                             <?= Lang::t('Перед оплатой бронирования, ознакомтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
+                        <?php else: ?>
+                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

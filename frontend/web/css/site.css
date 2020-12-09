@@ -198,6 +198,15 @@ a.desc:after {
    /* margin: 10px 10px;*/
     /*font-size: 14px !important;*/
 }
+
+.leftbar-search-funs {
+    padding: 20px 20px;
+    background: var(--seach-menu-color);
+    border: #122b40 2px;
+    /* margin: 10px 10px;*/
+    /*font-size: 14px !important;*/
+}
+
 .content-container {
     /* background: #ffffff;*/
 }
@@ -606,3 +615,10 @@ div.required label:after {
     margin-left: 230px;
 }
 
+.image-fun-list {
+    float: left;
+}
+.caption-fun-list {
+    min-height: 228px;
+    margin-left: 230px;
+}

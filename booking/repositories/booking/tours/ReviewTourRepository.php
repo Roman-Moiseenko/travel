@@ -4,7 +4,6 @@
 namespace booking\repositories\booking\tours;
 
 use booking\entities\booking\tours\ReviewTour;
-use shop\entities\shop\product\Product;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;

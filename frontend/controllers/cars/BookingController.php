@@ -72,6 +72,7 @@ class BookingController extends Controller
                 'rent_car' => $rent_car,
             ]);
         }
+        return $this->goHome();
     }
 
     public function actionGetAmount()
@@ -101,5 +102,6 @@ class BookingController extends Controller
             return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
                     CurrencyHelper::get($result * $count) . '</span>';
         }
+        return $this->goHome();
     }
 }

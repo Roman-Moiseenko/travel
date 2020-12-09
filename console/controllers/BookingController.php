@@ -5,9 +5,11 @@ namespace console\controllers;
 
 
 use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\repositories\booking\BookingRepository;
 use booking\repositories\booking\cars\BookingCarRepository;
+use booking\repositories\booking\funs\BookingFunRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\services\booking\tours\BookingTourService;
 use yii\console\Controller;
@@ -21,6 +23,10 @@ class BookingController extends Controller
      * @var BookingCarRepository
      */
     private $cars;
+    /**
+     * @var BookingFunRepository
+     */
+    private $funs;
 
     public function __construct(
         $id,
@@ -28,6 +34,7 @@ class BookingController extends Controller
         BookingTourRepository $tours,
  //       BookingStayRepository $stays,
         BookingCarRepository $cars,
+        BookingFunRepository $funs,
 
         $config = []
     )
@@ -36,6 +43,7 @@ class BookingController extends Controller
 
         $this->tours = $tours;
         $this->cars = $cars;
+        $this->funs = $funs;
     }
 
     public function actionCancel()
@@ -58,7 +66,16 @@ class BookingController extends Controller
             $this->cars->save($car);
         }
         echo 'КОНЕЦ';
-        //TODO Заглушка stays, funs
+        /** @var BookingFun[] $funs */
+        $funs = $this->funs->getNotPay(1);
+        echo 'Нашлось ' . count($funs);
+        foreach ($funs as $fun) {
+            $fun->cancel();
+            echo 'ID = ' . $fun->id;
+            $this->funs->save($fun);
+        }
+        echo 'КОНЕЦ';
+        //TODO Заглушка stays
 
 
     }

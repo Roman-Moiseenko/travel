@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         </div>
     </div>
     <div class="card card-secondary">
-        <div class="card-header with-border">Основные параметры</div>
+        <div class="card-header with-border">Характеристики</div>
         <div class="card-body">
             <?php foreach ($model->values as $i => $value): ?>
                 <?php if ($variants = $value->variantsList()): ?>

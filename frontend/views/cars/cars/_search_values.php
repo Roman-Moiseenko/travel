@@ -11,7 +11,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model SearchCarForm */
 
-
 ?>
 
     <?php $form = ActiveForm::begin([

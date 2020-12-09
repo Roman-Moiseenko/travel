@@ -99,7 +99,7 @@ $(document).ready(function () {
             });
     });
 
-    //Загружаем Массив туров по дням за текущий день
+    //Загружаем Массив туров по дням за текущий месяц
     if (document.getElementById('datepicker-tour')) {
         $.post('/tours/booking/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
             //console.log(data);
@@ -122,8 +122,8 @@ $(document).ready(function () {
             $('#button-booking-tour').attr('disabled', 'disabled');
         }
     });
-    $(document).on('input', '.count-tickets', function (data) {
 
+    $(document).on('input', '.count-tickets', function (data) {
         let _count_ = $(this).val();
         let vl = _count_.replace(/[^\d+]/g, ''); //str.replace(/[^a-zA-Z ]/g, "")
         if (vl == '') {vl = 0;}
@@ -161,7 +161,7 @@ $(document).ready(function () {
                 count_child: count_child,
                 count_preference: count_preference
             }, function (data) {
-                $('#rent-car-amount').html(data);
+                $('#tour-amount').html(data);
                 //$('#show_comment').hide();
             });
         }

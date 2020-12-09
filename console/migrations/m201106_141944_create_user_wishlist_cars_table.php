@@ -25,8 +25,6 @@ class m201106_141944_create_user_wishlist_cars_table extends Migration
 
         $this->addForeignKey('{{%fk-user_wishlist_cars-user_id}}', '{{%user_wishlist_cars}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-user_wishlist_cars-car_id}}', '{{%user_wishlist_cars}}', 'car_id', '{{%booking_cars}}', 'id', 'CASCADE', 'RESTRICT');
-
-
     }
 
     /**

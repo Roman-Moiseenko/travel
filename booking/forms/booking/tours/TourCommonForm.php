@@ -27,7 +27,6 @@ class TourCommonForm extends CompositeForm
 
     public function __construct(Tour $tours = null, $config = [])
     {
-       // $this->photos = new PhotosForm();
         if ($tours)
         {
             $this->name = $tours->name;

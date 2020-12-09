@@ -129,7 +129,7 @@ $countReveiws = $tour->countReviews();
                 </span>
                 <p></p>
                 <span class="params-item">
-                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена билета может меняться в зависимости от даты и времени') ?>
+                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени') ?>
                 </span>
             </div>
         </div>
@@ -207,7 +207,7 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место сбора') ?>:
                         </div>
-                        <div class="col-8" id="address"></div>
+                        <div class="col-8 align-self-center" id="address"></div>
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
@@ -241,7 +241,7 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место окончания') ?>:
                         </div>
-                        <div class="col-8" id="address-2"></div>
+                        <div class="col-8 align-self-center" id="address-2"></div>
                     </div>
                     <div class="collapse" id="collapse-map-2">
                         <div class="card card-body">
@@ -275,7 +275,7 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место проведение') ?>:
                         </div>
-                        <div class="col-8" id="address-3"></div>
+                        <div class="col-8 align-self-center" id="address-3"></div>
                     </div>
                     <div class="collapse" id="collapse-map-3">
                         <div class="card card-body">

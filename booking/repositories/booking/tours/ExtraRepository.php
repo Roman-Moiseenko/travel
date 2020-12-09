@@ -3,7 +3,6 @@
 
 namespace booking\repositories\booking\tours;
 
-
 use booking\entities\booking\tours\Extra;
 
 class ExtraRepository

@@ -13,7 +13,7 @@ class NoticeItemForm extends Model
     public $phone;
     private $_formName;
 
-    public function __construct(NoticeItem $noticeItem, $formName, $config = [])
+    public function __construct(NoticeItem $noticeItem, $formName = null, $config = [])
     {
         $this->email = $noticeItem->email;
         $this->phone = $noticeItem->phone;
@@ -23,7 +23,7 @@ class NoticeItemForm extends Model
 
     public function formName()
     {
-        return $this->_formName;
+        return $this->_formName ?? parent::formName();
     }
 
     public function rules()

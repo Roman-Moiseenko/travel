@@ -15,7 +15,7 @@ use yii\helpers\Html;
 ?>
 
 <?php $form = ActiveForm::begin([
-    'action' => 'cars',
+    'action' => '/' . Lang::current() . '/cars',
     'method' => 'GET'
 ]) ?>
 

@@ -8,11 +8,11 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
+use booking\entities\booking\funs\BookingFun;
+use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
-use booking\entities\booking\tours\CostCalendar;
-use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 
@@ -37,16 +37,16 @@ class BookingHelper
         self::BOOKING_TYPE_STAY => BookingStay::class,
         self::BOOKING_TYPE_CAR => BookingCar::class,
         self::BOOKING_TYPE_TICKET => null,
-        self::BOOKING_TYPE_FUNS => null,
+        self::BOOKING_TYPE_FUNS => BookingFun::class,
 
     ];
-//TODO Заглушки Funs, Stays
+//TODO Заглушки Stays
     const LIST_TYPE = [
         self::BOOKING_TYPE_TOUR => Tour::class,
         self::BOOKING_TYPE_STAY => Stay::class,
         self::BOOKING_TYPE_CAR => Car::class,
         self::BOOKING_TYPE_TICKET => null,
-        self::BOOKING_TYPE_FUNS => null,
+        self::BOOKING_TYPE_FUNS => Fun::class,
 
     ];
 
@@ -176,7 +176,7 @@ class BookingHelper
 
     public static function merchant(BookingItemInterface $booking)
     {
-        if ($booking->getCheckBooking() == self::BOOKING_CONFIRMATION) return $booking->getAmountDiscount();
+        if (!$booking->isCheckBooking()) return $booking->getAmountDiscount();
         if (!isset(\Yii::$app->params['merchant_payment']) && \Yii::$app->params['merchant_payment'] == false) {
             return $booking->getAmountDiscount() / (1 + $booking->getMerchant() / 100);
         } else {

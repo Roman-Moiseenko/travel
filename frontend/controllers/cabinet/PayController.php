@@ -5,11 +5,13 @@ namespace frontend\controllers\cabinet;
 
 
 use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
 use booking\services\booking\cars\BookingCarService;
+use booking\services\booking\funs\BookingFunService;
 use booking\services\booking\tours\BookingTourService;
 use booking\services\ContactService;
 use yii\filters\AccessControl;
@@ -31,12 +33,17 @@ class PayController extends Controller
      * @var BookingCarService
      */
     private $carService;
+    /**
+     * @var BookingFunService
+     */
+    private $funService;
 
     public function __construct(
         $id,
         $module,
         BookingTourService $tourService,
         BookingCarService $carService,
+        BookingFunService $funService,
         ContactService $contact,
         $config = []
     )
@@ -45,6 +52,7 @@ class PayController extends Controller
         $this->tourService = $tourService;
         $this->contact = $contact;
         $this->carService = $carService;
+        $this->funService = $funService;
     }
 
     public function behaviors()
@@ -66,7 +74,7 @@ class PayController extends Controller
     {
         $booking = BookingTour::findOne($id);
         //Тур -> оплата на месте
-        if ($booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION) {
+        if (!$booking->isCheckBooking()) {
             //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
             $this->tourService->noticeConfirmation($id);
             $form = new ConfirmationForm();
@@ -90,7 +98,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         }
-        if ($booking->getCheckBooking() == BookingHelper::BOOKING_PAYMENT){
+        if ($booking->isCheckBooking()){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }
@@ -99,7 +107,7 @@ class PayController extends Controller
     {
         $booking = BookingCar::findOne($id);
         //Авто -> оплата на месте
-        if ($booking->getCheckBooking() == BookingHelper::BOOKING_CONFIRMATION) {
+        if (!$booking->isCheckBooking()) {
             //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
             $this->carService->noticeConfirmation($id);
             $form = new ConfirmationForm();
@@ -123,7 +131,40 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         }
-        if ($booking->getCheckBooking() == BookingHelper::BOOKING_PAYMENT){
+        if ($booking->isCheckBooking()){
+            return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
+        }
+    }
+
+    public function actionFun($id)
+    {
+        $booking = BookingFun::findOne($id);
+        //Тур -> оплата на месте
+        if (!$booking->isCheckBooking()) {
+            //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
+            $this->funService->noticeConfirmation($id);
+            $form = new ConfirmationForm();
+            //через форму ждем код
+            if ($form->load(\Yii::$app->request->post()) && $form->validate()){
+                try {
+                    if ($this->funService->checkConfirmation($id, $form)) {
+                        //если совпал, то подтверждение
+                        $this->funService->confirmation($id);
+                        \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтверждено'));
+                        return $this->redirect(['/cabinet/fun/view', 'id' => $id]);
+                    } else {
+                        \Yii::$app->session->setFlash('error', Lang::t('Неверный код подтверждения'));
+                    }
+                } catch (\DomainException $e) {
+                    \Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+            return $this->render('confirmation', [
+                'model' => $form,
+                'booking' => $booking,
+            ]);
+        }
+        if ($booking->isCheckBooking()){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }

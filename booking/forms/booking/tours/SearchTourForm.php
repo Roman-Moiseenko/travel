@@ -3,7 +3,6 @@
 
 namespace booking\forms\booking\tours;
 
-
 use yii\base\Model;
 
 class SearchTourForm extends Model

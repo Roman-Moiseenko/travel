@@ -64,6 +64,7 @@ class BookingController  extends Controller
             $params = \Yii::$app->request->bodyParams;
             return '<h1>ERRORS</h1>'; // $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
         }
+        return $this->goHome();
     }
 
     private function getInfoDay($year, $month, $day, $tour_id)
@@ -73,6 +74,7 @@ class BookingController  extends Controller
         return $this->render('_list-tours', [
             'day_tours' => $day_tours,
         ]);
+
     }
 
     public function actionGetlisttours()
@@ -115,5 +117,6 @@ class BookingController  extends Controller
             return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
                 ($result !== 0 ? CurrencyHelper::get($result) : ' - ') . '</span>';
         }
+        return $this->goHome();
     }
 }

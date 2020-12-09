@@ -11,7 +11,7 @@ return [
     'language' => '',
     'basePath' => dirname(__DIR__),
     // перевести сайт в режим обслуживания
-    //'catchAll' => ['site/update'],
+    'catchAll' => ['site/update'],
     'aliases' => [
         '@staticRoot' => $params['staticPath'],
         '@static' => $params['staticHostInfo'],
@@ -108,27 +108,43 @@ return [
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'site/login' => 'auth/auth/login',
                 //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
-                'tours' => 'tours/tours/index',
-                'stays' => 'stays/stays/index',
+
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
+
                 'cars/cars/get-search' => 'cars/cars/get-search',
                 'cars/booking/get-calendar' => 'cars/booking/get-calendar',
-                'cars/booking/gettickets' => 'cars/booking/gettickets',
                 'cars/booking/get-rent-car' => 'cars/booking/get-rent-car',
                 'cars/booking/get-amount' => 'cars/booking/get-amount',
                 'cars/checkout/booking' => 'cars/checkout/booking',
-                'tickets' => 'tickets/tickets/index',
+                'cars/<slug:[\w\-]+>' => 'cars/cars/category',
+
                 'funs' => 'funs/funs/index',
+                'fun/<id:\d+>' => 'funs/funs/fun',
+
+                'funs/funs/get-search' => 'funs/funs/get-search',
+                'funs/booking/get-calendar' => 'funs/booking/get-calendar',
+                'funs/booking/get-tickets' => 'funs/booking/get-tickets',
+                'funs/booking/get-times' => 'funs/booking/get-times',
+                'funs/booking/get-amount' => 'funs/booking/get-amount',
+                'funs/checkout/booking' => 'funs/checkout/booking',
+                'funs/<slug:[\w\-]+>' => 'funs/funs/category',
+
+                'tours' => 'tours/tours/index',
                 'tours/booking/getcalendar' => 'tours/booking/getcalendar',
                 'tours/booking/gettickets' => 'tours/booking/gettickets',
                 'tours/booking/getlisttours' => 'tours/booking/getlisttours',
                 'tours/booking/getday' => 'tours/booking/getday',
                 'tours/booking/get-amount' => 'tours/booking/get-amount',
                 'tours/checkout/booking' => 'tours/checkout/booking',
-                'legals/view' => 'legals/view',
+
                 'tour/<slug:[\w\-]+>' => 'tours/tours/tour',
                 'tours/<slug:[\w\-]+>' => 'tours/tours/category',
+
+                'stays' => 'stays/stays/index',
+                'tickets' => 'tickets/tickets/index',
+
+                'legals/view' => 'legals/view',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/dialog' => 'cabinet/dialog/dialog',
                 'cabinet/petition' => 'cabinet/dialog/petition',
@@ -147,6 +163,8 @@ return [
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
+                ['class' => 'frontend\urls\CarTypeUrlRule'],
+                ['class' => 'frontend\urls\FunTypeUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',

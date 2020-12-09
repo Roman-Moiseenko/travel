@@ -26,7 +26,6 @@ class m201105_213103_create_booking_cars_reviews_table extends Migration
         $this->createIndex('{{%idx-booking_cars_reviews-car_id}}', '{{%booking_cars_reviews}}', 'car_id');
         $this->addForeignKey('{{%fk-booking_cars_reviews-car_id}}', '{{%booking_cars_reviews}}', 'car_id', '{{%booking_cars}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_cars_reviews-user_id}}', '{{%booking_cars_reviews}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'RESTRICT');
-
     }
 
     /**

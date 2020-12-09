@@ -33,7 +33,7 @@ class StatusActionWidget extends Widget
                 $link = '/ticket/common';
                 break;
             case BookingHelper::BOOKING_TYPE_FUNS:
-                $link = '/funs/common';
+                $link = '/fun/common';
                 break;
             default:
                 throw new \DomainException('Неизвестный тип объекта ' . $this->object_type);

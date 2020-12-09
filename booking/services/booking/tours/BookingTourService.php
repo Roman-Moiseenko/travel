@@ -40,8 +40,7 @@ class BookingTourService
     public function create($calendar_id, Cost $count, $promo_code): BookingTour
     {
         $booking = BookingTour::create($calendar_id, $count);
-        $_count = $count->preference + $count->adult + $count->child;
-        if ($booking->calendar->free() < $_count) {
+        if ($booking->calendar->free() < $count->count()) {
             throw new \DomainException(Lang::t('Упс! Места закончились'));
         }
 

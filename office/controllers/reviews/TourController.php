@@ -6,7 +6,6 @@ namespace office\controllers\reviews;
 
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\Rbac;
-use booking\repositories\booking\tours\ReviewTourRepository;
 use office\forms\reviews\ReviewTourSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -15,7 +14,7 @@ use yii\web\Controller;
 class TourController extends Controller
 {
 
-    public function __construct($id, $module, ReviewTourRepository $reviews, $config = [])
+    public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
     }

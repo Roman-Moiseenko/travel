@@ -296,6 +296,20 @@ class UserManageService
         $user->removeWishlistCar($car_id);
         $this->users->save($user);
     }
+
+    public function addWishlistFun($id, $fun_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlistFun($fun_id);
+        $this->users->save($user);
+    }
+
+    public function removeWishlistFun($id, $fun_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlistFun($fun_id);
+        $this->users->save($user);
+    }
     //public function
 
 }

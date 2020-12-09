@@ -3,7 +3,6 @@
 
 namespace booking\forms\booking\tours;
 
-
 use booking\entities\booking\tours\Cost;
 use yii\base\Model;
 

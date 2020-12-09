@@ -185,7 +185,10 @@ class CarRepository
 
     public function find($id): ?Car
     {
-        return Car::findOne($id);
+        $car = Car::findOne($id);
+        $car->upViews();
+        $this->save($car);
+        return $car;
     }
 
     private function carIds($costCalendars): array

@@ -16,4 +16,8 @@ class Cost
         $this->child = $child;
         $this->preference = $preference;
     }
+    public function count()
+    {
+        return $this->adult + ($this->child ?? 0) + ($this->preference ?? 0);
+    }
 }

@@ -53,6 +53,35 @@ function init() {
     /********************************************************** MAP-CAR ***/
 
 
+    if (document.getElementById("map-fun-view")) {
+
+        let mapFunView = new ymaps.Map(document.getElementById("map-fun-view"), {
+            center: [54.74639455404805, 20.537801017695948],
+            zoom: 10
+        }, {
+            restrictMapArea: [
+                [54.256, 19.586],
+                [55.317, 22.975]
+            ]
+        });
+        mapFunView.controls.remove('searchControl');
+        mapFunView.controls.remove('trafficControl');
+        mapFunView.controls.remove('geolocationControl');
+        //Проходим по элементам, если есть список, грузим в карту
+
+        mapFunView.geoObjects.add(new ymaps.Placemark([$('#latitude').val(), $('#longitude').val()], {
+                iconContent: "",
+                iconCaption: "",
+                balloonContent: $('#address').val()
+            }, {
+                preset: "islands#violetIcon",//'islands#violetDotIconWithCaption',
+                draggable: false
+            }));
+
+    }
+
+    /********************************************************** MAP-FUN ***/
+
     if (document.getElementById("map")) {
         var myMap = new ymaps.Map(document.getElementById("map"), {
             center: [54.74639455404805, 20.537801017695948],

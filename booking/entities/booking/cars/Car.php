@@ -535,13 +535,6 @@ class Car extends ActiveRecord
 
     /** Photo ==========> */
 
-    public function addPhotoClass(Photo $photo): void
-    {
-        $photos = $this->photos;
-        $photos[] = $photo;
-        $this->updatePhotos($photos);
-    }
-
     public function addPhoto(UploadedFile $file): void
     {
         $photos = $this->photos;

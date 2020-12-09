@@ -111,4 +111,34 @@ class WishlistController extends Controller
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
+
+    public function actionAddFun($id)
+    {
+        if (\Yii::$app->user->isGuest) {
+            \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
+        } else {
+            try {
+                $user_id = \Yii::$app->user->id;
+                $this->service->addWishlistFun($user_id, $id);
+                \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(\Yii::$app->request->referrer);
+            }
+
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionDelFun($id)
+    {
+        try {
+            $user_id = \Yii::$app->user->id;
+            $this->service->removeWishlistFun($user_id, $id);
+            \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
 }

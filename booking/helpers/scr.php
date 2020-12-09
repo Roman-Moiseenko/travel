@@ -43,4 +43,16 @@ class scr
         }
         //exit();
     }
+    public static function _v($var)
+    {
+        echo '<pre>';
+        if (is_array($var)) {
+            foreach ($var as $item) {
+                var_dump($item);
+            }
+        } else {
+            var_dump($var);
+        }
+        //exit();
+    }
 }

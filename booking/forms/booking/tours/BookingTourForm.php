@@ -3,7 +3,6 @@
 
 namespace booking\forms\booking\tours;
 
-
 use booking\entities\booking\tours\BookingTour;
 use booking\forms\CompositeForm;
 

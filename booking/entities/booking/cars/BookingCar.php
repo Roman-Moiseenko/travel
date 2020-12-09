@@ -309,11 +309,6 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
         return $this->payment_provider;
     }
 
-    public function getCheckBooking(): int
-    {
-        return $this->car->check_booking;
-    }
-
     /** is.. */
     public function isPay(): bool
     {
@@ -343,6 +338,6 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
 
     public function isCheckBooking(): bool
     {
-        return $this->car->check_booking;
+        return $this->car->check_booking == BookingHelper::BOOKING_PAYMENT;
     }
 }

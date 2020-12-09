@@ -35,22 +35,11 @@ class TypeCarService
         $this->carsType->save($carType);
     }
 
-    public function addCharacteristic($id, CharacteristicForm $form)
+    public function remove($id): void
     {
         $carType = $this->carsType->get($id);
-        $carType->addCharacteristic(
-            Characteristic::create(
-                $form->name,
-                $form->type_variable,
-                $form->required,
-                $form->default,
-                $form->variants,
-                $form->sort
-            )
-        );
-        $this->carsType->save($carType);
+        $this->carsType->remove($carType);
     }
-
 
     public function moveUp($id)
     {
@@ -87,10 +76,22 @@ class TypeCarService
         }
     }
 
-    public function remove($id): void
+    /** =>  Characteristic */
+
+    public function addCharacteristic($id, CharacteristicForm $form)
     {
         $carType = $this->carsType->get($id);
-        $this->carsType->remove($carType);
+        $carType->addCharacteristic(
+            Characteristic::create(
+                $form->name,
+                $form->type_variable,
+                $form->required,
+                $form->default,
+                $form->variants,
+                $form->sort
+            )
+        );
+        $this->carsType->save($carType);
     }
 
     public function updateCharacteristic(int $type_car_id, int $id, CharacteristicForm $form)

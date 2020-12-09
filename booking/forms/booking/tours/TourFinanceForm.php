@@ -39,7 +39,6 @@ class TourFinanceForm extends CompositeForm
             ['legal_id', 'required', 'message' => 'Обязательное поле'],
             ['pay_bank', 'boolean'],
             [['check_booking'], 'in', 'range' => [BookingHelper::BOOKING_CONFIRMATION, BookingHelper::BOOKING_PAYMENT]],
-          //  ['check_booking', 'required', 'message' => 'Обязательное поле']
         ];
     }
 

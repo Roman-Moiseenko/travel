@@ -5,6 +5,7 @@ namespace frontend\widgets\legal;
 
 
 use booking\repositories\booking\cars\CarRepository;
+use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use yii\base\Widget;
@@ -25,13 +26,18 @@ class BookingObjectWidget extends Widget
      * @var CarRepository
      */
     private $cars;
+    /**
+     * @var FunRepository
+     */
+    private $funs;
 
-    public function __construct(TourRepository $tours, StayRepository $stays, CarRepository $cars, $config = [])
+    public function __construct(TourRepository $tours, StayRepository $stays, CarRepository $cars, FunRepository $funs, $config = [])
     {
         parent::__construct($config);
         $this->tours = $tours;
         $this->stays = $stays;
         $this->cars = $cars;
+        $this->funs = $funs;
     }
 
 
@@ -56,7 +62,16 @@ class BookingObjectWidget extends Widget
                 'description' => $car->getDescription(),
             ];
         }
-        //TODO Заглушка ($stays $funs)
+        $funs = $this->funs->getByLegal($this->legal_id);
+        foreach ($funs as $fun) {
+            $obj[] = [
+                'photo' => $fun->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
+                'name' => $fun->getName(),
+                'link' => Url::to(['fun/view', 'id' => $car->id]),
+                'description' => $fun->getDescription(),
+            ];
+        }
+        //TODO Заглушка ($stays)
 //        $stays = $this->stays->getByLegal($this->legal_id);
       //
 

@@ -1,11 +1,9 @@
 <?php
 
-use booking\entities\booking\cars\CostCalendar;
-/* @var  $tour Tour */
+use booking\entities\booking\funs\CostCalendar;
+
 /* @var $this yii\web\View */
 /* @var $calendars CostCalendar[] */
-
-use booking\entities\booking\tours\Tour;
 
 ?>
 <div class="row pb-2">

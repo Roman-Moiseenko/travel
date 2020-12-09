@@ -30,7 +30,6 @@ interface BookingItemInterface
     //TODO удалить, заменив вывод в ... admin->...->booking
     public function getAmountPayAdmin(): float; //Удалить
     public function getPaymentToProvider(): float; //Выплата провайдеру
-    public function getCheckBooking(): int;
     public function getConfirmationCode(): string;
     public function getPinCode(): int;
     public function getCount(): int;

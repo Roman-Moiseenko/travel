@@ -29,7 +29,6 @@ class m200724_223552_create_booking_tours_calendar_cost_table extends Migration
             '{{%booking_tours_calendar_cost}}',
             ['tours_id', 'tour_at', 'time_at'], true);
         $this->addForeignKey('{{%fk-booking_tours_calendar_cost-tours_id}}', '{{%booking_tours_calendar_cost}}', 'tours_id', '{{%booking_tours}}', 'id', 'SET NULL', 'RESTRICT');
-
     }
 
     /**
