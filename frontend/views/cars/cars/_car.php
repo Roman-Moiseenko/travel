@@ -16,7 +16,7 @@ use yii\helpers\Url;
 
 <div class="card p-0 my-3">
     <div class="card-body p-0">
-        <div class="image-car-list"> <!-- style="position: relative" -->
+        <div class="image-car-list" > <!-- style="position: relative" -->
             <div class="holder">
             <?php if ($car->mainPhoto): ?>
                 <a href="<?= Html::encode($url) ?>">

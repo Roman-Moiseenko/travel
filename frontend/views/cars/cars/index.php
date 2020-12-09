@@ -71,7 +71,7 @@ $this->registerJs($js);
 <div class="list-cars">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3 p-2">
             <div class="leftbar-search-cars">
                 <div class="block-search-car">
             <?= $this->render('_search', ['model' => $model]) ?>

@@ -51,7 +51,7 @@ class BookingController extends Controller
         echo 'НАЧАЛО';
         /** @var BookingTour[] $tours */
         $tours = $this->tours->getNotPay(1);
-        echo 'Нашлось ' . count($tours);
+        echo 'Нашлось $tours ' . count($tours);
         foreach ($tours as $tour) {
             $tour->cancel();
             echo 'ID = ' . $tour->id;
@@ -59,7 +59,7 @@ class BookingController extends Controller
         }
         /** @var BookingCar[] $cars */
         $cars = $this->cars->getNotPay(1);
-        echo 'Нашлось ' . count($cars);
+        echo 'Нашлось $cars ' . count($cars);
         foreach ($cars as $car) {
             $car->cancel();
             echo 'ID = ' . $car->id;
@@ -68,7 +68,7 @@ class BookingController extends Controller
         echo 'КОНЕЦ';
         /** @var BookingFun[] $funs */
         $funs = $this->funs->getNotPay(1);
-        echo 'Нашлось ' . count($funs);
+        echo 'Нашлось $funs ' . count($funs);
         foreach ($funs as $fun) {
             $fun->cancel();
             echo 'ID = ' . $fun->id;

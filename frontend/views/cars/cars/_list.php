@@ -3,6 +3,7 @@
 
 use booking\entities\Lang;
 use booking\helpers\scr;
+use booking\helpers\SysHelper;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -37,18 +38,17 @@ $values = [
         <?php endforeach;?>
     </select>
 </div>
-
 <div class="row">
-    <div class="col-sm-12">
+<div class="col-sm-12">
     <?php //TODO Показать из списка рекомендуемых, не более 4 (Виджет). Проплаченные Провайдерами ?>
-    <?php foreach ($dataProvider->getModels() as $car): ?>
-        <?= $this->render('_car', [
+    <?php
+    foreach ($dataProvider->getModels() as $car): ?>
+        <?= $this->render( SysHelper::isMobile() ? '_car_mobile' : '_car', [
             'car' => $car
         ]) ?>
     <?php endforeach; ?>
 </div>
 </div>
-
 <div class="row">
     <div class="col-sm-6 text-left">
         <?= LinkPager::widget([

@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\Lang;
+use booking\helpers\SysHelper;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -40,7 +41,7 @@ $values = [
     <div class="col-sm-12">
     <?php //TODO Показать из списка рекомендуемых, не более 4 (Виджет). Проплаченные Провайдерами ?>
     <?php foreach ($dataProvider->getModels() as $fun): ?>
-        <?= $this->render('_fun', [
+        <?= $this->render(SysHelper::isMobile() ? '_fun_mobile' : '_fun', [
             'fun' => $fun
         ]) ?>
     <?php endforeach; ?>

@@ -46,7 +46,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($tours);
         foreach ($tours as $tour) {
             $tour->unload = true;
-            echo 'ID = ' . $tour->id;
+            echo 'ID $tour = ' . $tour->id;
             //$this->manager->wrapNotSession(function ($tour) {
                 $tour->save();
                 $this->service->create($tour);
@@ -62,7 +62,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($cars);
         foreach ($cars as $car) {
             $car->unload = true;
-            echo 'ID = ' . $car->id;
+            echo 'ID $car = ' . $car->id;
             //$this->manager->wrapNotSession(function ($tour) {
             $car->save();
             $this->service->create($car);
@@ -83,7 +83,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($funs);
         foreach ($funs as $fun) {
             $fun->unload = true;
-            echo 'ID = ' . $fun->id;
+            echo 'ID $fun = ' . $fun->id;
             //$this->manager->wrapNotSession(function ($tour) {
             $fun->save();
             $this->service->create($fun);

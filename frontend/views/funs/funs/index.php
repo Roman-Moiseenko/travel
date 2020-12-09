@@ -30,13 +30,12 @@ $(document).ready(function() {
 JS;
 
 $this->registerJs($js_search);
-
 ?>
 
 <div class="list-cars">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3 p-2">
             <div class="leftbar-search-funs">
                 <div class="block-search-fun">
             <?= $this->render('_search', ['model' => $model]) ?>

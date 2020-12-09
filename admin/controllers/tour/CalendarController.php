@@ -11,6 +11,7 @@ use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -91,6 +92,7 @@ class CalendarController extends Controller
             }
             return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
+        return $this->redirect(Url::to(['']));
     }
 
     public function actionGetday()
@@ -99,6 +101,7 @@ class CalendarController extends Controller
             $params = \Yii::$app->request->bodyParams;
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id']);
         }
+        return $this->goHome();
     }
 
     public function actionSetday()
@@ -124,6 +127,7 @@ class CalendarController extends Controller
             }
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
+        return $this->goHome();
     }
 
     public function actionCopyday()
@@ -142,6 +146,7 @@ class CalendarController extends Controller
             }
             return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
+        return $this->goHome();
     }
 
     public function actionCopyweek()
@@ -174,6 +179,7 @@ class CalendarController extends Controller
             }
             return json_encode($this->calendar->getCalendarForDatePickerBackend($params['tour_id']));
         }
+        return $this->goHome();
     }
 
     public function actionDelday()
@@ -187,6 +193,7 @@ class CalendarController extends Controller
             if ($result == false) $errors['del-day'] = 'Нельзя удалить тур с бронированием';
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
+        return $this->goHome();
     }
 
 
