@@ -31,10 +31,10 @@ use yii\helpers\Url; ?>
             <div class="col-sm-4">
                 <h5><?= Lang::t('Услуги') ?></h5>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотраспорта') ?></a></li>
+                    <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотранспорта') ?></a></li>
                     <li><a href="<?= Url::to(['/tours']) ?>"><?= Lang::t('Найти тур') ?></a></li>
                     <li><a href="<?= Url::to(['/funs']) ?>"><?= Lang::t('Развлечения') ?></a></li>
-                    <li><a href=""><?= Lang::t('Купить билет на представление') ?> (*)</a></li>
+                    <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление') ?></a></li>
                 </ul>
             </div>
             <div class="col-sm-4">
