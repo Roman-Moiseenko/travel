@@ -15,6 +15,7 @@ use yii\helpers\Url; ?>
                     <li>
                         <a href="<?= Html::encode(Url::to(['/policy'])) ?>"><?= Lang::t('Политика конфиденциальности') ?></a>
                     </li>
+                    <li><a href="<?= Html::encode(Url::to(['/offer'])) ?>"><?= Lang::t('Оферта') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/post'])) ?>"><?= Lang::t('Блог') ?></a></li>
                 </ul>
             </div>

@@ -12,6 +12,6 @@ class CityHelper
 {
     public static function list()
     {
-        return ArrayHelper::map(City::find()->asArray()->all(), 'id', Lang::t('name'));
+        return ArrayHelper::map(City::find()->asArray()->all(), 'id', 'name');
     }
 }

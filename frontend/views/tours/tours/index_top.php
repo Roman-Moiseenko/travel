@@ -14,7 +14,7 @@ $this->title = Lang::t('Туры и экскурсии');
 
 $js = <<<JS
     $(document).ready(function() {
-        $('#info').modal('show');
+        //$('#info').modal('show');
     });
 JS;
 $this->registerJs($js);

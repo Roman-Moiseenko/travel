@@ -48,7 +48,7 @@ function init() {
     if (document.getElementById("map-fun-view")) {
 
         let mapFunView = new ymaps.Map(document.getElementById("map-fun-view"), {
-            center: [54.74639455404805, 20.537801017695948],
+            center: [$('#latitude').val(), $('#longitude').val()],
             zoom: 10
         }, {
             restrictMapArea: [

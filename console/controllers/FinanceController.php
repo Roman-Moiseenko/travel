@@ -41,7 +41,8 @@ class FinanceController extends Controller
             ->andWhere([
                 'IN',
                 'calendar_id',
-                \booking\entities\booking\tours\CostCalendar::find()->select('id')->andWhere(['<=', 'tour_at', time()])
+                \booking\entities\booking\tours\CostCalendar::find()->select('id')
+                ->andWhere(['<=', 'tour_at', time()])
             ])->all();
         echo 'Нашлось ' . count($tours);
         foreach ($tours as $tour) {
@@ -58,7 +59,8 @@ class FinanceController extends Controller
         $cars = BookingCar::find()
             ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
             ->andWhere(['unload' => false])
-            ->andWhere(['<=', 'begin_at', time()])->all();
+            ->andWhere(['<=', 'begin_at', time()])
+            ->all();
         echo 'Нашлось ' . count($cars);
         foreach ($cars as $car) {
             $car->unload = true;
@@ -77,7 +79,8 @@ class FinanceController extends Controller
             ->andWhere([
                 'IN',
                 'calendar_id',
-                \booking\entities\booking\funs\CostCalendar::find()->select('id')->andWhere(['<=', 'fun_at', time()])
+                \booking\entities\booking\funs\CostCalendar::find()->select('id')
+                    ->andWhere(['<=', 'fun_at', time()])
             ])->all();
 
         echo 'Нашлось ' . count($funs);
