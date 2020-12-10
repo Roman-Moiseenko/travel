@@ -84,17 +84,9 @@ class SellingController extends Controller
             $params = \Yii::$app->request->bodyParams;
             $fun = Fun::findOne($params['fun_id']);
             $calendars = $this->calendars->getDay($params['fun_id'], strtotime($params['date']), false);
-
             if (Fun::isClearTimes($fun->type_time)) {
-                return $calendars[0]->id;
-                $sales = $this->sellingFuns->getByCalendarId($calendars[0]->id);
-                return $this->render('_list_selling', [
-                    'calendar_id' => $calendars[0]->id,
-                    'sales' => $sales,
-                    'error' => '',
-                ]);
+                return $calendars[0]->id; //Нет списка времени time_at - одна запись на день
             } else {
-
                 return $this->render('_list_times', [
                     'calendars' => $calendars,
                 ]);

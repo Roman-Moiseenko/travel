@@ -19,6 +19,12 @@
     height: 90px !important;
 }
 
+#datepicker-booking-fun>.datepicker td,
+#datepicker-booking-fun>.datepicker th {
+    width: 150px !important;
+    height: 90px !important;
+}
+
 #datepicker-car>.datepicker td,
 #datepicker-car>.datepicker th {
     width: 150px !important;
@@ -47,6 +53,9 @@
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: none;
+}
+#datepicker-booking-fun .table-condensed {
+    width: 1050px !important;
 }
 #datepicker-booking-tour .table-condensed {
     width: 1050px !important;
