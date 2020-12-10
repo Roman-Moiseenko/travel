@@ -1,18 +1,18 @@
 <?php
 
 use booking\entities\booking\cars\CostCalendar;
-/* @var  $tour Tour */
+/* @var  $fun Fun */
 /* @var $this yii\web\View */
 /* @var $calendars CostCalendar[] */
 
-use booking\entities\booking\tours\Tour;
+use booking\entities\booking\funs\Fun;
 
 ?>
 <div class="row pb-2">
     <div class="col">
         <input type="hidden" value=""/>
-        <label for="selling-car-time"><b><?= 'Выберите время' ?>:</b></label>
-        <select id="selling-car-time" name="calendar_id" class="form-control">
+        <label for="selling-fun-time"><b><?= 'Выберите время' ?>:</b></label>
+        <select id="selling-fun-time" name="calendar_id" class="form-control">
             <option value="-1"></option>
             <?php foreach ($calendars as $calendar): ?>
                 <option value="<?= $calendar->id ?>"><?= $calendar->time_at ?></option>
