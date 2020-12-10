@@ -10,7 +10,7 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\tours\TourHelper;
+use booking\helpers\SysHelper;use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use yii\helpers\Html;
@@ -53,28 +53,26 @@ $tour = $booking->calendar->tour;
         <!-- Общая информация -->
         <div class="card py-2 shadow-sm my-2" style="font-size: 14px;">
             <div class="card-body">
-                <table width="70%">
+                <?= BookingHelper::stamp($booking) ?>
+                <table class="adaptive-width-70">
                     <tbody>
                     <tr>
                         <th><?= Lang::t('Номер брони') ?>:</th>
-                        <td><?= BookingHelper::number($booking) ?></td>
+                        <td colspan="3"><?= BookingHelper::number($booking) ?></td>
                     </tr>
                     <?php if ($booking->isPay()): ?>
                         <tr>
                             <th><?= Lang::t('ПИН-код') ?>:</th>
-                            <td><?= $booking->getPinCode() ?></td>
+                            <td colspan="3"><?= $booking->getPinCode() ?></td>
                         </tr>
                     <?php endif; ?>
                     <tr>
                         <th><?= Lang::t('Дата тура') ?>:</th>
-                        <td><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
-                        <td>
-                            <?= BookingHelper::stamp($booking) ?>
-                        </td>
+                        <td colspan="3"><?= date('d-m-Y', $booking->calendar->tour_at) ?></td>
                     </tr>
                     <tr>
                         <th><?= Lang::t('Время начало') ?>:</th>
-                        <td><?= $booking->calendar->time_at ?></td>
+                        <td colspan="3"><?= $booking->calendar->time_at ?></td>
                     </tr>
                     <?php if ($booking->count->adult !== 0): ?>
                         <tr>
@@ -152,9 +150,9 @@ $tour = $booking->calendar->tour;
         <?php if ($booking->isPay()): ?>
             <div class="card shadow-sm py-2 my-2">
                 <div class="card-body nowrap-parent">
-                    <h2><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
+                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
                     <ul class="reassurance__list">
-                        <li>
+                        <li style="white-space: normal !important;">
                             <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
                             <b><?= $user->email ?></b>
                         </li>
@@ -184,9 +182,9 @@ $tour = $booking->calendar->tour;
         <?php if ($booking->isConfirmation()): ?>
             <div class="card shadow-sm py-2 my-2">
                 <div class="card-body nowrap-parent">
-                    <h2><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
+                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
                     <ul class="reassurance__list">
-                        <li>
+                        <li style="white-space: normal !important;">
                             <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
                             <b><?= $user->email ?></b>
                         </li>

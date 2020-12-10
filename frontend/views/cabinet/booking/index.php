@@ -5,7 +5,7 @@ use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use yii\helpers\Html;
+use booking\helpers\SysHelper;use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $bookings BookingItemInterface[] */
@@ -19,6 +19,9 @@ if (!$active)
     $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 
 $this->params['breadcrumbs'][] = $this->title;
+
+$mobil = SysHelper::isMobile();
+
 ?>
 
 <div class="booking">
@@ -26,10 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card mt-4 shadow">
             <div class="card-body">
                 <div class="d-flex flex-row justify-content-end">
+                    <?php if (!$mobil): ?>
                     <div class="">
                         <img src="<?= $booking->getPhoto(); ?>" alt="<?= Html::encode($booking->getName()); ?>"
                              style="border-radius: 12px;"/>
                     </div>
+                    <?php endif; ?>
                     <div class="flex-grow-1 align-self-center pl-4">
                         <div class="row caption-list">
                             <div class="col-12">
@@ -37,21 +42,22 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="row date-list">
-                            <div class="col-3 p-1">
+                            <div class="col-sm-3 p-1">
                                 <?= Lang::t('Дата') . ': ' . date('d-m-Y', $booking->getDate()) ?>
                             </div>
-                            <div class="col-3 p-1">
+                            <div class="col-sm-3 p-1">
                                 <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_TOUR)
                                     echo Lang::t('Время') . ': ' . $booking->getAdd(); ?>
                                 <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_CAR)
                                     echo $booking->getAdd(); ?>
                                 <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_FUNS)
                                     echo Lang::t('Время') . ': ' . $booking->getAdd(); ?>
-                                <?php //TODO Заглушка Stay ?>
-
+                                <?php if ($booking->getType() == BookingHelper::BOOKING_TYPE_STAY)
+                                    echo $booking->getAdd(); ?>
                             </div>
                         </div>
                     </div>
+
                     <div class="ml-auto  align-self-center">
                         <div class="row price-list">
                             <div class="col-12">

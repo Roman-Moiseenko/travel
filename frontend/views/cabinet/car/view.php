@@ -54,28 +54,26 @@ $car = $booking->car;
         <!-- Общая информация -->
         <div class="card py-2 shadow-sm my-2" style="font-size: 14px;">
             <div class="card-body">
-                <table width="70%">
+                <?= BookingHelper::stamp($booking) ?>
+                <table class="adaptive-width-70">
                     <tbody>
                     <tr>
                         <th><?= Lang::t('Номер брони') ?>:</th>
-                        <td><?= BookingHelper::number($booking) ?></td>
+                        <td colspan="3"><?= BookingHelper::number($booking) ?></td>
                     </tr>
                     <?php if ($booking->isPay()): ?>
                         <tr>
                             <th><?= Lang::t('ПИН-код') ?>:</th>
-                            <td><?= $booking->getPinCode() ?></td>
+                            <td colspan="3"><?= $booking->getPinCode() ?></td>
                         </tr>
                     <?php endif; ?>
                     <tr>
                         <th><?= Lang::t('Прокат') ?>:</th>
-                        <td><?= date('d-m-Y', $booking->begin_at) ?></td>
-                        <td>
-                            <?= BookingHelper::stamp($booking) ?>
-                        </td>
+                        <td colspan="3"><?= date('d-m-Y', $booking->begin_at) ?></td>
                     </tr>
                     <tr>
                         <th><?= Lang::t(' ') ?></th>
-                        <td><?= date('d-m-Y', $booking->end_at) ?></td>
+                        <td colspan="3"><?= date('d-m-Y', $booking->end_at) ?></td>
                     </tr>
                         <tr>
                             <th><?= Lang::t('Стоимость проката') ?></th>
@@ -136,9 +134,9 @@ $car = $booking->car;
         <?php if ($booking->isPay()): ?>
             <div class="card shadow-sm py-2 my-2">
                 <div class="card-body nowrap-parent">
-                    <h2><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
+                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
                     <ul class="reassurance__list">
-                        <li>
+                        <li style="white-space: normal !important;">
                             <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
                             <b><?= $user->email ?></b>
                         </li>
@@ -168,9 +166,9 @@ $car = $booking->car;
         <?php if ($booking->isConfirmation()): ?>
             <div class="card shadow-sm py-2 my-2">
                 <div class="card-body nowrap-parent">
-                    <h2><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
+                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
                     <ul class="reassurance__list">
-                        <li>
+                        <li style="white-space: normal !important;">
                             <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
                             <b><?= $user->email ?></b>
                         </li>
