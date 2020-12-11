@@ -110,24 +110,25 @@ $countReveiws = $tour->countReviews();
                     <?php endif; ?>
                 </span>
                 <p></p>
+                <?php if ($tour->baseCost->child): ?>
                 <span class="params-item">
-                    <?php if ($tour->baseCost->child): ?>
-                        <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?> <span
-                                class="price-view">
+                    <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
+                    <span class="price-view">
                         <?= CurrencyHelper::get($tour->baseCost->child) ?>
-                        </span>
-                    <?php endif; ?>
+                    </span>
                 </span>
                 <p></p>
-                <span class="params-item">
-                    <?php if ($tour->baseCost->preference): ?>
-                        <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
-                                class="price-view">
-                        <?= CurrencyHelper::get($tour->baseCost->preference) ?>
-                        </span>
-                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($tour->baseCost->preference): ?>
+                                <span class="params-item">
+                    <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
+                            class="price-view">
+                    <?= CurrencyHelper::get($tour->baseCost->preference) ?>
+                    </span>
                 </span>
                 <p></p>
+                <?php endif; ?>
+
                 <span class="params-item">
                     <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени') ?>
                 </span>

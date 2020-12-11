@@ -108,24 +108,24 @@ $countReveiws = $fun->countReviews();
                     <?php endif; ?>
                 </span>
                 <p></p>
-                <span class="params-item">
-                    <?php if ($fun->baseCost->child): ?>
-                        <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?> <span
-                                class="price-view">
+                <?php if ($fun->baseCost->child): ?>
+                    <span class="params-item">
+                    <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
+                    <span class="price-view">
                         <?= CurrencyHelper::get($fun->baseCost->child) ?>
-                        </span>
-                    <?php endif; ?>
+                    </span>
                 </span>
-                <p></p>
-                <span class="params-item">
-                    <?php if ($fun->baseCost->preference): ?>
-                        <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
+                    <p></p>
+                <?php endif; ?>
+                <?php if ($fun->baseCost->preference): ?>
+                    <span class="params-item">
+                    <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
                                 class="price-view">
-                        <?= CurrencyHelper::get($fun->baseCost->preference) ?>
-                        </span>
-                    <?php endif; ?>
+                    <?= CurrencyHelper::get($fun->baseCost->preference) ?>
+                    </span>
                 </span>
-                <p></p>
+                    <p></p>
+                <?php endif; ?>
 
                 <span class="params-item">
                     <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Стоимость билета может меняться в зависимости от даты') ?>
