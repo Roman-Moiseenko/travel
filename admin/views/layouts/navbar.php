@@ -34,6 +34,11 @@ use yii\helpers\Url;
                 <a href="<?= Url::to(\Yii::$app->params['frontendHostInfo'] . '/offer', true) ?>" class="dropdown-item" target="_blank">
                     Оферта
                 </a>
+                <a href="<?= Url::to(\Yii::$app->params['staticHostInfo'] . '/files/docs/dogovor_provider_agregator.docx', true) ?>"
+                   class="dropdown-item" target="_blank">
+                    Договор (скачать)
+                </a>
+
                 <span class="dropdown-item dropdown-footer"></span>
             </div>
         </li>

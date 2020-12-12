@@ -6,6 +6,7 @@ namespace admin\controllers\auth;
 
 use booking\forms\auth\LoginForm;
 //use booking\services\AuthService;
+use booking\helpers\scr;
 use booking\services\admin\AuthService;
 use Yii;
 use yii\filters\AccessControl;
@@ -44,7 +45,7 @@ class   AuthController extends Controller
                     'login' => [
                         'actions' => ['login'],
                         'allow' => true,
-                        'roles' => ['?'],
+                       // 'roles' => ['?'],
                     ],
                 ],
             ],
