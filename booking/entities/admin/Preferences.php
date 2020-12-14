@@ -4,6 +4,7 @@
 namespace booking\entities\admin;
 
 
+use booking\helpers\ForumHelper;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 
@@ -18,6 +19,7 @@ class Preferences extends ActiveRecord
 {
     public $days_review = 7;
     public $view_cancel = true;
+    public $forum_role = ForumHelper::FORUM_USER;
 
     public static function create($days_review = 7, $view_cancel = true): self
     {
@@ -37,6 +39,26 @@ class Preferences extends ActiveRecord
         $this->view_cancel = $view;
     }
 
+    public function isForumLock(): bool
+    {
+        return $this->forum_role == ForumHelper::FORUM_LOCK;
+    }
+
+    public function isForumUser(): bool
+    {
+        return $this->forum_role == ForumHelper::FORUM_USER;
+    }
+
+    public function isForumUpdate(): bool
+    {
+        return $this->forum_role == ForumHelper::FORUM_ADMIN || $this->forum_role == ForumHelper::FORUM_MODERATOR;
+    }
+
+    public function isForumAdmin(): bool
+    {
+        return $this->forum_role == ForumHelper::FORUM_ADMIN;
+    }
+
     public static function tableName()
     {
         return '{{%admin_user_preferences}}';
@@ -48,6 +70,7 @@ class Preferences extends ActiveRecord
 
         $this->days_review = $params['days_review'] ?? 7;
         $this->view_cancel = $params['view_cancel'] ?? true;
+        $this->forum_role = $params['forum_role'] ?? ForumHelper::FORUM_USER;
 
         parent::afterFind();
     }
@@ -57,6 +80,7 @@ class Preferences extends ActiveRecord
         $this->setAttribute('params_json', Json::encode([
             'days_review' => $this->days_review,
             'view_cancel' => $this->view_cancel,
+            'forum_role' => $this->forum_role,
         ]));
 
         return parent::beforeSave($insert);

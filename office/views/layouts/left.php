@@ -59,6 +59,7 @@ use yii\helpers\Url;
                         ['label' => '- Города ', 'icon' => 'city', 'url' => ['/guides/city'], 'active' => $this->context->id == 'guides/city'],
                         ['label' => '- Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/contact-legal'], 'active' => $this->context->id == 'guides/contact-legal'],
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],
+                        ['label' => '- Темы форума', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
                     ]],
                     ['label' => 'Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'items' => [
                         ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/file'], 'active' => $this->context->id == 'file'],

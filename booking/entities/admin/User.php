@@ -38,6 +38,7 @@ use yii\web\IdentityInterface;
  * @property Notice $notice
  * @property Discount[] $discounts
  * @property Preferences $preferences
+ * @property ForumRead[] $forumsRead
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -60,7 +61,6 @@ class User extends ActiveRecord implements IdentityInterface
         $user->preferences = Preferences::create();
         return $user;
     }
-
 
     public function edit(string $username, string $email): void
     {
@@ -163,6 +163,33 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    /** ============= Forum Read  */
+    /** @var $post_id integer */
+    public function readForum($post_id)
+    {
+        $forums = $this->forumsRead;
+        foreach ($forums as &$forum) {
+            if ($forum->isFor($post_id)) {
+                $forum->edit();
+                $this->forumsRead = $forums;
+                return;
+            }
+        }
+        $forums[] = ForumRead::create($post_id);
+        $this->forumsRead = $forums;
+    }
+
+    public function isReadForum($post_id, $post_update_at): bool
+    {
+        $forums = $this->forumsRead;
+        foreach ($forums as $forum) {
+            if ($forum->isFor($post_id) && $forum->last_at >= $post_update_at) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
@@ -196,7 +223,14 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['personal', 'legals', 'notice', 'discounts', 'preferences'],
+                'relations' => [
+                    'personal',
+                    'legals',
+                    'notice',
+                    'discounts',
+                    'preferences',
+                    'forumsRead'
+                ],
             ],
         ];
     }
@@ -414,6 +448,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPreferences(): ActiveQuery
     {
         return $this->hasOne(Preferences::class, ['user_id' => 'id']);
+    }
+
+    public function getForumsRead(): ActiveQuery
+    {
+        return $this->hasMany(ForumRead::class, ['user_id' => 'id']);
     }
 
     /** <========== getXXX */
