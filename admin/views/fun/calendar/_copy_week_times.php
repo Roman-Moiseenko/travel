@@ -37,6 +37,6 @@
 </div>
 <div class="row pt-3">
     <div class="col-sm-3">
-    <input type="button" id="data-week-copy" value="Заполнить" class="form-control">
+    <input type="button" id="fun-data-week-copy" value="Заполнить" class="form-control">
     </div>
 </div>

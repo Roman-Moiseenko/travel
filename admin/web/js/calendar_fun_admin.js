@@ -130,7 +130,7 @@ $(document).ready(function () {
             });
     });
 
-    $(document).on('click', '#data-week-copy', function () {
+    $(document).on('click', '#fun-data-week-copy', function () {
         var d = $('#data-day').attr('data-d');
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
