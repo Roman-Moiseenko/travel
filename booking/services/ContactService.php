@@ -40,10 +40,7 @@ class ContactService
         $user_admin = $review->getAdmin();
         $noticeAdmin = $user_admin->notice;
         $legal = $review->getLegal();
-        $phoneAdmin = $legal->noticePhone;
         $emailAdmin = $legal->noticeEmail;
-        /*if ($noticeAdmin->review->phone)
-            $this->sendSMS($phoneAdmin, 'Новый отзыв ' . $review->getName(), $user_admin);*/
         if ($noticeAdmin->review->email) {
             $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
                 ->setTo($emailAdmin)
@@ -67,8 +64,6 @@ class ContactService
                 $booking = BookingHelper::getByNumber($dialog->optional);
                 $legal = $booking->getLegal();
                 $noticeAdmin = $admin->notice;
-                /*if ($noticeAdmin->messageNew->phone)
-                    $this->sendSMS($legal->noticePhone, 'Новое сообщение', $admin);*/
                 if ($noticeAdmin->messageNew->email)
                     $this->mailerMessage($legal->noticeEmail, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
             }
@@ -77,8 +72,6 @@ class ContactService
         if ($dialog->typeDialog == Dialog::PROVIDER_SUPPORT) {
             $admin = $dialog->admin;
             $noticeAdmin = $admin->notice;
-            /*if ($noticeAdmin->messageNew->phone)
-                $this->sendSMS($admin->personal->phone, 'Новое сообщение', $admin);*/
             if ($noticeAdmin->messageNew->email)
                 $this->mailerMessage($admin->email, $dialog, 'noticeConversationAdmin', $admin->personal->fullname->getFullname());
         }
