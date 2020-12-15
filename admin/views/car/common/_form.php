@@ -1,6 +1,7 @@
 <?php
 
 use booking\helpers\cars\CarTypeHelper;
+use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
 
@@ -41,7 +42,7 @@ use yii\helpers\Html; ?>
                 <?= $form->field($model, 'year')->textInput(['maxlength' => true])->label('Год выпуска') ?>
             </div>
         </div>
-        <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->hint('Напишите красочный текст, желательно не менее 40-50 слов для привлечение клиентов и для более высокого ранжирования Вашего авто') ?>
+        <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class)->hint('Напишите красочный текст, желательно не менее 40-50 слов для привлечение клиентов и для более высокого ранжирования Вашего авто') ?>
     </div>
 </div>
 <div class="card card-secondary">

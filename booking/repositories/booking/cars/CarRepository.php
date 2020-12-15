@@ -150,7 +150,7 @@ class CarRepository
                     'defaultOrder' => ['id' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['c.public_at' => SORT_DESC], 'desc' => ['c.public_at' => SORT_ASC],
+                            'asc' => ['c.public_at' => SORT_ASC], 'desc' => ['c.public_at' => SORT_DESC],
                         ],
                         'name' => [
                             'asc' => ['c.name' => SORT_ASC], 'desc' => ['c.name' => SORT_DESC],

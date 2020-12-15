@@ -74,14 +74,14 @@ $fun = $booking->fun;
                     </tr>
                     <tr>
                         <th><?= Lang::t('Время') ?>:</th>
-                        <td><?= $booking->calendar->time_at ?></td>
+                        <td colspan="3"><?= $booking->calendar->time_at ?></td>
                     </tr>
                     <?php if ($booking->count->adult !== 0): ?>
                         <tr>
-                            <th><?= Lang::t('Взрослый билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
-                            <td>x <?= $booking->count->adult ?> шт</td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>
+                            <th width="40%"><?= Lang::t('Взрослый билет') ?></th>
+                            <td width="20%"><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
+                            <td width="20%">x <?= $booking->count->adult ?> шт</td>
+                            <td width="20%"><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->count->child !== 0): ?>

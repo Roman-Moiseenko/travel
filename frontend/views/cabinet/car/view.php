@@ -72,7 +72,7 @@ $car = $booking->car;
                         <td colspan="3"><?= date('d-m-Y', $booking->begin_at) ?></td>
                     </tr>
                     <tr>
-                        <th><?= Lang::t('по') ?></th>
+                        <th><?= ''; ?></th>
                         <td colspan="3"><?= date('d-m-Y', $booking->end_at) ?></td>
                     </tr>
                         <tr>

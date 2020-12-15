@@ -110,7 +110,7 @@ class FunRepository
                     'defaultOrder' => ['id' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['f.public_at' => SORT_DESC], 'desc' => ['f.public_at' => SORT_ASC],
+                            'asc' => ['f.public_at' => SORT_ASC], 'desc' => ['f.public_at' => SORT_DESC],
                         ],
                         'name' => [
                             'asc' => ['f.name' => SORT_ASC], 'desc' => ['f.name' => SORT_DESC],

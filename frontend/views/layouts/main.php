@@ -17,7 +17,8 @@ AppAsset::register($this);
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
     <head>
-        <link rel="apple-touch-icon" href="/icon-150x150.png">
+        <link rel="icon" href="https://koenigs.ru/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://koenigs.ru/icon-150x150.png">
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">

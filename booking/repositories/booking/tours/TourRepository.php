@@ -193,7 +193,7 @@ class TourRepository
                     'defaultOrder' => ['id' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['t.public_at' => SORT_DESC], 'desc' => ['t.public_at' => SORT_ASC],
+                            'asc' => ['t.public_at' => SORT_ASC], 'desc' => ['t.public_at' => SORT_DESC],
                         ],
                         'name' => [
                             'asc' => ['t.name' => SORT_ASC], 'desc' => ['t.name' => SORT_DESC],
