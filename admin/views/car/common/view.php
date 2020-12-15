@@ -64,11 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'year',
                         'label' => 'Год выпуска',
                     ],
-                    [
-                        'attribute' => 'description',
-                        'label' => 'Описание',
-                    ],
                 ],
+            ]) ?><br>
+            <?= Yii::$app->formatter->asHtml($car->description, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
             ]) ?>
         </div>
     </div>
@@ -82,11 +85,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'name_en',
                         'label' => 'Наименование (En)',
                     ],
-                    [
-                        'attribute' => 'description_en',
-                        'label' => 'Описание (En)',
-                    ],
                 ],
+            ]) ?>
+            <br>
+            <?= Yii::$app->formatter->asHtml($car->description_en, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
             ]) ?>
         </div>
     </div>

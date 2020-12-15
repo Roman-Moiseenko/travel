@@ -53,7 +53,7 @@ use yii\helpers\Html; ?>
                 <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label('Название авто (En)') ?>
             </div>
         </div>
-        <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)') ?>
+        <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)')->widget(CKEditor::class) ?>
     </div>
 </div>
 
