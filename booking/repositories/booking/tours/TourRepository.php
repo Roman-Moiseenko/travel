@@ -36,6 +36,11 @@ class TourRepository
         return Tour::find()->andWhere(['user_id' => $user_id])->orderBy(['created_at' => SORT_DESC]);
     }
 
+    public function getAllForSitemap()
+    {
+        return Tour::find()->active('t')->all();
+    }
+
     public function getAll(): DataProviderInterface
     {
         $query = Tour::find()->alias('t')->active('t');

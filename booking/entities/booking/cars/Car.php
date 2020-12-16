@@ -14,6 +14,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
@@ -34,6 +35,8 @@ use yii\web\UploadedFile;
  * @property integer $main_photo_id
  * @property integer $status
  * @property integer $created_at
+ * @property integer $updated_at
+
  * ====== Финансы ===================================
  * @property integer $deposit - Залог
  * @property integer $cost - цена в сутки
@@ -254,6 +257,7 @@ class Car extends ActiveRecord
     public function behaviors()
     {
         return [
+            TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
@@ -540,6 +544,7 @@ class Car extends ActiveRecord
         $photos = $this->photos;
         $photos[] = Photo::create($file);
         $this->updatePhotos($photos);
+        $this->updated_at = time();
     }
 
     public function removePhoto($id): void

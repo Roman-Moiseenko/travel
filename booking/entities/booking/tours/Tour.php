@@ -14,6 +14,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
@@ -21,7 +22,6 @@ use yii\web\UploadedFile;
 /**
  * Class Tours
  * @package booking\entities\booking\tours
-
  * @property integer $id
  * @property integer $user_id
  * @property string $name
@@ -29,6 +29,7 @@ use yii\web\UploadedFile;
  * @property string $slug
  * @property integer $legal_id
  * @property integer $created_at
+ * @property integer $updated_at
  * @property integer $main_photo_id
  * @property integer $status
  * @property string $description
@@ -39,15 +40,12 @@ use yii\web\UploadedFile;
  * @property bool $pay_bank Оплата Комиссии банку Провайдером
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
-
  * ====== Составные поля ===================================
  * @property Cost $baseCost
  * @property BookingAddress $address
  * @property TourParams $params
-
  * ====== Оплата через портал или  провайдера ==============
  * @property integer $check_booking
-
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -59,7 +57,6 @@ use yii\web\UploadedFile;
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
-
  */
 class Tour extends ActiveRecord
 {
@@ -74,7 +71,6 @@ class Tour extends ActiveRecord
     public $address;
     public $params;
     public $baseCost;
-
 
 
     /** base Data */
@@ -186,18 +182,19 @@ class Tour extends ActiveRecord
 
     public function upViews(): void
     {
-        $this->views ++;
+        $this->views++;
     }
 
     public function isNew(): bool
     {
         if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 *24) < BookingHelper::NEW_DAYS;
+        return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
     public function behaviors()
     {
         return [
+            TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
@@ -407,7 +404,7 @@ class Tour extends ActiveRecord
     public function clearCostCalendar($new_day)
     {
         $calendars = $this->actualCalendar;
-        foreach ($calendars as $i =>$calendar) {
+        foreach ($calendars as $i => $calendar) {
             if ($calendar->tour_at === $new_day) {
                 unset($calendars[$i]);
             }
@@ -420,7 +417,7 @@ class Tour extends ActiveRecord
     {
         $calendars = $this->actualCalendar;
         $temp_array = [];
-        foreach ($calendars as $i =>$calendar) {
+        foreach ($calendars as $i => $calendar) {
             if ($calendar->tour_at === $new_day) {
                 unset($calendars[$i]);
             }
@@ -446,8 +443,7 @@ class Tour extends ActiveRecord
     public function removeCostCalendar($id): bool
     {
         $calendars = $this->actualCalendar;
-        foreach ($calendars as $i => $calendar)
-        {
+        foreach ($calendars as $i => $calendar) {
             if ($calendar->isFor($id)) {
                 if ($calendar->isEmpty()) {
                     unset($calendars[$i]);
@@ -499,6 +495,7 @@ class Tour extends ActiveRecord
         }
         throw new \DomainException('Отзыв не найден');
     }
+
     public function countReviews(): int
     {
         $reviews = $this->reviews;
@@ -532,6 +529,7 @@ class Tour extends ActiveRecord
         $photos = $this->photos;
         $photos[] = Photo::create($file);
         $this->updatePhotos($photos);
+        $this->updated_at = time();
     }
 
     public function removePhoto($id): void
@@ -606,6 +604,7 @@ class Tour extends ActiveRecord
     {
         return $this->hasMany(ExtraAssignment::class, ['tours_id' => 'id']);//->orderBy('sort');
     }
+
     public function getExtra(): ActiveQuery
     {
         return $this->hasMany(Extra::class, ['id' => 'extra_id'])->via('extraAssignments');
@@ -629,7 +628,7 @@ class Tour extends ActiveRecord
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])->andWhere([ReviewTour::tableName() .'.status' => ReviewTour::STATUS_ACTIVE]);
+        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])->andWhere([ReviewTour::tableName() . '.status' => ReviewTour::STATUS_ACTIVE]);
     }
 
     public function getMainPhoto(): ActiveQuery
