@@ -106,6 +106,7 @@ return [
                 'signup' => 'auth/signup/index',
                 'reset/<_a:[\w-]+>' => 'auth/reset/<_a>',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
+                'auth/network/auth' => 'auth/network/auth',
                 'site/login' => 'auth/auth/login',
                 //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
 

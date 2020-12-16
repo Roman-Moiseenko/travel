@@ -27,6 +27,7 @@ use booking\repositories\booking\ReviewRepository;
 use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\DialogService;
+use booking\services\ImageService;
 use booking\services\TransactionManager;
 
 class TourService
@@ -122,6 +123,7 @@ class TourService
         if ($form->files != null)
             foreach ($form->files as $file) {
                 $tour->addPhoto($file);
+                ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
         $this->tours->save($tour);

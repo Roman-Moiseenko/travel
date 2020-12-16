@@ -84,6 +84,7 @@ class FinanceController extends Controller
         if (\Yii::$app->request->isAjax) {
             $this->layout = 'main_ajax';
             $params = \Yii::$app->request->bodyParams;
+            if (!isset($params['type_time'])) return '';
             $fun = $this->findModel($params['fun_id']);
             if ($params['type_time'] == Fun::TYPE_TIME_EXACT) $view = '_time_exact';
             if ($params['type_time'] == Fun::TYPE_TIME_EXACT_FULL) $view = '_time_exact_full';

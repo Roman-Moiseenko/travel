@@ -27,6 +27,7 @@ use booking\repositories\booking\funs\ReviewFunRepository;
 use booking\repositories\booking\funs\TypeRepository;
 use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
+use booking\services\ImageService;
 use booking\services\TransactionManager;
 
 class FunService
@@ -128,6 +129,7 @@ class FunService
         if ($form->files != null)
             foreach ($form->files as $file) {
                 $fun->addPhoto($file);
+                ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
         $this->funs->save($fun);

@@ -25,6 +25,7 @@ use booking\repositories\booking\cars\ReviewCarRepository;
 use booking\repositories\booking\cars\TypeRepository;
 use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
+use booking\services\ImageService;
 use booking\services\TransactionManager;
 
 class CarService
@@ -135,6 +136,7 @@ class CarService
         if ($form->files != null)
             foreach ($form->files as $file) {
                 $car->addPhoto($file);
+                ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
         $this->cars->save($car);
