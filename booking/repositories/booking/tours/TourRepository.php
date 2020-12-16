@@ -38,7 +38,7 @@ class TourRepository
 
     public function getAllForSitemap()
     {
-        return Tour::find()->active('t')->all();
+        return Tour::find()->active()->all();
     }
 
     public function getAll(): DataProviderInterface

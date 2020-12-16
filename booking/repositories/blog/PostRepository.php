@@ -99,4 +99,9 @@ class PostRepository
             ],
         ]);
     }
+
+    public function getAllForSitemap()
+    {
+        return Post::find()->active()->all();
+    }
 }

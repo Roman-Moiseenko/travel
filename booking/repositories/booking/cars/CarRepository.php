@@ -201,4 +201,9 @@ class CarRepository
         return $car_ids;
     }
 
+    public function getAllForSitemap()
+    {
+        return Car::find()->active()->all();
+    }
+
 }

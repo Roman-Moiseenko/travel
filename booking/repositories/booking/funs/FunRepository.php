@@ -148,4 +148,9 @@ class FunRepository
         return Fun::findOne($id);
     }
 
+    public function getAllForSitemap()
+    {
+        return Fun::find()->active()->all();
+    }
+
 }

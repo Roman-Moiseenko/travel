@@ -109,6 +109,8 @@ return [
                 'auth/network/auth' => 'auth/network/auth',
                 'site/login' => 'auth/auth/login',
                 //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
+                ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
+                ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
