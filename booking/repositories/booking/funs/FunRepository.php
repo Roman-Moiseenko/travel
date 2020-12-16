@@ -23,7 +23,7 @@ class FunRepository
 
     public function getByLegal($legal_id): array
     {
-        return Fun::find()->andWhere(['legal_id' => $legal_id])->all();
+        return Fun::find()->active()->andWhere(['legal_id' => $legal_id])->all();
     }
 
     public function getByAdminList($user_id)

@@ -25,7 +25,7 @@ class CarRepository
 
     public function getByLegal($legal_id): array
     {
-        return Car::find()->andWhere(['legal_id' => $legal_id])->all();
+        return Car::find()->active()->andWhere(['legal_id' => $legal_id])->all();
     }
 
     public function getByAdminList($user_id)

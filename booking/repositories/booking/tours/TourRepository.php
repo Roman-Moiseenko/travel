@@ -22,7 +22,7 @@ class TourRepository
 
     public function getByLegal($legal_id): array
     {
-        return Tour::find()->andWhere(['legal_id' => $legal_id])->all();
+        return Tour::find()->active()->andWhere(['legal_id' => $legal_id])->all();
     }
 
     public function getByAdminList($user_id)
