@@ -197,8 +197,10 @@ $tour = $booking->calendar->tour;
                             </div>
                         </li>
                     </ul>
+                    <?php if ($booking->calendar->tour_at > time()): ?>
                         <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>

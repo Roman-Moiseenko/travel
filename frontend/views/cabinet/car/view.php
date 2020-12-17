@@ -181,8 +181,10 @@ $car = $booking->car;
                             </div>
                         </li>
                     </ul>
+                    <?php if ($booking->begin_at > time()): ?>
                         <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>

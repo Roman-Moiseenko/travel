@@ -102,12 +102,24 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['funs'], true)),
                 new IndexItem(Url::to(['fun-categories'], true)),
                 new IndexItem(Url::to(['posts'], true)),
-                new IndexItem(Url::to(['post-categories'], true)),
+                new IndexItem(Url::to(['posts'], true)),
+                new IndexItem(Url::to(['mains'], true)),
             ]);
         });
     }
 
-
+    public function actionMains(): Response
+    {
+        return $this->renderSitemap('sitemap-mains', function () {
+            return $this->sitemap->generateMap(array_map(function ($item) {
+                return new MapItem(
+                    Url::to([$item], true),
+                    null,
+                    MapItem::ALWAYS
+                );
+            }, ['/tours', '/cars', '/funs', '/about', '/contacts']));
+        });
+    }
 
     public function actionTours(): Response
     {
@@ -127,7 +139,7 @@ class SitemapController extends Controller
         return $this->renderSitemap('sitemap-tour-categories', function () {
             return $this->sitemap->generateMap(array_map(function (\booking\entities\booking\tours\Type $type) {
                 return new MapItem(
-                    Url::to(['/tours/'. $type->slug], true),
+                    Url::to(['/tours/' . $type->slug], true),
                     null,
                     MapItem::ALWAYS
                 );

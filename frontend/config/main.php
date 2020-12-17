@@ -112,6 +112,8 @@ return [
                 ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
+                'apple-touch-icon.png' => 'apple-touch-icon.png',
+
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 

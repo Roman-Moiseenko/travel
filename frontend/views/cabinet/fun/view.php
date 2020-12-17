@@ -199,8 +199,10 @@ $fun = $booking->fun;
                             </div>
                         </li>
                     </ul>
+                    <?php if ($booking->calendar->fun_at > time()): ?>
                         <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>
