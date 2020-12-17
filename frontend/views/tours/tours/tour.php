@@ -22,7 +22,10 @@ use frontend\widgets\RatingWidget;
 use frontend\widgets\reviews\ReviewsToursWidget;
 use frontend\widgets\reviews\ReviewsWidget;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
+
+$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($tour->getDescription()), 20))]);
 
 $this->title = $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];

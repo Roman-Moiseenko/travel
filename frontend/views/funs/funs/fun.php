@@ -20,7 +20,10 @@ use frontend\widgets\RatingWidget;
 use frontend\widgets\reviews\NewReviewFunWidget;
 use frontend\widgets\reviews\ReviewsWidget;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
+
+$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($fun->getDescription()), 20))]);
 
 $this->title = $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];

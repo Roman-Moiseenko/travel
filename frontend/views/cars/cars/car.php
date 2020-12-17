@@ -19,7 +19,11 @@ use frontend\widgets\RatingWidget;
 use frontend\widgets\reviews\NewReviewCarWidget;
 use frontend\widgets\reviews\ReviewsWidget;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
+
+$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
+
 
 $this->title = $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
