@@ -22,12 +22,15 @@ use yii\helpers\Url;
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
+        <span id="message-widget">
         <?= SupportMessageTopBarWidget::widget() ?>
-
+        </span>
         <!-- Review Dropdown Menu -->
         <?= ''//ReviewTopBarWidget::widget(['days' => 7]) ?>
         <!-- Booking Dropdown Menu -->
+        <span id="active-widget">
         <?= ActiveTopWidget::widget() ?>
+        </span>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>

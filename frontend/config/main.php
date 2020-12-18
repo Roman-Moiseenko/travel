@@ -113,6 +113,7 @@ return [
                 ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
                 'apple-touch-icon.png' => 'apple-touch-icon.png',
+                'humans.txt' => 'humans.txt',
 
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',

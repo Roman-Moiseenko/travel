@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/map_office.js',
+        'js/refresh_widget.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
