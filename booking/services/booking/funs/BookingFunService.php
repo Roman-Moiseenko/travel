@@ -40,7 +40,6 @@ class BookingFunService
     {
         $booking = BookingFun::create($fun_id, $count, $comment);
 
-        //TODO multi
         foreach ($calendar_ids as $calendar_id) {
 
             $booking->addDay($calendar_id);
