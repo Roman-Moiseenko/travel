@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property Cost $cost
  * @property Fun $fun
+ * @property BookingFunOnDay[] $bookingOnDays
  * @property BookingFun[] $bookings
  * @property SellingFun[] $selling
  */
@@ -79,7 +80,7 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
     {
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);
     }
-
+/*
     public function getFreeTickets(): int 
     {
         $count = 0;
@@ -90,11 +91,17 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
             $count += $booking->count->preference ?? 0;
         }
         return $this->tickets - $count;
+    }*/
+
+    public function getBookingOnDays(): ActiveQuery
+    {
+        return $this->hasMany(BookingFunOnDay::class, ['calendar_id' => 'id']);
     }
-    
+
     public function getBookings(): ActiveQuery
     {
-        return $this->hasMany(BookingFun::class, ['calendar_id' => 'id'])
+        return $this->hasMany(BookingFun::class, ['id' => 'booking_id'])
+            ->via('bookingOnDays')
             ->andWhere(['<>', 'booking_funs_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_funs_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
     }

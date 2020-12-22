@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = 'Изменить';
 $mode_confirmation = \Yii::$app->params['mode_confirmation'] ?? false;
 $disabled = $mode_confirmation ? ['disabled' => true] : [];
 
+$_type_times = Fun::TYPE_TIME_INTERVAL;
+
 $js = <<<JS
 $(document).ready(function() {
     let fun_id = $fun->id;
@@ -46,7 +48,23 @@ $(document).ready(function() {
     $('body').on('change', '#select-type-times', function () {
         array_times = [];
         render_times($(this).val());
+        if ($(this).val() == $_type_times) {
+            $('#check-multi').attr("checked","checked");
+            $('#check-multi').change();
+        } else {
+            $('#check-multi').removeAttr("checked");
+            $('#check-multi').change();
+        }
     });
+    
+    $('body').on('click', '#check-multi', function () {
+        if ($(this).is(':checked')) {
+            $('#select-type-times').val($_type_times);
+            $('#select-type-times').change();
+            render_times($('#select-type-times').val());
+        }
+    });
+    
     
     $('body').on('click', '.remove-time', function() {
            let i = $(this).data('i');
@@ -100,6 +118,11 @@ $this->registerJs($js);
             <div class="col-md-6">
                 <?= $form->field($model, 'quantity')->textInput(['maxlength' => true])->label('Кол-во доступных билетов/мест (на каждый временной интервал)') ?>
             </div>
+            <?php if ($fun->type->isMulti()): ?>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'multi')->checkbox(['id' => 'check-multi'])->label('Множественный выбор')->hint('Несколько подряд временных интервалов в одном билете') ?>
+                </div>
+            <?php endif; ?>
             <div class="col-md-6">
                 <?= $form->field($model, 'type_time')->dropDownList(Fun::TYPE_TIME_ARRAY, ['prompt' => '', 'id' => 'select-type-times'])->label('Тип билета (временной интервал)') ?>
             </div>

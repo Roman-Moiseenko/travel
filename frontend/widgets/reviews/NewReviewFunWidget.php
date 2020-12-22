@@ -27,7 +27,7 @@ class NewReviewFunWidget extends Widget
         /** @var BookingFun[] $bookings */
         $bookings = BookingFun::find()->andWhere(['user_id' => $user_id])->all();
         foreach ($bookings as $booking) {
-            if ($booking->calendar->fun_at < time() &&
+            if ($booking->getDate() < time() &&
                 $booking->fun_id == $this->fun_id &&
                 ($booking->status == BookingHelper::BOOKING_STATUS_PAY || $booking->status == BookingHelper::BOOKING_STATUS_CONFIRMATION)) {
                 $reviewForm = new ReviewForm();

@@ -26,6 +26,7 @@ class CarHelper
         ]
         ])
             ->andWhere(['car_id' => $car_id])
+            ->andWhere(['>=', 'begin_at', time()])
             ->all();
         $count = 0;
         foreach ($bookings as $booking) {

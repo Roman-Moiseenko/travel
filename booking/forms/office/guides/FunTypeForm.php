@@ -11,12 +11,14 @@ class FunTypeForm extends Model
 {
     public $name;
     public $slug;
+    public $multi;
 
     public function __construct(Type $type = null, $config = [])
     {
         if ($type != null) {
             $this->name = $type->name;
             $this->slug = $type->slug;
+            $this->multi = $type->multi;
         }
         parent::__construct($config);
     }
@@ -26,6 +28,7 @@ class FunTypeForm extends Model
         return [
             [['name', 'slug'], 'string'],
             ['name', 'required'],
+            ['multi', 'boolean'],
         ];
     }
 }

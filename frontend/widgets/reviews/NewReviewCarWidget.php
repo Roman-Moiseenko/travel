@@ -27,7 +27,7 @@ class NewReviewCarWidget extends Widget
         /** @var BookingCar[] $bookings */
         $bookings = BookingCar::find()->andWhere(['user_id' => $user_id])->all();
         foreach ($bookings as $booking) {
-            if ($booking->begin_at < time() &&
+            if ($booking->getDate() < time() &&
                 $booking->car_id == $this->car_id &&
                 ($booking->status == BookingHelper::BOOKING_STATUS_PAY || $booking->status == BookingHelper::BOOKING_STATUS_CONFIRMATION)) {
                 $reviewForm = new ReviewForm();

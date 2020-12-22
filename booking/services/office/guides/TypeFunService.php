@@ -21,7 +21,7 @@ class TypeFunService
 
     public function create(FunTypeForm $form): Type
     {
-        $funType = Type::create($form->name, $form->slug);
+        $funType = Type::create($form->name, $form->slug, $form->multi);
         $sort = $this->funsType->getMaxSort();
         $funType->setSort($sort + 1);
         $this->funsType->save($funType);
@@ -31,7 +31,7 @@ class TypeFunService
     public function edit($id, FunTypeForm $form): void
     {
         $funType = $this->funsType->get($id);
-        $funType->edit($form->name, $form->slug);
+        $funType->edit($form->name, $form->slug, $form->multi);
         $this->funsType->save($funType);
     }
 

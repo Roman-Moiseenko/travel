@@ -7,7 +7,8 @@ use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 
 ?>
-<input type="hidden" id="calendar-id" name="calendar-id" value="<?= $current->id ?>"/>
+<input type="hidden" id="calendar-id" name="calendar-id[0]" value="<?= $current->id ?>"/>
+
 <label for="booking-fun-time"><b><?= Lang::t('Укажите кол-во билетов') ?>:</b></label>
 <table>
     <?php if ($current->cost->adult): ?>

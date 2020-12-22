@@ -91,7 +91,13 @@ class BookingController extends Controller
                             'calendar_id',
                             CostCalendar::find()->select('id')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->andWhere(['time_at' => $time])
                         ]
-                    )->all();
+                    );
+                if (!\Yii::$app->user->identity->preferences->view_cancel) {
+                    $bookings = $bookings->andWhere(['<>', 'status', BookingHelper::BOOKING_STATUS_CANCEL])
+                        ->andWhere(['<>', 'status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
+                }
+                $bookings = $bookings->all();
+
                 $_bookings[$time] = $bookings;
             }
 

@@ -5,9 +5,12 @@ namespace office\controllers;
 
 
 use booking\entities\mailing\Mailing;
+use booking\entities\Rbac;
 use booking\forms\MailingForm;
 use booking\services\mailing\MailingService;
 use office\forms\MailingSearch;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -24,7 +27,26 @@ class MailingController extends Controller
         parent::__construct($id, $module, $config);
         $this->service = $service;
     }
-
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_MANAGER],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
     public function actionIndex()
     {
         $searchModel = new MailingSearch();

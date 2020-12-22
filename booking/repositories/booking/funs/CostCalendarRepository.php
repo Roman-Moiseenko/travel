@@ -148,11 +148,11 @@ class CostCalendarRepository
         return $calendar;
     }
 
-    public function getTimes($fun_id, int $fun_at)
+    public function getTimes($fun_id, int $fun_at, $view_free = false)
     {
         $calendar = CostCalendar::find()->andWhere(['fun_id' => $fun_id])->andWhere(['fun_at' => $fun_at])->orderBy(['time_at' => SORT_ASC])->all();
         foreach ($calendar as $i => $item) {
-            if ($item->free() == 0) unset($calendar[$i]);
+            if ($item->free() == 0 and $view_free == false) unset($calendar[$i]);
         }
         return $calendar;
     }

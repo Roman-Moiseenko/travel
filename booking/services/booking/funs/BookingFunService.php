@@ -36,12 +36,20 @@ class BookingFunService
         $this->discounts = $discounts;
     }
 
-    public function create($fun_id, $calendar_id, Cost $count, $promo_code, $comment): BookingFun
+    public function create($fun_id, array $calendar_ids, Cost $count, $promo_code, $comment): BookingFun
     {
-        $booking = BookingFun::create($fun_id, $calendar_id, $count, $comment);
-        if ($booking->calendar->free() < $count->count()) {
+        $booking = BookingFun::create($fun_id, $count, $comment);
+
+        //TODO multi
+        foreach ($calendar_ids as $calendar_id) {
+
+            $booking->addDay($calendar_id);
+        }
+        foreach ($booking->days as $day)
+        if ($day->calendar->free() < $count->count()) {
             throw new \DomainException(Lang::t('Упс! Места закончились'));
         }
+        //***************************
 
         $discount_id = $this->discounts->find($promo_code, $booking);
         $booking->setDiscount($discount_id);
@@ -53,10 +61,10 @@ class BookingFunService
             if ($notUsed <= 0) $bonus = 0;
             $booking->setBonus($bonus);
         }
-        if ($booking->calendar->fun->isConfirmation()) {
+        if ($booking->fun->isConfirmation()) {
             $booking->pay_merchant = 0;
         } else {
-            $booking->pay_merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->calendar->fun->pay_bank);
+            $booking->pay_merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->fun->pay_bank);
         }
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
@@ -88,12 +96,12 @@ class BookingFunService
     public function cancelPay($id)
     {
         $booking = $this->bookings->get($id);
-        $fun = $booking->calendar->fun;
+        $fun = $booking->fun;
         if ($fun->cancellation == null)
             throw new \DomainException(Lang::t('Отмена не предусмотрена'));
-        if ($fun->cancellation * 3600 * 24 > $booking->calendar->fun_at - time())
+        if ($fun->cancellation * 3600 * 24 > $booking->getDate() - time())
             throw new \DomainException(Lang::t('Срок отмены истек'));
-        if ($booking->calendar->fun_at < time())
+        if ($booking->getDate() < time())
             throw new \DomainException(Lang::t('Мероприятие завершено'));
         $booking->cancelPay();
         $this->bookings->save($booking);

@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
         'css/stylesheet.css',
         'css/glyphicon.css',
         'css/swiper.min.css',
+        'css/multi_timer.css',
     ];
     public $js = [
         'js/common.js',
@@ -25,6 +26,7 @@ class AppAsset extends AssetBundle
         'js/calendar_tour.js',
         'js/calendar_car.js',
         'js/calendar_fun.js',
+        //'js/multi_timer.js',
         'js/swiper.js',
 
     ];

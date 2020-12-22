@@ -10,6 +10,7 @@ use booking\entities\booking\Discount;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
@@ -20,12 +21,13 @@ use yii\helpers\Url;
  * @property integer $id
  * @property integer $user_id
  * @property integer $fun_id
- * @property integer $calendar_id
+
  * @property integer $status
  * @property string $comment - комментарий к заказу
  * @property Cost $count
  * @property integer $created_at
-
+ * @property integer $begin_at
+ * @property integer $end_at
 
  * @property float $payment_provider
  * @property float $pay_merchant
@@ -43,21 +45,33 @@ use yii\helpers\Url;
  * @property integer $give_user_id
 
  * @property Discount $discount
- * @property CostCalendar $calendar
+
+
  * @property Fun $fun
  * @property \booking\entities\check\User $checkUser
+ * @property BookingFunOnDay[] $days
+ * @property CostCalendar[] $calendars
+ * @property int $count_adult [int]
+ * @property int $count_child [int]
+ * @property int $count_preference [int]
  */
+
+// * @property CostCalendar $calendar
+// * @property integer $calendar_id
+
 class BookingFun extends ActiveRecord implements BookingItemInterface
 {
 
     public $count;
 
-    public static function create($fun_id, $calendar_id, Cost $count, $comment): self
+    public static function create($fun_id, Cost $count, $comment): self
     {
         $booking = new static();
         $booking->user_id = \Yii::$app->user->id;
         $booking->fun_id = $fun_id;
-        $booking->calendar_id = $calendar_id;
+        //TODO multi
+        //$booking->calendar_id = $calendar_id;
+
         $booking->count = $count;
         $booking->comment = $comment;
         $booking->status = BookingHelper::BOOKING_STATUS_NEW;
@@ -65,6 +79,13 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         $booking->pincode = rand(1001, 9900);
         $booking->unload = false;
         return $booking;
+    }
+
+    public function addDay($calendar_id)
+    {
+        $days = $this->days;
+        $days[] = BookingFunOnDay::create($calendar_id);
+        $this->days = $days;
     }
 
     public function isFor($id): bool
@@ -103,7 +124,7 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function countTickets(): int
     {
-        return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
+        return (($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0)) * count($this->days);
     }
 
     public function afterFind(): void
@@ -125,14 +146,26 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         return parent::beforeSave($insert);
     }
 
-    public function getCalendar(): ActiveQuery
+    //TODO multi
+  /*  public function getCalendar(): ActiveQuery
     {
         return $this->hasOne(CostCalendar::class, ['id' => 'calendar_id']);
     }
-
+*/
     public function getFun(): ActiveQuery
     {
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);
+    }
+
+
+    public function getDays(): ActiveQuery
+    {
+        return $this->hasMany(BookingFunOnDay::class, ['booking_id' => 'id']);
+    }
+
+    public function getCalendars(): ActiveQuery
+    {
+        return $this->hasMany(CostCalendar::class, ['id' => 'calendar_id'])->via('days');
     }
 
     public function getUser(): ActiveQuery
@@ -156,6 +189,18 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
     public static function tableName()
     {
         return '{{%booking_funs_calendar_booking}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'days',
+                ],
+            ],
+        ];
     }
 
     /** get entities */
@@ -187,7 +232,7 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function getDate(): int
     {
-        return $this->calendar->fun_at;
+        return $this->days[0]->calendar->fun_at;
     }
 
     public function getCreated(): int
@@ -224,7 +269,12 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function getAdd(): string
     {
-        return $this->calendar->time_at;
+        $result = '';
+        foreach ($this->days as $day) {
+            $result .= $day->calendar->time_at . ' ';
+        }
+        return $result;
+        //return $this->calendar->time_at;
     }
 
     public function getStatus(): int
@@ -234,9 +284,31 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function getAmount(): int
     {
-        return ($this->count->adult * $this->calendar->cost->adult ?? 0) +
+        $cost = $this->getAmountCost();
+        return $this->count->adult * $cost->adult + $this->count->child * $cost->child + $this->count->preference * $cost->preference;
+
+        /*$amount = 0;
+        foreach ($this->days as $day) {
+            $amount += ($this->count->adult * $day->calendar->cost->adult ?? 0) +
+                ($this->count->child * $day->calendar->cost->child ?? 0) +
+                ($this->count->preference * $day->calendar->cost->preference ?? 0);
+        }
+
+        return $amount;*/
+        /*return ($this->count->adult * $this->calendar->cost->adult ?? 0) +
             ($this->count->child * $this->calendar->cost->child ?? 0) +
-            ($this->count->preference * $this->calendar->cost->preference ?? 0);
+            ($this->count->preference * $this->calendar->cost->preference ?? 0); */
+    }
+
+    public function getAmountCost(): Cost
+    {
+        $cost = new Cost();
+        foreach ($this->days as $day) {
+            $cost->adult += $day->calendar->cost->adult ?? 0;
+            $cost->child += $day->calendar->cost->child ?? 0;
+            $cost->preference += $day->calendar->cost->preference ?? 0;
+        }
+        return $cost;
     }
 
     public function getAmountDiscount(): float

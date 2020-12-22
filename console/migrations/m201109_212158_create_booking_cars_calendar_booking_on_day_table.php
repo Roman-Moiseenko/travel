@@ -24,8 +24,6 @@ class m201109_212158_create_booking_cars_calendar_booking_on_day_table extends M
 
         $this->addForeignKey('{{%fk-booking_cars_calendar_booking_on_day-booking_id}}', '{{%booking_cars_calendar_booking_on_day}}', 'booking_id', '{{%booking_cars_calendar_booking}}', 'id', 'CASCADE', 'RESTRICT');
         $this->addForeignKey('{{%fk-booking_cars_calendar_booking_on_day-calendar_id}}', '{{%booking_cars_calendar_booking_on_day}}', 'calendar_id', '{{%booking_cars_calendar_cost}}', 'id', 'CASCADE', 'RESTRICT');
-
-
     }
 
     /**

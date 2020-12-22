@@ -28,6 +28,9 @@ $this->params['breadcrumbs'][] = 'Создать';
                 <div class="col-md-6">
                     <?= $form->field($model, 'slug')->textInput(['maxlength' => true])->label('Ссылка') ?>
                 </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'multi')->checkbox()->label('Множественный выбор интервала') ?>
+                </div>
             </div>
         </div>
     </div>

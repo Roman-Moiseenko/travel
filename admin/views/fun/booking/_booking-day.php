@@ -17,7 +17,7 @@ $i = 0;
     <div class="row">
         <div class="col d-flex">
         <div class="ml-auto booking-item">
-        <a class="link-admin" href="<?= Url::to(['/cabinet/dialog/mass-fun', 'id' => $bookings[0]->calendar_id]) ?>"
+        <a class="link-admin" href="<?= Url::to(['/cabinet/dialog/mass-fun', 'id' => $bookings[0]->days[0]->calendar_id]) ?>"
            title="Написать сообщение">
             Написать всем <i class="fas fa-shipping-fast"></i>
         </a>

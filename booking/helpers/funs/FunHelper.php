@@ -10,6 +10,7 @@ use booking\entities\booking\funs\Extra;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\funs\ReviewFun;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 
 class FunHelper
 {
@@ -21,19 +22,20 @@ class FunHelper
 
     public static function getCountActiveBooking($fun_id): int
     {
-        $bookings = BookingFun::find()->andWhere(['IN', 'status', [
-            BookingHelper::BOOKING_STATUS_NEW,
-            BookingHelper::BOOKING_STATUS_PAY,
-            BookingHelper::BOOKING_STATUS_CONFIRMATION,
-        ]
-        ])
+        $bookings = BookingFun::find()->alias('f')
+            ->joinWith('calendars c')
+            ->andWhere(['f.fun_id' => $fun_id])
+            ->andWhere(['>=', 'c.fun_at', time()])
             ->andWhere(
                 [
                     'IN',
-                    'calendar_id',
-                    CostCalendar::find()->select('id')->andWhere(['fun_id' => $fun_id])->andWhere(['>=', 'fun_at', time()])
-                ]
-            )
+                    'f.status',
+                    [
+                        BookingHelper::BOOKING_STATUS_NEW,
+                        BookingHelper::BOOKING_STATUS_PAY,
+                        BookingHelper::BOOKING_STATUS_CONFIRMATION,
+                    ]
+                ])
             ->all();
         $count = 0;
         foreach ($bookings as $booking) {

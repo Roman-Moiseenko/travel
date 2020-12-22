@@ -85,14 +85,16 @@ class BookingController extends Controller
             $times = CostCalendar::find()->select('time_at')->andWhere(['fun_id' => $fun_id])->andWhere(['fun_at' => $date])->column();
             $_bookings = [];
             foreach ($times as $time) {
-                $bookings = BookingFun::find()
-                    ->andWhere(
-                        [
-                            'IN',
-                            'calendar_id',
-                            CostCalendar::find()->select('id')->andWhere(['fun_id' => $fun_id])->andWhere(['fun_at' => $date])->andWhere(['time_at' => $time])
-                        ]
-                    )->all();
+                $bookings = BookingFun::find()->alias('f')
+                    ->joinWith('calendars c')
+                    ->andWhere(['f.fun_id' => $fun_id])
+                    ->andWhere(['c.fun_at' => $date])
+                    ->andWhere(['c.time_at' => $time]);
+                if (!\Yii::$app->user->identity->preferences->view_cancel) {
+                    $bookings = $bookings->andWhere(['<>', 'f.status', BookingHelper::BOOKING_STATUS_CANCEL])
+                        ->andWhere(['<>', 'f.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
+                }
+                $bookings = $bookings->all();
                 $_bookings[$time] = $bookings;
             }
             //return count($bookings);

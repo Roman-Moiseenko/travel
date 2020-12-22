@@ -26,6 +26,7 @@ class FunFinanceForm extends CompositeForm
     public $check_booking;
     public $type_time;
     public $quantity;
+    public $multi;
 
     public function __construct(Fun $fun, $config = [])
     {
@@ -34,6 +35,7 @@ class FunFinanceForm extends CompositeForm
         $this->quantity = $fun->quantity ?? 1;
         $this->cancellation = $fun->cancellation;
         $this->pay_bank = $fun->pay_bank;
+        $this->multi = $fun->multi;
         $this->check_booking = $fun->check_booking;
         $this->baseCost = new CostForm($fun->baseCost);
 
@@ -54,7 +56,7 @@ class FunFinanceForm extends CompositeForm
         return [
             [['legal_id', 'type_time', 'cancellation', 'quantity'], 'integer'],
             [['legal_id', 'type_time', 'quantity'], 'required', 'message' => 'Обязательное поле'],
-            ['pay_bank', 'boolean'],
+            [['pay_bank', 'multi'], 'boolean'],
             [['check_booking'], 'in', 'range' => [BookingHelper::BOOKING_CONFIRMATION, BookingHelper::BOOKING_PAYMENT]],
         ];
     }

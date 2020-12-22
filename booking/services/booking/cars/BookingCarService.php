@@ -38,9 +38,7 @@ class BookingCarService
     {
 
         $booking = BookingCar::create($car_id, $comment, $begin_date, $end_date, $count, $delivery);
-        //$this->bookings->save($booking);
         $days = (int)(($end_date - $begin_date) / (3600 * 24));
-        $days_array = [];
         for($i = 0; $i <= $days; $i++) {
             $date = $begin_date + $i * 3600 * 24;
             $calendar = $this->calendar->find($car_id, $date);
@@ -48,10 +46,8 @@ class BookingCarService
             if ($calendar->free() < $count) {
                 throw new \DomainException(Lang::t('Недостаточно свободных на дату ') . date('d-m-Y', $date));
             };
-            //$days_array[] = BookingCarOnDay::create($calendar->id);
             $booking->addDay($calendar->id);
         }
-        //$booking->days = $days_array;
         $discount_id = $this->discounts->find($promo_code, $booking);
         $booking->setDiscount($discount_id);
         if ($booking->discount && $booking->discount->entities == Discount::E_OFFICE_USER) {

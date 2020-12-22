@@ -102,7 +102,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['funs'], true)),
                 new IndexItem(Url::to(['fun-categories'], true)),
                 new IndexItem(Url::to(['posts'], true)),
-                new IndexItem(Url::to(['posts'], true)),
+                new IndexItem(Url::to(['post-categories'], true)),
                 new IndexItem(Url::to(['mains'], true)),
             ]);
         });

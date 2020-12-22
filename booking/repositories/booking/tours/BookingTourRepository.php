@@ -89,6 +89,7 @@ class BookingTourRepository
                 $query = BookingTour::find()
                     ->alias('b')
                     ->leftJoin(CostCalendar::tableName() . ' c', 'b.calendar_id = c.id')
+                    ->andWhere(['c.tours_id' => $tour_id])
                     ->andWhere(['>=', 'c.tour_at', $begin])
                     ->andWhere(['<=', 'c.tour_at', $end]);
                 if ($status) $query = $query->andWhere(['b.status' => $status]);
@@ -102,6 +103,7 @@ class BookingTourRepository
                 $query = BookingTour::find()
                     ->alias('b')
                     ->leftJoin(CostCalendar::tableName() . ' c', 'b.calendar_id = c.id')
+                    ->andWhere(['c.tours_id' => $tour_id])
                     ->andWhere(['>=', 'c.tour_at', $begin])
                     ->andWhere(['<=', 'c.tour_at', $end]);
                 if ($status) $query = $query->andWhere(['b.status' => $status]);

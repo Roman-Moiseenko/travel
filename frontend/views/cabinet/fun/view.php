@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 MapAsset::register($this);
 MagnificPopupAsset::register($this);
 $fun = $booking->fun;
+$cost_fun = $booking->getAmountCost();
 ?>
     <!-- Фото + Название + Ссылка -->
     <div class="d-flex p-2">
@@ -70,34 +71,34 @@ $fun = $booking->fun;
                     <?php endif; ?>
                     <tr>
                         <th><?= Lang::t('Дата Мероприятия') ?>:</th>
-                        <td colspan="3"><?= date('d-m-Y', $booking->calendar->fun_at) ?></td>
+                        <td colspan="3"><?= date('d-m-Y', $booking->getDate()) ?></td>
                     </tr>
                     <tr>
                         <th><?= Lang::t('Время') ?>:</th>
-                        <td colspan="3"><?= $booking->calendar->time_at ?></td>
+                        <td colspan="3"><?= $booking->getAdd() ?></td>
                     </tr>
                     <?php if ($booking->count->adult !== 0): ?>
                         <tr>
                             <th width="40%"><?= Lang::t('Взрослый билет') ?></th>
-                            <td width="20%"><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
+                            <td width="20%"><?= CurrencyHelper::get($cost_fun->adult) ?></td>
                             <td width="20%">x <?= $booking->count->adult ?> шт</td>
-                            <td width="20%"><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>
+                            <td width="20%"><?= CurrencyHelper::get((int)$booking->count->adult * (int)$cost_fun->adult) ?> </td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->count->child !== 0): ?>
                         <tr>
                             <th><?= Lang::t('Детский билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->child) ?></td>
+                            <td><?= CurrencyHelper::get($cost_fun->child) ?></td>
                             <td>x <?= $booking->count->child ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->child * (int)$booking->calendar->cost->child) ?> </td>
+                            <td><?= CurrencyHelper::get((int)$booking->count->child * (int)$cost_fun->child) ?> </td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->count->preference !== 0): ?>
                         <tr>
                             <th><?= Lang::t('Льготный билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->preference) ?></td>
+                            <td><?= CurrencyHelper::get($cost_fun->preference) ?></td>
                             <td>x <?= $booking->count->preference ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$booking->calendar->cost->preference) ?> </td>
+                            <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$cost_fun->preference) ?> </td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->discount != null): ?>
@@ -134,7 +135,7 @@ $fun = $booking->fun;
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/fun', 'id' => $booking->id]) ?>"
                                class="btn btn-primary">
-                                <?= Lang::t(($booking->calendar->fun->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
+                                <?= Lang::t(($booking->fun->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
                     </div>
@@ -173,7 +174,7 @@ $fun = $booking->fun;
                                 <i class="fas fa-print"></i></a>
                             </li>
                     </ul>
-                    <?php if ($booking->calendar->fun->isCancellation($booking->calendar->fun_at)): ?>
+                    <?php if ($booking->fun->isCancellation($booking->getDate())): ?>
                         <a href="<?= Url::to(['/cabinet/fun/cancelpay', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить') ?> *</a><br>
                         <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
@@ -199,7 +200,7 @@ $fun = $booking->fun;
                             </div>
                         </li>
                     </ul>
-                    <?php if ($booking->calendar->fun_at > time()): ?>
+                    <?php if ($booking->getDate() > time()): ?>
                         <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
                            class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
                     <?php endif; ?>

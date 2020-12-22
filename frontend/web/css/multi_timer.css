@@ -1,0 +1,66 @@
+:root {
+    --start-color-time: #caffd6;
+    --end-color-time: #a9dbff;
+}
+
+
+.multi-timer {
+    width: 100%;
+    table-layout: fixed;
+    font-size: larger;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-spacing: 2px 2px !important;
+    border-collapse: separate;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #1f3a4b;
+   /* text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);*/
+}
+
+.multi-timer td {
+    cursor: pointer;
+    background: #d2f0ff;
+    border-radius: 6px;
+    margin: 4px;
+    padding: 4px;
+}
+.multi-timer td>div{
+    font-size: smaller;
+}
+
+.multi-timer td.disable{
+    cursor: not-allowed;
+    background: #d2d2d2;
+    color: #b4b4b4 !important;
+}
+.multi-timer td.first{
+    background: var(--start-color-time);
+
+}
+
+.multi-timer td.end{
+    background: var(--end-color-time);
+
+}
+.multi-timer td.firstend{
+    background: var(--start-color-time);
+    /* Old browsers */
+    background: -moz-linear-gradient(left, var(--start-color-time) 0%, var(--start-color-time) 50%, var(--end-color-time) 51%, var(--end-color-time) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, var(--start-color-time)), color-stop(50%, var(--start-color-time)), color-stop(51%, var(--end-color-time)), color-stop(100%, var(--end-color-time)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, var(--start-color-time) 0%, var(--start-color-time) 50%, var(--end-color-time) 51%, var(--end-color-time) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, var(--start-color-time) 0%, var(--start-color-time) 50%, var(--end-color-time) 51%, var(--end-color-time) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, var(--start-color-time) 0%, var(--start-color-time) 50%, var(--end-color-time) 51%, var(--end-color-time) 100%);
+    /* IE10+ */
+    background: linear-gradient(to right, var(--start-color-time) 0%, var(--start-color-time) 50%, var(--end-color-time) 51%, var(--end-color-time) 100%);
+    /* W3C */
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#caffd6', endColorstr='#a9dbff', GradientType=1);
+
+}
+.multi-timer td.between{
+    background: #d2d2d2;
+}

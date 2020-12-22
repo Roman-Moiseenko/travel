@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\admin\Contact;
+use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -10,7 +11,7 @@ use frontend\assets\MapAsset;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $booking BookingTour */
+/* @var $booking BookingFun */
 /*
  * $latitude = $booking->calendar->tour->params->beginAddress->latitude;
 $longitude = $booking->calendar->tour->params->beginAddress->longitude;
@@ -29,8 +30,8 @@ JS;
 $this->registerJs($js);
 */
 
-$latitude = $booking->calendar->tour->params->beginAddress->latitude;
-$longitude = $booking->calendar->tour->params->beginAddress->longitude;
+$latitude = $booking->fun->address->latitude;
+$longitude = $booking->fun->address->longitude;
 $legal = $booking->getLegal();
 ?>
 
@@ -110,12 +111,12 @@ $legal = $booking->getLegal();
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место сбора') ?>:</b>
                     </td>
-                    <td width="70%"><?= AddressHelper::short($booking->calendar->tour->params->beginAddress->address) ?> <span id="address"></span></td>
+                    <td width="70%"><?= AddressHelper::short($booking->fun->address->address) ?> <span id="address"></span></td>
                 </tr>
                 <tr>
                     <td width="30%" style=""><b><?= Lang::t('Место окончания') ?>:</b>
                     </td>
-                    <td width="70%"><?= AddressHelper::short($booking->calendar->tour->params->endAddress->address) ?></td>
+                    <td width="70%"><?= AddressHelper::short($booking->fun->address->address) ?></td>
                 </tr>
                 </tbody>
             </table>

@@ -234,6 +234,11 @@ class FunService
         }
 
         $fun->type_time = $form->type_time;
+        if ($form->type_time != Fun::TYPE_TIME_INTERVAL) {
+            $fun->multi = false;
+        } else {
+            $fun->multi = $form->multi;
+        }
         //$fun->times = $form->times
         $fun->setCost(
             new Cost(
@@ -247,6 +252,7 @@ class FunService
         //По умолчанию комиссия на Провайдере
         $fun->setPayBank($form->pay_bank ?? true);
         $fun->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+
         $this->funs->save($fun);
     }
 

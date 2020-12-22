@@ -42,13 +42,15 @@ class BookingRepository
                 ->all();
             return $bookings;
         }
+        //TODO проверить мульти
         if ($object_class == BookingFun::class) {
             $bookings = BookingFun::find()->alias('f')
-                ->joinWith('calendar c')
+                ->joinWith('calendars c')
                 ->andWhere(['c.fun_at' => $this->today()])
-                ->andWhere(['c.fun_id' => $object_id])
+                ->andWhere(['f.fun_id' => $object_id])
                 ->andWhere(['IN', 'f.status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
                 ->orderBy(['f.give_out' => SORT_ASC])
+                ->groupBy('f.id')
                 ->all();
             return $bookings;
         }
@@ -71,7 +73,7 @@ class BookingRepository
             ->andWhere(['user_id' => $user_id])
             ->all();
         $funs = BookingFun::find()->alias('f')
-            ->joinWith('calendar c')
+            ->joinWith('calendars c')
             ->where(['>=', 'c.fun_at', time()])
             ->andWhere(['f.user_id' => $user_id])
             ->all();
@@ -87,16 +89,16 @@ class BookingRepository
     {
         $tours = BookingTour::find()
             ->joinWith('calendar c')
-            ->where(['<', 'c.tour_at', time()])
+            ->andWhere(['<', 'c.tour_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
         $cars = BookingCar::find()
-            ->where(['<', 'begin_at', time()])
+            ->andWhere(['<', 'begin_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
         $funs = BookingFun::find()
-            ->joinWith('calendar c')
-            ->where(['<', 'c.fun_at', time()])
+            ->joinWith('calendars c')
+            ->andWhere(['<', 'c.fun_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
 
@@ -189,6 +191,7 @@ class BookingRepository
         }
 
         $cars = BookingCar::find()
+            ->andWhere(['>=', 'begin_at', time()])
             ->andWhere([
                 'IN',
                 'car_id',
@@ -213,25 +216,19 @@ class BookingRepository
             ];
         }
 
-        $funs = BookingFun::find()
+        $funs = BookingFun::find()->alias('f')
+            ->joinWith('calendars c')
+            ->andWhere(['>=', 'c.fun_at', time()])
             ->andWhere(
                 [
                     'IN',
-                    'calendar_id',
-                    \booking\entities\booking\funs\CostCalendar::find()->select('id')
-                        ->andWhere(
-                            [
-                                'IN',
-                                'fun_id',
-                                Fun::find()->select('id')->andWhere(['user_id' => $admin_id])
-                            ]
-                        )
-                        ->andWhere(['>=', 'fun_at', time()])
+                    'f.fun_id',
+                    Fun::find()->select('id')->andWhere(['user_id' => $admin_id])
                 ]
             )
             ->andWhere([
                 'IN',
-                'status', [
+                'f.status', [
                     BookingHelper::BOOKING_STATUS_NEW,
                     BookingHelper::BOOKING_STATUS_PAY,
                     BookingHelper::BOOKING_STATUS_CONFIRMATION,

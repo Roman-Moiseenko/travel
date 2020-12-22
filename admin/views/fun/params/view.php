@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = 'Параметры';
                                     'label' => 'Аннотация к комментарию бронирования',
                                 'attribute' => 'params.annotation',
                             ],
-
                         ],
                     ]) ?>
                 </div>

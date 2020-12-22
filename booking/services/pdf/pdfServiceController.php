@@ -20,11 +20,12 @@ class pdfServiceController extends Controller
 
     public function pdfFile(BookingItemInterface $booking, $file = false)
     {
-
+        //TODO Заглушка Stay
         switch ($booking->getType()) {
             case BookingHelper::BOOKING_TYPE_TOUR: $view = 'tour'; break;
             case BookingHelper::BOOKING_TYPE_STAY: $view = 'stay'; break;
             case BookingHelper::BOOKING_TYPE_CAR: $view = 'car'; break;
+            case BookingHelper::BOOKING_TYPE_FUNS: $view = 'fun'; break;
             default: $view = 'error';
         }
         if ($file) {

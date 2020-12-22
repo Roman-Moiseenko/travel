@@ -10,7 +10,7 @@ class Cost
     public $child;
     public $preference;
 
-    public function __construct($adult, $child = null, $preference = null)
+    public function __construct($adult = null, $child = null, $preference = null)
     {
         $this->adult = $adult;
         $this->child = $child;

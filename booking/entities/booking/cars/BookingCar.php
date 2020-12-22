@@ -22,23 +22,30 @@ use yii\helpers\Url;
  * @property integer $user_id
  * @property integer $car_id
  * @property integer $status
+ * @property integer $created_at
+ * @property integer $begin_at
+ * @property integer $end_at
+
  * @property float $payment_provider
  * @property float $pay_merchant
  * @property string $payment_id
  * @property string $confirmation
- * @property integer $created_at
- * @property integer $begin_at
- * @property integer $end_at
+
  * @property integer $pincode
  * @property boolean $unload
+
+
  * @property integer $discount_id
  * @property integer $count
  * @property string $comment - адреса доставки и откуда забирать
  * @property Discount $discount
  * @property integer $bonus
  * @property integer $delivery
+
+ *
  * @property bool $give_out
  * @property integer $give_at
+ * @property integer $give_user_id
 
  * @property BookingCarOnDay[] $days
  * @property Car $car
@@ -133,6 +140,7 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     {
         return '{{%booking_cars_calendar_booking}}';
     }
+
     public function behaviors()
     {
         return [

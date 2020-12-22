@@ -12,6 +12,7 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+    public $layout = 'main-login';
     /**
      * {@inheritdoc}
      */
@@ -60,6 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main';
         return $this->render('index');
     }
 

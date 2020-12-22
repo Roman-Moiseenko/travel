@@ -16,26 +16,34 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $slug
  * @property integer $sort
+ * @property bool $multi
  * @property Characteristic[] $characteristics
  */
 // @property bool $driver  - true - прокат возможен с водителем
 
 class Type extends ActiveRecord
 {
-    public static function create($name, $slug): self
+    public static function create($name, $slug, $multi): self
     {
         $type = new static();
         $type->name = $name;
         if (empty($slug)) $slug = SlugHelper::slug($name);
         $type->slug = $slug;
+        $type->multi = $multi;
         return $type;
     }
 
-    public function edit($name, $slug): void
+    public function edit($name, $slug, $multi): void
     {
         $this->name = $name;
         if (empty($slug)) $slug = SlugHelper::slug($name);
         $this->slug = $slug;
+        $this->multi = $multi;
+    }
+
+    public function isMulti(): bool
+    {
+        return $this->multi;
     }
 
     public function setSort($sort): void

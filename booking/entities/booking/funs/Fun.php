@@ -37,6 +37,7 @@ use yii\web\UploadedFile;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property bool $multi
 
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
@@ -117,6 +118,11 @@ class Fun extends ActiveRecord
             $workModes[] = new WorkMode();
         }
         $fun->params = new FunParams(new AgeLimit(), '', $workModes);
+
+        if ($fun->type->isMulti()) {
+            $fun->type_time = self::TYPE_TIME_INTERVAL;
+            $fun->multi = true;
+        }
         return $fun;
     }
 
@@ -141,6 +147,10 @@ class Fun extends ActiveRecord
         $this->address = $address;
         $this->name_en = $name_en;
         $this->description_en = $description_en;
+        if ($this->type->isMulti()) {
+            $this->type_time = self::TYPE_TIME_INTERVAL;
+            $this->multi = true;
+        }
     }
 
     public function setParams(FunParams $params)
@@ -213,6 +223,11 @@ class Fun extends ActiveRecord
     public function isLock()
     {
         return $this->status === StatusHelper::STATUS_LOCK;
+    }
+
+    public function isMulti(): bool
+    {
+        return $this->multi;
     }
 
     public function isCancellation($date_fun)

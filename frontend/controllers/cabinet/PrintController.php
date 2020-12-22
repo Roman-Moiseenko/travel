@@ -5,6 +5,7 @@ namespace frontend\controllers\cabinet;
 
 
 use booking\entities\booking\cars\BookingCar;
+use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\repositories\booking\tours\BookingTourRepository;
@@ -52,6 +53,7 @@ class PrintController extends Controller
         //TODO Печать Чека
     }
 
+    //TODO Заглушка Stay
     public function actionTour($id)
     {
         $booking = BookingTour::findOne($id);
@@ -61,6 +63,12 @@ class PrintController extends Controller
     public function actionCar($id)
     {
         $booking = BookingCar::findOne($id);
+        return $this->pdf->pdfFile($booking);
+    }
+
+    public function actionFun($id)
+    {
+        $booking = BookingFun::findOne($id);
         return $this->pdf->pdfFile($booking);
     }
 
