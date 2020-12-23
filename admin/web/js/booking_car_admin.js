@@ -14,7 +14,7 @@ $(document).ready(function () {
         monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         today: "Сегодня",
         clear: "Очистить",
-        format: "mm/dd/yyyy",
+        format: "dd/mm/yyyy",
         weekHeader: "Нед",
         titleFormat: "MM yyyy",
         weekStart: 1
@@ -22,13 +22,11 @@ $(document).ready(function () {
     //Устанавливаем datepicker
     $(function () {
         $("#datepicker-booking-car").datepicker({
-            format: "mm/dd/yyyy",
-            //startDate: '+1d',
+            format: "dd/mm/yyyy",
             language: "ru",
         });
     });
     $("#datepicker-booking-car").datepicker({
-        //startDate: '+1d',
         language: "ru",
         beforeShowDay: function (date) {
             if (booking_cars === undefined) return {enabled: true};

@@ -11,6 +11,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-admin',
+    'language' => '',
     'basePath' => dirname(__DIR__),
     // перевести сайт в режим обслуживания
     //'catchAll' => ['site/update'],

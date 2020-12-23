@@ -15,7 +15,7 @@ $(document).ready(function () {
         monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         today: "Сегодня",
         clear: "Очистить",
-        format: "mm/dd/yyyy",
+        format: "dd/mm/yyyy",
         weekHeader: "Нед",
         titleFormat: "MM yyyy",
         weekStart: 1
@@ -23,7 +23,7 @@ $(document).ready(function () {
     //Устанавливаем datepicker
     $(function () {
         $("#datepicker-car").datepicker({
-            format: 'mm/dd/yyyy',
+            format: "dd/mm/yyyy",
             startDate: '+1d',
             language: "ru",
         });

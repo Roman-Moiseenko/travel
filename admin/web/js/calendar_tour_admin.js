@@ -24,7 +24,7 @@ $(document).ready(function () {
     //Устанавливаем datepicker
     $(function () {
         $("#datepicker-tour").datepicker({
-            format: 'dd/mm/yyyy',
+            format: "dd/mm/yyyy",
             startDate: '+1d',
             language: "ru",
         });
