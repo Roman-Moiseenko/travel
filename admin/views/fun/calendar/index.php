@@ -28,11 +28,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                     <div>
                         <!-- ПОВТОР -->
                         <div class="set-times"></div>
-                        <div class="row">
-                            <span class="error-time"
-                                  style="font-size: larger; font-weight: bold; color: #c12e2a"></span>
-                        </div>
-                        <div class="button-times pt-1"></div>
+                        <div class="error-time pt-1" style="font-size: larger; font-weight: bold; color: #c12e2a"></div>
                         <div class="copy-week-times pt-1"></div>
                     </div>
                 <?php else: ?>
@@ -46,10 +42,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                             <td class="p-2" valign="top">
                                 <!-- ПОВТОР -->
                                 <div class="set-times"></div>
-                                <div class="row">
-                                    <span class="error-time"
-                                          style="font-size: larger; font-weight: bold; color: #c12e2a"></span>
-                                </div>
+                                <div class="error-time pt-1" style="font-size: larger; font-weight: bold; color: #c12e2a"></div>
                                 <div class="copy-week-times pt-1"></div>
                             </td>
                         </tr>

@@ -87,8 +87,10 @@ $(document).ready(function () {
                 function (data) {
                     let dateInfo = JSON.parse(data);
                     $('.list-tours').html(dateInfo._list);
+                    $('.copy-week-times').html(dateInfo.copy_week_times);
                     $('.new-tours').html(dateInfo._new);
                     $('#datepicker-tour').datepicker('hide');
+
                 });
         //}
     });
@@ -131,6 +133,7 @@ $(document).ready(function () {
                 $('.new-tours').html(dateInfo._new);
                 full_array_tours = dateInfo.full_array_tours;
                 $('#datepicker-tour').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
+                $('.copy-week-times').html(dateInfo.copy_week_times);
             });
     });
 
@@ -153,17 +156,7 @@ $(document).ready(function () {
             });
     });
 
-    $(document).on('click', '#data-day-copy', function () {
-        if ($('#data-day-copy').is(':checked')) {
-            $('.new-tours').addClass('hidden');
-            $('#data-week-copy').prop("disabled", true);
-        } else {
-            $('.new-tours').removeClass('hidden');
-            $('#data-week-copy').prop("disabled", false);
-        }
-    });
-
-    $(document).on('click', '#data-week-copy', function () {
+    $(document).on('click', '#tour-data-week-copy', function () {
         var d = $('#data-day').attr('data-d');
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');

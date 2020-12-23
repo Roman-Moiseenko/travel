@@ -16,9 +16,6 @@ $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/commo
 $this->params['breadcrumbs'][] = 'Календарь';
 
 ?>
-<h1 style="color: red">Внимание!</h1>
-<h2 style="color: red">В данный момент мы меняем данный раздел. Возможны проблемы с отображением полей</h2>
-
 <div class="tours-view">
     <input type="hidden" id="number-tour" value="<?= $tour->id ?>">
     <div class="card card-secondary">
@@ -32,7 +29,8 @@ $this->params['breadcrumbs'][] = 'Календарь';
                 </div>
                 <!-- ПОВТОР -->
                 <div class="list-tours"></div>
-                <div class="new-tours">
+                <div class="copy-week-times pt-1"></div>
+                <div class="new-tours pt-1">
                     <?php else: ?>
                         <table width="100%">
                             <tr>
@@ -43,8 +41,9 @@ $this->params['breadcrumbs'][] = 'Календарь';
                                 </td>
                                 <td class="p-2" valign="top">
                                     <!-- ПОВТОР -->
-                                    <div class="list-tours"></div>
-                                    <div class="new-tours">
+                                    <div class="list-tours pt-1"></div>
+                                    <div class="copy-week-times pt-1"></div>
+                                    <div class="new-tours pt-1">
                                 </td>
                             </tr>
                         </table>

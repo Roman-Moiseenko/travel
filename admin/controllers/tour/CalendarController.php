@@ -202,16 +202,22 @@ class CalendarController extends Controller
         $this->layout = 'main_ajax';
         //Получаем данные
         $tours = $this->findModel($id);
-        $day_tours = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'), false);
+        $calendars = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'), false);
         //Отображаем, если есть
         $_list = $this->render('_list_tours', [
             'D' => $D, 'M' => $M, 'Y' => $Y,
-            'day_tours' => $day_tours,
+            'day_tours' => $calendars,
             'errors' => $errors,
         ]);
+        $copy_week_times = count($calendars) == 0 ? '' : $this->render('_copy_week_times');
         $_new = $this->render('_new_tour', ['tour' => $tours, 'errors' => $errors]);
-        $result = ['_list' => $_list, '_new' => $_new, 'full_array_tours' => $this->calendar->getCalendarForDatePickerBackend($id)];
-        return json_encode($result);
+
+        return json_encode([
+            '_list' => $_list,
+            '_new' => $_new,
+            'copy_week_times' => $copy_week_times,
+            'full_array_tours' => $this->calendar->getCalendarForDatePickerBackend($id),
+            ]);
     }
 
     private function getWeekDays($weeks, $begin)

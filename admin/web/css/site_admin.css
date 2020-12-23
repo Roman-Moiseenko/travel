@@ -338,3 +338,7 @@ div.required label:after {
 .link_admin_help.active a {
     color: white !important;
 }
+.calendar-tour-day-info {
+    color: #0b3e6f;
+    font-size: large;
+}

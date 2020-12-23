@@ -9,9 +9,8 @@ use booking\entities\booking\cars\CostCalendar;
 /* @var $clear bool */
 /* @var $errors array */
 ?>
-
+<div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
 <div class="card card-info">
-    <div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
     <div class="card-header">
         <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
     </div>

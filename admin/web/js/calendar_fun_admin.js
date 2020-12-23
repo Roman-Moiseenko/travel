@@ -2,8 +2,6 @@ $(document).ready(function () {
     /** ver 16.11.2020 */
     let fun_id = $('#number-fun').val(); //Текущее Развлечение
     let full_array_funs; //Массив по дням
-    let baseUrl = '';
-    let current_month = (new Date()).getMonth();
 //Переводим
     if ($.fn.datepicker === undefined) return false;
     $.fn.datepicker.dates['ru'] = {
@@ -35,7 +33,6 @@ $(document).ready(function () {
         language: "ru",
         beforeShowDay: function (date) {
             let dateSel = $("#datepicker-fun").datepicker("getDate"); //Выбранная ячейка
-            if (dateSel !== null) current_month = dateSel.getMonth();
             if (full_array_funs === undefined) return {enabled: true};
             var funs = full_array_funs[date.getFullYear()]; //Массив по текущему году
             if (funs === undefined) return {enabled: true};
@@ -56,23 +53,14 @@ $(document).ready(function () {
     $('#datepicker-fun').datepicker().on('changeDate', function (e) {
         //Иначе получаем сведения о тек.дне
         if (e.date === undefined) return;
-        if (e.date.getMonth() !== current_month) current_month = e.date.getMonth();
         updateDayInfo(e.date.getFullYear(), e.date.getMonth() + 1, e.date.getDate());
         $(".error-time").html('');
         $('#datepicker-fun').datepicker('hide');
     });
-
-    //Событие при выборе месяца
-    $('#datepicker-fun').datepicker().on('changeMonth', function (e) {
-        current_month = e.date.getMonth();
-    });
-
-
     //Загружаем Массив туров по дням за текущий день
     if (document.getElementById('datepicker-fun')) {
         updateArrayFuns()
     }
-
     //ОТПРАВИТЬ НА СОХРАНЕНИЕ
     $(document).on('click', '#send-new-fun', function () {
         let d = $('#data-day').attr('data-d');
@@ -106,7 +94,7 @@ $(document).ready(function () {
                 cost_preference: $('#cost-preference').val(),
             });
         }
-        $.post(baseUrl + '/fun/calendar/setday',
+        $.post('/fun/calendar/setday',
             {
                 year: y, month: m, day: d, fun_id: fun_id,
                 times: array_new_times
@@ -122,7 +110,7 @@ $(document).ready(function () {
         var d = $("#data-day").attr('data-d');
         var m = $("#data-day").attr('data-m');
         var y = $("#data-day").attr('data-y');
-        $.post(baseUrl + '/fun/calendar/delday',
+        $.post('/fun/calendar/delday',
             {year: y, month: m, day: d, fun_id: fun_id},
             function (data) {
                 $(".error-time").html(data);
@@ -140,7 +128,7 @@ $(document).ready(function () {
         for (let i = 1; i <= 7; i++) {
             week[i] = $('#data-week-' + i).is(':checked');
         }
-        $.post(baseUrl + '/fun/calendar/copyweek', {
+        $.post('/fun/calendar/copyweek', {
             year: y,
             month: m,
             day: d,
@@ -156,24 +144,19 @@ $(document).ready(function () {
                 }
             });
     });
-
     //ОБНОВИТЬ СВЕДЕНИЯ ЗА ДЕНЬ
     function updateDayInfo(y, m, d) {
-        $.post(baseUrl + '/fun/calendar/getday',
+        $.post('/fun/calendar/getday',
             {year: y, month: m, day: d, fun_id: fun_id},
             function (data) {
-                //console.log(data);
                 let dateInfo = JSON.parse(data);
-                //console.log(data);
                 $('.set-times').html(dateInfo.set_times);
-               // $('.button-times').html(dateInfo.button_times);
                 $('.copy-week-times').html(dateInfo.copy_week_times);
             });
     }
-
     //ЗАГРУЗИТЬ КАЛЕНДАРЬ
     function updateArrayFuns() {
-        $.post(baseUrl + '/fun/calendar/getcalendar', {fun_id: fun_id, current_month: true}, function (data) {
+        $.post('/fun/calendar/getcalendar', {fun_id: fun_id, current_month: true}, function (data) {
             full_array_funs = JSON.parse(data);
             $('#datepicker-fun').datepicker('update');
         });
