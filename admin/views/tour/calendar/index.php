@@ -2,8 +2,6 @@
 
 use booking\entities\booking\tours\Tour;
 use booking\helpers\SysHelper;
-use Codeception\PHPUnit\ResultPrinter\HTML;
-use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
@@ -28,7 +26,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                     <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
                 <!-- ПОВТОР -->
-                <div class="list-tours"></div>
+                <div class="list-tours pt-2"></div>
                 <div class="copy-week-times pt-1"></div>
                 <div class="new-tours pt-1">
                     <?php else: ?>
@@ -41,7 +39,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                                 </td>
                                 <td class="p-2" valign="top">
                                     <!-- ПОВТОР -->
-                                    <div class="list-tours pt-1"></div>
+                                    <div class="list-tours"></div>
                                     <div class="copy-week-times pt-1"></div>
                                     <div class="new-tours pt-1">
                                 </td>
