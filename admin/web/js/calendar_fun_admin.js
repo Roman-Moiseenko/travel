@@ -166,7 +166,7 @@ $(document).ready(function () {
                 let dateInfo = JSON.parse(data);
                 //console.log(data);
                 $('.set-times').html(dateInfo.set_times);
-                $('.button-times').html(dateInfo.button_times);
+               // $('.button-times').html(dateInfo.button_times);
                 $('.copy-week-times').html(dateInfo.copy_week_times);
             });
     }

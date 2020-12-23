@@ -57,7 +57,7 @@ use yii\helpers\Url;
                     <span class="booking-item">
                     <i class="fas fa-phone"></i>&#160;&#160;<?= $booking->user->personal->phone; ?>
                 </span>
-                    <br>
+
                     <span class="booking-item">
                     <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
                         <?php if ($booking->discount) echo ' (' . $booking->discount->promo . ')' ?>

@@ -14,75 +14,19 @@
 }
 
 @media screen and (min-width: 600px) {
-    #datepicker-booking-car > .datepicker td,
-    #datepicker-booking-car > .datepicker th {
-        width: 150px !important;
-        height: 90px !important;
-    }
-
-    #datepicker-booking-tour > .datepicker td,
-    #datepicker-booking-tour > .datepicker th {
-        width: 150px !important;
-        height: 90px !important;
-    }
-
-    #datepicker-booking-fun > .datepicker td,
-    #datepicker-booking-fun > .datepicker th {
-        width: 150px !important;
-        height: 90px !important;
-    }
-
-    #datepicker-car > .datepicker td,
-    #datepicker-car > .datepicker th {
-        width: 150px !important;
-        height: 90px !important;
-    }
-
-    #datepicker-tour > .datepicker td,
-    #datepicker-tour > .datepicker th {
-        width: 120px !important;
-        height: 90px !important;
-    }
-
-    #datepicker-fun > .datepicker td,
-    #datepicker-fun > .datepicker th {
-        width: 90px !important;
-        height: 90px !important;
-    }
-
     .datepicker td,
     .datepicker th {
         font-size: larger;
         text-align: center;
-        width: 120px;
-        height: 80px;
+        width: 90px !important;
+        height: 90px !important;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
         border-radius: 4px;
         border: none;
     }
 
-    #datepicker-booking-fun .table-condensed {
-        width: 1050px !important;
-    }
-
-    #datepicker-booking-tour .table-condensed {
-        width: 1050px !important;
-    }
-
-    #datepicker-booking-car .table-condensed {
-        width: 1050px !important;
-    }
-
-    #datepicker-tour .table-condensed {
-        width: 840px !important;
-    }
-
-    #datepicker-car .table-condensed {
-        width: 840px !important;
-    }
-
-    #datepicker-fun .table-condensed {
+    .table-condensed {
         width: 630px !important;
     }
 }

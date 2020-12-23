@@ -18,6 +18,7 @@ class SetTimesWidget extends Widget
     public $D;
     public $M;
     public $Y;
+    public $clear;
 
     private function getDayFunsPeriod(Fun $fun, array $times, array $calendars)
     {
@@ -74,6 +75,7 @@ class SetTimesWidget extends Widget
             'day_funs' => $day_funs,
             'errors' => $this->errors,
             'quantity' => $this->fun->quantity,
+            'clear' => $this->clear,
         ]);
     }
 }

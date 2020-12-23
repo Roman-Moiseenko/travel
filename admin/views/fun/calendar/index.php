@@ -50,9 +50,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                                     <span class="error-time"
                                           style="font-size: larger; font-weight: bold; color: #c12e2a"></span>
                                 </div>
-                                <div class="button-times pt-1"></div>
                                 <div class="copy-week-times pt-1"></div>
-
                             </td>
                         </tr>
                     </table>

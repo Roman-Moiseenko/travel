@@ -187,15 +187,16 @@ class CalendarController extends Controller
             'errors' => $errors,
             'D' => $D,
             'M' => $M,
-            'Y' => $Y
+            'Y' => $Y,
+            'clear' => count($calendars) != 0
         ]);
 
-        $button_times = $this->render('_button_times', ['clear' => count($calendars) != 0]);
+       // $button_times = $this->render('_button_times', ['clear' => count($calendars) != 0]);
         $copy_week_times = count($calendars) == 0 ? '' : $this->render('_copy_week_times');
 
         return json_encode([
             'set_times' => $set_times,
-            'button_times' => $button_times,
+            //'button_times' => $button_times,
             'copy_week_times' => $copy_week_times,
             'full_array_funs' => $this->calendar->getCalendarForDatePickerBackend($id)
         ]);

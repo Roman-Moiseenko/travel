@@ -31,27 +31,42 @@ use booking\helpers\SysHelper; ?>
     <div class="card card-secondary">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-9">
-                    <?php if (SysHelper::isMobile()):?>
-                        <div id="datepicker-booking-car"  class="input-group date">
-                            <input type="text" class="form-control" id="datepicker_value" readonly>
-                            <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
-                        </div>
-                    <?php else: ?>
+                <?php if (SysHelper::isMobile()):?>
+                    <div id="datepicker-booking-car"  class="input-group date">
+                        <input type="text" class="form-control" id="datepicker_value" readonly>
+                        <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                    <div>
+                        <!-- ПОВТОР -->
+                        <span class="badge" style="background-color: #dddda1">нет бронирований</span>
+                        <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
+                        <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>
+                        <i style="color: red">*</i> - <span class="badge">день выдачи транспорта</span>
+                        <input class="" type="checkbox" id="view_cancel" <?= $view_cancel ? 'checked' : '' ?>> <label for="view_cancel" style="font-weight: 500; color: #073138; font-size: 14px">показывать отмененные</label>
+                        <span class="badge badge-danger" id="error_data"></span>
+                    </div>
+                    <div class="booking-day"></div>
+                <?php else: ?>
+                <table width="100%" valign="top">
+                    <tr valign="top">
+                        <td width="640px">
                         <div id="datepicker-booking-car">
                             <input type="hidden" id="datepicker_value" value="">
                         </div>
-                    <?php endif; ?>
-                    <span class="badge" style="background-color: #dddda1">нет бронирований</span>
-                    <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
-                    <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>
-                    <i style="color: red">*</i> - <span class="badge">день выдачи транспорта</span>
-                    <input class="" type="checkbox" id="view_cancel" <?= $view_cancel ? 'checked' : '' ?>> <label for="view_cancel" style="font-weight: 500; color: #073138; font-size: 14px">показывать отмененные</label>
-                    <span class="badge badge-danger" id="error_data"></span>
-                </div>
-                <div class="col-md-3">
-                    <div class="booking-day"></div>
-                </div>
+                            <!-- ПОВТОР -->
+                            <span class="badge" style="background-color: #dddda1">нет бронирований</span>
+                            <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
+                            <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>
+                            <i style="color: red">*</i> - <span class="badge">день выдачи транспорта</span>
+                            <input class="" type="checkbox" id="view_cancel" <?= $view_cancel ? 'checked' : '' ?>> <label for="view_cancel" style="font-weight: 500; color: #073138; font-size: 14px">показывать отмененные</label>
+                            <span class="badge badge-danger" id="error_data"></span>
+                        </td>
+                        <td class="p-2" valign="top">
+                            <div class="booking-day"></div>
+                        </td>
+                    </tr>
+                </table>
+                <?php endif; ?>
             </div>
         </div>
     </div>
