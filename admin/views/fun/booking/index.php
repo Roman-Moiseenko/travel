@@ -28,6 +28,8 @@ JS;
 $this->registerJs($js);
 
 use booking\entities\booking\funs\Fun;
+use booking\helpers\SysHelper;
+
 ?>
 <div class="funs-view">
     <input type="hidden" id="number-fun" value="<?= $fun->id?>">
@@ -35,9 +37,18 @@ use booking\entities\booking\funs\Fun;
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
+                    <?php if (SysHelper::isMobile()):?>
+                        <div id="datepicker-booking-fun"  class="input-group date">
+                            <input type="text" class="form-control" id="datepicker_value" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+
+                    <?php else: ?>
+
                     <div id="datepicker-booking-fun">
                         <input type="hidden" id="datepicker_value" value="">
                     </div>
+                    <?php endif; ?>
+
                     <span class="badge" style="background-color: #dddda1">нет бронирований</span>
                     <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
                     <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>

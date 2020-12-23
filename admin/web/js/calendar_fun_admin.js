@@ -43,7 +43,7 @@ $(document).ready(function () {
             if (funs === undefined) return {enabled: true}; //Массив по текущему месяцу
             funs = funs[date.getDate()];
             if (funs === undefined) return {enabled: true}; //Объект по текущему дню
-            var content = date.getDate() + '<div style="font-size: small;">' + funs.count + ' периодов' + '</div>' +
+            var content = date.getDate() + '<div style="font-size: small;">' + funs.count + ' инт.' + '</div>' +
                 '<div style="font-size: small;">' + funs.tickets + ' мест' + '</div>';
             if (dateSel !== null && dateSel.getDate() === date.getDate() && date.getMonth() === dateSel.getMonth()) { //Совпала с текущим днем
                 return {enabled: true, classes: 'calendar-day-select', tooltip: '', content: content};
@@ -59,6 +59,7 @@ $(document).ready(function () {
         if (e.date.getMonth() !== current_month) current_month = e.date.getMonth();
         updateDayInfo(e.date.getFullYear(), e.date.getMonth() + 1, e.date.getDate());
         $(".error-time").html('');
+        $('#datepicker-fun').datepicker('hide');
     });
 
     //Событие при выборе месяца

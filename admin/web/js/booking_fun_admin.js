@@ -80,6 +80,7 @@ $(document).ready(function () {
             {date: date_booking, fun_id: fun_id},
             function (data) {
                 $(".booking-day").html(data);
+                $('#datepicker-booking-fun').datepicker('hide');
             });
     });
     $(document).on("click", ".give-out-fun", function () {

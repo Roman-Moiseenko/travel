@@ -54,7 +54,7 @@ $(document).ready(function () {
     $('#datepicker-car').datepicker().on('changeDate', function (e) {
         //  console.log(e);
         current_month = e.date.getMonth();
-        if ($('#data-day-copy').is(':checked')) {
+      /*  if ($('#data-day-copy').is(':checked')) {
             //Установлен флажок Копировать
             let d = $('#data-day').attr('data-d');
             let m = $('#data-day').attr('data-m');
@@ -74,7 +74,7 @@ $(document).ready(function () {
                     full_array_cars = JSON.parse(data);
                     $('#datepicker-car').datepicker('update');
                 });
-        } else {
+        } else {*/
             //Иначе получаем сведения о тек.дне
             console.log(e.date)
             if (e.date === undefined) return;
@@ -84,8 +84,9 @@ $(document).ready(function () {
                     let dateInfo = JSON.parse(data);
                     $('.list-cars').html(dateInfo._list);
                     $('.new-cars').html(dateInfo._new);
+                    $('#datepicker-car').datepicker('hide');
                 });
-        }
+       // }
     });
     //Событие при выборе месяца
 

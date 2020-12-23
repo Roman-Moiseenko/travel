@@ -1,80 +1,117 @@
-#selling-calendar>.datepicker td,
-#selling-calendar>.datepicker th {
+:root {
+    --widht: 100vw;
+    --widht-td: calc(100vw / 7);
+}
+
+#selling-calendar > .datepicker td,
+#selling-calendar > .datepicker th {
     width: 50px !important;
     height: 30px !important;
 }
+
 #selling-calendar .table-condensed {
     width: 350px !important;
 }
 
-#datepicker-booking-car>.datepicker td,
-#datepicker-booking-car>.datepicker th {
-    width: 150px !important;
-    height: 90px !important;
+@media screen and (min-width: 600px) {
+    #datepicker-booking-car > .datepicker td,
+    #datepicker-booking-car > .datepicker th {
+        width: 150px !important;
+        height: 90px !important;
+    }
+
+    #datepicker-booking-tour > .datepicker td,
+    #datepicker-booking-tour > .datepicker th {
+        width: 150px !important;
+        height: 90px !important;
+    }
+
+    #datepicker-booking-fun > .datepicker td,
+    #datepicker-booking-fun > .datepicker th {
+        width: 150px !important;
+        height: 90px !important;
+    }
+
+    #datepicker-car > .datepicker td,
+    #datepicker-car > .datepicker th {
+        width: 150px !important;
+        height: 90px !important;
+    }
+
+    #datepicker-tour > .datepicker td,
+    #datepicker-tour > .datepicker th {
+        width: 120px !important;
+        height: 90px !important;
+    }
+
+    #datepicker-fun > .datepicker td,
+    #datepicker-fun > .datepicker th {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .datepicker td,
+    .datepicker th {
+        font-size: larger;
+        text-align: center;
+        width: 120px;
+        height: 80px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: none;
+    }
+
+    #datepicker-booking-fun .table-condensed {
+        width: 1050px !important;
+    }
+
+    #datepicker-booking-tour .table-condensed {
+        width: 1050px !important;
+    }
+
+    #datepicker-booking-car .table-condensed {
+        width: 1050px !important;
+    }
+
+    #datepicker-tour .table-condensed {
+        width: 840px !important;
+    }
+
+    #datepicker-car .table-condensed {
+        width: 840px !important;
+    }
+
+    #datepicker-fun .table-condensed {
+        width: 630px !important;
+    }
 }
 
-#datepicker-booking-tour>.datepicker td,
-#datepicker-booking-tour>.datepicker th {
-    width: 150px !important;
-    height: 90px !important;
-}
+@media screen and (max-width: 600px) {
+    .datepicker-dropdown {
+        top: 50px !important;
+        left: 0 !important;
+    }
 
-#datepicker-booking-fun>.datepicker td,
-#datepicker-booking-fun>.datepicker th {
-    width: 150px !important;
-    height: 90px !important;
-}
+    .datepicker td,
+    .datepicker th {
+        font-size: larger;
+        text-align: center;
+        width: var(--widht-td) !important;
+        height: var(--widht-td) !important;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: none;
+    }
 
-#datepicker-car>.datepicker td,
-#datepicker-car>.datepicker th {
-    width: 150px !important;
-    height: 90px !important;
-}
-
-#datepicker-tour>.datepicker td,
-#datepicker-tour>.datepicker th {
-    width: 120px !important;
-    height: 90px !important;
-}
-
-#datepicker-fun>.datepicker td,
-#datepicker-fun>.datepicker th {
-    width: 90px !important;
-    height: 90px !important;
-}
-
-.datepicker td,
-.datepicker th {
-    font-size: larger;
-    text-align: center;
-    width: 120px;
-    height: 80px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: none;
-}
-#datepicker-booking-fun .table-condensed {
-    width: 1050px !important;
-}
-#datepicker-booking-tour .table-condensed {
-    width: 1050px !important;
-}
-#datepicker-booking-car .table-condensed {
-    width: 1050px !important;
-}
-#datepicker-tour .table-condensed {
-    width: 840px !important;
-}
-#datepicker-car .table-condensed {
-    width: 840px !important;
-}
-#datepicker-fun .table-condensed {
-    width: 630px !important;
+    .table-condensed {
+        width: var(--widht) !important;
+    }
 }
 
 .calendar-day {
-    font-size: larger;/*ffcd49*/
+    font-size: larger; /*ffcd49*/
     text-align: center;
     background: orange !important;
     background-image: -moz-linear-gradient(to bottom, #FFA500, #f59b00) !important;
@@ -88,15 +125,16 @@
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     color: white !important;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    width: 100px !important;
-    height: 60px !important;
+    /*    width: 100px !important;
+        height: 60px !important;*/
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: none;
 }
+
 .calendar-day-other-month {
-    font-size: larger;/*ffcd49*/
+    font-size: larger; /*ffcd49*/
     text-align: center;
     background: #ffe192 !important;
     background-image: -moz-linear-gradient(to bottom, #ffe192, #f5d788) !important;
@@ -110,13 +148,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     color: #737373 !important;
 
-    width: 100px !important;
-    height: 60px !important;
+    /*    width: 100px !important;
+        height: 60px !important;*/
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: none;
 }
+
 .calendar-day-select {
     background-color: #006dcc;
     background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
@@ -135,20 +174,21 @@
 
     font-size: larger;
     text-align: center;
-    width: 100px !important;
-    height: 60px !important;
+    /*    width: 100px !important;
+        height: 60px !important;*/
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: none;
 }
+
 .calendar-day-deselect {
     font-size: larger;
     text-align: center;
     background: #b99265 !important;
     color: white !important;
-    width: 100px !important;
-    height: 60px !important;
+    /*    width: 100px !important;
+        height: 60px !important;*/
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -176,7 +216,7 @@
     border: none;
 }
 
-.calendar-day-danger{
+.calendar-day-danger {
     font-size: larger;
     text-align: center;
     background: #ffffc2 !important;
@@ -196,8 +236,9 @@
     border-radius: 4px;
     border: none;
 }
+
 .calendar-day-warning {
-    font-size: larger;/*ffcd49*/
+    font-size: larger; /*ffcd49*/
     text-align: center;
     background: #b6ecff !important;
     background-image: -moz-linear-gradient(to bottom, #b6ecff, #89b7ca) !important;
@@ -217,6 +258,7 @@
     border-radius: 4px;
     border: none;
 }
+
 .hidden {
-    display:none;
+    display: none;
 }

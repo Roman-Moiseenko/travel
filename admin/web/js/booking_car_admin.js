@@ -77,6 +77,7 @@ $(document).ready(function () {
             //console.log(data);
             booking_cars = JSON.parse(data);
             $("#datepicker-booking-car").datepicker("update");
+            $('#datepicker-booking-car').datepicker('hide');
         });
     }
     $("#datepicker-booking-car").datepicker().on("changeDate", function (e) {

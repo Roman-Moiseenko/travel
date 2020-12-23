@@ -2,13 +2,16 @@
 
 ?>
 <div class="row pt-3">
+<label class="container">Скопировать по дням недели</label>
+</div>
+<div class="row">
     <div class="col-sm-3">
-    <label class="container">
-        Скопировать по дням недели
-    </label>
-    С выбранной даты по:&nbsp;&nbsp; <input type="date" id="end-day" value="" class="form-control" style="display: inline !important; width: auto !important;">
+        С выбранной даты по:&nbsp;&nbsp;
     </div>
-    <?= ''//date('Y-m-d', time())  ?>
+    <div class="col-sm-3">
+        <input type="date" id="end-day" value="" class="form-control">
+    </div>
+    <?= ''//date('Y-m-d', time())   ?>
 </div>
 <div class="row pt-3">
     <div class="col">
@@ -37,6 +40,6 @@
 </div>
 <div class="row pt-3">
     <div class="col-sm-3">
-    <input type="button" id="fun-data-week-copy" value="Заполнить" class="form-control">
+        <input type="button" id="fun-data-week-copy" value="Заполнить" class="form-control">
     </div>
 </div>

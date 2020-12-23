@@ -58,7 +58,7 @@ $(document).ready(function () {
     $('#datepicker-tour').datepicker().on('changeDate', function (e) {
         //current_month = e.date.getMonth();
       //  console.log(e);
-        if ($('#data-day-copy').is(':checked')) {
+       /* if ($('#data-day-copy').is(':checked')) {
             //Установлен флажок Копировать
             let d = $('#data-day').attr('data-d');
             let m = $('#data-day').attr('data-m');
@@ -77,7 +77,7 @@ $(document).ready(function () {
                     full_array_tours = JSON.parse(data);
                     $('#datepicker-tour').datepicker('update');
                 });
-        } else {
+        } else {*/
             //Иначе получаем сведения о тек.дне
             if (e.date === undefined) return;
             if (e.date.getMonth() !== current_month) current_month = e.date.getMonth();
@@ -88,8 +88,9 @@ $(document).ready(function () {
                     let dateInfo = JSON.parse(data);
                     $('.list-tours').html(dateInfo._list);
                     $('.new-tours').html(dateInfo._new);
+                    $('#datepicker-tour').datepicker('hide');
                 });
-        }
+        //}
     });
     //Событие при выборе месяца
     $('#datepicker-tour').datepicker().on('changeMonth', function (e) {

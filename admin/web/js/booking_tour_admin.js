@@ -81,6 +81,7 @@ $(document).ready(function () {
             {date: date_booking, tour_id: tour_id},
             function (data) {
                 $(".booking-day").html(data);
+                $('#datepicker-booking-tour').datepicker('hide');
             });
     });
     $(document).on("click", ".give-out-tour", function () {
