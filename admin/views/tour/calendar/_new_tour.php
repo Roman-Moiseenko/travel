@@ -8,13 +8,13 @@ use booking\entities\booking\tours\Tour;
 ?>
 
 <div class="row">
-    <div class="col-2">
+    <div class="col-sm-2">
         <div class="form-group">
             <label>Начало</label>
             <input class="form-control" id="_time" type="time" width="100px" value="00:00" required>
         </div>
     </div>
-    <div class="col-1">
+    <div class="col-sm-1">
         <div class="form-group">
             <label>Билеты</label>
             <input class="form-control" id="_tickets" type="number"
@@ -24,7 +24,7 @@ use booking\entities\booking\tours\Tour;
         </div>
     </div>
 
-    <div class="col-3">
+    <div class="col-sm-3">
         <div class="form-group">
             <label>Цена за взрослый билет</label>
             <input class="form-control" id="_adult" type="number" value="<?= $tour->baseCost->adult ?>" min="0"
@@ -32,7 +32,7 @@ use booking\entities\booking\tours\Tour;
         </div>
     </div>
     <?php if ($tour->baseCost->child != null): ?>
-        <div class="col-3">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Цена за детский билет</label>
                 <input class="form-control" id="_child" type="number" value="<?= $tour->baseCost->child ?>" min="0"
@@ -42,7 +42,7 @@ use booking\entities\booking\tours\Tour;
     <?php endif; ?>
 
     <?php if ($tour->baseCost->preference != null): ?>
-        <div class="col-3">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Цена за льготный билет</label>
                 <input class="form-control" id="_preference" type="number" value="<?= $tour->baseCost->preference ?>"
@@ -52,7 +52,7 @@ use booking\entities\booking\tours\Tour;
     <?php endif; ?>
 </div>
     <div class="row">
-        <div class="col-1">
+        <div class="col-sm-1">
             <a href="#" class="btn btn-success" id="send-new-tour">Добавить</a>
         </div>
     </div>
