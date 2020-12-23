@@ -28,6 +28,7 @@ class SetTimesWidget extends Widget
             foreach ($calendars as $i => $calendar) {
                 $day_funs[$i]['check'] = true;
                 $day_funs[$i]['begin'] = substr($calendar->time_at, 0, 5);
+                //TODO Для интервала не показывается 2-я дата (end)
                 $day_funs[$i]['end'] = substr($calendar->time_at, 8, 5);
                 $day_funs[$i]['quantity'] = $calendar->tickets;
                 $day_funs[$i]['cost_adult'] = $calendar->cost->adult;

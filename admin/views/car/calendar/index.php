@@ -13,28 +13,36 @@ $this->params['breadcrumbs'][] = 'Календарь';
 use booking\entities\booking\cars\Car;
 use booking\helpers\SysHelper; ?>
 <div class="cars-view">
-    <input type="hidden" id="number-car" value="<?=$car->id?>">
+    <input type="hidden" id="number-car" value="<?= $car->id ?>">
     <div class="card card-secondary">
         <div class="card-header with-border">Календарь</div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-9">
-                    <?php if (SysHelper::isMobile()):?>
-                    <div id="datepicker-car"  class="input-group date">
+                <?php if (SysHelper::isMobile()): ?>
+                    <div id="datepicker-car" class="input-group date">
                         <input type="text" class="form-control" id="datepicker_value" readonly>
                         <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
                     </div>
-                    <?php else: ?>
-                    <div id="datepicker-car">
-                        <input type="hidden" id="datepicker_value" value="">
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <div class="col-md-3">
+                    <!-- ПОВТОР -->
                     <div class="list-cars"></div>
-                </div>
+                    <div class="copy-week-times pt-1"></div>
+                <?php else: ?>
+                    <table width="100%">
+                        <tr>
+                            <td width="640px">
+                                <div id="datepicker-car">
+                                    <input type="hidden" id="datepicker_value" value="">
+                                </div>
+                            </td>
+                            <td class="p-2" valign="top">
+                                <!-- ПОВТОР -->
+                                <div class="list-cars"></div>
+                                <div class="copy-week-times pt-1"></div>
+                            </td>
+                        </tr>
+                    </table>
+                <?php endif; ?>
             </div>
-
         </div>
     </div>
 </div>

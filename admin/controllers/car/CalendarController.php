@@ -105,11 +105,13 @@ class CalendarController extends Controller
             $params = \Yii::$app->request->bodyParams;
             //Год, Месяц, День, Время, Цена.Взр, Цена.Дет, Цена.Льгот, Кол-воБилетов
             $car = $this->findModel($params['car_id']);
+            $car_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
 
             try {
+                $this->service->clearCostCalendar($car->id, $car_at); //Очищаем тек.день
                 $test = $this->service->addCostCalendar(
                     $car->id,
-                    strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
+                    $car_at,
                     $params['_count'],
                     $params['_cost']
                 );
@@ -194,16 +196,23 @@ class CalendarController extends Controller
         $this->layout = 'main_ajax';
         //Получаем данные
         $car = $this->findModel($id);
-        $costCalendar = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
+        $calendar = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
         //Отображаем, если есть
         $_list = $this->render('_list_cars', [
             'D' => $D, 'M' => $M, 'Y' => $Y,
-            'costCalendar' => $costCalendar,
+            'costCalendar' => $calendar,
             'errors' => $errors,
+            'clear' => !empty($calendar),
+            'car' => $car,
         ]);
-        $_new = $this->render('_new_car', ['car' => $car, 'errors' => $errors]);
-        $result = ['_list' => $_list, '_new' => $_new, 'full_array_cars' => $this->calendar->getCalendarForDatePickerBackend($id)];
-        return json_encode($result);
+        //$_new = $this->render('_new_car', ['car' => $car, 'errors' => $errors]);
+        $copy_week_times = empty($calendar) ? '' : $this->render('_copy_week_times');
+        return json_encode([
+            '_list' => $_list,
+            //'_new' => $_new,
+            'copy_week_times' => $copy_week_times,
+            'full_array_cars' => $this->calendar->getCalendarForDatePickerBackend($id),
+        ]);
     }
 
     private function getWeekDays($weeks, $begin)

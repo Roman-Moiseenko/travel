@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                                     <input type="hidden" id="datepicker_value" value="">
                                 </div>
                             </td>
-                            <td class="p-2">
+                            <td class="p-2" valign="top">
                                 <!-- ПОВТОР -->
                                 <div class="set-times"></div>
                                 <div class="row">

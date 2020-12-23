@@ -47,6 +47,7 @@ use yii\helpers\Url;
  * @property integer $give_at
  * @property integer $give_user_id
 
+ * @property CostCalendar[] $calendars
  * @property BookingCarOnDay[] $days
  * @property Car $car
  * @property \booking\entities\user\User $user
@@ -124,6 +125,11 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
     public function getCar(): ActiveQuery
     {
         return $this->hasOne(Car::class, ['id' => 'car_id']);
+    }
+
+    public function getCalendars(): ActiveQuery
+    {
+        return $this->hasMany(CostCalendar::class, ['id' => 'calendar_id'])->via('days');
     }
 
     public function getDays(): ActiveQuery

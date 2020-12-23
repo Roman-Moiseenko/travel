@@ -346,4 +346,18 @@ class CarService
         $this->cars->save($car);
     }
 
+    public function clearCostCalendar(int $id, int $car_at)
+    {
+        $car = $this->cars->get($id);
+        $calendars = $car->actualCalendar;
+        foreach ($calendars as $i => $calendar) {
+            if ($calendar->car_at == $car_at) {
+                if ($calendar->isBooking()) throw new \DomainException('Нельзя изменить/удалить с бронированием');
+                unset($calendars[$i]);
+            }
+        }
+        $car->actualCalendar = $calendars;
+        $this->cars->save($car);
+    }
+
 }

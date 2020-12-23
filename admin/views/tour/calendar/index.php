@@ -16,6 +16,9 @@ $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/commo
 $this->params['breadcrumbs'][] = 'Календарь';
 
 ?>
+<h1 style="color: red">Внимание!</h1>
+<h2 style="color: red">В данный момент мы меняем данный раздел. Возможны проблемы с отображением полей</h2>
+
 <div class="tours-view">
     <input type="hidden" id="number-tour" value="<?=$tour->id?>">
     <div class="card card-secondary">

@@ -107,4 +107,11 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         }
         return $this->count - $count;
     }
+
+    public function isBooking()
+    {
+        return count(BookingCar::find()->alias('b')
+                ->joinWith('calendars c')
+                ->andWhere(['c.id' => $this->id])->all()) > 0;
+    }
 }

@@ -6,72 +6,47 @@ use booking\entities\booking\cars\CostCalendar;
 /* @var $D integer */
 /* @var $M integer */
 /* @var $Y integer */
+/* @var $clear bool */
 /* @var $errors array */
 ?>
 <div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
-<div class="row">
-    <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
+<div class="card card-info">
+    <div class="card-header">
+        <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
+    </div>
+    <div class="card-body m-0 p-1">
+
+        <?php if (isset($errors) && isset($errors['del-day'])): ?>
+            <div class="row">
+                <span style="font-size: larger; font-weight: bold; color: #c12e2a"><?= $errors['del-day'] ?></span>
+            </div>
+        <?php endif; ?>
+
+        <div class="col-5">
+            <div class="form-group">
+                <label>Кол-во авто</label>
+                <input class="form-control" id="_count" type="number" min="1"
+                       max="<?= $car->quantity?>" value="<?= $costCalendar ? $costCalendar->count : $car->quantity?>" width="100px" required>
+            </div>
+        </div>
+
+        <div class="col-7">
+            <div class="form-group">
+                <label>Прокат в руб/сут</label>
+                <input class="form-control" id="_cost" type="number" value="<?= $costCalendar ? $costCalendar->cost : $car->cost ?>" min="0"
+                       step="50" width="100px" required>
+            </div>
+        </div>
+
+
+        <div class="row pt-3">
+            <div class="col">
+                <a href="#" class="btn btn-success" id="send-new-car">Сохранить</a>
+                <?php if ($clear): ?>
+                    <a href="#" class="btn btn-warning" id="car-del-day"  data-id="<?= $costCalendar->id ?>">Очистить день</a>
+                <?php endif; ?>
+            </div>
+        </div>
+
+    </div>
 </div>
-
-<?php if (isset($errors) && isset($errors['del-day'])): ?>
-    <div class="row">
-        <span style="font-size: larger; font-weight: bold; color: #c12e2a"><?= $errors['del-day'] ?></span>
-    </div>
-<?php endif; ?>
-<?php if($costCalendar): ?>
-    <div class="row">
-
-    </div>
-    <div class="row">
-        &nbsp;&nbsp;<?= $costCalendar->count ?> авто. Цена: <?= $costCalendar->cost ?>
-        &nbsp;&nbsp;<a href="#" class="car-del-day" data-id="<?= $costCalendar->id ?>"><i class="far fa-trash-alt"></i></a>
-    </div>
-<?php endif; ?>
-<?php if ($costCalendar != null): ?>
-    <div class="row pt-3">
-        <label class="container">Скопировать по дням недели</label>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            С выбранной даты по:&nbsp;&nbsp;
-        </div>
-        <div class="col-sm-3">
-            <input type="date" id="end-day" value="" class="form-control">
-        </div>
-    </div>
-    <div class="row pt-3">
-        <div class="col">
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-1"><span>&nbsp;Пн</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-2"><span>&nbsp;Вт</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-3"><span>&nbsp;Ср</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-4"><span>&nbsp;Чт</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-5"><span>&nbsp;Пт</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-6"><span>&nbsp;Сб</span>
-            </label>
-            <label class="container pl-1" style="display: contents;">
-                <input type="checkbox" id="data-week-7"><span>&nbsp;Вс</span>
-            </label>
-        </div>
-    </div>
-    <div class="row pt-3">
-        <input type="button" id="car-data-week-copy" value="Заполнить" class="form-control">
-    </div>
-<?php else: ?>
-    <div class="row">
-        <span style="font-size: larger; font-weight: bold"> календарь не установлен</span>
-        <div class="new-cars pt-2">
-        </div>
-    </div>
-<?php endif; ?>
-
