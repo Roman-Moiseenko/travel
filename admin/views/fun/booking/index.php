@@ -39,14 +39,13 @@ use booking\helpers\SysHelper;
                 <div class="col-md-9">
                     <?php if (SysHelper::isMobile()):?>
                         <div id="datepicker-booking-fun"  class="input-group date">
-                            <input type="text" class="form-control" id="datepicker_value" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            <input type="text" class="form-control" id="datepicker_value" readonly>
+                            <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
-
                     <?php else: ?>
-
-                    <div id="datepicker-booking-fun">
-                        <input type="hidden" id="datepicker_value" value="">
-                    </div>
+                        <div id="datepicker-booking-fun">
+                            <input type="hidden" id="datepicker_value" value="">
+                        </div>
                     <?php endif; ?>
 
                     <span class="badge" style="background-color: #dddda1">нет бронирований</span>

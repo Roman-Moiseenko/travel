@@ -28,22 +28,19 @@ use booking\entities\booking\cars\CostCalendar;
     </div>
 <?php endif; ?>
 <?php if ($costCalendar != null): ?>
-    <!--div class="row">
-        <label class="container">
-            <input type="checkbox" id="car-data-day-copy"><span>&nbsp;Копировать на другие дни</span>
-        </label>
-        <i>Поставьте флажок, и выбирайте дни. После снимите флажок и выберите любой день</i>
-    </div-->
     <div class="row pt-3">
-
-            <label class="container">
-                Скопировать по дням недели
-            </label>
-            С выбранной даты по:&nbsp;&nbsp; <input type="date" id="end-day" value="">
-        <?= ''//date('Y-m-d', time()) ?>
+        <label class="container">Скопировать по дням недели</label>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            С выбранной даты по:&nbsp;&nbsp;
+        </div>
+        <div class="col-sm-3">
+            <input type="date" id="end-day" value="" class="form-control">
+        </div>
     </div>
     <div class="row pt-3">
-<div class="col">
+        <div class="col">
             <label class="container pl-1" style="display: contents;">
                 <input type="checkbox" id="data-week-1"><span>&nbsp;Пн</span>
             </label>
@@ -65,10 +62,10 @@ use booking\entities\booking\cars\CostCalendar;
             <label class="container pl-1" style="display: contents;">
                 <input type="checkbox" id="data-week-7"><span>&nbsp;Вс</span>
             </label>
-</div>
+        </div>
     </div>
     <div class="row pt-3">
-        <input type="button" id="car-data-week-copy" value="Заполнить">
+        <input type="button" id="car-data-week-copy" value="Заполнить" class="form-control">
     </div>
 <?php else: ?>
     <div class="row">
@@ -76,6 +73,5 @@ use booking\entities\booking\cars\CostCalendar;
         <div class="new-cars pt-2">
         </div>
     </div>
-
 <?php endif; ?>
 

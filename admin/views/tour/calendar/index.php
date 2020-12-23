@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\booking\tours\Tour;
+use booking\helpers\SysHelper;
 use Codeception\PHPUnit\ResultPrinter\HTML;
 use yii\helpers\Url;
 
@@ -22,9 +23,16 @@ $this->params['breadcrumbs'][] = 'Календарь';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
-                    <div id="datepicker-tour">
-                        <input type="hidden" id="datepicker_value" value="">
-                    </div>
+                    <?php if (SysHelper::isMobile()):?>
+                        <div id="datepicker-tour"  class="input-group date">
+                            <input type="text" class="form-control" id="datepicker_value" readonly>
+                            <span class="input-group-addon form-control-sm"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    <?php else: ?>
+                        <div id="datepicker-tour">
+                            <input type="hidden" id="datepicker_value" value="">
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="col-md-3">
                     <div class="list-tours"></div>

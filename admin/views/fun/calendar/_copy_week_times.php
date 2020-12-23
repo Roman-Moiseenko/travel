@@ -2,7 +2,7 @@
 
 ?>
 <div class="row pt-3">
-<label class="container">Скопировать по дням недели</label>
+    <label class="container">Скопировать по дням недели</label>
 </div>
 <div class="row">
     <div class="col-sm-3">
@@ -11,7 +11,6 @@
     <div class="col-sm-3">
         <input type="date" id="end-day" value="" class="form-control">
     </div>
-    <?= ''//date('Y-m-d', time())   ?>
 </div>
 <div class="row pt-3">
     <div class="col">
