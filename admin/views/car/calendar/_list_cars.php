@@ -9,8 +9,9 @@ use booking\entities\booking\cars\CostCalendar;
 /* @var $clear bool */
 /* @var $errors array */
 ?>
-<div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
+
 <div class="card card-info">
+    <div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
     <div class="card-header">
         <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
     </div>
@@ -21,29 +22,32 @@ use booking\entities\booking\cars\CostCalendar;
                 <span style="font-size: larger; font-weight: bold; color: #c12e2a"><?= $errors['del-day'] ?></span>
             </div>
         <?php endif; ?>
+        <div class="row">
+            <div class="col-5">
+                <div class="form-group">
+                    <label>Кол-во авто</label>
+                    <input class="form-control" id="_count" type="number" min="1"
+                           max="<?= $car->quantity ?>"
+                           value="<?= $costCalendar ? $costCalendar->count : $car->quantity ?>" width="100px" required>
+                </div>
+            </div>
 
-        <div class="col-5">
-            <div class="form-group">
-                <label>Кол-во авто</label>
-                <input class="form-control" id="_count" type="number" min="1"
-                       max="<?= $car->quantity?>" value="<?= $costCalendar ? $costCalendar->count : $car->quantity?>" width="100px" required>
+            <div class="col-7">
+                <div class="form-group">
+                    <label>Прокат в руб/сут</label>
+                    <input class="form-control" id="_cost" type="number"
+                           value="<?= $costCalendar ? $costCalendar->cost : $car->cost ?>" min="0"
+                           step="50" width="100px" required>
+                </div>
             </div>
         </div>
-
-        <div class="col-7">
-            <div class="form-group">
-                <label>Прокат в руб/сут</label>
-                <input class="form-control" id="_cost" type="number" value="<?= $costCalendar ? $costCalendar->cost : $car->cost ?>" min="0"
-                       step="50" width="100px" required>
-            </div>
-        </div>
-
 
         <div class="row pt-3">
             <div class="col">
                 <a href="#" class="btn btn-success" id="send-new-car">Сохранить</a>
                 <?php if ($clear): ?>
-                    <a href="#" class="btn btn-warning" id="car-del-day"  data-id="<?= $costCalendar->id ?>">Очистить день</a>
+                    <a href="#" class="btn btn-warning" id="car-del-day" data-id="<?= $costCalendar->id ?>">Очистить
+                        день</a>
                 <?php endif; ?>
             </div>
         </div>
