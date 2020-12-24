@@ -43,17 +43,26 @@ $countReveiws = $tour->countReviews();
         <ul class="thumbnails">
             <?php foreach ($tour->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
-                    <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+                    <li>
+                        <div itemscope itemtype="http://schema.org/ImageObject">
+                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
-                                 alt="<?= Html::encode($tour->getName()); ?>" class="card-img-top"/>
+                                 alt="<?= Html::encode($tour->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
                         </a>
+                            <meta itemprop="name" content="Экскурсии в Калининграде">
+                            <meta itemprop="description" content="<?= $tour->getName() ?>">
+                        </div>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
-                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
-                                 alt="<?= $tour->getName(); ?>"/>
-                        </a>
+                        <div itemscope itemtype="http://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
+                                     alt="<?= $tour->getName(); ?>" itemprop="contentUrl"/>
+                            </a>
+                            <meta itemprop="name" content="Экскурсии в Калининграде">
+                            <meta itemprop="description" content="<?= $tour->getName() ?>">
+                        </div>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>

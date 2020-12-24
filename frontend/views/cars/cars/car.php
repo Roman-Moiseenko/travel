@@ -41,17 +41,26 @@ $countReveiws = $car->countReviews();
         <ul class="thumbnails">
             <?php foreach ($car->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
-                    <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+                    <li>
+                        <div itemscope itemtype="http://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_main'); ?>"
                                  alt="<?= Html::encode($car->getName()); ?>" class="card-img-top"/>
-                        </a>
+                            </a>
+                        <meta itemprop="name" content="Прокат транспорта в Калининграде">
+                        <meta itemprop="description" content="<?= $car->getName() ?>">
+                        </div>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
+                        <div itemscope itemtype="http://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_additional'); ?>"
                                  alt="<?= $car->getName(); ?>"/>
                         </a>
+                            <meta itemprop="name" content="Прокат транспорта в Калининграде">
+                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                        </div>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>

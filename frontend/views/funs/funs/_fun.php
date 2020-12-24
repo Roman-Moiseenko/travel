@@ -17,10 +17,14 @@ use yii\helpers\Url;
         <div class="image-fun-list"> <!-- style="position: relative" -->
             <div class="holder">
             <?php if ($fun->mainPhoto): ?>
-                <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
-                         class="img-responsive"/>
-                </a>
+                <div itemscope itemtype="http://schema.org/ImageObject">
+                    <a href="<?= Html::encode($url) ?>">
+                        <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
+                             class="img-responsive"/>
+                    </a>
+                    <meta itemprop="name" content="Развлечения и отдых в Калининграде">
+                    <meta itemprop="description" content="<?= $car->getName() ?>">
+                </div>
             <?php endif; ?>
             <div class="block-wishlist">
                 <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish"

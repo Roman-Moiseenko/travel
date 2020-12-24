@@ -16,10 +16,14 @@ use yii\helpers\Url;
 <div class="card mb-3 p-2" style="border: 0 !important; ">
     <div class="holder"> <!-- style="position: relative" -->
         <?php if ($tour->mainPhoto): ?>
+        <div itemscope itemtype="http://schema.org/ImageObject">
             <a href="<?= Html::encode($url) ?>">
                 <img src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
                      class="card-img-top"/>
             </a>
+            <meta itemprop="name" content="Туры и экскурсии в Калининграде">
+            <meta itemprop="description" content="<?= $tour->getName() ?>">
+        </div>
         <?php endif; ?>
         <div class="block-wishlist">
             <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish"

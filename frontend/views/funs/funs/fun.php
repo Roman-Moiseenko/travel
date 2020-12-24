@@ -41,17 +41,26 @@ $countReveiws = $fun->countReviews();
         <ul class="thumbnails">
             <?php foreach ($fun->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
-                    <li><a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+                    <li>
+                        <div itemscope itemtype="http://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_main'); ?>"
                                  alt="<?= Html::encode($fun->getName()); ?>" class="card-img-top"/>
-                        </a>
+                            </a>
+                            <meta itemprop="name" content="Развлечения и отдых в Калининграде">
+                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                        </div>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
-                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
+                        <div itemscope itemtype="http://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_additional'); ?>"
                                  alt="<?= $fun->getName(); ?>"/>
-                        </a>
+                            </a>
+                            <meta itemprop="name" content="Развлечения и отдых в Калининграде">
+                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                        </div>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>

@@ -19,10 +19,14 @@ use yii\helpers\Url;
         <div class="image-car-list" > <!-- style="position: relative" -->
             <div class="holder">
             <?php if ($car->mainPhoto): ?>
-                <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
-                         class="img-responsive"/>
-                </a>
+                <div itemscope itemtype="http://schema.org/ImageObject">
+                    <a href="<?= Html::encode($url) ?>">
+                        <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
+                             class="img-responsive"/>
+                    </a>
+                    <meta itemprop="name" content="Прокат авто в Калининграде">
+                    <meta itemprop="description" content="<?= $car->getName() ?>">
+                </div>
             <?php endif; ?>
             <div class="block-wishlist">
                 <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish"
