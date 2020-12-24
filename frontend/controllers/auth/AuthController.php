@@ -3,11 +3,8 @@
 
 namespace frontend\controllers\auth;
 
-
 use booking\forms\auth\LoginForm;
-use booking\helpers\scr;
 use booking\services\user\AuthService;
-use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -63,18 +60,26 @@ class   AuthController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $form = new LoginForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $user = $this->authService->auth($form);
                 \Yii::$app->user->login($user, ($form->rememberMe == '1') ? 3600 * 24 * 30 : 0);
+
+                $session = \Yii::$app->session;
+                if ($session->isActive) {
+                    $link = $session->get('link');
+                    $session->remove('link');
+                    if ($link) return $this->redirect([$link]);
+                }
+
                 return $this->goBack();
             } catch (\DomainException $e) {
-                Yii::$app->session->setFlash('error', $e->getMessage());
+                \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         $form->password = '';
@@ -90,9 +95,7 @@ class   AuthController extends Controller
      */
     public function actionLogout()
     {
-
         \Yii::$app->user->logout();
-       // scr::p(\Yii::$app->user->id);
         return $this->goHome();
     }
 

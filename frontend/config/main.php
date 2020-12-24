@@ -107,13 +107,17 @@ return [
                 'reset/<_a:[\w-]+>' => 'auth/reset/<_a>',
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'auth/network/auth' => 'auth/network/auth',
+                'fast/sign-up' => 'auth/fast/sign-up',
                 'site/login' => 'auth/auth/login',
+
                 //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
                 'apple-touch-icon.png' => 'apple-touch-icon.png',
                 'humans.txt' => 'humans.txt',
+
+
 
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',

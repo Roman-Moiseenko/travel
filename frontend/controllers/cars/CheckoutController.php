@@ -22,13 +22,19 @@ class CheckoutController extends Controller
 
     public function actionBooking()
     {
+        $session = \Yii::$app->session;
+        if ($session->get('link')) $session->remove('params'); //Небыло возврата по link
+
         if (\Yii::$app->user->isGuest) {
-            \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для бронирования'));
-            return $this->redirect(['/login']);
+            //запоминаем ссесию
+            $session->set('params', \Yii::$app->request->bodyParams); //параметры брони
+            $session->set('link', '/cars/checkout/booking'); //куда вернуться после регистрации
+            return $this->redirect(['/fast/sign-up']);
         }
         try {
-            $params = \Yii::$app->request->bodyParams;
-            //scr::v($params);
+            $params = $session->get('params') ?? \Yii::$app->request->bodyParams; //параметры вернулись или напрямую с формы
+            $session->remove('params');
+
             $car_id = $params['car_id'];
             $date_from = strtotime($params['date_from']);
             $date_to = strtotime($params['date_to']);

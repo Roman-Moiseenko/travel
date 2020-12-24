@@ -35,6 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $legal,
                 'attributes' => [
                     [
+                        'label' => 'ID',
+                        'attribute' => 'id',
+                    ],
+                    [
                         'label' => 'Наименование',
                         'attribute' => 'name',
                     ],

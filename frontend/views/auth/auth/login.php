@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
 
-/* @var $model \shop\forms\auth\LoginForm */
+/* @var $model \booking\forms\auth\LoginForm */
 
 use booking\entities\Lang;
 use yii\helpers\Html;
@@ -19,19 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-sm-6">
-            <div class="well">
+            <div>
                 <h2><?= Lang::t('Новый пользователь') ?></h2>
                 <p><strong><?= Lang::t('Зарегистрировать аккаунт') ?></strong></p>
                 <p><?= Lang::t('Создав учетную запись, вы сможете бронировать, быть в курсе состояния брони и отслеживать ранее сделанные брони') ?>.</p>
-                <a href="/signup" class="btn btn-primary"><?= Lang::t('Продолжить') ?></a>
+                <a href="/signup" class="btn btn-primary"><?= Lang::t('Регистрация') ?></a>
             </div>
-            <div class="well">
+            <div class="pt-2">
                 <p><strong><?= Lang::t('Войти через социальные сети') ?></strong></p>
                 <p><?= Lang::t('Зарегистрировавшись через социальные сети, не забудьте добавить email и телефон для оповещения о статусе Ваших броней')?>.</p>
                 <?= yii\authclient\widgets\AuthChoice::widget(['baseAuthUrl' => ['auth/network/auth']]); ?></div>
         </div>
         <div class="col-sm-6">
-            <div class="well">
+            <div>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин или Email')) ?>
                 <?= $form->field($model, 'password')->passwordInput()->label(Lang::t('Пароль')) ?>

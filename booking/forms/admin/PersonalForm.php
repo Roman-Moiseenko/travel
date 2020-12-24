@@ -44,7 +44,7 @@ class PersonalForm extends CompositeForm
             [['position'], 'string'],
 
             ['datebornform', 'safe'],
-            ['datebornform', 'required', 'message' => Lang::t('Обязательное поле.')],
+            //['datebornform', 'required', 'message' => Lang::t('Обязательное поле.')],
             
             ['phone', 'string', 'min' => 10, 'max' => 13],
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
@@ -63,7 +63,11 @@ class PersonalForm extends CompositeForm
     public function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            $this->dateborn = strtotime($this->datebornform . '00:00:00');
+            if (empty($this->datebornform)) {
+                $this->dateborn = null;
+            } else {
+                $this->dateborn = strtotime($this->datebornform . '00:00:00');
+            }
             return true;
         }
         return false;

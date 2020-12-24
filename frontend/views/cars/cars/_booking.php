@@ -45,10 +45,5 @@ DatepickerAsset::register($this);
         <div class="form-group">
             <button class="btn btn-primary btn-lg btn-block" id="button-booking-car" disabled><?= $car->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести') ?></button>
         </div>
-        <?php if (\Yii::$app->user->isGuest): ?>
-            <div class="card-footer">
-                <?= Lang::t('Для бронирования зарегистрируйтесь на сайте') ?>.
-            </div>
-        <?php endif; ?>
     </div>
 </div>

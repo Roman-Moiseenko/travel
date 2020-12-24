@@ -54,6 +54,13 @@ class SignupController extends Controller
             $user = $this->signupService->signup($form);
             if (\Yii::$app->getUser()->login($user)) {
                 \Yii::$app->session->setFlash('success', Lang::t('Вы зарегистрировались. Для входа на сайт используйте логин или электронную почту'));
+
+                $session = \Yii::$app->session;
+                if ($session->isActive) {
+                    $link = $session->get('link');
+                    $session->remove('link');
+                    if ($link) return $this->redirect([$link]);
+                }
                 return $this->goHome();
             }
         }

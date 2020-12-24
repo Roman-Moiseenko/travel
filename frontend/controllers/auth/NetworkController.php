@@ -47,10 +47,11 @@ class NetworkController extends Controller
         try {
             //scr::v($email);
             $user = $this->networkService->auth($network, $identity, $email);
-            Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+            \Yii::$app->user->login($user, \Yii::$app->params['user.rememberMeDuration']);
+
         } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
     }
 
