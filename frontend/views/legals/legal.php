@@ -14,6 +14,7 @@ use yii\helpers\Url;
 
 /* @var $legal Legal */
 
+$this->registerMetaTag(['name' =>'description', 'content' => $legal->description]);
 MapAsset::register($this);
 $this->title = $legal->getName();
 $this->params['breadcrumbs'][] = $this->title;

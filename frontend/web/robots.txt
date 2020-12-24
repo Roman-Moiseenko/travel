@@ -1,0 +1,22 @@
+User-agent: *
+
+Disallow: /ru/cabinet
+Disallow: /en/cabinet
+Disallow: /ru/login
+Disallow: /en/login
+
+Disallow: /admin
+Disallow: /office
+Disallow: /static
+Disallow: /check
+Disallow: /auth
+Disallow: /login
+Disallow: /signup
+Disallow: /reset
+Disallow: /site/error
+Disallow: /site/update
+Disallow: /conversation
+Disallow: /support
+
+Crawl-delay: 0.5
+Sitemap: https://koenigs.ru/sitemap.xml
