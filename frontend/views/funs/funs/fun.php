@@ -48,7 +48,7 @@ $countReveiws = $fun->countReviews();
                                  alt="<?= Html::encode($fun->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="Развлечения и отдых в Калининграде">
-                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                            <meta itemprop="description" content="<?= $fun->getName() ?>">
                         </div>
                     </li>
                 <?php else: ?>
@@ -59,7 +59,7 @@ $countReveiws = $fun->countReviews();
                                  alt="<?= $fun->getName(); ?>" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="Развлечения и отдых в Калининграде">
-                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                            <meta itemprop="description" content="<?= $fun->getName() ?>">
                         </div>
                     </li>
                 <?php endif; ?>

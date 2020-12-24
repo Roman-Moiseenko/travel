@@ -23,7 +23,7 @@ use yii\helpers\Url;
                              class="img-responsive" itemprop="contentUrl"/>
                     </a>
                     <meta itemprop="name" content="Развлечения и отдых в Калининграде">
-                    <meta itemprop="description" content="<?= $car->getName() ?>">
+                    <meta itemprop="description" content="<?= $fun->getName() ?>">
                 </div>
             <?php endif; ?>
             <div class="block-wishlist">
