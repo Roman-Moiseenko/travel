@@ -19,7 +19,7 @@ use yii\helpers\Url;
         <div itemscope itemtype="http://schema.org/ImageObject">
             <a href="<?= Html::encode($url) ?>">
                 <img src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
-                     class="card-img-top"/>
+                     class="card-img-top" itemprop="contentUrl"/>
             </a>
             <meta itemprop="name" content="Туры и экскурсии в Калининграде">
             <meta itemprop="description" content="<?= $tour->getName() ?>">

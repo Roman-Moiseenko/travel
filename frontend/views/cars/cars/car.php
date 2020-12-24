@@ -45,7 +45,7 @@ $countReveiws = $car->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_main'); ?>"
-                                 alt="<?= Html::encode($car->getName()); ?>" class="card-img-top"/>
+                                 alt="<?= Html::encode($car->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
                         <meta itemprop="name" content="Прокат транспорта в Калининграде">
                         <meta itemprop="description" content="<?= $car->getName() ?>">
@@ -56,7 +56,7 @@ $countReveiws = $car->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_additional'); ?>"
-                                 alt="<?= $car->getName(); ?>"/>
+                                 alt="<?= $car->getName(); ?>" itemprop="contentUrl"/>
                         </a>
                             <meta itemprop="name" content="Прокат транспорта в Калининграде">
                             <meta itemprop="description" content="<?= $car->getName() ?>">

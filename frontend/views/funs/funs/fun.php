@@ -45,7 +45,7 @@ $countReveiws = $fun->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_main'); ?>"
-                                 alt="<?= Html::encode($fun->getName()); ?>" class="card-img-top"/>
+                                 alt="<?= Html::encode($fun->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="Развлечения и отдых в Калининграде">
                             <meta itemprop="description" content="<?= $car->getName() ?>">
@@ -56,7 +56,7 @@ $countReveiws = $fun->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_additional'); ?>"
-                                 alt="<?= $fun->getName(); ?>"/>
+                                 alt="<?= $fun->getName(); ?>" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="Развлечения и отдых в Калининграде">
                             <meta itemprop="description" content="<?= $car->getName() ?>">
