@@ -56,6 +56,10 @@ class ToursController extends Controller
         $this->layout = 'tours_blank';
 
         $tour = $this->tours->findBySlug($slug);
+        if (!$tour->isActive()) {
+            \Yii::$app->session->setFlash('warning', Lang::t('Данная экскурсия заблокирована! Доступ к ней ограничен.'));
+            return $this->goHome();
+        }
         $reviewForm = new ReviewForm();
         //scr::p($reviewForm);
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {

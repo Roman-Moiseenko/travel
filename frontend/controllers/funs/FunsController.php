@@ -62,6 +62,10 @@ class FunsController extends Controller
         $this->layout = 'funs_blank';
 
         $fun = $this->findModel($id);
+        if (!$fun->isActive()) {
+            \Yii::$app->session->setFlash('warning', Lang::t('Данное развлечение заблокировано! Доступ к нему ограничен.'));
+            return $this->goHome();
+        }
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {

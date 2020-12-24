@@ -64,6 +64,10 @@ class CarsController extends Controller
         $this->layout = 'cars_blank';
 
         $car = $this->findModel($id);
+        if (!$car->isActive()) {
+            \Yii::$app->session->setFlash('warning', Lang::t('Данное транспортное средство заблокировано! Доступ к нему ограничен.'));
+            return $this->goHome();
+        }
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
