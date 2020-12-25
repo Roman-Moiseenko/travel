@@ -9,8 +9,8 @@ return [
     'paginationCar' => 16,
     'paginationFun' => 24,
     'paginationPost' => 10,
-    'mode_confirmation'=> true, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
-    'notSMS' => true,
+    'mode_confirmation'=> false, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
+    'notSMS' => false,
     'errors' => [
         '403' => 'У Вас закрыт доступ к данному разделу',
         '404' => 'Страница не найдена',
