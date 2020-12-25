@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\country\CountryHelper;
+use booking\sms\sms;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -76,5 +77,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/profile/update', 'id' => $user->id]), ['class' => 'btn btn-success']) ?>
     </div>
-
 </div>

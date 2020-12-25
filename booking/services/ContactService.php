@@ -106,6 +106,7 @@ class ContactService
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingNewAdmin');
 
         }
+
         if ($booking->isCheckBooking() && $booking->isPay()) {
             //Бронирование оплачено  => Рассылка
             if ($noticeAdmin->bookingPayClient->phone)
@@ -115,7 +116,8 @@ class ContactService
                     Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
                     Lang::t('Спасибо, что Вы с нами'), $user_admin);
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
-
+            \Yii::error('1'.$noticeAdmin->bookingPay->phone );
+            \Yii::error('2'.print_r($booking->isCheckBooking()) );
             if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone)
                 $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingPay->email)
@@ -158,8 +160,12 @@ class ContactService
 
     private function sendSMS($phone, $message, User $admin_user)
     {
-        if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS']) return;
-        if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
+        \Yii::error('SMS ' . \Yii::$app->params['notSMS']);
+        if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS'] == true) return;
+        \Yii::error('SMS send' );
+        //if (
+            sms::send($phone, $message);
+        //) $admin_user->sendSMS($phone, $message);
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)
