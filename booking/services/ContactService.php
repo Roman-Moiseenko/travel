@@ -104,25 +104,21 @@ class ContactService
             $this->mailerBooking($emailUser, $booking, 'noticeBookingNewUser');
             if ($noticeAdmin->bookingNew->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingNewAdmin');
-
         }
 
-        if ($booking->isCheckBooking() && $booking->isPay()) {
-            //Бронирование оплачено  => Рассылка
-            if ($noticeAdmin->bookingPayClient->phone)
-                $this->sendSMS($phoneUser,
-                    Lang::t('Оплачено') . '.' .
-                    Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
-                    Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
-                    Lang::t('Спасибо, что Вы с нами'), $user_admin);
+        if ($booking->isCheckBooking() && $booking->isPay()) {//Бронирование оплачено  => Рассылка
+            //При оплате через сайт всегда клиенту отправлять СМС
+            $this->sendSMS($phoneUser,
+                Lang::t('Оплачено') . '.' .
+                Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
+                Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
+                Lang::t('Спасибо, что Вы с нами'), $user_admin);
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
-            \Yii::error('1'.$noticeAdmin->bookingPay->phone );
-            \Yii::error('2'.print_r($booking->isCheckBooking()) );
-            if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone)
+            if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone) {
                 $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
+            }
             if ($noticeAdmin->bookingPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
-
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
             //Бронирование отменено  => Рассылка
@@ -160,12 +156,9 @@ class ContactService
 
     private function sendSMS($phone, $message, User $admin_user)
     {
-        \Yii::error('SMS ' . \Yii::$app->params['notSMS']);
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS'] == true) return;
-        \Yii::error('SMS send' );
-        //if (
-            sms::send($phone, $message);
-        //) $admin_user->sendSMS($phone, $message);
+        \Yii::error('SMS 5 send');
+        if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)

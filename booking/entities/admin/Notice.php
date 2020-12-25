@@ -35,14 +35,14 @@ class Notice extends ActiveRecord
         $notice = new static();
         $notice->review = new NoticeItem();
         $notice->bookingNew = new NoticeItem();
-        $notice->bookingPay = new NoticeItem();
+        $notice->bookingPay = new NoticeItem(true, true);
         $notice->bookingCancel = new NoticeItem();
         $notice->bookingCancelPay = new NoticeItem();
         $notice->bookingConfirmation = new NoticeItem();
         $notice->messageNew = new NoticeItem();
 
-        $notice->bookingPayClient = new NoticeItem();
-        $notice->bookingConfirmationClient = new NoticeItem();
+        //$notice->bookingPayClient = new NoticeItem(true, true);
+        //$notice->bookingConfirmationClient = new NoticeItem();
 
         return $notice;
     }
@@ -83,7 +83,7 @@ class Notice extends ActiveRecord
             $this->bookingConfirmation = new NoticeItem();
         }
 
-        if (isset($notice['bookingPayClient'])) {
+        /*if (isset($notice['bookingPayClient'])) {
             $this->bookingPayClient = new NoticeItem($notice['bookingPayClient']['email'], $notice['bookingPayClient']['phone']);
         } else {
             $this->bookingPayClient = new NoticeItem();
@@ -92,7 +92,7 @@ class Notice extends ActiveRecord
             $this->bookingConfirmationClient = new NoticeItem($notice['bookingConfirmationClient']['email'], $notice['bookingConfirmationClient']['phone']);
         } else {
             $this->bookingConfirmationClient = new NoticeItem();
-        }
+        }*/
 
         if (isset($notice['messageNew'])) {
             $this->messageNew = new NoticeItem($notice['messageNew']['email'], $notice['messageNew']['phone']);
@@ -112,8 +112,8 @@ class Notice extends ActiveRecord
             'bookingCancel' => $this->bookingCancel,
             'bookingCancelPay' => $this->bookingCancelPay,
             'bookingConfirmation' => $this->bookingConfirmation,
-            'bookingPayClient' => $this->bookingPayClient,
-            'bookingConfirmationClient' => $this->bookingConfirmationClient,
+//            'bookingPayClient' => $this->bookingPayClient,
+//            'bookingConfirmationClient' => $this->bookingConfirmationClient,
             'messageNew' => $this->messageNew
         ]));
 
