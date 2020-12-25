@@ -1,7 +1,7 @@
 <?php
 return [
     'deduction' => 5.0, //% удержания с провайдеров
-    'merchant' => 3.7, //экваринг Яндекс.Кассы
+    'merchant' => 3.5, //экваринг Яндекс.Кассы
     'merchant_payment' => true, //Комиссия включена в платеж Агрегатора
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
