@@ -10,7 +10,7 @@ use booking\entities\booking\cars\CostCalendar;
 /* @var $errors array */
 ?>
 <div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"></div>
-<div class="card card-info">
+<div class="card card-info" style="max-width: 400px">
     <div class="card-header">
         <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
     </div>

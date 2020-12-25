@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<div class="card card-gray">
+<div class="card card-gray" style="max-width: 400px">
     <div class="card-header">Дублирование текущего дня</div>
     <div class="card-body m-0 p-1">
         <div class="row">

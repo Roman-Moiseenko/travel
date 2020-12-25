@@ -12,7 +12,7 @@ use booking\entities\booking\funs\Fun;
 ?>
 <div id="data-day" data-d="<?= $D ?>" data-m="<?= $M ?>" data-y="<?= $Y ?>"
      data-count-times="<?= 0 ?>"></div>
-<div class="card card-info">
+<div class="card card-info" style="max-width: 400px">
     <div class="card-header">
         <span style="font-size: larger; font-weight: bold">На <?= $D ?> число</span>
     </div>
