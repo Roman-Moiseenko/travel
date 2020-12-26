@@ -20,7 +20,10 @@ class LegalsController extends Controller
     public function actionView($id)
     {
         $legal = $this->findModel($id);
-
+        if ($legal->user->isLock()) {
+            \Yii::$app->session->setFlash('error', 'Провайдер не активен, доступ к информации ограничен!');
+            return $this->goHome();
+        }
         return $this->render('legal', [
             'legal' => $legal,
         ]);

@@ -157,7 +157,6 @@ class ContactService
     private function sendSMS($phone, $message, User $admin_user)
     {
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS'] == true) return;
-        \Yii::error('SMS 5 send');
         if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
     }
 

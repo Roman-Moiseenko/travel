@@ -27,8 +27,8 @@ class Notice extends ActiveRecord
     public $messageNew;
     /** @var NoticeItem */
     public $bookingConfirmation;
-    public $bookingPayClient;
-    public $bookingConfirmationClient;
+//    public $bookingPayClient;
+//    public $bookingConfirmationClient;
 
     public static function create(): self
     {
