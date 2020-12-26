@@ -12,6 +12,7 @@ class LegalWidget extends Widget
 
     public function run()
     {
+        if ($this->legal)
         return $this->render('legal', [
             'legal' => $this->legal,
         ]);

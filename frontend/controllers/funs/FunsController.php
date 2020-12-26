@@ -62,7 +62,7 @@ class FunsController extends Controller
         $this->layout = 'funs_blank';
 
         $fun = $this->findModel($id);
-        if (!$fun->isActive()) {
+        if ($fun->isLock()) {
             \Yii::$app->session->setFlash('warning', Lang::t('Данное развлечение заблокировано! Доступ к нему ограничен.'));
             return $this->goHome();
         }

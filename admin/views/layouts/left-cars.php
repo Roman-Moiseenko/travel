@@ -4,6 +4,7 @@ use admin\widgest\ProfileLeftBarWidget;
 use booking\helpers\BookingHelper;
 use booking\helpers\cars\CarHelper;
 use booking\helpers\tours\TourHelper;
+use yii\helpers\Url;
 
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -36,6 +37,7 @@ use booking\helpers\tours\TourHelper;
                         'badge' => '<span class="right badge badge-warning">'. CarHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/car/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/report'],
                     ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/car/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/selling'],
+                    ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/car/' . $this->params['id'])],
                 ],
             ]);
             ?>

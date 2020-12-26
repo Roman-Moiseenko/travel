@@ -64,7 +64,7 @@ class CarsController extends Controller
         $this->layout = 'cars_blank';
 
         $car = $this->findModel($id);
-        if (!$car->isActive()) {
+        if ($car->isLock()) {
             \Yii::$app->session->setFlash('warning', Lang::t('Данное транспортное средство заблокировано! Доступ к нему ограничен.'));
             return $this->goHome();
         }

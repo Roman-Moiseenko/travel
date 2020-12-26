@@ -1,8 +1,11 @@
 <?php
 
 use admin\widgest\ProfileLeftBarWidget;
+use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
 use booking\helpers\tours\TourHelper;
+use yii\helpers\Url;
+
 
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -35,6 +38,9 @@ use booking\helpers\tours\TourHelper;
                         'badge' => '<span class="right badge badge-warning">'. TourHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/tour/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/report'],
                     ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/tour/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'tour/selling'],
+
+                    ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/tour/' . Tour::findOne($this->params['id'])->slug)],
+
                 ],
             ]);
             ?>
