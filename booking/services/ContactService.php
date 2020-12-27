@@ -260,14 +260,14 @@ class ContactService
         }
     }
 
-    public function sendActivate(BookingItemInterface $booking)
+    public function sendActivate($object, $username)
     {
         /** Уведомление Главного по Активации */
         //почта
-        $send = $this->mailer->compose('Activated', ['booking' => $booking])
+        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
             ->setTo(\Yii::$app->params['providerEmail'])
             ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
-            ->setSubject($booking->getName())
+            ->setSubject($object)
             ->send();
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));

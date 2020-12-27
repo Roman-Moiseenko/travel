@@ -269,7 +269,7 @@ class TourService
         );
         $dialog->addConversation(Tour::class . ' ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
-        $this->contactService->sendActivate($tour);
+        $this->contactService->sendActivate($tour->name, $tour->user->username);
         $this->tours->save($tour);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
-/* @var $booking BookingItemInterface */
+/* @var $object string */
+/* @var $username string */
 
 use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
@@ -19,14 +20,14 @@ $user = $booking->getAdmin();
         <tr>
             <td style="width: 25%">Username</td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= $user->username ?>
+                <?= $object ?>
 
             </td>
         </tr>
         <tr>
             <td style="width: 25%">Объект</td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= $booking->getName() ?>
+                <?= $username ?>
 
             </td>
         </tr>

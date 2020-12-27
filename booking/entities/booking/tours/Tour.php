@@ -5,6 +5,7 @@ namespace booking\entities\booking\tours;
 
 
 use booking\entities\admin\Legal;
+use booking\entities\admin\User;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\stays\Geo;
 use booking\entities\booking\AgeLimit;
@@ -57,6 +58,7 @@ use yii\web\UploadedFile;
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
+ * @property User $user
  */
 class Tour extends ActiveRecord
 {
@@ -618,6 +620,11 @@ class Tour extends ActiveRecord
     public function getType(): ActiveQuery
     {
         return $this->hasOne(Type::class, ['id' => 'type_id']);
+    }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getTypes(): ActiveQuery
