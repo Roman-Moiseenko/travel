@@ -29,7 +29,7 @@ use yii\helpers\Url;
                 </div>
             <?php endif; ?>
             <div class="block-wishlist">
-                <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish"
+                <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
                         title="<?= Lang::t('В избранное') ?>"
                         href="<?= Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ?>"
                         data-method="post">

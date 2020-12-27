@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
     </div>
     <div class="form-group">
-        <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/auth/update',]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/auth/update',]), ['class' => 'btn-lg btn-primary']) ?>
     </div>
     <?php if (count($user->networks) > 0): ?>
         <h3><?= Lang::t('Привязка к социальным сетям') ?></h3>

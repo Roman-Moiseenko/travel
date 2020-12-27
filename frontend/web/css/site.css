@@ -428,6 +428,7 @@ div.required label:after {
 
 .btn-wish {
     border-radius: 22px !important;
+    border-width: 0 !important;
 }
 
 .holder {

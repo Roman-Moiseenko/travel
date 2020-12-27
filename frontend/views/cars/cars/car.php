@@ -78,7 +78,7 @@ $countReveiws = $car->countReviews();
                         <h1><?= Html::encode($car->getName()) ?></h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" data-toggle="tooltip" class="btn btn-default"
+                        <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
                                 title="<?= Lang::t('В избранное') ?>"
                                 href="<?= Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ?>"
                                 data-method="post">

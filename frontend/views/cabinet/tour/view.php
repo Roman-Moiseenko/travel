@@ -127,11 +127,11 @@ $tour = $booking->calendar->tour;
                     <div class="d-flex pay-tour py-3">
                         <div>
                             <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
-                               class="btn btn-default"><?= Lang::t('Отменить') ?></a>
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
                         </div>
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/tour', 'id' => $booking->id]) ?>"
-                               class="btn btn-primary">
+                               class="btn-lg btn-primary">
                                 <?= Lang::t(($booking->calendar->tour->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
@@ -172,8 +172,10 @@ $tour = $booking->calendar->tour;
                             </li>
                     </ul>
                     <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
-                        <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?> *</a><br>
+                        <div class="py-3">
+                            <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
+                        </div>
                         <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
                     <?php endif; ?>
                 </div>
@@ -198,8 +200,10 @@ $tour = $booking->calendar->tour;
                         </li>
                     </ul>
                     <?php if ($booking->calendar->tour_at > time()): ?>
-                        <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                        <div class="pt-3">
+                            <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>

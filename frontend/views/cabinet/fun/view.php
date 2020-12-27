@@ -130,11 +130,11 @@ $cost_fun = $booking->getAmountCost();
                     <div class="d-flex pay-tour py-3">
                         <div>
                             <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
-                               class="btn btn-default"><?= Lang::t('Отменить') ?></a>
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
                         </div>
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/fun', 'id' => $booking->id]) ?>"
-                               class="btn btn-primary">
+                               class="btn-lg btn-primary">
                                 <?= Lang::t(($booking->fun->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
@@ -175,8 +175,10 @@ $cost_fun = $booking->getAmountCost();
                             </li>
                     </ul>
                     <?php if ($booking->fun->isCancellation($booking->getDate())): ?>
+                    <div class="py-3">
                         <a href="<?= Url::to(['/cabinet/fun/cancelpay', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?> *</a><br>
+                           class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
+                    </div>
                         <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
                     <?php endif; ?>
                 </div>
@@ -201,8 +203,10 @@ $cost_fun = $booking->getAmountCost();
                         </li>
                     </ul>
                     <?php if ($booking->getDate() > time()): ?>
+                    <div class="pt-3">
                         <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                           class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>

@@ -37,7 +37,7 @@ $booking = BookingHelper::getByNumber($optional);
     </div>
 
     <div class="input-group">
-        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>

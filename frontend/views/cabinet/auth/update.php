@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

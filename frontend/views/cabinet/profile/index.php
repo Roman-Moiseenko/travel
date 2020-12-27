@@ -75,6 +75,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="form-group">
-        <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/profile/update', 'id' => $user->id]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/profile/update', 'id' => $user->id]), ['class' => 'btn-lg btn-primary']) ?>
     </div>
 </div>

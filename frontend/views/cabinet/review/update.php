@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'vote')->dropDownList($model->voteList(), ['prompt' => '--- ' . Lang::t('Выберите') .' ---'])->label( Lang::t('Рейтинг')); ?>
     <?= $form->field($model, 'text')->textarea(['rows' => 7])->label( Lang::t('Отзыв')); ?>
     <div class="form-group">
-        <?= Html::submitButton( Lang::t('Сохранить'), ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+        <?= Html::submitButton( Lang::t('Сохранить'), ['class' => 'btn-primary btn-lg btn-block']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>

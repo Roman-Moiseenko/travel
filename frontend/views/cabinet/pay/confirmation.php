@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-4">
         <?= $form->field($model, 'confirmation')->textInput()->label(Lang::t('Код подтверждения брони')); ?>
         <div class="form-group">
-            <?= Html::submitButton(Lang::t('Подтвердить'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Lang::t('Подтвердить'), ['class' => 'btn-lg btn-primary']) ?>
         </div>
     </div>
 </div>

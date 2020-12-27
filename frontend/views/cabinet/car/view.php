@@ -111,11 +111,11 @@ $car = $booking->car;
                     <div class="d-flex pay-tour py-3">
                         <div>
                             <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
-                               class="btn btn-default"><?= Lang::t('Отменить') ?></a>
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
                         </div>
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/car', 'id' => $booking->id]) ?>"
-                               class="btn btn-primary">
+                               class="btn-lg btn-primary">
                                 <?= Lang::t(($booking->car->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
@@ -156,8 +156,10 @@ $car = $booking->car;
                             </li>
                     </ul>
                     <?php if ($booking->car->isCancellation($booking->begin_at)): ?>
-                        <a href="<?= Url::to(['/cabinet/car/cancelpay', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?> *</a><br>
+                        <div class="py-3">
+                            <a href="<?= Url::to(['/cabinet/car/cancelpay', 'id' => $booking->id]) ?>"
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
+                        </div>
                         <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
                     <?php endif; ?>
                 </div>
@@ -182,8 +184,10 @@ $car = $booking->car;
                         </li>
                     </ul>
                     <?php if ($booking->begin_at > time()): ?>
-                        <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
-                           class="btn btn-default"><?= Lang::t('Отменить') ?></a><br>
+                        <div class="pt-3">
+                            <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
+                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
