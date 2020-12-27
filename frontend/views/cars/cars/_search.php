@@ -79,7 +79,7 @@ use yii\helpers\Html;
 <?php endforeach; ?>
 <div class="row">
     <div class="col text-center">
-        <button class="btn btn-light" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button>
+        <button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button>
     </div>
 </div>
 
