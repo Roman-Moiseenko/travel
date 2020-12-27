@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td data-label="CLASS"> <?= $payment->class_booking ?> </td>
                         <td data-label="Дата бронирования"> <?= date('d-m-Y', $payment->booking->getCreated()) ?> </td>
                         <td data-label="Дата исполнения"> <?= date('d-m-Y', $payment->booking->getDate()) ?> </td>
-                        <td data-label="Наименование объекта бронирования"> <?= Html::a($payment->booking->getName(), $payment->booking->getLinks()['entities']) ?> </td>
+                        <td data-label="Наименование объекта бронирования"> <?= Html::a($payment->booking->getName(), $payment->booking->getLinks()['office']) ?> </td>
                         <td data-label="Сумма брони"> <?= CurrencyHelper::cost($payment->booking->getAmountDiscount()) ?> </td>
                         <td data-label="Сумма платежа"> <?= CurrencyHelper::cost($payment->amount) ?> </td>
                     </tr>

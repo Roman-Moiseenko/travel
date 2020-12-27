@@ -6,6 +6,14 @@ Disallow: /ru/login
 Disallow: /en/login
 Disallow: /ru/reset
 Disallow: /en/reset
+Disallow: /ru/auth
+Disallow: /en/auth
+Disallow: /ru/signup
+Disallow: /en/signup
+Disallow: /ru/conversation
+Disallow: /en/conversation
+Disallow: /ru/support
+Disallow: /en/support
 
 Disallow: /admin
 Disallow: /office

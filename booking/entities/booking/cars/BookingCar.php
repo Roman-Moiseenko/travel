@@ -203,6 +203,7 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
             'pay' => Url::to(['cabinet/pay/car', 'id' => $this->id]),
             'cancelpay' => Url::to(['cabinet/car/cancelpay', 'id' => $this->id]),
             'entities' => Url::to(['car/view', 'id' => $this->car_id]),
+            'office' => Url::to(['cars/view', 'id' => $this->car_id]),
         ];
     }
 

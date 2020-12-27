@@ -26,8 +26,6 @@ use yii\helpers\Url;
  * @property string $comment - комментарий к заказу
  * @property Cost $count
  * @property integer $created_at
- * @property integer $begin_at
- * @property integer $end_at
 
  * @property float $payment_provider
  * @property float $pay_merchant
@@ -254,6 +252,7 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
             'pay' => Url::to(['cabinet/pay/fun', 'id' => $this->id]),
             'cancelpay' => Url::to(['cabinet/fun/cancelpay', 'id' => $this->id]),
             'entities' => Url::to(['fun/view', 'id' => $this->fun_id]),
+            'office' => Url::to(['funs/view', 'id' => $this->fun_id]),
         ];
     }
 
