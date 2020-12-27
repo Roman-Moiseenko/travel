@@ -267,9 +267,9 @@ class TourService
             ThemeDialog::ACTIVATED,
             ''
         );
-        $dialog->addConversation('ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
+        $dialog->addConversation(Tour::class . ' ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
-        $this->contactService->sendNoticeMessage($dialog);
+        $this->contactService->sendActivate($tour);
         $this->tours->save($tour);
     }
 

@@ -154,10 +154,11 @@ class ContactService
         }
     }
 
-    private function sendSMS($phone, $message, User $admin_user)
+    private function sendSMS($phone, $message, User $admin_user = null)
     {
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS'] == true) return;
-        if (sms::send($phone, $message)) $admin_user->sendSMS($phone, $message);
+        if (sms::send($phone, $message))
+            if ($admin_user) $admin_user->sendSMS($phone, $message);
     }
 
     private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)
@@ -257,5 +258,22 @@ class ContactService
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
+    }
+
+    public function sendActivate(BookingItemInterface $booking)
+    {
+        /** Уведомление Главного по Активации */
+        //почта
+        $send = $this->mailer->compose('Activated', ['booking' => $booking])
+            ->setTo(\Yii::$app->params['providerEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
+            ->setSubject($booking->getName())
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+        //СМС
+        $this->sendSMS('+79114710701', 'Activated', User::findOne(\Yii::$app->user->id));
+
     }
 }
