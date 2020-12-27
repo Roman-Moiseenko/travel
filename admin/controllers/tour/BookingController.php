@@ -127,7 +127,6 @@ class BookingController extends Controller
         }
     }
 
-
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {

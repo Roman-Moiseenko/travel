@@ -68,7 +68,6 @@ $(document).ready(function () {
     //Загружаем Массив туров по дням за текущий день
     if (document.getElementById("datepicker-booking-tour")) {
         $.post("/tour/booking/get-calendar", {tour_id: tour_id}, function (data) {
-            console.log(data);
             booking_tours = JSON.parse(data);
             $("#datepicker-booking-tour").datepicker("update");
         });
@@ -88,9 +87,11 @@ $(document).ready(function () {
         let check = $(this).is(":checked");
         let _i = $(this).data("i");
         $(this).prop("disabled", true);
+        console.log('tttttt');
         let booking_number = $(this).data("number");
-        //console.log(booking_number);
+        console.log(booking_number);
         $.post("/tour/booking/set-give-tour", {booking_number: booking_number}, function (data) {
+            console.log(data);
             $("#error-set-give-" + _i).html(data);
         });
     });

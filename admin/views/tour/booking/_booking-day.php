@@ -86,7 +86,7 @@ $i = 0;
                             } ?>
                         <?php else: ?>
                             <span class="custom-control custom-checkbox">
-                                <input id="giv-out-<?= $i ?>" class="custom-control-input give-out-car" type="checkbox" value="1" data-i="<?= $i ?>"
+                                <input id="giv-out-<?= $i ?>" class="custom-control-input give-out-tour" type="checkbox" value="1" data-i="<?= $i ?>"
                                        data-number="<?= BookingHelper::number($booking); ?>" <?= $booking->give_out ? 'disabled checked' : '' ?>>
                                 <label class="custom-control-label" for="giv-out-<?= $i ?>">выдать</label>
                             </span>
