@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     Lang::t('Настоящим я принимаю') . ' ' . Html::a(Lang::t('Пользовательское соглашение'), Url::to(['/agreement']), ['target' => '_blank'])
                 ) ?>
             <div class="form-group">
-                <?= Html::submitButton(Lang::t('Зарегистрироваться'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton(Lang::t('Зарегистрироваться'), ['class' => 'btn-lg btn-primary', 'name' => 'signup-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

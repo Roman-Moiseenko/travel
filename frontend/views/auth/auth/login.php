@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-sm-6">
             <div>
                 <h2><?= Lang::t('Новый пользователь') ?></h2>
-                <p><strong><?= Lang::t('Зарегистрировать аккаунт') ?></strong></p>
+                <strong><?= Lang::t('Зарегистрировать аккаунт') ?></strong><br>
                 <p><?= Lang::t('Создав учетную запись, вы сможете бронировать, быть в курсе состояния брони и отслеживать ранее сделанные брони') ?>.</p>
-                <a href="/signup" class="btn btn-primary"><?= Lang::t('Регистрация') ?></a>
+                <a href="/signup" class="btn-lg btn-primary"><?= Lang::t('Регистрация') ?></a>
             </div>
-            <div class="pt-2">
-                <p><strong><?= Lang::t('Войти через социальные сети') ?></strong></p>
+            <div class="py-4">
+                <strong><?= Lang::t('Войти через социальные сети') ?></strong><br>
                 <p><?= Lang::t('Зарегистрировавшись через социальные сети, не забудьте добавить email и телефон для оповещения о статусе Ваших броней')?>.</p>
                 <?= yii\authclient\widgets\AuthChoice::widget(['baseAuthUrl' => ['auth/network/auth']]); ?></div>
         </div>
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Lang::t('Необходимо подтверждение почты?') ?> <?= Html::a(Lang::t('Отправить'), ['auth/reset/resend']) ?>
                 </div>
                 <div class="form-group">
-                    <?= Html::submitButton(Lang::t('Войти'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton(Lang::t('Войти'), ['class' => 'btn-lg btn-primary', 'name' => 'login-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

@@ -48,7 +48,7 @@ $this->title = Lang::t('Быстрая регистрация');
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton(Lang::t('Зарегистрироваться'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton(Lang::t('Зарегистрироваться'), ['class' => 'btn-lg btn-primary', 'name' => 'login-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
