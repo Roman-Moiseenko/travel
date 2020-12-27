@@ -48,7 +48,7 @@ use yii\helpers\Html;
         </div>
         <div class="col-sm-1">
             <label class="label-search"> </label>
-            <?= Html::submitButton(Lang::t('Найти') . ' <i class="fas fa-search"></i>', ['class' => 'btn btn-secondary']) ?>
+            <?= Html::submitButton(Lang::t('Найти') . ' <i class="fas fa-search"></i>', ['class' => 'btn btn-primary', 'style' => 'border: 0 !important;']) ?>
         </div>
     </div>
 </div>

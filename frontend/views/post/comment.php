@@ -30,7 +30,7 @@ $this->params['active_category'] = $post->category;
 <?= $form->field($model, 'text')->textarea(['rows' => 5]) ?>
 
 <div class="form-group">
-    <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

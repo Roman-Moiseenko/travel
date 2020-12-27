@@ -17,7 +17,7 @@ use yii\helpers\Html; ?>
     <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Отзыв')); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary btn-lg btn-block']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>

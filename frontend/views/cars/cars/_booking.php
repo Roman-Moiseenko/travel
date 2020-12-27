@@ -43,7 +43,7 @@ DatepickerAsset::register($this);
         <div id="rent-car"></div>
         <p></p>
         <div class="form-group">
-            <button class="btn btn-primary btn-lg btn-block" id="button-booking-car" disabled><?= $car->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести') ?></button>
+            <button class="btn btn-lg btn-primary btn-block" id="button-booking-car" disabled><?= $car->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести') ?></button>
         </div>
     </div>
 </div>

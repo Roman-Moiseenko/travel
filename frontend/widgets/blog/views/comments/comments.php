@@ -37,7 +37,7 @@ use yii\helpers\Html;
     <?= $form->field($commentForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Текст')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

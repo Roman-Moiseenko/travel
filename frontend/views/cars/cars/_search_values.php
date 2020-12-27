@@ -11,6 +11,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model SearchCarForm */
 
+//TODO Проверить где используется
+
 ?>
 
     <?php $form = ActiveForm::begin([

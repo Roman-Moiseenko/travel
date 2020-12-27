@@ -29,7 +29,7 @@ DatepickerAsset::register($this);
             <?= Html::submitButton(
                 $fun->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести'),
                 [
-                    'class' => 'btn btn-primary btn-lg btn-block',
+                    'class' => 'btn btn-lg btn-primary btn-block',
                     'disabled' => 'disabled',
                     'id' => 'button-booking-fun'
                 ]
