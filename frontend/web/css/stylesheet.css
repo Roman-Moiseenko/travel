@@ -13,6 +13,7 @@ a:hover {
 	text-decoration: none;
 	color: var(--main-dark2-color);
 }
+
 legend {
 	font-size: 18px;
 	padding: 7px 0px
@@ -492,13 +493,16 @@ footer h5 {
 	border: 1px solid #DDDDDD;
 	color: #888888;
 	padding: 8px 12px;
+	font-size: 13px;
 }
+
 .list-group a.active, .list-group a.active:hover, .list-group a:hover {
-	color: #444444;
-	background: #eeeeee;
+	color: #fff;
+	background: var(--main-nav-color);
 	border: 1px solid #DDDDDD;
-	text-shadow: 0 1px 0 #FFF;
+	/*text-shadow: 0 1px 0 #FFF;*/
 }
+
 /* carousel */
 .carousel-caption {
 	color: #FFFFFF;

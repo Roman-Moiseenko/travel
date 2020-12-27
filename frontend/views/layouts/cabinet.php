@@ -17,7 +17,7 @@ use yii\helpers\Url;
         </div>
 
         <aside id="column-right" class="col-sm-3 hidden-xs">
-            <div class="list-group">
+            <div class="list-group ">
                 <?php if (\Yii::$app->user->isGuest): ?>
                     <a href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>" class="list-group-item"><?= Lang::t('Вход') ?></a>
                     <a href="<?= Html::encode(Url::to(['/signup'])) ?>"
