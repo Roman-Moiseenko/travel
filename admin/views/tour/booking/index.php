@@ -3,6 +3,7 @@
 
 /* @var $this yii\web\View */
 /* @var  $tour Tour */
+/* @var $view_cancel bool */
 
 $this->title = 'Бронирование ' . $tour->name;
 $this->params['id'] = $tour->id;
@@ -33,7 +34,6 @@ use booking\helpers\SysHelper; ?>
     <div class="card card-secondary">
         <div class="card-body">
             <div class="row">
-
                     <?php if (SysHelper::isMobile()):?>
                         <div id="datepicker-booking-tour"  class="input-group date">
                             <input type="text" class="form-control" id="datepicker_value" readonly>
@@ -44,7 +44,6 @@ use booking\helpers\SysHelper; ?>
                             <span class="badge" style="background-color: #dddda1">нет бронирований</span>
                             <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
                             <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>
-                            <i style="color: red">*</i> - <span class="badge">день выдачи транспорта</span>
                             <input class="" type="checkbox" id="view_cancel" <?= $view_cancel ? 'checked' : '' ?>> <label for="view_cancel" style="font-weight: 500; color: #073138; font-size: 14px">показывать отмененные</label>
                             <span class="badge badge-danger" id="error_data"></span>
                         </div>
@@ -60,7 +59,6 @@ use booking\helpers\SysHelper; ?>
                                 <span class="badge" style="background-color: #dddda1">нет бронирований</span>
                                 <span class="badge" style="background-color: #89b7ca">имеются бронирования</span>
                                 <span class="badge" style="background-color: #b3dfb1">100% бронирование</span>
-                                <i style="color: red">*</i> - <span class="badge">день выдачи транспорта</span>
                                 <input class="" type="checkbox" id="view_cancel" <?= $view_cancel ? 'checked' : '' ?>> <label for="view_cancel" style="font-weight: 500; color: #073138; font-size: 14px">показывать отмененные</label>
                                 <span class="badge badge-danger" id="error_data"></span>
                             </td>

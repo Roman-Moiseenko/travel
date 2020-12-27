@@ -37,6 +37,7 @@ use yii\helpers\Url;
                         'badge' => '<span class="right badge badge-warning">'. CarHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/car/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/report'],
                     ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/car/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'car/selling'],
+                    ['label' => 'koenigs.ru', 'header' => true],
                     ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/car/' . $this->params['id'])],
                 ],
             ]);

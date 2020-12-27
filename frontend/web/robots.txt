@@ -4,6 +4,8 @@ Disallow: /ru/cabinet
 Disallow: /en/cabinet
 Disallow: /ru/login
 Disallow: /en/login
+Disallow: /ru/reset
+Disallow: /en/reset
 
 Disallow: /admin
 Disallow: /office

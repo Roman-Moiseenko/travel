@@ -36,6 +36,7 @@ use yii\helpers\Url;
                         'badge' => '<span class="right badge badge-warning">'. FunHelper::getCountReview($this->params['id']) . '</span>'],
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/fun/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'fun/report'],
                     ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/fun/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'fun/selling'],
+                    ['label' => 'koenigs.ru', 'header' => true],
                     ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/fun/' . $this->params['id'])],
 
                 ],
