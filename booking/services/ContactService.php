@@ -273,7 +273,7 @@ class ContactService
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
         //СМС
-        $this->sendSMS('+79114710701', 'Activated', User::findOne(\Yii::$app->user->id));
-
+        if (\Yii::$app->params['SMSActivated'])
+            $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', User::findOne(\Yii::$app->user->id));
     }
 }

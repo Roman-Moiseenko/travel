@@ -5,6 +5,7 @@ namespace booking\entities\booking\funs;
 
 
 use booking\entities\admin\Legal;
+use booking\entities\admin\User;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\funs\queries\FunQueries;
@@ -65,7 +66,7 @@ use yii\web\UploadedFile;
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
  * @property Value[] $values
- *
+ * @property User $user
  */
 
 class Fun extends ActiveRecord
@@ -693,6 +694,10 @@ class Fun extends ActiveRecord
         return $this->hasMany(Value::class, ['fun_id' => 'id']);
     }
 
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
     /** <========== getXXX */
 
     public static function find(): FunQueries

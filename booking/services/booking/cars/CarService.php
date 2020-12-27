@@ -260,9 +260,9 @@ class CarService
             ThemeDialog::ACTIVATED,
             ''
         );
-        $dialog->addConversation('ID=' . $car->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
+        $dialog->addConversation(Car::class . ' ID=' . $car->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
-        $this->contactService->sendNoticeMessage($dialog);
+        $this->contactService->sendActivate($car->name, $car->user->username);
         $this->cars->save($car);
     }
 

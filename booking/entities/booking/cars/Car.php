@@ -5,6 +5,7 @@ namespace booking\entities\booking\cars;
 
 
 use booking\entities\admin\Legal;
+use booking\entities\admin\User;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\queries\CarQueries;
@@ -66,6 +67,7 @@ use yii\web\UploadedFile;
  * @property Value[] $values
  * @property AssignmentCity[] $assignmentCities
  * @property City[] $cities
+ * @property User $user
  */
 class Car extends ActiveRecord
 {
@@ -673,5 +675,10 @@ class Car extends ActiveRecord
     public function getCities(): ActiveQuery
     {
         return $this->hasMany(City::class, ['id' => 'city_id'])->via('assignmentCities');
+    }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

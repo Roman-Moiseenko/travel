@@ -269,9 +269,9 @@ class FunService
             ThemeDialog::ACTIVATED,
             ''
         );
-        $dialog->addConversation('ID=' . $fun->id . '&' . 'STATUS=' . StatusHelper::STATUS_VERIFY);
+        $dialog->addConversation(Fun::class . ' ID=' . $fun->id . '&' . 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
-        $this->contactService->sendNoticeMessage($dialog);
+        $this->contactService->sendActivate($fun->name, $fun->user->username);
         $this->funs->save($fun);
     }
 

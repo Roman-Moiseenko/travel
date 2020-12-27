@@ -3,11 +3,6 @@
 /* @var $object string */
 /* @var $username string */
 
-use booking\entities\booking\BookingItemInterface;
-use booking\helpers\BookingHelper;
-use booking\helpers\CurrencyHelper;
-
-$user = $booking->getAdmin();
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -20,15 +15,13 @@ $user = $booking->getAdmin();
         <tr>
             <td style="width: 25%">Username</td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= $object ?>
-
+                <?= $username ?>
             </td>
         </tr>
         <tr>
             <td style="width: 25%">Объект</td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
-                <?= $username ?>
-
+                <?= $object ?>
             </td>
         </tr>
     </table>
