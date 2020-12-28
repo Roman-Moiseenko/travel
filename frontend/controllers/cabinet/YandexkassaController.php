@@ -124,7 +124,9 @@ class YandexkassaController extends Controller
 
     public function actionCheck54($id)
     {
-        $receipts = $$this->client->getReceipts(['payment_id'=> $id]);
-        scr::p($receipts);
+        $receipts = $this->client->getReceipts(['payment_id'=> $id]);
+        $items = $receipts->getItems();
+        foreach ($items as $item)
+            scr::v($item);
     }
 }
