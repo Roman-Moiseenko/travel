@@ -151,7 +151,7 @@ $car = $booking->car;
                             <li>
                                 <?= Lang::t('Распечатать чек об оплате')  ?>
                                 <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
+                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->payment_id]) ?>">
                                 <i class="fas fa-print"></i></a>
                             </li>
                     </ul>

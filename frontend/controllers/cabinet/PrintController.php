@@ -8,7 +8,9 @@ use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
+use booking\helpers\scr;
 use booking\repositories\booking\tours\BookingTourRepository;
+use booking\services\finance\YKassaService;
 use booking\services\pdf\pdfServiceController;
 use kartik\mpdf\Pdf;
 use Mpdf\MpdfException;
@@ -26,11 +28,16 @@ class PrintController extends Controller
      * @var pdfServiceController
      */
     private $pdf;
+    /**
+     * @var YKassaService
+     */
+    private $kassaService;
 
-    public function __construct($id, $module, pdfServiceController $pdf, $config = [])
+    public function __construct($id, $module, pdfServiceController $pdf, YKassaService $kassaService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->pdf = $pdf;
+        $this->kassaService = $kassaService;
     }
 
     public function behaviors()
@@ -51,6 +58,8 @@ class PrintController extends Controller
     public function actionCheck($id)
     {
         //TODO Печать Чека
+        $item = $this->kassaService->check($id);
+        scr::v($item);
     }
 
     //TODO Заглушка Stay

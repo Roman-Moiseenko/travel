@@ -73,5 +73,10 @@ class pdfServiceController extends Controller
         }
     }
 
+    public function pdfCheck54()
+    {
+
+    }
+
 
 }
