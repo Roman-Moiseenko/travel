@@ -262,10 +262,14 @@ $countReveiws = $car->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4">
-
-        <?= $this->render('_booking', [
+        <?php if ($car->isActive()) {
+            echo $this->render('_booking', [
             'car' => $car,
-        ]); ?>
+        ]);
+        } else {
+            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Прокат не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+        }
+        ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $car->rating]); ?>

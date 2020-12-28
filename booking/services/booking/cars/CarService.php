@@ -2,8 +2,6 @@
 
 namespace booking\services\booking\cars;
 
-
-
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\Car;
@@ -97,7 +95,6 @@ class CarService
             $form->year
         );
         foreach ($form->cities->cities as $city) {
-            //$category = $this->categories->get($otherId);
             $car->assignCity($city);
         }
 
@@ -122,16 +119,13 @@ class CarService
         $car->revokeCities();
         $this->cars->save($car);
         foreach ($form->cities->cities as $city) {
-            //$category = $this->categories->get($otherId);
             $car->assignCity($city);
         }
         $this->cars->save($car);
-
     }
 
     public function addPhotos($id, PhotosForm $form)
     {
-        //echo '<pre>';var_dump($form); exit();
         $car = $this->cars->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
@@ -219,7 +213,6 @@ class CarService
 
     public function setExtra($id, $extra_id, $set): void
     {
-
         $car = $this->cars->get($id);
         echo $id . $extra_id . $set;
         if ($set) {
@@ -245,7 +238,6 @@ class CarService
         $car->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->cars->save($car);
     }
-
 
     public function verify($id)
     {

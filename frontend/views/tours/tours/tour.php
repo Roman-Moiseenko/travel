@@ -331,10 +331,15 @@ $countReveiws = $tour->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4">
+        <?php if ($tour->isActive()) {
+            echo $this->render('_booking', [
+                'tour' => $tour,
+            ]);
+        } else {
+            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Тур не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+        }
+        ?>
 
-        <?= $this->render('_booking', [
-            'tour' => $tour,
-        ]); ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>

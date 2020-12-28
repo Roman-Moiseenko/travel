@@ -254,10 +254,14 @@ $countReveiws = $fun->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4">
-
-        <?= $this->render('_booking', [
-            'fun' => $fun,
-        ]); ?>
+        <?php if ($fun->isActive()) {
+            echo $this->render('_booking', [
+                'fun' => $fun,
+        ]);
+        } else {
+            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Мероприятие не активно.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+        }
+        ?>
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $fun->rating]); ?>
