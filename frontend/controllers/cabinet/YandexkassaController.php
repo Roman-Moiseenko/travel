@@ -9,6 +9,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\repositories\booking\BookingRepository;
 use booking\services\finance\PayManageService;
+use booking\services\finance\YKassaService;
 use YandexCheckout\Client;
 use YandexCheckout\Common\Exceptions\ApiException;
 use YandexCheckout\Common\Exceptions\BadApiRequestException;
@@ -25,12 +26,12 @@ use yii\web\Controller;
 
 class YandexkassaController extends Controller
 {
-    private $yandexkassa = [];
+    //private $yandexkassa = [];
     public $enableCsrfValidation = false;
     /**
      * @var Client
      */
-    private $client;
+    //private $client;
     /**
      * @var PayManageService
      */
@@ -39,22 +40,35 @@ class YandexkassaController extends Controller
      * @var BookingRepository
      */
     private $bookings;
+    /**
+     * @var YKassaService
+     */
+    private $kassaService;
 
-    public function __construct($id, $module, PayManageService $service, Client $client, BookingRepository $bookings, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        PayManageService $service,
+        //Client $client,
+        BookingRepository $bookings,
+        YKassaService $kassaService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
-        $this->client = $client;
-        $this->yandexkassa = \Yii::$app->params['yandexkassa'];
-        $this->client->setAuth($this->yandexkassa['login'], $this->yandexkassa['password']);
+        //$this->client = $client;
+        //$this->yandexkassa = \Yii::$app->params['yandexkassa'];
+        //$this->client->setAuth($this->yandexkassa['login'], $this->yandexkassa['password']);
         $this->service = $service;
         $this->bookings = $bookings;
+        $this->kassaService = $kassaService;
     }
 
     public function actionInvoice($id)
     {
         $booking = BookingHelper::getByNumber($id);
         try {
-            $payment = $this->client->createPayment(
+            /*$payment = $this->client->createPayment(
                 [
                     'amount' => [
                         'value' => BookingHelper::merchant($booking),
@@ -89,7 +103,8 @@ class YandexkassaController extends Controller
                     ],
                 ],
                 uniqid('', true)
-            );
+            ); */
+            $payment = $this->kassaService->invoice($booking);
             $booking->setPaymentId($payment->id);
             return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
         } catch (BadApiRequestException $e) {

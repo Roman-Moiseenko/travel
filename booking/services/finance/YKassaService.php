@@ -76,9 +76,6 @@ class YKassaService
         if (count($items) == 0) throw new \DomainException(Lang::t('Чек еще не был сформирован. Попробуйте позже'));
         $item = $items[0];
         if ($item->status != 'succeeded') throw new \DomainException(Lang::t('Чек еще не был сформирован. Попробуйте позже'));
-
-        //$check = new Check54();
-
         return $item;
     }
 

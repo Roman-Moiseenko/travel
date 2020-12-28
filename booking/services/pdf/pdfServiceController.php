@@ -76,8 +76,10 @@ class pdfServiceController extends Controller
 
     public function pdfCheck54(BookingItemInterface $booking, ReceiptResponseInterface $item, $file = false)
     {
+        //TODO Генерируем QR qr.jpg
+        require_once __DIR__ . '/phpqrcode/qrlib.php';
         if ($file) {
-            $filename = \Yii::$app->params['staticPath'] . '/files/temp/notice_' . uniqid() . '.pdf';
+            $filename = \Yii::$app->params['staticPath'] . '/files/temp/check_' . uniqid() . '.pdf';
             $destination = Pdf::DEST_FILE;
         } else {
             $filename = null;
@@ -89,7 +91,11 @@ class pdfServiceController extends Controller
         ]);
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8,
-            'format' => Pdf::FORMAT_LETTER,
+            'format' => [80, 210],
+            'marginLeft' => 5,
+            'marginRight' => 5,
+            'marginTop' => 5,
+            'marginBottom' => 10,
             'orientation' => Pdf::ORIENT_PORTRAIT,
             'destination' => $destination,
             'content' => $content,
@@ -99,7 +105,7 @@ class pdfServiceController extends Controller
             'options' => ['title' => 'Krajee Report Title'],
             'methods' => [
                 'SetTitle' => Lang::t('Онлайн чек'),
-                'SetHeader'=>['Koenigs.ru'],
+                //'SetHeader'=>['Koenigs.ru'],
                 'SetFooter'=>['Koenigs.ru'],
                 'SetAuthor' => 'Koenigs.ru',
                 'SetCreator' => 'Koenigs.ru',

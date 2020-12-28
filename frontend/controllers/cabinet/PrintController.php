@@ -64,17 +64,8 @@ class PrintController extends Controller
     }
     public function actionCheck($id)
     {
-        //TODO Печать Чека
         $booking = $this->bookings->getByPaymentId($id);
         $item = $this->kassaService->check($id);
-        //scr::_p($item);
-
-        /** @var \DateTime $date */
-     /*   $date =  $item->registered_at;
-        scr::_p(timezone_name_get($date->getTimezone()));
-        scr::_p(($date->getTimezone()->getOffset($date)));
-        scr::_p($date->format('d-m-Y H:i'));
-        scr::p(date('d-m-Y H:i', $date->getTimestamp()));*/
         return $this->pdf->pdfCheck54($booking, $item);
     }
 
