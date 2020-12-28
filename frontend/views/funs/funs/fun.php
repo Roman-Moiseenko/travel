@@ -3,13 +3,6 @@
 use booking\entities\booking\funs\Fun;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $fun Fun */
-
-/* @var $reviewForm ReviewForm */
-
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\funs\WorkModeHelper;
@@ -23,6 +16,11 @@ use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $fun Fun */
+/* @var $reviewForm ReviewForm */
+
 $this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($fun->getDescription()), 20))]);
 
 $this->title = $fun->getName();
@@ -31,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
-//CalendarAsset::register($this);
 
 $countReveiws = $fun->countReviews();
 ?>
@@ -275,9 +272,7 @@ $countReveiws = $fun->countReviews();
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_inline_share_toolbox"></div>
     </div>
-
 </div>
-
 
 <?php $js = <<<EOD
     $(document).ready(function() {

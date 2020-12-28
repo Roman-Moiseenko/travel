@@ -3,27 +3,23 @@
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $tour Tour */
-
-/* @var $reviewForm ReviewForm */
-
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\tours\TourHelper;
-use frontend\assets\CalendarAsset;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
-use frontend\widgets\reviews\ReviewsToursWidget;
 use frontend\widgets\reviews\ReviewsWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $tour Tour */
+/* @var $reviewForm ReviewForm */
 
 $this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($tour->getDescription()), 20))]);
 
@@ -33,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
-//CalendarAsset::register($this);
 
 $countReveiws = $tour->countReviews();
 ?>
@@ -339,7 +334,6 @@ $countReveiws = $tour->countReviews();
             echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Тур не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
         }
         ?>
-
         <div class="rating">
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>
@@ -353,9 +347,7 @@ $countReveiws = $tour->countReviews();
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_inline_share_toolbox"></div>
     </div>
-
 </div>
-
 
 <?php $js = <<<EOD
     $(document).ready(function() {

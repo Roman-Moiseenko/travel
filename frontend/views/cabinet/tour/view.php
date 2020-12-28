@@ -167,7 +167,7 @@ $tour = $booking->calendar->tour;
                             <li>
                                 <?= Lang::t('Распечатать чек об оплате')  ?>
                                 <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->id]) ?>">
+                               href="<?= Url::to(['/cabinet/yandexkassa/check54', 'id' =>$booking->payment_id]) //'/cabinet/print/check', 'id' => $booking->id?>">
                                 <i class="fas fa-print"></i></a>
                             </li>
                     </ul>

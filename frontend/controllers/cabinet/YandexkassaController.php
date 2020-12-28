@@ -121,4 +121,10 @@ class YandexkassaController extends Controller
             \Yii::$app->errorHandler->logException($e);
         }
     }
+
+    public function actionCheck54($id)
+    {
+        $receipts = $$this->client->getReceipts(['payment_id'=> $id]);
+        scr::p($receipts);
+    }
 }

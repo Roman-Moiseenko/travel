@@ -3,13 +3,6 @@
 use booking\entities\booking\cars\Car;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $car Car */
-
-/* @var $reviewForm ReviewForm */
-
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -22,8 +15,12 @@ use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
-$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $car Car */
+/* @var $reviewForm ReviewForm */
 
+$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
 
 $this->title = $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
@@ -31,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
-//CalendarAsset::register($this);
 
 $countReveiws = $car->countReviews();
 ?>
@@ -283,9 +279,7 @@ $countReveiws = $car->countReviews();
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_inline_share_toolbox"></div>
     </div>
-
 </div>
-
 
 <?php $js = <<<EOD
     $(document).ready(function() {
