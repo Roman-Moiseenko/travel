@@ -12,6 +12,7 @@ use Mpdf\MpdfException;
 use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
 use setasign\Fpdi\PdfParser\PdfParserException;
 use setasign\Fpdi\PdfParser\Type\PdfTypeException;
+use YandexCheckout\Request\Receipts\ReceiptResponseInterface;
 use yii\base\InvalidConfigException;
 use yii\web\Controller;
 
@@ -73,9 +74,52 @@ class pdfServiceController extends Controller
         }
     }
 
-    public function pdfCheck54()
+    public function pdfCheck54(BookingItemInterface $booking, ReceiptResponseInterface $item, $file = false)
     {
+        if ($file) {
+            $filename = \Yii::$app->params['staticPath'] . '/files/temp/notice_' . uniqid() . '.pdf';
+            $destination = Pdf::DEST_FILE;
+        } else {
+            $filename = null;
+            $destination = Pdf::DEST_BROWSER;
+        }
+        $content = $this->renderPartial('@booking/services/pdf/views/check54', [
+            'booking' => $booking,
+            'item' => $item
+        ]);
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8,
+            'format' => Pdf::FORMAT_LETTER,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => $destination,
+            'content' => $content,
+            'filename' => $filename,
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => ['title' => 'Krajee Report Title'],
+            'methods' => [
+                'SetTitle' => Lang::t('Онлайн чек'),
+                'SetHeader'=>['Koenigs.ru'],
+                'SetFooter'=>['Koenigs.ru'],
+                'SetAuthor' => 'Koenigs.ru',
+                'SetCreator' => 'Koenigs.ru',
 
+            ]
+        ]);
+
+        try {
+            if ($file) {
+                $pdf->render();
+                return $filename;
+            } else {
+                return $pdf->render();
+            }
+        } catch (MpdfException $e) {
+        } catch (CrossReferenceException $e) {
+        } catch (PdfTypeException $e) {
+        } catch (PdfParserException $e) {
+        } catch (InvalidConfigException $e) {
+        }
     }
 
 

@@ -8,7 +8,9 @@ use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
+use booking\helpers\BookingHelper;
 use booking\helpers\scr;
+use booking\repositories\booking\BookingRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\services\finance\YKassaService;
 use booking\services\pdf\pdfServiceController;
@@ -32,12 +34,17 @@ class PrintController extends Controller
      * @var YKassaService
      */
     private $kassaService;
+    /**
+     * @var BookingRepository
+     */
+    private $bookings;
 
-    public function __construct($id, $module, pdfServiceController $pdf, YKassaService $kassaService, $config = [])
+    public function __construct($id, $module, pdfServiceController $pdf, YKassaService $kassaService, BookingRepository $bookings, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->pdf = $pdf;
         $this->kassaService = $kassaService;
+        $this->bookings = $bookings;
     }
 
     public function behaviors()
@@ -58,8 +65,17 @@ class PrintController extends Controller
     public function actionCheck($id)
     {
         //TODO Печать Чека
+        $booking = $this->bookings->getByPaymentId($id);
         $item = $this->kassaService->check($id);
-        scr::v($item);
+        //scr::_p($item);
+
+        /** @var \DateTime $date */
+     /*   $date =  $item->registered_at;
+        scr::_p(timezone_name_get($date->getTimezone()));
+        scr::_p(($date->getTimezone()->getOffset($date)));
+        scr::_p($date->format('d-m-Y H:i'));
+        scr::p(date('d-m-Y H:i', $date->getTimestamp()));*/
+        return $this->pdf->pdfCheck54($booking, $item);
     }
 
     //TODO Заглушка Stay

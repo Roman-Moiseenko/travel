@@ -5,6 +5,7 @@ namespace booking\services\finance;
 
 
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\finance\Check54;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use YandexCheckout\Client;
@@ -73,7 +74,12 @@ class YKassaService
         $receipts = $this->client->getReceipts(['payment_id'=> $payment_id]);
         $items = $receipts->getItems();
         if (count($items) == 0) throw new \DomainException(Lang::t('Чек еще не был сформирован. Попробуйте позже'));
-        return $items[0];
+        $item = $items[0];
+        if ($item->status != 'succeeded') throw new \DomainException(Lang::t('Чек еще не был сформирован. Попробуйте позже'));
+
+        //$check = new Check54();
+
+        return $item;
     }
 
 }
