@@ -11,7 +11,7 @@ use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Прокат авто, велосипедов, скутеров в Калининграде');
+$this->title = Lang::t('Прокат авто, велосипедов, скутеров в Калининграде и области');
 
 $js_search = <<<JS
 $(document).ready(function() {

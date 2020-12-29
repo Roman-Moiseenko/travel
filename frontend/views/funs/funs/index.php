@@ -12,7 +12,7 @@ use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Развлечения и мероприятия в Калининграде');
+$this->title = Lang::t('Развлечения и мероприятия в Калининграде и области');
 
 $js_search = <<<JS
 $(document).ready(function() {
