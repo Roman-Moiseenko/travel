@@ -94,7 +94,8 @@ class ResetController extends Controller
         try {
             $this->passwordResetService->verifyToken($token);
         } catch (\DomainException $e) {
-            throw new BadRequestHttpException($e->getMessage());
+            Yii::$app->session->setFlash('warning', 'Данная почта уже подтверждена, войдите под своим логином.');
+            return $this->goHome();
         }
         try {
             $user = $this->passwordResetService->verifyEmail($token);
