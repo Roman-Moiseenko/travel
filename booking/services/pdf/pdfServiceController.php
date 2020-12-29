@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use kartik\mpdf\Pdf;
 use Mpdf\MpdfException;
+use QRcode;
 use setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException;
 use setasign\Fpdi\PdfParser\PdfParserException;
 use setasign\Fpdi\PdfParser\Type\PdfTypeException;
@@ -77,7 +78,15 @@ class pdfServiceController extends Controller
     public function pdfCheck54(BookingItemInterface $booking, ReceiptResponseInterface $item, $file = false)
     {
         //TODO Генерируем QR qr.jpg
+        $text =
+            't='.date('YmdTHis', $item->registered_at->getTimestamp()).
+            '&s=' . number_format(BookingHelper::merchant($booking), 2, '.', '') .
+            '&fn=' . $item->fiscal_storage_number.
+            '&i=' . $item->fiscal_document_number .
+            '&fp=' . $item->fiscal_attribute.
+            '&n='. $item->tax_system_code;
         require_once __DIR__ . '/phpqrcode/qrlib.php';
+        QRcode::png($text, \Yii::$app->params['staticPath'] . '/files/temp/qr.png', 'H', 3, 2);
         if ($file) {
             $filename = \Yii::$app->params['staticPath'] . '/files/temp/check_' . uniqid() . '.pdf';
             $destination = Pdf::DEST_FILE;

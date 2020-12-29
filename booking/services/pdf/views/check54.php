@@ -114,14 +114,14 @@ $kkt = \Yii::$app->params['kkt'];
         </tr>
     </table>
     <!-- QR -->
-    <table>
+    <table width="100%">
         <tr>
             <td align="center"><img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/temp/qr.png' ?>"
                                         style="height: 100px; width: auto;"></td>
         </tr>
     </table>
     <hr/>
-    <table>
+    <table width="100%">
         <tr>
             <td align="center">СПАСИБО!</td>
         </tr>
