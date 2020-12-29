@@ -78,6 +78,8 @@ return [
                 '<_a:login|logout>' => 'auth/auth/<_a>',
                 'site/login' => 'auth/auth/login',
                 'reset' => '/auth/reset/request',
+                'reset/reset' => '/auth/reset/reset',
+
                 'discount' => 'discount/index',
 
                 'funs' => 'funs/index',
