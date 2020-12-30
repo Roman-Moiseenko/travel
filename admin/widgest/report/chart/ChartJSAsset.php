@@ -1,7 +1,7 @@
 <?php
 
 
-namespace admin\widgest\chart;
+namespace admin\widgest\report\chart;
 
 
 use yii\web\AssetBundle;

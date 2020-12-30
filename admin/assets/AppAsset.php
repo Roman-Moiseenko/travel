@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'js/booking_fun_admin.js',
         'js/notice_admin.js',
         'js/discount_admin.js',
+        'js/refresh_widget_admin.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

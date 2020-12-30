@@ -1,9 +1,10 @@
 <?php
 
 
-namespace admin\widgest\chart;
+namespace admin\widgest\report\chart;
 
 
+use admin\widgest\report\chart\ChartJSAsset;
 use yii\base\Widget;
 use yii\helpers\Json;
 
@@ -32,7 +33,7 @@ class ChartJsWidget extends Widget
     public function run()
     {
         $this->registerScript();
-        echo '<canvas id="'.$this->id.'"></canvas>';
+        echo '<canvas id="'.$this->id.'"  style="max-height: 600px; max-width: 800px"></canvas>';
     }
 
     public function registerScript()

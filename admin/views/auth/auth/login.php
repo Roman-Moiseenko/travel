@@ -22,40 +22,30 @@ $fieldOptions2 = [
 ];
 ?>
 
-<div class="login-box">
+<div class="login-card">
     <!-- /.login-logo -->
-    <div class="login-box-body">
+    <div class="login-card-body">
         <p class="login-box-msg"></p>
-
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
-
         <?= $form
             ->field($model, 'username', $fieldOptions1)
             ->label(false)
             ->textInput(['placeholder' => 'Логин']) ?>
-
         <?= $form
             ->field($model, 'password', $fieldOptions2)
             ->label(false)
             ->passwordInput(['placeholder' => 'Пароль']) ?>
-
         <div class="row">
-            <div class="col-xs-8">
+            <div class="col-sm-8">
                 <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить') ?>
             </div>
-            <!-- /.col -->
-            <div class="col-xs-4">
+            <div class="col-sm-4">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
-            <!-- /.col -->
         </div>
-
-
         <?php ActiveForm::end(); ?>
-        
         <a href="<?= Url::to(['/auth/reset/request'])?>">Забыли пароль?</a><br>
         <a href="<?= Url::to(['/signup'])?>" class="text-center">Регистрация</a>
-
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->

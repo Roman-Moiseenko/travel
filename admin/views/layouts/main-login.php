@@ -26,7 +26,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
 <?= \frontend\widgets\AlertWidget::widget() ?>
 <div class="login-box">
     <div class="login-logo">
-        <a href="<?=Yii::$app->homeUrl?>"><b>Koenigs</b>RU</a>
+        <a href="<?=Yii::$app->homeUrl?>"><b>Koenigs</b>.RU</a>
     </div>
     <!-- /.login-logo -->
     <?= $content ?>

@@ -50,11 +50,17 @@ use yii\helpers\Url;
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <?= MessageTopBarWidget::widget() ?>
+        <span id="message-widget">
+            <?= MessageTopBarWidget::widget() ?>
+        </span>
         <!-- Review Dropdown Menu -->
-        <?= ReviewTopBarWidget::widget(['days' => 7]) ?>
+        <span id="review-widget">
+            <?= ReviewTopBarWidget::widget(['days' => 7]) ?>
+        </span>
         <!-- Booking Dropdown Menu -->
-        <?= BookingTopBarWidget::widget() ?>
+        <span id="booking-widget">
+            <?= BookingTopBarWidget::widget() ?>
+        </span>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>

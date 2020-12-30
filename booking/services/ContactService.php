@@ -115,7 +115,7 @@ class ContactService
                 Lang::t('Спасибо, что Вы с нами'), $user_admin);
             $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
             if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone) {
-                $this->sendSMS($phoneAdmin, 'Оплачено ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
+                $this->sendSMS($phoneAdmin, 'Бронь ' . $booking->getName() . ' ' . date('d-m', $booking->getDate()) . ' ' . $booking->getAdd(), $user_admin);
             }
             if ($noticeAdmin->bookingPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
