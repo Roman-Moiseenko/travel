@@ -3,6 +3,9 @@
 namespace admin\controllers\tour;
 
 use admin\widgest\report\ChartWidget;
+use admin\widgest\report\PaymentNextWidget;
+use admin\widgest\report\PaymentPastWidget;
+use admin\widgest\report\StaticWidget;
 use booking\entities\booking\tours\Tour;
 use booking\forms\admin\ChartForm;
 use yii\filters\AccessControl;
@@ -38,6 +41,15 @@ class ReportController extends Controller
             'ChartWidget' => ChartWidget::widget([
                 'object' => $tour,
                 'form' => $form,
+            ]),
+            'PaymentPastWidget' => PaymentPastWidget::widget([
+
+            ]),
+            'PaymentNextWidget' => PaymentNextWidget::widget([
+
+            ]),
+            'StaticWidget' => StaticWidget::widget([
+
             ]),
             'tour' => $tour,
         ]);

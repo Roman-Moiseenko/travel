@@ -5,6 +5,9 @@ use booking\entities\booking\cars\Car;
 /* @var  $car Car */
 /* @var $this yii\web\View */
 /* @var $ChartWidget string */
+/* @var $PaymentNextWidget string */
+/* @var $PaymentPastWidget string */
+/* @var $StaticWidget string */
 
 $this->title = 'Отчеты по ' . $car->name;
 $this->params['id'] = $car->id;
@@ -19,15 +22,9 @@ $this->params['breadcrumbs'][] = 'Отчеты';
             <?= $ChartWidget ?>
         </div>
         <div class="col-sm-6">
-            Виджет Будущие выплаты //СКОРО
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            Виджет Прошлые выплаты //СКОРО
-        </div>
-        <div class="col-sm-6">
-            Виджет Статистика по объекту //СКОРО
+            <?= $PaymentPastWidget ?>
+            <?= $PaymentNextWidget ?>
+            <?= $StaticWidget ?>
         </div>
     </div>
 </div>

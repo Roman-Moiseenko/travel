@@ -12,7 +12,13 @@ use yii\helpers\Html;
 ?>
 
 <div class="card">
-    <div class="card-header">График бронирований</div>
+    <div class="card-header">
+        <h3 class="card-title">График бронирований</h3>
+        <div class="card-tools">
+            <!-- Collapse Button -->
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        </div>
+    </div>
     <div class="card-body">
 <?php $form = ActiveForm::begin([]); ?>
 <div class="row">
