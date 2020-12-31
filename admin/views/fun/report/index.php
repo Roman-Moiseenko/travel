@@ -17,12 +17,10 @@ $this->params['breadcrumbs'][] = 'Отчеты';
 ?>
 <div class="fun-report">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <?= $ChartWidget ?>
         </div>
-        <div class="col-sm-6">
-            <?= $PaymentPastWidget ?>
-            <?= $PaymentNextWidget ?>
+        <div class="col-sm-8">
             <?= $StaticWidget ?>
         </div>
     </div>
