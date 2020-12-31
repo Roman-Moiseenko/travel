@@ -17,6 +17,7 @@ use yii\helpers\Html;
         <div class="card-tools">
             <!-- Collapse Button -->
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
         </div>
     </div>
     <div class="card-body">
@@ -40,13 +41,13 @@ use yii\helpers\Html;
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?= $form->field($model, 'confirmation')->checkbox(['onchange' => 'submit()'])->label('Подтверждено')?>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?= $form->field($model, 'booking')->checkbox(['onchange' => 'submit()'])->label('Забронировано')?>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?= $form->field($model, 'pay')->checkbox(['onchange' => 'submit()'])->label('Приобретено')?>
     </div>
 </div>
