@@ -78,7 +78,7 @@ class CarsController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-
+        $this->service->upViews($car);//Перед показом увеличиваем счетчик
         return $this->render('car', [
             'car' => $car,
             'reviewForm' => $reviewForm,

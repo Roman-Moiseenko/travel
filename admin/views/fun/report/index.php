@@ -1,13 +1,13 @@
 <?php
 
+use admin\widgest\report\ChartWidget;
+use admin\widgest\report\StaticWidget;
 use booking\entities\booking\funs\Fun;
+use booking\forms\admin\ChartForm;
 
 /* @var  $fun Fun */
 /* @var $this yii\web\View */
-/* @var $ChartWidget string */
-/* @var $PaymentNextWidget string */
-/* @var $PaymentPastWidget string */
-/* @var $StaticWidget string */
+/* @var $form ChartForm */
 
 $this->title = 'Отчеты по ' . $fun->name;
 $this->params['id'] = $fun->id;
@@ -16,12 +16,11 @@ $this->params['breadcrumbs'][] = ['label' => $fun->name, 'url' => ['/fun/common'
 $this->params['breadcrumbs'][] = 'Отчеты';
 ?>
 <div class="fun-report">
-    <div class="row">
-        <div class="col-sm-8">
-            <?= $ChartWidget ?>
-        </div>
-        <div class="col-sm-8">
-            <?= $StaticWidget ?>
-        </div>
-    </div>
+    <?= StaticWidget::widget([
+        'object' => $fun,
+    ]) ?>
+    <?= ChartWidget::widget([
+        'object' => $fun,
+        'form' => $form,
+    ]); ?>
 </div>

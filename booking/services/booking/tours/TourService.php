@@ -359,4 +359,10 @@ class TourService
         $this->tours->save($tour);
     }
 
+    public function upViews(Tour $tour)
+    {
+        $tour->upViews();
+        $this->tours->save($tour);
+    }
+
 }

@@ -392,4 +392,10 @@ class FunService
         $fun->actualCalendar = $calendars;
         $this->funs->save($fun);
     }
+
+    public function upViews(Fun $fun)
+    {
+        $fun->upViews();
+        $this->funs->save($fun);
+    }
 }

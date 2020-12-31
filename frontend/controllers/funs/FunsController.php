@@ -76,7 +76,7 @@ class FunsController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-
+        $this->service->upViews($fun);//Перед показом увеличиваем счетчик
         return $this->render('fun', [
             'fun' => $fun,
             'reviewForm' => $reviewForm,

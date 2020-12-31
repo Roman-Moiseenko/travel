@@ -13,8 +13,10 @@ class StaticWidget extends Widget
 
     public function run()
     {
-
+        $views = $this->object->views;
+//TODO Стат данные по финансам объекта !!!!!!!!!!!
         return $this->render('static', [
+            'views' => $views,
         ]);
     }
 }

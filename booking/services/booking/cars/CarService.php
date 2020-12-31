@@ -352,4 +352,10 @@ class CarService
         $this->cars->save($car);
     }
 
+    public function upViews(Car $car)
+    {
+        $car->upViews();
+        $this->cars->save($car);
+    }
+
 }

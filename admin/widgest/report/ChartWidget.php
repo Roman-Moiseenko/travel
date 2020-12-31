@@ -40,11 +40,12 @@ class ChartWidget extends Widget
 
         if ($this->form->booking) {
             $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, null);
-            $datasets[] =  $this->getDataset($data, 'red', 'Забронировано');
+            $datasets[] =  $this->getDataset($data, '#ffc107 ', 'Забронировано');
         }
+        //TODO или подтв. или приобрет
         if ($this->form->pay) {
             $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, BookingHelper::BOOKING_STATUS_PAY);
-            $datasets[] =  $this->getDataset($data, 'green', 'Приобретено');
+            $datasets[] =  $this->getDataset($data, '#268fff', 'Приобретено/Подтверждено');
         }
 
         $listYear = [];
@@ -57,23 +58,32 @@ class ChartWidget extends Widget
             'labels' => $labels,
             'datasets' => $datasets
         ];
+        $this->registerScript($data, 'chart_ticket');
+        //TODO продано на сумму
+        $data2 = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, BookingHelper::BOOKING_STATUS_PAY);
+        $datasets2[] =  $this->getDataset($data2, '#28a745', 'Продано на сумму //СКОРО');
+        $data2 = [
+            'labels' => $labels,
+            'datasets' => $datasets2
+        ];
+        $this->registerScript($data2, 'chart_money');
 
-        $this->registerScript($data);
         return $this->render('chart', [
-            'canvas_id' => $this->id,
+            'canvas_id' => 'chart_ticket',
+            'canvas_id_money' => 'chart_money',
             'model' => $this->form,
             'listYear' => $listYear,
         ]);
     }
 
-    public function registerScript($data)
+    public function registerScript($data, $canvas_id)
     {
         $dataForChart = Json::encode($data);
         $view = $this->getView();
         ChartJSAsset::register($view);
 
         $js = <<< JS
-            var ctx = $("#$this->id");
+            var ctx = $("#$canvas_id");
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: $dataForChart,

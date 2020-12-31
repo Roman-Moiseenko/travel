@@ -2,6 +2,7 @@
 
 namespace admin\controllers\tour;
 
+use admin\widgest\report\ChartMoneyWidget;
 use admin\widgest\report\ChartWidget;
 use admin\widgest\report\PaymentNextWidget;
 use admin\widgest\report\PaymentPastWidget;
@@ -38,19 +39,7 @@ class ReportController extends Controller
         $form->load(\Yii::$app->request->post());
 
         return $this->render('index', [
-            'ChartWidget' => ChartWidget::widget([
-                'object' => $tour,
-                'form' => $form,
-            ]),
-            'PaymentPastWidget' => PaymentPastWidget::widget([
-
-            ]),
-            'PaymentNextWidget' => PaymentNextWidget::widget([
-
-            ]),
-            'StaticWidget' => StaticWidget::widget([
-
-            ]),
+            'form' => $form,
             'tour' => $tour,
         ]);
     }

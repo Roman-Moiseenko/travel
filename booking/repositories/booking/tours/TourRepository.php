@@ -228,8 +228,6 @@ class TourRepository
         $tour = Tour::find()->andWhere(['slug' => $slug])->one();
         if (empty($tour))
             throw new NotFoundHttpException(Lang::t('Неверный адрес') . ': ' . $slug);
-        $tour->upViews();
-        $this->save($tour);
         return $tour;
     }
 

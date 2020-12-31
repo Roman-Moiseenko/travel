@@ -15,10 +15,7 @@ class FunRepository
 {
     public function get($id)
     {
-        $fun = Fun::findOne($id);
-        $fun->upViews();
-        $this->save($fun);
-        return $fun;
+        return Fun::findOne($id);
     }
 
     public function getByLegal($legal_id): array
