@@ -57,8 +57,9 @@ use yii\helpers\Url; ?>
             <div class="float-right d-none d-sm-inline">
                 <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo']) ?>
             </div>
-            <p><?= Lang::t('Разработано') ?> <a href="mailto:r.a.moiseenko@gmail.com"
-                                                target="_blank"><?= Lang::t('Моисеенко Роман Александрович') ?></a>
+            <p><?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
+                                                target="_blank"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
                 &copy; 2020 <?= Lang::t('Все права защищены') ?></p>
     </div>
 </footer>
+
