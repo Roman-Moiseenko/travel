@@ -176,13 +176,8 @@ class BookingHelper
 
     public static function merchant(BookingItemInterface $booking)
     {
-        if (!$booking->isCheckBooking()) return $booking->getAmountDiscount();
-        if (!isset(\Yii::$app->params['merchant_payment']) || \Yii::$app->params['merchant_payment'] == false) {
-            return $booking->getAmountDiscount() / (1 + $booking->getMerchant() / 100);
-        } else {
-            $merchant = $booking->getMerchant();// == 0 ? \Yii::$app->params['merchant'] : 0;
-            return $booking->getAmountDiscount() * (1 + $merchant / 100);
-        }
+        return $booking->getAmountDiscount();
+        //TODO Удалить и заменить в Кассе
     }
 
     public static function cancellation($cancellation): string

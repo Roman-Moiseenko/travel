@@ -41,7 +41,7 @@ $lang = $user->preferences->lang;
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('Сумма к возврату', $lang) ?>: <b><?= CurrencyHelper::get($booking->getAmountDiscount() * (1 - $booking->getMerchant() / 100)) ?></b><br>
+                <?= Lang::t('Сумма к возврату', $lang) ?>: <b><?= CurrencyHelper::get($booking->getAmountDiscount()) ?></b><br>
                 <?= ' ' . Lang::t('Возврат денежных средств происходит в течение 3 банковских дней. Возможно увеличение сроков, в том числе при переводе денежных средств в другую страну', $lang) ?>.
             </td>
             <td style="width: 25%"></td>

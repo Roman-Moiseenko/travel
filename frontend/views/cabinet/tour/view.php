@@ -106,20 +106,12 @@ $tour = $booking->calendar->tour;
                             <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent / 100 : $booking->bonus) . ' (' . $booking->discount->promo . ')' ?> </td>
                         </tr>
                     <?php endif; ?>
-                    <?php if ($booking->isCheckBooking() && $booking->getMerchant() != 0): ?>
-                        <tr class="py-2 my-2">
-                            <th class="py-3 my-2"><?= Lang::t('Комиссия банка') . ' (' . $booking->getMerchant() . '%)' ?></th>
-                            <td></td>
-                            <td></td>
-                            <td><?= CurrencyHelper::get($booking->getAmountDiscount() * $booking->getMerchant() / 100) ?> </td>
-                        </tr>
-                    <?php endif; ?>
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get($booking->getAmountDiscount() * (1 + $booking->getMerchant() / 100)) ?> </td>
+                        <td><?= CurrencyHelper::get($booking->getAmountDiscount()) ?> </td>
                     </tr>
                     </tbody>
                 </table>

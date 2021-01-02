@@ -30,26 +30,30 @@ class m210102_211852_add_payments_fields extends Migration
 
         $bookings = BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
         foreach ($bookings as $booking) {
-            $booking->payment_merchant = $booking->getAmount() * (1 - \Yii::$app->params['merchant']);
-            $booking->payment_deduction = $booking->getAmount() * (1 - \Yii::$app->params['deduction']);
+//            echo $booking->getAmount() . '<br>';
+            $booking->payment_merchant = $booking->getAmount() * (float)\Yii::$app->params['merchant']/100;
+//            echo $booking->payment_merchant . '<br>';
+
+            $booking->payment_deduction = $booking->getAmount() * (float)\Yii::$app->params['deduction']/100;
+//            echo $booking->payment_deduction . '<br>';
             $booking->payment_at = time();
             $booking->save();
         }
-
+/*
         $bookings = BookingFun::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
         foreach ($bookings as $booking) {
-            $booking->payment_merchant = $booking->getAmount() * (1 - \Yii::$app->params['merchant']);
-            $booking->payment_deduction = $booking->getAmount() * (1 - \Yii::$app->params['deduction']);
+            $booking->payment_merchant = $booking->getAmount() * (float)\Yii::$app->params['merchant']/100;
+            $booking->payment_deduction = $booking->getAmount() * (float)\Yii::$app->params['deduction']/100;
             $booking->payment_at = time();
             $booking->save();
         }
         $bookings = BookingCar::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
         foreach ($bookings as $booking) {
-            $booking->payment_merchant = $booking->getAmount() * (1 - \Yii::$app->params['merchant']);
-            $booking->payment_deduction = $booking->getAmount() * (1 - \Yii::$app->params['deduction']);
+            $booking->payment_merchant = $booking->getAmount() * (float)\Yii::$app->params['merchant']/100;
+            $booking->payment_deduction = $booking->getAmount() * (float)\Yii::$app->params['deduction']/100;
             $booking->payment_at = time();
             $booking->save();
-        }
+        }*/
     }
 
     /**

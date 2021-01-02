@@ -214,11 +214,6 @@ class BookingTour extends ActiveRecord implements BookingItemInterface
         return $this->getAmount();
     }
 
-    /** % Оплаты комиссии */
-    public function getMerchant(): float
-    {
-        return $this->pay_merchant;
-    }
 
     /** Выплата провайдеру с текущей брони */
     public function getPaymentToProvider(): float

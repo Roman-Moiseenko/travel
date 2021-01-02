@@ -57,8 +57,6 @@ class BookingCarService
             if ($notUsed <= 0) $bonus = 0;
             $booking->setBonus($bonus);
         }
-        $booking->pay_merchant = 0;
-
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;
@@ -97,6 +95,8 @@ class BookingCarService
     {
         $booking = $this->bookings->get($id);
         $booking->payment_provider = 0;
+        $booking->payment_merchant = 0;
+        $booking->payment_deduction = 0;
         $booking->confirmation();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
@@ -105,13 +105,18 @@ class BookingCarService
     public function pay($id)
     {
         $booking = $this->bookings->get($id);
+
         $deduction = \Yii::$app->params['deduction'];
-        $payment_provider = $booking->getAmount();
+        $merchant = \Yii::$app->params['merchant'];
+        $payment = $booking->getAmount();
         if ($booking->discount && !$booking->discount->isOffice()) {
-            $payment_provider -= $payment_provider * $booking->discount->percent / 100;
+            $payment -= $payment * $booking->discount->percent / 100;
         }
-        $payment_provider = $payment_provider * (1 - $deduction / 100 - ($booking->pay_merchant == 0 ? \Yii::$app->params['merchant'] : 0) / 100);
-        $booking->payment_provider = $payment_provider;
+        $booking->payment_merchant = $payment * $merchant / 100;
+        $booking->payment_deduction = $payment * $deduction / 100;
+        $booking->payment_provider = $payment * (1 - $booking->payment_merchant - $booking->payment_deduction);
+        $booking->payment_at = time();
+
         $booking->pay();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);

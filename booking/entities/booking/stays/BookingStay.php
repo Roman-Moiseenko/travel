@@ -129,10 +129,6 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
         // TODO: Implement getAmountDiscount() method.
     }
 
-    public function getMerchant(): float
-    {
-        // TODO: Implement getMerchant() method.
-    }
 
     public function getAmountPayAdmin(): float
     {

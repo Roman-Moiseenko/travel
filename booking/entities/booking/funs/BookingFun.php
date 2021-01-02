@@ -321,11 +321,6 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         }
     }
 
-    public function getMerchant(): float
-    {
-        return $this->pay_merchant;
-    }
-
     public function getAmountPayAdmin(): float
     {
         if (!$this->discount) return $this->getAmount();

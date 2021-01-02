@@ -311,10 +311,6 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
             }
     }
 
-    public function getMerchant(): float
-    {
-        return $this->pay_merchant;
-    }
 
     public function getAmountPayAdmin(): float
     {

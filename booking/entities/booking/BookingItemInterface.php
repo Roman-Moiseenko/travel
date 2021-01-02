@@ -26,7 +26,7 @@ interface BookingItemInterface
     public function getStatus(): int;
     public function getAmount(): int; //Базовая сумма
     public function getAmountDiscount(): float; //С учетом скидок
-    public function getMerchant(): float;
+
     //TODO удалить, заменив вывод в ... admin->...->booking
     public function getAmountPayAdmin(): float; //Удалить
     public function getPaymentToProvider(): float; //Выплата провайдеру
