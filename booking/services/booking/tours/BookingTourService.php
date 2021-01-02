@@ -112,11 +112,12 @@ class BookingTourService
     {
         $booking = $this->bookings->get($id);
         $deduction = \Yii::$app->params['deduction'];
+        $merchant = \Yii::$app->params['merchant'];
         $payment_provider = $booking->getAmount();
         if ($booking->discount && !$booking->discount->isOffice()) {
             $payment_provider -= $payment_provider * $booking->discount->percent / 100;
         }
-        $payment_provider = $payment_provider * (1 - $deduction / 100 - ($booking->pay_merchant == 0 ? \Yii::$app->params['merchant'] : 0) / 100);
+        $payment_provider = $payment_provider * (1 - $deduction / 100 - $merchant / 100);
         $booking->payment_provider = $payment_provider;
         $booking->pay();
         $this->bookings->save($booking);

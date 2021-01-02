@@ -21,20 +21,22 @@ use yii\helpers\Url;
  * @property integer $id
  * @property integer $user_id
  * @property integer $fun_id
-
  * @property integer $status
  * @property string $comment - комментарий к заказу
  * @property Cost $count
  * @property integer $created_at
 
- * @property float $payment_provider
- * @property float $pay_merchant
- * @property string $payment_id
- * @property string $confirmation
+Выплаты
+ * @property float $payment_provider - оплата провайдеру
+ * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
+ * @property string $payment_id - ID платежа по ЮКассе
+ * @property integer $payment_at - дата оплаты
+ * @property float $payment_merchant - оплата комиссии банку (в руб)
+ * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
+ * @property string $confirmation - код подтверждения, для неоплачиваемых
 
  * @property integer $pincode
  * @property boolean $unload
-
  * @property integer $discount_id
  * @property integer $bonus
 
@@ -43,8 +45,6 @@ use yii\helpers\Url;
  * @property integer $give_user_id
 
  * @property Discount $discount
-
-
  * @property Fun $fun
  * @property \booking\entities\check\User $checkUser
  * @property BookingFunOnDay[] $days
@@ -52,6 +52,7 @@ use yii\helpers\Url;
  * @property int $count_adult [int]
  * @property int $count_child [int]
  * @property int $count_preference [int]
+ * @property int $calendar_id [int]
  */
 
 // * @property CostCalendar $calendar

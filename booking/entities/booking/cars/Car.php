@@ -42,7 +42,7 @@ use yii\web\UploadedFile;
  * @property integer $deposit - Залог
  * @property integer $cost - цена в сутки
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property integer $check_booking - Оплата через портал или  провайдера
+ * @property integer $check_booking - Оплата через портал (102) или  провайдера (101)
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $discount_of_days - Скидка % при заказе более 3 дней
 

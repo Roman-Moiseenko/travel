@@ -29,7 +29,7 @@ use yii\helpers\Url;
 
  * @property integer $discount_id
  * @property Discount $discount
- * @property integer $bonus
+ * @property integer $bonus - скидка с вознаграждения портала
  * @property integer $pincode
  * @property boolean $unload
  *
@@ -38,6 +38,9 @@ use yii\helpers\Url;
  * @property float $payment_provider - оплата провайдеру
  * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
  * @property string $payment_id - ID платежа по ЮКассе
+ * @property integer $payment_at - дата оплаты
+ * @property float $payment_merchant - оплата комиссии банку (в руб)
+ * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
  * @property string $confirmation - код подтверждения, для неоплачиваемых
 
 Выдача билета
