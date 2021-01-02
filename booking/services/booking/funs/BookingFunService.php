@@ -125,7 +125,7 @@ class BookingFunService
         }
         $booking->payment_merchant = $payment * $merchant / 100;
         $booking->payment_deduction = $payment * $deduction / 100;
-        $booking->payment_provider = $payment * (1 - $booking->payment_merchant - $booking->payment_deduction);
+        $booking->payment_provider = $payment - $booking->payment_merchant - $booking->payment_deduction;
         $booking->payment_at = time();
 
         $booking->pay();
