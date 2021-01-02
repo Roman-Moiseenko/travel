@@ -250,7 +250,7 @@ class UserManageService
     public function addDiscount($user_id, DiscountForm $form): void
     {
         $user = $this->users->get($user_id);
-        ini_set('max_execution_time', $form->repeat * 2);
+        ini_set('max_execution_time', 30 + $form->repeat * 2);
         for ($i = 1; $i <= $form->repeat; $i++) {
             $discount = Discount::create(
                 $form->entities,

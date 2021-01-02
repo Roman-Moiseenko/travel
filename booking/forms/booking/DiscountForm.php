@@ -4,6 +4,7 @@
 namespace booking\forms\booking;
 
 
+use booking\entities\booking\Discount;
 use yii\base\Model;
 
 class DiscountForm extends Model
@@ -14,7 +15,7 @@ class DiscountForm extends Model
     public $count;
     public $repeat;
 
-    public function __construct($config = [])
+    public function __construct(Discount $discount = null, $config = [])
     {
         $this->count = 1;
         $this->repeat = 1;

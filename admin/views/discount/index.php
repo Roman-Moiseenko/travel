@@ -6,6 +6,7 @@ use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
+use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use yii\grid\GridView;
@@ -57,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'entities_id',
             'value' => function (Discount $model) {
+    //TODO Заглушка Stays идр
                 if ($model->entities == Discount::E_ADMIN_USER) return '';
                 if ($model->entities_id == null) return 'Все';
                 if ($model->entities == Discount::E_USER_LEGAL) {
@@ -74,6 +76,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($model->entities == Discount::E_BOOKING_CAR) {
                     $car = Car::findOne($model->entities_id);
                     return $car->name;
+                }
+                if ($model->entities == Discount::E_BOOKING_FUN) {
+                    $fun = Fun::findOne($model->entities_id);
+                    return $fun->name;
                 }
             },
             'format' => 'raw',

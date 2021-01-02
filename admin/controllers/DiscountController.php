@@ -97,6 +97,7 @@ class DiscountController extends Controller
 
     public function actionLoad()
     {
+        //TODO Заглушка Stays
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams['set'];
             if ($params == '') return '';
@@ -131,6 +132,14 @@ class DiscountController extends Controller
                 $cars = $user->cars;
                 foreach ($cars as $car) {
                     $result .= '<option value="' . $car->id . '">' . $car->name . '</option>';
+                }
+                return $result;
+            }
+            if ($params == Discount::E_BOOKING_FUN) {
+                $result = '<option value="0">Все</option>';
+                $funs = $user->funs;
+                foreach ($funs as $fun) {
+                    $result .= '<option value="' . $fun->id . '">' . $fun->name . '</option>';
                 }
                 return $result;
             }

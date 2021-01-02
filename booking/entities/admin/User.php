@@ -6,10 +6,13 @@ use booking\entities\admin\Personal;
 use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\Discount;
+use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use booking\helpers\BookingHelper;
+use booking\helpers\StatusHelper;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\base\NotSupportedException;
@@ -425,20 +428,27 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Notice::class, ['user_id' => 'id']);
     }
 
+    //TODO Заглушка Stay
     public function getTours(): ActiveQuery
     {
-        return $this->hasMany(Tour::class, ['user_id' => 'id']);
+        return $this->hasMany(Tour::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
     }
 
     public function getStays(): ActiveQuery
     {
-        return $this->hasMany(Stay::class, ['user_id' => 'id']);
+        return $this->hasMany(Stay::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
     }
 
     public function getCars(): ActiveQuery
     {
-        return $this->hasMany(Car::class, ['user_id' => 'id']);
+        return $this->hasMany(Car::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
     }
+
+    public function getFuns(): ActiveQuery
+    {
+        return $this->hasMany(Fun::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
+    }
+    //
 
     public function getDiscounts(): ActiveQuery
     {

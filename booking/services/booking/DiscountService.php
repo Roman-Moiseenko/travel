@@ -61,6 +61,7 @@ class DiscountService
 
     public static function generatePromo($entities): string
     {
+        // TODO Заглушка Stay
         $code = ['0', '1', '2', '3', '4', '5','6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
@@ -73,6 +74,7 @@ class DiscountService
             case Discount::E_BOOKING_TOUR: $result = 'T'; break;
             case Discount::E_BOOKING_STAY: $result = 'S'; break;
             case Discount::E_BOOKING_CAR: $result = 'C'; break;
+            case Discount::E_BOOKING_FUN: $result = 'F'; break;
         }
         $time = time();
         $div = ($time - 1.5 *(10 ** 9)) * rand(1, 999) + \Yii::$app->user->id * (10 ** 11);// + microtime();
