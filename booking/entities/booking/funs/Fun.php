@@ -42,7 +42,6 @@ use yii\web\UploadedFile;
 
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property bool $pay_bank Оплата Комиссии банку Провайдером
  * @property integer $check_booking - Оплата через портал или  провайдера
  * @property integer $quantity - Количество автосредств данной модели
  *
@@ -110,7 +109,6 @@ class Fun extends ActiveRecord
         $fun->created_at = time();
         $fun->status = StatusHelper::STATUS_INACTIVE;
         $fun->check_booking = BookingHelper::BOOKING_CONFIRMATION;
-        $fun->pay_bank = true;
         $fun->quantity = 1;
         $fun->times = [];
         //Заполняем массив недели
@@ -183,11 +181,6 @@ class Fun extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    public function setPayBank($pay_bank)
-    {
-        $this->pay_bank = $pay_bank;
     }
 
     public function setCheckBooking($check_booking)

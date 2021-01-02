@@ -233,8 +233,6 @@ class CarService
         $car->setDiscountOfDays($form->discount_of_days);
         //По умолчанию ч/з подтверждение
         $car->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
-        //По умолчанию комиссия на Провайдере
-        $car->setPayBank($form->pay_bank ?? true);
         $car->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->cars->save($car);
     }

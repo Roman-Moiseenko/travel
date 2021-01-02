@@ -42,19 +42,18 @@ use yii\web\UploadedFile;
  * @property integer $deposit - Залог
  * @property integer $cost - цена в сутки
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property bool $pay_bank Оплата Комиссии банку Провайдером
  * @property integer $check_booking - Оплата через портал или  провайдера
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $discount_of_days - Скидка % при заказе более 3 дней
- *
+
  * @property float $rating
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
- *
+
  * ====== Составные поля ===================================
  * @property BookingAddress[] $address
  * @property CarParams $params Возраст, Вод.права категория (entities), Стаж, мин.срок, Доставка
- *
+
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -105,7 +104,6 @@ class Car extends ActiveRecord
         $car->description_en = $description_en;
         $car->year = $year;
         $car->check_booking = BookingHelper::BOOKING_CONFIRMATION;
-        $car->pay_bank = true;
         $car->quantity = 1;
         return $car;
     }
@@ -185,11 +183,6 @@ class Car extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    public function setPayBank($pay_bank)
-    {
-        $this->pay_bank = $pay_bank;
     }
 
     public function setCheckBooking($check_booking)

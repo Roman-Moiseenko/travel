@@ -250,7 +250,6 @@ class FunService
         //По умолчанию ч/з подтверждение
         $fun->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         //По умолчанию комиссия на Провайдере
-        $fun->setPayBank($form->pay_bank ?? true);
         $fun->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
 
         $this->funs->save($fun);

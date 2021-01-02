@@ -38,7 +38,7 @@ use yii\web\UploadedFile;
  * @property integer type_id
  * @property float $rating
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property bool $pay_bank Оплата Комиссии банку Провайдером
+
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
  * ====== Составные поля ===================================
@@ -127,11 +127,6 @@ class Tour extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    public function setPayBank($pay_bank)
-    {
-        $this->pay_bank = $pay_bank;
     }
 
     public function setCheckBooking($check_booking)

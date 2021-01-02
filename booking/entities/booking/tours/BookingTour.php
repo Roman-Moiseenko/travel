@@ -22,23 +22,34 @@ use yii\helpers\Url;
  * @property integer $calendar_id
  * @property integer $user_id
  * @property CostCalendar $calendar
- * @property string $confirmation
  * @property Cost $count
  * @property integer $status
  * @property integer $created_at
+
+
  * @property integer $discount_id
  * @property Discount $discount
  * @property integer $bonus
  * @property integer $pincode
  * @property boolean $unload
- * @property \booking\entities\user\User $user
- * @property float $payment_provider
- * @property float $pay_merchant
- * @property string $payment_id
+ *
+
+Выплаты
+ * @property float $payment_provider - оплата провайдеру
+ * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
+ * @property string $payment_id - ID платежа по ЮКассе
+ * @property string $confirmation - код подтверждения, для неоплачиваемых
+
+Выдача билета
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
+
  * @property \booking\entities\check\User $checkUser
+ * @property \booking\entities\user\User $user
+ * @property int $count_adult [int]
+ * @property int $count_child [int]
+ * @property int $count_preference [int]
  */
 
 // unload - выгружен или нет для отчета в finance

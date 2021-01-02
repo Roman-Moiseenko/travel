@@ -54,11 +54,9 @@ class BookingTourService
             if ($notUsed <= 0) $bonus = 0;
             $booking->setBonus($bonus);
         }
-        if ($booking->calendar->tour->isConfirmation()) {
-            $booking->pay_merchant = 0;
-        } else {
-            $booking->pay_merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->calendar->tour->pay_bank);
-        }
+
+        $booking->pay_merchant = 0;
+
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;

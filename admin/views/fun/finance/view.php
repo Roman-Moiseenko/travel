@@ -94,11 +94,6 @@ $this->params['breadcrumbs'][] = 'Цены';
                                 'value' => BookingHelper::cancellation($fun->cancellation),
                             ],
                             [
-                                'attribute' => 'pay_bank',
-                                'label' => 'Оплата комиссии банка (' . \Yii::$app->params['merchant'] . '%)',
-                                'value' => $fun->pay_bank ? 'Провайдер' : 'Клиент',
-                            ],
-                            [
                                 'attribute' => 'check_booking',
                                 'label' => 'Способ оплаты',
                                 'value' => BookingHelper::listCheck()[$fun->check_booking],

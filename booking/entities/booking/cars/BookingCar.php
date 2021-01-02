@@ -26,10 +26,11 @@ use yii\helpers\Url;
  * @property integer $begin_at
  * @property integer $end_at
 
- * @property float $payment_provider
- * @property float $pay_merchant
- * @property string $payment_id
- * @property string $confirmation
+ Выплаты
+ * @property float $payment_provider - оплата провайдеру
+ * @property float $pay_merchant - оплата по карте
+ * @property string $payment_id - ID платежа по ЮКассе
+ * @property string $confirmation - код подтверждения, для неоплачиваемых
 
  * @property integer $pincode
  * @property boolean $unload
@@ -42,7 +43,7 @@ use yii\helpers\Url;
  * @property integer $bonus
  * @property integer $delivery
 
- *
+Выдача билета
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id

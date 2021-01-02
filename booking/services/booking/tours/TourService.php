@@ -241,8 +241,6 @@ class TourService
         );
         //По умолчанию ч/з подтверждение
         $tour->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
-        //По умолчанию комиссия на Провайдере
-        $tour->setPayBank($form->pay_bank ?? true);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tour);
     }

@@ -57,11 +57,8 @@ class BookingCarService
             if ($notUsed <= 0) $bonus = 0;
             $booking->setBonus($bonus);
         }
-        if ($booking->car->isConfirmation()) {
-            $booking->pay_merchant = 0;
-        } else {
-            $booking->pay_merchant = \Yii::$app->params['merchant'] * (1 - (int)$booking->car->pay_bank);
-        }
+        $booking->pay_merchant = 0;
+
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;

@@ -61,13 +61,6 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
                     </div>
                     <div class="row">
                         <div class="col">
-                            <?= $form->field($model, 'pay_bank')
-                                ->checkbox($disabled)->label('Комиссию банка оплачивает Провайдер')
-                                ->hint('Для повышения лояльности Клиентов, старайтесь самостоятельно оплачивать комиссию банка.') ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
                             <?= $form->field($model, 'check_booking')
                                 ->radioList(BookingHelper::listCheck(), ['itemOptions' => $disabled])->label('Способ оплаты:')
                                  ?>
