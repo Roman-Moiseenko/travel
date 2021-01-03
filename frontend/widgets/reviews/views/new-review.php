@@ -12,15 +12,10 @@ use yii\helpers\Html; ?>
         aria-expanded="false" aria-controls="collapse-review">
     <?= Lang::t('Оставить отзыв') ?>
 </button>
-<div class="collapse" id="collapse-review">
+<div class="collapse pt-4" id="collapse-review">
     <?php $form = ActiveForm::begin(['action' => [$action, 'id' => $id]]) ?>
-
-
-
-    <?= ''; //$form->field($reviewForm, 'vote')->dropDownList($reviewForm->voteList(), ['prompt' => '--- ' . Lang::t('Выберите') . ' ---'])->label(Lang::t('Рейтинг')); ?>
-
-
-    <div class="star-rating pt-4">
+    <label>Ваша оценка:</label>
+    <div class="star-rating">
         <div class="star-rating__wrap">
             <input class="star-rating__input" id="star-rating-5" type="radio" name="ReviewForm[vote]" value="5">
             <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
@@ -36,10 +31,10 @@ use yii\helpers\Html; ?>
     </div>
 
 
-    <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Отзыв')); ?>
+    <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Комментарий') . ':'); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary btn-lg btn-block']) ?>
+        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary btn-lg']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>
