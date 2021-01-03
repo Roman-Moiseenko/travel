@@ -33,10 +33,10 @@ class ChartWidget extends Widget
         $labels = $this->getLabels($this->form);
         $datasets = [];
 
-        if ($this->form->confirmation) {
+       /* if ($this->form->confirmation) {
             $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, BookingHelper::BOOKING_STATUS_CONFIRMATION);
             $datasets[] =  $this->getDataset($data, 'blue', 'Подтверждено');
-        }
+        }*/
 
         if ($this->form->booking) {
             $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, null);
@@ -44,7 +44,7 @@ class ChartWidget extends Widget
         }
         //TODO или подтв. или приобрет
         if ($this->form->pay) {
-            $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, BookingHelper::BOOKING_STATUS_PAY);
+            $data = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]);
             $datasets[] =  $this->getDataset($data, '#268fff', 'Приобретено/Подтверждено');
         }
 
@@ -60,8 +60,8 @@ class ChartWidget extends Widget
         ];
         $this->registerScript($data, 'chart_ticket');
         //TODO продано на сумму
-        $data2 = $this->bookings->getforChart($this->object, $this->form->month, $this->form->year, BookingHelper::BOOKING_STATUS_PAY);
-        $datasets2[] =  $this->getDataset($data2, '#28a745', 'Продано на сумму //СКОРО');
+        $data2 = $this->bookings->getforChartAmount($this->object, $this->form->month, $this->form->year);
+        $datasets2[] =  $this->getDataset($data2, '#28a745', 'Продано на сумму');
         $data2 = [
             'labels' => $labels,
             'datasets' => $datasets2

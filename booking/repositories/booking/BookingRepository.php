@@ -317,16 +317,16 @@ class BookingRepository
 
     private function sumBookingFun($begin, $end, $status, $fun_id): int
     {
+        //TODO Возможно ошибочни считает
         $query = BookingFun::find()
             ->alias('b')
             ->joinWith('calendars c')
             ->andWhere(['b.fun_id' => $fun_id])
             ->andWhere(['>=', 'c.fun_at', $begin])
             ->andWhere(['<=', 'c.fun_at', $end]);
-        if ($status) $query = $query->andWhere(['b.status' => $status]);
+        if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
         return $query->sum('b.count_adult + b.count_child + b.count_preference') ?? 0;
     }
-
 
     private function sumBookingTour($begin, $end, $status, $tour_id): int
     {
@@ -336,7 +336,7 @@ class BookingRepository
             ->andWhere(['c.tours_id' => $tour_id])
             ->andWhere(['>=', 'c.tour_at', $begin])
             ->andWhere(['<=', 'c.tour_at', $end]);
-        if ($status) $query = $query->andWhere(['b.status' => $status]);
+        if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
         return $query->sum('b.count_adult + b.count_child + b.count_preference') ?? 0;
     }
 
@@ -349,7 +349,82 @@ class BookingRepository
             ->andWhere(['<=', 'c.car_at', $end])
             ->leftJoin(BookingCarOnDay::tableName() . ' d', 'd.calendar_id = c.id')
             ->leftJoin(BookingCar::tableName() . ' b', 'b.id = d.booking_id');
-        if ($status) $query = $query->andWhere(['b.status' => $status]);
+        if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
         return $query->sum('b.count') ?? 0;
+    }
+
+    public function getforChartAmount($object, int $month, int $year)
+    {
+        $result = [];
+        //TODO Заглушка Stay
+        if ($month == 0) {
+            for ($i = 1; $i <= 12; $i++) {
+                $begin = strtotime('01-' . $i . '-' . $year . ' 00:00:00');
+                $t = date('t', $begin);
+                $end = strtotime($t . '-' . $i . '-' . $year . ' 23:59:59');
+                if (get_class($object) == Tour::class) $result[] = $this->sumBookingTourAmount($begin, $end, $object->id);
+                if (get_class($object) == Fun::class) $result[] = $this->sumBookingFunAmount($begin, $end, $object->id);
+                if (get_class($object) == Car::class) $result[] = $this->sumBookingCarAmount($begin, $end, $object->id);
+            }
+        } else {
+            $t = date('t', strtotime('01-' . $month . '-' . $year));
+            for ($i = 1; $i <= $t; $i++) {
+                $begin = strtotime($i . '-' . $month . '-' . $year . ' 00:00:00');
+                $end = strtotime($i . '-' . $month . '-' . $year . ' 23:59:59');
+                if (get_class($object) == Tour::class) $result[] = $this->sumBookingTourAmount($begin, $end, $object->id);
+                if (get_class($object) == Fun::class) $result[] = $this->sumBookingFunAmount($begin, $end, $object->id);
+                if (get_class($object) == Car::class) $result[] = $this->sumBookingCarAmount($begin, $end, $object->id);
+            }
+        }
+        return $result;
+    }
+    private function sumBookingFunAmount($begin, $end, $fun_id): int
+    {
+        $result = 0;
+        $bookings = BookingFun::find()
+            ->andWhere(['fun_id' => $fun_id])
+            ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
+
+        foreach ($bookings as $booking) {
+            if ($begin <= $booking->getDate() && $booking->getDate() <= $end) {
+                $result += $booking->payment_provider;
+            }
+        }
+        return $result;
+    }
+
+    private function sumBookingTourAmount($begin, $end, $tour_id): int
+    {
+        $query = BookingTour::find()
+            ->alias('b')
+            ->leftJoin(CostCalendar::tableName() . ' c', 'b.calendar_id = c.id')
+            ->andWhere(['c.tours_id' => $tour_id])
+            ->andWhere(['>=', 'c.tour_at', $begin])
+            ->andWhere(['<=', 'c.tour_at', $end])
+            ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY]);
+
+        return $query->sum('b.payment_provider') ?? 0;
+    }
+
+    private function sumBookingCarAmount($begin, $end, $car_id): int
+    {
+        $query = BookingCar::find()
+            ->andWhere(['car_id' => $car_id])
+            ->andWhere(['>=', 'begin_at', $begin])
+            ->andWhere(['<=', 'begin_at', $end])
+            ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY]);
+        return $query->sum('payment_provider') ?? 0;
+
+        /*
+        $query = \booking\entities\booking\cars\CostCalendar::find()
+            ->alias('b')
+            ->andWhere(['c.car_id' => $car_id])
+            ->andWhere(['>=', 'c.car_at', $begin])
+            ->andWhere(['<=', 'c.car_at', $end])
+            ->leftJoin(BookingCarOnDay::tableName() . ' d', 'd.calendar_id = c.id')
+            ->leftJoin(BookingCar::tableName() . ' b', 'b.id = d.booking_id')
+            ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY]);
+        return $query->sum('b.payment_provider') ?? 0;
+         */
     }
 }

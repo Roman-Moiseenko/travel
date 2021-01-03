@@ -11,10 +11,11 @@ use booking\forms\booking\ConfirmationForm;
 use booking\repositories\booking\cars\BookingCarRepository;
 use booking\repositories\booking\cars\CostCalendarRepository;
 use booking\repositories\booking\DiscountRepository;
+use booking\services\booking\BookingService;
 use booking\services\ContactService;
 
 
-class BookingCarService
+class BookingCarService extends BookingService
 {
     private $bookings;
     private $calendar;

@@ -42,6 +42,11 @@ class CurrencyHelper
         return number_format($cost, 0, '.', ' ') . ' руб.';
     }
 
+    public static function stat($cost)
+    {
+        return number_format($cost, 0, '.', ' ') . ' &#8381;';
+    }
+
     public static function get($cost)
     {
         if (empty($cost)) {

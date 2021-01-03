@@ -13,10 +13,11 @@ use booking\repositories\booking\DiscountRepository;
 
 use booking\repositories\booking\funs\BookingFunRepository;
 use booking\repositories\booking\funs\CostCalendarRepository;
+use booking\services\booking\BookingService;
 use booking\services\ContactService;
 
 
-class BookingFunService
+class BookingFunService extends BookingService
 {
     private $bookings;
     private $calendar;
