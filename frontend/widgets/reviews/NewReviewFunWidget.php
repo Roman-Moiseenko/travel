@@ -31,9 +31,10 @@ class NewReviewFunWidget extends Widget
                 $booking->fun_id == $this->fun_id &&
                 ($booking->status == BookingHelper::BOOKING_STATUS_PAY || $booking->status == BookingHelper::BOOKING_STATUS_CONFIRMATION)) {
                 $reviewForm = new ReviewForm();
-                return $this->render('new-review-fun', [
+                return $this->render('new-review', [
                     'reviewForm' => $reviewForm,
-                    'fun_id' => $this->fun_id,
+                    'id' => $this->fun_id,
+                    'action' => '/fun/view',
                 ]);
             }
         }

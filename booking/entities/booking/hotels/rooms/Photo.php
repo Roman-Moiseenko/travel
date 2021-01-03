@@ -1,6 +1,6 @@
 <?php
 
-namespace booking\entities\booking\rooms;
+namespace booking\entities\booking\hotels\rooms;
 
 //use shop\services\WaterMarker;
 

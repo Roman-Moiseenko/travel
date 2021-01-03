@@ -33,9 +33,10 @@ class NewReviewTourWidget extends Widget
                 $reviewForm = new ReviewForm();
                 //scr::p(date('d-m-Y H:i:s', $booking->calendar->tour_at));
 
-                return $this->render('new-review-tour', [
+                return $this->render('new-review', [
                     'reviewForm' => $reviewForm,
-                    'tour_id' => $this->tour_id,
+                    'id' => $this->tour_id,
+                    'action' => '/tour/view',
                 ]);
             }
         }

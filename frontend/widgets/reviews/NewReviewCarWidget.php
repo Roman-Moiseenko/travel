@@ -33,9 +33,10 @@ class NewReviewCarWidget extends Widget
                 $reviewForm = new ReviewForm();
                 //scr::p(date('d-m-Y H:i:s', $booking->calendar->tour_at));
 
-                return $this->render('new-review-car', [
+                return $this->render('new-review', [
                     'reviewForm' => $reviewForm,
-                    'car_id' => $this->car_id,
+                    'id' => $this->car_id,
+                    'action' => '/car/view',
                 ]);
             }
         }

@@ -4,7 +4,7 @@
 namespace booking\services\booking\rooms;
 
 
-use booking\entities\booking\rooms\Type;
+use booking\entities\booking\hotels\rooms\Type;
 use booking\forms\booking\rooms\RoomTypeForm;
 use booking\repositories\booking\rooms\TypeRepository;
 

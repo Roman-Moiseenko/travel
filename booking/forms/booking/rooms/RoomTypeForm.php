@@ -4,7 +4,7 @@
 namespace booking\forms\booking\rooms;
 
 
-use booking\entities\booking\rooms\Type;
+use booking\entities\booking\hotels\rooms\Type;
 use yii\base\Model;
 
 class RoomTypeForm extends Model

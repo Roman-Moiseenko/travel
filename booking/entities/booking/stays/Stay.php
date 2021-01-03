@@ -5,7 +5,7 @@ namespace booking\entities\booking\stays;
 
 
 use booking\entities\admin\Legal;
-use booking\entities\booking\rooms\Rooms;
+use booking\entities\booking\hotels\rooms\Rooms;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
@@ -30,7 +30,6 @@ use yii\web\UploadedFile;
  * @property BookingAddress $address
  * @property Photo[] $photos
  * @property ReviewStay[] $reviews
- * @property Rooms[] $rooms
  * @property Type $type
  * @property Rules $rules
  * @property Comfort[] $comforts

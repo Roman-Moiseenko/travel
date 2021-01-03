@@ -1,8 +1,12 @@
 <?php
 
 
-namespace booking\entities\booking\rooms;
+namespace booking\entities\booking\hotels\rooms;
 
+use booking\entities\booking\rooms\Beds;
+use booking\entities\booking\hotels\rooms\Capacity;
+use booking\entities\booking\hotels\rooms\Photo;
+use booking\entities\booking\hotels\rooms\Type;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;

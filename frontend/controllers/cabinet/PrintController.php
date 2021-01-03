@@ -62,11 +62,17 @@ class PrintController extends Controller
             ],
         ];
     }
+
     public function actionCheck($id)
     {
         $booking = $this->bookings->getByPaymentId($id);
-        $item = $this->kassaService->check($id);
-        return $this->pdf->pdfCheck54($booking, $item);
+        try {
+            $item = $this->kassaService->check($id);
+            return $this->pdf->pdfCheck54($booking, $item);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('warning', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 
     //TODO Заглушка Stay
