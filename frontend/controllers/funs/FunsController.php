@@ -8,6 +8,7 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\Lang;
 use booking\forms\booking\funs\SearchFunForm;
 use booking\forms\booking\ReviewForm;
+use booking\helpers\scr;
 use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\funs\TypeRepository;
 use booking\services\booking\funs\FunService;
@@ -67,6 +68,7 @@ class FunsController extends Controller
             return $this->goHome();
         }
         $reviewForm = new ReviewForm();
+        //scr::p(\Yii::$app->request->post());
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($fun->id, \Yii::$app->user->id, $reviewForm);
