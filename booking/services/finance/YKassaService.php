@@ -58,7 +58,7 @@ class YKassaService
                         'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
                     ],
                     'capture' => true,
-                    'description' => $booking->getName() . ' #' . $booking->getId(),
+                    'description' => $booking->getName() . ' #' . BookingHelper::number($booking),
                     'metadata' => [
                         'class' => get_class($booking),
                         'id' => $booking->getId(),
