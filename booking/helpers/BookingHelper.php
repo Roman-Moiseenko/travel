@@ -31,6 +31,7 @@ class BookingHelper
     const BOOKING_TYPE_CAR = 3;
     const BOOKING_TYPE_TICKET = 4;
     const BOOKING_TYPE_FUNS = 5;
+    const BOOKING_TYPE_HOTEL = 6;
 
     const LIST_BOOKING_TYPE = [
         self::BOOKING_TYPE_TOUR => BookingTour::class,
@@ -49,6 +50,24 @@ class BookingHelper
         self::BOOKING_TYPE_FUNS => Fun::class,
 
     ];
+
+    const TYPE_OF_LIST = [
+        Tour::class => self::BOOKING_TYPE_TOUR,
+        Stay::class => self::BOOKING_TYPE_STAY,
+        Car::class => self::BOOKING_TYPE_CAR,
+        //null => self::BOOKING_TYPE_TICKET,
+        Fun::class => self::BOOKING_TYPE_FUNS,
+
+    ];
+
+    const STRING_TYPE = [
+        self::BOOKING_TYPE_TOUR => 'Туры и экскурсии',
+        self::BOOKING_TYPE_STAY => 'Аппартаменты, дома',
+        self::BOOKING_TYPE_CAR => 'Прокат авто',
+        self::BOOKING_TYPE_TICKET => 'Билеты на концерты',
+        self::BOOKING_TYPE_FUNS => 'Развлечения и мероприятия',
+    ];
+
 
     const NEW_DAYS = 7; //Сколько дней после публикации считать новым
 

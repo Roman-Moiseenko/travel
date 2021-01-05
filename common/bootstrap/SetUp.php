@@ -8,6 +8,8 @@ use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
+use booking\services\yandex\Info;
+use booking\services\yandex\YandexMarket;
 use frontend\urls\CarTypeUrlRule;
 use frontend\urls\FunTypeUrlRule;
 use frontend\urls\PageUrlRule;
@@ -105,5 +107,8 @@ class SetUp implements BootstrapInterface
                 'expire' => time() + 3600 * 24 * 365
             ]));
         }
+        $container->setSingleton(YandexMarket::class, [], [
+            new Info($app->name, $app->name, $app->params['frontendHostInfo']),
+        ]);
     }
 }

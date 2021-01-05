@@ -68,42 +68,6 @@ class YandexkassaController extends Controller
     {
         $booking = BookingHelper::getByNumber($id);
         try {
-            /*$payment = $this->client->createPayment(
-                [
-                    'amount' => [
-                        'value' => BookingHelper::merchant($booking),
-                        'currency' => 'RUB',
-                    ],
-                    'payment_method_data' => $this->yandexkassa['payment_method_data'],
-                    'receipt' => [
-                        'customer' => [
-                            'full_name' => \Yii::$app->user->identity->username, //personal->fullname->getFullName(),
-                            'email' => \Yii::$app->user->identity->email,
-                        ],
-                        'items' => [
-                            [
-                                'description' => $booking->getName(),
-                                'quantity' => 1,
-                                'amount' => ['value' => BookingHelper::merchant($booking), 'currency' => 'RUB'],
-                                'vat_code' => 1
-                            ],
-                        ],
-                        'email' => \Yii::$app->user->identity->email,
-                    ],
-                    'confirmation' => [
-                        'type' => 'redirect',
-                        'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()['frontend'],
-                        'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
-                    ],
-                    'capture' => true,
-                    'description' => $booking->getName() . ' #' . $id,
-                    'metadata' => [
-                        'class' => get_class($booking),
-                        'id' => $booking->id,
-                    ],
-                ],
-                uniqid('', true)
-            ); */
             $payment = $this->kassaService->invoice($booking);
             $booking->setPaymentId($payment->id);
             return $this->redirect($payment->getConfirmation()->getConfirmationUrl());

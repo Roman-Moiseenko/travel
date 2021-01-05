@@ -110,7 +110,7 @@ return [
                 'fast/sign-up' => 'auth/fast/sign-up',
                 'site/login' => 'auth/auth/login',
 
-                //['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
+                ['pattern' => 'turbo', 'route' => 'market/turbo', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
