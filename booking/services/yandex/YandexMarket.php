@@ -79,8 +79,6 @@ class YandexMarket
 
         // $deliveries = $this->deliveryMethods->getAll();
         $tours = $this->tours->getAllForSitemap();
-
-
         foreach ($tours as $tour) {
             $writer->startElement('offer');
 
@@ -88,17 +86,16 @@ class YandexMarket
             $writer->writeAttribute('type', 'vendor.model');
             $writer->writeAttribute('available', 'true');
 
-            $writer->writeElement('url', Html::encode(Url::to(['/tours/view', 'slug' => $tour->slug])));
+            $writer->writeElement('url', Html::encode(Url::to(['/tours/view', 'slug' => $tour->slug], true)));
             $writer->writeElement('price', $tour->baseCost->adult);
             $writer->writeElement('currencyId', 'RUR');
-            $writer->writeElement('categoryId', BookingHelper::STRING_TYPE[BookingHelper::BOOKING_TYPE_TOUR]);
+            $writer->writeElement('categoryId', BookingHelper::BOOKING_TYPE_TOUR);
 
             $writer->writeElement('vendor', Html::encode($tour->legal->getName()));
             $writer->writeElement('model', Html::encode($tour->name));
             $writer->writeElement('typePrefix', Html::encode($tour->type->name));
             $writer->writeElement('description', Html::encode(strip_tags($tour->description)));
             $writer->writeElement('picture', $tour->mainPhoto->getThumbFileUrl('file', 'tours_list'));
-
 
             $writer->startElement('param');
             $writer->writeAttribute('name', 'Тип');
@@ -109,6 +106,60 @@ class YandexMarket
             $writer->writeAttribute('name', 'Длительность');
             $writer->text($tour->params->duration);
             $writer->endElement();
+            $writer->endElement();
+        }
+
+        $cars = $this->cars->getAllForSitemap();
+        foreach ($cars as $car) {
+            $writer->startElement('offer');
+
+            $writer->writeAttribute('id', $car->id);
+            $writer->writeAttribute('type', 'vendor.model');
+            $writer->writeAttribute('available', 'true');
+
+            $writer->writeElement('url', Html::encode(Url::to(['/cars/view', 'id' => $car->id], true)));
+            $writer->writeElement('price', $car->cost);
+            $writer->writeElement('currencyId', 'RUR');
+            $writer->writeElement('categoryId', BookingHelper::BOOKING_TYPE_CAR);
+
+            $writer->writeElement('vendor', Html::encode($car->legal->getName()));
+            $writer->writeElement('model', Html::encode($car->name));
+            $writer->writeElement('typePrefix', Html::encode($car->type->name));
+            $writer->writeElement('description', Html::encode(strip_tags($car->description)));
+            $writer->writeElement('picture', $car->mainPhoto->getThumbFileUrl('file', 'cars_list'));
+
+            $writer->startElement('param');
+            $writer->writeAttribute('name', 'Минимальное бронирование');
+            $writer->text($car->params->min_rent . ' дней');
+            $writer->endElement();
+
+            $writer->startElement('param');
+            $writer->writeAttribute('name', 'Залог');
+            $writer->text($car->deposit);
+            $writer->endElement();
+
+
+            $writer->endElement();
+        }
+
+        $funs = $this->funs->getAllForSitemap();
+        foreach ($funs as $fun) {
+            $writer->startElement('offer');
+
+            $writer->writeAttribute('id', $fun->id);
+            $writer->writeAttribute('type', 'vendor.model');
+            $writer->writeAttribute('available', 'true');
+
+            $writer->writeElement('url', Html::encode(Url::to(['/fun/view', 'id' => $fun->id], true)));
+            $writer->writeElement('price', $fun->baseCost->adult);
+            $writer->writeElement('currencyId', 'RUR');
+            $writer->writeElement('categoryId', BookingHelper::BOOKING_TYPE_FUNS);
+
+            $writer->writeElement('vendor', Html::encode($fun->legal->getName()));
+            $writer->writeElement('model', Html::encode($fun->name));
+            $writer->writeElement('typePrefix', Html::encode($fun->type->name));
+            $writer->writeElement('description', Html::encode(strip_tags($fun->description)));
+            $writer->writeElement('picture', $fun->mainPhoto->getThumbFileUrl('file', 'funs_list'));
 
             $writer->endElement();
         }

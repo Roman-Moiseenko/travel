@@ -227,7 +227,7 @@ class SitemapController extends Controller
 
     private function renderSitemap($key, callable $callback, Dependency $dependency = null): Response
     {
-        return \Yii::$app->response->sendContentAsFile(\Yii::$app->cache->getOrSet($key, $callback, null, $dependency), Url::canonical(), [
+        return \Yii::$app->response->sendContentAsFile(\Yii::$app->cache->getOrSet($key, $callback, 4 * 3600, $dependency), Url::canonical(), [
             'mimeType' => 'application/xml',
             'inline' => true
         ]);
