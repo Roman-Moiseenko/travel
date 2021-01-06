@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var  $legal Legal */
 
 
-$this->title = 'Контакты';
+$this->title = 'Редактировать';
 $this->params['breadcrumbs'][] = ['label' => $legal->name, 'url' => ['/legal/view', 'id' => $legal->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Контакты', 'url' => ['/legal/contacts', 'id' => $legal->id]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(); ?>
 <div class="card card-secondary">
-    <div class="card-header with-border">Новый контакт</div>
+    <div class="card-header with-border">Редактировать контакт</div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-3">

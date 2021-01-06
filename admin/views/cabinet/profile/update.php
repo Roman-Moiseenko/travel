@@ -49,14 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'type' => DatePicker::TYPE_INPUT,
                         'language' => 'ru',
                         'pluginOptions' => [
-
                             'format' => 'dd-mm-yyyy',
                             'autoclose' => true,
                         ]
                     ]); ?>
-
                     <?= $form->field($model, 'phone')->textInput()->label('Телефон'); ?>
-
                 </div>
             </div>
         </div>
@@ -76,7 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="row">
-
                 <div class="col-md-9">
                     <?= $form->field($model, 'position')->textInput()->label('Должность'); ?>
                 </div>

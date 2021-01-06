@@ -9,6 +9,7 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
+use booking\forms\admin\CertForm;
 use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\NoticeForm;
 use booking\forms\admin\PasswordEditForm;
@@ -218,6 +219,12 @@ class UserManageService
         $this->users->save($user);
     }
 
+    /**==> Legal RelationShip
+     *
+     * @param $legal_id
+     * @param ContactAssignmentForm $form
+     */
+
     public function addLegalContact($legal_id, ContactAssignmentForm $form)
     {
         $legal = $this->legals->get($legal_id);
@@ -247,6 +254,47 @@ class UserManageService
         $this->legals->save($legal);
     }
 
+    public function addLegalCert($legal_id, CertForm $form)
+    {
+
+        if ($form->file->files == null) {
+            throw new \DomainException('Загрузите скан документа');
+        }
+        $legal = $this->legals->get($legal_id);
+        $legal->addCert(
+            $form->file->files[0],
+            $form->name,
+            $form->issue_at
+        );
+        $this->legals->save($legal);
+    }
+
+    public function updateLegalCert($legal_id, $cert_id, CertForm $form)
+    {
+        $legal = $this->legals->get($legal_id);
+        $legal->updateCert(
+            $cert_id,
+            $form->file,
+            $form->name,
+            $form->issue_at
+        );
+        $this->legals->save($legal);
+    }
+
+    public function removeLegalCert($legal_id, $cert_id)
+    {
+        $legal = $this->legals->get($legal_id);
+        $legal->removeCert($cert_id);
+        $this->legals->save($legal);
+    }
+
+    /** <== Legal RelationShip */
+
+
+    /**
+    * @param $user_id
+     * @param DiscountForm $form
+     */
     public function addDiscount($user_id, DiscountForm $form): void
     {
         $user = $this->users->get($user_id);

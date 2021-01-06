@@ -42,24 +42,24 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php ActiveForm::end(); ?>
 <div class="card card-secondary">
-    <div class="card-header">Текщие контакты</div>
+    <div class="card-header">Текущие контакты</div>
     <div class="card-body">
         <div class="col-md-8">
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-adaptive">
             <tbody>
             <?php /* @var $contact ContactAssignment */ ?>
             <?php foreach ($legal->contactAssignment as $contact): ?>
                 <tr>
-                    <td width="30px">
+                    <td width="30px" data-label="Вид связи">
                         <img src="<?= $contact->contact->getThumbFileUrl('photo', 'icon') ?>"/>
                     </td>
-                    <td width="40%">
+                    <td width="40%" data-label="Значение">
                         <?= $contact->value ?>
                     </td>
-                    <td>
-                        <?= $contact->description ?>
+                    <td data-label="Описание">
+                        <?= !empty($contact->description) ? $contact->description : '-' ?>
                     </td>
-                    <td width="80px">
+                    <td width="80px" data-label="Действия">
                         <a href="<?= Url::to(['/legal/contact-update', 'id' => $contact->id])?>" title="Изменить"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a href="<?= Url::to(['/legal/contact-remove', 'id' => $contact->id])?>" title="Удалить"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>

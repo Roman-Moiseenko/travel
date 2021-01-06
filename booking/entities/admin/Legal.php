@@ -15,6 +15,7 @@ use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
+use booking\helpers\SysHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -48,6 +49,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property Tour[] $tours
  * @property Stay[] $stays
  * @property Car[] $cars
+ * @property Cert[] $certs
  */
 class Legal extends ActiveRecord
 {
@@ -113,6 +115,53 @@ class Legal extends ActiveRecord
         $this->photo = $file;
     }
 
+
+    /** Cert ==========> */
+
+    public function addCert(UploadedFile $file, $name, $issue_at): void
+    {
+        $certs = $this->certs;
+        $certs[] = Cert::create($file, $name, $issue_at);
+        SysHelper::orientation($file->tempName);
+        $this->certs = $certs;
+    }
+
+    public function updateCert($cert_id, $file, $name, $issue_at): void
+    {
+        $certs = $this->certs;
+        foreach ($certs as &$cert) {
+            if ($cert->isIdEqualTo($cert_id)) {
+                if ($file->files != null) {
+                    $cert->setFile($file->files[0]);
+                    SysHelper::orientation($file->files[0]->tempName);
+                }
+                $cert->edit($name, $issue_at);
+            }
+        }
+        $this->certs = $certs;
+    }
+
+    public function removeCert($id): void
+    {
+        $certs = $this->certs;
+        foreach ($certs as $i => $cert) {
+            if ($cert->isIdEqualTo($id)) {
+                unset($certs[$i]);
+                $this->certs = $certs;
+                return;
+            }
+        }
+        throw new \DomainException('Документ не найден.');
+    }
+
+    public function removeCerts(): void
+    {
+        $this->certs = [];
+    }
+
+
+    /** <========== Cert */
+
     public static function tableName()
     {
         return '{{%admin_user_legals}}';
@@ -157,7 +206,7 @@ class Legal extends ActiveRecord
             ],
             [
                 'class' => SaveRelationsBehavior::class,
-                'relations' => ['contactAssignment'],
+                'relations' => ['contactAssignment','certs'],
             ],
         ];
     }
@@ -223,6 +272,11 @@ class Legal extends ActiveRecord
     public function getCars(): ActiveQuery
     {
         return $this->hasMany(Car::class, ['legal_id' => 'id']);
+    }
+
+    public function getCerts(): ActiveQuery
+    {
+        return $this->hasMany(Cert::class, ['legal_id' => 'id'])->orderBy(['issue_at' => SORT_ASC]);
     }
 
     public function getName()

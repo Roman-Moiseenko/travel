@@ -99,25 +99,27 @@ class ContactService
         $emailAdmin = $legal->noticeEmail;
 
         //Получаем параметры уведомления
-        if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW) {
-            //Новое бронирование  => Рассылка
+        if ($booking->isNew()) {  //Новое бронирование  => Рассылка
             $this->mailerBooking($emailUser, $booking, 'noticeBookingNewUser');
             if ($noticeAdmin->bookingNew->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingNewAdmin');
         }
 
-        if ($booking->isCheckBooking() && $booking->isPay()) {//Бронирование оплачено  => Рассылка
+        if ($booking->isPay()) {//Бронирование оплачено  => Рассылка  //$booking->isCheckBooking() - лишняя проверка
             //При оплате через сайт всегда клиенту отправлять СМС
-            $this->sendSMS($phoneUser,
-                Lang::t('Оплачено') . '.' .
-                Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
-                Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
-                Lang::t('Спасибо, что Вы с нами'), $user_admin);
-            $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
-            if ($booking->isCheckBooking() && $noticeAdmin->bookingPay->phone) {
+            if ($phoneUser) {  //Если пользователь ввел телефон
+                $this->sendSMS($phoneUser,
+                    Lang::t('Оплачено') . '.' .
+                    Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
+                    Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
+                    Lang::t('Спасибо, что Вы с нами'), $user_admin);
+                $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
+            }
+
+            if ($noticeAdmin->bookingPay->phone) { //Если провайдер хочет получить СМС
                 $this->sendSMS($phoneAdmin, 'Бронь ' . $booking->getName() . ' ' . date('d-m', $booking->getDate()) . ' ' . $booking->getAdd(), $user_admin);
             }
-            if ($noticeAdmin->bookingPay->email)
+            if ($noticeAdmin->bookingPay->email) //Если провайдер хочет получить Email
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
@@ -204,7 +206,6 @@ class ContactService
 
     public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
     {
-        //TODO Сделать шаблон Fun
         $send = $this->mailer->compose('lockFun', ['fun' => $fun])
             ->setTo($fun->legal->noticeEmail)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])

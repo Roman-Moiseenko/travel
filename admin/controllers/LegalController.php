@@ -5,10 +5,13 @@ namespace admin\controllers;
 
 
 use admin\forms\user\LegalSearch;
+use booking\entities\admin\Cert;
 use booking\entities\admin\ContactAssignment;
 use booking\entities\admin\User;
+use booking\forms\admin\CertForm;
 use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\UserLegalForm;
+use booking\helpers\scr;
 use booking\services\admin\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -156,6 +159,57 @@ class LegalController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionCerts($id)
+    {
+        $user = $this->findModel();
+        $legal = $user->getLegal($id);
+        $form = new CertForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->addLegalCert($legal->id, $form);
+                return $this->redirect(\Yii::$app->request->referrer);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(\Yii::$app->request->referrer);
+            }
+        }
+        return $this->render('certs', [
+            'legal' => $legal,
+            'model' => $form,
+        ]);
+    }
+    public function actionCertUpdate($id)
+    {
+        $user = $this->findModel();
+        $cert = Cert::findOne($id);
+        $legal = $user->getLegal($cert->legal_id);
+        $form = new CertForm($cert);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->updateLegalCert($legal->id, $id, $form);
+                return $this->redirect(['/legal/certs', 'id' => $legal->id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('cert-update', [
+            'legal' => $legal,
+            'model' => $form,
+            'cert' => $cert,
+        ]);
+    }
+
+    public function actionCertRemove($id)
+    {
+        $user = $this->findModel();
+        $legal_id = Cert::find()->andWhere(['id' => $id])->select('legal_id');
+        try {
+            $this->service->removeLegalCert($legal_id, $id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
     private function findModel()
     {
         return User::findOne(\Yii::$app->user->id);

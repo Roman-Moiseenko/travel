@@ -29,7 +29,7 @@ $this->title = Lang::t('Быстрая регистрация');
                     <?= $form->field($model->fullname, 'surname')->textInput()->label(Lang::t('Фамилия')); ?>
                     <?= $form->field($model->fullname, 'firstname')->textInput()->label(Lang::t('Имя')); ?>
                     <?= $form->field($model->fullname, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
-                    <?= $form->field($model, 'phone')->textInput()->label(Lang::t('Телефон')); ?>
+                    <?= $form->field($model, 'phone')->textInput()->label(Lang::t('Телефон'))->hint(Lang::t('Необходим для получния ПИН-кода по бронированию')); ?>
                     </div>
                 </div>
                 <div class="row">

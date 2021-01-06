@@ -54,7 +54,10 @@ class FastController extends Controller
     {
         $session = \Yii::$app->session;
         $link = $session->get('link');
-        if ($link == null) throw new \DomainException('Доступ ограничен');
+        if ($link == null) {
+            \Yii::$app->session->setFlash('success', Lang::t('Доступ ограничен'));
+            return $this->goHome();
+        }
         $form = new FastSignUpForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {

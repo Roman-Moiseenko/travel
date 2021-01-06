@@ -6,6 +6,7 @@ use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\tours\TourHelper;
+use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
@@ -18,6 +19,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => $legal->description
 MapAsset::register($this);
 $this->title = $legal->getName();
 $this->params['breadcrumbs'][] = $this->title;
+MagnificPopupAsset::register($this);
 ?>
 
 <!-- ЛОГОТИП, ОПИСАНИЕ  -->
@@ -33,6 +35,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
             ]) ?>
         </p>
+        <?php if (count($legal->certs) != 0): ?>
+        <div>
+            <h4><?= Lang::t('Наши награды и сертификаты')?></h4>
+            <ul class="thumbnails">
+                <?php foreach ($legal->certs as $cert): ?>
+                        <li class="image-additional">
+                            <a class="thumbnail" href="<?= $cert->getImageFileUrl('file') ?>">&nbsp;
+                                <img src="<?= $cert->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                     alt="<?= $cert->name; ?>" title="<?= $cert->name; ?>"/>
+                            </a>
+                        </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
     </div>
     <div class="col-md-4">
         <img src="<?= $legal->getThumbFileUrl('photo', 'profile'); ?>" alt="<?= Html::encode($legal->name); ?>" class="img-responsive">
@@ -156,3 +173,16 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+<?php $js = <<<EOD
+    $(document).ready(function() {
+        $('.thumbnails').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+EOD;
+$this->registerJs($js); ?>

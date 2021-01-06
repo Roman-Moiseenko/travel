@@ -46,6 +46,4 @@ interface BookingItemInterface
     public function isCancel(): bool;
     public function isCheckBooking(): bool; //Оплата через сайт (true) или на месте (false)
 
-
-
 }
