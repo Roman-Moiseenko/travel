@@ -36,7 +36,7 @@ MagnificPopupAsset::register($this);
             ]) ?>
         </p>
         <?php if (count($legal->certs) != 0): ?>
-        <div>
+        <div class="pt-3">
             <h4><?= Lang::t('Наши награды и сертификаты')?></h4>
             <ul class="thumbnails">
                 <?php foreach ($legal->certs as $cert): ?>
