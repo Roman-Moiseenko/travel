@@ -21,6 +21,11 @@ class BookingTourRepository
         return BookingTour::find()->andWhere(['user_id' => $user_id])->all();
     }
 
+    public function getByCalendar($calendar_id)
+    {
+        return BookingTour::find()->andWhere(['calendar_id' => $calendar_id])->all();
+    }
+
     public function getByTours($tours_id): array
     {
         return BookingTour::find()->andWhere(

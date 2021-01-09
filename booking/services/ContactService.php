@@ -130,6 +130,7 @@ class ContactService
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL_PAY) {
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelPayUser');
+            $this->sendSMS($phoneUser, 'Отмена брони ' . $booking->getName(), $user_admin);
             if ($booking->isCheckBooking() && $noticeAdmin->bookingCancelPay->phone)
                 $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
             if ($noticeAdmin->bookingCancelPay->email)
@@ -276,5 +277,14 @@ class ContactService
         //СМС
         if (\Yii::$app->params['SMSActivated'])
             $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', User::findOne(\Yii::$app->user->id));
+    }
+
+    public function sendCancelProvider(\booking\entities\booking\tours\BookingTour $booking)
+    {
+        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
+            ->setTo(\Yii::$app->params['providerEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
+            ->setSubject($object)
+            ->send();
     }
 }

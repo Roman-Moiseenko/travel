@@ -11,6 +11,7 @@ use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
+use booking\services\booking\tours\BookingTourService;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -20,7 +21,7 @@ class BookingController extends Controller
 {
     public $layout = 'main-tours';
     /**
-     * @var TourService
+     * @var BookingTourService
      */
     private $service;
     /**
@@ -32,7 +33,7 @@ class BookingController extends Controller
      */
     private $tours;
 
-    public function __construct($id, $module, TourService $service, BookingTourRepository $bookings, CostCalendarRepository $tours, $config = [])
+    public function __construct($id, $module, BookingTourService $service, BookingTourRepository $bookings, CostCalendarRepository $tours, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -81,6 +82,17 @@ class BookingController extends Controller
             $params = \Yii::$app->request->bodyParams;
             $tour_id = $params['tour_id'];
             $date = strtotime($params['date']);
+            $calendars = CostCalendar::find()
+                ->andWhere(['tours_id' => $tour_id])
+                ->andWhere(['tour_at' => $date])
+                ->orderBy(['time_at' => SORT_ASC])
+                ->all();
+
+            return $this->render('_booking-day-calendar', [
+                'calendars' => $calendars,
+                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+            ]);
+/*
             $times = CostCalendar::find()->select('time_at')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->column();
             $_bookings = [];
             foreach ($times as $time) {
@@ -97,14 +109,13 @@ class BookingController extends Controller
                         ->andWhere(['<>', 'status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
                 }
                 $bookings = $bookings->all();
-
                 $_bookings[$time] = $bookings;
             }
 
             return $this->render('_booking-day', [
                 'times' => $_bookings,
                 'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
-            ]);
+            ]);*/
         }
     }
 
@@ -125,6 +136,13 @@ class BookingController extends Controller
                 return '<span class="badge badge-danger">error!</span>';
             }
         }
+    }
+
+    public function actionCancelProvider($id)
+    {
+        $this->service->cancelProvider($id);
+
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     protected function findModel($id)

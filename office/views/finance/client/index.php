@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\finance\Refund;
+use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use office\forms\finance\RefundSearch;
 use yii\grid\GridView;
@@ -44,6 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'label' => 'Объект бронирования',
                         'contentOptions' => ['data-label' => 'Объект бронирования'],
+                    ],
+                    [
+                            'value' => function (Refund $model) {
+                                return BookingHelper::number($model->booking);
+                            },
+                        'label' => 'Номер бронирования',
+                        'contentOptions' => ['data-label' => 'Номер бронирования'],
+
                     ],
                     [
                         'attribute' => 'amount',

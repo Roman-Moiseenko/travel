@@ -86,7 +86,7 @@ class YandexMarket
             $writer->writeAttribute('type', 'vendor.model');
             $writer->writeAttribute('available', 'true');
 
-            $writer->writeElement('url', Html::encode(Url::to(['/tours/view', 'slug' => $tour->slug], true)));
+            $writer->writeElement('url', Html::encode(Url::to(['/tour/' . $tour->slug], true)));
             $writer->writeElement('price', $tour->baseCost->adult);
             $writer->writeElement('currencyId', 'RUR');
             $writer->writeElement('categoryId', BookingHelper::BOOKING_TYPE_TOUR);
@@ -117,7 +117,7 @@ class YandexMarket
             $writer->writeAttribute('type', 'vendor.model');
             $writer->writeAttribute('available', 'true');
 
-            $writer->writeElement('url', Html::encode(Url::to(['/cars/view', 'id' => $car->id], true)));
+            $writer->writeElement('url', Html::encode(Url::to(['/car/view', 'id' => $car->id], true)));
             $writer->writeElement('price', $car->cost);
             $writer->writeElement('currencyId', 'RUR');
             $writer->writeElement('categoryId', BookingHelper::BOOKING_TYPE_CAR);

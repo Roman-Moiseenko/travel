@@ -18,10 +18,15 @@ use yii\db\ActiveRecord;
  * @property integer $time_at
  * @property integer $tickets
  * @property integer $status
- * @property Cost $cost
+
  * @property Tour $tour
  * @property BookingTour[] $bookings
+ * @property BookingTour[] $allBookings
  * @property SellingTour[] $selling
+
+ * @property int $cost_adult [int]
+ * @property int $cost_child [int]
+ * @property int $cost_preference [int]
  */
 class CostCalendar extends ActiveRecord  implements CalendarInterface
 {
@@ -98,6 +103,11 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
             ->andWhere(['<>', 'booking_tours_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
     }
 
+    public function getAllBookings(): ActiveQuery
+    {
+        return $this->hasMany(BookingTour::class, ['calendar_id' => 'id']);
+    }
+
     public function getSelling(): ActiveQuery
     {
         return $this->hasMany(SellingTour::class, ['calendar_id' => 'id']);
@@ -105,6 +115,21 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
 
 
     public function free(): int
+    {
+        /*$count = 0;
+        $bookings = $this->bookings;
+        foreach ($this->selling as $sale) {
+            $count += $sale->count;
+        }
+        foreach ($bookings as $booking) {
+            $count += $booking->count->adult ?? 0;
+            $count += $booking->count->child ?? 0;
+            $count += $booking->count->preference ?? 0;
+        }*/
+        return $this->tickets - $this->count();
+    }
+
+    private function count(): int
     {
         $count = 0;
         $bookings = $this->bookings;
@@ -116,6 +141,16 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
             $count += $booking->count->child ?? 0;
             $count += $booking->count->preference ?? 0;
         }
-        return $this->tickets - $count;
+        return $count;
+    }
+
+    public function isCancelProvider(): bool
+    {
+        //TODO Проверка, можно ли отменить провайдеру: Добавлять время или нет??? ----
+        $tour = $this->tour;
+        if ($tour->params->private) return false;
+        if ($this->count() == 0) return false;
+        if ($tour->params->groupMin > $this->count()) return true;
+        return false;
     }
 }

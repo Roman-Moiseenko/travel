@@ -22,7 +22,7 @@ class MarketController extends Controller
 
     public function actionTurbo(): Response
     {
-        $xml =  \Yii::$app->cache->getOrSet('turbo', function () {
+        $xml = \Yii::$app->cache->getOrSet('turbo', function () {
             return $this->generator->generateTurbo();
         }, 4 * 3600, new TagDependency(['tags' => ['categories', 'products']]));
 

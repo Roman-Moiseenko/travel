@@ -1,32 +1,49 @@
 <?php
 
+use booking\entities\booking\tours\CostCalendar;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 
-/* @var $times array */
+/* @var $calendars CostCalendar[] */
 /* @var $view_cancel bool */
 $i = 0;
 
 ?>
 <span style="font-size: larger; font-weight: bold"> </span>
-<?php foreach ($times as $time => $bookings): ?>
-    <span class="badge btn-primary"><?= $time ?></span>
-    <?php if (isset($bookings) && count($bookings) > 0): ?>
+<?php foreach ($calendars as $calendar): ?>
+    <span class="badge btn-primary"><?= $calendar->time_at ?></span>
+    <?php $bookings = $view_cancel ? $calendar->allBookings : $calendar->bookings ?>
+    <?php if (count($bookings) > 0): ?>
         <div class="row">
             <div class="col d-flex">
+                <?php if ($calendar->isCancelProvider()): ?>
+                <div class="booking-item">
+                    <?=
+                    Html::a('Отменить бронирования <i class="far fa-calendar-times"></i>', Url::to(['/tour/booking/cancel-provider', 'id' => $calendar->id]), [
+                        'title' => 'Отменить бронирования',
+                        'aria-label' => 'Отменить бронирования',
+                        'class' => 'link-admin',
+                        'data-pjax' => 0,
+                        'data-confirm' => "Отменить бронирования на текущее время?\nЕсли клиенты оплатили экскурсию, то им будет произведен возврат денежных средств.",
+                        'data-method' => 'post',
+                    ])
+                    ?>
+                </div>
+                <?php endif; ?>
                 <div class="ml-auto booking-item">
                     <a class="link-admin"
-                       href="<?= Url::to(['/cabinet/dialog/mass-tour', 'id' => $bookings[0]->calendar_id]) ?>"
+                       href="<?= Url::to(['/cabinet/dialog/mass-tour', 'id' => $calendar->id]) ?>"
                        title="Написать сообщение">
                         Написать всем <i class="fas fa-shipping-fast"></i>
                     </a>
                 </div>
             </div>
         </div>
+
         <?php foreach ($bookings as $booking): ?>
-            <?php if ($view_cancel == false && $booking->isCancel()) continue; ?>
             <?php $i++ ?>
             <div class="card">
                 <div class="card-header p-0">

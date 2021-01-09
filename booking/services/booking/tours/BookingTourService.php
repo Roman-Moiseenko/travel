@@ -10,12 +10,15 @@ use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\repositories\booking\DiscountRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\services\booking\BookingService;
 use booking\services\booking\DiscountService;
 use booking\services\ContactService;
+use booking\services\finance\RefundService;
+use Mpdf\Tag\P;
 
 
 class BookingTourService extends BookingService
@@ -24,11 +27,16 @@ class BookingTourService extends BookingService
     private $calendar;
     private $contact;
     private $discounts;
+    /**
+     * @var RefundService
+     */
+    private $refund;
 
     public function __construct(
         BookingTourRepository $bookings,
         CostCalendarRepository $calendar,
         ContactService $contact,
+        RefundService $refund,
         DiscountRepository $discounts
     )
     {
@@ -36,6 +44,7 @@ class BookingTourService extends BookingService
         $this->calendar = $calendar;
         $this->contact = $contact;
         $this->discounts = $discounts;
+        $this->refund = $refund;
     }
 
     public function create($calendar_id, Cost $count, $promo_code): BookingTour
@@ -155,6 +164,22 @@ class BookingTourService extends BookingService
         foreach ($bookings as $booking) {
             $booking->cancel();
             $this->bookings->save($booking);
+        }
+    }
+
+    public function cancelProvider($calendar_id)
+    {
+        $bookings = $this->bookings->getByCalendar($calendar_id);
+        foreach ($bookings as $booking) {
+            if ($booking->isPay()) { // если был оплачен, отмена с возвратом
+                $this->refund->create($booking); //сформировать на возврат оплаты
+                $booking->cancelPay(); // отменить оплату
+            } else {
+                $booking->cancel(); // если не оплачен, просто отмена
+            }
+            $this->bookings->save($booking);
+            $this->contact->sendNoticeBooking($booking); // отправить письмо
+
         }
     }
 }

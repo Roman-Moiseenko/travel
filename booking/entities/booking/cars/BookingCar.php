@@ -264,9 +264,6 @@ class BookingCar extends ActiveRecord implements BookingItemInterface
         return $this->created_at;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getParentId(): int
     {
         return $this->car_id;
