@@ -25,7 +25,6 @@ class StaticWidget extends Widget
         $last_tickets = 0;
         $last_amount = 0;
         $now = strtotime(date('d-m-Y', time()) . ' 00:00:00');
-//TODO Протестировать на реальных данных
         if (get_class($this->object) == Tour::class) {
             $next_amount = BookingTour::find()->alias('b')
                 ->joinWith('calendar c')

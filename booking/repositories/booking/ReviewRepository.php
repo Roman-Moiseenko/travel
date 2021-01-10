@@ -7,6 +7,8 @@ namespace booking\repositories\booking;
 use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\ReviewCar;
+use booking\entities\booking\funs\Fun;
+use booking\entities\booking\funs\ReviewFun;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
@@ -26,7 +28,7 @@ class ReviewRepository
             ->andWhere(['status' => ReviewTour::STATUS_ACTIVE])
             ->all();
 
-        //TODO Заглушка Stay Funs
+        //TODO Заглушка Stay
         $stays = [];
 
         $cars = ReviewCar::find()
@@ -37,25 +39,35 @@ class ReviewRepository
             ])
             ->andWhere(['status' => ReviewCar::STATUS_ACTIVE])
             ->all();
+        $funs = ReviewFun::find()
+            ->andWhere([
+                'IN',
+                'fun_id',
+                Fun::find()->select('id')->andWhere(['legal_id' => $legal_id])
+            ])
+            ->andWhere(['status' => ReviewFun::STATUS_ACTIVE])
+            ->all();
+
         /* ЗАГЛУШКА
         $stays = ReviewStay::find()->andWhere(['IN', 'stay_id', Stay::find()->select('id')->andWhere(['legal_id' => $legal_id])->all()])->all();
         */
-        return $this->sort_merge($tours, $stays, $cars);
+        return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
     /** @return ReviewInterface[] */
     public function getByUser($user_id): array
     {
         $tours = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewTour::STATUS_ACTIVE])->all();
-        //TODO Заглушка Stay Funs
+        //TODO Заглушка Stay
         $stays = [];
-        $cars = ReviewCar::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewTour::STATUS_ACTIVE])->all();;
+        $cars = ReviewCar::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewCar::STATUS_ACTIVE])->all();;
+        $funs = ReviewFun::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewFun::STATUS_ACTIVE])->all();;
         /* ЗАГЛУШКА
         $stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();
 
         $cars = ReviewCar::find()->andWhere(['user_id' => $user_id])->all();
         */
-        return $this->sort_merge($tours, $stays, $cars);
+        return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
     /** @return ReviewInterface[] */
@@ -80,18 +92,27 @@ class ReviewRepository
             ->andWhere(['status' => ReviewCar::STATUS_ACTIVE])
             ->andWhere(['>=', 'created_at', $old])
             ->orderBy(['created_at' => SORT_DESC])->all();
-        //TODO Заглушка Funs, Stays
+        $funs = ReviewFun::find()->andWhere([
+            'IN',
+            'fun_id',
+            Fun::find()->select('id')->andWhere(['user_id' => $admin_id])
+        ])
+            ->andWhere(['status' => ReviewFun::STATUS_ACTIVE])
+            ->andWhere(['>=', 'created_at', $old])
+            ->orderBy(['created_at' => SORT_DESC])->all();
+
+        //TODO Заглушка Stays
 
         /*$stays = ReviewStay::find()->andWhere(['user_id' => $user_id])->all();
 
 
         */
-        return $this->sort_merge($tours, $stays, $cars);
+        return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
-    private function sort_merge(array $tours, array $stays, array $cars): array
+    private function sort_merge(array $tours, array $stays, array $cars, array $funs): array
     {
-        $result = array_merge($tours, $stays, $cars);
+        $result = array_merge($tours, $stays, $cars, $funs);
         usort($result, function (ReviewInterface $a, ReviewInterface $b) {
             if ($a->getDate() > $b->getDate()) {
                 return -1;

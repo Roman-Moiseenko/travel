@@ -43,7 +43,7 @@ class BookingRepository
                 ->all();
             return $bookings;
         }
-        //TODO проверить мульти
+
         if ($object_class == BookingFun::class) {
             $bookings = BookingFun::find()->alias('f')
                 ->joinWith('calendars c')

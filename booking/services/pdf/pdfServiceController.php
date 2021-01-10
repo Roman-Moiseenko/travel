@@ -77,7 +77,7 @@ class pdfServiceController extends Controller
 
     public function pdfCheck54(BookingItemInterface $booking, ReceiptResponseInterface $item, $file = false)
     {
-        //TODO Генерируем QR qr.jpg
+        //Генерируем QR qr.jpg
         $text =
             't='.date('YmdTHis', $item->registered_at->getTimestamp()).
             '&s=' . number_format(BookingHelper::merchant($booking), 2, '.', '') .

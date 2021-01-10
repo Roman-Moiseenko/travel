@@ -68,8 +68,6 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         $booking = new static();
         $booking->user_id = \Yii::$app->user->id;
         $booking->fun_id = $fun_id;
-        //TODO multi
-        //$booking->calendar_id = $calendar_id;
 
         $booking->count = $count;
         $booking->comment = $comment;
@@ -145,12 +143,6 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         return parent::beforeSave($insert);
     }
 
-    //TODO multi
-  /*  public function getCalendar(): ActiveQuery
-    {
-        return $this->hasOne(CostCalendar::class, ['id' => 'calendar_id']);
-    }
-*/
     public function getFun(): ActiveQuery
     {
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);

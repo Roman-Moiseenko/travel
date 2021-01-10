@@ -49,11 +49,8 @@ class DiscountController extends Controller
         $form->count = 500;
 
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            //scr::p(\Yii::$app->request->post());
             try {
-               // $this->service->addDiscount(\Yii::$app->user->id, $form);
-                //TODO Добавляем скидки в Сервис=>
-
+                //Добавляем скидки в Сервис=>
                 ini_set('max_execution_time', 30 + $form->repeat * 2);
                 for ($i = 1; $i <= $form->repeat; $i++) {
                     $discount = Discount::create(
@@ -86,7 +83,7 @@ class DiscountController extends Controller
     public function actionDelete($id)
     {
         $discount = Discount::findOne($id);
-        if ($discount->count == $discount->countNotUsed())
+        if ($discount->count == $discount->countNotUsed()) //Если не применялось, то удалить, иначе => error
         {
             $discount->delete();
 
@@ -94,6 +91,6 @@ class DiscountController extends Controller
             \Yii::$app->session->setFlash('error', 'Нельзя удалить уже используемый ПРОМО-код');
         }
         return $this->redirect(['/discount']);
-        //TODO Если не применялось, то удалить, иначе => error
+
     }
 }

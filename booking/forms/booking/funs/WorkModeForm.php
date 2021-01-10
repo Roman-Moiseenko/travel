@@ -34,12 +34,7 @@ class WorkModeForm extends Model
 
         ];
     }
-//TODO Сделать валидацию на стороне клиента ч/з JS
-   /* public function notEmptyDay($attribute, $params)
-    {
-        if (($this->day_begin != '' && $this->day_end == '') || ($this->day_begin == '' && $this->day_end != ''))
-            $this->addError($attribute, 'Ошибка заполнения режима дня');
-    }*/
+
 
     public function beforeValidate()
     {

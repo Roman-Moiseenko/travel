@@ -10,8 +10,6 @@ use YandexCheckout\Request\Receipts\ReceiptResponseInterface;
  * @var $item ReceiptResponseInterface
  */
 $kkt = \Yii::$app->params['kkt'];
-
-//TODO Печать Чека
 ?>
 <div class="container">
 

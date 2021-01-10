@@ -87,11 +87,8 @@ $(document).ready(function () {
         let check = $(this).is(":checked");
         let _i = $(this).data("i");
         $(this).prop("disabled", true);
-        console.log('tttttt');
         let booking_number = $(this).data("number");
-        console.log(booking_number);
         $.post("/tour/booking/set-give-tour", {booking_number: booking_number}, function (data) {
-            console.log(data);
             $("#error-set-give-" + _i).html(data);
         });
     });

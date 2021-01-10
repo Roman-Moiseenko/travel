@@ -147,9 +147,10 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
     public function isCancelProvider(): bool
     {
         //TODO Проверка, можно ли отменить провайдеру: Добавлять время или нет??? ----
+        if ($this->tour_at < time()) return false; //Тур уже прошел
         $tour = $this->tour;
-        if ($tour->params->private) return false;
-        if ($this->count() == 0) return false;
+        if ($tour->params->private) return false; //Индивидуальный тур
+        if ($this->count() == 0) return false; //Нет ни одного не отмененного
         if ($tour->params->groupMin > $this->count()) return true;
         return false;
     }

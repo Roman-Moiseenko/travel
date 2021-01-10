@@ -72,7 +72,6 @@ $(document).ready(function () {
     //Загружаем Массив туров по дням за текущий день
     if (document.getElementById("datepicker-booking-car")) {
         $.post("/car/booking/get-calendar", {car_id: car_id}, function (data) {
-            //console.log(data);
             booking_cars = JSON.parse(data);
             $("#datepicker-booking-car").datepicker("update");
 
@@ -92,12 +91,11 @@ $(document).ready(function () {
 
     $(document).on("click", ".give-out-car", function () {
         let check = $(this).is(":checked");
+        let _i = $(this).data("i");
         $(this).prop("disabled", true);
         let booking_number = $(this).data("number");
-        //console.log(booking_number);
-        //TODO ошибка при выдаче добавить $i
         $.post("/car/booking/set-give-car", {booking_number: booking_number}, function (data) {
-            $("#error-set-give").html(data);
+            $("#error-set-give-" + _i).html(data);
         });
     });
 });

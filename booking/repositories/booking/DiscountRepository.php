@@ -9,6 +9,7 @@ use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\Discount;
+use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 
@@ -27,12 +28,13 @@ class DiscountRepository
     {
         $tour = BookingTour::find()->andWhere(['discount_id' => $id])->all();
         $car = BookingCar::find()->andWhere(['discount_id' => $id])->all();
-        // TODO Заглушка Stay Funs
+        $fun = BookingFun::find()->andWhere(['discount_id' => $id])->all();
+        //TODO Заглушка Stay
         $stay = [];
         /*
         $stay = BookingStay::find()->andWhere(['discount_id' => $id])->all();
         */
-        return array_merge($tour, $stay, $car);
+        return array_merge($tour, $stay, $car, $fun);
     }
 
     public function find($promo_code, BookingItemInterface $booking)
