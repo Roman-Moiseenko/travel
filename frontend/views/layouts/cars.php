@@ -4,7 +4,7 @@
 /* @var $content string */
 
 use frontend\widgets\SearchToursWidget;
-$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru авто, вело, мото, водный транспорт по своему характеру, и возьмите в прокат его прямо сейчас']);
+$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru авто, вело, мото, водный транспорт по своему характеру в Калининграде, и возьмите в прокат его прямо сейчас']);
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
