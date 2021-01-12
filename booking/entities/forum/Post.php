@@ -5,6 +5,7 @@ namespace booking\entities\forum;
 
 
 use booking\entities\admin\User;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -20,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $count
  * @property integer $last_sort
  * @property integer $status
+ * @property bool $fix
  * @property Category $category
  * @property Message[] $messages
  * @property Message $lastMessage
@@ -86,6 +88,16 @@ class Post extends ActiveRecord
         $this->status = self::STATUS_LOCK;
     }
 
+    public function fixed()
+    {
+        $this->fix = true;
+    }
+
+    public function unFixed()
+    {
+        $this->fix = false;
+    }
+
     public function unLock()
     {
         $this->status = self::STATUS_ACTIVE;
@@ -100,7 +112,17 @@ class Post extends ActiveRecord
     {
         return '{{%forum_posts}}';
     }
-
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'messages'
+                ],
+            ],
+        ];
+    }
     public function getLastMessage(): ActiveQuery
     {
         return $this->hasOne(Message::class, ['sort' => 'last_sort', 'post_id' => 'id']);

@@ -18,8 +18,9 @@ class PostForm extends CompositeForm
     public $category_id;
     public $caption;
 
-    public function __construct($config = [])
+    public function __construct(int $category_id = null, $config = [])
     {
+        if ($category_id) $this->category_id = $category_id;
         $this->message = new MessageForm();
         parent::__construct($config);
     }

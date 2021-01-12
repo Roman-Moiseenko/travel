@@ -5,7 +5,8 @@
 
 use frontend\widgets\SearchToursWidget;
 
-$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru уникальную авторскую экскурсию по Калининграду и забронируйте ее прямо сейчас. Максимум эмоций, минимум трудностей']);
+$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru уникальную авторскую экскурсию по Калининграду и забронируйте ее онлайн прямо сейчас. Максимум эмоций от наших экскурсий, минимум трудностей']);
+$this->registerMetaTag(['name' =>'keywords', 'content' => 'туры,экскурсия,Калининград,достопримечательности,отдых,Светлогорск,Зеленоградск,Куршская,Янтарный']);
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
 <div class="row">

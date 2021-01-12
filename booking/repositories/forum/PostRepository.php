@@ -4,7 +4,11 @@
 namespace booking\repositories\forum;
 
 
+use booking\entities\forum\Message;
 use booking\entities\forum\Post;
+use yii\data\ActiveDataProvider;
+use yii\data\DataProviderInterface;
+use yii\db\ActiveQuery;
 
 class PostRepository
 {
@@ -35,4 +39,44 @@ class PostRepository
             throw new \RuntimeException('Ошибка удаления.');
         }
     }
+
+    public function getAll($category_id = null): DataProviderInterface
+    {
+        if ($category_id) {
+            $query = Post::find()->andWhere(['category_id' => $category_id]);
+        } else{
+            $query = Post::find();
+        }
+        return $this->getProvider($query);
+    }
+
+    private function getProvider(ActiveQuery $query): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['fix' => SORT_DESC, 'update_at' => SORT_DESC],
+            ],
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [20, 20],
+            ],
+        ]);
+    }
+
+    public function getMessages($post_id): DataProviderInterface
+    {
+        $query = Message::find()->andWhere(['post_id' => $post_id]);
+        return new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['sort' => SORT_ASC],
+            ],
+            'pagination' => [
+                'defaultPageSize' => 10,
+                'pageSizeLimit' => [10, 10],
+            ],
+        ]);
+    }
+
 }

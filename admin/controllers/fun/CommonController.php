@@ -48,7 +48,7 @@ class CommonController extends Controller
 
     public function actionCreate()
     {
-        $this->layout = 'main-funs-create';
+        $this->layout = 'main-create';
         $form = new FunCommonForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {

@@ -33,8 +33,10 @@ class PostService
         $user = User::findOne(\Yii::$app->user->id);
         if ($user->preferences->isForumLock()) throw new \DomainException('У вас нет доступа для данного действия');
         $post = Post::create($form->category_id, $user->id, $form->caption);
-        $post->addMessage(Message::create($user->id, $form->message->text));
+        $message = Message::create($user->id, $form->message->text);
+        $post->addMessage($message);
         $this->posts->save($post);
+        $this->service->updated($post->category_id, $message);
         return $post;
     }
 
@@ -44,6 +46,30 @@ class PostService
         if ($user->preferences->isForumUpdate()) {
             $post = $this->posts->get($id);
             $post->lock();
+            $this->posts->save($post);
+        } else {
+            throw new \DomainException('У вас нет доступа для данного действия');
+        }
+    }
+
+    public function fix($id)
+    {
+        $user = User::findOne(\Yii::$app->user->id);
+        if ($user->preferences->isForumUpdate()) {
+            $post = $this->posts->get($id);
+            $post->fixed();
+            $this->posts->save($post);
+        } else {
+            throw new \DomainException('У вас нет доступа для данного действия');
+        }
+    }
+
+    public function unFix($id)
+    {
+        $user = User::findOne(\Yii::$app->user->id);
+        if ($user->preferences->isForumUpdate()) {
+            $post = $this->posts->get($id);
+            $post->unFixed();
             $this->posts->save($post);
         } else {
             throw new \DomainException('У вас нет доступа для данного действия');

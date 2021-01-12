@@ -93,78 +93,6 @@ class TourRepository
         }
         $query->groupBy('t.id');
         return $this->getProvider($query);
-        /*
-        $pagination = new Pagination([
-            'pageSizeLimit' => [15, 100],
-            'validatePage' => false,
-        ]);
-        $sort = new Sort([
-            'defaultOrder' => ['id' => SORT_DESC],
-            'attributes' => [
-                'id',
-                'name',
-                'price',
-                'rating',
-            ],
-        ]);
-        $response = $this->client->search([
-            'index' => 'shop',
-            'type' => 'products',
-            'body' => [
-                '_source' => ['id'],
-                'from' => $pagination->getOffset(),
-                'size' => $pagination->getLimit(),
-                'sort' => array_map(function ($attribute, $direction) {
-                    return [$attribute => ['order' => $direction === SORT_ASC ? 'asc' : 'desc']];
-                }, array_keys($sort->getOrders()), $sort->getOrders()),
-                'query' => [
-                    'bool' => [
-                        'must' => array_merge(
-                            array_filter([
-                                !empty($form->category) ? ['term' => ['categories' => $form->category]] : false,
-                                !empty($form->brand) ? ['term' => ['brand' => $form->brand]] : false,
-                                !empty($form->text) ? ['multi_match' => [
-                                    'query' => $form->text,
-                                    'fields' => [ 'name^3', 'description' ]
-                                ]] : false,
-                            ]),
-                            array_map(function (ValueForm $value) {
-                                return ['nested' => [
-                                    'path' => 'values',
-                                    'query' => [
-                                        'bool' => [
-                                            'must' => array_filter([
-                                                ['match' => ['values.characteristic' => $value->getId()]],
-                                                !empty($value->equal) ? ['match' => ['values.value_string' => $value->equal]] : false,
-                                                !empty($value->from) ? ['range' => ['values.value_int' => ['gte' => $value->from]]] : false,
-                                                !empty($value->to) ? ['range' => ['values.value_int' => ['lte' => $value->to]]] : false,
-                                            ]),
-                                        ],
-                                    ],
-                                ]];
-                            }, array_filter($form->values, function (ValueForm $value) { return $value->isFilled(); }))
-                        )
-                    ],
-                ],
-            ],
-        ]);
-        $ids = ArrayHelper::getColumn($response['hits']['hits'], '_source.id');
-        if ($ids) {
-            $query = Product::find()
-                ->NotEmpty()
-                ->with('mainPhoto')
-                ->andWhere(['id' => $ids])
-                ->orderBy(new Expression('FIELD(id,' . implode(',', $ids) . ')'));
-        } else {
-            $query = Product::find()->andWhere(['id' => 0]);
-        }
-        return new SimpleActiveDataProvider([
-            'query' => $query,
-            'totalCount' => $response['hits']['total'],
-            'pagination' => $pagination,
-            'sort' => $sort,
-        ]);
-*/
     }
 
     public function getAllByType(Type $type): DataProviderInterface
@@ -219,8 +147,7 @@ class TourRepository
                     'defaultPageSize' => \Yii::$app->params['paginationTour'],
                     'pageSizeLimit' => [\Yii::$app->params['paginationTour'], \Yii::$app->params['paginationTour']],
                 ],
-            ]
-        );
+            ]);
     }
 
     public function findBySlug($slug)

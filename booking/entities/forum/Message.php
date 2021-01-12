@@ -5,6 +5,7 @@ namespace booking\entities\forum;
 
 
 use booking\entities\admin\User;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -52,5 +53,15 @@ class Message extends ActiveRecord
     public static function tableName()
     {
         return '{{%forum_messages}}';
+    }
+
+    public function getPost(): ActiveQuery
+    {
+        return $this->hasOne(Post::class, ['id' => 'post_id']);
+    }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

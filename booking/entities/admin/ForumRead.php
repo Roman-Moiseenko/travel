@@ -22,6 +22,7 @@ class ForumRead extends ActiveRecord
         $read = new static();
         $read->post_id = $post_id;
         $read->last_at = time();
+        return $read;
     }
 
     public function edit()
@@ -31,7 +32,7 @@ class ForumRead extends ActiveRecord
 
     public function isFor($id): bool
     {
-        return $this->id === $id;
+        return $this->post_id == $id;
     }
 
     public static function tableName()

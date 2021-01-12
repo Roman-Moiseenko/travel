@@ -4,6 +4,7 @@
 namespace booking\entities\forum;
 
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -18,6 +19,8 @@ use yii\db\ActiveRecord;
  * @property integer $last_id
  * @property integer $status
  * @property integer $sort
+ * @property Post[] $posts
+ * @property Message $lastMessage
  */
 class Category extends ActiveRecord
 {
@@ -67,12 +70,26 @@ class Category extends ActiveRecord
 
     public function editUpdated(Message $message)
     {
-        $this->updated_at = time();
         $this->updated_at = $message->updated_at;
     }
 
     public static function tableName()
     {
         return '{{%forum_categories}}';
+    }
+
+    public function getPosts(): ActiveQuery
+    {
+        return $this->hasMany(Post::class, ['category_id' => 'id']);
+    }
+
+    public function countPost(): int
+    {
+        return count($this->posts);
+    }
+
+    public function getLastMessage()
+    {
+        return Message::findOne($this->last_id);
     }
 }

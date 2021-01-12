@@ -52,7 +52,7 @@ class CommonController extends Controller
 
     public function actionCreate()
     {
-        $this->layout = 'main-cars-create';
+        $this->layout = 'main-create';
         $form = new CarCommonForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {

@@ -342,3 +342,45 @@ div.required label:after {
     color: #0b3e6f;
     font-size: large;
 }
+
+.col_img {
+    width: 40px;
+    font-size: 26px;
+}
+
+.col_forum {
+    width: calc(100% - 460px);
+}
+
+.col_stat {
+    width: 160px;
+}
+
+.col_post {
+    width: 260px;
+}
+
+.row_link {
+    cursor: pointer;
+    color: #343a40;
+}
+
+.row_link:hover {
+    background-color: #e8e8e8 !important;
+    color: #0b3e6f !important;
+}
+.row_name {
+    font-size: 22px;
+    font-weight: 700;
+   /* color: #343a40;*/
+}
+.row_post {
+    font-size: 16px;
+    font-weight: 600;
+    /* color: #343a40;*/
+}
+.row_description {
+    font-size: 13px;
+    color: #474747;
+}
+

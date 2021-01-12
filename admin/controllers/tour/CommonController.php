@@ -53,7 +53,7 @@ class CommonController extends Controller
 
     public function actionCreate()
     {
-        $this->layout = 'main-tours-create';
+        $this->layout = 'main-create';
         $form = new TourCommonForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
