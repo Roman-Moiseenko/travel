@@ -347,7 +347,19 @@ div.required label:after {
     width: 40px;
     font-size: 26px;
 }
-
+.col_fix {
+    color: #611706;
+}
+.col_admin {
+    width: 90px;
+    font-size: 20px;
+    z-index: 9999;
+    color: #062440 !important;
+}
+.col_img_mini {
+    width: 30px;
+    font-size: 20px;
+}
 .col_forum {
     width: calc(100% - 460px);
 }

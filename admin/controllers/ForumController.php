@@ -76,9 +76,11 @@ class ForumController extends Controller
     {
         $category = Category::findOne($id);
         $posts = $this->posts->getAll($category->id);
+        $user = User::findOne(\Yii::$app->user->id);
         return $this->render('category', [
             'category' => $category,
             'dataProvider' => $posts,
+            'user' => $user,
         ]);
     }
 
@@ -137,18 +139,34 @@ class ForumController extends Controller
 
     public function actionRemovePost($id)
     {
+
+        return $this->redirect(['forum/post', 'id' => $id]);
         //Проверка на права доступа - модератор
         // если автор, то есть ли сообщения других участников
     }
 
+    public function actionFixPost($id)
+    {
+        $this->postService->fix($id);
+        return $this->redirect(['forum/post', 'id' => $id]);
+    }
+
+    public function actionUnfixPost($id)
+    {
+        $this->postService->unFix($id);
+        return $this->redirect(['forum/post', 'id' => $id]);
+    }
+
     public function actionLockPost($id)
     {
-
+        $this->postService->lock($id);
+        return $this->redirect(['forum/post', 'id' => $id]);
     }
 
     public function actionUnlockPost($id)
     {
-
+        $this->postService->unLock($id);
+        return $this->redirect(['forum/post', 'id' => $id]);
     }
 
 

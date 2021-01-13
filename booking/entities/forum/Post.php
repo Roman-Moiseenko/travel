@@ -108,6 +108,11 @@ class Post extends ActiveRecord
         return $this->status === self::STATUS_ACTIVE;
     }
 
+    public function isFix(): bool
+    {
+        return $this->fix;
+    }
+
     public static function tableName()
     {
         return '{{%forum_posts}}';

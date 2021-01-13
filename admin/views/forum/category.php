@@ -1,5 +1,6 @@
 <?php
 
+use booking\entities\admin\User;
 use booking\entities\forum\Category;
 use booking\entities\forum\Post;
 use booking\helpers\ForumHelper;
@@ -11,6 +12,7 @@ use yii\widgets\LinkPager;
 /* @var $category Category */
 /* @var $dataProvider DataProviderInterface */
 /* @var $post Post */
+/* @var $user User */
 
 $this->title = $category->name;
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => ['/forum']];
@@ -24,7 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="col_img"></th>
+                <?php if($user->preferences->isForumUpdate()):?>
+                    <th class="col_admin"></th>
+                <?php endif; ?>
+
+                <th class="col_img_mini"></th>
                 <th class="col_forum">Тема</th>
                 <th class="col_stat">Ответы</th>
                 <th class="col_post">Последнее сообщение</th>
@@ -33,7 +39,23 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach ($dataProvider->getModels() as $post): ?>
                 <tr class="row_link" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
-                    <td class="col_img">
+                    <?php if($user->preferences->isForumUpdate()):?>
+                        <td class="col_admin">
+                            <?php if($post->isFix()):?>
+                                <a href="<?=Url::to(['forum/unfix-post', 'id' => $post->id])?>"><i class="fas fa-check-double"></i></a>
+                            <?php else: ?>
+                                <a href="<?=Url::to(['forum/fix-post', 'id' => $post->id])?>"><i class="fas fa-check"></i></a>
+                            <?php endif; ?>
+                            <a href="<?=Url::to(['forum/remove-post', 'id' => $post->id])?>"><i class="fas fa-times"></i></a>
+                            <?php if($post->isActive()):?>
+                                <a href="<?=Url::to(['forum/lock-post', 'id' => $post->id])?>"><i class="fas fa-lock"></i></a>
+                            <?php else: ?>
+                                <a href="<?=Url::to(['forum/unlock-post', 'id' => $post->id])?>"><i class="fas fa-lock-open"></i></a>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+
+                    <td class="col_img_mini <?= $post->isFix() ? 'col_fix' : '' ?>">
                         <?= ForumHelper::isReadPost($post->id) ? '<i class="far fa-envelope-open"></i>' : '<i class="fas fa-envelope"></i>' ?>
                     </td>
                     <td class="col_forum">
