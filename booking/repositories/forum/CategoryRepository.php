@@ -45,11 +45,16 @@ class CategoryRepository
 
     public function getLast($id)
     {
-        return Message::find()->select('id')->andWhere([
-            'IN',
-            'post_id',
-            Post::find()->andWhere(['category_id' => $id])
-        ])->andWhere(['created_at' => 'MAX(created_at)']);
+        return Message::find()->select('id')->andWhere(
+            [
+                'IN',
+                'post_id',
+                Post::find()->andWhere(['category_id' => $id])
+            ]
+        )->andWhere(
+            [
+                'created_at' => Message::find()->andWhere()->max('created_at')
+            ]);
 
     }
 }

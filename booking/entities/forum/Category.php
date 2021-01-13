@@ -76,17 +76,17 @@ class Category extends ActiveRecord
     public function reCount()
     {
         $posts = $this->posts;
-        //$last_id = -1;
-       // $last_at = 0;
+        $last_id = -1;
+        $last_at = 0;
         $count = 0;
         foreach ($posts as $post) {
             $count += $post->count;
-           /* if ($last_at < $post->update_at) {
+            if ($last_at < $post->update_at) {
                 $last_id = $post->lastMessage->id;
                 $last_at = $post->update_at;
-            }*/
+            }
         }
-        //$this->last_id = $last_id;*/
+        $this->last_id = $last_id;
         $this->count = $count;
     }
 
