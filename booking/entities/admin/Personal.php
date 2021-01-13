@@ -112,6 +112,7 @@ class Personal extends ActiveRecord implements PersonalInterface
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 320],
                     'cart_list' => ['width' => 160, 'height' => 160],
+                    'forum' => ['width' => 120, 'height' => 120],
                     'profile' => ['width' => 400, 'height' => 400],
                 ],
             ],

@@ -23,26 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card">
     <div class="card-body">
-
-            <?php foreach ($dataProvider->getModels() as $i => $message): ?>
-            <div class="card <?= ($i % 2 == 0) ? 'bg2' : 'bg1' ?>">
-                <div class="card-body ">
-                    <table class="table">
-                        <tbody>
+        <table class="table">
+            <tbody>
+            <?php foreach ($dataProvider->getModels()  as $message): ?>
             <tr>
-                <td width="200px">
+                <td width="200px" style="background-color: #ececec">
                     <div class="align-items-center"><b><?=$message->user->username ?></b></div>
                     <?php if (!empty($message->user->personal->photo)): ?>
-                        <img src="<?= Html::encode($message->user->personal->getThumbFileUrl('photo', 'forum')) ?>" alt=""
+                        <img src="<?= Html::encode($message->user->personal->getThumbFileUrl('photo', 'profile')) ?>" alt=""
                              class="img-responsive"/>
                     <?php else: ?>
                         <img src="<?= Url::to('@static/files/images/no_user.png') ?>" alt=""
-                             class="img-forum"/>
+                             class="img-responsive"/>
                     <?php endif; ?>
                     <div style="font-size: 11px; "><b><?= 'Зарегистрирован ' . date('d-m-Y', $message->user->created_at) ?></b></div>
                 </td>
                 <td>
-                    <div class="d-flex">
+                    <div class="d-flex" style="background-color: #ececec; margin-left: -12px; margin-top: -12px; margin-right: -12px; padding: 8px">
                         <div class="ml-auto">
                             <?= date('d-m-Y H:i', $message->created_at) ?>
                             <?php if ($user->id == $message->user_id): ?>
@@ -62,12 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </td>
             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <?php endforeach; ?>
-
+            </tbody>
+        </table>
         <div class="row">
             <div class="col-sm-6 text-left">
                 <?= LinkPager::widget([

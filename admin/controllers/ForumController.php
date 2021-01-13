@@ -108,6 +108,7 @@ class ForumController extends Controller
             'post' => $post,
             'dataProvider' => $messages,
             'model' => $form,
+            'user' => $user,
         ]);
     }
 

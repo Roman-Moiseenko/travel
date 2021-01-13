@@ -209,7 +209,11 @@ div.required label:after {
     max-width: 100%;
     height: auto;
 }
-
+.img-forum {
+    display: block;
+    width: 120px;
+    height: auto;
+}
 @media screen and (min-width: 600px){
     .adaptive-width-50 {
         width: 50% !important;
@@ -395,4 +399,9 @@ div.required label:after {
     font-size: 13px;
     color: #474747;
 }
-
+.bg1 {
+    background-color: #e8f5f7 !important;
+}
+.bg2 {
+    background-color: #f3f3f3 !important;
+}
