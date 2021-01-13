@@ -67,11 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="card">
     <div class="card-body">
+        <?php if($post->isActive()):?>
         <?php $form = ActiveForm::begin([]); ?>
         <?= $form->field($model, 'text')->textarea(['rows' => 6])->label('Сообщение')->widget(CKEditor::class) ?>
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         </div>
         <?php ActiveForm::end(); ?>
+        <?php else: ?>
+        <span>Данная тема закрыта, и добавлять сообщения невозможно</span>
+        <?php endif; ?>
     </div>
 </div>

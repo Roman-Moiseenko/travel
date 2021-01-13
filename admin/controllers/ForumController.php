@@ -139,8 +139,8 @@ class ForumController extends Controller
 
     public function actionRemovePost($id)
     {
-
-        return $this->redirect(['forum/post', 'id' => $id]);
+        $this->postService->removePost($id);
+        return $this->redirect(\Yii::$app->request->referrer);
         //Проверка на права доступа - модератор
         // если автор, то есть ли сообщения других участников
     }
@@ -148,25 +148,25 @@ class ForumController extends Controller
     public function actionFixPost($id)
     {
         $this->postService->fix($id);
-        return $this->redirect(['forum/post', 'id' => $id]);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionUnfixPost($id)
     {
         $this->postService->unFix($id);
-        return $this->redirect(['forum/post', 'id' => $id]);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionLockPost($id)
     {
         $this->postService->lock($id);
-        return $this->redirect(['forum/post', 'id' => $id]);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionUnlockPost($id)
     {
         $this->postService->unLock($id);
-        return $this->redirect(['forum/post', 'id' => $id]);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
 

@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
             <?php foreach ($dataProvider->getModels() as $post): ?>
-                <tr class="row_link" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
+                <tr class="row_link">
                     <?php if($user->preferences->isForumUpdate()):?>
                         <td class="col_admin">
                             <?php if($post->isFix()):?>
@@ -46,7 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php else: ?>
                                 <a href="<?=Url::to(['forum/fix-post', 'id' => $post->id])?>"><i class="fas fa-check"></i></a>
                             <?php endif; ?>
-                            <a href="<?=Url::to(['forum/remove-post', 'id' => $post->id])?>"><i class="fas fa-times"></i></a>
+                            <?php if($user->preferences->isForumAdmin()):?>
+                                <a href="<?=Url::to(['forum/remove-post', 'id' => $post->id])?>"><i class="fas fa-times"></i></a>
+                            <?php endif; ?>
                             <?php if($post->isActive()):?>
                                 <a href="<?=Url::to(['forum/lock-post', 'id' => $post->id])?>"><i class="fas fa-lock"></i></a>
                             <?php else: ?>
@@ -55,18 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     <?php endif; ?>
 
-                    <td class="col_img_mini <?= $post->isFix() ? 'col_fix' : '' ?>">
+                    <td class="col_img_mini <?= $post->isFix() ? 'col_fix' : '' ?>" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
                         <?= ForumHelper::isReadPost($post->id) ? '<i class="far fa-envelope-open"></i>' : '<i class="fas fa-envelope"></i>' ?>
                     </td>
-                    <td class="col_forum">
+                    <td class="col_forum" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
                         <div class="row_post">
+                            <?= $post->isActive() ? '' : '<i class="fas fa-lock"></i> '?>
                             <?= $post->caption ?>
                         </div>
                     </td>
-                    <td class="col_stat">
+                    <td class="col_stat" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
                         <div><?= $post->count . ' сообщений' ?></div>
                     </td>
-                    <td class="col_post">
+                    <td class="col_post" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
                         <?= 'Сообщение ' . $post->lastMessage->user->username . ' от ' . date('Y-m-d', $post->lastMessage->created_at) ?>
                     </td>
                 </tr>

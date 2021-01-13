@@ -119,4 +119,15 @@ class PostService
         $this->posts->save($post);
         $this->service->subUpdated($post->category_id);
     }
+
+    public function removePost($id)
+    {
+        $user = User::findOne(\Yii::$app->user->id);
+        if ($user->preferences->isForumAdmin()) {
+            $post = $this->posts->get($id);
+            $this->posts->remove($post);
+        } else {
+            throw new \DomainException('У вас нет доступа для данного действия');
+        }
+    }
 }
