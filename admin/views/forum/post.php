@@ -67,15 +67,25 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="card">
     <div class="card-body">
-        <?php if($post->isActive()):?>
-        <?php $form = ActiveForm::begin([]); ?>
-        <?= $form->field($model, 'text')->textarea(['rows' => 6])->label('Сообщение')->widget(CKEditor::class) ?>
-        <div class="form-group">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <?php if($post->isActive()):?>
+                    <?php $form = ActiveForm::begin([]); ?>
+                    <label>Новое сообщение</label>
+                    <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(false)->widget(CKEditor::class, [
+                        'editorOptions' => [
+                            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                            ],
+                        ]) ?>
+                    <div class="form-group">
+                        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                    </div>
+                    <?php ActiveForm::end(); ?>
+                <?php else: ?>
+                    <span>Данная тема закрыта, и добавлять сообщения невозможно</span>
+                <?php endif; ?>
+            </div>
         </div>
-        <?php ActiveForm::end(); ?>
-        <?php else: ?>
-        <span>Данная тема закрыта, и добавлять сообщения невозможно</span>
-        <?php endif; ?>
     </div>
 </div>

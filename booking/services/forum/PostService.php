@@ -117,7 +117,7 @@ class PostService
         if (!$post->isAuthor($message_id, $user->id)) throw new \DomainException('У вас нет прав изменять данное сообщение');
         $post->removeMessage($message_id);
         $this->posts->save($post);
-        $this->service->subUpdated($post->category_id);
+        $this->service->reload($post->category_id);
     }
 
     public function removePost($id)

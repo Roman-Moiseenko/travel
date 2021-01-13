@@ -80,15 +80,6 @@ class CategoryService
         $this->categories->save($category);
     }
 
-    public function subUpdated($id)
-    {
-        $category = $this->categories->get($id);
-        //$last_id = $this->categories->getLast($category->id);
-        $category->reCount();
-        //$category->subUpdated($last_id);
-        $this->categories->save($category);
-    }
-
     public function editUpdated($id, Message $message)
     {
         $category = $this->categories->get($id);
@@ -105,8 +96,6 @@ class CategoryService
     public function reload($id)
     {
         $category = $this->categories->get($id);
-        //$category->last_id = $this->categories->getLast($category->id);
-
         $category->reCount();
         $this->categories->save($category);
     }
