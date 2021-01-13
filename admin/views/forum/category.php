@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a href="<?=Url::to(['forum/fix-post', 'id' => $post->id])?>"><i class="fas fa-check"></i></a>
                             <?php endif; ?>
                             <?php if($user->preferences->isForumAdmin()):?>
-                                <a href="<?=Url::to(['forum/remove-post', 'id' => $post->id])?>"><i class="fas fa-times"></i></a>
+                                <a href="<?=Url::to(['forum/remove-post', 'id' => $post->id])?>" data-confirm="Удалить данную тему?" data-method="post"><i class="fas fa-times"></i></a>
                             <?php endif; ?>
                             <?php if($post->isActive()):?>
                                 <a href="<?=Url::to(['forum/lock-post', 'id' => $post->id])?>"><i class="fas fa-lock"></i></a>
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </td>
                     <td class="col_stat" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
-                        <div><?= $post->count . ' сообщений' ?></div>
+                        <div><?= $post->count . ' <i class="fas fa-envelope-open-text"></i>' ?></div>
                     </td>
                     <td class="col_post" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
                         <span class="row_description"><?= $post->lastMessage->user->username . ' от ' . date('Y-m-d H:i', $post->lastMessage->lastDate()) ?></span>

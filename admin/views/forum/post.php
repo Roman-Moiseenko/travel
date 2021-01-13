@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td class="ml-3" width="200px" valign="top">
                                 <div class="forum-user">
                                     <div><b><?= $message->user->username ?></b></div>
-                                    <div style="font-size: 13px"><?= ForumHelper::status($message->user->preferences->forum_role) ?></div>
+                                    <div class="pb-1" style="font-size: 13px"><?= ForumHelper::status($message->user->preferences->forum_role) ?></div>
                                     <?php if (!empty($message->user->personal->photo)): ?>
                                         <img src="<?= Html::encode($message->user->personal->getThumbFileUrl('photo', 'forum')) ?>"
                                              alt=""
@@ -64,8 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <img src="<?= Url::to('@static/files/images/no_user.png') ?>" alt=""
                                              class="img-forum"/>
                                     <?php endif; ?>
-                                    <div style="font-size: 11px; ">
-                                        <b><?= 'Зарегистрирован ' . date('d-m-Y', $message->user->created_at) ?></b>
+                                    <div class="pt-1" style="font-size: 11px; ">
+                                        <?= 'Зарегистрирован: ' . date('d-m-Y', $message->user->created_at) ?>
                                     </div>
                                 </div>
                             </td>

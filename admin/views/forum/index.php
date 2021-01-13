@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </span>
                     </td>
                     <td class="col_stat">
-                        <div><?= $category->countPost() . ' тем' ?></div>
-                        <div><?= $category->count . ' сообщений' ?></div>
+                        <div><?= $category->countPost() . ' <i class="fas fa-folder-open"></i>' ?></div>
+                        <div><?= $category->count . ' <i class="fas fa-envelope-open-text"></i>' ?></div>
                     </td>
                     <td class="col_post">
                         <?php if ($category->lastMessage): ?>

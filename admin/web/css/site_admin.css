@@ -211,7 +211,7 @@ div.required label:after {
 }
 .img-forum {
     display: block;
-    width: 120px;
+    width: 140px;
     height: auto;
 }
 @media screen and (min-width: 600px){
@@ -369,7 +369,7 @@ div.required label:after {
 }
 
 .col_stat {
-    width: 160px;
+    width: 80px;
 }
 
 .col_post {
