@@ -9,7 +9,6 @@ use yii\helpers\Url;
 $this->title = 'Форум провайдеров';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-В разработке ....
 <div class="card">
     <div class="card-body">
         <table class="table table-striped">
