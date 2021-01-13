@@ -3,6 +3,7 @@
 use booking\entities\admin\User;
 use booking\entities\forum\Message;
 use booking\entities\forum\Post;
+use booking\helpers\ForumHelper;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\data\DataProviderInterface;
@@ -53,7 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td class="ml-3" width="200px" valign="top">
                                 <div class="forum-user">
-                                    <div class="align-items-center"><b><?= $message->user->username ?></b></div>
+                                    <div><b><?= $message->user->username ?></b></div>
+                                    <div style="font-size: 13px"><?= ForumHelper::status($message->user->preferences->forum_role) ?></div>
                                     <?php if (!empty($message->user->personal->photo)): ?>
                                         <img src="<?= Html::encode($message->user->personal->getThumbFileUrl('photo', 'forum')) ?>"
                                              alt=""

@@ -36,4 +36,12 @@ class ForumHelper
         $post = Post::findOne($post_id);
         return $user->isReadForum($post_id, $post->update_at);
     }
+
+    public static function status($forum_role)
+    {
+        if ($forum_role == self::FORUM_LOCK) return '<span class="badge badge-danger">Заблокирован</span>';
+        if ($forum_role == self::FORUM_USER) return '<span class="badge badge-info">Пользователь</span>';
+        if ($forum_role == self::FORUM_MODERATOR) return '<span class="badge badge-primary">Модератор</span>';
+        if ($forum_role == self::FORUM_ADMIN) return '<span class="badge badge-success">Администратор</span>';
+    }
 }
