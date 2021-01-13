@@ -101,4 +101,12 @@ class CategoryService
         $this->categories->remove($category);
     }
 
+    public function reload($id)
+    {
+        $category = $this->categories->get($id);
+        $category->last_id = $this->categories->getLast($category->id);
+        $category->reCount();
+        $this->categories->save($category);
+    }
+
 }

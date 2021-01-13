@@ -130,7 +130,12 @@ class Post extends ActiveRecord
     }
     public function getLastMessage(): ActiveQuery
     {
-        return $this->hasOne(Message::class, ['sort' => 'last_sort', 'post_id' => 'id']);
+        return Message::find()
+            ->andWhere(['post_id' => $this->id])
+            ->andWhere([
+                'created_at' => Message::find()->andWhere(['post_id' => $this->id])->max('created_at')
+            ]);
+        //return $this->hasOne(Message::class, ['sort' => 'last_sort', 'post_id' => 'id']);
     }
 
     public function getCategory(): ActiveQuery

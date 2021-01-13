@@ -126,6 +126,7 @@ class PostService
         if ($user->preferences->isForumAdmin()) {
             $post = $this->posts->get($id);
             $this->posts->remove($post);
+            $this->service->reload($post->category_id);
         } else {
             throw new \DomainException('У вас нет доступа для данного действия');
         }

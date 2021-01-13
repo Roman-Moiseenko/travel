@@ -45,7 +45,6 @@ class CategoryRepository
 
     public function getLast($id)
     {
-        //TODO Проверить !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         return Message::find()->select('id')->andWhere([
             'IN',
             'post_id',

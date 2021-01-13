@@ -73,6 +73,23 @@ class Category extends ActiveRecord
         $this->updated_at = $message->updated_at;
     }
 
+    public function reCount()
+    {
+        $posts = $this->posts;
+        //$last_id = -1;
+       // $last_at = 0;
+        $count = 0;
+        foreach ($posts as $post) {
+            $count += $post->count;
+           /* if ($last_at < $post->update_at) {
+                $last_id = $post->lastMessage->id;
+                $last_at = $post->update_at;
+            }*/
+        }
+        //$this->last_id = $last_id;*/
+        $this->count = $count;
+    }
+
     public static function tableName()
     {
         return '{{%forum_categories}}';

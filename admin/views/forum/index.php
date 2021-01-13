@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td class="col_post">
                         <?php if ($category->lastMessage): ?>
                             <div class="row_post"><?= $category->lastMessage->post->caption ?></div>
-                            <span class="row_description"><?= 'Сообщение ' . $category->lastMessage->user->username . ' от ' . date('Y-m-d', $category->lastMessage->created_at) ?></span>
+                            <span class="row_description"><?= $category->lastMessage->user->username . ' от ' . date('Y-m-d H:i', $category->lastMessage->created_at) ?></span>
                         <?php endif;  ?>
                     </td>
                 </tr>
