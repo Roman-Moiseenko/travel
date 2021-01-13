@@ -62,6 +62,7 @@ class Post extends ActiveRecord
         foreach ($messages as $i => $message) {
             if ($message->isFor($id)) {
                 $message->edit($text);
+                $this->update_at = $message->updated_at;
                 $this->messages = $messages;
                 return $message;
             }

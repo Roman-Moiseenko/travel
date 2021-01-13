@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div><?= $post->count . ' сообщений' ?></div>
                     </td>
                     <td class="col_post" onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id])?>'; return false">
-                        <span class="row_description"><?= $post->lastMessage->user->username . ' от ' . date('Y-m-d H:i', $post->lastMessage->created_at) ?></span>
+                        <span class="row_description"><?= $post->lastMessage->user->username . ' от ' . date('Y-m-d H:i', $post->lastMessage->lastDate()) ?></span>
                     </td>
                 </tr>
 

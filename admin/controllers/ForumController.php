@@ -14,6 +14,7 @@ use booking\repositories\forum\PostRepository;
 use booking\services\forum\CategoryService;
 use booking\services\forum\PostService;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class ForumController extends Controller
@@ -129,8 +130,6 @@ class ForumController extends Controller
             'category' => $category,
             'model' => $form,
         ]);
-
-
     }
 
     public function actionUpdatePost($id)
@@ -171,19 +170,41 @@ class ForumController extends Controller
     }
 
 
-    public function actionCreateMessage($id)
-    {
-
-    }
-
     public function actionUpdateMessage($id)
     {
-
+        $user = User::findOne(\Yii::$app->user->id);
+        $message = Message::findOne($id);
+        $form = new MessageForm($message);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->postService->editMessage($message->post_id, $message->id, $form);
+                return $this->redirect(['forum/post', 'id' => $message->post_id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('post-update', [
+            'post' => $message->post,
+            'model' => $form,
+            'user' => $user,
+        ]);
     }
 
     public function actionRemoveMessage($id)
     {
-        //Проверка на права доступа - автор или модератор
+        $message = Message::findOne($id);
+        $post = $message->post;
+        if ($post->count == 1) {
+
+            $this->postService->removePost($post->id);
+            return $this->redirect(Url::to(['forum/category', 'id' => $post->category_id]));
+        } else {
+            $this->postService->removeMessage($post->id, $id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
+
+
+
     }
 
 

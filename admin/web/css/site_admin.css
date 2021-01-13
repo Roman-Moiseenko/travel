@@ -405,3 +405,7 @@ div.required label:after {
 .bg2 {
     background-color: #f3f3f3 !important;
 }
+.forum-user {
+    border-left: 2px solid white;
+    padding-left: 8px;
+}

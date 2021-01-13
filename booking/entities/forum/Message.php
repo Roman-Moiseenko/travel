@@ -34,6 +34,11 @@ class Message extends ActiveRecord
         return $message;
     }
 
+    public function lastDate(): int
+    {
+        return $this->updated_at ?? $this->created_at;
+    }
+
     public function edit($text): void
     {
         $this->text = $text;
@@ -42,7 +47,7 @@ class Message extends ActiveRecord
 
     public function isFor($id): bool
     {
-        return $this->id === $id;
+        return $this->id == $id;
     }
 
     public function setSort($sort): void
