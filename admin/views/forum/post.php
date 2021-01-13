@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="ml-auto">
 
-                                        <?php if ($user->id == $message->user_id): ?>
+                                        <?php if ($post->isActive() && $user->id == $message->user_id): ?>
                                             <a class="btn btn-default" href="<?= Url::to(['forum/update-message', 'id' => $message->id])?>"><i class="fas fa-pen"></i></a>
                                             <a class="btn btn-default" href="<?= Url::to(['forum/remove-message', 'id' => $message->id])?>"><i class="fas fa-trash"></i></a>
                                         <?php endif; ?>
