@@ -54,5 +54,4 @@ class ForumHelper
             self::FORUM_ADMIN => 'Администратор',
         ];
     }
-
 }
