@@ -479,4 +479,5 @@ class User extends ActiveRecord implements IdentityInterface
         $preferences->forum_role = $role;
         $this->preferences = $preferences;
     }
+
 }

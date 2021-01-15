@@ -300,4 +300,5 @@ class ContactService
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
     }
+
 }

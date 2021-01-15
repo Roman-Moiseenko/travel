@@ -91,4 +91,5 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
         </div>
     </div>
+
 </div>

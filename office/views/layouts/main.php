@@ -54,3 +54,4 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 </html>
 <!--script src="https://api-maps.yandex.ru/2.1/?apikey=ec80b990-9f0f-4371-8872-4040ba6373b3&lang=ru_RU" type="text/javascript"-->
 <?php $this->endPage() ?>
+

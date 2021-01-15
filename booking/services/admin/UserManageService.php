@@ -357,4 +357,5 @@ class UserManageService
         $user = $this->users->get($id);
         $this->users->remove($user);
     }
+
 }
