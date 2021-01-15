@@ -24,6 +24,7 @@ class ContactService
      * @var pdfServiceController
      */
     private $pdf;
+    private $loc;
 
     public function __construct(
         MailerInterface $mailer,
@@ -32,11 +33,13 @@ class ContactService
     {
         $this->mailer = $mailer;
         $this->pdf = $pdf;
+        $this->loc = \Yii::$app->params['local'] ?? false;
     }
 
 /// УВЕДОМЛЕНИЕ ПРОВАЙДЕРУ ОБ ОТЗЫВЕ
     public function sendNoticeReview(ReviewInterface $review)
     {
+        if ($this->loc) return;
         $user_admin = $review->getAdmin();
         $noticeAdmin = $user_admin->notice;
         $legal = $review->getLegal();
@@ -56,6 +59,7 @@ class ContactService
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ ИЛИ ПРОВАЙДЕРУ О НОВОМ СООБЩЕНИИ
     public function sendNoticeMessage(Dialog $dialog)
     {
+        if ($this->loc) return;
         /** @var Conversation $conversation */
         $conversation = $dialog->lastConversation();
         if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
@@ -89,6 +93,7 @@ class ContactService
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ И ПРОВАЙДЕРУ О БРОНИРОВАНИИ/НОВОМ СТАТУСЕ
     public function sendNoticeBooking(BookingItemInterface $booking)
     {
+        if ($this->loc) return;
         $user_admin = $booking->getAdmin();
         $user = \booking\entities\user\User::findOne($booking->getUserId());
         $noticeAdmin = $user_admin->notice;
@@ -146,6 +151,7 @@ class ContactService
 /// УВЕДОМЛЕНИЕ С КОДОМ ДЛЯ ПОДТВЕРЖДЕНИЯ БРОНИРОВАНИЯ
     public function sendNoticeConfirmation(BookingItemInterface $booking, $template = 'pay')
     {
+        if ($this->loc) return;
         $user = \booking\entities\user\User::findOne($booking->getUserId());
         $send = $this->mailer->compose('noticeConfirmation-' . $template, ['booking' => $booking])
             ->setTo($user->email)
@@ -155,6 +161,108 @@ class ContactService
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
+    }
+
+    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
+            ->setTo($tour->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($tour->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
+            ->setTo($fun->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($fun->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function noticeNewUser($user)
+    {
+        if ($this->loc) return;
+        if ($user instanceof User) {
+            $subject = 'Новый Провайдер';
+        } else {
+            $subject = 'Новый Клиент';
+        }
+        $send = $this->mailer->compose('signupUser', ['user' => $user])
+            ->setTo(\Yii::$app->params['signupEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый пользователь'])
+            ->setSubject($subject)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException('Ошибка отправки');
+        }
+    }
+
+    public function sendMailing(Mailing $mailing, array $emails)
+    {
+        if ($this->loc) return;
+        $messages = [];
+        foreach ($emails as $email) {
+            $messages[] = $this->mailer->compose('Mailing', ['subject' => $mailing->subject, 'email' => $email])
+                ->setTo($email)
+                ->setFrom([\Yii::$app->params['supportEmail'] => 'Рассылка от koenigs.ru'])
+                ->setSubject(Mailing::nameTheme($mailing->theme));
+        }
+        $send = $this->mailer->sendMultiple($messages);
+        if (!$send) {
+            throw new \RuntimeException('Ошибка отправки');
+        }
+        return true;
+    }
+
+    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockCar', ['car' => $car])
+            ->setTo($car->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($car->name)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendActivate($object, $username)
+    {
+        if ($this->loc) return;
+        /** Уведомление Главного по Активации */
+        //почта
+        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
+            ->setTo(\Yii::$app->params['providerEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
+            ->setSubject($object)
+            ->send();
+        if (!$send) {
+            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+        }
+        //СМС
+        if (\Yii::$app->params['SMSActivated'])
+            $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', User::findOne(\Yii::$app->user->id));
+    }
+
+    public function sendCancelProvider(\booking\entities\booking\tours\BookingTour $booking)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
+            ->setTo(\Yii::$app->params['providerEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
+            ->setSubject($object)
+            ->send();
     }
 
     private function sendSMS($phone, $message, User $admin_user = null)
@@ -191,100 +299,5 @@ class ContactService
         if (!$send) {
             throw new \RuntimeException(Lang::t('Ошибка отправки'));
         }
-    }
-
-    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
-    {
-        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
-            ->setTo($tour->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($tour->name)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
-    {
-        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
-            ->setTo($fun->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($fun->name)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function noticeNewUser($user)
-    {
-        if ($user instanceof User) {
-            $subject = 'Новый Провайдер';
-        } else {
-            $subject = 'Новый Клиент';
-        }
-        $send = $this->mailer->compose('signupUser', ['user' => $user])
-            ->setTo(\Yii::$app->params['signupEmail'])
-            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый пользователь'])
-            ->setSubject($subject)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException('Ошибка отправки');
-        }
-    }
-
-    public function sendMailing(Mailing $mailing, array $emails)
-    {
-        $messages = [];
-        foreach ($emails as $email) {
-            $messages[] = $this->mailer->compose('Mailing', ['subject' => $mailing->subject, 'email' => $email])
-                ->setTo($email)
-                ->setFrom([\Yii::$app->params['supportEmail'] => 'Рассылка от koenigs.ru'])
-                ->setSubject(Mailing::nameTheme($mailing->theme));
-        }
-        $send = $this->mailer->sendMultiple($messages);
-        if (!$send) {
-            throw new \RuntimeException('Ошибка отправки');
-        }
-        return true;
-    }
-
-    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
-    {
-        $send = $this->mailer->compose('lockCar', ['car' => $car])
-            ->setTo($car->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($car->name)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function sendActivate($object, $username)
-    {
-        /** Уведомление Главного по Активации */
-        //почта
-        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
-            ->setTo(\Yii::$app->params['providerEmail'])
-            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
-            ->setSubject($object)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
-        }
-        //СМС
-        if (\Yii::$app->params['SMSActivated'])
-            $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', User::findOne(\Yii::$app->user->id));
-    }
-
-    public function sendCancelProvider(\booking\entities\booking\tours\BookingTour $booking)
-    {
-        $send = $this->mailer->compose('Activated', ['object' => $object, 'username' => $username])
-            ->setTo(\Yii::$app->params['providerEmail'])
-            ->setFrom([\Yii::$app->params['supportEmail'] => 'Активация объекта'])
-            ->setSubject($object)
-            ->send();
     }
 }

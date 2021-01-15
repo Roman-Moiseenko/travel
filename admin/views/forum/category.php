@@ -21,7 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="card">
     <div class="card-body">
         <p>
-            <?= Html::a('Новая тема  <i class="fas fa-pen"></i>', Url::to(['forum/create-post', 'id' => $category->id]), ['class' => 'btn btn-info']) ?>
+            <?php if ($user->preferences->isForumLock()): ?>
+                <span>Вы не можете создавать новые темы, обратитесь к Модератору</span>
+            <?php else: ?>
+                <?= Html::a('Новая тема  <i class="fas fa-pen"></i>', Url::to(['forum/create-post', 'id' => $category->id]), ['class' => 'btn btn-info']) ?>
+            <?php endif; ?>
         </p>
         <table class="table table-striped">
             <thead>

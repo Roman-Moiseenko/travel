@@ -44,4 +44,14 @@ class ForumHelper
         if ($forum_role == self::FORUM_MODERATOR) return '<span class="badge badge-primary">Модератор</span>';
         if ($forum_role == self::FORUM_ADMIN) return '<span class="badge badge-success">Администратор</span>';
     }
+
+    public static function listStatus(): array
+    {
+        return [
+            self::FORUM_LOCK => 'Заблокирован',
+            self::FORUM_USER => 'Пользователь',
+            self::FORUM_MODERATOR => 'Модератор',
+            self::FORUM_ADMIN => 'Администратор',
+        ];
+    }
 }

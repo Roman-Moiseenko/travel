@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="ml-auto">
 
-                                        <?php if ($post->isActive() && $user->id == $message->user_id): ?>
+                                        <?php if ($post->isActive() && $user->id == $message->user_id && !$user->preferences->isForumLock()): ?>
                                             <a class="btn btn-default" href="<?= Url::to(['forum/update-message', 'id' => $message->id])?>"><i class="fas fa-pen"></i></a>
                                             <a class="btn btn-default" href="<?= Url::to(['forum/remove-message', 'id' => $message->id])?>"><i class="fas fa-trash"></i></a>
                                         <?php endif; ?>
@@ -91,19 +91,23 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <?php if ($post->isActive()): ?>
-                    <?php $form = ActiveForm::begin([]); ?>
-                    <label>Новое сообщение</label>
-                    <?php $preset = $user->preferences->isForumUpdate() ? 'full' : 'basic' ?>
-                    <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(false)->widget(CKEditor::class, [
-                    'editorOptions' => [
-                        'preset' => $preset, //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-                    ],
-                ]) ?>
-                    <div class="form-group">
-                        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-                    </div>
-                    <?php ActiveForm::end(); ?>
+                <?php if ($post->isActive()): ?> <!-- Если тема не заблокирована-->
+                    <?php if ($user->preferences->isForumLock()): ?><!-- Если пользователь не заблокирован-->
+                        <span>Вы не можете оставить сообщение, обратитесь к Модератору</span>
+                    <?php else: ?>
+                        <?php $form = ActiveForm::begin([]); ?>
+                        <label>Новое сообщение</label>
+                        <?php $preset = $user->preferences->isForumUpdate() ? 'full' : 'basic' ?><!-- Уровень доступа -->
+                        <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(false)->widget(CKEditor::class, [
+                        'editorOptions' => [
+                            'preset' => $preset, //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                        ],
+                    ]) ?>
+                        <div class="form-group">
+                            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
+                    <?php endif; ?>
                 <?php else: ?>
                     <span>Данная тема закрыта, и добавлять сообщения невозможно</span>
                 <?php endif; ?>

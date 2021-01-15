@@ -472,4 +472,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         //TODO !!Сохранить в таблице отправленных СМС новую. Для отчетности!!!!
     }
+
+    public function setForumRole(int $role)
+    {
+        $preferences = $this->preferences;
+        $preferences->forum_role = $role;
+        $this->preferences = $preferences;
+    }
 }

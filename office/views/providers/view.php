@@ -2,6 +2,7 @@
 
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
+use booking\helpers\ForumHelper;
 use office\forms\ProviderLegalSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -17,19 +18,43 @@ use yii\widgets\DetailView;
 $this->title = 'Провайдер: ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Провайдеры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->username;
+$id = $model->id;
+$js = <<<JS
+$(document).ready(function() {
+    let user_id = $id;
+    $('body').on('change', '#set-forum-role', function () {
+        let role = $(this).val();
+        $.post("/providers/forum", {role: role, user_id: user_id},
+            function (data) {
+            console.log(data);
+            }
+        );  
+    });
+});
+JS;
+
+$this->registerJs($js);
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="user-view">
-
-    <p>
-        <?php if ($model->status == User::STATUS_ACTIVE) {
-        echo Html::a('Заблокировать', ['lock', 'id' => $model->id], ['class' => 'btn btn-primary']);
-        } ?>
-        <?php if ($model->status == User::STATUS_LOCK) {
+    <div class="form-group">
+        <?php
+        if ($model->status == User::STATUS_ACTIVE) {
+            echo Html::a('Заблокировать', ['lock', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        if ($model->status == User::STATUS_LOCK) {
             echo Html::a('Разблокировать', ['unlock', 'id' => $model->id], ['class' => 'btn btn-success']);
-        } ?>
+        }
+        ?>
+        <label for="set-forum-role"> Доступ на форуме: </label>
+        <select class="form-control" id="set-forum-role" style="display: inline !important; width: auto !important;">
+            <?php foreach (ForumHelper::listStatus() as $code => $status): ?>
+                <option value="<?= $code ?>" <?= $code == $model->preferences->forum_role ? 'selected' : '' ?>><?= $status ?></option>
+            <?php endforeach; ?>
+        </select>
 
-    </p>
+    </div>
     <div class="card">
         <div class="card-body">
             <?= DetailView::widget([

@@ -19,7 +19,7 @@ use yii\web\Controller;
 
 class ForumController extends Controller
 {
-    public $layout ='main';
+    public $layout = 'main';
     /**
      * @var CategoryService
      */
@@ -64,10 +64,8 @@ class ForumController extends Controller
 
     public function actionIndex()
     {
-
         //получаем все категории, отображаем по сортировке
         $categories = Category::find()->orderBy(['sort' => SORT_ASC])->all();
-
         return $this->render('index', [
             'categories' => $categories,
         ]);
@@ -104,7 +102,6 @@ class ForumController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-
         return $this->render('post', [
             'post' => $post,
             'dataProvider' => $messages,
@@ -117,6 +114,7 @@ class ForumController extends Controller
     {
         /** $id - $category_id */
         $category = Category::findOne($id);
+        $user = User::findOne(\Yii::$app->user->id);
         $form = new PostForm($category->id);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -129,44 +127,65 @@ class ForumController extends Controller
         return $this->render('post-create', [
             'category' => $category,
             'model' => $form,
+            'user' => $user,
         ]);
-    }
-
-    public function actionUpdatePost($id)
-    {
-
     }
 
     public function actionRemovePost($id)
     {
-        $this->postService->removePost($id);
-        return $this->redirect(\Yii::$app->request->referrer);
+        try {
+            $this->postService->removePost($id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
         //Проверка на права доступа - модератор
         // если автор, то есть ли сообщения других участников
     }
 
     public function actionFixPost($id)
     {
-        $this->postService->fix($id);
-        return $this->redirect(\Yii::$app->request->referrer);
+        try {
+            $this->postService->fix($id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 
     public function actionUnfixPost($id)
     {
-        $this->postService->unFix($id);
-        return $this->redirect(\Yii::$app->request->referrer);
+        try {
+            $this->postService->unFix($id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 
     public function actionLockPost($id)
     {
-        $this->postService->lock($id);
-        return $this->redirect(\Yii::$app->request->referrer);
+        try {
+            $this->postService->lock($id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 
     public function actionUnlockPost($id)
     {
-        $this->postService->unLock($id);
-        return $this->redirect(\Yii::$app->request->referrer);
+        try {
+            $this->postService->unLock($id);
+            return $this->redirect(\Yii::$app->request->referrer);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 
 
@@ -194,20 +213,18 @@ class ForumController extends Controller
     {
         $message = Message::findOne($id);
         $post = $message->post;
-        if ($post->count == 1) {
-
-            $this->postService->removePost($post->id);
-            return $this->redirect(Url::to(['forum/category', 'id' => $post->category_id]));
-        } else {
-            $this->postService->removeMessage($post->id, $id);
+        try {
+            if ($post->count == 1) {
+                $this->postService->removePost($post->id);
+                return $this->redirect(Url::to(['forum/category', 'id' => $post->category_id]));
+            } else {
+                $this->postService->removeMessage($post->id, $id);
+                return $this->redirect(\Yii::$app->request->referrer);
+            }
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(\Yii::$app->request->referrer);
         }
-
-
-
     }
-
-
-
 
 }

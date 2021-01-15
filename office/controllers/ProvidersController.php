@@ -105,4 +105,23 @@ class ProvidersController extends Controller
 
         throw new \DomainException('The requested page does not exist.');
     }
+
+    public function actionForum()
+    {
+
+        if (\Yii::$app->request->isAjax) {
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                $id = (int)$params['user_id'];
+                $role = (int)$params['role'];
+                $this->service->setForumRole($id, $role);
+                return 'success';
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
+
+        } else {
+            return 'нет доступа';
+        }
+    }
 }

@@ -34,15 +34,15 @@ $this->params['breadcrumbs'][] = 'Редактировать';
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md">
                 <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label('Группа') ?>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md">
                 <?= $form->field($model, 'groupMin')->textInput(['maxlength' => true])->label('Минимальное кол-во в группе') ?>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md">
                 <?= $form->field($model, 'groupMax')->textInput(['maxlength' => true])->label('Максимальное кол-во в группе') ?>
             </div>
         </div>
