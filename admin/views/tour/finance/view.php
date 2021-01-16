@@ -23,23 +23,36 @@ $this->params['breadcrumbs'][] = 'Цены';
     <div class="card card-secondary">
         <div class="card-header with-border">Базовая стоимость</div>
         <div class="card-body">
-            <?= DetailView::widget([
-                'model' => $tour->baseCost,
-                'attributes' => [
-                    [
-                        'attribute' => 'adult',
-                        'label' => 'Билет для взрослых',
+            <?php
+            if ($tour->params->private) {
+                echo DetailView::widget([
+                    'model' => $tour->baseCost,
+                    'attributes' => [
+                        [
+                            'attribute' => 'adult',
+                            'label' => 'Цена за экскурсию',
+                        ],
                     ],
-                    [
-                        'attribute' => 'child',
-                        'label' => 'Билет для детей',
+                ]);
+            } else {
+                echo DetailView::widget([
+                    'model' => $tour->baseCost,
+                    'attributes' => [
+                        [
+                            'attribute' => 'adult',
+                            'label' => 'Билет для взрослых',
+                        ],
+                        [
+                            'attribute' => 'child',
+                            'label' => 'Билет для детей',
+                        ],
+                        [
+                            'attribute' => 'preference',
+                            'label' => 'Билет для льготных граждан',
+                        ],
                     ],
-                    [
-                        'attribute' => 'preference',
-                        'label' => 'Билет для льготных граждан',
-                    ],
-                ],
-            ]) ?>
+                ]);
+            }?>
         </div>
     </div>
     <div class="row">

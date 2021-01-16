@@ -76,7 +76,7 @@ $tour = $booking->calendar->tour;
                     </tr>
                     <?php if ($booking->count->adult !== 0): ?>
                         <tr>
-                            <th><?= Lang::t('Взрослый билет') ?></th>
+                            <th><?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?></th>
                             <td><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
                             <td>x <?= $booking->count->adult ?> шт</td>
                             <td><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>

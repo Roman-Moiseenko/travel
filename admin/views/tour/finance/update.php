@@ -33,6 +33,11 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
     <div class="card card-secondary">
         <div class="card-header with-border">Базовая стоимость</div>
         <div class="card-body">
+            <?php if ($tour->params->private): ?>
+                <div class="col-md-6">
+                    <?= $form->field($model->baseCost, 'adult')->textInput(['maxlength' => true])->label('Цена за экскурсию') ?>
+                </div>
+            <?php else: ?>
             <div class="col-md-6">
                 <?= $form->field($model->baseCost, 'adult')->textInput(['maxlength' => true])->label('Билет для взрослых') ?>
             </div>
@@ -42,6 +47,7 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
             <div class="col-md-6">
                 <?= $form->field($model->baseCost, 'preference')->textInput(['maxlength' => true])->label('Билет для льготных граждан') ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="row">

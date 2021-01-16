@@ -9,6 +9,42 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model TourParamsForm */
 /* @var $tour Tour */
+$private = $tour->params->private;
+
+$js=<<<JS
+$(document).ready(function() {
+    if ($private) {
+        $('#tourparamsform-groupmin').attr('readonly', 'readonly');
+    }
+
+    $('body').on('change', '#tourparamsform-private', function () {
+        let value = $(this).val();
+        console.log(value);
+        if (value == 1) {
+            $('#tourparamsform-groupmin').val('1');
+            $('#tourparamsform-groupmin').attr('readonly', 'readonly');
+            $('#tourparamsform-groupmin').change();
+        } else {
+           // $('#toursparamsform-groupmin').val('');
+            $('#tourparamsform-groupmin').removeAttr('readonly');
+        }
+    });
+    $('body').on('change', '#agelimitform-on', function () {
+
+        if ($(this).is(':checked')) {
+            $('#agelimitform-agemin').val('');
+            $('#agelimitform-agemax').val('');
+            $('.agelimit-edit').show();
+
+        } else {
+
+            $('.agelimit-edit').hide();
+        }
+    });
+});    
+JS;
+
+$this->registerJs($js);
 
 $this->title = 'Редактировать Тур ' . $tour->name;
 $this->params['id'] = $tour->id;

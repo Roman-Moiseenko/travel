@@ -1,12 +1,19 @@
 $(document).ready(function() {
-    $('body').on('input', '#toursparamsform-duration', function () {
+/*
+
+    $('body').on('change', '#tourparamsform-private', function () {
         let value = $(this).val();
+        console.log(value);
         if (value == 1) {
-            $('#toursparamsform-groupmin').val('1');
-            $('#toursparamsform-groupmin').attr('disabled', true);
+            console.log('1');
+            $('#tourparamsform-groupmin').val('1');
+            $('#tourparamsform-groupmin').attr('readonly', 'readonly');
+            $('#tourparamsform-groupmin').change();
         } else {
-            $('#toursparamsform-groupmin').val('');
-            $('#toursparamsform-groupmin').attr('disabled', false);
+            console.log('0');
+           // $('#toursparamsform-groupmin').val('');
+            $('#tourparamsform-groupmin').removeAttr('readonly');
+            $('#toursparamsform-groupmin').change();
         }
     });
     $('body').on('change', '#agelimitform-on', function () {
@@ -22,17 +29,7 @@ $(document).ready(function() {
         }
     });
 
-    /*$('body').on('click', '.extra-check', function () {
-        let tours_id = $(this).attr('tours-id');
-        let extra_id = $(this).attr('extra-id');
-        let value = 0;
-         if ($(this).is(':checked')) {value = 1;} else {value = 0;}
-        $.post(baseUrl + "/tour/extra/setextra?tours_id="+tours_id+"&extra_id="+extra_id+"&set="+value,
-            {tours_id: tours_id, extra_id: extra_id, set: value},
-            function (data) {
-        });
-    }); */
-
+*/
     $('body').on('click', '.collapse-time', function () {
         let status = $(this).attr('data-status');
         let id = $(this).attr('aria-controls');

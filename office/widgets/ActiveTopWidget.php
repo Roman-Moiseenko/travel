@@ -18,6 +18,8 @@ class ActiveTopWidget extends Widget
     public function run()
     {
         //TODO Заглушка Stays
+
+        //TODO поставить путое фото-заглушку
         $count = 0;
         $objects = [];
         $tours = Tour::find()->verify()->all();
@@ -25,14 +27,14 @@ class ActiveTopWidget extends Widget
         $funs = Fun::find()->verify()->all();
         foreach ($tours as $tour) {
             $objects[] = ['name' => $tour->name,
-                'photo' => $tour->mainPhoto->getThumbFileUrl('file', 'top_widget_list'),
+                'photo' => $tour->mainPhoto ? $tour->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
                 'link' => Url::to(['tours/view', 'id' => $tour->id]),
                 'created_at' => date('d-m-Y', $tour->created_at),
                 ];
         }
         foreach ($cars as $car) {
             $objects[] = ['name' => $car->name,
-                'photo' => $car->mainPhoto->getThumbFileUrl('file', 'top_widget_list'),
+                'photo' => $car->mainPhoto ? $car->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
                 'link' => Url::to(['cars/view', 'id' => $car->id]),
                 'created_at' => date('d-m-Y', $car->created_at),
             ];
@@ -40,7 +42,7 @@ class ActiveTopWidget extends Widget
 
         foreach ($funs as $fun) {
             $objects[] = ['name' => $fun->name,
-                'photo' => $fun->mainPhoto->getThumbFileUrl('file', 'top_widget_list'),
+                'photo' => $fun->mainPhoto ? $fun->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
                 'link' => Url::to(['funs/view', 'id' => $fun->id]),
                 'created_at' => date('d-m-Y', $fun->created_at),
             ];

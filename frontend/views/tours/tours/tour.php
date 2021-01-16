@@ -110,7 +110,7 @@ $countReveiws = $tour->countReviews();
                 </div>
                 <span class="params-item">
                     <?php if ($tour->baseCost->adult): ?>
-                        <i class="fas fa-user"></i>&#160;&#160;<?= Lang::t('Взрослый билет') ?> <span
+                        <i class="fas fa-user"></i>&#160;&#160;<?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?> <span
                                 class="price-view">
                             <?= CurrencyHelper::get($tour->baseCost->adult) ?>
                         </span>

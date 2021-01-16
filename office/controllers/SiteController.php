@@ -2,6 +2,7 @@
 namespace office\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -62,6 +63,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main';
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect(Url::to(['/login']));
+        }
         return $this->render('index');
     }
 
