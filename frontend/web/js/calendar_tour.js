@@ -1,8 +1,9 @@
 $(document).ready(function () {
-    var tour_id = $('#number-tour').val(); //Текущий тур
-    var full_array_tours; //Массив туров по дням
+    let tour_id = $('#number-tour').val(); //Текущий тур
+    let full_array_tours; //Массив туров по дням
     if ($.fn.datepicker === undefined) return false;
-    var lang = $("#datepicker-tour").data('lang');
+    let lang = $("#datepicker-tour").data('lang');
+    let _private = $('#number-tour').data('private'); //Тур индивидуальный
 //Переводим
     $.fn.datepicker.dates['ru'] = {
         closeText: "Закрыть",
@@ -40,11 +41,6 @@ $(document).ready(function () {
             if (tours === undefined) return {enabled: false}; //Массив по текущему месяцу
             tours = tours[date.getDate()];
             if (tours === undefined) return {enabled: false}; //Объект по текущему дню
-            //  var dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
-            //  var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' туров' + '</div>';
-            /*  if (dateSel !== null && dateSel.getDate() === date.getDate()) { //Совпала с текущим днем
-                  return {enabled: true, classes: 'tour-day-select', tooltip: '', content: content};
-              }*/
             return {enabled: true};
         }
     });
@@ -84,7 +80,6 @@ $(document).ready(function () {
                     return true;
                 } //Массив по текущему месяцу
                 $('#button-booking-tour').attr('disabled', 'disabled');
-                // console.log(tours);
                 for (var i = 1; i <= 31; i++) {
                     if (tours[i] !== undefined) {
                         $('#datepicker-tour').datepicker('update', new Date(e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + i));
@@ -115,7 +110,11 @@ $(document).ready(function () {
             $.post('/tours/booking/gettickets', {calendar_id: calendar_id}, function (data) {
                 //console.log(data);
                 $('.tickets-tours').html(data);
-                $('#button-booking-tour').attr('disabled', 'disabled');
+                if (_private) {
+                    $('#button-booking-tour').removeAttr('disabled');
+                } else {
+                    $('#button-booking-tour').attr('disabled', 'disabled');
+                }
             });
         } else {
             $('.tickets-tours').html('');
@@ -130,7 +129,6 @@ $(document).ready(function () {
         if (Number(vl) > 999) vl = 999;
         $(this).val(vl);
         $(this).change();
-
 
         let calendar_id = $('#booking-tour-time').val();
         let count_tickets = Number($('#label-count-tickets').attr('data-count'));
@@ -162,7 +160,6 @@ $(document).ready(function () {
                 count_preference: count_preference
             }, function (data) {
                 $('#tour-amount').html(data);
-                //$('#show_comment').hide();
             });
         }
     });

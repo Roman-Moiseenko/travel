@@ -3,11 +3,15 @@
 /* @var $current CostCalendar */
 
 use booking\entities\booking\tours\CostCalendar;
+use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
-
+$private = $current->tour->params->private;
 ?>
     <input type="hidden" value="" />
+<?php if ($private): ?>
+    <input id="count-adult" name="count-adult" type="hidden" value="1" />
+<?php else: ?>
     <label for="booking-tour-time"><b><?= Lang::t('Укажите кол-во билетов') ?>:</b></label>
     <table>
     <?php if ($current->cost->adult): ?>
@@ -35,8 +39,9 @@ use booking\helpers\CurrencyHelper;
             </tr>
         <?php endif; ?>
     </table>
-
     <label id="label-count-tickets" data-count="<?= $current->free()?>"><?= Lang::t('Осталось билетов') . ': ' . $current->free()?></label>
+<?php endif; ?>
+
     <p><b><?= Lang::t('Промо-код') . ':' ?></b></p>
     <input class="form-control" id="discount" name="discount" type="text" value=""/>
 <!-- ИТОГО -->
@@ -46,7 +51,12 @@ use booking\helpers\CurrencyHelper;
     </div>
     <div class="col-4 px-1" id="tour-amount" data-amount="<?= 0 ?>">
         <span class="badge badge-success" style="font-size: 18px; font-weight: 600;">
-            <?= ' - ' ?>
+            <?php if ($private) {
+                echo CurrencyHelper::get($current->cost->adult);
+            } else {
+                echo ' - ';
+            }?>
+
         </span>
     </div>
 </div>

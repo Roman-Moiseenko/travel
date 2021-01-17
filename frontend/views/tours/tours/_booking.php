@@ -14,7 +14,7 @@ DatepickerAsset::register($this);
 <div class="card bg-booking-widget">
 
     <div class="card-body">
-        <input type="hidden" id="number-tour" value="<?= $tour->id ?>">
+        <input type="hidden" id="number-tour" value="<?= $tour->id ?>" data-private="<?= $tour->params->private ?>">
         <?= Html::beginForm(['tours/checkout/booking']); ?>
         <label for="datepicker-tour"><b><?= Lang::t('Выберите дату') ?></b></label>
         <div class="input-group date pb-2" id="datepicker-tour" data-lang="<?= Lang::current() ?>">
