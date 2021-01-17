@@ -654,3 +654,8 @@ div.required label:after {
 {
     content: "\f005";
 }
+
+.card-object {
+    font-weight: 600;
+    letter-spacing: 3px;
+}

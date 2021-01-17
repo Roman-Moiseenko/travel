@@ -38,7 +38,7 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="card-body">
-        <h4 class="card-title">
+        <h4 class="card-title card-object">
             <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->getName()) ?></a>
         </h4>
         <p class="card-text" style="height: available">
@@ -56,6 +56,7 @@ use yii\helpers\Url;
         <?php endforeach; ?>
         <a href="<?= Url::to(['/tours/category', 'id' => $tour->type->id])?>"><?= Lang::t($tour->type->name) ?></a>
     </div>
+    <a href="<?= Html::encode($url) ?>">
     <div class="mt-auto card-footer" style="background-color: #f6f7f5; border-color: #f6f7f5;">
         <div class="p-2">
             <span class="price-card"><?= CurrencyHelper::get($tour->baseCost->adult) ?></span>
@@ -64,4 +65,5 @@ use yii\helpers\Url;
             <?= RatingWidget::widget(['rating' => $tour->rating]) ?>
         </div>
     </div>
+    </a>
 </div>

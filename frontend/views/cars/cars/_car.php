@@ -44,7 +44,7 @@ use yii\helpers\Url;
         <div class="caption-car-list px-2">
             <div class="d-flex flex-column align-items-stretch" style="height: 228px">
                 <div class="pt-3 text-center">
-                    <h4 class="card-title">
+                    <h4 class="card-title card-object">
                         <a href="<?= Html::encode($url) ?>"><?= Html::encode($car->getName()) ?></a>
                     </h4>
                 </div>

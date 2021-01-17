@@ -34,7 +34,7 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="card-body">
-        <h4 class="card-title">
+        <h4 class="card-title card-object">
             <a href="<?= Html::encode($url) ?>"><?= Html::encode($fun->getName()) ?></a>
         </h4>
         <p class="card-text" style="height: available">
