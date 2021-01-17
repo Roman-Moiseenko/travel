@@ -47,6 +47,7 @@ use yii\helpers\Url;
     <div class="mr-auto card-footer" style="border: 0 !important; background-color: white !important;">
         <a href="<?= Url::to(['/funs/category', 'id' => $fun->type->id]) ?>"><?= Lang::t($fun->type->name) ?></a>
     </div>
+    <a href="<?= Html::encode($url) ?>">
     <div class="mt-auto card-footer" style="background-color: #f6f7f5; border-color: #f6f7f5;">
         <div class="p-2">
             <span class="price-card"><?= CurrencyHelper::get($fun->baseCost->adult) ?></span>
@@ -55,4 +56,5 @@ use yii\helpers\Url;
             <?= RatingWidget::widget(['rating' => $fun->rating]) ?>
         </div>
     </div>
+    </a>
 </div>
