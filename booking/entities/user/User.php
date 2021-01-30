@@ -85,8 +85,10 @@ class User extends ActiveRecord implements IdentityInterface
         $user->status = User::STATUS_ACTIVE;
         $user->generateAuthKey();
         $user->networks = [Network::create($network, $identity)];
+
         $user->personal = Personal::create('', null, new UserAddress(), new FullName(), false);
         $user->preferences = Preferences::create();
+        $user->mailing = UserMailing::create();
         return $user;
     }
 
