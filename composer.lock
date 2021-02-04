@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b65d9d4febd21cf6d9d23bdcac3081a",
+    "content-hash": "665390199ef8edcce76801e77d15b384",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",
@@ -91,7 +91,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -112,12 +112,12 @@
             "version": "v1.9.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:eternicode/bootstrap-datepicker.git",
+                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
+                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "require": {
@@ -133,7 +133,7 @@
             "version": "v2.9.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/chartjs/Chart.js.git",
+                "url": "git@github.com:chartjs/Chart.js.git",
                 "reference": "9bd4cf82fda9f50a5fb50b72843e06ab88124278"
             },
             "dist": {
@@ -259,7 +259,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -4246,6 +4246,59 @@
                 "yii2"
             ],
             "time": "2018-09-23T22:00:47+00:00"
+        },
+        {
+            "name": "yoomoney/yookassa-sdk-php",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoomoney/yookassa-sdk-php.git",
+                "reference": "54cf2f0fec1308f92a71bb96a9390d8b95645ebc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoomoney/yookassa-sdk-php/zipball/54cf2f0fec1308f92a71bb96a9390d8b95645ebc",
+                "reference": "54cf2f0fec1308f92a71bb96a9390d8b95645ebc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "ext-xml": "*",
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "YooKassa\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "YooMoney",
+                    "email": "cms@yoomoney.ru"
+                }
+            ],
+            "description": "This is a developer tool for integration with YooMoney.",
+            "homepage": "https://yookassa.ru/developers/api",
+            "keywords": [
+                "api",
+                "payments",
+                "sdk",
+                "yookassa",
+                "yoomoney"
+            ],
+            "time": "2021-01-15T06:22:54+00:00"
         }
     ],
     "packages-dev": [

@@ -53,7 +53,8 @@
     "filsh/yii2-oauth2-server": "*",
     "yandex-money/yandex-checkout-sdk-php": "^1.6",
     "bower-asset/chart.js": "*",
-    "ext-xmlwriter": "*"
+    "ext-xmlwriter": "*",
+    "yoomoney/yookassa-sdk-php": "^2.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
