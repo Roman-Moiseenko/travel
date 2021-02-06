@@ -102,7 +102,7 @@ class ContactService
         $phoneAdmin = $legal->noticePhone;
         $emailUser = $user->email;
         $emailAdmin = $legal->noticeEmail;
-
+        $emailPayment = \Yii::$app->params['payEmail'];
         //Получаем параметры уведомления
         if ($booking->isNew()) {  //Новое бронирование  => Рассылка
             $this->mailerBooking($emailUser, $booking, 'noticeBookingNewUser');
@@ -117,7 +117,7 @@ class ContactService
                     Lang::t('Оплачено') . '.' .
                     Lang::t('Бронь') . '#' . BookingHelper::number($booking) . '. ' .
                     Lang::t('ПИН') . '#' . $booking->getPinCode() . '. ' .
-                    Lang::t('Спасибо, что Вы с нами'), $user_admin);
+                    Lang::t('Для уточнений свяжитесь по т. ') . $phoneAdmin, $user_admin);
                 $this->mailerBooking($emailUser, $booking, 'noticeBookingPayUser', true);
             }
 
@@ -126,6 +126,8 @@ class ContactService
             }
             if ($noticeAdmin->bookingPay->email) //Если провайдер хочет получить Email
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingPayAdmin');
+            //отправить данные об оплате агрегатору
+            $this->mailerBooking($emailPayment, $booking, 'noticeBookingPayOffice');
         }
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL) {
             //Бронирование отменено  => Рассылка

@@ -2,17 +2,19 @@
 
 /* @var $objects array */
 
+use booking\helpers\SysHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
+$count = SysHelper::isMobile() ? 2 : 4;
 $script = <<<JS
 $(document).ready(function() {
         var swiper2 = new Swiper('.swiper2',{
           //  el: '.swiper-container',
             initialSlide: 1,
             spaceBetween: 10,
-            slidesPerView: 4,
+            slidesPerView: $count,
           //  loop: true,
             centeredSlides: true,
            // slideToClickedSlide: true,
@@ -39,7 +41,7 @@ $(document).ready(function() {
 JS;
 $this->registerJs($script)
 ?>
-
+<?php  if (SysHelper::isMobile()) echo '<p class="p-1"></p>';?>
 <div class="swiper-container swiper2">
     <!-- Add Pagination -->
     <div class="swiper-pagination swiper-pagination2"></div>
@@ -55,7 +57,7 @@ $this->registerJs($script)
                     <div class="card-img-overlay">
                         <h4 class="card-title"
                             style="color: white; text-shadow: black 2px 2px 1px"><?= $object['name'] ?></h4>
-                        <p class="card-text pt-4"><?= Html::encode(StringHelper::truncateWords(strip_tags($object['description']), 26)) ?></p>
+                        <p class="card-text pt-4"><?= StringHelper::truncateWords(strip_tags($object['description']), 20) ?></p>
                     </div>
                     <a href="<?= $object['link'] ?>" class="stretched-link"></a>
                 </div>

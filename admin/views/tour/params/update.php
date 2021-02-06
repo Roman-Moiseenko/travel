@@ -9,7 +9,8 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model TourParamsForm */
 /* @var $tour Tour */
-$private = $tour->params->private;
+$private = $tour->params->private ?? 0;
+
 
 $js=<<<JS
 $(document).ready(function() {

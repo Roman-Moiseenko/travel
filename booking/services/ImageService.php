@@ -8,7 +8,12 @@ class ImageService
 {
     public static function rotate($filename)
     {
-        $exif = exif_read_data($filename);
+        try {
+            $exif = exif_read_data($filename);
+        } catch (\Throwable $e) {
+            return;
+        }
+
         if ($exif && isset($exif['Orientation'])) {
             $orientation = $exif['Orientation'];
             if ($orientation != 1) {
