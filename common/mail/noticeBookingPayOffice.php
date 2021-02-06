@@ -13,17 +13,18 @@ use booking\helpers\CurrencyHelper;
         <tr>
             <td></td>
             <td>
-                <h2><?= 'Оплата услуги на сайте' ?><span style="color: #062b31"><?= $booking->getLegal()->name ?></span>!</h2>
+                <h2>Оплата услуги на сайте</h2>
             </td>
         </tr>
         <tr>
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
                 <?= $booking->getAdmin()->username ?><br>
+                <?= $booking->getLegal()->name ?><br>
                 <?= $booking->getName() ?><br>
-                <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= 'Номер брони' ?>:&#160;<b><?= BookingHelper::number($booking) ?></b><br>
-                <?= 'Сумма: ' ?>:&#160;<b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                Номер брони:&#160;<b><?= BookingHelper::number($booking) ?></b><br>
+                Сумма:&#160;<b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
             </td>
             <td style="width: 25%"></td>
         </tr>
