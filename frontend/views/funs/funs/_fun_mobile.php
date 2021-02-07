@@ -33,7 +33,7 @@ use yii\helpers\Url;
             <div class="new-object-booking"><span class="new-text">new</span></div>
         <?php endif; ?>
     </div>
-    <div class="card-body">
+    <div class="card-body color-card-body">
         <h4 class="card-title card-object">
             <a href="<?= Html::encode($url) ?>"><?= Html::encode($fun->getName()) ?></a>
         </h4>
@@ -44,7 +44,7 @@ use yii\helpers\Url;
 
         </p>
     </div>
-    <div class="mr-auto card-footer" style="border: 0 !important; background-color: white !important;">
+    <div class="mr-auto card-footer color-card-body">
         <a href="<?= Url::to(['/funs/category', 'id' => $fun->type->id]) ?>"><?= Lang::t($fun->type->name) ?></a>
     </div>
     <a href="<?= Html::encode($url) ?>">
