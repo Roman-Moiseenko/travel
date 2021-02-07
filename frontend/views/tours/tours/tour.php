@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
@@ -30,11 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
 
+$mobile = SysHelper::isMobile();
+
 $countReveiws = $tour->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
-    <div class="col-sm-12">
+<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col-sm-12 ml-2">
         <ul class="thumbnails">
             <?php foreach ($tour->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
@@ -53,7 +56,7 @@ $countReveiws = $tour->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                 <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
-                                     alt="<?= $tour->getName(); ?>" itemprop="contentUrl"/>
+                                     alt="<?= $tour->getName(); ?>" itemprop="contentUrl" class="img-responsive"/>
                             </a>
                             <meta itemprop="name" content="Экскурсии в Калининграде">
                             <meta itemprop="description" content="<?= $tour->getName() ?>">
@@ -65,8 +68,9 @@ $countReveiws = $tour->countReviews();
     </div>
 </div>
 <!-- ОПИСАНИЕ -->
-<div class="row">
-    <div class="col-sm-8">
+
+<div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col-sm-8 ml-2">
         <!-- Заголовок тура-->
         <div class="row pb-3">
             <div class="col-12">

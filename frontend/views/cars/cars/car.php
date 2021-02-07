@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\LegalWidget;
@@ -29,10 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
 
+$mobile = SysHelper::isMobile();
+
 $countReveiws = $car->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
+<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col-sm-12">
         <ul class="thumbnails">
             <?php foreach ($car->photos as $i => $photo): ?>
@@ -64,7 +67,7 @@ $countReveiws = $car->countReviews();
     </div>
 </div>
 <!-- ОПИСАНИЕ -->
-<div class="row pt-2">
+<div class="row pt-2" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col-sm-8">
         <!-- Заголовок авто-->
         <div class="row pb-3">
