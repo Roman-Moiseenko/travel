@@ -50,7 +50,7 @@ use yii\helpers\Url;
 
         </p>
     </div>
-    <div class="mr-auto card-footer color-card-body">
+    <div class="card-footer color-card-body">
         <a href="<?= Url::to(['/cars/category', 'id' => $car->type->id]) ?>"><?= Lang::t($car->type->name) ?></a>
     </div>
     <a href="<?= Html::encode($url) ?>">

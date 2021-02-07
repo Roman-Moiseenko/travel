@@ -44,7 +44,7 @@ use yii\helpers\Url;
 
         </p>
     </div>
-    <div class="mr-auto card-footer color-card-body">
+    <div class="card-footer color-card-body">
         <a href="<?= Url::to(['/funs/category', 'id' => $fun->type->id]) ?>"><?= Lang::t($fun->type->name) ?></a>
     </div>
     <a href="<?= Html::encode($url) ?>">

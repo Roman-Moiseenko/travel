@@ -659,20 +659,15 @@ div.required label:after {
     font-weight: 600;
     letter-spacing: 3px;
 }
-.color-card-footer {
-    background-color: #e6e7e5;
-    border-color: #e6e7e5;
-    /*
-      1: f6f7f5
-      2: eeefed
-      3: e6e7e5
-      4:
-      */
-}
 
 .color-card-body {
     background-color: #f6f7f5 !important;
     border: 0 !important;
+}
+
+.color-card-footer {
+    background-color: #e6e7e5;
+    border-color: #e6e7e5;
 }
 
 .margin-card-footer {
