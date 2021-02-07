@@ -68,7 +68,7 @@ $countReveiws = $car->countReviews();
 </div>
 <!-- ОПИСАНИЕ -->
 <div class="row pt-2" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col-sm-8">
+    <div class="col-sm-8 <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Заголовок авто-->
         <div class="row pb-3">
             <div class="col-12">
@@ -260,7 +260,7 @@ $countReveiws = $car->countReviews();
         </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
-    <div class="col-sm-4">
+    <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
         <?php if ($car->isActive()) {
             echo $this->render('_booking', [
             'car' => $car,

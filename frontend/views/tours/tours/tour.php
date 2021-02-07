@@ -70,7 +70,7 @@ $countReveiws = $tour->countReviews();
 <!-- ОПИСАНИЕ -->
 
 <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col-sm-8 ml-2">
+    <div class="col-sm-8 <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Заголовок тура-->
         <div class="row pb-3">
             <div class="col-12">
@@ -329,7 +329,7 @@ $countReveiws = $tour->countReviews();
         </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
-    <div class="col-sm-4">
+    <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
         <?php if ($tour->isActive()) {
             echo $this->render('_booking', [
                 'tour' => $tour,
