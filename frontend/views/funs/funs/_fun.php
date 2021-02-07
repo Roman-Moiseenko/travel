@@ -57,7 +57,7 @@ use yii\helpers\Url;
                     <a href="<?= Url::to(['/funs/category', 'id' => $fun->type_id]) ?>"><?= Lang::t($fun->type->name) ?></a>
                 </div>
                 <a href="<?= Html::encode($url) ?>">
-                <div class="color-card-footer" style="margin-left: -6px !important; margin-right: -6px !important;">
+                <div class="color-card-footer margin-card-footer">
                     <div class="pl-4 py-2">
                         <span class="price-card"><?= CurrencyHelper::get($fun->baseCost->adult) ?></span>
                     </div>

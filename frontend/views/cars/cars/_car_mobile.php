@@ -54,7 +54,7 @@ use yii\helpers\Url;
         <a href="<?= Url::to(['/cars/category', 'id' => $car->type->id]) ?>"><?= Lang::t($car->type->name) ?></a>
     </div>
     <a href="<?= Html::encode($url) ?>">
-    <div class="mt-auto card-footer" style="background-color: #f6f7f5; border-color: #f6f7f5;">
+    <div class="mt-auto card-footer color-card-footer">
         <div class="p-2">
             <span class="price-card"><?= CurrencyHelper::get($car->cost) ?></span>
         </div>
