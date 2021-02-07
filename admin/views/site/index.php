@@ -5,6 +5,18 @@ $this->title = 'Добро пожаловать!';
     <div class="row">
         <div class="col-lg-6">
             <?= \hail812\adminlte3\widgets\Callout::widget([
+                'type' => 'danger',
+                'head' => '<span class="badge badge-danger">Новое!</span>',
+                'body' => 'Если у Вас возникли трудности с размещением экскурсий и мероприятий, то напишите нам в директ Инстаграм <a href="http://instagram.com/koenigs.ru" target="_blank">koenigs.ru</a>' .
+                    ' и мы разместим их за Вас.<br>
+                От Вас только требуется предоставить доступ к Вашему кабинету (логин + пароль) и информация, которую необходимо разместить (текст, фотографии, стоимость).<br>
+                Если какой-то информации будет недостаточно, то мы отдельно ее запросим.'
+            ]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <?= \hail812\adminlte3\widgets\Callout::widget([
                 'type' => 'info',
                 'head' => '<span class="badge badge-info">Спасибо, что Вы с нами!</span>',
                 'body' => 'При возникновении вопросов по работе с порталом, Вы можете всегда обращаться к нам по телефону <b>' .
