@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\forms\auth\LoginForm;
 use booking\forms\user\FastSignUpForm;
+use kartik\password\PasswordInput;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -23,13 +24,24 @@ $this->title = Lang::t('Быстрая регистрация');
                     <div class="col-sm-6">
                     <?= $form->field($model->signup, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин')) ?>
                     <?= $form->field($model->signup, 'email')->label(Lang::t('Электронная почта')) ?>
-                    <?= $form->field($model->signup, 'password')->passwordInput()->label(Lang::t('Пароль')) ?>
+                    <?= $form->field($model->signup, 'password')
+                        ->passwordInput()
+                        ->label(Lang::t('Пароль'))
+                        ->widget(PasswordInput::class, [
+                            'language' => 'ru',
+                            'bsVersion' => 4,
+                            'pluginOptions' => [
+                                'showMeter' =>false, // не обязательно, при следующем параметре:
+                                'mainTemplate' => '<table class="kv-strength-container"><tr><td>{input}</td></tr></table>',
+                            ],
+                        ])
+                        ->hint('Минимальная длина 6 символов') ?>
                     </div>
                     <div class="col-sm-6">
                     <?= $form->field($model->fullname, 'surname')->textInput()->label(Lang::t('Фамилия')); ?>
                     <?= $form->field($model->fullname, 'firstname')->textInput()->label(Lang::t('Имя')); ?>
                     <?= $form->field($model->fullname, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
-                    <?= $form->field($model, 'phone')->textInput()->label(Lang::t('Телефон'))->hint(Lang::t('Необходим для получния ПИН-кода по бронированию')); ?>
+                    <?= $form->field($model, 'phone')->textInput()->label(Lang::t('Телефон'))->hint(Lang::t('Необходим для получения ПИН-кода по бронированию')); ?>
                     </div>
                 </div>
                 <div class="row">

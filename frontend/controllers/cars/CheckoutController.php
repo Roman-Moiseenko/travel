@@ -29,7 +29,7 @@ class CheckoutController extends Controller
             //запоминаем ссесию
             $session->set('params', \Yii::$app->request->bodyParams); //параметры брони
             $session->set('link', '/cars/checkout/booking'); //куда вернуться после регистрации
-            return $this->redirect(['/fast/sign-up']);
+            return $this->redirect(['/signup']);
         }
         try {
             $params = $session->get('params') ?? \Yii::$app->request->bodyParams; //параметры вернулись или напрямую с формы

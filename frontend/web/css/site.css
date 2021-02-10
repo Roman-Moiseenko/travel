@@ -674,3 +674,32 @@ div.required label:after {
     margin-left: -6px !important;
     margin-right: -6px !important;
 }
+/*
+.field-loginform-password {
+    width: 298px;
+    margin: 15px auto;
+    position: relative;
+}
+#loginform-password {
+    width: 100%;
+    padding: 5px 0;
+    height: 30px;
+    line-height: 40px;
+    text-indent: 10px;
+    margin: 0 0 15px 0;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-size: 18px;
+}
+.kodnaya-prokhod {
+    position: absolute;
+    top: 11px;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(http://zornet.ru/ZORNET-RU/ZR/Alinuversa/amipsakilad/pekugedsan.svg) 0 0 no-repeat;
+}
+.password-control.view {
+    background: url(http://zornet.ru/ZORNET-RU/ZR/Alinuversa/amipsakilad/dsamudulas.svg) 0 0 no-repeat;
+}*/

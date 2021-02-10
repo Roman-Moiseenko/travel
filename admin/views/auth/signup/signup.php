@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \booking\forms\admin\SignupForm */
 
+use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
@@ -19,7 +20,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
             <?= $form->field($model, 'email')->label('Электронная почта') ?>
-            <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
+            <?= $form->field($model, 'password')
+                ->passwordInput()
+                ->label('Пароль')
+                ->widget(PasswordInput::class, [
+                    'language' => 'ru',
+                    'bsVersion' => 4,
+                    'pluginOptions' => [
+                        'showMeter' =>false, // не обязательно, при следующем параметре:
+                        'mainTemplate' => '<table class="kv-strength-container"><tr><td>{input}</td></tr></table>',
+                    ],
+                ])
+                ->hint('Минимальная длина 6 символов')
+            ?>
             <?= $form->field($model, 'agreement')->checkbox()
                 ->label(
                     'Настоящим я принимаю ' .

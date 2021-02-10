@@ -21,6 +21,7 @@ class UserCreateForm extends Model
             [['username', 'email'], 'string', 'max' => 255],
             [['username', 'email'], 'unique', 'targetClass' => User::class],
             ['password', 'string', 'min' => 6],
+
         ];
     }
 

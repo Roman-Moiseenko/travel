@@ -2,19 +2,29 @@
 namespace booking\forms\user;
 
 use booking\entities\Lang;
+use booking\forms\CompositeForm;
+use booking\forms\manage\FullNameForm;
 use yii\base\Model;
 use booking\entities\user\User;
 
 /**
  * Signup form
+ * @property FullNameForm $fullname
  */
 class SignupForm extends Model
 {
     public $username;
     public $email;
     public $password;
-    public $agreement;
 
+    public $agreement;
+    public $policy;
+
+    public $surname;
+    public $firstname;
+    public $secondname;
+
+    public $phone;
 
 
     /**
@@ -34,14 +44,18 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' =>  Lang::t('Данный email уже используется')],
 
-            ['password', 'required', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
             ['password', 'string', 'min' => 6],
-            //['password', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
+            ['password', 'required', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
 
-         //   ['agreement', 'required'],
-            ['agreement', 'boolean'],
-            ['agreement', 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
+            [['agreement', 'policy'], 'boolean'],
+            [['agreement', 'policy'], 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
 
+            ['phone', 'string', 'min' => 10, 'max' => 13],
+            ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
+            [['phone'], 'required', 'message' => Lang::t('Обязательное поле. Формат +КодСтраныЦифры, например +79990001111')],
+
+            [['surname', 'firstname', 'secondname'], 'string', 'max' => 33],
+            [['surname', 'firstname'], 'required'],
         ];
     }
 

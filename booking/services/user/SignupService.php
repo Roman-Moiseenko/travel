@@ -5,8 +5,12 @@ namespace booking\services\user;
 
 
 use booking\entities\Lang;
+use booking\entities\user\FullName;
+use booking\entities\user\Personal;
 use booking\entities\user\User;
+use booking\entities\user\UserAddress;
 use booking\forms\user\SignupForm;
+use booking\helpers\scr;
 use booking\repositories\user\UserRepository;
 use booking\services\ContactService;
 use booking\services\TransactionManager;
@@ -42,9 +46,19 @@ class SignupService
     public function signup(SignupForm $form): User
     {
         $user = User::signup($form->username, $form->email, $form->password);
+       $user->updatePersonal(Personal::create(
+            $form->phone,
+            null,
+            new UserAddress(),
+            new FullName(
+                $form->surname,
+                $form->firstname,
+                $form->secondname
+            ),
+            true,
+        ));
         if ($this->users->save($user))
             $this->contact->noticeNewUser($user);
-
         if (!$this->sendEmail($user)) {
             throw new \RuntimeException(Lang::t('Ошибка отправки email'));
         }

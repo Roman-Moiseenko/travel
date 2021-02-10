@@ -11,7 +11,7 @@ use yii\web\Controller;
 
 class   AuthController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'blank';
     /**
      * @var AuthService
      */
@@ -83,7 +83,7 @@ class   AuthController extends Controller
             }
         }
         $form->password = '';
-        $this->layout = 'cabinet';
+        $this->layout = 'blank';
         return $this->render('login', ['model' => $form]);
 
     }

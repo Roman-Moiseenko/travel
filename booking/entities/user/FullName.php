@@ -9,6 +9,7 @@ class FullName
     public $surname;
     public $firstname;
     public $secondname;
+
     public function __construct($surname = '', $firstname = '', $secondname = '')
     {
         $this->surname = $surname;

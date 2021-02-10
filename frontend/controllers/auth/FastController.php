@@ -52,6 +52,8 @@ class FastController extends Controller
 
     public function actionSignUp()
     {
+        return $this->goHome();
+        //TODO Удалить контроллер и view !!!!!
         $session = \Yii::$app->session;
         $link = $session->get('link');
         if ($link == null) {

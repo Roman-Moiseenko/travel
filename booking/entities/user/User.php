@@ -61,7 +61,23 @@ class User extends ActiveRecord implements IdentityInterface
         //$user->generateEmailVerificationToken();
         return $user;
     }
-    
+
+    public function updatePersonal(Personal $personal): void
+    {
+        $this->personal = $personal;
+    }
+
+    public function updatePreferences(Preferences $preferences)
+    {
+        $this->preferences = $preferences;
+    }
+
+    public function updateMailing(UserMailing $mailing)
+    {
+        $this->mailing = $mailing;
+    }
+
+
     public function edit(string $username, string $email): void
     {
         $this->username = $username;
@@ -69,6 +85,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->updated_at = time();
     }
 
+    //Не используется
     public static function signup(string $username, string $email, string $password): self
     {
         $user = User::create($username, $email, $password);
@@ -494,21 +511,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function removeVerificationToken()
     {
         $this->verification_token = null;
-    }
-
-    public function updatePersonal(Personal $personal)
-    {
-        $this->personal = $personal;
-    }
-
-    public function updatePreferences(Preferences $preferences)
-    {
-        $this->preferences = $preferences;
-    }
-
-    public function updateMailing(UserMailing $mailing)
-    {
-        $this->mailing = $mailing;
     }
 
 

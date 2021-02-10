@@ -151,6 +151,13 @@ MagnificPopupAsset::register($this);
                             'format' => 'raw',
                         ],
                         [
+                            'label' => 'Провайдер',
+                            'value' => function () use ($tour) {
+                                return Html::a($tour->user->username, ['providers/view', 'id' => $tour->user_id]);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
                             'attribute' => 'cancellation',
                             'label' => 'Отмена брони',
                             'value' => BookingHelper::cancellation($tour->cancellation),

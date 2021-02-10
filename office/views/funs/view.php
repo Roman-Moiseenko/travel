@@ -145,6 +145,13 @@ MagnificPopupAsset::register($this);
                             'format' => 'raw',
                         ],
                         [
+                            'label' => 'Провайдер',
+                            'value' => function () use ($fun) {
+                                return Html::a($fun->user->username, ['providers/view', 'id' => $fun->user_id]);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
                             'attribute' => 'cancellation',
                             'label' => 'Отмена брони',
                             'value' => BookingHelper::cancellation($fun->cancellation),

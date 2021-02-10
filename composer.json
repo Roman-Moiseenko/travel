@@ -54,7 +54,8 @@
     "yandex-money/yandex-checkout-sdk-php": "^1.6",
     "bower-asset/chart.js": "*",
     "ext-xmlwriter": "*",
-    "yoomoney/yookassa-sdk-php": "^2.0"
+    "yoomoney/yookassa-sdk-php": "^2.0",
+    "kartik-v/yii2-password": "^1.5"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

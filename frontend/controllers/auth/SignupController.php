@@ -13,7 +13,7 @@ use yii\web\Controller;
 
 class SignupController extends Controller
 {
-    public  $layout = 'cabinet';
+    public  $layout = 'blank';
     /**
      * @var SignupService
      */
@@ -49,19 +49,24 @@ class SignupController extends Controller
      */
     public function actionIndex()
     {
+
         $form = new SignupForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            $user = $this->signupService->signup($form);
-            if (\Yii::$app->getUser()->login($user)) {
-                \Yii::$app->session->setFlash('success', Lang::t('Вы зарегистрировались. Для входа на сайт используйте логин или электронную почту'));
+            try {
+                $user = $this->signupService->signup($form);
+                if (\Yii::$app->getUser()->login($user)) {
+                    \Yii::$app->session->setFlash('success', Lang::t('Вы зарегистрировались. Для входа на сайт используйте логин или электронную почту'));
 
-                $session = \Yii::$app->session;
-                if ($session->isActive) {
-                    $link = $session->get('link');
-                    $session->remove('link');
-                    if ($link) return $this->redirect([$link]);
+                    $session = \Yii::$app->session;
+                    if ($session->isActive) {
+                        $link = $session->get('link');
+                        $session->remove('link');
+                        if ($link) return $this->redirect([$link]);
+                    }
+                    return $this->goHome();
                 }
-                return $this->goHome();
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         return $this->render('signup', [
