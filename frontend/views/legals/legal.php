@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
 $this->registerMetaTag(['name' =>'description', 'content' => $legal->description]);
 MapAsset::register($this);
-$this->title = $legal->getName();
+$this->title = $legal->caption;
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 ?>

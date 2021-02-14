@@ -95,7 +95,7 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
         // TODO: Implement getText() method.
     }
 
-    public function getVote(): string
+    public function getVote(): int
     {
         // TODO: Implement getVote() method.
     }

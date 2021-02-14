@@ -13,6 +13,8 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property bool $mono
  */
+
+//Квартира, Аппартаменты, Пентхаус, Загородный дом, Дача, Коттедж, Таунхаус
 class Type extends ActiveRecord
 {
     public static function create($name, $mono): self

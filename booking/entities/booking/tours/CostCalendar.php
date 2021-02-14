@@ -126,7 +126,15 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
             $count += $booking->count->child ?? 0;
             $count += $booking->count->preference ?? 0;
         }*/
+
         return $this->tickets - $this->count();
+    }
+
+    public function stack(): bool
+    {
+        //TODO Проверка стека
+
+
     }
 
     private function count(): int

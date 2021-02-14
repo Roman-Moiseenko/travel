@@ -10,20 +10,19 @@ use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel admin\forms\TourSearch */
+/* @var $searchModel admin\forms\HotelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Мои туры';
+$this->title = 'Мои Отели';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
     <p>
-        <?= Html::a('Создать Тур', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
-
-        <?= Html::a('Стек Туров', Url::to('tour/stack'), ['class' => 'btn btn-info']) ?>
+        <?= ''// Html::a('Создать Жилье', Url::to('stay/common/create'), ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+
+    <?= 'В разработке'; /*GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => [
@@ -92,6 +91,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ],
-    ]); ?>
+    ]); */?>
 
 </div>

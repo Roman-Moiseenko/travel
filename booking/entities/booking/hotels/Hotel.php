@@ -4,7 +4,9 @@
 namespace booking\entities\booking\hotels;
 
 
-class Hotel
+use yii\db\ActiveRecord;
+
+class Hotel extends ActiveRecord
 {
 
 }

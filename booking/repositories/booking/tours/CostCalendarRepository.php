@@ -6,9 +6,20 @@ namespace booking\repositories\booking\tours;
 use booking\entities\booking\tours\CostCalendar;
 use booking\helpers\CalendarHelper;
 use booking\helpers\scr;
+use booking\services\booking\tours\StackService;
 
 class CostCalendarRepository
 {
+    /**
+     * @var StackService
+     */
+    private $stackService;
+
+    public function __construct(StackService $stackService)
+    {
+        $this->stackService = $stackService;
+    }
+
     public function get($id)
     {
         return CostCalendar::findOne($id);
@@ -57,7 +68,7 @@ class CostCalendarRepository
             $calendars = $this->getActualInterval($tour_id, $interval['min'], $interval['max']);
             $result = [];
             foreach ($calendars as $calendar) {
-                if ($calendar->free() != 0) {
+                if ($calendar->free() != 0 && $this->stackService->_empty($tour_id, $calendar->tour_at)) {
                     $y = (int)date('Y', $calendar->tour_at);
                     $m = (int)date('m', $calendar->tour_at);
                     $d = (int)date('d', $calendar->tour_at);

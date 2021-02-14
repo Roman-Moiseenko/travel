@@ -25,6 +25,7 @@ class TourRepository
         return Tour::find()->active()->andWhere(['legal_id' => $legal_id])->all();
     }
 
+
     public function getByAdminList($user_id)
     {
         return Tour::find()->active()->andWhere(['user_id' => $user_id])->orderBy(['name' => SORT_ASC])->all();
@@ -67,6 +68,7 @@ class TourRepository
         /******  Поиск по Дате ***/
         if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
         if ($form->date_from || $form->date_to) {
+            //TODO Стек проверить
             $query->joinWith(['actualCalendar ac']);
             if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', strtotime($form->date_from . '00:00:00')]);
             if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', strtotime($form->date_to . '23:59:00')]);

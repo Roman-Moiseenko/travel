@@ -103,6 +103,7 @@ return [
                 'tour/booking' => '/tour/booking/index',
                 'tour/reviews' => '/tour/reviews/index',
                 'tour/reports' => '/tour/reports/index',
+                'tour/stack' => '/tour/stack/index',
 
                 'cars' => 'cars/index',
                 'car/common' => 'car/common/index',

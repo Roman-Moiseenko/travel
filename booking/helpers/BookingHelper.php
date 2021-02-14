@@ -10,6 +10,8 @@ use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\hotels\BookingHotel;
+use booking\entities\booking\hotels\Hotel;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
@@ -39,6 +41,7 @@ class BookingHelper
         self::BOOKING_TYPE_CAR => BookingCar::class,
         self::BOOKING_TYPE_TICKET => null,
         self::BOOKING_TYPE_FUNS => BookingFun::class,
+        self::BOOKING_TYPE_HOTEL => BookingHotel::class,
 
     ];
 //TODO Заглушки Stays
@@ -48,6 +51,7 @@ class BookingHelper
         self::BOOKING_TYPE_CAR => Car::class,
         self::BOOKING_TYPE_TICKET => null,
         self::BOOKING_TYPE_FUNS => Fun::class,
+        self::BOOKING_TYPE_HOTEL => Hotel::class,
 
     ];
 
@@ -57,15 +61,18 @@ class BookingHelper
         Car::class => self::BOOKING_TYPE_CAR,
         //null => self::BOOKING_TYPE_TICKET,
         Fun::class => self::BOOKING_TYPE_FUNS,
+        Hotel::class => self::BOOKING_TYPE_HOTEL,
 
     ];
 
     const STRING_TYPE = [
         self::BOOKING_TYPE_TOUR => 'Туры и экскурсии',
-        self::BOOKING_TYPE_STAY => 'Аппартаменты, дома',
+        self::BOOKING_TYPE_STAY => 'Аппартаменты и дома',
         self::BOOKING_TYPE_CAR => 'Прокат авто',
         self::BOOKING_TYPE_TICKET => 'Билеты на концерты',
         self::BOOKING_TYPE_FUNS => 'Развлечения и мероприятия',
+        self::BOOKING_TYPE_HOTEL => 'Отели и базы отдыха',
+
     ];
 
 
@@ -128,7 +135,8 @@ class BookingHelper
 
     public static function icons($type)
     {
-        if ($type == self::BOOKING_TYPE_STAY) return '<i class="fas fa-hotel"></i>';
+        if ($type == self::BOOKING_TYPE_STAY) return '<i class="fas fa-house-user"></i>';
+        if ($type == self::BOOKING_TYPE_HOTEL) return '<i class="fas fa-hotel"></i>';
         if ($type == self::BOOKING_TYPE_TOUR) return '<i class="fas fa-map-marked-alt"></i>';
         if ($type == self::BOOKING_TYPE_CAR) return '<i class="fas fa-car"></i>';
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
@@ -187,6 +195,7 @@ class BookingHelper
                 return $datetime2;
                 break;
             case BookingHelper::BOOKING_TYPE_CAR:
+            case BookingHelper::BOOKING_TYPE_HOTEL:
             case BookingHelper::BOOKING_TYPE_STAY:
                 return Lang::t('по') . ' ' . $datetime2;
                 break;
