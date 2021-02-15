@@ -14,18 +14,19 @@ use yii\db\ActiveRecord;
  * @property integer $category_id
  * @property string $name
  * @property integer $sort
- * @property boolean $editpay
+ * @property boolean $paid ... возможность взимать оплату
  * @property boolean $featured
+
  * @property ComfortCategory $category
  */
 class Comfort extends ActiveRecord
 {
-    public static function create($category_id, $name, $editpay, $sort): self
+    public static function create($category_id, $name, $paid, $sort): self
     {
         $comfort = new static();
         $comfort->category_id = $category_id;
         $comfort->name = $name;
-        $comfort->editpay = $editpay;
+        $comfort->paid = $paid;
         $comfort->sort = $sort;
         $comfort->featured = false;
         return $comfort;
@@ -36,10 +37,11 @@ class Comfort extends ActiveRecord
         $this->featured = true;
     }
 
-    public function edit($name, $editpay, $sort): void
+    public function edit($category_id, $name, $paid, $sort): void
     {
+        $this->category_id = $category_id;
         $this->name = $name;
-        $this->editpay = $editpay;
+        $this->paid = $paid;
         $this->sort = $sort;
     }
 

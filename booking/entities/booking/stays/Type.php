@@ -3,46 +3,50 @@
 
 namespace booking\entities\booking\stays;
 
+use booking\helpers\SlugHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Class StaysType
+ * Class Type
  * @package booking\entities\booking
  * @property integer $id
  * @property string $name
- * @property bool $mono
+ * @property integer $sort
+ * @property string $slug
  */
 
 //Квартира, Аппартаменты, Пентхаус, Загородный дом, Дача, Коттедж, Таунхаус
 class Type extends ActiveRecord
 {
-    public static function create($name, $mono): self
+    public static function create($name, $slug): self
     {
-        $staystype = new static();
-        $staystype->name = $name;
-        $staystype->mono = $mono;
-        return $staystype;
+        $type = new static();
+        $type->name = $name;
+        if (empty($slug)) $slug = SlugHelper::slug($name);
+        $type->slug = $slug;
+        return $type;
     }
 
-    public function edit($name, $mono): void
+    public function edit($name, $slug): void
     {
         $this->name = $name;
-        $this->mono = $mono;
+        if (empty($slug)) $slug = SlugHelper::slug($name);
+        $this->slug = $slug;
     }
 
-    public function isMono(): bool
+    public function setSort($sort): void
     {
-        return $this->mono;
+        $this->sort = $sort;
+    }
+
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
     }
 
     public static function tableName()
     {
         return 'booking_stays_type';
-    }
-
-    public function getStays(): ActiveQuery
-    {
-        return $this->hasMany(Stay::class, ['type_id' => 'id']);
     }
 }

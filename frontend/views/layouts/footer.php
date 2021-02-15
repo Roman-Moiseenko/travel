@@ -53,13 +53,19 @@ use yii\helpers\Url; ?>
                 </ul>
             </div>
         </div>
+
         <hr>
             <div class="float-right d-none d-sm-inline">
                 <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo']) ?>
             </div>
-            <p><?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
+            <p>
+                <a href=" 	https://www.instagram.com/koenigs.ru" target="_blank"><img src="https://static.koenigs.ru/cache/files_contacts/list_3.png" /> koenigs.ru</a>
+                <a href="https://vk.com/koenigsru" target="_blank"><img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" /> koenigsru</a>
+
+                <?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
                                                 target="_blank"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
-                &copy; 2020 <?= Lang::t('Все права защищены') ?></p>
+                &copy; 2020 <?= Lang::t('Все права защищены') ?>
+            </p>
     </div>
 </footer>
 

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 
-    <?= 'В разработке'; /*GridView::widget([
+    <?= 'В разработке, после введения раздела Жилье'; /*GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => [

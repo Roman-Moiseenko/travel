@@ -3,7 +3,6 @@
 
 namespace booking\services\office\guides;
 
-
 use booking\entities\booking\tours\Type;
 use booking\forms\office\guides\TourTypeForm;
 use booking\repositories\booking\tours\TypeRepository;

@@ -13,27 +13,30 @@ use yii\db\ActiveRecord;
  * @property integer $stays_id
  * @property integer $comfort_id
  * @property boolean $pay
+ * @property integer $photo
  * @property Comfort $comfort
  */
 class assignComfort extends ActiveRecord
 {
 
-    public static function create($comfort_id, $pay): self
+    public static function create($comfort_id, $pay = null, $photo = null): self
     {
         $assign = new static();
         $assign->comfort_id = $comfort_id;
         $assign->pay = $pay;
+        $assign->photo = $photo;
         return $assign;
     }
 
-    public function edit($pay): void
+    public function edit($pay = null, $photo = null): void
     {
+        $this->photo = $photo;
         $this->pay = $pay;
     }
 
     public static function tableName()
     {
-        return '{{%booking_stays_assign_comfort}}';
+        return '{{%booking_stays_comfort_assign}}';
     }
 
     public function getComfort(): ActiveQuery

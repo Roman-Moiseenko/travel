@@ -31,13 +31,18 @@ class BookingTourService extends BookingService
      * @var RefundService
      */
     private $refund;
+    /**
+     * @var StackService
+     */
+    private $stackService;
 
     public function __construct(
         BookingTourRepository $bookings,
         CostCalendarRepository $calendar,
         ContactService $contact,
         RefundService $refund,
-        DiscountRepository $discounts
+        DiscountRepository $discounts,
+        StackService $stackService
     )
     {
         $this->bookings = $bookings;
@@ -45,12 +50,15 @@ class BookingTourService extends BookingService
         $this->contact = $contact;
         $this->discounts = $discounts;
         $this->refund = $refund;
+        $this->stackService = $stackService;
     }
 
     public function create($calendar_id, Cost $count, $promo_code): BookingTour
     {
         $booking = BookingTour::create($calendar_id, $count);
-        if ($booking->calendar->free() < $count->count()) {
+
+        if ($booking->calendar->free() < $count->count() ||  //кол-во свободных меньше покупаемого
+            !$this->stackService->_empty($booking->calendar->tours_id, $booking->calendar->tour_at)) {  //Стек не пуст
             throw new \DomainException(Lang::t('Упс! Места закончились'));
         }
 
