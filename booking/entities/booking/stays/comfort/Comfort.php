@@ -45,6 +45,16 @@ class Comfort extends ActiveRecord
         $this->sort = $sort;
     }
 
+    public function setSort($sort): void
+    {
+        $this->sort = $sort;
+    }
+
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
+    }
+
     public static function tableName()
     {
         return '{{%booking_stays_comfort}}';

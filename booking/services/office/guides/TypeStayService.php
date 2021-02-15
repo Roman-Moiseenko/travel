@@ -56,7 +56,7 @@ class TypeStayService
     public function moveDown($id)
     {
         $types = $this->staysType->getAll();
-        $maxSort = $this->staysType->getMaxSort();
+        //$maxSort = $this->staysType->getMaxSort();
         foreach ($types as $i => $type) {
             if ($type->isFor($id) && $i != count($types) - 1) {
                 $t1 = $type;

@@ -9,7 +9,7 @@ use booking\entities\booking\tours\Type;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
-<div class="providers-list">
+<div class="tour-type-list">
     <p>
         <?= Html::a('Создать Категорию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

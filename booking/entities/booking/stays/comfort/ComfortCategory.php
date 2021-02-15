@@ -20,20 +20,28 @@ use yii\db\ActiveRecord;
 class ComfortCategory extends ActiveRecord
 {
 
-    public static function create($name, $image, $sort): self
+    public static function create($name, $image): self
     {
         $category = new static();
         $category->name = $name;
         $category->image = $image;
-        $category->sort = $sort;
         return $category;
     }
 
-    public function edit($name, $image, $sort): void
+    public function edit($name, $image): void
     {
         $this->name = $name;
         $this->image = $image;
+    }
+
+    public function setSort($sort): void
+    {
         $this->sort = $sort;
+    }
+
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
     }
 
     public static function tableName()
