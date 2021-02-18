@@ -60,7 +60,7 @@ class SignupService
         if ($this->users->save($user))
             $this->contact->noticeNewUser($user);
         if (!$this->sendEmail($user)) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки email'));
+            throw new \DomainException(Lang::t('Ошибка отправки email'));
         }
         return $user;
     }

@@ -19,14 +19,14 @@ class SellingCarRepository
     public function save(SellingCar $selling): void
     {
         if (!$selling->save()) {
-            throw new \RuntimeException('Продажа авто не сохранен');
+            throw new \DomainException('Продажа авто не сохранен');
         }
     }
 
     public function remove(SellingCar $selling)
     {
         if (!$selling->delete()) {
-            throw new \RuntimeException('Ошибка удаления продажи авто');
+            throw new \DomainException('Ошибка удаления продажи авто');
         }
     }
 

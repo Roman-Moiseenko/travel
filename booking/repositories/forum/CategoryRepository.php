@@ -22,14 +22,14 @@ class CategoryRepository
     public function save(Category $category): void
     {
         if (!$category->save()) {
-            throw new \RuntimeException('Ошибка сохранения.');
+            throw new \DomainException('Ошибка сохранения.');
         }
     }
 
     public function remove(Category $category): void
     {
         if (!$category->delete()) {
-            throw new \RuntimeException('Ошибка удаления.');
+            throw new \DomainException('Ошибка удаления.');
         }
     }
 

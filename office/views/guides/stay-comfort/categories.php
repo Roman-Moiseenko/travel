@@ -38,6 +38,10 @@ use yii\helpers\Url;
                 [
                     'attribute' => 'image',
                     'label' => 'Картинка',
+                    'format' => 'raw',
+                    'value' => function (ComfortCategory $model) {
+                        return '<i class="' . $model->image . '"></i>';
+                    },
                     'contentOptions' => ['data-label' => 'Картинка'],
                 ],
                 [

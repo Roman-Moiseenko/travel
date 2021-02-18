@@ -59,6 +59,8 @@ use yii\helpers\Url;
                         ['label' => '- Развлечения (категории)', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
                         ['label' => '- Жилье (категории)', 'icon' => 'house-user', 'url' => ['/guides/stay-type'], 'active' => $this->context->id == 'guides/stay-type'],
                         ['label' => '- Жилье (удобства)', 'icon' => 'house-user', 'url' => ['/guides/stay-comfort'], 'active' => $this->context->id == 'guides/stay-comfort'],
+                        ['label' => '- Жилье (кровати)', 'icon' => 'house-user', 'url' => ['/guides/type-of-bed'], 'active' => $this->context->id == 'guides/type-of-bed'],
+                        ['label' => '- Жилье (расположение)', 'icon' => 'house-user', 'url' => ['/guides/nearby-category'], 'active' => $this->context->id == 'guides/nearby-category'],
                         ['label' => '- Города ', 'icon' => 'city', 'url' => ['/guides/city'], 'active' => $this->context->id == 'guides/city'],
                         ['label' => '- Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/contact-legal'], 'active' => $this->context->id == 'guides/contact-legal'],
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],

@@ -21,14 +21,13 @@ use yii\db\ActiveRecord;
  */
 class Comfort extends ActiveRecord
 {
-    public static function create($category_id, $name, $paid, $sort): self
+    public static function create($category_id, $name, $paid, $featured): self
     {
         $comfort = new static();
         $comfort->category_id = $category_id;
         $comfort->name = $name;
         $comfort->paid = $paid;
-        $comfort->sort = $sort;
-        $comfort->featured = false;
+        $comfort->featured = $featured;
         return $comfort;
     }
 
@@ -37,12 +36,12 @@ class Comfort extends ActiveRecord
         $this->featured = true;
     }
 
-    public function edit($category_id, $name, $paid, $sort): void
+    public function edit($category_id, $name, $paid, $featured): void
     {
         $this->category_id = $category_id;
         $this->name = $name;
         $this->paid = $paid;
-        $this->sort = $sort;
+        $this->featured = $featured;
     }
 
     public function setSort($sort): void

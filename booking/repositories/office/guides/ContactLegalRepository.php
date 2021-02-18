@@ -19,14 +19,14 @@ class ContactLegalRepository
     public function save(Contact $contact): void
     {
         if (!$contact->save()) {
-            throw new \RuntimeException('Тип контакта не сохранен');
+            throw new \DomainException('Тип контакта не сохранен');
         }
     }
 
     public function remove(Contact $contact)
     {
         if (!$contact->delete()) {
-            throw new \RuntimeException('Ошибка удаления типа контакта');
+            throw new \DomainException('Ошибка удаления типа контакта');
         }
     }
 }

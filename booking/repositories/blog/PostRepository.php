@@ -29,14 +29,14 @@ class PostRepository
     public function save(Post $post): void
     {
         if (!$post->save()) {
-            throw new \RuntimeException('Ошибка сохранения.');
+            throw new \DomainException('Ошибка сохранения.');
         }
     }
 
     public function remove(Post $post): void
     {
         if (!$post->delete()) {
-            throw new \RuntimeException('Ошибка удаления.');
+            throw new \DomainException('Ошибка удаления.');
         }
     }
 

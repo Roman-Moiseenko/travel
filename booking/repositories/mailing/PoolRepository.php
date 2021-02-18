@@ -19,14 +19,14 @@ class PoolRepository
     public function save(Pool $pool): void
     {
         if (!$pool->save()) {
-            throw new \RuntimeException('Пул сообщения не сохранен');
+            throw new \DomainException('Пул сообщения не сохранен');
         }
     }
 
     public function remove(Pool $pool)
     {
         if (!$pool->delete()) {
-            throw new \RuntimeException('Ошибка удаления пула сообщения');
+            throw new \DomainException('Ошибка удаления пула сообщения');
         }
     }
 }

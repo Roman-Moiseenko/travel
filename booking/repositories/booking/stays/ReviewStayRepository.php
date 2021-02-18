@@ -20,14 +20,14 @@ class ReviewStayRepository
     public function save(ReviewStay $review): void
     {
         if (!$review->save()) {
-            throw new \RuntimeException(Lang::t('Отзыв не сохранен'));
+            throw new \DomainException(Lang::t('Отзыв не сохранен'));
         }
     }
 
     public function remove(ReviewStay $review)
     {
         if (!$review->delete()) {
-            throw new \RuntimeException(Lang::t('Ошибка удаления отзыва'));
+            throw new \DomainException(Lang::t('Ошибка удаления отзыва'));
         }
     }
 }

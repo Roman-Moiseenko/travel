@@ -19,13 +19,13 @@ class PageRepository
     public function save(Page $page): void
     {
         if (!$page->save()) {
-            throw new \RuntimeException('Ошибка сохранения Страницы.');
+            throw new \DomainException('Ошибка сохранения Страницы.');
         }
     }
     public function remove(Page $page): void
     {
         if (!$page->delete()) {
-            throw new \RuntimeException('Ошибка удаления Страницы.');
+            throw new \DomainException('Ошибка удаления Страницы.');
         }
     }
 

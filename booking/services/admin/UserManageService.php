@@ -184,6 +184,7 @@ class UserManageService
     public function editLegal($user_id, $legal_id, UserLegalForm $form)
     {
         $user = $this->users->get($user_id);
+        //throw new \DomainException('test');
         $legal = $user->getLegal($legal_id);
         $legal->edit(
             $form->name,

@@ -20,14 +20,14 @@ class CategoryRepository
     public function save(Category $category): void
     {
         if (!$category->save()) {
-            throw new \RuntimeException('Saving error.');
+            throw new \DomainException('Saving error.');
         }
     }
 
     public function remove(Category $category): void
     {
         if (!$category->delete()) {
-            throw new \RuntimeException('Removing error.');
+            throw new \DomainException('Removing error.');
         }
     }
 

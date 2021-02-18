@@ -88,14 +88,14 @@ class FunRepository
     public function save(Fun $fun)
     {
         if (!$fun->save()) {
-            throw new \RuntimeException('Развлечение не сохранено');
+            throw new \DomainException('Развлечение не сохранено');
         }
     }
 
     public function remove(Fun $fun)
     {
         if (!$fun->delete()) {
-            throw new \RuntimeException('Ошибка удаления Развлечения');
+            throw new \DomainException('Ошибка удаления Развлечения');
         }
     }
 

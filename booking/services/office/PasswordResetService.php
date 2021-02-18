@@ -61,7 +61,7 @@ class PasswordResetService
             ->setSubject('Password reset for ' . $user->username)
             ->send();
         if (!$sent) {
-            throw new \RuntimeException('Письмо не отправлено, проверьте правильность заполнения поля Email');
+            throw new \DomainException('Письмо не отправлено, проверьте правильность заполнения поля Email');
         }
     }
 
@@ -118,7 +118,7 @@ class PasswordResetService
             ->setSubject('Account registration at ' . $user->username)
             ->send();
         if (!$send) {
-            throw new \RuntimeException('Письмо не отправлено, проверьте правильность заполнения поля Email');
+            throw new \DomainException('Письмо не отправлено, проверьте правильность заполнения поля Email');
         }
     }
 

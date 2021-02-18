@@ -18,14 +18,14 @@ class SellingTourRepository
     public function save(SellingTour $selling): void
     {
         if (!$selling->save()) {
-            throw new \RuntimeException('Продажа тура не сохранен');
+            throw new \DomainException('Продажа тура не сохранен');
         }
     }
 
     public function remove(SellingTour $selling)
     {
         if (!$selling->delete()) {
-            throw new \RuntimeException('Ошибка удаления продажи тура');
+            throw new \DomainException('Ошибка удаления продажи тура');
         }
     }
 

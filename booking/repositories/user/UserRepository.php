@@ -49,7 +49,7 @@ class UserRepository
     public function save(User $user): bool
     {
         if (!$user->save()) {
-            throw new \RuntimeException(Lang::t('Ошибка сохранения'));
+            throw new \DomainException(Lang::t('Ошибка сохранения'));
         }
         return true;
     }
@@ -73,7 +73,7 @@ class UserRepository
     public function remove(User $user)
     {
         if (!$user->delete()) {
-            throw new \RuntimeException(Lang::t('Ошибка удаления'));
+            throw new \DomainException(Lang::t('Ошибка удаления'));
         }
     }
 

@@ -24,14 +24,14 @@ class ExtraRepository
     public function save(Extra $extra): void
     {
         if (!$extra->save()) {
-            throw new \RuntimeException('Дополнение не сохранено');
+            throw new \DomainException('Дополнение не сохранено');
         }
     }
 
     public function remove(Extra $extra)
     {
         if (!$extra->delete()) {
-            throw new \RuntimeException('Ошибка удаления дополнения');
+            throw new \DomainException('Ошибка удаления дополнения');
         }
     }
 

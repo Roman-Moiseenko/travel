@@ -19,13 +19,13 @@ class LangRepository
     public function save(Lang $lang): void
     {
         if (!$lang->save()) {
-            throw new \RuntimeException('Ошибка сохранения строки Lang.');
+            throw new \DomainException('Ошибка сохранения строки Lang.');
         }
     }
     public function remove(Lang $lang): void
     {
         if (!$lang->delete()) {
-            throw new \RuntimeException('Ошибка удаления строки Lang.');
+            throw new \DomainException('Ошибка удаления строки Lang.');
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\repositories\booking\rooms;
+namespace booking\repositories\booking\hotels;
 
 use booking\entities\booking\hotels\rooms\Type;
 use booking\entities\Lang;
@@ -27,14 +27,14 @@ class TypeRepository
     public function save(Type $type): void
     {
         if (!$type->save()) {
-            throw new \RuntimeException(Lang::t('Тип номера не сохранен'));
+            throw new \DomainException(Lang::t('Тип номера не сохранен'));
         }
     }
 
     public function remove(Type $type)
     {
         if (!$type->delete()) {
-            throw new \RuntimeException(Lang::t('Ошибка удаления типа номера'));
+            throw new \DomainException(Lang::t('Ошибка удаления типа номера'));
         }
     }
 }

@@ -131,14 +131,14 @@ class CarRepository
     public function save(Car $car)
     {
         if (!$car->save()) {
-            throw new \RuntimeException('Авто не сохранено');
+            throw new \DomainException('Авто не сохранено');
         }
     }
 
     public function remove(Car $car)
     {
         if (!$car->delete()) {
-            throw new \RuntimeException('Ошибка удаления Авто');
+            throw new \DomainException('Ошибка удаления Авто');
         }
     }
 

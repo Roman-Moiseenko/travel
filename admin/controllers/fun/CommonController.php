@@ -93,7 +93,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Ваше Развлечение успешно отправлено на Модерацию. Мы постараемся проверить Вашу информацию в кратчайшие сроки. Дождитесь, пожалуйста, результата. ');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }

@@ -19,13 +19,13 @@ class HelpRepository
     public function save(Help $page): void
     {
         if (!$page->save()) {
-            throw new \RuntimeException('Ошибка сохранения Страницы.');
+            throw new \DomainException('Ошибка сохранения Страницы.');
         }
     }
     public function remove(Help $page): void
     {
         if (!$page->delete()) {
-            throw new \RuntimeException('Ошибка удаления Страницы.');
+            throw new \DomainException('Ошибка удаления Страницы.');
         }
     }
 

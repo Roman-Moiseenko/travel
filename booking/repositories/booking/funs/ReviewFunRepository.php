@@ -27,14 +27,14 @@ class ReviewFunRepository
     public function save(ReviewFun $review): void
     {
         if (!$review->save()) {
-            throw new \RuntimeException('Отзыв не сохранен');
+            throw new \DomainException('Отзыв не сохранен');
         }
     }
 
     public function remove(ReviewFun $review)
     {
         if (!$review->delete()) {
-            throw new \RuntimeException('Ошибка удаления Отзыва');
+            throw new \DomainException('Ошибка удаления Отзыва');
         }
     }
 

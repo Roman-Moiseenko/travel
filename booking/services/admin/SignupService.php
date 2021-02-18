@@ -46,7 +46,7 @@ class SignupService
         });
         $this->contact->noticeNewUser($user);
         if (!$this->sendEmail($user)) {
-            throw new \RuntimeException('Ошибка отправки email');
+            throw new \DomainException('Ошибка отправки email');
         }
         return $user;
     }

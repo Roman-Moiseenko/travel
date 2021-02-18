@@ -20,14 +20,14 @@ class CityRepository
     public function save(City $city): void
     {
         if (!$city->save()) {
-            throw new \RuntimeException('Город не сохранен');
+            throw new \DomainException('Город не сохранен');
         }
     }
 
     public function remove(City $city)
     {
         if (!$city->delete()) {
-            throw new \RuntimeException('Ошибка удаления города');
+            throw new \DomainException('Ошибка удаления города');
         }
     }
 }

@@ -6,6 +6,8 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\admin\Legal;
 use booking\entities\booking\hotels\rooms\Rooms;
+use booking\entities\booking\stays\bedroom\AssignRoom;
+use booking\entities\booking\stays\comfort\assignComfort;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
@@ -18,22 +20,42 @@ use yii\web\UploadedFile;
  * Class Stays
  * @package booking\entities\booking\stays
  * @property integer $id
- * @property integer $user_id
  * @property integer $legal_id
- * @property integer $created_at
- * @property string $name
- * @property integer $status
- * @property integer $stars
- * @property float $rating
- * @property integer $main_photo_id
+ * @property integer $user_id
  * @property integer $type_id
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property string $name
+ * @property string $name_en
+ * @property string $description
+ * @property string $description_en
+ * @property integer $status
+ * @property integer $main_photo_id
+
+
+ * ====== Специфические поля ===================================
+ * @property integer $stars
+
+ * ====== Финансы ===================================
+ * @property integer $cancellation Отмена бронирования - нет/за сколько дней
+ * @property integer $check_booking - Оплата через портал или  провайдера
+ * @property integer $quantity - Количество автосредств данной модели
+ *
+ * @property float $rating
+ * @property integer $views  Кол-во просмотров
+ * @property integer $public_at Дата публикации
+ *
+ * ====== Составные поля ===================================
+ * @property StayParams $params
  * @property BookingAddress $address
  * @property Photo[] $photos
  * @property ReviewStay[] $reviews
  * @property Type $type
  * @property Rules $rules
- * @property Comfort[] $comforts
- * @property Nearby[] $nearby
+ *
+ * ====== GET-Ы ============================================
+ * @property assignComfort[] $assignComforts
+ * @property AssignRoom[] $bedrooms
  *
  */
 class Stay extends ActiveRecord

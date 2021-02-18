@@ -118,7 +118,6 @@ class TourService
 
     public function addPhotos($id, PhotosForm $form)
     {
-        //echo '<pre>';var_dump($form); exit();
         $tour = $this->tours->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
@@ -154,7 +153,7 @@ class TourService
     public function addReview($tour_id, $user_id, ReviewForm $form)
     {
         $tour = $this->tours->get($tour_id);
-        $review =$tour->addReview($user_id, $form->vote, $form->text);
+        $review = $tour->addReview($user_id, $form->vote, $form->text);
         $this->tours->save($tour);
         $this->contactService->sendNoticeReview($review);
     }
@@ -246,7 +245,6 @@ class TourService
     }
 
 
-
     public function save(Tour $tours)
     {
         throw new \DomainException('ОШИБКА!!!!!!!!!!!!!!!!!!!!! БЛЯДЬ ОТКУДА!!!!!!!!!!!!!!!!!!!!11');
@@ -257,6 +255,19 @@ class TourService
         $tour = $this->tours->get($id);
         if (!$tour->isInactive())
             throw new \DomainException('Нельзя отправить на модерацию');
+
+        if ($tour->mainPhoto == null) {
+            throw new \DomainException('Вы не добавили ни одной фотографии!');
+        }
+
+        if ($tour->params->private == null) {
+            throw new \DomainException('Необходимо заполнить параметры');
+        }
+
+        if ($tour->baseCost->adult == null) {
+            throw new \DomainException('Не заполнен раздел Цена!');
+        }
+
         $tour->setStatus(StatusHelper::STATUS_VERIFY);
         $dialog = Dialog::create(
             null,
@@ -265,7 +276,7 @@ class TourService
             ThemeDialog::ACTIVATED,
             ''
         );
-        $dialog->addConversation(Tour::class . ' ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_VERIFY);
+        $dialog->addConversation(Tour::class . ' ID=' . $tour->id . '&' . 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
         $this->contactService->sendActivate($tour->name, $tour->user->username);
         $this->tours->save($tour);
@@ -284,7 +295,7 @@ class TourService
             ThemeDialog::ACTIVATED,
             ''
         );
-        $dialog->addConversation('ID=' . $tour->id . '&'. 'STATUS=' . StatusHelper::STATUS_INACTIVE);
+        $dialog->addConversation('ID=' . $tour->id . '&' . 'STATUS=' . StatusHelper::STATUS_INACTIVE);
         $this->dialogs->save($dialog);
         $this->contactService->sendNoticeMessage($dialog);
         $this->tours->save($tour);
@@ -342,8 +353,7 @@ class TourService
             return 'Для индивидуального тура кол-во билетов должно быть равно 1';
         }
 
-        if ($this->calendars->isset($tour->id, $tour_at, $time_at))
-        {
+        if ($this->calendars->isset($tour->id, $tour_at, $time_at)) {
             return 'Данное время (' . $time_at . ') уже занято ';
         }
         $tour->addCostCalendar(

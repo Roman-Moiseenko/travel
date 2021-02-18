@@ -19,14 +19,14 @@ class ThemeDialogRepository
     public function save(ThemeDialog $theme): void
     {
         if (!$theme->save()) {
-            throw new \RuntimeException('Тема диалога не сохранена');
+            throw new \DomainException('Тема диалога не сохранена');
         }
     }
 
     public function remove(ThemeDialog $theme)
     {
         if (!$theme->delete()) {
-            throw new \RuntimeException('Ошибка удаления темы диалога');
+            throw new \DomainException('Ошибка удаления темы диалога');
         }
     }
 }

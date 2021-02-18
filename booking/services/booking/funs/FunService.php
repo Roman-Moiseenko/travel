@@ -260,6 +260,13 @@ class FunService
         $fun = $this->funs->get($id);
         if (!$fun->isInactive())
             throw new \DomainException('Нельзя отправить на модерацию');
+        if ($fun->mainPhoto == null) {
+            throw new \DomainException('Вы не добавили ни одной фотографии!');
+        }
+
+        if ($fun->baseCost->adult == null) {
+            throw new \DomainException('Не заполнен раздел Цена!');
+        }
         $fun->setStatus(StatusHelper::STATUS_VERIFY);
         $dialog = Dialog::create(
             null,

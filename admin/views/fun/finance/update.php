@@ -6,6 +6,7 @@ use booking\helpers\AdminUserHelper;
 use booking\helpers\BookingHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var  $fun Fun */
@@ -139,7 +140,11 @@ $this->registerJs($js);
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $form->field($model, 'legal_id')->dropDownList(AdminUserHelper::listLegals(), ['prompt' => ''])->label('Организация') ?>
+                            <?php if (count(AdminUserHelper::listLegals()) == 0) {
+                                echo Html::a('Добавить организацию', Url::to(['/legal/create']), ['class' => 'btn btn-warning']);
+                            } else {
+                                echo $form->field($model, 'legal_id')->dropDownList(AdminUserHelper::listLegals(), ['prompt' => ''])->label('Организация');
+                            } ?>
                         </div>
                         <div class="col-md-4">
                             <?= $form->field($model, 'cancellation')
@@ -160,7 +165,11 @@ $this->registerJs($js);
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php if (count(AdminUserHelper::listLegals()) == 0) {
+            echo Html::submitButton('Добавьте организацию!', ['class' => 'btn btn-success', 'disabled' => 'disabled']);
+        } else {
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+        } ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

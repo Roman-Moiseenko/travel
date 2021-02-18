@@ -19,14 +19,14 @@ class MailingRepository
     public function save(Mailing $mailing): void
     {
         if (!$mailing->save()) {
-            throw new \RuntimeException('Рассылка не сохранена');
+            throw new \DomainException('Рассылка не сохранена');
         }
     }
 
     public function remove(Mailing $mailing)
     {
         if (!$mailing->delete()) {
-            throw new \RuntimeException('Ошибка удаления рассылки');
+            throw new \DomainException('Ошибка удаления рассылки');
         }
     }
 

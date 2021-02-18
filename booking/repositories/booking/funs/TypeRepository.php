@@ -18,14 +18,14 @@ class TypeRepository
     public function save(Type $type): void
     {
         if (!$type->save()) {
-            throw new \RuntimeException('Категория развлечения не сохранен');
+            throw new \DomainException('Категория развлечения не сохранен');
         }
     }
 
     public function remove(Type $type)
     {
         if (!$type->delete()) {
-            throw new \RuntimeException('Ошибка удаления категории развлечения');
+            throw new \DomainException('Ошибка удаления категории развлечения');
         }
     }
 

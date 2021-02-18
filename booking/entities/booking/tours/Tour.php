@@ -37,16 +37,19 @@ use yii\web\UploadedFile;
  * @property string $description_en
  * @property integer type_id
  * @property float $rating
+ *
+ * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
+ * @property integer $check_booking - Оплата через портал или  провайдера
 
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
+
  * ====== Составные поля ===================================
  * @property Cost $baseCost
  * @property BookingAddress $address
  * @property TourParams $params
- * ====== Оплата через портал или  провайдера ==============
- * @property integer $check_booking
+
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -89,6 +92,7 @@ class Tour extends ActiveRecord
         $tour->description = $description;
         $tour->name_en = $name_en;
         $tour->description_en = $description_en;
+        $tour->check_booking = BookingHelper::BOOKING_PAYMENT;
         return $tour;
     }
 

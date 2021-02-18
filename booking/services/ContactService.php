@@ -51,7 +51,7 @@ class ContactService
                 ->setSubject('Новый отзыв')
                 ->send();
             if (!$send) {
-                throw new \RuntimeException('Ошибка отправки');
+                throw new \DomainException('Ошибка отправки');
             }
         }
     }
@@ -161,7 +161,7 @@ class ContactService
             ->setSubject($booking->getName())
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 
@@ -174,7 +174,7 @@ class ContactService
             ->setSubject($tour->name)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 
@@ -187,7 +187,7 @@ class ContactService
             ->setSubject($fun->name)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 
@@ -205,7 +205,7 @@ class ContactService
             ->setSubject($subject)
             ->send();
         if (!$send) {
-            throw new \RuntimeException('Ошибка отправки');
+            throw new \DomainException('Ошибка отправки');
         }
     }
 
@@ -221,7 +221,7 @@ class ContactService
         }
         $send = $this->mailer->sendMultiple($messages);
         if (!$send) {
-            throw new \RuntimeException('Ошибка отправки');
+            throw new \DomainException('Ошибка отправки');
         }
         return true;
     }
@@ -235,7 +235,7 @@ class ContactService
             ->setSubject($car->name)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 
@@ -250,7 +250,7 @@ class ContactService
             ->setSubject($object)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
         //СМС
         if (\Yii::$app->params['SMSActivated'])
@@ -287,7 +287,7 @@ class ContactService
         $send = $message->send();
         if (isset($file)) unlink($file);
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 
@@ -299,7 +299,7 @@ class ContactService
             ->setSubject($dialog->theme->caption)
             ->send();
         if (!$send) {
-            throw new \RuntimeException(Lang::t('Ошибка отправки'));
+            throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
 }

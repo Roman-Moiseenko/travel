@@ -39,7 +39,6 @@ use yii\web\UploadedFile;
  * @property integer $created_at
  * @property integer $updated_at
  * @property bool $multi
-
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
  * @property integer $check_booking - Оплата через портал или  провайдера
@@ -66,6 +65,19 @@ use yii\web\UploadedFile;
  * @property Legal $legal
  * @property Value[] $values
  * @property User $user
+
+ * ====== Скрытые поля ===================================
+ * @property int $cost_adult [int]
+ * @property int $cost_child [int]
+ * @property int $cost_preference [int]
+ * @property string $adr_address [varchar(255)]
+ * @property string $adr_latitude [varchar(255)]
+ * @property string $adr_longitude [varchar(255)]
+ * @property bool $params_limit_on [tinyint(1)]
+ * @property int $params_limit_min [int]
+ * @property int $params_limit_max [int]
+ * @property string $params_annotation [varchar(255)]
+ * @property string $params_work_mode [json]
  */
 
 class Fun extends ActiveRecord

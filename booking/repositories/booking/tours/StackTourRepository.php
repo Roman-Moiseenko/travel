@@ -42,14 +42,14 @@ class StackTourRepository
     public function save(Stack $stack): void
     {
         if (!$stack->save()) {
-            throw new \RuntimeException('Дополнение не сохранено');
+            throw new \DomainException('Дополнение не сохранено');
         }
     }
 
     public function remove(Stack $stack)
     {
         if (!$stack->delete()) {
-            throw new \RuntimeException('Ошибка удаления дополнения');
+            throw new \DomainException('Ошибка удаления дополнения');
         }
     }
 

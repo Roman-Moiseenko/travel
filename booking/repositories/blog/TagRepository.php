@@ -20,13 +20,13 @@ class TagRepository
     public function save(Tag $tag): void
     {
         if (!$tag->save()) {
-            throw new \RuntimeException(Lang::t('Метка не сохранена'));
+            throw new \DomainException(Lang::t('Метка не сохранена'));
         }
     }
     public function remove(Tag $tag): void
     {
         if (!$tag->delete()) {
-            throw new \RuntimeException(Lang::t('Ошибка удаления метки'));
+            throw new \DomainException(Lang::t('Ошибка удаления метки'));
         }
     }
 

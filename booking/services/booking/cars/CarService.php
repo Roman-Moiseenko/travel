@@ -242,6 +242,19 @@ class CarService
         $car = $this->cars->get($id);
         if (!$car->isInactive())
             throw new \DomainException('Нельзя отправить на модерацию');
+
+        if ($car->mainPhoto == null) {
+            throw new \DomainException('Вы не добавили ни одной фотографии!');
+        }
+
+        if ($car->params->min_rent == null) {
+            throw new \DomainException('Необходимо заполнить параметры');
+        }
+
+        if ($car->cost == null) {
+            throw new \DomainException('Не заполнен раздел Цена!');
+        }
+
         $car->setStatus(StatusHelper::STATUS_VERIFY);
         $dialog = Dialog::create(
             null,

@@ -26,14 +26,14 @@ class StayComfortRepository
     public function save(Comfort $comfort): void
     {
         if (!$comfort->save()) {
-            throw new \RuntimeException('Удобство не сохранено');
+            throw new \DomainException('Удобство не сохранено');
         }
     }
 
     public function remove(Comfort $comfort)
     {
         if (!$comfort->delete()) {
-            throw new \RuntimeException('Ошибка удаления удобства');
+            throw new \DomainException('Ошибка удаления удобства');
         }
     }
 
@@ -58,14 +58,14 @@ class StayComfortRepository
     public function saveCategory(ComfortCategory $comfort): void
     {
         if (!$comfort->save()) {
-            throw new \RuntimeException('Категория удобства не сохранена');
+            throw new \DomainException('Категория удобства не сохранена');
         }
     }
 
     public function removeCategory(ComfortCategory $comfort)
     {
         if (!$comfort->delete()) {
-            throw new \RuntimeException('Ошибка удаления категория удобства');
+            throw new \DomainException('Ошибка удаления категория удобства');
         }
     }
 

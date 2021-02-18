@@ -19,14 +19,14 @@ class SellingFunRepository
     public function save(SellingFun $selling): void
     {
         if (!$selling->save()) {
-            throw new \RuntimeException('Продажа билета не сохранен');
+            throw new \DomainException('Продажа билета не сохранен');
         }
     }
 
     public function remove(SellingFun $selling)
     {
         if (!$selling->delete()) {
-            throw new \RuntimeException('Ошибка удаления продажи билета');
+            throw new \DomainException('Ошибка удаления продажи билета');
         }
     }
 

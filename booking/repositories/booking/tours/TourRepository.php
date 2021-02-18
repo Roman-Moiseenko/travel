@@ -17,7 +17,10 @@ class TourRepository
 {
     public function get($id)
     {
-        return Tour::findOne($id);
+        if (!$result = Tour::findOne($id)) {
+            throw new \DomainException('Тур не найден');
+        }
+        return $result;
     }
 
     public function getByLegal($legal_id): array
@@ -109,14 +112,14 @@ class TourRepository
     public function save(Tour $tours)
     {
         if (!$tours->save()) {
-            throw new \RuntimeException('Тур не сохранен');
+            throw new \DomainException('Тур не сохранен');
         }
     }
 
     public function remove(Tour $tours)
     {
         if (!$tours->delete()) {
-            throw new \RuntimeException('Ошибка удаления Тура');
+            throw new \DomainException('Ошибка удаления Тура');
         }
     }
 

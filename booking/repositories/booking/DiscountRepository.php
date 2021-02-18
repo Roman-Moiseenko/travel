@@ -67,14 +67,14 @@ class DiscountRepository
     public function save(Discount $discount): void
     {
         if (!$discount->save()) {
-            throw new \RuntimeException('Скидка не сохранена');
+            throw new \DomainException('Скидка не сохранена');
         }
     }
 
     public function remove(Discount $discount)
     {
         if (!$discount->delete()) {
-            throw new \RuntimeException('Ошибка удаления скидки');
+            throw new \DomainException('Ошибка удаления скидки');
         }
     }
 }

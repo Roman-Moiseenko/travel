@@ -26,7 +26,7 @@ class UserRepository
     public function save(User $user): bool
     {
         if (!$user->save()) {
-            throw new \RuntimeException('Ошибка сохранения');
+            throw new \DomainException('Ошибка сохранения');
         }
         return true;
     }
@@ -34,7 +34,7 @@ class UserRepository
     public function remove(User $user)
     {
         if (!$user->delete()) {
-            throw new \RuntimeException('Ошибка удаления');
+            throw new \DomainException('Ошибка удаления');
         }
     }
 

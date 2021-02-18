@@ -13,36 +13,33 @@ use yii\helpers\Json;
  * Class Rules
  * @package booking\entities\booking\stays
  * @property integer $id
- * @property integer $stays_id
+ * @property integer $stay_id
+ *
  * @property Beds $beds
- * @property Children $children
  * @property CheckIn $checkin
- * @property Agelimit $agelimit
- * @property Cards $cards
  * @property Parking $parking
+ * @property Limit $limit
+ *
+ * @property string $beds_json [json]
+ * @property string $parking_json [json]
+ * @property string $checkin_json [json]
+ * @property string $limit_json [json]
  */
 class Rules extends ActiveRecord
 {
     public static function create(): self
     {
         $rules = new static();
-        //TODO Возможно сделать установку всех Rules, через передачу параметров
+        $rules->beds = new Beds();
+        $rules->parking = new Parking();
+        $rules->checkin = new CheckIn();
+        $rules->limit = new Limit();
         return $rules;
     }
 
     public function setBeds(Beds $beds)
     {
         $this->beds = $beds;
-    }
-
-    public function setChildren(Children $children)
-    {
-        $this->children = $children;
-    }
-
-    public static function tableName()
-    {
-        return '{{%booking_stays_rules}}';
     }
 
     public function setParking(Parking $parking)
@@ -55,101 +52,93 @@ class Rules extends ActiveRecord
         $this->checkin = $checkin;
     }
 
-    public function setAgelimit(Agelimit $agelimit)
+    public function setLimit(Limit $limit)
     {
-        $this->agelimit = $agelimit;
+        $this->limit = $limit;
     }
 
-    public function setCards(Cards $cards)
+    public static function tableName()
     {
-        $this->cards = $cards;
+        return '{{%booking_stays_rules}}';
     }
+
 
     public function afterFind(): void
     {
-
+        $beds = Json::decode($this->getAttribute('beds_json'), true);
         $this->beds = new Beds(
-            $this->getAttribute('beds_on'),
-            $this->getAttribute('beds_count'),
-            $this->getAttribute('beds_upto2_on'),
-            $this->getAttribute('beds_upto2_cost'),
-            $this->getAttribute('beds_child_on'),
-            $this->getAttribute('beds_child_agelimit'),
-            $this->getAttribute('beds_child_cost'),
-            $this->getAttribute('beds_adult_on'),
-            $this->getAttribute('beds_adult_cost')
+            $beds['beds_child_on'] ?? false,
+            $beds['beds_child_agelimit'] ?? 16,
+            $beds['beds_child_cost'] ?? 0,
+            $beds['beds_child_by_adult'] ?? 0,
+            $beds['beds_adult_on'] ?? false,
+            $beds['beds_adult_cost'] ?? 0,
+            $beds['beds_adult_count'] ?? 0
         );
 
-        $this->children = new Children(
-            $this->getAttribute('children_on'),
-            $this->getAttribute('children_agelimitfree')
-        );
-
+        $parking = Json::decode($this->getAttribute('parking_json'), true);
         $this->parking = new Parking(
-            $this->getAttribute('parking_on'),
-            $this->getAttribute('parking_free'),
-            $this->getAttribute('parking_private'),
-            $this->getAttribute('parking_inside'),
-            $this->getAttribute('parking_reserve'),
-            $this->getAttribute('parking_cost')
+            $parking['parking_on'],
+            $parking['parking_free'],
+            $parking['parking_private'],
+            $parking['parking_inside'],
+            $parking['parking_reserve'],
+            $parking['parking_cost']
         );
+
+        $checkin = Json::decode($this->getAttribute('checkin_json'), true);
         $this->checkin = new CheckIn(
-            $this->getAttribute('checkin_fulltime'),
-            $this->getAttribute('checkin_checkin_from'),
-            $this->getAttribute('checkin_checkint_to'),
-            $this->getAttribute('checkin_checkout_from'),
-            $this->getAttribute('checkin_checkout_to')
+            $checkin['checkin_fulltime'],
+            $checkin['checkin_checkin_from'],
+            $checkin['checkin_checkin_to'],
+            $checkin['checkin_checkout_from'],
+            $checkin['checkin_checkout_to']
         );
 
-        $this->agelimit = new AgeLimit(
-            $this->getAttribute('agelimit_on'),
-            $this->getAttribute('agelimit_ageMin'),
-            $this->getAttribute('agelimit_ageMax')
-        );
-
-        $this->cards = new Cards(
-            $this->getAttribute('cards_on'),
-            $this->getAttribute(Json::decode('cards_list', true))
+        $limit = Json::decode($this->getAttribute('limit_json'), true);
+        $this->limit = new Limit(
+            $limit['limit_smoking'],
+            $limit['limit_animals'],
+            $limit['limit_children']
         );
         parent::afterFind();
     }
 
     public function beforeSave($insert): bool
     {
+        $this->setAttribute('beds_json', Json::encode([
+            'beds_child_on' => $this->beds->child_on,
+            'beds_child_agelimit' => $this->beds->child_agelimit,
+            'beds_child_cost' => $this->beds->child_cost,
+            'beds_child_by_adult' => $this->beds->child_by_adult,
+            'beds_adult_on' => $this->beds->adult_on,
+            'beds_adult_cost' => $this->beds->adult_cost,
+            'beds_adult_count' => $this->beds->adult_count,
+        ]));
 
-        $this->setAttribute('beds_on', $this->beds->on);
-        $this->setAttribute('beds_count', $this->beds->count);
-        $this->setAttribute('beds_upto2_on', $this->beds->upto2_on);
-        $this->setAttribute('beds_upto2_cost', $this->beds->upto2_cost);
-        $this->setAttribute('beds_child_on', $this->beds->child_on);
-        $this->setAttribute('beds_child_agelimit', $this->beds->child_agelimit);
-        $this->setAttribute('beds_child_cost', $this->beds->child_cost);
-        $this->setAttribute('beds_adult_on', $this->beds->adult_on);
-        $this->setAttribute('beds_adult_cost', $this->beds->adult_cost);
+        $this->setAttribute('parking_json', Json::encode([
+            'parking_on' => $this->parking->on,
+            'parking_free' => $this->parking->free,
+            'parking_private' => $this->parking->private,
+            'parking_inside' => $this->parking->inside,
+            'parking_reserve' => $this->parking->reserve,
+            'parking_cost' => $this->parking->cost,
+        ]));
 
-        $this->setAttribute('children_on', $this->children->on);
-        $this->setAttribute('children_agelimitfree', $this->children->agelimitfree);
+        $this->setAttribute('checkin_json', Json::encode([
+            'checkin_fulltime' => $this->checkin->fulltime,
+            'checkin_checkin_from' => $this->checkin->checkin_from,
+            'checkin_checkin_to' => $this->checkin->checkin_to,
+            'checkin_checkout_from' => $this->checkin->checkout_from,
+            'checkin_checkout_to' => $this->checkin->checkout_to,
+        ]));
 
-        $this->setAttribute('parking_on', $this->parking->on);
-        $this->setAttribute('parking_free', $this->parking->free);
-        $this->setAttribute('parking_private', $this->parking->private);
-        $this->setAttribute('parking_inside', $this->parking->inside);
-        $this->setAttribute('parking_reserve', $this->parking->reserve);
-        $this->setAttribute('parking_cost', $this->parking->cost);
+        $this->setAttribute('limit_json', Json::encode([
+            'limit_smoking' => $this->limit->smoking,
+            'limit_animals' => $this->limit->animals,
+            'limit_children' => $this->limit->children,
 
-        $this->setAttribute('checkin_fulltime', $this->checkin->fulltime);
-        $this->setAttribute('checkin_checkin_from', $this->checkin->checkin_from);
-        $this->setAttribute('checkin_checkint_to', $this->checkin->checkint_to);
-        $this->setAttribute('checkin_checkout_from', $this->checkin->checkout_from);
-        $this->setAttribute('checkin_checkout_to', $this->checkin->checkout_to);
-
-        $this->setAttribute('agelimit_on', $this->agelimit->on);
-        $this->setAttribute('agelimit_ageMin', $this->agelimit->ageMin);
-        $this->setAttribute('agelimit_ageMax', $this->agelimit->ageMax);
-
-        $this->setAttribute('cards_on', $this->cards->on);
-        $this->setAttribute('cards_list', Json::encode($this->cards->list));
-
+        ]));
         return parent::beforeSave($insert);
     }
 }

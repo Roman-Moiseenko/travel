@@ -20,14 +20,14 @@ class TypeRepository
     public function save(Type $type): void
     {
         if (!$type->save()) {
-            throw new \RuntimeException(Lang::t('Тип жилища не сохранен'));
+            throw new \DomainException(Lang::t('Тип жилища не сохранен'));
         }
     }
 
     public function remove(Type $type)
     {
         if (!$type->delete()) {
-            throw new \RuntimeException(Lang::t('Ошибка удаления типа жилища'));
+            throw new \DomainException(Lang::t('Ошибка удаления типа жилища'));
         }
     }
 
