@@ -22,9 +22,11 @@ use booking\forms\booking\stays\StayBedroomsForm;
 use booking\forms\booking\stays\StayComfortForm;
 use booking\forms\booking\stays\StayCommonForm;
 use booking\forms\booking\stays\StayDutyForm;
+use booking\forms\booking\stays\StayFinanceForm;
 use booking\forms\booking\stays\StayNearbyForm;
 use booking\forms\booking\stays\StayParamsForm;
 use booking\forms\booking\stays\StayRulesForm;
+use booking\helpers\BookingHelper;
 use booking\helpers\Filling;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
@@ -309,26 +311,21 @@ class StayService
         }
         $this->stays->save($stay);
     }
-/*
 
 
-    public function setFinance($id, TourFinanceForm $form): void
+
+
+    public function setFinance($id, StayFinanceForm $form): void
     {
         $stay = $this->stays->get($id);
         $stay->setLegal($form->legal_id);
-        $stay->setCost(
-            new Cost(
-                $form->baseCost->adult,
-                $form->baseCost->child,
-                $form->baseCost->preference
-            )
-        );
+
         //По умолчанию ч/з подтверждение
         $stay->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         $stay->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->stays->save($stay);
     }
-*/
+
     public function verify($id)
     {
         $stay = $this->stays->get($id);
@@ -474,4 +471,6 @@ class StayService
         ];
         return $redirect[$stay->filling];
     }
+
+
 }
