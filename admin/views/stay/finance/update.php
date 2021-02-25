@@ -6,6 +6,7 @@ use booking\forms\booking\cars\CarFinanceForm;
 use booking\forms\booking\stays\StayFinanceForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\BookingHelper;
+use booking\helpers\stays\StayHelper;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -34,7 +35,13 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
         <div class="card-header with-border">Базовая стоимость</div>
         <div class="card-body">
             <div class="col-md-6">
-                <?= $form->field($model, 'cost')->textInput(['maxlength' => true])->label('Базовая цена за 1 ночь') ?>
+                <?= $form->field($model, 'cost_base')->textInput(['maxlength' => true])->label('Базовая цена за 1 ночь') ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'guest_base')->dropdownList(StayHelper::listNumber(1, $stay->params->guest))->label('Количество гостей, включенных в стоимость') ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'cost_add')->textInput(['maxlength' => true])->label('Цена за каждого дополнительного гостя в сутки')->hint('За каждого сверх базового значения') ?>
             </div>
         </div>
     </div>

@@ -51,7 +51,9 @@ use yii\web\UploadedFile;
  * @property float $rating
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
- * @property integer $cost
+ * @property integer $cost_base
+ * @property integer $guest_base
+ * @property integer $cost_add
  *
  * ====== Составные поля ===================================
  * @property StayParams $params
@@ -228,12 +230,12 @@ class Stay extends ActiveRecord
     {
         $this->params = $params;
     }
-
+/*
     public function setCost($cost)
     {
         $this->cost = $cost;
     }
-
+*/
     public function setCancellation($cancellation)
     {
         $this->cancellation = $cancellation;

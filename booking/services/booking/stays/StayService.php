@@ -312,14 +312,13 @@ class StayService
         $this->stays->save($stay);
     }
 
-
-
-
     public function setFinance($id, StayFinanceForm $form): void
     {
         $stay = $this->stays->get($id);
         $stay->setLegal($form->legal_id);
-
+        $stay->cost_base = $form->cost_base;
+        $stay->guest_base = $form->guest_base;
+        $stay->cost_add = $form->cost_add;
         //По умолчанию ч/з подтверждение
         $stay->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         $stay->setCancellation(($form->cancellation == '') ? null : $form->cancellation);

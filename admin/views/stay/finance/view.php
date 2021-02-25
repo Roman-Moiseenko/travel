@@ -26,9 +26,26 @@ $this->params['breadcrumbs'][] = 'Цены';
                 'model' => $stay,
                 'attributes' => [
                     [
-                        'attribute' => 'cost',
+                        'attribute' => 'cost_base',
                         'label' => 'Базовая цена за 1 ночь',
                     ],
+                    [
+                        'attribute' => 'guest_base',
+                        'label' => 'Количество гостей, включенных в стоимость',
+                    ],
+                    [
+                        'attribute' => 'cost_add',
+                        'label' => 'Цена за каждого дополнительного гостя в сутки',
+                    ],
+                    [
+                        'label' => 'Стоимость дополнительной детской кровати',
+                        'value' => $stay->rules->beds->child_cost,
+                    ],
+                    [
+                        'label' => 'Стоимость дополнительной кровати',
+                        'value' => $stay->rules->beds->adult_cost,
+                    ],
+
                 ],
             ]) ?>
         </div>
