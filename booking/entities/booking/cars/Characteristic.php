@@ -16,9 +16,9 @@ use yii\helpers\Json;
  * @property integer $type_car_id
  * @property string $required
  * @property string $default
- * @property array $variants
  * @property integer $sort
  * @property Type $type
+ * @property string $variants_json [json]
  */
 
 class Characteristic extends ActiveRecord

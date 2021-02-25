@@ -13,6 +13,7 @@ use yii\helpers\Url;
 class StatusActionWidget extends Widget
 {
 
+    //TODO ** BOOKING_OBJECT **
     public $object_status;
     public $object_id;
     public $object_type;
@@ -34,6 +35,9 @@ class StatusActionWidget extends Widget
                 break;
             case BookingHelper::BOOKING_TYPE_FUNS:
                 $link = '/fun/common';
+                break;
+            case BookingHelper::BOOKING_TYPE_HOTEL:
+                $link = '/hotel/common';
                 break;
             default:
                 throw new \DomainException('Неизвестный тип объекта ' . $this->object_type);

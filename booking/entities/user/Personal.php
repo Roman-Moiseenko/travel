@@ -18,9 +18,14 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $phone
  * @property integer $dateborn
  * @property UserAddress $address
- * @property Fullname $fullname
  * @property string $photo
  * @property bool $agreement
+ * @property string $surname [varchar(255)]
+ * @property string $firstname [varchar(255)]
+ * @property string $secondname [varchar(255)]
+ * @property string $country [varchar(2)]
+ * @property string $index [varchar(255)]
+ * @property string $town [varchar(255)]
  */
 
 class Personal extends ActiveRecord implements PersonalInterface

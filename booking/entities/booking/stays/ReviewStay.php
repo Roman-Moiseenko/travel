@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property int $user_id
  * @property int $vote
  * @property string $text
- * @property integer $stays_id
+ * @property integer $stay_id
  */
 //TODO  В разработке
 
@@ -61,7 +61,7 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
 
     public function getStays(): ActiveQuery
     {
-        return $this->hasOne(Stay::class, ['id' => 'stays_id']);
+        return $this->hasOne(Stay::class, ['id' => 'stay_id']);
     }
 
     /**

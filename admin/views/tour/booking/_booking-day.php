@@ -30,35 +30,35 @@ $i = 0;
             <?php $i++ ?>
             <div class="card">
                 <div class="card-header p-0">
-            <span class="booking-item">
-                <?php if ($booking->isPay()): ?>
-                    <span class="badge badge-pill badge-success" title=""><i class="far fa-check-circle"></i></span>
-                <?php elseif ($booking->isNew()): ?>
-                    <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
-                <?php elseif ($booking->isConfirmation()): ?>
-                    <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
-                <?php elseif ($booking->isCancel()): ?>
-                    <span class="badge badge-pill badge-secondary"><i class="far fa-check-circle"></i></span>
-                <?php endif ?>
-                </span>
+                    <span class="booking-item">
+                        <?php if ($booking->isPay()): ?>
+                            <span class="badge badge-pill badge-success" title=""><i class="far fa-check-circle"></i></span>
+                        <?php elseif ($booking->isNew()): ?>
+                            <span class="badge badge-pill badge-danger"><i class="far fa-times-circle"></i></span>
+                        <?php elseif ($booking->isConfirmation()): ?>
+                            <span class="badge badge-pill badge-info"><i class="far fa-check-circle"></i></span>
+                        <?php elseif ($booking->isCancel()): ?>
+                            <span class="badge badge-pill badge-secondary"><i class="far fa-check-circle"></i></span>
+                        <?php endif ?>
+                    </span>
                     <span class="booking-item"
                           style="<?= ($booking->isCancel()) ? 'text-decoration: line-through !important' : '' ?>">
-                <a class="link-admin" data-toggle="collapse" href="#collapse-<?= $i ?>" role="button"
-                   aria-expanded="false" aria-controls="collapseExample">
-                    <i class="fas fa-user"></i>&#160;&#160;
-                    <?= empty($booking->user->personal->fullname->surname) ? $booking->user->username : $booking->user->personal->fullname->getFullname(); ?>
-                </a>
-                </span>
+                        <a class="link-admin" data-toggle="collapse" href="#collapse-<?= $i ?>" role="button"
+                           aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fas fa-user"></i>&#160;&#160;
+                            <?= empty($booking->user->personal->fullname->surname) ? $booking->user->username : $booking->user->personal->fullname->getFullname(); ?>
+                        </a>
+                    </span>
                     <span class="booking-item">
-                    <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)]) ?>"
-                       title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
-                </span>
+                        <a href="<?= Url::to(['/cabinet/dialog/dialog', 'id' => BookingHelper::number($booking)]) ?>"
+                           title="Написать сообщение"><i class="fas fa-shipping-fast"></i></a>
+                    </span>
                 </div>
                 <div class="collapse" id="collapse-<?= $i ?>">
                     <div class="card-body">
-                <span class="booking-item">
-                    <i class="fas fa-bookmark"></i>&#160;&#160;<?= BookingHelper::number($booking); ?>
-                </span>
+                        <span class="booking-item">
+                            <i class="fas fa-bookmark"></i>&#160;&#160;<?= BookingHelper::number($booking); ?>
+                        </span>
                         <span class="booking-item">
                     <i class="fas fa-key"></i>&#160;&#160;<?= $booking->getPinCode(); ?>
                 </span>

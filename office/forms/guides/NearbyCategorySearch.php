@@ -12,7 +12,8 @@ class NearbyCategorySearch extends NearbyCategory
     public function rules()
     {
         return [
-            [['name', 'group'], 'safe'],
+            ['group', 'integer'],
+            [['name' ], 'safe'],
         ];
     }
 
@@ -36,10 +37,10 @@ class NearbyCategorySearch extends NearbyCategory
         }
         $query->andFilterWhere([
             'id' => $this->id,
+            'group' => $this->group,
         ]);
         $query
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'group', $this->name]);
+            ->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

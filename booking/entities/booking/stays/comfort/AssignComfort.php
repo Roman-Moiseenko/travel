@@ -10,27 +10,27 @@ use yii\db\ActiveRecord;
 /**
  * Class assignComfort
  * @package booking\entities\booking\stays\comfort
- * @property integer $stays_id
+ * @property integer $stay_id
  * @property integer $comfort_id
  * @property boolean $pay
- * @property integer $photo
+ * @property integer $photo_id
  * @property Comfort $comfort
  */
-class assignComfort extends ActiveRecord
+class AssignComfort extends ActiveRecord
 {
 
-    public static function create($comfort_id, $pay = null, $photo = null): self
+    public static function create($comfort_id, $pay = null, $photo_id = null): self
     {
         $assign = new static();
         $assign->comfort_id = $comfort_id;
         $assign->pay = $pay;
-        $assign->photo = $photo;
+        $assign->photo_id = $photo_id;
         return $assign;
     }
 
-    public function edit($pay = null, $photo = null): void
+    public function edit($pay = null, $photo_id = null): void
     {
-        $this->photo = $photo;
+        $this->photo_id = $photo_id;
         $this->pay = $pay;
     }
 
@@ -41,6 +41,11 @@ class assignComfort extends ActiveRecord
 
     public function getComfort(): ActiveQuery
     {
-        return $this->hasMany(Comfort::class, ['id' => 'comfort_id'])->orderBy(['category_id', 'sort']);
+        return $this->hasOne(Comfort::class, ['id' => 'comfort_id'])->orderBy(['category_id' => SORT_ASC, 'sort' => SORT_ASC]);
+    }
+
+    public function isFor($id)
+    {
+        return $this->comfort_id == $id;
     }
 }

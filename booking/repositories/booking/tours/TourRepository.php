@@ -109,16 +109,16 @@ class TourRepository
         return $this->getProvider($query);
     }
 
-    public function save(Tour $tours)
+    public function save(Tour $tour)
     {
-        if (!$tours->save()) {
+        if (!$tour->save()) {
             throw new \DomainException('Тур не сохранен');
         }
     }
 
-    public function remove(Tour $tours)
+    public function remove(Tour $tour)
     {
-        if (!$tours->delete()) {
+        if (!$tour->delete()) {
             throw new \DomainException('Ошибка удаления Тура');
         }
     }

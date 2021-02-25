@@ -5,7 +5,9 @@ namespace booking\entities\booking\stays\rules;
 
 
 use booking\entities\booking\AgeLimit;
+use booking\entities\Lang;
 use booking\entities\user\Personal;
+use booking\helpers\scr;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 
@@ -27,6 +29,10 @@ use yii\helpers\Json;
  */
 class Rules extends ActiveRecord
 {
+    const STATUS_NOT = 11;
+    const STATUS_FREE = 12;
+    const STATUS_PAY = 13;
+
     public static function create(): self
     {
         $rules = new static();
@@ -67,39 +73,45 @@ class Rules extends ActiveRecord
     {
         $beds = Json::decode($this->getAttribute('beds_json'), true);
         $this->beds = new Beds(
-            $beds['beds_child_on'] ?? false,
-            $beds['beds_child_agelimit'] ?? 16,
-            $beds['beds_child_cost'] ?? 0,
-            $beds['beds_child_by_adult'] ?? 0,
-            $beds['beds_adult_on'] ?? false,
-            $beds['beds_adult_cost'] ?? 0,
-            $beds['beds_adult_count'] ?? 0
+            $beds['beds_child_on'] ?? null,
+            $beds['beds_child_agelimit'] ?? null,
+            $beds['beds_child_cost'] ?? null,
+            $beds['beds_child_by_adult'] ?? null,
+            $beds['beds_child_count'] ?? null,
+            $beds['beds_adult_on'] ?? null,
+            $beds['beds_adult_cost'] ?? null,
+            $beds['beds_adult_count'] ?? null
         );
 
         $parking = Json::decode($this->getAttribute('parking_json'), true);
         $this->parking = new Parking(
-            $parking['parking_on'],
-            $parking['parking_free'],
-            $parking['parking_private'],
-            $parking['parking_inside'],
-            $parking['parking_reserve'],
-            $parking['parking_cost']
+            $parking['parking_status'] ?? null,
+            $parking['parking_private'] ?? null,
+            $parking['parking_inside'] ?? null,
+            $parking['parking_reserve'] ?? null,
+            $parking['parking_cost'] ?? null,
+            $parking['parking_cost_type'] ?? null,
+            $parking['parking_security'] ?? null,
+            $parking['parking_covered'] ?? null,
+            $parking['parking_street'] ?? null,
+            $parking['parking_invalid'] ?? null
         );
 
         $checkin = Json::decode($this->getAttribute('checkin_json'), true);
         $this->checkin = new CheckIn(
-            $checkin['checkin_fulltime'],
-            $checkin['checkin_checkin_from'],
-            $checkin['checkin_checkin_to'],
-            $checkin['checkin_checkout_from'],
-            $checkin['checkin_checkout_to']
+            $checkin['checkin_checkin_from'] ?? null,
+            $checkin['checkin_checkin_to'] ?? null,
+            $checkin['checkin_checkout_from'] ?? null,
+            $checkin['checkin_checkout_to'] ?? null,
+            $checkin['checkin_message'] ?? null
         );
 
         $limit = Json::decode($this->getAttribute('limit_json'), true);
         $this->limit = new Limit(
-            $limit['limit_smoking'],
-            $limit['limit_animals'],
-            $limit['limit_children']
+            $limit['limit_smoking'] ?? null,
+            $limit['limit_animals'] ?? null,
+            $limit['limit_children'] ?? null,
+            $limit['limit_children_allow'] ?? null
         );
         parent::afterFind();
     }
@@ -111,34 +123,49 @@ class Rules extends ActiveRecord
             'beds_child_agelimit' => $this->beds->child_agelimit,
             'beds_child_cost' => $this->beds->child_cost,
             'beds_child_by_adult' => $this->beds->child_by_adult,
+            'beds_child_count' => $this->beds->child_count,
             'beds_adult_on' => $this->beds->adult_on,
             'beds_adult_cost' => $this->beds->adult_cost,
             'beds_adult_count' => $this->beds->adult_count,
         ]));
 
         $this->setAttribute('parking_json', Json::encode([
-            'parking_on' => $this->parking->on,
-            'parking_free' => $this->parking->free,
+            'parking_status' => $this->parking->status,
             'parking_private' => $this->parking->private,
             'parking_inside' => $this->parking->inside,
             'parking_reserve' => $this->parking->reserve,
             'parking_cost' => $this->parking->cost,
+            'parking_cost_type' => $this->parking->cost_type,
+            'parking_security' => $this->parking->security,
+            'parking_covered' => $this->parking->covered,
+            'parking_street' => $this->parking->street,
+            'parking_invalid' => $this->parking->invalid
+
         ]));
 
         $this->setAttribute('checkin_json', Json::encode([
-            'checkin_fulltime' => $this->checkin->fulltime,
             'checkin_checkin_from' => $this->checkin->checkin_from,
             'checkin_checkin_to' => $this->checkin->checkin_to,
             'checkin_checkout_from' => $this->checkin->checkout_from,
             'checkin_checkout_to' => $this->checkin->checkout_to,
+            'checkin_message' => $this->checkin->message,
         ]));
 
         $this->setAttribute('limit_json', Json::encode([
             'limit_smoking' => $this->limit->smoking,
             'limit_animals' => $this->limit->animals,
             'limit_children' => $this->limit->children,
-
+            'limit_children_allow' => $this->limit->children_allow,
         ]));
         return parent::beforeSave($insert);
+    }
+
+    public static function listStatus(): array
+    {
+        return [
+            self::STATUS_NOT => Lang::t('Нет'),
+            self::STATUS_FREE => Lang::t('Да, бесплатно'),
+            self::STATUS_PAY => Lang::t('Да, платно'),
+        ];
     }
 }

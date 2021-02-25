@@ -55,7 +55,8 @@
     "bower-asset/chart.js": "*",
     "ext-xmlwriter": "*",
     "yoomoney/yookassa-sdk-php": "^2.0",
-    "kartik-v/yii2-password": "^1.5"
+    "kartik-v/yii2-password": "^1.5",
+    "kartik-v/yii2-widget-select2": "@dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

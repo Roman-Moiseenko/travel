@@ -45,6 +45,10 @@ use yii\helpers\Url;
                 [
                     'attribute' => 'name',
                     'label' => 'Название',
+                    'value' => function (Comfort $model) {
+                        return Html::a($model->name, Url::to(['update', 'id' => $model->id]));
+                    },
+                    'format' => 'raw',
                     'contentOptions' => ['data-label' => 'Название'],
                 ],
                 [
@@ -62,6 +66,14 @@ use yii\helpers\Url;
                         return $model->featured ? 'Да' : 'Нет';
                     },
                     'contentOptions' => ['data-label' => 'Рекомендуем'],
+                ],
+                [
+                    'attribute' => 'photo',
+                    'label' => 'Фото',
+                    'value' => function (Comfort $model) {
+                        return $model->photo ? 'Да' : 'Нет';
+                    },
+                    'contentOptions' => ['data-label' => 'Фото'],
                 ],
                 ['class' => 'yii\grid\ActionColumn',],
             ],

@@ -14,7 +14,7 @@ class m210218_210122_rename_tables_stays extends Migration
     {
         $this->renameTable('{{%booking_stay_rooms_assign}}', '{{%booking_stays_rooms_assign}}');
         $this->renameTable('{{%booking_stay_nearby_category}}', '{{%booking_stays_nearby_category}}');
-        $this->renameTable('{{%booking_stay_nearby}}', '{{%booking_stays_nearby}}');
+        //$this->renameTable('{{%booking_stay_nearby}}', '{{%booking_stays_nearby}}');
         $this->renameTable('{{%booking_stay_beds_assign}}', '{{%booking_stays_beds_assign}}');
         $this->renameTable('{{%booking_stay_bed_type}}', '{{%booking_stays_bed_type}}');
     }

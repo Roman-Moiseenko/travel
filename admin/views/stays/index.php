@@ -1,9 +1,7 @@
 <?php
 
-use booking\entities\booking\tours\Tour;
-use booking\helpers\BookingHelper;
+use booking\entities\booking\stays\Stay;
 use booking\helpers\StatusHelper;
-use booking\helpers\tours\TourHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
@@ -13,16 +11,18 @@ use yii\helpers\Url;
 /* @var $searchModel admin\forms\StaySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Мое жилье';
+$this->title = 'Мои апартаменты/дома';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
+    <h1 style="color: red">Ведется разработка</h1>
+    <h2 style="color: red">Просьба не вводить данные в даном разделе</h2>
     <p>
-        <?= ''// Html::a('Создать Жилье', Url::to('stay/common/create'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать Жилье', Url::to('stay/common/create'), ['class' => 'btn btn-success']) ?>
     </p>
 
 
-    <?= 'Ведется разработка '; /*GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => [
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['data-label' => 'ID'],
             ],
             [
-                'value' => function (Tour $model) {
+                'value' => function (Stay $model) {
                     return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
                 },
                 'format' => 'raw',
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'label' => 'Статус',
-                'value' => function (Tour $model) {
+                'value' => function (Stay $model) {
                     return StatusHelper::statusToHTML($model->status);
                 },
                 'options' => ['width' => '150px'],
@@ -56,8 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'name',
-                'value' => function (Tour $model) {
-                    return Html::a(Html::encode($model->name), ['/tour/common', 'id' => $model->id]);
+                'value' => function (Stay $model) {
+                    return Html::a(Html::encode($model->name), ['/stay/common', 'id' => $model->id]);
                 },
                 'format' => 'raw',
                 'label' => 'Название',
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'description',
-                'value' => function (Tour $model) {
+                'value' => function (Stay $model) {
                     return StringHelper::truncateWords(strip_tags($model->description), 40);
 
                 },
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view}',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        $url = Url::to(['/tour/common/index', 'id' => $model->id]);
+                        $url = Url::to(['/stay/common/index', 'id' => $model->id]);
                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-eye-open"]);
                         return Html::a($icon, $url, [
                             'title' => 'Просмотр',
@@ -91,6 +91,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ],
-    ]); */?>
+    ]); ?>
 
 </div>

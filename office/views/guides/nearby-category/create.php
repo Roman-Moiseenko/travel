@@ -1,5 +1,6 @@
 <?php
 
+use booking\entities\booking\stays\nearby\NearbyCategory;
 use booking\forms\office\guides\NearbyCategoryForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -8,8 +9,8 @@ use yii\helpers\Html;
 /* @var  $model NearbyCategoryForm */
 
 
-$this->title = 'Создать Категорию расположения';
-$this->params['breadcrumbs'][] = ['label' => 'Категории расположения', 'url' => ['/guides/nearby-category']];
+$this->title = 'Создать Категорию окрестности';
+$this->params['breadcrumbs'][] = ['label' => 'Категории окрестностей', 'url' => ['/guides/nearby-category']];
 $this->params['breadcrumbs'][] = 'Создать';
 
 
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = 'Создать';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <?= $form->field($model, 'group')->textInput(['maxlength' => true])->label('Группировка') ?>
+                    <?= $form->field($model, 'group')->dropdownList(NearbyCategory::listGroup(), ['prompt' => ''])->label('Группировка') ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название') ?>

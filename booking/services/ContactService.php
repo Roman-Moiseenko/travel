@@ -302,4 +302,17 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
+
+    public function sendLockStay(?\booking\entities\booking\stays\Stay $stay)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockStay', ['stay' => $stay])
+            ->setTo($stay->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($stay->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
 }

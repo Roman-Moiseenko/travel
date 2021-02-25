@@ -106,7 +106,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию Развлечения');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -119,7 +119,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Развлечение снято с публикации.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -132,7 +132,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Развлечение опубликовано.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -145,7 +145,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Запрос отправлен в поддержку');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }

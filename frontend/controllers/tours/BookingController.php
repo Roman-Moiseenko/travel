@@ -13,7 +13,7 @@ use yii\web\Controller;
 
 class BookingController  extends Controller
 {
-    public $layout='main_ajax';
+    public $layout = 'main_ajax';
     /**
      * @var TourService
      */

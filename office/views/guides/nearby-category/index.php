@@ -3,7 +3,7 @@
 /* @var $searchModel office\forms\guides\NearbyCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Категории расположения';
+$this->title = 'Категории окрестностей';
 $this->params['breadcrumbs'][] = $this->title;
 
 use booking\entities\booking\stays\comfort\Comfort;
@@ -17,7 +17,7 @@ use yii\helpers\Url;
 <div class="providers-list">
     <p>
 
-        <?= Html::a('Создать Категорию расположения', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать Категорию окрестности', ['create'], ['class' => 'btn btn-success']) ?>
 
     </p>
     <div class="card">
@@ -36,7 +36,11 @@ use yii\helpers\Url;
                 ],
                 [
                     'attribute' => 'group',
+                    'value' => function (NearbyCategory $model) {
+                        return NearbyCategory::listGroup()[$model->group];
+                    },
                     'label' => 'Группировка',
+                    'filter' => NearbyCategory::listGroup(),
                     'contentOptions' => ['data-label' => 'Группировка'],
                 ],
                 [

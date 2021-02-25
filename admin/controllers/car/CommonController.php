@@ -109,7 +109,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию авто');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -122,7 +122,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Авто снято с публикации.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -135,7 +135,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Авто опубликовано.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -148,7 +148,7 @@ class CommonController extends Controller
             \Yii::$app->session->setFlash('success', 'Запрос отправлен в поддержку');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
-            \Yii::$app->session->setFlash('error', $e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }

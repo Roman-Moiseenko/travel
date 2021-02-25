@@ -48,7 +48,17 @@ class AssignRoom extends ActiveRecord
                 return $bed->count;
             }
         }
-        return null;
+        return 0;
+    }
+
+    public function getCounts(): int
+    {
+        $result = 0;
+        $beds = $this->assignBeds;
+        foreach ($beds as $bed) {
+            $result += $bed->count * $bed->typeOfBed->count;
+        }
+        return $result;
     }
 
     public function removeBed($bed_id): void

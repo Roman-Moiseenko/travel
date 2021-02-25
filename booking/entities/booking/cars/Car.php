@@ -146,7 +146,7 @@ class Car extends ActiveRecord
                 return;
             }
         }
-        throw new \DomainException('Город не найден .');
+        throw new \DomainException('Город не найден.');
     }
 
     public function revokeCities(): void

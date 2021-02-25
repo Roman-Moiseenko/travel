@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
  * @package booking\entities\booking\stays\nearby
  * @property integer $id
  * @property string $name
- * @property string $group
+ * @property integer $group
  * @property integer $sort
  */
 
@@ -44,5 +44,20 @@ class NearbyCategory extends ActiveRecord
     public static function tableName()
     {
         return '{{%booking_stays_nearby_category}}';
+    }
+
+    public static function listGroup(): array
+    {
+        return [
+            1 => 'Шопинг и рестораны',
+            2 => 'Развлечения и досуг',
+            3 => 'Ориентиры',
+            4 => 'Другое',
+        ];
+    }
+
+    public static function getCategories($group): array
+    {
+        return NearbyCategory::find()->andWhere(['group' => $group])->orderBy('sort')->all();
     }
 }

@@ -14,7 +14,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $id
  * @property string $file
  * @property integer $sort
- * @property integer $stays_id
+ * @property integer $stay_id
  * @mixin ImageUploadBehavior
  */
 class Photo extends ActiveRecord
@@ -48,10 +48,10 @@ class Photo extends ActiveRecord
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'file',
                 'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/stays/[[attribute_stays_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/stays/[[attribute_stays_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/stays/[[attribute_stays_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/stays/[[attribute_stays_id]]/[[profile]]_[[id]].[[extension]]',
+                'filePath' => '@staticRoot/origin/stays/[[attribute_stay_id]]/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/stays/[[attribute_stay_id]]/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/stays/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/stays/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 240],

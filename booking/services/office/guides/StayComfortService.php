@@ -29,7 +29,8 @@ class StayComfortService
             $form->category_id,
             $form->name,
             $form->paid,
-            $form->featured
+            $form->featured,
+            $form->photo
         );
         $comfort->setSort($this->comforts->getMaxSort() + 1);
         $this->comforts->save($comfort);
@@ -42,7 +43,8 @@ class StayComfortService
             $form->category_id,
             $form->name,
             $form->paid,
-            $form->featured
+            $form->featured,
+            $form->photo
         );
         $this->comforts->save($comfort);
     }
