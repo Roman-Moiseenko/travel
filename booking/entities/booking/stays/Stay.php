@@ -176,6 +176,44 @@ class Stay extends ActiveRecord
 
     ////////////////////////////////
 
+    /// DUTY //////////////
+
+    public function addDuty($duty_id, $value, $payment, $include)
+    {
+        $duty = $this->duty;
+        /*foreach ($duty as $assignDuty) {
+            if ($assignDuty->isFor($duty_id)) return;
+        } */
+        $duty[] = AssignDuty::create($duty_id, $value, $payment, $include);
+        $this->duty = $duty;
+    }
+
+    public function removeDuty($duty_id)
+    {
+        $duty = $this->duty;
+        foreach ($duty as $i => $assignDuty) {
+            if ($assignDuty->isFor($duty_id)) {
+                unset($duty[$i]);
+                $this->duty = $duty;
+                return;
+            }
+        }
+        throw new \DomainException('Сбор не найден');
+    }
+
+    public function clearDuty()
+    {
+        $this->duty = [];
+    }
+
+    public function getDutyById(int $id)
+    {
+        foreach ($this->duty as $assignDuty) {
+            if ($assignDuty->isFor($id)) return $assignDuty;
+        }
+        return null;
+    }
+
     public function setLegal($legalId): void
     {
         $this->legal_id = $legalId;
@@ -286,7 +324,8 @@ class Stay extends ActiveRecord
                     'reviews',
                     'nearbyes',
                     'assignComforts',
-                    'bedrooms'
+                    'bedrooms',
+                    'duty',
                 ],
             ],
         ];
@@ -585,6 +624,8 @@ class Stay extends ActiveRecord
     {
         return $this->hasMany(AssignRoom::class, ['stay_id' => 'id']);
     }
+
+
 
     /** <========== getXXX */
 

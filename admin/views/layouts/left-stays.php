@@ -32,10 +32,8 @@ use yii\helpers\Url;
                     ['label' => 'Окресности', 'icon' => 'mountain', 'url' => ['/stay/nearby', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/nearby'],
                     ['label' => 'Спальные места', 'icon' => 'bed', 'url' => ['/stay/bedrooms', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/bedrooms'],
                     ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/stay/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/params'],
-
-                    ['label' => 'Фотографии', 'icon' => 'camera-retro', 'url' => ['/stay/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/photos'],
                     ['label' => 'Дополнительные сборы', 'icon' => 'coins', 'url' => ['/stay/duty', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/duty'],
-
+                    ['label' => 'Фотографии', 'icon' => 'camera-retro', 'url' => ['/stay/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/photos'],
                     ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/stay/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/finance'],
                     ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/stay/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/calendar'],
                     ['label' => 'Бронирования', 'icon' => 'calendar-alt', 'url' => ['/stay/booking', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/booking',

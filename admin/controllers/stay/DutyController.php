@@ -5,6 +5,8 @@ namespace admin\controllers\stay;
 
 
 use booking\entities\booking\stays\Stay;
+use booking\forms\booking\stays\StayDutyForm;
+use booking\services\booking\stays\StayService;
 use booking\services\booking\tours\StackService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -14,11 +16,11 @@ class DutyController extends Controller
 {
     public  $layout = 'main-stays';
     /**
-     * @var StackService
+     * @var StayService
      */
     private $service;
 
-    public function __construct($id, $module, StackService $service, $config = [])
+    public function __construct($id, $module, StayService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -73,12 +75,13 @@ class DutyController extends Controller
     }
 
     public function actionAdd()
-    {
+    {/*
         if (\Yii::$app->request->isAjax) {
             try {
                 $this->layout = 'main_ajax';
                 $params = \Yii::$app->request->bodyParams;
-                /*
+                $duty = [];
+
                 $category_id = (int)$params['category_id'];
                 $nearby = [];
                 if (isset($params['nearby'])) {
@@ -89,16 +92,16 @@ class DutyController extends Controller
                     }
                 }
                 if ($params['status'] == "add")
-                    $nearby[] = Duty::create();*/
+                    $nearby[] = Duty::create();
                 return $this->render('_duty_list', [
-                   // 'nearby' => $nearby,
-                    //'category_id' => $category_id,
+                    'duty' => $duty,
+
                 ]);
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
 
-        }
+        }*/
     }
 
     protected function findModel($id)

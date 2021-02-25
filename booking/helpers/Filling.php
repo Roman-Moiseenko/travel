@@ -14,4 +14,5 @@ class Filling
     const NEARBY = 6;
     const PHOTOS = 7;
     const EXTRA = 8;
+    const DUTY = 9;
 }

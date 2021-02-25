@@ -21,6 +21,7 @@ use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\StayBedroomsForm;
 use booking\forms\booking\stays\StayComfortForm;
 use booking\forms\booking\stays\StayCommonForm;
+use booking\forms\booking\stays\StayDutyForm;
 use booking\forms\booking\stays\StayNearbyForm;
 use booking\forms\booking\stays\StayParamsForm;
 use booking\forms\booking\stays\StayRulesForm;
@@ -190,7 +191,7 @@ class StayService
 
         foreach ($form->assignComforts as $item) {
             if ($item->comfort_id != 0) {
-                scr::_p($item->comfort_id);
+                //scr::_p($item->comfort_id);
                 $stay->addComfort($item->comfort_id, $item->pay, $item->photo_id);
             }
         }
@@ -290,21 +291,26 @@ class StayService
         $this->stays->save($stay);
     }
 
-/*
-    public function setExtra($id, $extra_id, $set): void
+    public function setDuty(int $id, StayDutyForm $form)
     {
-
-        $tour = $this->tours->get($id);
-        echo $id . $extra_id . $set;
-        if ($set) {
-            $tour->assignExtra($extra_id);
-        } else {
-            $tour->revokeExtra($extra_id);
+        $stay = $this->stays->get($id);
+        $stay->clearDuty();
+        $this->stays->save($stay);
+       // scr::p($form->assignDuty);
+        foreach ($form->assignDuty as $assignDutyForm) {
+            if ($assignDutyForm->duty_id != 0) {
+                $stay->addDuty(
+                    $assignDutyForm->duty_id,
+                    $assignDutyForm->value,
+                    $assignDutyForm->payment,
+                    $assignDutyForm->include
+                );
+            }
         }
-        $this->tours->save($tour);
-
-
+        $this->stays->save($stay);
     }
+/*
+
 
     public function setFinance($id, TourFinanceForm $form): void
     {
@@ -444,7 +450,8 @@ class StayService
             Filling::RULES => Filling::BEDROOMS,
             Filling::BEDROOMS => Filling::PARAMS,
             Filling::PARAMS => Filling::NEARBY,
-            Filling::NEARBY => Filling::PHOTOS,
+            Filling::NEARBY => Filling::DUTY,
+            Filling::DUTY => Filling::PHOTOS,
             Filling::PHOTOS => null,
         ];
         $stay->filling = $next[$stay->filling];
@@ -462,6 +469,7 @@ class StayService
             Filling::BEDROOMS => ['/stay/bedrooms/update', 'id' => $stay->id],
             Filling::PARAMS => ['/stay/params/update', 'id' => $stay->id],
             Filling::NEARBY => ['/stay/nearby/update', 'id' => $stay->id],
+            Filling::DUTY => ['/stay/duty/update', 'id' => $stay->id],
             Filling::PHOTOS => ['/stay/photos/index', 'id' => $stay->id],
         ];
         return $redirect[$stay->filling];

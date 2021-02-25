@@ -18,7 +18,7 @@ class m210218_205050_create_booking_stay_nearby_table extends Migration
             'name' => $this->string(),
             'distance' => $this->integer(),
             'category_id' => $this->integer()->notNull(),
-            'unit' => $this->string(2),
+            //'unit' => $this->string(2),
         ]);
 
         $this->createIndex('{{%idx-booking_stays_nearby-stay_id}}', '{{%booking_stays_nearby}}', 'stay_id');

@@ -6,6 +6,7 @@ namespace booking\services\booking\tours;
 
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\stack\Stack;
+use booking\forms\booking\stays\StayDutyForm;
 use booking\forms\booking\tours\StackTourForm;
 use booking\repositories\booking\tours\StackTourRepository;
 
@@ -94,4 +95,5 @@ class StackService
         }
         return true;
     }
+
 }
