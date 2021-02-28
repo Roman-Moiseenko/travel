@@ -46,6 +46,17 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <div class="card card-secondary">
         <div class="card-header"></div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+            <?= \hail812\adminlte3\widgets\Callout::widget([
+                'type' => 'info',
+                'head' => '<span class="badge badge-info">Информация</span>',
+                'body' => 'Дополнительные сборы будут добавлены к стоимости проживания, если установлен параметр "Не включен в тариф", в ином случае они носят инфорационных характер.<br>' .
+                    'Если Вы хотите добавить возможность выбора Гостю приобретать или нет, то создайте услугу (платную) в следующем блоке.'
+            ]) ?>
+            </div>
+            </div>
+            <p></p>
             <?php foreach ($model->assignDuty as $i => $assignDutyForm): ?>
                 <div class="row">
                     <div class="col-sm-10">

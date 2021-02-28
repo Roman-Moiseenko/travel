@@ -15,4 +15,5 @@ class Filling
     const PHOTOS = 7;
     const EXTRA = 8;
     const DUTY = 9;
+    const SERVICES = 10;
 }

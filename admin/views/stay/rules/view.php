@@ -54,11 +54,11 @@ $this->params['breadcrumbs'][] = 'Правила размещения';
                 парковка <span
                         class="badge badge-success"><?= Parking::listInside()[$stay->rules->parking->inside] ?></span>
                 <br>
-                <?= $stay->rules->parking->reserve ? 'Необходимо предварительно бронировать' : '' ?><br>
-                <?= $stay->rules->parking->security ? 'Парковка охраняется' : ''?><br>
-                <?= $stay->rules->parking->covered ? 'Парковка имеет укрытие от осадков' : ''?><br>
-                <?= $stay->rules->parking->street ? 'Парковка расположена на улице' : 'Парковка расположена в здании'?><br>
-                <?= $stay->rules->parking->invalid ? 'Имеются места для людей с физическими ограничениями' : ''?><br>
+                <?= $stay->rules->parking->reserve ? 'Необходимо предварительно бронировать<br>' : '' ?>
+                <?= $stay->rules->parking->security ? 'Парковка охраняется<br>' : ''?>
+                <?= $stay->rules->parking->covered ? 'Парковка имеет укрытие от осадков<br>' : ''?>
+                <?= $stay->rules->parking->street ? 'Парковка расположена на улице' : 'Парковка расположена в здании<br>'?>
+                <?= $stay->rules->parking->invalid ? 'Имеются места для людей с физическими ограничениями<br>' : ''?>
                 <?= (int)$stay->rules->parking->status == Rules::STATUS_PAY ? 'Стоимость парковки <u>за ' . Parking::listCost()[$stay->rules->parking->cost_type] . '</u> <span class="badge badge-warning">' . $stay->rules->parking->cost . ' руб. </span>' : ''?>
 
             <?php else: ?>
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = 'Правила размещения';
         <div class="card-header">Правила заселения</div>
         <div class="card-body">
             Заезд гостей возможен с <?= CheckIn::string_time($stay->rules->checkin->checkin_from) ?> до <?= CheckIn::string_time($stay->rules->checkin->checkin_to) ?><br>
-            Отъезд гостей возможен с с <?= CheckIn::string_time($stay->rules->checkin->checkout_from) ?> до <?= CheckIn::string_time($stay->rules->checkin->checkout_to) ?><br>
+            Отъезд гостей возможен с <?= CheckIn::string_time($stay->rules->checkin->checkout_from) ?> до <?= CheckIn::string_time($stay->rules->checkin->checkout_to) ?><br>
         <?= $stay->rules->checkin->message ? 'Гостям необходимо предварительно сообщить время заезда' : '' ?>
 
         </div>

@@ -76,17 +76,7 @@ class CalendarController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
-            if (isset($params['current_month'])) {
-                $month = date('m');
-                $year = date('Y');
-                $day = date('d');
-            } else {
-                $month = $params['month'];
-                $year = $params['year'];
-                $day = 1;
-            }
             return json_encode($this->calendar->getCalendarForDatePickerBackend($params['car_id']));
-            //return json_encode($this->calendar->getCalendarForDatePicker($params['car_id'], $month, $year, $day));
         }
     }
 
@@ -115,14 +105,10 @@ class CalendarController extends Controller
                     $params['_count'],
                     $params['_cost']
                 );
-
                $errors['new_car'] = $test;
-
             } catch (\DomainException $e) {
                 return $e->getMessage();
             }
-
-            //return $calendar->time_at;
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['car_id'], $errors);
         }
     }

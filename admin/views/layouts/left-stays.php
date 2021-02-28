@@ -22,7 +22,6 @@ use yii\helpers\Url;
         <?= ProfileLeftBarWidget::widget()?>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
@@ -33,6 +32,7 @@ use yii\helpers\Url;
                     ['label' => 'Спальные места', 'icon' => 'bed', 'url' => ['/stay/bedrooms', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/bedrooms'],
                     ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/stay/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/params'],
                     ['label' => 'Дополнительные сборы', 'icon' => 'coins', 'url' => ['/stay/duty', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/duty'],
+                    ['label' => 'Услуги', 'icon' => 'hand-holding-usd', 'url' => ['/stay/services', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/services'],
                     ['label' => 'Фотографии', 'icon' => 'camera-retro', 'url' => ['/stay/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/photos'],
                     ['label' => 'Цены', 'icon' => 'money-check-alt', 'url' => ['/stay/finance', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/finance'],
                     ['label' => 'Календарь', 'iconStyle' => 'far', 'icon' => 'calendar-alt', 'url' => ['/stay/calendar', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/calendar'],

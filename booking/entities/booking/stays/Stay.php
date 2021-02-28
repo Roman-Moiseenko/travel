@@ -74,6 +74,8 @@ use yii\web\UploadedFile;
  * @property Photo[] $photos
  * @property ReviewStay[] $reviews
  * @property AssignDuty[] $duty
+ * @property CostCalendar[] $actualCalendar
+ * @property CustomServices[] $services
  *
  * @property string $adr_address [varchar(255)]
  * @property string $adr_latitude [varchar(255)]
@@ -83,6 +85,7 @@ use yii\web\UploadedFile;
 class Stay extends ActiveRecord
 {
     const MAX_BEDROOMS = 8;
+    const STAY_EMPTY = 14;
 
     public $address;
     public $params;
@@ -215,6 +218,32 @@ class Stay extends ActiveRecord
         }
         return null;
     }
+    ////////////////////////////////
+
+   ///////////////// SERVICES /////////////////////////////////////
+
+    public function getServicesById(int $id)
+    {
+        foreach ($this->services as $customServices) {
+            if ($customServices->isFor($id)) return $customServices;
+        }
+        return null;
+    }
+
+    public function addServices($name, $value, $payment)
+    {
+        $services = $this->services;
+        $services[] = CustomServices::create($name, $value, $payment);
+
+        $this->services = $services;
+
+    }
+
+    public function clearServices()
+    {
+        $this->services = [];
+    }
+    ////////////////////////////////
 
     public function setLegal($legalId): void
     {
@@ -328,6 +357,8 @@ class Stay extends ActiveRecord
                     'assignComforts',
                     'bedrooms',
                     'duty',
+                    'actualCalendar',
+                    'services',
                 ],
             ],
         ];
@@ -544,6 +575,15 @@ class Stay extends ActiveRecord
 
     /** <========== Photo */
 
+    public function addCostCalendar($stay_at, $cost_base, $guest_base, $cost_add)
+    {
+        $calendar = CostCalendar::create($stay_at, $cost_base, $guest_base, $cost_add);
+        $calendars = $this->actualCalendar;
+        $calendars[] = $calendar;
+        $this->actualCalendar = $calendars;
+        //TODO !!!!
+
+    }
 
     /** getXXX ==========> */
     public function getType(): ActiveQuery
@@ -627,6 +667,15 @@ class Stay extends ActiveRecord
         return $this->hasMany(AssignRoom::class, ['stay_id' => 'id']);
     }
 
+    public function getActualCalendar(): ActiveQuery
+    {
+        return $this->hasMany(CostCalendar::class, ['stay_id' => 'id']);
+    }
+
+    public function getServices(): ActiveQuery
+    {
+        return $this->hasMany(CustomServices::class, ['stay_id' => 'id']);
+    }
 
 
     /** <========== getXXX */

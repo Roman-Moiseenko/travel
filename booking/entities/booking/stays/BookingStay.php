@@ -7,11 +7,47 @@ namespace booking\entities\booking\stays;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\Discount;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
+/**
+ * Class BookingStay
+ * @package booking\entities\booking\stays
+ * @property integer $id
+ * @property integer $user_id
+ * @property integer $stay_id
+ * @property integer $status
+ * @property integer $created_at
+ * @property integer $begin_at
+ * @property integer $end_at
+
+Выплаты
+ * @property float $payment_provider - оплата провайдеру
+ * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
+ * @property string $payment_id - ID платежа по ЮКассе
+ * @property integer $payment_at - дата оплаты
+ * @property float $payment_merchant - оплата комиссии банку (в руб)
+ * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
+ * @property string $confirmation - код подтверждения, для неоплачиваемых
+
+ * @property integer $pincode
+ * @property boolean $unload
+
+ * @property integer $discount_id
+ * @property integer $guest_add
+ * @property string $comment
+ * @property Discount $discount
+ * @property integer $bonus
+
+ * @property CostCalendar[] $calendars
+ * @property BookingStayOnDay[] $days
+ * @property Stay $stay
+ * @property \booking\entities\user\User $user
+ * @property \booking\entities\check\User $checkUser
+ */
 class BookingStay extends ActiveRecord implements BookingItemInterface
 {
 
@@ -176,5 +212,10 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     public function isCheckBooking(): bool
     {
         // TODO: Implement isCheckBooking() method.
+    }
+
+    public function isNew(): bool
+    {
+        // TODO: Implement isNew() method.
     }
 }

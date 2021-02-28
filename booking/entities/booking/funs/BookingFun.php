@@ -55,8 +55,6 @@ use yii\helpers\Url;
  * @property int $calendar_id [int]
  */
 
-// * @property CostCalendar $calendar
-// * @property integer $calendar_id
 
 class BookingFun extends ActiveRecord implements BookingItemInterface
 {

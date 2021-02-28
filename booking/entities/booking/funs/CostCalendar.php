@@ -24,6 +24,9 @@ use yii\db\ActiveRecord;
  * @property BookingFunOnDay[] $bookingOnDays
  * @property BookingFun[] $bookings
  * @property SellingFun[] $selling
+ * @property int $cost_adult [int]
+ * @property int $cost_child [int]
+ * @property int $cost_preference [int]
  */
 class CostCalendar extends ActiveRecord  implements CalendarInterface
 {

@@ -68,11 +68,11 @@ class Parking
 
     public static function listPrivate(): array
     {
-        return [true => 'Частная', false => 'Общественная'];
+        return [true => 'частная', false => 'общественная'];
     }
 
     public static function listInside(): array
     {
-        return [true => 'На территории', false => 'За пределами территории'];
+        return [true => 'на территории', false => 'за пределами территории'];
     }
 }

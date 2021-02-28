@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => $stay->name, 'url' => ['/stay/commo
 $this->params['breadcrumbs'][] = 'Цены';
 ?>
 <div class="stay-finance">
-    <div class="card card-secondary">
+    <div class="card card-info">
         <div class="card-header with-border">Базовая стоимость</div>
         <div class="card-body">
             <?= DetailView::widget([
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Цены';
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-secondary">
+            <div class="card card-info">
                 <div class="card-header with-border">Оплата</div>
                 <div class="card-body">
                     <?= DetailView::widget([

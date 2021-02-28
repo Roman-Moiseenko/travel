@@ -7,6 +7,7 @@ use booking\entities\booking\AgeLimit;
 
 use booking\entities\booking\stays\bedroom\AssignBed;
 use booking\entities\booking\stays\bedroom\AssignRoom;
+use booking\entities\booking\stays\CostCalendar;
 use booking\entities\booking\stays\rules\Beds;
 use booking\entities\booking\stays\rules\CheckIn;
 use booking\entities\booking\stays\rules\Limit;
@@ -26,6 +27,7 @@ use booking\forms\booking\stays\StayFinanceForm;
 use booking\forms\booking\stays\StayNearbyForm;
 use booking\forms\booking\stays\StayParamsForm;
 use booking\forms\booking\stays\StayRulesForm;
+use booking\forms\booking\stays\StayServicesForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\Filling;
 use booking\helpers\scr;
@@ -312,6 +314,22 @@ class StayService
         $this->stays->save($stay);
     }
 
+    public function setServices(int $id, StayServicesForm $form)
+    {
+        $stay = $this->stays->get($id);
+        $stay->clearServices();
+        $this->stays->save($stay);
+        foreach ($form->services as $customServicesForm) {
+            $stay->addServices(
+                $customServicesForm->name,
+                $customServicesForm->value,
+                $customServicesForm->payment
+            );
+        }
+        $this->stays->save($stay);
+    }
+
+
     public function setFinance($id, StayFinanceForm $form): void
     {
         $stay = $this->stays->get($id);
@@ -412,20 +430,43 @@ class StayService
         //TODO !!!!! отправка жалобы на заблокированный объект
     }
 
-    public function addCostCalendar(int $id, int $stay_at)
+    public function clearCostCalendar(int $id, int $stay_at)
     {
-
-        //TODO  addCostCalendar
         $stay = $this->stays->get($id);
-/*
-        $stay->addCostCalendar(
-            $tour_at,
-            $time_at,
-            $tickets,
-            $cost_adult,
-            $cost_child,
-            $cost_preference
-        );*/
+        $calendars = $stay->actualCalendar;
+        foreach ($calendars as $i => $calendar) {
+            if ($calendar->stay_at == $stay_at) {
+                if ($calendar->isBooking()) throw new \DomainException('Нельзя изменить/удалить с бронированием');
+                unset($calendars[$i]);
+            }
+        }
+        $stay->actualCalendar = $calendars;
+        $this->stays->save($stay);
+    }
+
+    public function addCostCalendar($stay_id, $stay_at, $cost_base, $guest_base, $cost_add)
+    {
+        $stay = $this->stays->get($stay_id);
+        $stay->addCostCalendar($stay_at, $cost_base, $guest_base, $cost_add);
+        $this->stays->save($stay);
+    }
+
+
+    public function copyCostCalendar(int $id, $new_day, $copy_day)
+    {
+        $stay = $this->stays->get($id);
+        $calendars = $stay->actualCalendar;
+        foreach ($calendars as $calendar) {
+            if ($calendar->stay_at === $copy_day) {
+                $calendars[] = CostCalendar::create(
+                    $new_day,
+                    $calendar->cost_base,
+                    $calendar->guest_base,
+                    $calendar->cost_add
+                );
+            }
+        }
+        $stay->actualCalendar = $calendars;
         $this->stays->save($stay);
     }
 
@@ -447,7 +488,8 @@ class StayService
             Filling::BEDROOMS => Filling::PARAMS,
             Filling::PARAMS => Filling::NEARBY,
             Filling::NEARBY => Filling::DUTY,
-            Filling::DUTY => Filling::PHOTOS,
+            Filling::DUTY => Filling::SERVICES,
+            Filling::SERVICES => Filling::PHOTOS,
             Filling::PHOTOS => null,
         ];
         $stay->filling = $next[$stay->filling];
@@ -466,10 +508,10 @@ class StayService
             Filling::PARAMS => ['/stay/params/update', 'id' => $stay->id],
             Filling::NEARBY => ['/stay/nearby/update', 'id' => $stay->id],
             Filling::DUTY => ['/stay/duty/update', 'id' => $stay->id],
+            Filling::SERVICES => ['/stay/services/update', 'id' => $stay->id],
             Filling::PHOTOS => ['/stay/photos/index', 'id' => $stay->id],
         ];
         return $redirect[$stay->filling];
     }
-
 
 }

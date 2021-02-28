@@ -378,7 +378,6 @@ class FunService
     {
         $fun = $this->funs->get($id);
         $calendars = $fun->actualCalendar;
-        //$temp_array = [];
         foreach ($calendars as $calendar) {
             if ($calendar->fun_at === $copy_day) {
                 $calendars[] = CostCalendar::create(
@@ -391,8 +390,6 @@ class FunService
                     ),
                     $calendar->tickets
                 );
-                //$calendar_copy->fun_at = $new_day;
-                //$temp_array[] = $calendar_copy;
             }
         }
         $fun->actualCalendar = $calendars;
