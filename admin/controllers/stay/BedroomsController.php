@@ -89,11 +89,13 @@ class BedroomsController extends Controller
                 $params = \Yii::$app->request->bodyParams;
                 $stay_id = (int)$params['stay_id'];
                 $count_room = (int)$params['count_room'];
+
                 $bedrooms = [];
                 if ($count_room != 0) {
                     $_rooms = $params['rooms'];
                     foreach ($_rooms as $i => $room) {
-                        $bedroom = AssignRoom::create($stay_id, $i, false);
+                        $square = 0; //$room[];
+                        $bedroom = AssignRoom::create($stay_id, $i, $square, false);
                         foreach ($room as $j => $item) {
                             if ($item != "") $bedroom->addBed(AssignBed::create($j, (int)$room[$j]));
                         }
@@ -101,7 +103,7 @@ class BedroomsController extends Controller
                     }
                 }
                 if ($params['status'] == "add")
-                    $bedrooms[] = AssignRoom::create($stay_id, count($bedrooms), false);
+                    $bedrooms[] = AssignRoom::create($stay_id, count($bedrooms), 0,false);
                 return $this->render('_bedroom', [
                     'bedrooms' => $bedrooms,
                 ]);

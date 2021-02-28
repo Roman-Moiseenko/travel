@@ -44,7 +44,7 @@ class ToursController extends Controller
         } else {
             $dataProvider = $this->tours->search();
         }
-        //return $this->redirect();
+
         return $this->render('index_top', [
             'model' => $form,
             'dataProvider' => $dataProvider,

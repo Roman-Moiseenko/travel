@@ -104,7 +104,8 @@ class StayService
                 $form->address->longitude
             ),
             $form->name_en,
-            $form->description_en
+            $form->description_en,
+            $form->city
         );
         $stay->filling = Filling::COMMON;
         $this->stays->save($stay);
@@ -124,7 +125,8 @@ class StayService
                 $form->address->longitude
             ),
             $form->name_en,
-            $form->description_en
+            $form->description_en,
+            $form->city
         );
         $this->stays->save($stay);
     }
@@ -254,14 +256,14 @@ class StayService
         }
         $i = 0;
         foreach ($form->bedrooms as $bedroomsForm) {
-            $bedroom = AssignRoom::create($stay->id, $i++);
+            $bedroom = AssignRoom::create($stay->id, $i++, $bedroomsForm->square);
             foreach ($bedroomsForm->bed_type as $j => $bed_id) {
                 if ((int)$bedroomsForm->bed_count[$j] > 0)
                     $bedroom->addBed(AssignBed::create($bed_id, $bedroomsForm->bed_count[$j]));
             }
             $bedroom->save();
         }
-        $this->stays->save($stay);
+        $this->stays->save($stay); //Не обязательно
     }
 
     public function setParams($id, StayParamsForm $form)

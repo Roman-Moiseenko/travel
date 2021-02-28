@@ -35,6 +35,15 @@ $mobile = SysHelper::isMobile();
                 </div>
                 <div class="collapse" id="collapse-<?= $i ?>">
                     <div class="card-body">
+                        <div class="<?= $mobile ? 'row' : 'd-flex' ?>">
+                            <div>Площадь спальни (кв.м)</div>
+                            <div class="ml-auto">
+                            <input type="number" name="BedroomsForm[<?= $i ?>][square]"
+                                   class="form-control form-control-sm" width="50px"
+                                   value="<?= $bedroom->square ?>">
+                            </div>
+                        </div>
+                        <hr/>
                         <?php foreach (TypeOfBed::find()->all() as $j => $typeOfBed): ?>
                             <div class="<?= $mobile ? 'row' : 'd-flex' ?>">
                                 <div>

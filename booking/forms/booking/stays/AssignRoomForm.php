@@ -14,10 +14,15 @@ use yii\base\Model;
  * @package booking\forms\booking\stays
  * @property BedForm[] $beds
  */
+
+//TODO Не используется
 class AssignRoomForm extends CompositeForm
 {
+    public $square;
+
     public function __construct(AssignRoom $room, $config = [])
     {
+        $this->square = $room->square;
         $this->beds = array_map(function (TypeOfBed $typeOfBed) use ($room) {
             return new BedForm($typeOfBed, $room->getCount($typeOfBed->id));
         }, TypeOfBed::find()->orderBy('count')->all());
@@ -27,5 +32,12 @@ class AssignRoomForm extends CompositeForm
     protected function internalForms(): array
     {
         return ['beds'];
+    }
+
+    public function rules()
+    {
+        return [
+            ['square', 'integer', 'min' => 0],
+        ];
     }
 }

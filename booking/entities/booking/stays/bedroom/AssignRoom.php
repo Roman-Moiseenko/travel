@@ -14,17 +14,19 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $stay_id
  * @property integer $sort
+ * @property integer $square ... жилая площадь спальни
  * @property bool $living ... true - гостиная, false - спальня
  * @property AssignBed[] $assignBeds
  */
 class AssignRoom extends ActiveRecord
 {
-    public static function create($stay_id, $sort, $living = false): self
+    public static function create($stay_id, $sort, $square, $living = false): self
     {
         $assign = new static();
         $assign->stay_id = $stay_id;
         $assign->sort = $sort;
         $assign->living = $living;
+        $assign->square = $square;
         return $assign;
     }
 

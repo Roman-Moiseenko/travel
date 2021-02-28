@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = 'Спальные места';
             Максимальное количество гостей <span class="badge badge-primary"><?= $stay->getMaxGuest() ?></span>, за исключением размещаемых на дополнительных кроватей и детей на имеющихся.<br>
             <label>Спальни:</label>
             <?php foreach ($stay->bedrooms as $i => $bedroom): ?>
-            <div class="pl-2" style="color: #1e6186;">Спальня <?= $i + 1 ?></div>
+            <div class="pl-2" style="color: #1e6186;">Спальня <?= $i + 1 ?> (<span class="badge badge-info"><?= $bedroom->square ?></span> кв.м)</div>
             <div class="row">
                 <div class="col-sm-11 col-md-10 col-lg-8 col-xl-5 pl-5">
                     <?php foreach ($bedroom->assignBeds as $assignBed): ?>

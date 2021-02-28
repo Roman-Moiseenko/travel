@@ -27,14 +27,14 @@ use yii\bootstrap4\ActiveForm;
             <div class="col-md-6">
                 <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class, [
                     'editorOptions' => [
-                        'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                        'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
                     ],
-                ]) ?>
+                ])->hint('Краткий текст, особенности вашей квартиры. Основная информация о наличии удобств, спальных мест, ограничений и услуг будет введена в других разделах.') ?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)')->widget(CKEditor::class, [
                     'editorOptions' => [
-                        'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                        'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
                     ],
                 ]) ?>
             </div>
@@ -50,6 +50,7 @@ use yii\bootstrap4\ActiveForm;
             <div class="col-2">
                 <?= $form->field($model->address, 'longitude')->textInput(['maxlength' => true, 'readOnly' => true])->label('Долгота') ?>
             </div>
+            <?= $form->field($model, 'city')->textInput(['maxlength' => true, 'type' => 'hidden'])->label(false) ?>
         </div>
         <div class="row">
             <div id="map" style="width: 100%; height: 300px"></div>

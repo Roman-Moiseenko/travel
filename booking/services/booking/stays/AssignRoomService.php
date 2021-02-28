@@ -22,10 +22,11 @@ class AssignRoomService
         $this->rooms = $rooms;
     }
 
+    //TODO Не используется
     public function create($stay_id, AssignRoomForm $form, $living = false): AssignRoom
     {
         $sort = 1;
-        $room = AssignRoom::create($stay_id, $sort, $living);
+        $room = AssignRoom::create($stay_id, $sort, $form->square, $living);
 
         foreach ($form->beds as $bedForm) {
             $room->addBed(

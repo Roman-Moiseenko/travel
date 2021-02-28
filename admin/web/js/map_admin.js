@@ -5,6 +5,7 @@ function init() {
     let suggest = 'bookingaddressform-address';
     let latitude = 'bookingaddressform-latitude';
     let longitude = 'bookingaddressform-longitude';
+    let suggest_city = 'staycommonform-city';
 
     /*** Для MAP-CAR ***/
     let array_coords = [];
@@ -388,9 +389,12 @@ function init() {
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
             $('#' + suggest).val(firstGeoObject.getAddressLine());
+            if (document.getElementById(suggest_city))
+                $('#' + suggest_city).val(firstGeoObject.getLocalities());
         });
     }
-
+//firstGeoObject.getLocalities()
+    //firstGeoObject.getAdministrativeAreas()
     function fillInput2(coords2) {
         $('#' + latitude + '-2').val(coords2[0]);
         $('#' + longitude + '-2').val(coords2[1]);
