@@ -11,6 +11,8 @@ use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\comfort\AssignComfort;
 use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\comfort\ComfortCategory;
+use booking\entities\booking\stays\comfort_room\AssignComfortRoom;
+use booking\entities\booking\stays\comfort_room\ComfortRoom;
 use booking\entities\booking\stays\duty\AssignDuty;
 use booking\entities\booking\stays\nearby\Nearby;
 use booking\entities\booking\stays\nearby\NearbyCategory;
@@ -20,6 +22,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
+use booking\helpers\SysHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -66,6 +69,7 @@ use yii\web\UploadedFile;
  * @property integer $filling ... текущий раздел при заполнении
  * ====== GET-Ы ============================================
  * @property AssignComfort[] $assignComforts
+ * @property AssignComfortRoom[] $assignComfortsRoom
  * @property Comfort[] $comforts
  * @property AssignRoom[] $bedrooms
  * @property Nearby[] $nearbyes
@@ -133,11 +137,30 @@ class Stay extends ActiveRecord
         return null;
     }
 
-    public function addComfort($id, $pay = null, $photo_id = null)
+    public function addComfort($id, $pay, UploadedFile $file = null)
     {
         $comforts = $this->assignComforts;
-        $comforts[] = AssignComfort::create($id, $pay, $photo_id);
+        $comfort = AssignComfort::create($id, $pay);
+        if ($file) {
+            SysHelper::orientation($file->tempName);
+            $comfort->setPhoto($file);
+        }
+        $comforts[] = $comfort;
         $this->assignComforts = $comforts;
+    }
+
+    public function setComfort($id, $pay, UploadedFile $file = null)
+    {
+        $comforts = $this->assignComforts;
+        foreach ($comforts as $i => $comfort) {
+            if ($comfort->isFor($id)) {
+                if ($file) $comfort->setPhoto($file);
+                $comfort->pay = $pay;
+                $this->assignComforts = $comforts;
+                return;
+            }
+        }
+        $this->addComfort($id, $pay, $file);
     }
 
     public function revokeComfort($id)
@@ -150,7 +173,6 @@ class Stay extends ActiveRecord
                 return;
             }
         }
-        throw new \DomainException('Удобство не найдено.');
     }
 
     public function revokeComforts()
@@ -165,7 +187,78 @@ class Stay extends ActiveRecord
             $category = $assignComfort->comfort->category;
             $result[$category->id]['name'] = $category->name;
             $result[$category->id]['image'] = $category->image;
-            $result[$category->id]['items'][] = ['name' => $assignComfort->comfort->name, 'pay' => $assignComfort->pay, 'photo' => $assignComfort->photo_id];
+            $result[$category->id]['items'][] = [
+                'name' => $assignComfort->comfort->name,
+                'pay' => $assignComfort->pay,
+                'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
+            ];
+        }
+        return $result;
+    }
+
+    //// AssignComfortRoom::class ///////////////////////////
+
+    public function getAssignComfortRoom(int $id)
+    {
+        $comforts = $this->assignComfortsRoom;
+        foreach ($comforts as $comfort) {
+            if ($comfort->isFor($id)) return $comfort;
+        }
+        return null;
+    }
+
+    public function addComfortRoom($id, UploadedFile $file = null)
+    {
+        $comforts = $this->assignComfortsRoom;
+        $comfort = AssignComfortRoom::create($id);
+        if ($file) {
+            SysHelper::orientation($file->tempName);
+            $comfort->setPhoto($file);
+        }
+        $comforts[] = $comfort;
+        $this->assignComfortsRoom = $comforts;
+    }
+
+    public function setComfortRoom($id, UploadedFile $file = null)
+    {
+        $comforts = $this->assignComfortsRoom;
+        foreach ($comforts as $i => $comfort) {
+            if ($comfort->isFor($id)) {
+                if ($file) $comfort->setPhoto($file);
+                $this->assignComfortsRoom = $comforts;
+                return;
+            }
+        }
+        $this->addComfortRoom($id, $file);
+    }
+
+    public function revokeComfortRoom($id)
+    {
+        $comforts = $this->assignComfortsRoom;
+        foreach ($comforts as $i => $comfort) {
+            if ($comfort->isFor($id)) {
+                unset($comforts[$i]);
+                $this->assignComfortsRoom = $comforts;
+                return;
+            }
+        }
+    }
+    public function revokeComfortsRoom()
+    {
+        $this->assignComfortsRoom = [];
+    }
+
+    public function getComfortsRoomSortCategory(): array
+    {
+        $result = [];
+        foreach ($this->assignComfortsRoom as $assignComfort) {
+            $category = $assignComfort->comfortRoom->category;
+            $result[$category->id]['name'] = $category->name;
+            $result[$category->id]['image'] = $category->image;
+            $result[$category->id]['items'][] = [
+                'name' => $assignComfort->comfortRoom->name,
+                'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
+            ];
         }
         return $result;
     }
@@ -358,6 +451,7 @@ class Stay extends ActiveRecord
                     'reviews',
                     'nearbyes',
                     'assignComforts',
+                    'assignComfortsRoom',
                     'bedrooms',
                     'duty',
                     'actualCalendar',
@@ -629,9 +723,19 @@ class Stay extends ActiveRecord
         return $this->hasMany(AssignComfort::class, ['stay_id' => 'id']);
     }
 
+    public function getAssignComfortsRoom(): ActiveQuery
+    {
+        return $this->hasMany(AssignComfortRoom::class, ['stay_id' => 'id']);
+    }
+
     public function getComforts(): ActiveQuery
     {
         return $this->hasMany(Comfort::class, ['id' => 'comfort_id'])->via('assignComforts');
+    }
+
+    public function getComfortsRoom(): ActiveQuery
+    {
+        return $this->hasMany(ComfortRoom::class, ['id' => 'comfort_id'])->via('assignComfortsRoom');
     }
 
     public function getNearbyes(): ActiveQuery
@@ -679,6 +783,7 @@ class Stay extends ActiveRecord
     {
         return $this->hasMany(CustomServices::class, ['stay_id' => 'id']);
     }
+
 
 
     /** <========== getXXX */

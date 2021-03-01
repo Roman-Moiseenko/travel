@@ -16,4 +16,5 @@ class Filling
     const EXTRA = 8;
     const DUTY = 9;
     const SERVICES = 10;
+    const COMFORT_ROOM = 11;
 }

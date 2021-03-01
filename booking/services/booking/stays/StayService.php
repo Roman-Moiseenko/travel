@@ -21,6 +21,7 @@ use booking\forms\booking\ReviewForm;
 
 use booking\forms\booking\stays\StayBedroomsForm;
 use booking\forms\booking\stays\StayComfortForm;
+use booking\forms\booking\stays\StayComfortRoomForm;
 use booking\forms\booking\stays\StayCommonForm;
 use booking\forms\booking\stays\StayDutyForm;
 use booking\forms\booking\stays\StayFinanceForm;
@@ -192,18 +193,30 @@ class StayService
     public function setComfort($id, StayComfortForm $form)
     {
         $stay = $this->stays->get($id);
-        $stay->revokeComforts();
-        $this->stays->save($stay);
-
+        //$stay->revokeComforts();
+        //$this->stays->save($stay);
         foreach ($form->assignComforts as $item) {
-            if ($item->comfort_id != 0) {
-                //scr::_p($item->comfort_id);
-                $stay->addComfort($item->comfort_id, $item->pay, $item->photo_id);
+            if ($item->checked) {
+                $stay->setComfort($item->comfort_id, $item->pay, $item->file);
+            } else {
+                $stay->revokeComfort($item->comfort_id);
             }
         }
         $this->stays->save($stay);
     }
 
+    public function setComfortRoom(int $id, StayComfortRoomForm $form)
+    {
+        $stay = $this->stays->get($id);
+        foreach ($form->assignComfortsRoom as $item) {
+            if ($item->checked) {
+                $stay->setComfortRoom($item->comfort_id, $item->file);
+            } else {
+                $stay->revokeComfortRoom($item->comfort_id);
+            }
+        }
+        $this->stays->save($stay);
+    }
     public function setRules($id, StayRulesForm $form)
     {
         $stay = $this->stays->get($id);
@@ -485,7 +498,8 @@ class StayService
         if ($stay->filling == null) return null;
         $next = [
             Filling::COMMON => Filling::COMFORT,
-            Filling::COMFORT => Filling::RULES,
+            Filling::COMFORT => Filling::COMFORT_ROOM,
+            Filling::COMFORT_ROOM => Filling::RULES,
             Filling::RULES => Filling::BEDROOMS,
             Filling::BEDROOMS => Filling::PARAMS,
             Filling::PARAMS => Filling::NEARBY,
@@ -505,6 +519,7 @@ class StayService
         $redirect = [
             Filling::COMMON => ['/stay/common/create', 'id' => $stay->id],
             Filling::COMFORT => ['/stay/comfort/update', 'id' => $stay->id],
+            Filling::COMFORT_ROOM => ['/stay/comfort-room/update', 'id' => $stay->id],
             Filling::RULES => ['/stay/rules/update', 'id' => $stay->id],
             Filling::BEDROOMS => ['/stay/bedrooms/update', 'id' => $stay->id],
             Filling::PARAMS => ['/stay/params/update', 'id' => $stay->id],
@@ -515,5 +530,6 @@ class StayService
         ];
         return $redirect[$stay->filling];
     }
+
 
 }

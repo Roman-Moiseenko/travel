@@ -8,24 +8,24 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var  $stay Stay*/
 
-$this->title = 'Удобства ' . $stay->name;
+$this->title = 'Удобства в комнатах ' . $stay->name;
 $this->params['id'] = $stay->id;
 $this->params['breadcrumbs'][] = ['label' => 'Жилища', 'url' => ['/stays']];
 $this->params['breadcrumbs'][] = ['label' => $stay->name, 'url' => ['/stay/common', 'id' => $stay->id]];
 $this->params['breadcrumbs'][] = 'Удобства';
 ?>
 <div class="comfort">
-    <?php foreach ($stay->getComfortsSortCategory() as $i => $category): ?>
+    <?php foreach ($stay->getComfortsRoomSortCategory() as $i => $category): ?>
         <div class="card card-info">
             <div class="card-header"><i class="<?= $category['image'] ?>"></i> <?= $category['name'] ?></div>
             <div class="card-body">
                 <?php foreach ($category['items'] as $comfort): ?>
                     <div>
-                        <?= $comfort['name'] . ' ' . ($comfort['pay'] == true ? '<span class="badge badge-danger">платно</span>' : '<span class="badge badge-success">free</span>') ?>
+                        <?= $comfort['name'] ?>
                         <?php if ($comfort['photo'] != ''): ?>
-                            <a class="up-image" href="#"><i class="fas fa-file-image" style="color: #0c525d; font-size: 20px;"></i>
-                                <span><img src="<?= $comfort['photo'] ?>" alt=""></span>
-                            </a>
+                        <a class="up-image" href="#"><i class="fas fa-file-image" style="color: #0c525d; font-size: 20px;"></i>
+                            <span><img src="<?= $comfort['photo'] ?>" alt=""></span>
+                                            </a>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>

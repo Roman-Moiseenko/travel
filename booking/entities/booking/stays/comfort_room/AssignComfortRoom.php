@@ -16,22 +16,19 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $comfort_id
  * @property string $file
  * @property ComfortRoom $comfortRoom
- * @property int $stays_id [int]
  * @mixin ImageUploadBehavior
  */
 class AssignComfortRoom extends ActiveRecord
 {
 
-    public static function create($comfort_id, UploadedFile $file = null): self
+    public static function create($comfort_id): self
     {
         $assign = new static();
         $assign->comfort_id = $comfort_id;
-        if ($file)
-            $assign->file = $file;
         return $assign;
     }
 
-    public function updatePhoto(UploadedFile $file): void
+    public function setPhoto(UploadedFile $file): void
     {
         $this->file = $file;
     }
@@ -58,21 +55,21 @@ class AssignComfortRoom extends ActiveRecord
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'file',
                 'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/stays/comfort_room/[[attribute_stay_id]]/[[stay_id]].[[extension]]',
-                'fileUrl' => '@static/origin/stays/comfort_room/[[attribute_stay_id]]/[[stay_id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/stays/comfort_room/[[attribute_stay_id]]/[[profile]]_[[stay_id]].[[extension]]',
-                'thumbUrl' => '@static/cache/stays/comfort_room/[[attribute_stay_id]]/[[profile]]_[[stay_id]].[[extension]]\'',
+                'filePath' => '@staticRoot/origin/stays/comfort_room/[[attribute_stay_id]]/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/stays/comfort_room/[[attribute_stay_id]]/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/stays/comfort_room/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/stays/comfort_room/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 240],
-                    'list' => ['width' => 150, 'height' => 150],
+ /*                   'list' => ['width' => 150, 'height' => 150],
                     'top_widget_list'=> ['width' => 30, 'height' => 30],
                     'widget_list' => ['width' => 57, 'height' => 57],
                     'cabinet_list' => ['width' => 70, 'height' => 70],
                     'catalog_list' => ['width' => 228, 'height' => 228],
-                    'catalog_main' => ['width' => 1200, 'height' => 400], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
+                    'catalog_main' => ['width' => 1200, 'height' => 400],
                     'catalog_additional' => ['width' => 66, 'height' => 66],
-                    'catalog_origin' => ['width' => 1024, 'height' => 768],
+                    'catalog_origin' => ['width' => 1024, 'height' => 768],*/
                 ],
             ],
         ];

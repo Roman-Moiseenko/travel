@@ -4,6 +4,7 @@
 namespace booking\forms\booking;
 
 
+use booking\helpers\scr;
 use yii\base\Model;
 use yii\web\UploadedFile;
 

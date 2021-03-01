@@ -26,7 +26,8 @@ use yii\helpers\Url;
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Описание', 'icon' => 'align-justify', 'url' => ['/stay/common', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/common'],
-                    ['label' => 'Удобства', 'icon' => 'blender-phone', 'url' => ['/stay/comfort', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/comfort'],
+                    ['label' => 'Общие удобства', 'icon' => 'dumpster', 'url' => ['/stay/comfort', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/comfort'],
+                    ['label' => 'Удобства в комнатах', 'icon' => 'blender-phone', 'url' => ['/stay/comfort-room', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/comfort-room'],
                     ['label' => 'Правила', 'icon' => 'bell', 'url' => ['/stay/rules', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/rules'],
                     ['label' => 'Окресности', 'icon' => 'mountain', 'url' => ['/stay/nearby', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/nearby'],
                     ['label' => 'Спальные места', 'icon' => 'bed', 'url' => ['/stay/bedrooms', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/bedrooms'],

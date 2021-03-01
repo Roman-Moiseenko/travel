@@ -4,6 +4,7 @@
 namespace booking\forms\booking\stays;
 
 use booking\entities\booking\stays\comfort\Comfort;
+use booking\entities\booking\stays\comfort_room\ComfortRoom;
 use booking\entities\booking\stays\Stay;
 use booking\forms\CompositeForm;
 use booking\helpers\scr;
@@ -11,18 +12,18 @@ use booking\helpers\scr;
 /**
  * Class StayComfortForm
  * @package booking\forms\booking\stays
- * @property AssignComfortForm[] $assignComforts
+ * @property AssignComfortRoomForm[] $assignComfortsRoom
  */
-class StayComfortForm extends CompositeForm
+class StayComfortRoomForm extends CompositeForm
 {
     public $stay_id;
     public function __construct(Stay $stay, $config = [])
     {
         $this->stay_id = $stay->id;
         $index = 0;
-        $this->assignComforts = array_map(function (Comfort $comfort) use ($stay, &$index) {
-            return new AssignComfortForm($comfort, $index++, $stay->getAssignComfort($comfort->id));
-        }, Comfort::find()->orderBy('category_id')->all());
+        $this->assignComfortsRoom = array_map(function (ComfortRoom $comfort) use ($stay, &$index) {
+            return new AssignComfortRoomForm($comfort, $index++, $stay->getAssignComfortRoom($comfort->id));
+        }, ComfortRoom::find()->orderBy('category_id')->all());
         parent::__construct($config);
     }
 
@@ -35,6 +36,6 @@ class StayComfortForm extends CompositeForm
 
     protected function internalForms(): array
     {
-        return ['assignComforts'];
+        return ['assignComfortsRoom'];
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
 use booking\entities\booking\stays\comfort\ComfortCategory;
+use booking\entities\booking\stays\comfort_room\ComfortRoomCategory;
 use booking\entities\booking\stays\Photo;
 use booking\entities\booking\stays\Stay;
-use booking\forms\booking\stays\StayComfortForm;
+use booking\forms\booking\stays\StayComfortRoomForm;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 use yii\bootstrap4\ActiveForm;
@@ -12,19 +13,20 @@ use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
-/* @var $model StayComfortForm */
+/* @var $model StayComfortRoomForm */
 /* @var $stay Stay */
 
 
-$this->title = 'Удобства ' . $stay->name;
+
+$this->title = 'Удобства в комнатах ' . $stay->name;
 $this->params['id'] = $stay->id;
 $this->params['breadcrumbs'][] = ['label' => 'Жилища', 'url' => ['/stays']];
 $this->params['breadcrumbs'][] = ['label' => $stay->name, 'url' => ['/stay/common', 'id' => $stay->id]];
 $this->params['breadcrumbs'][] = 'Редактировать';
 
-$categories = ComfortCategory::find()->all();
+$categories = ComfortRoomCategory::find()->all();
 ?>
-<div class="comfort">
+<div class="comfort-room">
     <?php $form = ActiveForm::begin([
         'enableClientValidation' => false,
     ]); ?>
@@ -33,24 +35,22 @@ $categories = ComfortCategory::find()->all();
         <div class="card card-secondary">
             <div class="card-header"><i class="<?= $category->image ?>"></i> <?= $category->name ?></div>
             <div class="card-body">
-                <?php foreach ($model->assignComforts as $i => $assignComfortForm): ?>
-                    <?php $comfort = $assignComfortForm->_comfort;
+                <?php foreach ($model->assignComfortsRoom as $i => $assignComfortRoomForm): ?>
+                    <?php $comfort = $assignComfortRoomForm->_comfort;
                     if ($comfort->category_id == $category->id): ?>
                         <div class="d-flex">
                             <?php
                             echo '<div class="px-2">' . $form
-                                    ->field($assignComfortForm, '[' . $i . ']checked')
-                                    ->checkbox()
+                                    ->field($assignComfortRoomForm, '[' . $i . ']checked')
+                                    ->checkbox([])
                                     ->label($comfort->name) . '</div>';
-                            echo '<div class="px-2">' . $form
-                                    ->field($assignComfortForm, '[' . $i . ']comfort_id')
-                                    ->textInput(['type' => 'hidden'])
-                                    ->label(false) . '</div>';
-                            if ($comfort->paid)
-                                echo '<div class="px-2">' . $form->field($assignComfortForm, '[' . $i . ']pay')->checkbox()->label('Платно') . '</div>';
-                            if ($comfort->photo){
+                            echo $form
+                                ->field($assignComfortRoomForm, '[' . $i . ']comfort_id')
+                                ->textInput(['type' => 'hidden'])
+                                ->label(false);
+                            if ($comfort->photo) {
                                 echo '<div class="px-2">' .
-                                    $form->field($assignComfortForm, '[' . $i . ']file')->widget(FileInput::class, [
+                                    $form->field($assignComfortRoomForm, '[' . $i . ']file')->widget(FileInput::class, [
                                         'language' => 'ru',
                                         'options' => [
                                             'accept' => 'image/*',
@@ -69,10 +69,10 @@ $categories = ComfortCategory::find()->all();
                                         ],
                                     ])->label(false) .
                                     '</div>';
-                                if ($assignComfortForm->_assignComfort) {
+                                if ($assignComfortRoomForm->_assignComfort) {
                                     echo '<a class="up-image" href="#"><i class="fas fa-file-image" style="color: #0c525d; font-size: 28px;"></i>'.
-                                        '<span><img src="' . $assignComfortForm->_assignComfort->getThumbFileUrl('file','thumb') . '" alt=""></span>'.
-                                        '</a>';
+                                            '<span><img src="' . $assignComfortRoomForm->_assignComfort->getThumbFileUrl('file','thumb') . '" alt=""></span>'.
+                                            '</a>';
                                 }
                             }
                             ?>
@@ -89,7 +89,7 @@ $categories = ComfortCategory::find()->all();
         } else {
             echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
         }
-         ?>
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

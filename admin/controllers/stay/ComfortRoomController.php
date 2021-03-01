@@ -6,6 +6,7 @@ namespace admin\controllers\stay;
 use admin\forms\StaySearch;
 use booking\entities\booking\stays\Stay;
 use booking\forms\booking\stays\StayComfortForm;
+use booking\forms\booking\stays\StayComfortRoomForm;
 use booking\forms\booking\stays\StayCommonForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
@@ -14,7 +15,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class ComfortController extends Controller
+class ComfortRoomController extends Controller
 {
     public  $layout = 'main-stays';
     /**
@@ -58,15 +59,17 @@ class ComfortController extends Controller
 
         $stay = $this->findModel($id);
         if ($stay->filling) { $this->layout = 'main-create';}
-        $form = new StayComfortForm($stay);
-        //scr::p(\Yii::$app->request->post());
+        $form = new StayComfortRoomForm($stay);
+        //scr::v(\Yii::$app->request->post());
+        //scr::v($_FILES);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->setComfort($stay->id, $form);
+                //scr::v($form);
+                $this->service->setComfortRoom($stay->id, $form);
                 if ($stay->filling) {
                     return $this->redirect($this->service->next_filling($stay));
                 } else {
-                    return $this->redirect(['/stay/comfort', 'id' => $stay->id]);
+                    return $this->redirect(['/stay/comfort-room', 'id' => $stay->id]);
                 }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
