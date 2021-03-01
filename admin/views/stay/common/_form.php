@@ -50,7 +50,9 @@ use yii\bootstrap4\ActiveForm;
             <div class="col-2">
                 <?= $form->field($model->address, 'longitude')->textInput(['maxlength' => true, 'readOnly' => true])->label('Долгота') ?>
             </div>
-            <?= $form->field($model, 'city')->textInput(['maxlength' => true, 'type' => 'hidden'])->label(false) ?>
+            <div class="col-8">
+                <?= $form->field($model, 'city')->textInput(['maxlength' => true])->label('Город')->hint('Используется для поиска жилья по городу/нас.пункту') ?>
+            </div>
         </div>
         <div class="row">
             <div id="map" style="width: 100%; height: 300px"></div>

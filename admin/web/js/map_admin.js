@@ -388,13 +388,37 @@ function init() {
         $('#' + longitude).val(coords[1]);
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
-            $('#' + suggest).val(firstGeoObject.getAddressLine());
-            if (document.getElementById(suggest_city))
-                $('#' + suggest_city).val(firstGeoObject.getLocalities());
+            $('#' + suggest).val(getChangeAddress(firstGeoObject.getAddressLine()));
+            if (document.getElementById(suggest_city)) {
+                $('#' + suggest_city).val(getCityAddress(firstGeoObject.getLocalities()[0]));
+            }
         });
     }
-//firstGeoObject.getLocalities()
-    //firstGeoObject.getAdministrativeAreas()
+
+    ////Убираем из адреса Страну и Область
+    function getChangeAddress(_address) {
+        let m_dev;
+        let _country;
+        for (let jx = 0; jx < 2; jx++) {
+            m_dev = _address.indexOf(',');
+            if (m_dev !== -1) {
+                _country = _address.slice(0, m_dev);
+                if (_country === "Россия" || _country === "Калининградская область") {
+                    _address = _address.slice(m_dev + 1, _address.length);
+                    _address = _address.trimStart();
+                }
+            }
+        }
+        return _address;
+    }
+
+    //Вытаскиваем название нас.пункта без типа
+    function getCityAddress(_city) {
+        let n_dev = _city.indexOf(' ');
+        if (n_dev !== -1) _city = _city.slice(n_dev + 1, _city.length);
+        return _city;
+    }
+
     function fillInput2(coords2) {
         $('#' + latitude + '-2').val(coords2[0]);
         $('#' + longitude + '-2').val(coords2[1]);

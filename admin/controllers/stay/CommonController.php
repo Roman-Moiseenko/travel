@@ -59,8 +59,6 @@ class CommonController extends Controller
             try {
                 $stay = $this->service->create($form);
                 return $this->redirect($this->service->next_filling($stay));
-                /*\Yii::$app->session->setFlash('success', 'Жилище успешно создано, теперь вы можете загрузить фотографии и настроить остальные параметры');
-                return $this->redirect(['/stay/common', 'id' => $stay->id]); */
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -88,7 +86,6 @@ class CommonController extends Controller
             'model' => $form,
             'stay' => $stay
         ]);
-
     }
 
     public function actionVerify($id)
