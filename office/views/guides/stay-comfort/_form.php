@@ -10,9 +10,11 @@ use yii\helpers\Html; ?>
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?= $form->field($model, 'category_id')->dropdownList(ComfortHelper::listCategories(), ['prompt' => ''])->label('Категория') ?>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название') ?>
                 </div>
@@ -21,9 +23,13 @@ use yii\helpers\Html; ?>
                 <div class="col-md-4">
                     <?= $form->field($model, 'paid')->checkbox(['maxlength' => true])->label('Возможна платная функция') ?>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <?= $form->field($model, 'featured')->checkbox(['maxlength' => true])->label('Рекомендуемый') ?>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <?= $form->field($model, 'photo')->checkbox(['maxlength' => true])->label('Возможнось загрузки фото') ?>
                 </div>
