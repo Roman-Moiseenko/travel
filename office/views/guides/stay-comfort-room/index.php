@@ -53,7 +53,15 @@ use yii\helpers\Url;
                     'format' => 'raw',
                     'contentOptions' => ['data-label' => 'Название'],
                 ],
-
+                [
+                    'attribute' => 'featured',
+                    'label' => 'Рекомендуем',
+                    'value' => function (ComfortRoom $model) {
+                        return $model->featured ? 'Да' : 'Нет';
+                    },
+                    'filter' => [false => 'Нет', true => 'Да'],
+                    'contentOptions' => ['data-label' => 'Рекомендуем'],
+                ],
                 [
                     'attribute' => 'photo',
                     'label' => 'Фото',

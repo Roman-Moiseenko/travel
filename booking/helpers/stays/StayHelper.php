@@ -92,4 +92,23 @@ class StayHelper
         }
         return $result;
     }
+
+    public static function listGuest()
+    {
+        $result[1] = '1 взрослый';
+        for ($i = 2; $i <= 20; $i++) {
+            $result[$i] = $i . ' взрослых';
+        }
+        return $result;
+    }
+
+    public static function listChildren()
+    {
+        $result[0] = 'Без детей';
+        $result[1] = '1 ребенок';
+        for ($i = 2; $i <= 10; $i++) {
+            $result[$i] = $i . ' детей';
+        }
+        return $result;
+    }
 }

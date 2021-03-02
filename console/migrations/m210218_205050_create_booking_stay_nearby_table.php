@@ -25,7 +25,7 @@ class m210218_205050_create_booking_stay_nearby_table extends Migration
         $this->addForeignKey('{{%fk-booking_stays_nearby-stay_id}}', '{{%booking_stays_nearby}}', 'stay_id', '{{%booking_stays}}', 'id', 'CASCADE');
 
         $this->createIndex('{{%idx-booking_stays_nearby-category_id}}', '{{%booking_stays_nearby}}', 'category_id');
-        $this->addForeignKey('{{%fk-booking_stays_nearby-category_id}}', '{{%booking_stays_nearby}}', 'category_id', '{{%booking_stays_nearby_category}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('{{%fk-booking_stays_nearby-category_id}}', '{{%booking_stays_nearby}}', 'category_id', '{{%booking_stay_nearby_category}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     /**

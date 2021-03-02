@@ -15,6 +15,7 @@ class StayComfortRoomSearch extends ComfortRoom
         return [
             [['id', 'category_id'], 'integer'],
             [['name'], 'safe'],
+            ['featured', 'boolean'],
         ];
     }
 
@@ -40,6 +41,7 @@ class StayComfortRoomSearch extends ComfortRoom
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
+            'featured' => $this->featured,
         ]);
         $query
             ->andFilterWhere(['like', 'name', $this->name]);

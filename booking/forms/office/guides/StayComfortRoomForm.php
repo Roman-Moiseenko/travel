@@ -13,6 +13,7 @@ class StayComfortRoomForm extends Model
     public $name;
     public $category_id;
     public $photo;
+    public $featured;
 
     public function __construct(ComfortRoom $comfort = null, $config = [])
     {
@@ -20,6 +21,7 @@ class StayComfortRoomForm extends Model
             $this->name = $comfort->name;
             $this->category_id = $comfort->category_id;
             $this->photo = $comfort->photo;
+            $this->featured = $comfort->featured;
         }
         parent::__construct($config);
     }
@@ -29,7 +31,7 @@ class StayComfortRoomForm extends Model
         return [
             ['name', 'string'],
             ['category_id', 'integer'],
-            [['photo'], 'boolean'],
+            [['photo', 'featured'], 'boolean'],
             [['name', 'category_id'], 'required'],
         ];
     }

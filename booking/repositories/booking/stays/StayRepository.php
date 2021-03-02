@@ -7,6 +7,7 @@ namespace booking\repositories\booking\stays;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
+use booking\forms\booking\stays\SearchStayForm;
 use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -51,55 +52,53 @@ class StayRepository
         $query = Stay::find()->alias('t')->active('t');
         return $this->getProvider($query);
     }
-/*
+
     public function search(SearchStayForm $form = null): DataProviderInterface
     {
         $query = Stay::find()->alias('t')->active('t')->with('type', 'mainPhoto');
         if ($form == null) {
 
             $query->joinWith(['actualCalendar ac']);
-            $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
+            $query->andWhere(['>=', 'ac.stay_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
             $query->groupBy('t.id');
             return $this->getProvider($query);
         }
         /******  Поиск по Категории ***/
- /*       if ($form->type) {
+      /* if ($form->type) {
             if ($category = Type::findOne($form->type)) {
                 $query->joinWith(['typeAssignments ta'], false);
                 $query->andWhere(['or', ['t.type_id' => $form->type], ['ta.type_id' => $form->type]]);
             }
-        }
+        }*/
         /******  Поиск по Дате ***/
-/*        if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
+        if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
         if ($form->date_from || $form->date_to) {
             $query->joinWith(['actualCalendar ac']);
-            if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', strtotime($form->date_from . '00:00:00')]);
-            if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', strtotime($form->date_to . '23:59:00')]);
+            if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime($form->date_from . '00:00:00')]);
+            if ($form->date_to) $query->andWhere(['<=', 'ac.stay_at', strtotime($form->date_to . '23:59:00')]);
         }
         /******  Поиск по Наименованию ***/
-/*        if (!empty($form->text)) {
-            $form->text = trim(htmlspecialchars($form->text));
-            $words = explode(' ', $form->text);
+        if (!empty($form->city)) {
+            $form->city = trim(htmlspecialchars($form->city));
+            $words = explode(' ', $form->city);
             foreach ($words as $word) {
-                $query->andWhere(['like', 'name', $word]);
+                $query->andWhere(['like', 'city', $word]);
             }
         }
         /******  Поиск по Цене ***/
-/*        if ($form->cost_min) {
+   /*     if ($form->cost_min) {
             $query->andWhere(['>=', 't.cost_adult', $form->cost_min]);
         }
         if ($form->cost_max) {
             $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
         }
-
+*/
         /******  Поиск по Типу ***/
-/*        if ($form->private !== "" && $form->private !== null) {
-            $query->andWhere(['t.params_private' => $form->private]);
-        }
+
         $query->groupBy('t.id');
         return $this->getProvider($query);
     }
-*/
+
     public function getAllByType(Type $type): DataProviderInterface
     {
         $query = Stay::find()->alias('t')->active('t')->with('mainPhoto', 'type');

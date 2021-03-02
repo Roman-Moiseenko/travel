@@ -207,6 +207,14 @@ a.desc:after {
     /*font-size: 14px !important;*/
 }
 
+.leftbar-search-stays {
+    padding: 20px 20px;
+    background: var(--seach-menu-color);
+    border: #122b40 2px;
+    /* margin: 10px 10px;*/
+    /*font-size: 14px !important;*/
+}
+
 .content-container {
     /* background: #ffffff;*/
 }
@@ -278,6 +286,10 @@ a.desc:after {
 }
 
 .errors-cars {
+    color: #731825;
+}
+
+.errors-stays {
     color: #731825;
 }
 
@@ -611,6 +623,8 @@ div.required label:after {
 .image-car-list {
     float: left;
 }
+
+
 .caption-car-list {
     min-height: 228px;
     margin-left: 230px;
@@ -674,32 +688,26 @@ div.required label:after {
     margin-left: -6px !important;
     margin-right: -6px !important;
 }
-/*
-.field-loginform-password {
-    width: 298px;
-    margin: 15px auto;
-    position: relative;
+
+/*  STAY  */
+
+.image-stay-list {
+    float: left;
 }
-#loginform-password {
-    width: 100%;
-    padding: 5px 0;
-    height: 30px;
-    line-height: 40px;
-    text-indent: 10px;
-    margin: 0 0 15px 0;
-    border-radius: 5px;
-    border: 1px solid #999;
-    font-size: 18px;
+
+.caption-stay-list {
+    min-height: 228px;
+    margin-left: 230px;
 }
-.kodnaya-prokhod {
-    position: absolute;
-    top: 11px;
-    right: 6px;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: url(http://zornet.ru/ZORNET-RU/ZR/Alinuversa/amipsakilad/pekugedsan.svg) 0 0 no-repeat;
+
+.not-flex>.input-group {
+    display: contents !important;
 }
-.password-control.view {
-    background: url(http://zornet.ru/ZORNET-RU/ZR/Alinuversa/amipsakilad/dsamudulas.svg) 0 0 no-repeat;
-}*/
+
+.form-control-xl {
+    height: calc(1.5em + 1.5rem + 2px);
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}

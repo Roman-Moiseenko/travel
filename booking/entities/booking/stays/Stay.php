@@ -16,8 +16,10 @@ use booking\entities\booking\stays\comfort_room\ComfortRoom;
 use booking\entities\booking\stays\duty\AssignDuty;
 use booking\entities\booking\stays\nearby\Nearby;
 use booking\entities\booking\stays\nearby\NearbyCategory;
+use booking\entities\booking\stays\queries\StayQueries;
 use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
@@ -682,6 +684,16 @@ class Stay extends ActiveRecord
 
     }
 
+    public function getName()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
+    }
+
+    public function getDescription()
+    {
+        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
+    }
+
     /** getXXX ==========> */
     public function getType(): ActiveQuery
     {
@@ -753,21 +765,6 @@ class Stay extends ActiveRecord
         //TODO ?? Куда впихнуть???
         return Nearby::find()->andWhere(['stay_id' => $this->id])->andWhere(['category_id' => $category])->all();
     }
-/*
-    public function getComfortsBy($category): array
-    {
-        return AssignComfort::find()->andWhere(['stay_id' => $this->id])->andWhere(['category_id' => $category])->all();
-    }
-
-    public function getComfortCategories(): array
-    {
-        return ComfortCategory::find()->andWhere([
-            'IN',
-            'id',
-            AssignComfort::find()->select('category_id')->andWhere([''])
-        ])->all();
-    }
-*/
 
     public function getBedrooms(): ActiveQuery
     {
@@ -788,5 +785,8 @@ class Stay extends ActiveRecord
 
     /** <========== getXXX */
 
-
+    public static function find(): StayQueries
+    {
+        return new StayQueries(static::class);
+    }
 }

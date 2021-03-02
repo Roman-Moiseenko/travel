@@ -33,7 +33,8 @@ class StayComfortRoomService
         $comfort = ComfortRoom::create(
             $form->category_id,
             $form->name,
-            $form->photo
+            $form->photo,
+            $form->featured
         );
         $comfort->setSort($this->comforts->getMaxSort() + 1);
         $this->comforts->save($comfort);
@@ -45,7 +46,8 @@ class StayComfortRoomService
         $comfort->edit(
             $form->category_id,
             $form->name,
-            $form->photo
+            $form->photo,
+            $form->featured
         );
         $this->comforts->save($comfort);
     }

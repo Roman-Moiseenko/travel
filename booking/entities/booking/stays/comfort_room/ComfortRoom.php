@@ -15,24 +15,27 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $sort
  * @property boolean $photo ... возможность назначать фото из галереи
+ * @property boolean $featured
  * @property ComfortRoomCategory $category
  */
 class ComfortRoom extends ActiveRecord
 {
-    public static function create($category_id, $name, $photo): self
+    public static function create($category_id, $name, $photo, $featured): self
     {
         $comfort = new static();
         $comfort->category_id = $category_id;
         $comfort->name = $name;
         $comfort->photo = $photo;
+        $comfort->featured = $featured;
         return $comfort;
     }
 
-    public function edit($category_id, $name, $photo): void
+    public function edit($category_id, $name, $photo, $featured): void
     {
         $this->category_id = $category_id;
         $this->name = $name;
         $this->photo = $photo;
+        $this->featured = $featured;
     }
 
 

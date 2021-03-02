@@ -20,9 +20,11 @@ $this->params['breadcrumbs'][] = 'Создать';
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название') ?>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <?= $form->field($model, 'image')->textInput(['maxlength' => true])->label('Картинка') ?>
                 </div>

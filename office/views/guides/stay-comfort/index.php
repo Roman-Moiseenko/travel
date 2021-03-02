@@ -65,6 +65,7 @@ use yii\helpers\Url;
                     'value' => function (Comfort $model) {
                         return $model->featured ? 'Да' : 'Нет';
                     },
+                    'filter' => [false => 'Нет', true => 'Да'],
                     'contentOptions' => ['data-label' => 'Рекомендуем'],
                 ],
                 [
