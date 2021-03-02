@@ -255,12 +255,21 @@ class Stay extends ActiveRecord
         $result = [];
         foreach ($this->assignComfortsRoom as $assignComfort) {
             $category = $assignComfort->comfortRoom->category;
-            $result[$category->id]['name'] = $category->name;
-            $result[$category->id]['image'] = $category->image;
-            $result[$category->id]['items'][] = [
-                'name' => $assignComfort->comfortRoom->name,
-                'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
-            ];
+            if ($assignComfort->comfortRoom->featured) {
+                $result[0]['name'] = 'Популярные удобства';
+                $result[0]['image'] = '';
+                $result[0]['items'][] = [
+                    'name' => $assignComfort->comfortRoom->name,
+                    'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
+                ];
+            } else {
+                $result[$category->id]['name'] = $category->name;
+                $result[$category->id]['image'] = $category->image;
+                $result[$category->id]['items'][] = [
+                    'name' => $assignComfort->comfortRoom->name,
+                    'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
+                ];
+            }
         }
         return $result;
     }
