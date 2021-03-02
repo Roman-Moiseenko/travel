@@ -711,3 +711,52 @@ div.required label:after {
     line-height: 1.5;
     border-radius: 0.3rem;
 }
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff !important;
+    opacity: 1;
+}
+
+.leftbar-search-stays-fields {
+    border: 1px solid #888;
+}
+
+.search-block {
+    border-bottom: 1px solid #888;
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-block.last-block {
+    border-bottom: 0px;
+}
+
+
+.search-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.search-fields label {
+    font-size: 14px !important;
+    padding-top: 6px;
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+
+.search-fields >.form-group {
+    margin-bottom: 2px !important;
+}
+
+.search-fields>.form-group>div>.custom-control>.custom-control-label:before,
+.search-fields>.form-group>div>.custom-control>.custom-control-label:after,
+.search-fields>.form-group>.custom-control>.custom-control-label:after,
+.search-fields>.form-group>.custom-control>.custom-control-label:before,
+.search-fields>.form-group>.custom-control>.custom-control-input
+{
+    width: 2rem !important;
+    height: 2rem !important;
+}

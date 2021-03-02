@@ -22,11 +22,13 @@ class StayCommonForm extends CompositeForm
     public $type_id;
     public $city;
     public $_stay;
+    public $to_center;
 
     public function __construct(Stay $stay = null, $config = [])
     {
         if ($stay)
         {
+            $this->to_center = $stay->to_center;
             $this->name = $stay->name;
             $this->description = $stay->description;
             $this->name_en = $stay->name_en;
@@ -46,7 +48,7 @@ class StayCommonForm extends CompositeForm
         return [
             [['name', 'description', 'name_en', 'description_en', 'city'], 'string'],
             [['name', 'description', 'type_id'], 'required', 'message' => 'Обязательное поле'],
-            ['type_id', 'integer'],
+            [['type_id', 'to_center'], 'integer'],
             ['name', 'unique', 'targetClass' => Stay::class, 'filter' => $this->_stay ? ['<>', 'id', $this->_stay->id] : null, 'message' => 'Такое имя уже есть'],
         ];
     }

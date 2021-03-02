@@ -4,7 +4,8 @@
 namespace frontend\controllers\stays;
 
 
-use booking\forms\booking\stays\SearchStayForm;
+use booking\forms\booking\stays\search\SearchStayForm;
+use booking\helpers\scr;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
 use yii\web\Controller;
@@ -36,6 +37,7 @@ class StaysController extends Controller
     public function actionIndex()
     {
         $form = new SearchStayForm();
+        //scr::v($form);
         if (isset(\Yii::$app->request->queryParams['SearchStayForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();

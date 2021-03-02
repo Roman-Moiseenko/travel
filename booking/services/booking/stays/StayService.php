@@ -106,7 +106,8 @@ class StayService
             ),
             $form->name_en,
             $form->description_en,
-            $form->city
+            $form->city,
+            $form->to_center
         );
         $stay->filling = Filling::COMMON;
         $this->stays->save($stay);
@@ -127,7 +128,8 @@ class StayService
             ),
             $form->name_en,
             $form->description_en,
-            $form->city
+            $form->city,
+            $form->to_center
         );
         $this->stays->save($stay);
     }

@@ -30,6 +30,7 @@ use yii\helpers\Html;
             'separator' => '-',
             'language' => Lang::current(),
             'pluginOptions' => [
+                'startDate' => '+1d',
                 'todayHighLight' => true,
                 'autoclose' => true,
                 'format' => 'dd-mm-yyyy',

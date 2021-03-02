@@ -6,6 +6,7 @@ function init() {
     let latitude = 'bookingaddressform-latitude';
     let longitude = 'bookingaddressform-longitude';
     let suggest_city = 'staycommonform-city';
+    let to_center = 'to-center';
 
     /*** Для MAP-CAR ***/
     let array_coords = [];
@@ -16,7 +17,7 @@ function init() {
     if (document.getElementById("map-car-view")) {
         let count_ = $('#count-points').data('count');
         let x, y, t;
-        let center_
+        let center_;
         if (count_ !== 0) {
             center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
         } else {
@@ -37,11 +38,11 @@ function init() {
         //Проходим по элементам, если есть список, грузим в карту
 
         for (let i = 0; i < count_; i++) {
-            t = $('#address-' + (i+1)).val();
-            x = $('#latitude-' + (i+1)).val();
-            y = $('#longitude-' + (i+1)).val();
+            t = $('#address-' + (i + 1)).val();
+            x = $('#latitude-' + (i + 1)).val();
+            y = $('#longitude-' + (i + 1)).val();
             mapCarView.geoObjects.add(new ymaps.Placemark([x, y], {
-                iconContent: i+1,
+                iconContent: i + 1,
                 iconCaption: '',
                 balloonContent: t
             }, {
@@ -54,7 +55,7 @@ function init() {
     if (document.getElementById("map-car")) {
         count_point = $('#map-points').data('count');
         let x, y, t;
-        let center_
+        let center_;
         if (count_point !== 0) {
             center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
         } else {
@@ -81,7 +82,6 @@ function init() {
             x = $('#latitude-' + (i)).val();
             y = $('#longitude-' + (i)).val();
             array_coords[i] = [Number(x), Number(y), t];
-            console.log(array_coords[i]);
             array_playcemark[i] = new ymaps.Placemark(array_coords[i], {
                 iconContent: i,
                 balloonContent: t
@@ -118,7 +118,6 @@ function init() {
                                 fillInput(coords);*/
             });
         }
-
 
 
         mapCar.events.add('click', function (e) {
@@ -158,12 +157,13 @@ function init() {
                     FillPoints(array_coords);
                 }); */
 
-/*                getAddress(coords);
-                fillInput(coords);*/
+                /*                getAddress(coords);
+                                fillInput(coords);*/
             });
 
         });
     }
+
     function setDataCar(coords, id) {
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
@@ -190,14 +190,14 @@ function init() {
             s = s +
                 '                    <div class="row">\n' +
                 '                        <div class="col-10">\n' +
-                '                            <input name="BookingAddressForm[' + (i-1)  + '][address]" class="form-control" width="100%" value="' + array_coords[i][2] + '" readonly>\n' +
+                '                            <input name="BookingAddressForm[' + (i - 1) + '][address]" class="form-control" width="100%" value="' + array_coords[i][2] + '" readonly>\n' +
                 '                        </div>\n' +
                 '                        <div class="col-1">\n' +
                 '                        ' + btn_remove + '\n' +
                 '                        </div>\n' +
                 '                        <div class="col-1">\n' +
-                '                            <input name="BookingAddressForm[' + (i-1) + '][longitude]" class="form-control" width="100%" value="' + array_coords[i][1] + '" type="hidden">\n' +
-                '                            <input name="BookingAddressForm[' + (i-1) + '][latitude]" class="form-control" width="100%" value="' + array_coords[i][0] + '" type="hidden">\n' +
+                '                            <input name="BookingAddressForm[' + (i - 1) + '][longitude]" class="form-control" width="100%" value="' + array_coords[i][1] + '" type="hidden">\n' +
+                '                            <input name="BookingAddressForm[' + (i - 1) + '][latitude]" class="form-control" width="100%" value="' + array_coords[i][0] + '" type="hidden">\n' +
                 '                        </div>\n' +
                 '                    </div>';
         }
@@ -206,10 +206,10 @@ function init() {
     }
 
     $('body').on('click', '#remove-points', function () {
-        delete(array_coords[count_point]);
+        delete (array_coords[count_point]);
         mapCar.geoObjects.remove(array_playcemark[count_point]);
         //array_playcemark[count_point].destroy();
-        delete(array_playcemark[count_point]);
+        delete (array_playcemark[count_point]);
         count_point--;
         FillPoints();
     });
@@ -344,6 +344,7 @@ function init() {
             });
         }
     }
+
     function setData(coords) {
         // Если метка уже создана – просто передвигаем ее.
         if (myPlacemark) {
@@ -364,6 +365,7 @@ function init() {
         getAddress(coords);
         fillInput(coords);
     }
+
     function setData2(coords2) {
         // Если метка уже создана – просто передвигаем ее.
         if (myPlacemark2) {
@@ -383,14 +385,25 @@ function init() {
         getAddress2(coords2);
         fillInput2(coords2);
     }
+
     function fillInput(coords) {
         $('#' + latitude).val(coords[0]);
         $('#' + longitude).val(coords[1]);
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
+            //Запомнить тек.точку
             $('#' + suggest).val(getChangeAddress(firstGeoObject.getAddressLine()));
             if (document.getElementById(suggest_city)) {
-                $('#' + suggest_city).val(getCityAddress(firstGeoObject.getLocalities()[0]));
+                let _city = getCityAddress(firstGeoObject.getLocalities()[0]);
+                $('#' + suggest_city).val(_city);
+                //Получаем название города + оласть
+                if (document.getElementById(to_center)) {
+                    ymaps.geocode('Калининградская область, ' + _city).then(function (res) {
+                        let _coord_center = res.geoObjects.get(0).geometry.getCoordinates();
+                        let distance = ymaps.coordSystem.geo.getDistance(coords, _coord_center);
+                        $('#' + to_center).val(distance.toFixed());
+                    });
+                }
             }
         });
     }

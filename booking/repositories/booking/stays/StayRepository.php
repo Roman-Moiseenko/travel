@@ -7,7 +7,7 @@ namespace booking\repositories\booking\stays;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
-use booking\forms\booking\stays\SearchStayForm;
+use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -64,35 +64,33 @@ class StayRepository
             return $this->getProvider($query);
         }
         /******  Поиск по Категории ***/
-      /* if ($form->type) {
-            if ($category = Type::findOne($form->type)) {
-                $query->joinWith(['typeAssignments ta'], false);
-                $query->andWhere(['or', ['t.type_id' => $form->type], ['ta.type_id' => $form->type]]);
-            }
-        }*/
+        /* if ($form->type) {
+              if ($category = Type::findOne($form->type)) {
+                  $query->joinWith(['typeAssignments ta'], false);
+                  $query->andWhere(['or', ['t.type_id' => $form->type], ['ta.type_id' => $form->type]]);
+              }
+          }*/
         /******  Поиск по Дате ***/
-        if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
+        //if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
         if ($form->date_from || $form->date_to) {
             $query->joinWith(['actualCalendar ac']);
-            if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime($form->date_from . '00:00:00')]);
+            if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime(($form->date_from) ?? date('d-m-Y', time()) . '00:00:00')]);
             if ($form->date_to) $query->andWhere(['<=', 'ac.stay_at', strtotime($form->date_to . '23:59:00')]);
         }
         /******  Поиск по Наименованию ***/
         if (!empty($form->city)) {
             $form->city = trim(htmlspecialchars($form->city));
-            $words = explode(' ', $form->city);
-            foreach ($words as $word) {
-                $query->andWhere(['like', 'city', $word]);
-            }
+            $query->andWhere(['like', 'city', $form->city]);
+
         }
         /******  Поиск по Цене ***/
-   /*     if ($form->cost_min) {
-            $query->andWhere(['>=', 't.cost_adult', $form->cost_min]);
-        }
-        if ($form->cost_max) {
-            $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
-        }
-*/
+        /*     if ($form->cost_min) {
+                 $query->andWhere(['>=', 't.cost_adult', $form->cost_min]);
+             }
+             if ($form->cost_max) {
+                 $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
+             }
+     */
         /******  Поиск по Типу ***/
 
         $query->groupBy('t.id');
@@ -162,7 +160,7 @@ class StayRepository
         return $stay;
     }
 
-    public function find($id):? Stay
+    public function find($id): ?Stay
     {
         return Stay::findOne($id);
     }

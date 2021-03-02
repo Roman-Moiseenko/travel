@@ -87,6 +87,20 @@ use yii\helpers\Url;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/tours'])) ?>">
+                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_TOUR) ?>
+                        &#160;<?= Lang::t('Туры') ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'funs/funs' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/funs'])) ?>">
+                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_FUNS) ?>
+                        &#160;<?= Lang::t('Отдых') ?></a>
+                </li>
                 <?php //TODO Жилье ?>
                 <!--li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>"
@@ -95,13 +109,6 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Жилье') ?>
                     </a>
                 </li-->
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/tours'])) ?>">
-                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_TOUR) ?>
-                        &#160;<?= Lang::t('Туры') ?>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/cars'])) ?>">
@@ -116,12 +123,7 @@ use yii\helpers\Url;
                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_TICKET) ?>
                         &#160;<?= Lang::t('Билеты') ?></a>
                 </li-->
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'funs/funs' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/funs'])) ?>">
-                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_FUNS) ?>
-                        &#160;<?= Lang::t('Отдых') ?></a>
-                </li>
+
             </ul>
         </div>
     </nav>

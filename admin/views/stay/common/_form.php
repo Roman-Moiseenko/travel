@@ -53,6 +53,7 @@ use yii\bootstrap4\ActiveForm;
             <div class="col-8">
                 <?= $form->field($model, 'city')->textInput(['maxlength' => true])->label('Город')->hint('Используется для поиска жилья по городу/нас.пункту') ?>
             </div>
+            <?= $form->field($model, 'to_center')->textInput(['type' => 'hidden', 'id' => 'to-center'])->label(false) ?>
         </div>
         <div class="row">
             <div id="map" style="width: 100%; height: 300px"></div>

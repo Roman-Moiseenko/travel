@@ -48,6 +48,7 @@ use yii\web\UploadedFile;
  * @property integer $status
  * @property integer $main_photo_id
  * @property string $city
+ * @property integer $to_center
  *
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
@@ -97,7 +98,7 @@ class Stay extends ActiveRecord
     public $address;
     public $params;
 
-    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city): self
+    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): self
     {
         $stays = new static();
         $stays->user_id = \Yii::$app->user->id;
@@ -114,10 +115,11 @@ class Stay extends ActiveRecord
         $stays->params = new StayParams();
         $stays->rules = Rules::create();
         $stays->city = $city;
+        $stays->to_center = $to_center;
         return $stays;
     }
 
-    public function edit($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city): void
+    public function edit($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): void
     {
         $this->name = $name;
         $this->type_id = $type_id;
@@ -126,6 +128,7 @@ class Stay extends ActiveRecord
         $this->name_en = $name_en;
         $this->description_en = $description_en;
         $this->city = $city;
+        $this->to_center = $to_center;
     }
 
     //// AssignComfort::class ///////////////////////////
