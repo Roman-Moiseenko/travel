@@ -66,7 +66,7 @@ use yii\web\UploadedFile;
  * @property StayParams $params
  * @property Type $type
  * @property Rules $rules
- * @property BookingAddress $address
+
  *
  * ====== дополнительно ============================================
  * @property integer $filling ... текущий раздел при заполнении
@@ -88,15 +88,21 @@ use yii\web\UploadedFile;
  * @property string $adr_address [varchar(255)]
  * @property string $adr_latitude [varchar(255)]
  * @property string $adr_longitude [varchar(255)]
- * @property string $params_json [json]
+ * @property int $params_square [int]
+ * @property int $params_count_bath [int]
+ * @property int $params_count_kitchen [int]
+ * @property int $params_count_floor [int]
+ * @property int $params_guest [int]
+ * @property int $params_deposit [int]
+ * @property int $params_access [int]
  */
 class Stay extends ActiveRecord
 {
     const MAX_BEDROOMS = 8;
     const STAY_EMPTY = 14;
 
-    public $address;
-    public $params;
+    public $address; //BookingAddress
+    public $params; //StayParams
 
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): self
     {
@@ -248,6 +254,7 @@ class Stay extends ActiveRecord
             }
         }
     }
+
     public function revokeComfortsRoom()
     {
         $this->assignComfortsRoom = [];
@@ -330,7 +337,7 @@ class Stay extends ActiveRecord
     }
     ////////////////////////////////
 
-   ///////////////// SERVICES /////////////////////////////////////
+    ///////////////// SERVICES /////////////////////////////////////
 
     public function getServicesById(int $id)
     {
@@ -353,6 +360,7 @@ class Stay extends ActiveRecord
     {
         $this->services = [];
     }
+
     ////////////////////////////////
 
     public function setLegal($legalId): void
@@ -369,12 +377,13 @@ class Stay extends ActiveRecord
     {
         $this->params = $params;
     }
-/*
-    public function setCost($cost)
-    {
-        $this->cost = $cost;
-    }
-*/
+
+    /*
+        public function setCost($cost)
+        {
+            $this->cost = $cost;
+        }
+    */
     public function setCancellation($cancellation)
     {
         $this->cancellation = $cancellation;
@@ -489,15 +498,14 @@ class Stay extends ActiveRecord
             $this->getAttribute('adr_latitude'),
             $this->getAttribute('adr_longitude')
         );
-        $params = Json::decode($this->getAttribute('params_json'), true);
         $this->params = new StayParams(
-            $params['params_square'] ?? null,
-            $params['params_count_bath'] ?? null,
-            $params['params_count_kitchen'] ?? null,
-            $params['params_count_floor'] ?? null,
-            $params['params_guest'] ?? null,
-            $params['params_deposit'] ?? null,
-            $params['params_access'] ?? null
+            $this->getAttribute('params_square'),
+            $this->getAttribute('params_count_bath'),
+            $this->getAttribute('params_count_kitchen'),
+            $this->getAttribute('params_count_floor'),
+            $this->getAttribute('params_guest'),
+            $this->getAttribute('params_deposit'),
+            $this->getAttribute('params_access')
         );
         parent::afterFind();
     }
@@ -508,15 +516,13 @@ class Stay extends ActiveRecord
         $this->setAttribute('adr_latitude', $this->address->latitude);
         $this->setAttribute('adr_longitude', $this->address->longitude);
 
-        $this->setAttribute('params_json', Json::encode([
-            'params_square' => $this->params->square,
-            'params_count_bath' => $this->params->count_bath,
-            'params_count_kitchen' => $this->params->count_kitchen,
-            'params_count_floor' => $this->params->count_floor,
-            'params_guest' => $this->params->guest,
-            'params_deposit' => $this->params->deposit,
-            'params_access' => $this->params->access,
-        ]));
+        $this->setAttribute('params_square', $this->params->square);
+        $this->setAttribute('params_count_bath', $this->params->count_bath);
+        $this->setAttribute('params_count_kitchen', $this->params->count_kitchen);
+        $this->setAttribute('params_count_floor', $this->params->count_floor);
+        $this->setAttribute('params_guest', $this->params->guest);
+        $this->setAttribute('params_deposit', $this->params->deposit);
+        $this->setAttribute('params_access', $this->params->access);
         return parent::beforeSave($insert);
     }
 
@@ -601,7 +607,7 @@ class Stay extends ActiveRecord
         $total = 0;
         /* @var ReviewStay $review */
         foreach ($reviews as $review) {
-                $total += $review->getRating();
+            $total += $review->getRating();
         }
         $this->reviews = $reviews;
         $this->rating = $total / count($reviews);
@@ -792,7 +798,6 @@ class Stay extends ActiveRecord
     {
         return $this->hasMany(CustomServices::class, ['stay_id' => 'id']);
     }
-
 
 
     /** <========== getXXX */

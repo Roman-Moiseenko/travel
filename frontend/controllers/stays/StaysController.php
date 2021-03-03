@@ -37,7 +37,6 @@ class StaysController extends Controller
     public function actionIndex()
     {
         $form = new SearchStayForm();
-        //scr::v($form);
         if (isset(\Yii::$app->request->queryParams['SearchStayForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();

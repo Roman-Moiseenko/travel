@@ -22,10 +22,35 @@ use yii\helpers\Json;
  * @property Parking $parking
  * @property Limit $limit
  *
- * @property string $beds_json [json]
- * @property string $parking_json [json]
- * @property string $checkin_json [json]
- * @property string $limit_json [json]
+ * @property bool $beds_child_on [tinyint(1)]
+ * @property int $beds_child_agelimit [int]
+ * @property int $beds_child_cost [int]
+ * @property int $beds_child_by_adult [int]
+ * @property int $beds_child_count [int]
+ * @property bool $beds_adult_on [tinyint(1)]
+ * @property int $beds_adult_cost [int]
+ * @property int $beds_adult_count [int]
+ * @property int $parking_status [int]
+ * @property bool $parking_private [tinyint(1)]
+ * @property bool $parking_inside [tinyint(1)]
+ * @property bool $parking_reserve [tinyint(1)]
+ * @property int $parking_cost [int]
+ * @property int $parking_cost_type [int]
+ * @property bool $parking_security [tinyint(1)]
+ * @property bool $parking_covered [tinyint(1)]
+ * @property bool $parking_street [tinyint(1)]
+ * @property bool $parking_invalid [tinyint(1)]
+ * @property int $checkin_checkin_from [int]
+ * @property int $checkin_checkin_to [int]
+ * @property int $checkin_checkout_from [int]
+ * @property int $checkin_checkout_to [int]
+ * @property bool $checkin_message [tinyint(1)]
+ * @property bool $limit_smoking [tinyint(1)]
+ * @property int $limit_animals [int]
+ * @property bool $limit_children [tinyint(1)]
+ * @property int $limit_children_allow [int]
+ *
+
  */
 class Rules extends ActiveRecord
 {
@@ -71,92 +96,80 @@ class Rules extends ActiveRecord
 
     public function afterFind(): void
     {
-        $beds = Json::decode($this->getAttribute('beds_json'), true);
         $this->beds = new Beds(
-            $beds['beds_child_on'] ?? null,
-            $beds['beds_child_agelimit'] ?? null,
-            $beds['beds_child_cost'] ?? null,
-            $beds['beds_child_by_adult'] ?? null,
-            $beds['beds_child_count'] ?? null,
-            $beds['beds_adult_on'] ?? null,
-            $beds['beds_adult_cost'] ?? null,
-            $beds['beds_adult_count'] ?? null
+            $this->getAttribute('beds_child_on'),
+            $this->getAttribute('beds_child_agelimit'),
+            $this->getAttribute('beds_child_cost'),
+            $this->getAttribute('beds_child_by_adult'),
+            $this->getAttribute('beds_child_count'),
+            $this->getAttribute('beds_adult_on'),
+            $this->getAttribute('beds_adult_cost'),
+            $this->getAttribute('beds_adult_count')
         );
 
-        $parking = Json::decode($this->getAttribute('parking_json'), true);
         $this->parking = new Parking(
-            $parking['parking_status'] ?? null,
-            $parking['parking_private'] ?? null,
-            $parking['parking_inside'] ?? null,
-            $parking['parking_reserve'] ?? null,
-            $parking['parking_cost'] ?? null,
-            $parking['parking_cost_type'] ?? null,
-            $parking['parking_security'] ?? null,
-            $parking['parking_covered'] ?? null,
-            $parking['parking_street'] ?? null,
-            $parking['parking_invalid'] ?? null
+            $this->getAttribute('parking_status'),
+            $this->getAttribute('parking_private'),
+            $this->getAttribute('parking_inside'),
+            $this->getAttribute('parking_reserve'),
+            $this->getAttribute('parking_cost'),
+            $this->getAttribute('parking_cost_type'),
+            $this->getAttribute('parking_security'),
+            $this->getAttribute('parking_covered'),
+            $this->getAttribute('parking_street'),
+            $this->getAttribute('parking_invalid')
         );
 
-        $checkin = Json::decode($this->getAttribute('checkin_json'), true);
         $this->checkin = new CheckIn(
-            $checkin['checkin_checkin_from'] ?? null,
-            $checkin['checkin_checkin_to'] ?? null,
-            $checkin['checkin_checkout_from'] ?? null,
-            $checkin['checkin_checkout_to'] ?? null,
-            $checkin['checkin_message'] ?? null
+            $this->getAttribute('checkin_checkin_from'),
+            $this->getAttribute('checkin_checkin_to'),
+            $this->getAttribute('checkin_checkout_from'),
+            $this->getAttribute('checkin_checkout_to'),
+            $this->getAttribute('checkin_message')
         );
 
-        $limit = Json::decode($this->getAttribute('limit_json'), true);
         $this->limit = new Limit(
-            $limit['limit_smoking'] ?? null,
-            $limit['limit_animals'] ?? null,
-            $limit['limit_children'] ?? null,
-            $limit['limit_children_allow'] ?? null
+            $this->getAttribute('limit_smoking'),
+            $this->getAttribute('limit_animals'),
+            $this->getAttribute('limit_children'),
+            $this->getAttribute('limit_children_allow')
         );
         parent::afterFind();
     }
 
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('beds_json', Json::encode([
-            'beds_child_on' => $this->beds->child_on,
-            'beds_child_agelimit' => $this->beds->child_agelimit,
-            'beds_child_cost' => $this->beds->child_cost,
-            'beds_child_by_adult' => $this->beds->child_by_adult,
-            'beds_child_count' => $this->beds->child_count,
-            'beds_adult_on' => $this->beds->adult_on,
-            'beds_adult_cost' => $this->beds->adult_cost,
-            'beds_adult_count' => $this->beds->adult_count,
-        ]));
+        $this->setAttribute('beds_child_on', $this->beds->child_on);
+        $this->setAttribute('beds_child_agelimit', $this->beds->child_agelimit);
+        $this->setAttribute('beds_child_cost', $this->beds->child_cost);
+        $this->setAttribute('beds_child_by_adult', $this->beds->child_by_adult);
+        $this->setAttribute('beds_child_count', $this->beds->child_count);
+        $this->setAttribute('beds_adult_on', $this->beds->adult_on);
+        $this->setAttribute('beds_adult_cost', $this->beds->adult_cost);
+        $this->setAttribute('beds_adult_count', $this->beds->adult_count);
 
-        $this->setAttribute('parking_json', Json::encode([
-            'parking_status' => $this->parking->status,
-            'parking_private' => $this->parking->private,
-            'parking_inside' => $this->parking->inside,
-            'parking_reserve' => $this->parking->reserve,
-            'parking_cost' => $this->parking->cost,
-            'parking_cost_type' => $this->parking->cost_type,
-            'parking_security' => $this->parking->security,
-            'parking_covered' => $this->parking->covered,
-            'parking_street' => $this->parking->street,
-            'parking_invalid' => $this->parking->invalid
+        $this->setAttribute('parking_status', $this->parking->status);
+        $this->setAttribute('parking_private', $this->parking->private);
+        $this->setAttribute('parking_inside', $this->parking->inside);
+        $this->setAttribute('parking_reserve', $this->parking->reserve);
+        $this->setAttribute('parking_cost', $this->parking->cost);
+        $this->setAttribute('parking_cost_type', $this->parking->cost_type);
+        $this->setAttribute('parking_security', $this->parking->security);
+        $this->setAttribute('parking_covered', $this->parking->covered);
+        $this->setAttribute('parking_street', $this->parking->street);
+        $this->setAttribute('parking_invalid', $this->parking->invalid);
 
-        ]));
+        $this->setAttribute('checkin_checkin_from', $this->checkin->checkin_from);
+        $this->setAttribute('checkin_checkin_to', $this->checkin->checkin_to);
+        $this->setAttribute('checkin_checkout_from', $this->checkin->checkout_from);
+        $this->setAttribute('checkin_checkout_to', $this->checkin->checkout_to);
+        $this->setAttribute('checkin_message', $this->checkin->message);
 
-        $this->setAttribute('checkin_json', Json::encode([
-            'checkin_checkin_from' => $this->checkin->checkin_from,
-            'checkin_checkin_to' => $this->checkin->checkin_to,
-            'checkin_checkout_from' => $this->checkin->checkout_from,
-            'checkin_checkout_to' => $this->checkin->checkout_to,
-            'checkin_message' => $this->checkin->message,
-        ]));
+        $this->setAttribute('limit_smoking', $this->limit->smoking);
+        $this->setAttribute('limit_animals', $this->limit->animals);
+        $this->setAttribute('limit_children', $this->limit->children);
+        $this->setAttribute('limit_children_allow', $this->limit->children_allow);
 
-        $this->setAttribute('limit_json', Json::encode([
-            'limit_smoking' => $this->limit->smoking,
-            'limit_animals' => $this->limit->animals,
-            'limit_children' => $this->limit->children,
-            'limit_children_allow' => $this->limit->children_allow,
-        ]));
         return parent::beforeSave($insert);
     }
 

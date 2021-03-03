@@ -13,6 +13,8 @@ use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii\db\ArrayExpression;
+use yii\db\Expression;
 use yii\web\NotFoundHttpException;
 
 class StayRepository
@@ -56,7 +58,7 @@ class StayRepository
 
     public function search(SearchStayForm $form = null): DataProviderInterface
     {
-        $query = Stay::find()->alias('t')->active('t')->with('type', 'mainPhoto');
+        $query = Stay::find()->alias('t')->active('t')->select('t.*')->with('type', 'mainPhoto');
         if ($form == null) {
 
             $query->joinWith(['actualCalendar ac']);
@@ -64,6 +66,22 @@ class StayRepository
             $query->groupBy('t.id');
             return $this->getProvider($query);
         }
+        /******  Поиск по Гостям и детям ***/
+        //$query->andWhere(['=', 'params_json ', new ArrayExpression(['>=', 'params_guest', $form->guest])]);
+        if ($form->children == 0) {
+            $query->andWhere(['>=', 'params_guest', $form->guest]);
+        } else {
+            $query->joinWith(['rules rl']);
+            $guest = $form->guest;
+            //Определяем минимальный возраст ребенка из form
+            $child_min = 3;
+            $query->andWhere(['rl.limit_children' => true]);
+            $query->andWhere(['<=', 'rl.limit_children_allow', $child_min]);
+
+
+            $query->andWhere(['>=', 'params_guest', $guest]);
+        }
+
 
         /******  Поиск по Кол-во спален ***/
         $bedrooms = [];
@@ -71,15 +89,13 @@ class StayRepository
             if ($item->checked) $bedrooms[] = $item->id;
         }
         if (count($bedrooms) > 0) {
-            /*
-            //$query->joinWith(['bedrooms b']);
+            $query->joinWith(['bedrooms rooms']);
+
             if ($bedrooms[0] == 1) {
-                $query->andWhere([
-                    $bedrooms[0] => AssignRoom::find()->alias('rr')->andWhere(['rr.stay_id' => new \yii\db\Expression('t.id')])->count('rr.id')]);
+                $query->having('count(rooms.stay_id) = 1');
             } else {
-                $query->andWhere(['<=', $bedrooms[0], AssignRoom::find()->alias('rr')->andWhere(['rr.stay_id' => new \yii\db\Expression('t.id')])->count('rr.id')]);
+                $query->having('count(rooms.stay_id) >=' . $bedrooms[0]);
             }
-*/
         }
 
         /******  Поиск по Растояние до центра ***/
@@ -102,21 +118,50 @@ class StayRepository
             $query->andWhere(['IN', 't.type_id', $category_ids]);
         }
 
+        /******  Поиск по Удобства  ***/
+        $comforts_ids = [];
+        foreach ($form->comforts as $comfort) {
+            if ($comfort->checked) {
+                $comforts_ids[] = $comfort->id;
+            }
+        }
+
+        if (count($comforts_ids) != 0) {
+            $query->joinWith(['assignComforts cm']);
+            $query->andWhere(['IN', 'cm.comfort_id', $comforts_ids]);
+            $query->having('count(cm.comfort_id) = ' . count($comforts_ids));
+        }
+
+        /******  Поиск по Удобства в номерах  ***/
+        $comforts_room_ids = [];
+        foreach ($form->comforts_room as $comfort_room) {
+            if ($comfort_room->checked) {
+                $comforts_room_ids[] = $comfort_room->id;
+            }
+        }
+
+        if (count($comforts_room_ids)) {
+            $query->joinWith(['assignComfortsRoom cmr']);
+            $query->andWhere(['IN', 'cmr.comfort_id', $comforts_room_ids]);
+            $query->having('count(cmr.comfort_id) = ' . count($comforts_room_ids));
+        }
+
         /******  Поиск по Дате ***/
-        //if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
-        //НЕ РАБОТАЕТ!!!
+        //TODO НЕ РАБОТАЕТ!!!
         if ($form->date_from || $form->date_to) {
             $query->joinWith(['actualCalendar ac']);
             if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime(($form->date_from) ?? date('d-m-Y', time()) . '00:00:00')]);
             if ($form->date_to) $query->andWhere(['<=', 'ac.stay_at', strtotime($form->date_to . '23:59:00')]);
         }
-        /******  Поиск по Наименованию ***/
+        /******  Поиск по Наименованию Городу ***/
         if (!empty($form->city)) {
             $form->city = trim(htmlspecialchars($form->city));
             $query->andWhere(['like', 'city', $form->city]);
 
         }
         /******  Поиск по Цене ***/
+        //TODO на будущее
+
         /*     if ($form->cost_min) {
                  $query->andWhere(['>=', 't.cost_adult', $form->cost_min]);
              }
@@ -124,9 +169,8 @@ class StayRepository
                  $query->andWhere(['<=', 't.cost_adult', $form->cost_max]);
              }
      */
-        /******  Поиск по Типу ***/
-
         $query->groupBy('t.id');
+
         return $this->getProvider($query);
     }
 
