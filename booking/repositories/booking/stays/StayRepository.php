@@ -4,6 +4,7 @@
 namespace booking\repositories\booking\stays;
 
 
+use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
@@ -63,15 +64,47 @@ class StayRepository
             $query->groupBy('t.id');
             return $this->getProvider($query);
         }
+
+        /******  Поиск по Кол-во спален ***/
+        $bedrooms = [];
+        foreach ($form->bedrooms as $item) {
+            if ($item->checked) $bedrooms[] = $item->id;
+        }
+        if (count($bedrooms) > 0) {
+            /*
+            //$query->joinWith(['bedrooms b']);
+            if ($bedrooms[0] == 1) {
+                $query->andWhere([
+                    $bedrooms[0] => AssignRoom::find()->alias('rr')->andWhere(['rr.stay_id' => new \yii\db\Expression('t.id')])->count('rr.id')]);
+            } else {
+                $query->andWhere(['<=', $bedrooms[0], AssignRoom::find()->alias('rr')->andWhere(['rr.stay_id' => new \yii\db\Expression('t.id')])->count('rr.id')]);
+            }
+*/
+        }
+
+        /******  Поиск по Растояние до центра ***/
+        $to_center_items = [];
+        foreach ($form->to_center as $item) {
+            if ($item->checked) $to_center_items[] = $item->id;
+        }
+        if (count($to_center_items) > 0) {
+            $query->andWhere(['<=', 't.to_center', $to_center_items[0]]);
+        }
+
         /******  Поиск по Категории ***/
-        /* if ($form->type) {
-              if ($category = Type::findOne($form->type)) {
-                  $query->joinWith(['typeAssignments ta'], false);
-                  $query->andWhere(['or', ['t.type_id' => $form->type], ['ta.type_id' => $form->type]]);
-              }
-          }*/
+        $category_ids = [];
+        foreach ($form->categories as $category) {
+            if ($category->checked) {
+                $category_ids[] = $category->id;
+            }
+        }
+        if (count($category_ids) != 0) {
+            $query->andWhere(['IN', 't.type_id', $category_ids]);
+        }
+
         /******  Поиск по Дате ***/
         //if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
+        //НЕ РАБОТАЕТ!!!
         if ($form->date_from || $form->date_to) {
             $query->joinWith(['actualCalendar ac']);
             if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime(($form->date_from) ?? date('d-m-Y', time()) . '00:00:00')]);

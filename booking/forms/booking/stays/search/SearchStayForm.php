@@ -8,6 +8,9 @@ use booking\entities\booking\stays\comfort\Comfort;
 use booking\entities\booking\stays\comfort_room\ComfortRoom;
 use booking\entities\booking\stays\Type;
 use booking\forms\CompositeForm;
+use booking\helpers\scr;
+use booking\helpers\stays\StayHelper;
+use booking\helpers\SysHelper;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -17,6 +20,8 @@ use yii\helpers\ArrayHelper;
  * @property SearchFieldForm[] $comforts
  * @property SearchFieldForm[] $comforts_room
  * @property SearchFieldForm[] $categories
+ * @property SearchFieldForm[] $to_center
+ * @property SearchFieldForm[] $bedrooms
  */
 class SearchStayForm extends CompositeForm
 {
@@ -28,10 +33,10 @@ class SearchStayForm extends CompositeForm
     public $children; //кол-во детей
 
     public $type; //тип жилья
-    public $bedrooms; //кол-во спален
-    public $to_center; //до центра
+   //    public $bedrooms; //кол-во спален
+    //public $to_center; //до центра
 
-    public $values; //temp
+    //public $values; //temp
 
 //    public $comfort = [];
 //    public $comfort_room = [];
@@ -40,11 +45,11 @@ class SearchStayForm extends CompositeForm
 
     public function __construct($config = [])
     {
-        $this->values = [];
+        // $this->values = [];
 
         $this->comforts = array_map(function (Comfort $comfort) {
-                return new SearchFieldForm('comforts', $comfort->id, $comfort->name, false);
-            }, Comfort::find()->andWhere(['featured' => true])->all()
+            return new SearchFieldForm('comforts', $comfort->id, $comfort->name, false);
+        }, Comfort::find()->andWhere(['featured' => true])->all()
         );
 
         $this->categories = array_map(function (Type $category) {
@@ -56,6 +61,16 @@ class SearchStayForm extends CompositeForm
             return new SearchFieldForm('comforts_room', $comfort->id, $comfort->name, false);
         }, ComfortRoom::find()->andWhere(['featured' => true])->all()
         );
+
+        $this->to_center = array_map(function ($item) {
+            return new SearchFieldForm('to_center', $item[0], $item[1], false);
+        }, $this->listToCenter()
+        );
+
+        $this->bedrooms = array_map(function ($item) {
+            return new SearchFieldForm('bedrooms', $item[0], $item[1], false);
+        }, $this->listToBedrooms()
+        );
         parent::__construct($config);
     }
 
@@ -64,14 +79,37 @@ class SearchStayForm extends CompositeForm
         return [
             [['type', 'guest', 'children'], 'integer'],
             [['date_from', 'date_to'], 'date', 'format' => 'php:d-m-Y'],
-            ['bedrooms', 'integer', 'min' => 0],
-            ['to_center', 'integer'],
             ['city', 'string'],
         ];
     }
 
     protected function internalForms(): array
     {
-        return ['comforts', 'comforts_room', 'categories'];
+        return [
+            'comforts',
+            'comforts_room',
+            'categories',
+            'to_center',
+            'bedrooms',
+        ];
+    }
+
+    private function listToCenter(): array
+    {
+        return [
+            [1000, 'Менее 1 км'],
+            [2000, 'Менее 2 км'],
+            [4000, 'Менее 4 км'],
+        ];
+    }
+
+    private function listToBedrooms(): array
+    {
+        return [
+            [1, 'Одна спальня'],
+            [2, 'Две и более'],
+            [3, 'Три и более'],
+            [4, 'Четыре и более'],
+        ];
     }
 }

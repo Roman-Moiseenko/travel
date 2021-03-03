@@ -104,18 +104,20 @@ HTML;
 <div class="leftbar-search-stays-fields">
     <div class="search-block">
         <div class="search-name">Спальни</div>
+        <?php foreach ($model->bedrooms as $i => $item): ?>
             <div class="search-fields">
-                <?= $form->field($model, 'bedrooms')
-                    ->checkboxList(
-                            [1 => 'Одна спальня', 2 => 'Две и более', 3 => 'Три и более', 4 => 'Четыре и более'], ['onchange' => "$('#search-stay-form').submit();"])
-                    ->label(false) ?>
+                <?= $form->field($item, '[' . $i . ']checked')->checkbox(['onchange' => "$('#search-stay-form').submit();"])->label($item->name) ?>
             </div>
+        <?php endforeach; ?>
     </div>
     <div class="search-block">
         <div class="search-name">Расстояние до центра</div>
-        <div class="search-fields">
-            <?= $form->field($model, 'to_center')->checkboxList([1 => 'Менее 1 км', 3 => 'Менее 3 км', 5 => 'Менее 5 км'], ['onchange' => "$('#search-stay-form').submit();"])->label(false) ?>
-        </div>
+        <?php foreach ($model->to_center as $i => $item): ?>
+            <div class="search-fields">
+                <?= $form->field($item, '[' . $i . ']checked')->checkbox(['onchange' => "$('#search-stay-form').submit();"])->label($item->name) ?>
+            </div>
+        <?php endforeach; ?>
+
     </div>
     <div class="search-block">
         <div class="search-name">Вид жилья</div>
