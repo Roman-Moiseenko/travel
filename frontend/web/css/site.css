@@ -760,3 +760,8 @@ div.required label:after {
     width: 2rem !important;
     height: 2rem !important;
 }
+
+.search-stay-not-margin>span>.form-group {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

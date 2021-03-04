@@ -20,14 +20,8 @@ $(document).ready(function() {
         let date_to = $('#searchcarform-date_to').val();
         let city = $('#city').val();
         let type = $(this).val();
-        //let value = $(this).attr('value');
-        //alert(id);
         $.post("/cars/cars/get-search", {type: type, date_from: date_from, date_to: date_to, city: city}, function (data) {
-            //console.log(data);
             $('.block-search-car').html(data);
-            //$(".krajee-datepicker").datepicker();
-            //initDPRemove('car-range');
-            //initDPAddon('car-range');
         });
     });
 
@@ -50,7 +44,7 @@ $this->registerJs($js);
         <div class="col-sm-3 p-2">
             <div class="leftbar-search-cars">
                 <div class="block-search-car">
-            <?= $this->render('_search', ['model' => $model]) ?>
+                    <?= $this->render('_search', ['model' => $model]) ?>
                 </div>
             </div>
         </div>

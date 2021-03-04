@@ -101,8 +101,10 @@ class Stay extends ActiveRecord
     const MAX_BEDROOMS = 8;
     const STAY_EMPTY = 14;
 
-    public $address; //BookingAddress
-    public $params; //StayParams
+    /** @var $address BookingAddress */
+    public $address;
+    /** @var $params StayParams */
+    public $params;
 
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): self
     {

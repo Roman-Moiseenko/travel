@@ -67,14 +67,20 @@ class StayRepository
             return $this->getProvider($query);
         }
         /******  Поиск по Гостям и детям ***/
-        //$query->andWhere(['=', 'params_json ', new ArrayExpression(['>=', 'params_guest', $form->guest])]);
         if ($form->children == 0) {
             $query->andWhere(['>=', 'params_guest', $form->guest]);
         } else {
             $query->joinWith(['rules rl']);
             $guest = $form->guest;
+            $child_min = 16;
             //Определяем минимальный возраст ребенка из form
-            $child_min = 3;
+            for ($i = 1; $i <= 8; $i++) {
+                if ($form->children_age[$i] == "") {
+                    \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
+                } else {
+                    $child_min = min($child_min, $form->children_age[$i]);
+                }
+            }
             $query->andWhere(['rl.limit_children' => true]);
             $query->andWhere(['<=', 'rl.limit_children_allow', $child_min]);
 

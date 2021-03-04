@@ -75,6 +75,16 @@ class StayHelper
         return $result;
     }
 
+    public static function listAge($max = 16): array
+    {
+        $result = [];
+        for ($i = 0; $i <= $max; $i++) {
+            $str = ($i == 0 || $i > 4) ? 'лет' : ($i == 1 ? 'год' : 'года');
+            $result[] = $i . ' ' . $str;
+        }
+        return $result;
+    }
+
     public static function listNumber($min = 0, $max = 16): array
     {
         $result = [];

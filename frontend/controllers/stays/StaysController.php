@@ -44,10 +44,10 @@ class StaysController extends Controller
         } else {
             $dataProvider = $this->stays->search();
         }
-
         return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 }

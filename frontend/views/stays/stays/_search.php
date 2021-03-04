@@ -19,9 +19,7 @@ $layout = <<< HTML
     <div class="col">
         <div class="form-group">
             <label class="mb-0" for="searchstayform-date_from">Дата заезда</label>
-
             {input1}
-  
         </div>
     </div>
 </div>
@@ -34,6 +32,29 @@ $layout = <<< HTML
     </div>
 </div>
 HTML;
+
+$js = <<<JS
+$(document).ready(function() {
+    update_fields();
+    $('body').on('change', '#count-children', function () {
+        update_fields();
+    });
+    
+    function update_fields() {
+        let _count = $('#count-children').val();
+        for (let i = 1; i <= 8; i++) {
+            if (i <= _count) {
+                console.log(i + ' =>>');
+                $('#children_age-' + i).show();
+            } else {
+                $('#children_age-' + i).hide();
+                console.log(i + ' <<=');
+            }
+        }
+    }
+});
+JS;
+$this->registerJs($js);
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -56,7 +77,6 @@ HTML;
                 <div class="not-flex">
                     <?= DatePicker::widget([
                         'id' => 'stay-range',
-
                         'model' => $model,
                         'attribute' => 'date_from',
                         'attribute2' => 'date_to',
@@ -77,15 +97,23 @@ HTML;
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col form-inline">
                 <?= $form->field($model, 'guest')
-                    ->dropDownList(StayHelper::listGuest(), ['class' => 'change-attr form-control form-control-xl'])
+                    ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl'])
                     ->label(false); ?>
                 <?= $form->field($model, 'children')
-                    ->dropDownList(StayHelper::listChildren(), ['class' => 'change-attr form-control form-control-xl ml-1'])
+                    ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1', 'id' => 'count-children'])
                     ->label(false); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col search-stay-not-margin">
+                <?php for ($i = 1; $i <= 8; $i++): ?>
+                    <span id="children_age-<?= $i ?>" style="display: none">
+                     <?= $form->field($model, 'children_age[' . $i . ']')->dropdownList(StayHelper::listAge(), ['prompt' => 'Возраст ребенка', 'class' => 'form-control form-control-xl'])->label(false);?>
+                     </span>
+                <?php endfor; ?>
             </div>
         </div>
         <div class="row pt-4">

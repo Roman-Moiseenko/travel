@@ -17,11 +17,11 @@ use yii\helpers\ArrayHelper;
 /**
  * Class SearchStayForm
  * @package booking\forms\booking\stays\search
- * @property SearchFieldForm[] $comforts
- * @property SearchFieldForm[] $comforts_room
- * @property SearchFieldForm[] $categories
- * @property SearchFieldForm[] $to_center
- * @property SearchFieldForm[] $bedrooms
+ * @property SearchFieldForm[] $comforts      ....
+ * @property SearchFieldForm[] $comforts_room      ....
+ * @property SearchFieldForm[] $categories      ....
+ * @property SearchFieldForm[] $to_center      .... до центра
+ * @property SearchFieldForm[] $bedrooms      .... кол-во спален
  */
 class SearchStayForm extends CompositeForm
 {
@@ -31,21 +31,12 @@ class SearchStayForm extends CompositeForm
     public $city; //место
     public $guest; //кол-во взрослых
     public $children; //кол-во детей
-
-    public $type; //тип жилья
-   //    public $bedrooms; //кол-во спален
-    //public $to_center; //до центра
-
-    //public $values; //temp
-
-//    public $comfort = [];
-//    public $comfort_room = [];
+    public $children_age = [];
     public $invalid = [];
 
 
     public function __construct($config = [])
     {
-        // $this->values = [];
 
         $this->comforts = array_map(function (Comfort $comfort) {
             return new SearchFieldForm('comforts', $comfort->id, $comfort->name, false);
@@ -71,15 +62,17 @@ class SearchStayForm extends CompositeForm
             return new SearchFieldForm('bedrooms', $item[0], $item[1], false);
         }, $this->listToBedrooms()
         );
+
         parent::__construct($config);
     }
 
     public function rules()
     {
         return [
-            [['type', 'guest', 'children'], 'integer'],
+            [['guest', 'children'], 'integer'],
             [['date_from', 'date_to'], 'date', 'format' => 'php:d-m-Y'],
             ['city', 'string'],
+            ['children_age', 'each', 'rule' => ['integer']],
         ];
     }
 
