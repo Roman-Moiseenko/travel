@@ -57,7 +57,7 @@ class ToursController extends Controller
 
         $tour = $this->tours->findBySlug($slug);
         if ($tour->isLock()) {
-            \Yii::$app->session->setFlash('warning', Lang::t('Данная экскурсия заблокирована! Доступ к ней ограничен.'));
+            \Yii::$app->session->setFlash('warning', Lang::t('Экскурсия заблокирована! Доступ к ней ограничен.'));
             return $this->goHome();
         }
         $reviewForm = new ReviewForm();

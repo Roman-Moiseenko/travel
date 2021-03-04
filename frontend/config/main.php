@@ -152,6 +152,8 @@ return [
                 'tours/<slug:[\w\-]+>' => 'tours/tours/category',
 
                 'stays' => 'stays/stays/index',
+                'stay/<id:\d+>' => 'stays/stays/stay',
+
                 'tickets' => 'tickets/tickets/index',
 
                 'legals/view' => 'legals/view',

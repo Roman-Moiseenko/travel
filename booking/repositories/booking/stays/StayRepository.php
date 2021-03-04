@@ -10,6 +10,7 @@ use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\scr;
+use booking\helpers\SysHelper;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
@@ -76,18 +77,15 @@ class StayRepository
             //Определяем минимальный возраст ребенка из form
             for ($i = 1; $i <= 8; $i++) {
                 if ($form->children_age[$i] == "") {
-                    \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
+                    if ($i <= $form->children) \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
                 } else {
                     $child_min = min($child_min, $form->children_age[$i]);
                 }
             }
             $query->andWhere(['rl.limit_children' => true]);
             $query->andWhere(['<=', 'rl.limit_children_allow', $child_min]);
-
-
             $query->andWhere(['>=', 'params_guest', $guest]);
         }
-
 
         /******  Поиск по Кол-во спален ***/
         $bedrooms = [];
@@ -153,17 +151,24 @@ class StayRepository
         }
 
         /******  Поиск по Дате ***/
-        //TODO НЕ РАБОТАЕТ!!!
-        if ($form->date_from || $form->date_to) {
-            $query->joinWith(['actualCalendar ac']);
-            if ($form->date_from) $query->andWhere(['>=', 'ac.stay_at', strtotime(($form->date_from) ?? date('d-m-Y', time()) . '00:00:00')]);
-            if ($form->date_to) $query->andWhere(['<=', 'ac.stay_at', strtotime($form->date_to . '23:59:00')]);
+        $query->joinWith(['actualCalendar ac']);
+        if ($form->date_from && $form->date_to) {
+            $begin = SysHelper::_renderDate($form->date_from);
+            $end = SysHelper::_renderDate($form->date_to);
+            $dates = []; //Массив дней из диапозона
+            for ($date = $begin; $date < $end; $date += 24 * 60 * 60) {
+                $dates[] = $date;
+            }
+            $query->andWhere(['IN', 'ac.stay_at', $dates]);
+            $query->having('count(ac.stay_at) = ' . count($dates)); //кол-во выбранных дней должно совпадать с кол-вом запрошенных дней
+        } else {
+            $query->andWhere(['>=', 'ac.stay_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
         }
+
         /******  Поиск по Наименованию Городу ***/
         if (!empty($form->city)) {
             $form->city = trim(htmlspecialchars($form->city));
             $query->andWhere(['like', 'city', $form->city]);
-
         }
         /******  Поиск по Цене ***/
         //TODO на будущее

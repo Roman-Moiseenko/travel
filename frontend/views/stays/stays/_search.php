@@ -44,17 +44,21 @@ $(document).ready(function() {
         let _count = $('#count-children').val();
         for (let i = 1; i <= 8; i++) {
             if (i <= _count) {
-                console.log(i + ' =>>');
                 $('#children_age-' + i).show();
             } else {
                 $('#children_age-' + i).hide();
-                console.log(i + ' <<=');
+                $('#searchstayform-children_age-' + i).val('');
             }
         }
     }
 });
 JS;
 $this->registerJs($js);
+$this->params['search']['date_from'] = $model->date_from;
+$this->params['search']['date_to'] = $model->date_to;
+$this->params['search']['guest'] = $model->guest;
+$this->params['search']['children'] = $model->children;
+$this->params['search']['children_age'] = $model->children_age;
 ?>
 
 <?php $form = ActiveForm::begin([

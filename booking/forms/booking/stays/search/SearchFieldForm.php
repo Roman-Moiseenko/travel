@@ -29,9 +29,9 @@ class SearchFieldForm extends Model
     public function rules()
     {
         return [
-            ['checked', 'string'],
-            ['name', 'string'],
-            ['id', 'integer'],
+            ['checked', 'safe'],
+            ['name', 'safe'],
+            ['id', 'safe'],
         ];
     }
 }

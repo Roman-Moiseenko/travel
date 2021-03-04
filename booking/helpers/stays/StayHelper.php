@@ -5,10 +5,13 @@ namespace booking\helpers\stays;
 
 
 use booking\entities\booking\stays\BookingStay;
+use booking\entities\booking\stays\CostCalendar;
 use booking\entities\booking\stays\ReviewStay;
+use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
+use booking\helpers\SysHelper;
 
 class StayHelper
 {
@@ -120,6 +123,39 @@ class StayHelper
             $result[$i] = $i . ' детей';
         }
         return $result;
+    }
+
+    public static function getCostByParams(Stay $stay, array $params)
+    {
+        if (empty($params)) return $stay->cost_base;
+        $guest = $params['guest'];
+        $children = $params['children'];
+        $children_age = $params['children_age'];
+        if ($children > 0) {
+            $n = $children;
+            for($i = 1; $i <= $n; $i ++) {
+                if ($children_age[$i] >= $stay->rules->beds->child_by_adult) {$guest++; $children--;}
+            }
+
+            if ($children > round($guest / 2))  {
+                $guest += round(($children - round($guest / 2)) / 2);
+            }
+        }
+        if (empty($params['date_from'])) {
+            $add_guest = ($guest > $stay->guest_base) ? ($guest - $stay->guest_base) : 0;
+            return $stay->cost_base + $add_guest * $stay->cost_add;
+        }
+
+        $begin = SysHelper::_renderDate($params['date_from']);
+        $end = SysHelper::_renderDate($params['date_to']);
+        $cost = 0;
+        $calendars = CostCalendar::find()->andWhere(['stay_id' => $stay->id])->andWhere(['>=', 'stay_at', $begin])->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])->orderBy('stay_at')->all();
+        foreach ($calendars as $calendar) {
+            $add_guest = ($guest > $calendar->guest_base) ? ($guest - $calendar->guest_base) : 0;
+            $cost += $calendar->cost_base + $add_guest * $calendar->cost_add;
+        }
+
+        return $cost;
     }
 
 }

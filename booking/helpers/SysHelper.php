@@ -37,4 +37,31 @@ class SysHelper
             }
         }
     }
+
+    public static function _renderDate($date):? int
+    {
+        if ($date == null) return null;
+        $_arr = [
+            'Январь' => 1,
+            'Февраль' => 2,
+            'Март' => 3,
+            'Апрель' => 4,
+            'Май' => 5,
+            'Июнь' => 6,
+            'Июль' => 7,
+            'Август' => 8,
+            'Сентябрь' => 9,
+            'Октябрь' => 10,
+            'Ноябрь' => 11,
+            'Декабрь' => 12,
+        ];
+        $_date = mb_substr($date, mb_strpos($date, ',') + 2, mb_strlen($date) - mb_strpos($date, ',') + 2);
+        $_date = str_replace(' ', '-', $_date);
+
+        foreach ($_arr as $month => $number)
+            if ($_temp = str_replace($month, $number, $_date)) $_date = $_temp;
+        //scr::_v($_date);
+
+        return strtotime($_date);
+    }
 }

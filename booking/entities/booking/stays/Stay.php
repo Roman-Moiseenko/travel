@@ -83,6 +83,7 @@ use yii\web\UploadedFile;
  * @property ReviewStay[] $reviews
  * @property AssignDuty[] $duty
  * @property CostCalendar[] $actualCalendar
+ //__property CostCalendar[] $calendarRange
  * @property CustomServices[] $services
  *
  * @property string $adr_address [varchar(255)]
@@ -794,6 +795,11 @@ class Stay extends ActiveRecord
     public function getActualCalendar(): ActiveQuery
     {
         return $this->hasMany(CostCalendar::class, ['stay_id' => 'id']);
+    }
+
+    public function getCalendarRange($date_begin, $date_end): array
+    {
+        return CostCalendar::find()->andWhere(['stay_id' => $this->id])->andWhere(['>=', 'stay_at', $date_begin])->andWhere(['<=', 'stay_at', $date_end])->orderBy('stay_at')->all();
     }
 
     public function getServices(): ActiveQuery
