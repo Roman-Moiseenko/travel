@@ -66,7 +66,6 @@ use yii\web\UploadedFile;
  * @property StayParams $params
  * @property Type $type
  * @property Rules $rules
-
  *
  * ====== дополнительно ============================================
  * @property integer $filling ... текущий раздел при заполнении
@@ -83,7 +82,7 @@ use yii\web\UploadedFile;
  * @property ReviewStay[] $reviews
  * @property AssignDuty[] $duty
  * @property CostCalendar[] $actualCalendar
- //__property CostCalendar[] $calendarRange
+ * //__property CostCalendar[] $calendarRange
  * @property CustomServices[] $services
  *
  * @property string $adr_address [varchar(255)]
@@ -283,6 +282,21 @@ class Stay extends ActiveRecord
                     'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
                 ];
             }
+        }
+        return $result;
+    }
+
+    public function getComfortsRoomSortCategoryFrontend(): array
+    {
+        $result = [];
+        foreach ($this->assignComfortsRoom as $assignComfort) {
+            $category = $assignComfort->comfortRoom->category;
+            $result[$category->id]['name'] = $category->name;
+            $result[$category->id]['image'] = $category->image;
+            $result[$category->id]['items'][] = [
+                'name' => $assignComfort->comfortRoom->name,
+                'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
+            ];
         }
         return $result;
     }

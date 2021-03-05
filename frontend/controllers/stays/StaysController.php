@@ -56,7 +56,7 @@ class StaysController extends Controller
     public function actionStay($id)
     {
         $this->layout = 'stays_blank';
-
+        $form = new SearchStayForm();
         $stay = $this->stays->get($id);
         $params = \Yii::$app->request->queryParams;
         if (!isset($params['SearchStayForm'])) {
@@ -69,6 +69,7 @@ class StaysController extends Controller
             ];
 
         }
+        $form->load($params);
         if ($stay->isLock()) {
             \Yii::$app->session->setFlash('warning', Lang::t('Жилье заблокировано! Доступ к нему ограничен.'));
             return $this->goHome();
@@ -88,6 +89,7 @@ class StaysController extends Controller
             'stay' => $stay,
             'SearchStayForm' => $params['SearchStayForm'],
             'reviewForm' => $reviewForm,
+            'model' => $form,
         ]);
     }
 }
