@@ -4,6 +4,7 @@
 use booking\entities\booking\stays\rules\CheckIn;
 use booking\entities\booking\stays\rules\Parking;
 use booking\entities\booking\stays\rules\Rules;
+use booking\entities\booking\stays\rules\WiFi;
 use booking\entities\booking\stays\Stay;
 use Mpdf\Tag\P;
 use yii\helpers\Html;
@@ -93,7 +94,19 @@ $this->params['breadcrumbs'][] = 'Правила размещения';
             <?= $stay->rules->limit->children ? 'Разрешено с детьми с ' . $stay->rules->limit->children_allow . ' лет' : 'Заселение с детьми не разрешено!' ?>
         </div>
     </div>
-
+    <div class="card card-info">
+        <div class="card-header">WiFi</div>
+        <div class="card-body">
+            <?= $stay->rules->wifi->is()
+                ? 'WiFi действует ' . WiFi::listArea()[$stay->rules->wifi->area] . '. Пользование WiFi ' .
+                    ( $stay->rules->wifi->free()
+                        ? '<span class="badge badge-success">бесплатно</span>'
+                        : ' <span class="badge badge-warning">платно</span>, цена <span class="badge badge-warning">' .
+                            $stay->rules->wifi->cost . '</span> руб. за <span class="badge badge-info">' .
+                            WiFi::listCost()[$stay->rules->wifi->cost_type] . '</span>')
+                : 'WiFi отсутствует' ?>
+        </div>
+    </div>
     <div class="form-group">
         <?= Html::a('Редактировать', Url::to(['update', 'id' => $stay->id]), ['class' => 'btn btn-success']) ?>
     </div>

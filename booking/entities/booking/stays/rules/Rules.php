@@ -21,6 +21,7 @@ use yii\helpers\Json;
  * @property CheckIn $checkin
  * @property Parking $parking
  * @property Limit $limit
+ * @property WiFi $wifi
  *
  * @property bool $beds_child_on [tinyint(1)]
  * @property int $beds_child_agelimit [int]
@@ -49,6 +50,10 @@ use yii\helpers\Json;
  * @property int $limit_animals [int]
  * @property bool $limit_children [tinyint(1)]
  * @property int $limit_children_allow [int]
+ * @property int $wifi_status [int]
+ * @property int $wifi_area [int]
+ * @property int $wifi_cost [int]
+ * @property int $wifi_cost_type [int]
  *
 
  */
@@ -65,6 +70,7 @@ class Rules extends ActiveRecord
         $rules->parking = new Parking();
         $rules->checkin = new CheckIn();
         $rules->limit = new Limit();
+        $rules->wifi = new WiFi();
         return $rules;
     }
 
@@ -93,6 +99,10 @@ class Rules extends ActiveRecord
         return '{{%booking_stays_rules}}';
     }
 
+    public function setWifi(WiFi $wiFi)
+    {
+        $this->wifi = $wiFi;
+    }
 
     public function afterFind(): void
     {
@@ -134,6 +144,13 @@ class Rules extends ActiveRecord
             $this->getAttribute('limit_children'),
             $this->getAttribute('limit_children_allow')
         );
+
+        $this->wifi = new WiFi(
+            $this->getAttribute('wifi_status'),
+            $this->getAttribute('wifi_area'),
+            $this->getAttribute('wifi_cost'),
+            $this->getAttribute('wifi_cost_type')
+        );
         parent::afterFind();
     }
 
@@ -169,6 +186,11 @@ class Rules extends ActiveRecord
         $this->setAttribute('limit_animals', $this->limit->animals);
         $this->setAttribute('limit_children', $this->limit->children);
         $this->setAttribute('limit_children_allow', $this->limit->children_allow);
+
+        $this->setAttribute('wifi_status', $this->wifi->status);
+        $this->setAttribute('wifi_area', $this->wifi->area);
+        $this->setAttribute('wifi_cost', $this->wifi->cost);
+        $this->setAttribute('wifi_cost_type', $this->wifi->cost_type);
 
         return parent::beforeSave($insert);
     }

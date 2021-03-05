@@ -53,7 +53,12 @@ class Parking
 
     public function is(): bool
     {
-        return $this->status != Rules::STATUS_NOT;
+        return $this->status == Rules::STATUS_FREE || $this->status == Rules::STATUS_PAY;
+    }
+
+    public function free(): bool
+    {
+        return $this->status == Rules::STATUS_FREE;
     }
 
     public function getStringStatus(): string

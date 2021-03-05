@@ -25,6 +25,7 @@ $arr_city = $arr;
 $arr_city['city'] = $stay->city;
 
 $url = Url::to(['/stay/view', 'id' => $stay->id, 'SearchStayForm' => $arr]);
+$url_map = Url::to(['/stay/view', 'id' => $stay->id, 'SearchStayForm' => $arr, 'map' => true]);
 $url_city = Url::to(['/stays', 'SearchStayForm' => $arr_city]);
 
 $arr_category = array_map(function (Type $category) use ($stay) {
@@ -70,9 +71,45 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                     </h4>
                 </div>
                 <div class="mb-auto text-justify">
-                    <?= (StringHelper::truncateWords(strip_tags($stay->getDescription()), 20)) ?>
+                    <!-- БЛОК ОПИСАНИЯ -->
+                    <div>
+                        <a href="<?= $url_map ?>" class="">
+                            <?= $stay->address->address ?>
+                        </a>
+                    </div>
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i> <?= ($stay->to_center < 1000) ? $stay->to_center . ' м' : round($stay->to_center / 1000, 1) . ' км' ?>  до центра
+                    </div>
+                    <div>
+                        <i class="fas fa-user"></i> х <?= $stay->params->guest ?>&#8195;&#8195;
+                        <i class="fas fa-person-booth"></i> х <?= StayHelper::textRooms($stay)?>&#8195;&#8195;
+                        <i class="fas fa-bed"></i> х <?= StayHelper::textBeds($stay)?>
+                    </div>
+                    <div class="pb-1">
+                        <?php if ($stay->rules->parking->is()): ?>
+                            <i class="fas fa-parking"></i>
+                            <?php if ($stay->rules->parking->free()): ?>
+                            <span class="badge badge-success">free</span>
+                            <?php else: ?>
+                                <span class="badge badge-danger">pay</span>
+                            <?php endif; ?>
+                            &#8195;
+                        <?php endif; ?>
+                        <?php if ($stay->rules->wifi->is()): ?>
+                            <i class="fas fa-wifi"></i>
+                            <?php if ($stay->rules->wifi->free()): ?>
+                                <span class="badge badge-success">free</span>
+                            <?php else: ?>
+                                <span class="badge badge-danger">pay</span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                    </div>
+                    <?= (StringHelper::truncateWords(strip_tags($stay->getDescription()), 10))  ?>
+
+
                 </div>
-                <div class="category-card pt-4">
+                <div class="category-card">
                     <a href="<?= $url_city ?>"><?= Lang::t($stay->city) ?></a>
                     &#8226;
                     <span style="border: 0 !important; background-color: white !important;">
@@ -83,7 +120,6 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                     <div class="d-flex">
                         <div>
                             <div class="pl-4 py-2">
-                                <?php //TODO Вычесление стоимости в зависимости от гостей!!!!!!!! ?>
                                 <span class="price-card"><?= CurrencyHelper::get(StayHelper::getCostByParams($stay, $arr)) ?></span>
                             </div>
                             <div class="pull-right rating pl-4 pb-2">

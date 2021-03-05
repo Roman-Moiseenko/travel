@@ -9,6 +9,7 @@ use booking\forms\booking\stays\rules\BedsForm;
 use booking\forms\booking\stays\rules\CheckInForm;
 use booking\forms\booking\stays\rules\LimitForm;
 use booking\forms\booking\stays\rules\ParkingForm;
+use booking\forms\booking\stays\rules\WifiForm;
 use booking\forms\CompositeForm;
 use yii\base\Model;
 
@@ -19,6 +20,7 @@ use yii\base\Model;
  * @property ParkingForm $parking
  * @property CheckInForm $checkin
  * @property LimitForm $limit
+ * @property WifiForm $wifi
  */
 class StayRulesForm extends CompositeForm
 {
@@ -31,6 +33,7 @@ class StayRulesForm extends CompositeForm
         $this->parking = new ParkingForm($stay->rules->parking);
         $this->checkin = new CheckInForm($stay->rules->checkin);
         $this->limit = new LimitForm($stay->rules->limit);
+        $this->wifi = new WifiForm($stay->rules->wifi);
 
         parent::__construct($config);
     }
@@ -44,6 +47,6 @@ class StayRulesForm extends CompositeForm
 
     protected function internalForms(): array
     {
-        return ['beds', 'parking', 'checkin', 'limit'];
+        return ['beds', 'parking', 'checkin', 'limit', 'wifi'];
     }
 }

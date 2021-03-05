@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = 'В окрестностях';
                 <label class="pt-2"><?= $name_category ?>:</label>
                 <?php foreach ($nearby_list as $nearby): ?>
                     <div class="pl-2">
-
                         <?= $nearby['name'] . ' на расстоянии ' . $nearby['distance'] . ' ' .  $nearby['unit']?>
                     </div>
                 <?php endforeach; ?>

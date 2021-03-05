@@ -148,6 +148,7 @@ class BookingRepository
             )
             ->all();
 
+        //TODO ** BOOKING_OBJECT **
         //TODO Заглушка Stay
         $stays = [];
         return $this->sort_merge($tours, $stays, $cars, $funs, -1);

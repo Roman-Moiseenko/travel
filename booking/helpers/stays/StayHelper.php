@@ -158,4 +158,66 @@ class StayHelper
         return $cost;
     }
 
+    public static function textRooms(Stay $stay)
+    {
+        $count = count($stay->bedrooms);
+        switch ($count) {
+            case 1: $text = Lang::t('спальня');
+            break;
+            case 2:
+            case 3:
+            case 4: $text = Lang::t('спальни');
+            break;
+            default: $text = Lang::t('спален');
+        }
+        return $count . ' ' . $text;
+    }
+
+    public static function textBeds(Stay $stay, $one = true)
+    {
+        $count = 0;
+        foreach ($stay->bedrooms as $room) {
+            foreach ($room->assignBeds as $assignBed)
+            $count += $assignBed->count;
+        }
+        if ($one) {
+        switch ($count) {
+            case 1: $text = Lang::t('кровать');
+                break;
+            case 2:
+            case 3:
+            case 4: $text = Lang::t('кровати');
+                break;
+            default: $text = Lang::t('кроватей');
+        }
+        } else {
+            if ($count == 1) {$text = Lang::t('кроватью');} else {$text = Lang::t('кроватьями');}
+        }
+
+        return $count . ' ' . $text;
+    }
+
+    public static function textKitchen($count_kitchen)
+    {
+        switch ($count_kitchen) {
+            case 1: $text = Lang::t('кухня');
+                break;
+            case 2:
+            case 3:
+            case 4: $text = Lang::t('кухни');
+                break;
+            default: $text = Lang::t('кухонь');
+        }
+        return $count_kitchen . ' ' . $text;
+    }
+
+    public static function textBath($count_bath)
+    {
+        switch ($count_bath) {
+            case 1: $text = Lang::t('ванная комната');
+                break;
+            default: $text = Lang::t('ванных комнат');
+        }
+        return $count_bath . ' ' . $text;
+    }
 }

@@ -2,6 +2,7 @@
 
 use booking\entities\booking\stays\rules\Parking;
 use booking\entities\booking\stays\rules\Rules;
+use booking\entities\booking\stays\rules\WiFi;
 use booking\entities\booking\stays\Stay;
 use booking\forms\booking\stays\StayRulesForm;
 use booking\helpers\stays\StayHelper;
@@ -101,10 +102,27 @@ $(document).ready(function() {
     }
 });
 JS;
+$js_wifi = <<<JS
+$(document).ready(function() {
+    f($('#wifi-status').val());
+    $('body').on('change', '#wifi-status', function() {
+        f($(this).val());
+    });
+    
+    function f(_status) {
+        if (_status == $status_pay){
+            $('.span-wifi-pay').show();
+        } else {
+            $('.span-wifi-pay').hide();            
+        }
+    }
+});
+JS;
 $this->registerJs($js_beds);
 $this->registerJs($js_parking);
 $this->registerJs($js_checkin);
 $this->registerJs($js_limit);
+$this->registerJs($js_wifi);
 
 $this->title = 'Правила размещения ' . $stay->name;
 $this->params['id'] = $stay->id;
@@ -267,6 +285,34 @@ $this->params['breadcrumbs'][] = 'Редактировать';
             </div>
         </div>
     </div>
+    <div class="card card-secondary">
+        <div class="card-header">WiFi</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+            <?= $form->field($model->wifi, 'status')
+                ->dropdownList(Rules::listStatus(), ['prompt' => '', 'id' => 'wifi-status'])->label('Наличие') ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <?= $form->field($model->wifi, 'area')->dropdownList(WiFi::listArea(), ['prompt' => '', 'id' => 'wifi-area'])->label('Место доступа') ?>
+                </div>
+                <div class="col-sm-2">
+                        <span class="span-wifi-pay" style="display: none;">
+                    <?= $form->field($model->wifi, 'cost')->textInput()->label('Стоимость WiFi') ?>
+                        </span>
+                </div>
+                <div class="col-sm-2">
+                        <span class="span-wifi-pay" style="display: none;">
+                    <?= $form->field($model->wifi, 'cost_type')->dropdownList(WiFi::listCost(), ['prompt' => '', 'id' => 'wifi-cost-type'])->label('за:') ?>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="card card-secondary">
         <div class="card-header">Ограничения</div>
         <div class="card-body">

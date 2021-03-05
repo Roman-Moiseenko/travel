@@ -12,6 +12,7 @@ use booking\entities\booking\stays\rules\Beds;
 use booking\entities\booking\stays\rules\CheckIn;
 use booking\entities\booking\stays\rules\Limit;
 use booking\entities\booking\stays\rules\Parking;
+use booking\entities\booking\stays\rules\WiFi;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\StayParams;
 use booking\entities\message\Dialog;
@@ -257,6 +258,12 @@ class StayService
             $form->limit->animals,
             $form->limit->children,
             $form->limit->children_allow
+        ));
+        $rules->setWifi(new WiFi(
+            $form->wifi->status,
+            $form->wifi->area,
+            $form->wifi->cost,
+            $form->wifi->cost_type
         ));
         $stay->updateRules($rules);
         $this->stays->save($stay);

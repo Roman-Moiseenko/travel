@@ -29,7 +29,7 @@ use yii\helpers\Url;
                     ['label' => 'Общие удобства', 'icon' => 'dumpster', 'url' => ['/stay/comfort', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/comfort'],
                     ['label' => 'Удобства в комнатах', 'icon' => 'blender-phone', 'url' => ['/stay/comfort-room', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/comfort-room'],
                     ['label' => 'Правила', 'icon' => 'bell', 'url' => ['/stay/rules', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/rules'],
-                    ['label' => 'Окресности', 'icon' => 'mountain', 'url' => ['/stay/nearby', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/nearby'],
+                    ['label' => 'Окрестности', 'icon' => 'mountain', 'url' => ['/stay/nearby', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/nearby'],
                     ['label' => 'Спальные места', 'icon' => 'bed', 'url' => ['/stay/bedrooms', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/bedrooms'],
                     ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/stay/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/params'],
                     ['label' => 'Дополнительные сборы', 'icon' => 'coins', 'url' => ['/stay/duty', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/duty'],
