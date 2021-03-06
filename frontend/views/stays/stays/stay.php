@@ -292,9 +292,9 @@ $mobile = SysHelper::isMobile();
                             <div class="mb-auto"
                                  style="align-items: center; text-align: center; display: inline-flex;">
                                 <span class="py-2 my-2" id="amount-booking"
-                                      style="color: #122b40; font-size: 48px; font-weight: 800">85 000</span>
+                                      style="color: #122b40; font-size: 48px; font-weight: 800">---</span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group pt-2">
                                 <a class="btn btn-lg btn-primary form-control" id="new-booking"
                                    style="height: 60px; align-items: center; text-align: center; display: inline-flex;">Забронировать</a>
                             </div>

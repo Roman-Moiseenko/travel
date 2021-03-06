@@ -101,6 +101,7 @@ class StaysController extends Controller
     {
         if (\Yii::$app->request->isAjax)
         {
+            //TODO Refactoring ===> !!!
             try {
                 $params = \Yii::$app->request->bodyParams;
                 $stay = $this->stays->get($params['stay_id']);
@@ -140,7 +141,6 @@ class StaysController extends Controller
                     }
                 }
                 return CurrencyHelper::stat($cost + $cost_service);
-                //TODO ==>
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
