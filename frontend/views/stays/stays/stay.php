@@ -46,16 +46,17 @@ $_count_service = count($stay->services);
 $js = <<<JS
 $(document).ready(function() {
     update_fields();
+    update_data();
     $('body').on('change', '#children', function () {
         update_fields();
         update_data();
     });    
     $('body').on('click', '.click-field-stay-params', function() {
-        update_data()        
+        update_data();        
     });
 
     $('body').on('change', '.change-field-stay-params', function() {
-        update_data()        
+        update_data();       
     });
 
     function update_data() {

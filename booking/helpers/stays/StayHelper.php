@@ -131,7 +131,6 @@ class StayHelper
         $guest = (int)$params['guest'];
         $children = (int)$params['children'];
         $children_age = $params['children_age'];
-        //return json_encode($children_age);
         if ($children > 0) {
             $n = $children;
             for($i = 1; $i <= $n; $i ++) {

@@ -4,12 +4,14 @@
 namespace frontend\controllers\stays;
 
 
+use booking\entities\booking\stays\CustomServices;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\scr;
 use booking\helpers\stays\StayHelper;
+use booking\helpers\SysHelper;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
 use yii\web\Controller;
@@ -106,7 +108,38 @@ class StaysController extends Controller
 
                 //Вычисляем новую стоимость от параметров и выбранных услуг
                 $cost = StayHelper::getCostByParams($stay, $params);
-                return $cost;//CurrencyHelper::stat($cost);
+                $cost_service = 0;
+                $begin = SysHelper::_renderDate($params['date_from']);
+                $end = SysHelper::_renderDate($params['date_to']);
+                $days = round(($end - $begin) /(24 * 60 *60));
+                //return $days;
+                $guest = $params['guest'];
+                if (isset($params['services']))
+                foreach ($params['services'] as $service_id) {
+                    if ($service_id != "") {
+                        $service = $stay->getServicesById((int)$service_id);
+                        switch ($service->payment) {
+                            case CustomServices::PAYMENT_PERCENT :
+                                $cost_service += $cost * ($service->value / 100);
+                                break;
+                            case CustomServices::PAYMENT_FIX_DAY:
+                                $cost_service += $service->value * $days;
+                                break;
+                            case CustomServices::PAYMENT_FIX_ALL:
+                                $cost_service += $service->value;
+                                break;
+                            case CustomServices::PAYMENT_FIX_DAY_GUEST:
+                                $cost_service += $service->value * $days * $guest;
+                                break;
+                            case CustomServices::PAYMENT_FIX_ALL_GUEST:
+                                $cost_service += $service->value * $guest;
+                                break;
+                            default:
+                                $cost_service += 0;
+                        }
+                    }
+                }
+                return CurrencyHelper::stat($cost + $cost_service);
                 //TODO ==>
             } catch (\Throwable $e) {
                 return $e->getMessage();
