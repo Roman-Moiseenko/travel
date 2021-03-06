@@ -202,7 +202,7 @@ class Stay extends ActiveRecord
             $result[$category->id]['image'] = $category->image;
             $result[$category->id]['items'][] = [
                 'name' => $assignComfort->comfort->name,
-                'pay' => $assignComfort->pay,
+                'pay' => $assignComfort->comfort->paid == true ? $assignComfort->pay : null,
                 'photo' => $assignComfort->getThumbFileUrl('file', 'thumb')
             ];
         }

@@ -1,8 +1,10 @@
 <?php
 
+use booking\entities\booking\stays\CustomServices;
 use booking\entities\booking\stays\nearby\NearbyCategory;
 use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\stays\StayHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -40,12 +42,69 @@ HTML;
 
 $this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($stay->getDescription()), 20))]);
 
-$this->title = $stay->getName();
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Все аппартаменты'), 'url' => Url::to(['stays/index', 'SearchStayForm' => $SearchStayForm])];
+$_count_service = count($stay->services);
+$js = <<<JS
+$(document).ready(function() {
+    update_fields();
+    $('body').on('change', '#children', function () {
+        update_fields();
+        update_data();
+    });    
+    $('body').on('click', '.click-field-stay-params', function() {
+        update_data()        
+    });
+
+    $('body').on('change', '.change-field-stay-params', function() {
+        update_data()        
+    });
+
+    function update_data() {
+        let stay_id = $('#stay-id').data('id');
+        let begin_date = $('#begin-date').val();
+        let end_date = $('#end-date').val();
+        let guest = $('#guest').val();
+        let children = $('#children').val();
+        let children_age = new Array(children);
+        for (let i = 1; i <= children; i++) {
+            children_age[i] = $('#children-age-' + i).val();
+        }
+        let _services = new Array();
+        for (let j = 0; j < $_count_service; j++) {
+            if ($('#service-' + j).is(':checked')) _services[j] = $('#service-' + j).data('id');
+        }
+        $.post('/stays/stays/get-booking', {stay_id: stay_id, date_from: begin_date, date_to: end_date, guest: guest, children: children, children_age: children_age, services: _services}, function(data) {
+            console.log(data);
+            if (data === "") {
+                $('#new-booking').attr('disabled', true);
+                $('#amount-booking').html('');
+            } else {
+                $('#new-booking').prop('disabled', false);
+                $('#amount-booking').html(data);
+            }
+        });
+    }
+    
+    function update_fields() {
+        let _count = $('#children').val();
+        for (let i = 1; i <= 8; i++) {
+            if (i <= _count) {
+                $('#children_age-' + i).show();
+            } else {
+                $('#children_age-' + i).hide();
+                $('#children-age-' + i).val('');
+            }
+        }
+    }
+
+});
+JS;
+$this->registerJs($js);
 
 $_city = $SearchStayForm;
 $_city['city'] = $stay->city;
 
+$this->title = $stay->getName();
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Все аппартаменты'), 'url' => Url::to(['stays/index', 'SearchStayForm' => $SearchStayForm])];
 $this->params['breadcrumbs'][] = ['label' => Lang::t($stay->city), 'url' => Url::to(['stays/index', 'SearchStayForm' => $_city])];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -53,9 +112,9 @@ MagnificPopupAsset::register($this);
 MapAsset::register($this);
 
 $mobile = SysHelper::isMobile();
-
 ?>
 
+<span id="stay-id" data-id="<?= $stay->id ?>"></span>
     <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col-sm-12">
             <ul class="thumbnails">
@@ -161,17 +220,16 @@ $mobile = SysHelper::isMobile();
                 </div>
             </div>
             <!-- БРОНЬ -->
-            <div class="topbar-search-tours">
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php $form = ActiveForm::begin([
-                        'id' => 'search-stay-form',
-                        'action' => '/' . Lang::current() . '/stays',
-                        'method' => 'GET',
-                        'enableClientValidation' => false,
-                    ]) ?>
-                    <div class="row">
-                        <div class="col">
+            <div class="leftbar-search-stays">
+                <table width="100%">
+                    <tr>
+                        <td class="p-2" width="263px">
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'search-stay-form',
+                                'action' => '/' . Lang::current() . '/stay/',
+                                'method' => 'GET',
+                                'enableClientValidation' => false,
+                            ]) ?>
                             <div class="not-flex">
                                 <?= DatePicker::widget([
                                     'id' => 'stay-range',
@@ -182,8 +240,8 @@ $mobile = SysHelper::isMobile();
                                     'layout' => $layout,
                                     'separator' => '',
                                     'size' => 'lg',
-                                    'options' => ['class' => 'form-control form-control-xl', 'readonly' => 'readonly', 'style' => 'text-align: left;'],
-                                    'options2' => ['class' => 'form-control form-control-xl', 'readonly' => 'readonly', 'style' => 'text-align: left;'],
+                                    'options' => ['class' => 'form-control form-control-xl change-field-stay-params', 'readonly' => 'readonly', 'style' => 'text-align: left;', 'id' => 'begin-date'],
+                                    'options2' => ['class' => 'form-control form-control-xl change-field-stay-params', 'readonly' => 'readonly', 'style' => 'text-align: left;', 'id' => 'end-date'],
                                     'language' => Lang::current(),
                                     'pluginOptions' => [
                                         'startDate' => '+1d',
@@ -193,41 +251,55 @@ $mobile = SysHelper::isMobile();
                                     ],
                                 ]) ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col form-inline">
-                            <?= $form->field($model, 'guest')
-                                ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl'])
-                                ->label(false); ?>
-                            <?= $form->field($model, 'children')
-                                ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1', 'id' => 'count-children'])
-                                ->label(false); ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col search-stay-not-margin">
-                            <?php for ($i = 1; $i <= 8; $i++): ?>
-                                <span id="children_age-<?= $i ?>" style="display: none">
-                     <?= $form->field($model, 'children_age[' . $i . ']')->dropdownList(StayHelper::listAge(), ['prompt' => 'Возраст ребенка', 'class' => 'form-control form-control-xl'])->label(false);?>
-                     </span>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="col-sm-4">
-                    sss
-                </div>
-                <div class="col-sm-4">
-                    <div class="mb-auto" style="align-items: center; text-align: center; display: inline-flex;">
-                        <span class="py-2 my-2" style="color: #122b40; font-size: 48px; font-weight: 800">85 000</span>
-                    </div>
-                        <div class="form-group">
-                            <a class="btn btn-lg btn-primary form-control" style="height: 60px; align-items: center; text-align: center; display: inline-flex;">Забронировать</a>
-                        </div>
-                </div>
-            </div>
+                            <div class="d-flex">
+                                <div class="mr-auto">
+                                    <?= $form->field($model, 'guest')
+                                        ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl change-field-stay-params', 'id' => 'guest'])
+                                        ->label(false); ?>
+                                </div>
+                                <?= $form->field($model, 'children')
+                                    ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1 change-field-stay-params', 'id' => 'children'])
+                                    ->label(false); ?>
+                            </div>
+                            <div class="search-stay-not-margin">
+                                <?php for ($i = 1; $i <= 8; $i++): ?>
+                                    <span id="children_age-<?= $i ?>" style="display: none">
+                                        <?= $form
+                                            ->field($model, 'children_age[' . $i . ']')
+                                            ->dropdownList(StayHelper::listAge(), ['prompt' => 'Возраст ребенка', 'class' => 'form-control form-control-xl change-field-stay-params', 'id' => 'children-age-' . $i])
+                                            ->label(false); ?>
+                                     </span>
+                                <?php endfor; ?>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        </td>
+                        <td class="p-2" valign="top">
+                            <?php if (count($stay->services) > 0) {
+                                echo '<b>Выберите дополнительные услуги:</b>';
+                            } ?>
+                            <?php foreach ($stay->services as $i => $service): ?>
+                                <div class="custom-control custom-checkbox">
+
+                                    <input type="checkbox" class="custom-control-input click-field-stay-params"
+                                           id="service-<?= $i ?>" data-id="<?= $service->id; ?>">
+                                    <label class="custom-control-label"
+                                           for="service-<?= $i ?>"><?= $service->name . ' (' . $service->value . ' ' . CustomServices::listPayment()[$service->payment] . ')' ?> </label>
+                                </div>
+                            <?php endforeach; ?>
+                        </td>
+                        <td class="p-2" width="270px" valign="top">
+                            <div class="mb-auto"
+                                 style="align-items: center; text-align: center; display: inline-flex;">
+                                <span class="py-2 my-2" id="amount-booking"
+                                      style="color: #122b40; font-size: 48px; font-weight: 800">85 000</span>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-lg btn-primary form-control" id="new-booking"
+                                   style="height: 60px; align-items: center; text-align: center; display: inline-flex;">Забронировать</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <!-- УДОБСТВА -->
             <div class="container-hr">
@@ -242,14 +314,14 @@ $mobile = SysHelper::isMobile();
                         <?php foreach ($category['items'] as $comfort): ?>
                             <?php $n++; ?>
                             <div>
-                                <?= '&#10004;' . ' ' . $comfort['name'] . ' ' . ($comfort['pay'] == true ? '<span class="badge badge-danger">платно</span>' : '<span class="badge badge-success">free</span>') ?>
+                                <?= '&#10004;' . ' ' . $comfort['name'] . ' ' . ($comfort['pay'] == null ? '' : ($comfort['pay'] == true ? '<span class="badge badge-danger">платно</span>' : '<span class="badge badge-success">free</span>')) ?>
                                 <?php if ($comfort['photo'] != ''): ?>
                                     <a class="up-image" href="#"><i class="fas fa-camera"
                                                                     style="color: #0c525d; font-size: 20px;"></i><span><img
                                                     src="<?= $comfort['photo'] ?>" alt=""></span></a>
                                 <?php endif; ?>
                             </div>
-                            <?php if ($n == round(count($stay->assignComforts)/ 3)  || $n == 2 * round(count($stay->assignComforts) / 3)) {
+                            <?php if ($n == round(count($stay->assignComforts) / 3) || $n == 2 * round(count($stay->assignComforts) / 3)) {
                                 echo '</div><div class="col-sm-4">';
                             } ?>
                         <?php endforeach; ?>
@@ -266,11 +338,10 @@ $mobile = SysHelper::isMobile();
                     <?php $m = 0;
                     $categories = $stay->getComfortsRoomSortCategoryFrontend();
                     $count = count($stay->assignComfortsRoom) + count($categories);
-
                     foreach ($categories as $i => $category): ?>
                         <?php $m++ ?>
                         <b><i class="<?= $category['image'] ?>"></i> <?= $category['name'] ?></b>
-                        <?php if ($m == round($count / 4) || $m == round($count / 2) || $m == 3 *round($count / 4)) {
+                        <?php if ($m == round($count / 4) || $m == round($count / 2) || $m == 3 * round($count / 4)) {
                             echo '</div><div class="col-sm-3">';
                         } ?>
                         <?php foreach ($category['items'] as $comfort): ?>
@@ -285,7 +356,7 @@ $mobile = SysHelper::isMobile();
                                     </a>
                                 <?php endif; ?>
                             </div>
-                            <?php if ($m == round($count / 4) || $m == round($count / 2) || $m == 3 *round($count / 4)) {
+                            <?php if ($m == round($count / 4) || $m == round($count / 2) || $m == 3 * round($count / 4)) {
                                 echo '</div><div class="col-sm-3">';
                             } ?>
                         <?php endforeach; ?>
@@ -293,6 +364,17 @@ $mobile = SysHelper::isMobile();
                 </div>
             </div>
             <hr/>
+            <!-- ПРАВИЛА ПРОЖИВАНИЯ -->
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Правила проживания') ?></div>
+            </div>
+
+            <!-- ОТЗЫВЫ -->
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Отзывы') ?></div>
+            </div>
         </div>
     </div>
 

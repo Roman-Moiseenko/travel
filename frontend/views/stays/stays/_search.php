@@ -1,15 +1,10 @@
 <?php
 
-use booking\entities\booking\stays\rules\Rules;
 use booking\entities\Lang;
-use booking\forms\booking\cars\SearchCarForm;
 use booking\forms\booking\stays\search\SearchStayForm;
-use booking\helpers\cars\CarTypeHelper;
-use booking\helpers\CityHelper;
 use booking\helpers\stays\StayHelper;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model SearchStayForm */
@@ -36,12 +31,12 @@ HTML;
 $js = <<<JS
 $(document).ready(function() {
     update_fields();
-    $('body').on('change', '#count-children', function () {
+    $('body').on('change', '#children', function () {
         update_fields();
     });
     
     function update_fields() {
-        let _count = $('#count-children').val();
+        let _count = $('#children').val();
         for (let i = 1; i <= 8; i++) {
             if (i <= _count) {
                 $('#children_age-' + i).show();
@@ -107,7 +102,7 @@ $this->params['search']['children_age'] = $model->children_age;
                     ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl'])
                     ->label(false); ?>
                 <?= $form->field($model, 'children')
-                    ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1', 'id' => 'count-children'])
+                    ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1', 'id' => 'children'])
                     ->label(false); ?>
             </div>
         </div>
@@ -127,11 +122,6 @@ $this->params['search']['children_age'] = $model->children_age;
         </div>
     </div>
 </div>
-<?php
-    //TODO Сортировка по бюджету
-    // если установлены даты
-    // цена за ночь по выбранному количеству гостей
-?>
 <div class="p-3"></div>
 <div class="leftbar-search-stays-fields">
     <div class="search-block">

@@ -7,7 +7,9 @@ namespace frontend\controllers\stays;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\search\SearchStayForm;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\scr;
+use booking\helpers\stays\StayHelper;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
 use yii\web\Controller;
@@ -92,4 +94,27 @@ class StaysController extends Controller
             'model' => $form,
         ]);
     }
+
+    public function actionGetBooking()
+    {
+        if (\Yii::$app->request->isAjax)
+        {
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                $stay = $this->stays->get($params['stay_id']);
+                //Проверяем наличие мест на новые даты и кол-во гостей
+
+                //Вычисляем новую стоимость от параметров и выбранных услуг
+                $cost = StayHelper::getCostByParams($stay, $params);
+                return $cost;//CurrencyHelper::stat($cost);
+                //TODO ==>
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
+        }
+        return 'Error page!';
+    }
+
+
+
 }

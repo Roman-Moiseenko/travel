@@ -128,9 +128,10 @@ class StayHelper
     public static function getCostByParams(Stay $stay, array $params)
     {
         if (empty($params)) return $stay->cost_base;
-        $guest = $params['guest'];
-        $children = $params['children'];
+        $guest = (int)$params['guest'];
+        $children = (int)$params['children'];
         $children_age = $params['children_age'];
+        //return json_encode($children_age);
         if ($children > 0) {
             $n = $children;
             for($i = 1; $i <= $n; $i ++) {
