@@ -416,12 +416,6 @@ class Stay extends ActiveRecord
         $this->params = $params;
     }
 
-    /*
-        public function setCost($cost)
-        {
-            $this->cost = $cost;
-        }
-    */
     public function setCancellation($cancellation)
     {
         $this->cancellation = $cancellation;
@@ -649,6 +643,12 @@ class Stay extends ActiveRecord
         }
         $this->reviews = $reviews;
         $this->rating = $total / count($reviews);
+    }
+
+    public function countReviews(): int
+    {
+        $reviews = $this->reviews;
+        return count($reviews);
     }
 
     /** <==========  Reviews  */
@@ -918,6 +918,7 @@ class Stay extends ActiveRecord
 
     public function checkBySearchParams(array $params)
     {
+        //Проверка на даты
         if ($params['date_from'] && $params['date_to']) {
             $begin = SysHelper::_renderDate($params['date_from']);
             $end = SysHelper::_renderDate($params['date_to']);
@@ -934,6 +935,7 @@ class Stay extends ActiveRecord
         } else {
             return Stay::ERROR_NOT_DATE;
         }
+
         //Проверка на детей
         $children = (int)$params['children'];
         $children_age = $params['children_age'];
@@ -945,7 +947,6 @@ class Stay extends ActiveRecord
                 if ($children_age[$i] == "") return self::ERROR_NOT_CHILD_AGE;
                 $min_age = min($min_age, (int)$children_age[$i]);
                 if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++;}
-
             }
             if ($guest > $this->params->guest) return self::ERROR_NOT_GUEST;
             if ($min_age < $this->rules->limit->children_allow) return self::ERROR_LIMIT_CHILD_AGE;

@@ -111,16 +111,11 @@ class StaysController extends Controller
     public function actionGetBooking()
     {
         if (\Yii::$app->request->isAjax) {
-
             try {
                 $params = \Yii::$app->request->bodyParams;
                 $stay = $this->stays->get($params['stay_id']);
-                //TODO Refactoring ===> !!! Засунуть в репозиторий или Stay
-                //Проверяем наличие мест на новые даты
-
-                if ($result = $stay->checkBySearchParams($params) !== true) return $result;
-
-
+                $result = $stay->checkBySearchParams($params);
+                if ($result !== true) return $result; //Неверные параметры для поиска
                 //Вычисляем новую стоимость от параметров и выбранных услуг
                 $cost = $stay->costBySearchParams($params);
                 return CurrencyHelper::stat($cost);
@@ -131,5 +126,13 @@ class StaysController extends Controller
         return 'Error page!';
     }
 
+    public function actionMap($id)
+    {
+        $this->layout = '_blank';
+        $stay = $this->stays->get($id);
+        return $this->render('map', [
+            'stay' => $stay,
+        ]);
+    }
 
 }

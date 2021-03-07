@@ -2,6 +2,10 @@
 
 use booking\entities\booking\stays\CustomServices;
 use booking\entities\booking\stays\nearby\NearbyCategory;
+use booking\entities\booking\stays\rules\CheckIn;
+use booking\entities\booking\stays\rules\Parking;
+use booking\entities\booking\stays\rules\Rules;
+use booking\entities\booking\stays\rules\WiFi;
 use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
@@ -9,7 +13,11 @@ use booking\helpers\stays\StayHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\assets\MapStayAsset;
 use frontend\widgets\LegalWidget;
+use frontend\widgets\reviews\NewReviewFunWidget;
+use frontend\widgets\reviews\NewReviewStayWidget;
+use frontend\widgets\reviews\ReviewsWidget;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -120,12 +128,48 @@ $this->params['breadcrumbs'][] = ['label' => Lang::t($stay->city), 'url' => Url:
 $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
-MapAsset::register($this);
-
+//MapAsset::register($this);
+MapStayAsset::register($this);
 $mobile = SysHelper::isMobile();
+$countReveiws = $stay->countReviews();
+
 ?>
 
-<span id="stay-id" data-id="<?= $stay->id ?>"></span>
+<?=
+ newerton\fancybox\FancyBox::widget([
+    'target' => 'a[rel=fancybox]',
+    'helpers' => false,
+    'mouse' => true,
+    'config' => [
+        'maxWidth' => '95%',
+        'maxHeight' => '95%',
+        'playSpeed' => 7000,
+        'padding' => 0,
+        'fitToView' => false,
+        'width' => '90%',
+        'height' => '90%',
+        'autoSize' => false,
+        'closeClick' => false,
+        'openEffect' => 'elastic',
+        'closeEffect' => 'elastic',
+        'prevEffect' => 'elastic',
+        'nextEffect' => 'elastic',
+        'closeBtn' => true,
+        'openOpacity' => true,
+        'helpers' => [
+            'title' => ['type' => 'float'],
+            'buttons' => [],
+            'thumbs' => ['width' => 68, 'height' => 50],
+            'overlay' => [
+                'css' => [
+                    'background' => 'rgba(0, 0, 0, 0.3)'
+                ]
+            ]
+        ],
+    ]
+]);
+?>
+    <span id="stay-id" data-id="<?= $stay->id ?>"></span>
     <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col-sm-12">
             <ul class="thumbnails">
@@ -179,6 +223,11 @@ $mobile = SysHelper::isMobile();
                     </div>
                 </div>
             </div>
+    <div class="row pb-3">
+        <div class="col-12">
+            <?= Html::a('<i class="fas fa-map-marker-alt"></i> Показать на карте', Url::to(['/stays/stays/map', 'id' => $stay->id]), ['rel' => 'fancybox', 'class' => 'various fancybox.iframe']);?>
+        </div>
+    </div>
             <!-- Описание -->
             <div class="row">
                 <div class="col-sm-10 params-tour text-justify">
@@ -298,7 +347,7 @@ $mobile = SysHelper::isMobile();
                                 </div>
                             <?php endforeach; ?>
                         </td>
-                        <td class="p-2" width="270px" valign="top">
+                        <td class="p-2" width="270px" valign="top" style="border-left: #575757 solid 1px">
                             <div class="mb-auto"
                                  style="align-items: center; text-align: center; display: inline-flex;">
                                 <span class="py-2 my-2" id="amount-booking"
@@ -309,7 +358,6 @@ $mobile = SysHelper::isMobile();
                                    style="height: 60px; align-items: center; text-align: center; display: none;">Забронировать</a>
                             </div>
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
-
                             </div>
                         </td>
                     </tr>
@@ -383,12 +431,133 @@ $mobile = SysHelper::isMobile();
                 <hr/>
                 <div class="text-left-hr"><?= Lang::t('Правила проживания') ?></div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <!-- ************************************************************************************************************************************ -->
+
+                    <div class="card">
+                        <div class="card-body" style="font-size: 14px; background-color: rgba(42,171,210,0.54); color: black">
+                            <table width="100%">
+                                <tr>
+                                    <td width="20px">
+                                        <i class="fas fa-bed" style="font-size: 20px !important;"></i>
+                                    </td>
+                                    <td class="pl-4">
+                                        <?php if ($stay->rules->beds->child_on): ?>
+                                            <b>Допускается установка дополнительных детских кроватей с 0
+                                                до <?= $stay->rules->beds->child_agelimit ?>:</b><br>
+                                            - Установка дополнительной детской кровати <?= (int)$stay->rules->beds->child_cost == 0 ? Lang::t('бесплатна') : $stay->rules->beds->child_cost . ' ' . Lang::t('руб/сут') ?>
+                                            <br>
+                                            - Допускается установка не более <?= $stay->rules->beds->child_count ?> кроватей
+                                            <br>
+                                        <?php else: ?>
+                                            Установка дополнительных детских кроватей не допускается<br>
+                                        <?php endif; ?>
+                                        <b>Ребенок считается взрослым для размещения на отдельной кровати
+                                            с <?= $stay->rules->beds->child_by_adult ?> лет</b><br>
+                                        <?php if ($stay->rules->beds->adult_on): ?>
+                                            <b>Допускается установка дополнительных кроватей:</b><br>
+                                            - Установка дополнительной кровати <?= (int)$stay->rules->beds->adult_cost == 0 ? Lang::t('бесплатна') : $stay->rules->beds->adult_cost . ' ' . Lang::t('руб/сут') ?>
+                                            <br>
+                                            - Допускается установка не более <?= $stay->rules->beds->adult_count ?> кроватей
+                                            <br>
+                                        <?php else: ?>
+                                            Установка дополнительных кроватей не допускается<br>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr><td>&#160;</td></tr>
+                                <tr>
+                                    <td width="20px">
+                                        <i class="fas fa-parking" style="font-size: 20px !important;"></i>
+                                    </td>
+                                    <td class="pl-4">
+                                        <?php if ($stay->rules->parking->is()): ?>
+                                            Гостям предоставляется <?= Parking::listPrivate()[$stay->rules->parking->private] ?>
+                                            парковка <?= Parking::listInside()[$stay->rules->parking->inside] ?>
+                                            <br>
+                                            <?= $stay->rules->parking->reserve ? 'Необходимо предварительно бронировать<br>' : '' ?>
+                                            <?= $stay->rules->parking->security ? 'Парковка охраняется<br>' : '' ?>
+                                            <?= $stay->rules->parking->covered ? 'Парковка имеет укрытие от осадков<br>' : '' ?>
+                                            <?= $stay->rules->parking->street ? 'Парковка расположена на улице' : 'Парковка расположена в здании' ?>
+                                            <br>
+                                            <?= $stay->rules->parking->invalid ? 'Имеются места для людей с физическими ограничениями<br>' : '' ?>
+                                            <?= (int)$stay->rules->parking->status == Rules::STATUS_PAY ? 'Стоимость парковки за ' . Parking::listCost()[$stay->rules->parking->cost_type] . ' ' . $stay->rules->parking->cost . ' руб.' : '' ?>
+
+                                        <?php else: ?>
+                                            Парковка не предусмотрена<br>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr><td>&#160;</td></tr>
+                                <tr>
+                                    <td width="20px">
+                                        <i class="fas fa-clock" style="font-size: 20px !important;"></i>
+                                    </td>
+                                    <td class="pl-4">
+                                        Заезд гостей возможен
+                                        с <?= CheckIn::string_time($stay->rules->checkin->checkin_from) ?>
+                                        до <?= CheckIn::string_time($stay->rules->checkin->checkin_to) ?><br>
+                                        Отъезд гостей возможен
+                                        с <?= CheckIn::string_time($stay->rules->checkin->checkout_from) ?>
+                                        до <?= CheckIn::string_time($stay->rules->checkin->checkout_to) ?><br>
+                                        <?= $stay->rules->checkin->message ? 'Гостям необходимо предварительно сообщить время заезда' : '' ?>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr><td>&#160;</td></tr>
+                                <tr>
+                                    <td width="20px">
+                                        <i class="fas fa-smoking-ban" style="font-size: 20px !important;"></i>
+                                    </td>
+                                    <td class="pl-4">
+                                        <?= $stay->rules->limit->smoking ? Lang::t('Разрешается курение в номерах') : Lang::t('Курение в номерах запрещено') ?>
+                                        <br>
+                                        Размещение с животными <?=
+                                        !$stay->rules->limit->isAnimals() ?
+                                            'не разрешено' :
+                                            ($stay->rules->limit->animals == Rules::STATUS_FREE ?
+                                                'разрешено' :
+                                                'платно')
+                                        ?><br>
+                                        <?= $stay->rules->limit->children ? 'Разрешено с детьми с ' . $stay->rules->limit->children_allow . ' лет' : 'Заселение с детьми не разрешено!' ?>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr><td>&#160;</td></tr>
+                                <tr>
+                                    <td width="20px">
+                                        <i class="fas fa-wifi" style="font-size: 20px !important;"></i>
+                                    </td>
+                                    <td class="pl-4">
+                                        <?= $stay->rules->wifi->is()
+                                            ? 'WiFi действует ' . WiFi::listArea()[$stay->rules->wifi->area] . '. Пользование WiFi ' .
+                                            ($stay->rules->wifi->free()
+                                                ? 'бесплатно'
+                                                : 'платно, цена ' .
+                                                $stay->rules->wifi->cost . ' руб. за ' .
+                                                WiFi::listCost()[$stay->rules->wifi->cost_type])
+                                            : 'WiFi отсутствует' ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ************************************************************************************************************************************ -->
+                </div>
+            </div>
 
             <!-- ОТЗЫВЫ -->
+            <!-- Виджет подгрузки отзывов -->
             <div class="container-hr">
                 <hr/>
-                <div class="text-left-hr"><?= Lang::t('Отзывы') ?></div>
+                <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
             </div>
+            <div id="review">
+                <?= ReviewsWidget::widget(['reviews' => $stay->reviews]); ?>
+            </div>
+            <?= NewReviewStayWidget::widget(['stay_id' => $stay->id]); ?>
         </div>
     </div>
 

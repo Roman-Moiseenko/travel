@@ -199,7 +199,6 @@ function init() {
         myMapView2.controls.remove('trafficControl');
         myMapView2.controls.remove('geolocationControl');
 
-
         myMapView2.setCenter(coords2, 12);
         myPlacemark2 = new ymaps.Placemark(coords2, {
             iconCaption: ''
