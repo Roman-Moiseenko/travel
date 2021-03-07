@@ -106,6 +106,8 @@ class Stay extends ActiveRecord
     const ERROR_NOT_CHILD = -30;
     const ERROR_NOT_DATE_END = -40;
     const ERROR_NOT_GUEST = -50;
+    const ERROR_NOT_CHILD_AGE = -60;
+    const ERROR_LIMIT_CHILD_AGE = -70;
 
     /** @var $address BookingAddress */
     public $address;
@@ -120,10 +122,10 @@ class Stay extends ActiveRecord
             self::ERROR_NOT_CHILD => Lang::t('Не предусмотрено с детьми'),
             self::ERROR_NOT_DATE_END => Lang::t('Неверная дата отъезда'),
             self::ERROR_NOT_GUEST => Lang::t('Превышено количество гостей'),
+            self::ERROR_NOT_CHILD_AGE => Lang::t('Не указан возраст детей'),
+            self::ERROR_LIMIT_CHILD_AGE => Lang::t('Ограничение по возрасту ребенка'),
         ];
     }
-
-
 
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): self
     {
@@ -859,7 +861,6 @@ class Stay extends ActiveRecord
             for($i = 1; $i <= $n; $i ++) {
                 if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++; $children--;}
             }
-
             if ($children > round($guest / 2))  {
                 $guest += round(($children - round($guest / 2)) / 2);
             }
@@ -913,5 +914,42 @@ class Stay extends ActiveRecord
                 }
             }
         return $cost + $cost_service;
+    }
+
+    public function checkBySearchParams(array $params)
+    {
+        if ($params['date_from'] && $params['date_to']) {
+            $begin = SysHelper::_renderDate($params['date_from']);
+            $end = SysHelper::_renderDate($params['date_to']);
+            $days = round(($end - $begin) / (24 * 60 * 60));
+            if ($days <= 0) return Stay::ERROR_NOT_DATE_END;
+            $calendars = CostCalendar::find()
+                ->andWhere(['stay_id' => $this->id])
+                ->andWhere(['>=', 'stay_at', $begin])
+                ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
+                ->count('id');
+            if ($days != $calendars) {
+                return Stay::ERROR_NOT_FREE;
+            }
+        } else {
+            return Stay::ERROR_NOT_DATE;
+        }
+        //Проверка на детей
+        $children = (int)$params['children'];
+        $children_age = $params['children_age'];
+        $guest = (int)$params['guest'];
+        if ($children > 0) {
+            if (!$this->rules->limit->children) return self::ERROR_NOT_CHILD;
+            $min_age = 16;
+            for ($i = 1; $i <= $children; $i++) {
+                if ($children_age[$i] == "") return self::ERROR_NOT_CHILD_AGE;
+                $min_age = min($min_age, (int)$children_age[$i]);
+                if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++;}
+
+            }
+            if ($guest > $this->params->guest) return self::ERROR_NOT_GUEST;
+            if ($min_age < $this->rules->limit->children_allow) return self::ERROR_LIMIT_CHILD_AGE;
+        }
+        return true;
     }
 }
