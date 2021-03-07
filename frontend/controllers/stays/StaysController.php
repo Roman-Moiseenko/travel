@@ -4,7 +4,9 @@
 namespace frontend\controllers\stays;
 
 
+use booking\entities\booking\stays\CostCalendar;
 use booking\entities\booking\stays\CustomServices;
+use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\search\SearchStayForm;
@@ -101,14 +103,29 @@ class StaysController extends Controller
     {
         if (\Yii::$app->request->isAjax)
         {
-            //TODO Refactoring ===> !!!
+            //TODO Refactoring ===> !!! Засунуть в репозиторий
             try {
                 $params = \Yii::$app->request->bodyParams;
                 $stay = $this->stays->get($params['stay_id']);
                 //Проверяем наличие мест на новые даты и кол-во гостей
 
+                if ($params['date_from'] && $params['date_to']) {
+                    $begin = SysHelper::_renderDate($params['date_from']);
+                    $end = SysHelper::_renderDate($params['date_to']);
+                    $calendars = CostCalendar::find()->andWhere(['stay_id' => $stay->id])->andWhere(['>=', 'stay_at', $begin])->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])->orderBy('stay_at')->all();
+                    if (round(($end - $begin) / (24 * 60 * 60)) != count($calendars)) {
+                        return Stay::ERROR_NOT_FREE;
+                    }
+
+                } else {
+                    return Stay::ERROR_NOT_DATE;
+                }
+                //Проверка на детей
+
+
                 //Вычисляем новую стоимость от параметров и выбранных услуг
                 $cost = StayHelper::getCostByParams($stay, $params);
+
                 $cost_service = 0;
                 $begin = SysHelper::_renderDate($params['date_from']);
                 $end = SysHelper::_renderDate($params['date_to']);

@@ -106,10 +106,10 @@ class StayHelper
         return $result;
     }
 
-    public static function listGuest()
+    public static function listGuest($max = 20)
     {
         $result[1] = '1 взрослый';
-        for ($i = 2; $i <= 20; $i++) {
+        for ($i = 2; $i <= $max; $i++) {
             $result[$i] = $i . ' взрослых';
         }
         return $result;
@@ -119,7 +119,7 @@ class StayHelper
     {
         $result[0] = 'Без детей';
         $result[1] = '1 ребенок';
-        for ($i = 2; $i <= 10; $i++) {
+        for ($i = 2; $i <= 8; $i++) {
             $result[$i] = $i . ' детей';
         }
         return $result;
@@ -127,6 +127,8 @@ class StayHelper
 
     public static function getCostByParams(Stay $stay, array $params)
     {
+        //TODO Refactoring ===> !!! Засунуть в Сервис или Репозиторий
+
         if (empty($params)) return $stay->cost_base;
         $guest = (int)$params['guest'];
         $children = (int)$params['children'];
@@ -150,6 +152,9 @@ class StayHelper
         $end = SysHelper::_renderDate($params['date_to']);
         $cost = 0;
         $calendars = CostCalendar::find()->andWhere(['stay_id' => $stay->id])->andWhere(['>=', 'stay_at', $begin])->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])->orderBy('stay_at')->all();
+        if (round(($end - $begin) / (24 * 60 * 60)) != count($calendars)) {
+            return Stay::ERROR_NOT_FREE;
+        }
         foreach ($calendars as $calendar) {
             $add_guest = ($guest > $calendar->guest_base) ? ($guest - $calendar->guest_base) : 0;
             $cost += $calendar->cost_base + $add_guest * $calendar->cost_add;

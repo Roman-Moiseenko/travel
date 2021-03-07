@@ -42,6 +42,10 @@ HTML;
 
 $this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($stay->getDescription()), 20))]);
 
+$_not_date = Stay::ERROR_NOT_DATE;
+$_not_free = Stay::ERROR_NOT_FREE;
+$_not_child = Stay::ERROR_NOT_CHILD;
+
 $_count_service = count($stay->services);
 $js = <<<JS
 $(document).ready(function() {
@@ -75,11 +79,14 @@ $(document).ready(function() {
         }
         $.post('/stays/stays/get-booking', {stay_id: stay_id, date_from: begin_date, date_to: end_date, guest: guest, children: children, children_age: children_age, services: _services}, function(data) {
             console.log(data);
-            if (data === "") {
-                $('#new-booking').attr('disabled', true);
+            if (Number(data) < 0) {
+                $('#new-booking').hide();
                 $('#amount-booking').html('');
+                if (Number(data) === $_not_date) $('#error-booking').html('Укажите даты для расчета стоимости');
+                if (Number(data) === $_not_free) $('#error-booking').html('На выбранные даты нет свободных мест');
             } else {
-                $('#new-booking').prop('disabled', false);
+                $('#error-booking').html('');
+                $('#new-booking').show();
                 $('#amount-booking').html(data);
             }
         });
@@ -255,7 +262,7 @@ $mobile = SysHelper::isMobile();
                             <div class="d-flex">
                                 <div class="mr-auto">
                                     <?= $form->field($model, 'guest')
-                                        ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl change-field-stay-params', 'id' => 'guest'])
+                                        ->dropDownList(StayHelper::listGuest($stay->params->guest), ['class' => 'form-control form-control-xl change-field-stay-params', 'id' => 'guest'])
                                         ->label(false); ?>
                                 </div>
                                 <?= $form->field($model, 'children')
@@ -292,11 +299,14 @@ $mobile = SysHelper::isMobile();
                             <div class="mb-auto"
                                  style="align-items: center; text-align: center; display: inline-flex;">
                                 <span class="py-2 my-2" id="amount-booking"
-                                      style="color: #122b40; font-size: 48px; font-weight: 800">---</span>
+                                      style="color: #122b40; font-size: 48px; font-weight: 800"></span>
                             </div>
                             <div class="form-group pt-2">
                                 <a class="btn btn-lg btn-primary form-control" id="new-booking"
                                    style="height: 60px; align-items: center; text-align: center; display: inline-flex;">Забронировать</a>
+                            </div>
+                            <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
+
                             </div>
                         </td>
                     </tr>

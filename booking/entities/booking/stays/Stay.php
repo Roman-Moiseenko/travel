@@ -101,6 +101,10 @@ class Stay extends ActiveRecord
     const MAX_BEDROOMS = 8;
     const STAY_EMPTY = 14;
 
+    const ERROR_NOT_FREE = -10;
+    const ERROR_NOT_DATE = -20;
+    const ERROR_NOT_CHILD = -30;
+
     /** @var $address BookingAddress */
     public $address;
     /** @var $params StayParams */

@@ -85,6 +85,7 @@ $this->params['search']['children_age'] = $model->children_age;
                         'size' => 'lg',
                         'options' => ['class' => 'form-control form-control-xl', 'readonly' => 'readonly', 'style' => 'text-align: left;'],
                         'options2' => ['class' => 'form-control form-control-xl', 'readonly' => 'readonly', 'style' => 'text-align: left;'],
+
                         'language' => Lang::current(),
                         'pluginOptions' => [
                             'startDate' => '+1d',
