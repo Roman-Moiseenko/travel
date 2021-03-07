@@ -153,6 +153,7 @@ return [
 
                 'stays' => 'stays/stays/index',
                 'stays/stays/get-booking' => 'stays/stays/get-booking',
+                'stays/stays/get-error' => 'stays/stays/get-error',
                 'stay/<id:\d+>' => 'stays/stays/stay',
 
                 'tickets' => 'tickets/tickets/index',

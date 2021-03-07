@@ -115,8 +115,8 @@ class Stay extends ActiveRecord
     public static function listErrors(): array
     {
         return [
-            self::ERROR_NOT_FREE => Lang::t('Укажите даты для расчета стоимости'),
-            self::ERROR_NOT_DATE => Lang::t('На выбранные даты нет свободных мест'),
+            self::ERROR_NOT_FREE => Lang::t('На выбранные даты нет свободных мест'),
+            self::ERROR_NOT_DATE => Lang::t('Укажите даты для расчета стоимости'),
             self::ERROR_NOT_CHILD => Lang::t('Не предусмотрено с детьми'),
             self::ERROR_NOT_DATE_END => Lang::t('Неверная дата отъезда'),
             self::ERROR_NOT_GUEST => Lang::t('Превышено количество гостей'),
@@ -846,5 +846,72 @@ class Stay extends ActiveRecord
     public static function find(): StayQueries
     {
         return new StayQueries(static::class);
+    }
+
+    public function costBySearchParams(array $params)
+    {
+        if (empty($params)) return $this->cost_base;
+        $guest = (int)$params['guest'];
+        $children = (int)$params['children'];
+        $children_age = $params['children_age'];
+        if ($children > 0) {
+            $n = $children;
+            for($i = 1; $i <= $n; $i ++) {
+                if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++; $children--;}
+            }
+
+            if ($children > round($guest / 2))  {
+                $guest += round(($children - round($guest / 2)) / 2);
+            }
+        }
+        if (empty($params['date_from'])) {
+            $add_guest = ($guest > $this->guest_base) ? ($guest - $this->guest_base) : 0;
+            return $this->cost_base + $add_guest * $this->cost_add;
+        }
+
+        $begin = SysHelper::_renderDate($params['date_from']);
+        $end = SysHelper::_renderDate($params['date_to']);
+        $days = round(($end - $begin) / (24 * 60 * 60));
+        $cost = 0;
+        $calendars = CostCalendar::find()
+            ->andWhere(['stay_id' => $this->id])
+            ->andWhere(['>=', 'stay_at', $begin])
+            ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
+            ->orderBy('stay_at')->all();
+        if ($days != count($calendars)) {
+            return self::ERROR_NOT_FREE;
+        }
+        foreach ($calendars as $calendar) {
+            $add_guest = ($guest > $calendar->guest_base) ? ($guest - $calendar->guest_base) : 0;
+            $cost += $calendar->cost_base + $add_guest * $calendar->cost_add;
+        }
+        $cost_service = 0;
+        //$guest = $params['guest'];
+        if (isset($params['services']))
+            foreach ($params['services'] as $service_id) {
+                if ($service_id != "") {
+                    $service = $this->getServicesById((int)$service_id);
+                    switch ($service->payment) {
+                        case CustomServices::PAYMENT_PERCENT :
+                            $cost_service += $cost * ($service->value / 100);
+                            break;
+                        case CustomServices::PAYMENT_FIX_DAY:
+                            $cost_service += $service->value * $days;
+                            break;
+                        case CustomServices::PAYMENT_FIX_ALL:
+                            $cost_service += $service->value;
+                            break;
+                        case CustomServices::PAYMENT_FIX_DAY_GUEST:
+                            $cost_service += $service->value * $days * $guest;
+                            break;
+                        case CustomServices::PAYMENT_FIX_ALL_GUEST:
+                            $cost_service += $service->value * $guest;
+                            break;
+                        default:
+                            $cost_service += 0;
+                    }
+                }
+            }
+        return $cost + $cost_service;
     }
 }

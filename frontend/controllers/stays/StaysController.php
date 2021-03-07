@@ -99,6 +99,15 @@ class StaysController extends Controller
         ]);
     }
 
+    public function actionGetError()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            if (isset($params['code_error'])) return Stay::listErrors()[$params['code_error']];
+        }
+        return null;
+    }
+
     public function actionGetBooking()
     {
         if (\Yii::$app->request->isAjax)
@@ -125,10 +134,10 @@ class StaysController extends Controller
 
 
                 //Вычисляем новую стоимость от параметров и выбранных услуг
-                $cost = StayHelper::getCostByParams($stay, $params);
+                $cost = $stay->costBySearchParams($params);
 
                 //Вычисляем стоимость дополнительных услуг
-                $cost_service = 0;
+                /*$cost_service = 0;
                 $guest = $params['guest'];
                 if (isset($params['services']))
                 foreach ($params['services'] as $service_id) {
@@ -154,8 +163,8 @@ class StaysController extends Controller
                                 $cost_service += 0;
                         }
                     }
-                }
-                return CurrencyHelper::stat($cost + $cost_service);
+                }*/
+                return CurrencyHelper::stat($cost);
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }

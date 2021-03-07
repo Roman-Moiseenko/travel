@@ -50,6 +50,7 @@ $_arr_error = Stay::listErrors();
 $_count_service = count($stay->services);
 $js = <<<JS
 $(document).ready(function() {
+
     update_fields();
     update_data();
     $('body').on('change', '#children', function () {
@@ -65,7 +66,6 @@ $(document).ready(function() {
     });
 
     function update_data() {
-        console.log($_arr_error);
         let stay_id = $('#stay-id').data('id');
         let begin_date = $('#begin-date').val();
         let end_date = $('#end-date').val();
@@ -84,11 +84,9 @@ $(document).ready(function() {
             if (Number(data) < 0) {
                 $('#new-booking').hide();
                 $('#amount-booking').html('');
-
-                if (Number(data) === $_not_date) $('#error-booking').html('Укажите даты для расчета стоимости');
-                if (Number(data) === $_not_free) $('#error-booking').html('На выбранные даты нет свободных мест');
-                if (Number(data) === $_not_date_end) $('#error-booking').html('Неверная дата отъезда');
-                if (Number(data) === $_not_child) $('#error-booking').html('Не предусмотрено с детьми');
+                $.post('/stays/stays/get-error', {code_error: Number(data)}, function(data) {
+                    $('#error-booking').html(data);
+                });
             } else {
                 $('#error-booking').html('');
                 $('#new-booking').show();
@@ -308,7 +306,7 @@ $mobile = SysHelper::isMobile();
                             </div>
                             <div class="form-group pt-2">
                                 <a class="btn btn-lg btn-primary form-control" id="new-booking"
-                                   style="height: 60px; align-items: center; text-align: center; display: inline-flex;">Забронировать</a>
+                                   style="height: 60px; align-items: center; text-align: center; display: none;">Забронировать</a>
                             </div>
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
 

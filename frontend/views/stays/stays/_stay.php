@@ -120,7 +120,7 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                     <div class="d-flex">
                         <div>
                             <div class="pl-4 py-2">
-                                <span class="price-card"><?= CurrencyHelper::get(StayHelper::getCostByParams($stay, $arr)) ?></span>
+                                <span class="price-card"><?= CurrencyHelper::get($stay->costBySearchParams($arr)) ?></span>
                             </div>
                             <div class="pull-right rating pl-4 pb-2">
                                 <?= RatingWidget::widget(['rating' => $stay->rating]) ?>
