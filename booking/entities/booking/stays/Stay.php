@@ -104,6 +104,7 @@ class Stay extends ActiveRecord
     const ERROR_NOT_FREE = -10;
     const ERROR_NOT_DATE = -20;
     const ERROR_NOT_CHILD = -30;
+    const ERROR_NOT_DATE_END = -40;
 
     /** @var $address BookingAddress */
     public $address;

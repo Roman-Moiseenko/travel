@@ -112,11 +112,11 @@ class StaysController extends Controller
                 if ($params['date_from'] && $params['date_to']) {
                     $begin = SysHelper::_renderDate($params['date_from']);
                     $end = SysHelper::_renderDate($params['date_to']);
+                    if ($begin == $end) return Stay::ERROR_NOT_DATE_END;
                     $calendars = CostCalendar::find()->andWhere(['stay_id' => $stay->id])->andWhere(['>=', 'stay_at', $begin])->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])->orderBy('stay_at')->all();
                     if (round(($end - $begin) / (24 * 60 * 60)) != count($calendars)) {
                         return Stay::ERROR_NOT_FREE;
                     }
-
                 } else {
                     return Stay::ERROR_NOT_DATE;
                 }
