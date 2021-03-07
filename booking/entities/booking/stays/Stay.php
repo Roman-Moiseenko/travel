@@ -105,11 +105,25 @@ class Stay extends ActiveRecord
     const ERROR_NOT_DATE = -20;
     const ERROR_NOT_CHILD = -30;
     const ERROR_NOT_DATE_END = -40;
+    const ERROR_NOT_GUEST = -50;
 
     /** @var $address BookingAddress */
     public $address;
     /** @var $params StayParams */
     public $params;
+
+    public static function listErrors(): array
+    {
+        return [
+            self::ERROR_NOT_FREE => Lang::t('Укажите даты для расчета стоимости'),
+            self::ERROR_NOT_DATE => Lang::t('На выбранные даты нет свободных мест'),
+            self::ERROR_NOT_CHILD => Lang::t('Не предусмотрено с детьми'),
+            self::ERROR_NOT_DATE_END => Lang::t('Неверная дата отъезда'),
+            self::ERROR_NOT_GUEST => Lang::t('Превышено количество гостей'),
+        ];
+    }
+
+
 
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $city, $to_center): self
     {

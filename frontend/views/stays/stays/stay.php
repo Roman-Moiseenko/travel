@@ -46,7 +46,7 @@ $_not_date = Stay::ERROR_NOT_DATE;
 $_not_free = Stay::ERROR_NOT_FREE;
 $_not_child = Stay::ERROR_NOT_CHILD;
 $_not_date_end = Stay::ERROR_NOT_DATE_END;
-
+$_arr_error = Stay::listErrors();
 $_count_service = count($stay->services);
 $js = <<<JS
 $(document).ready(function() {
@@ -65,6 +65,7 @@ $(document).ready(function() {
     });
 
     function update_data() {
+        console.log($_arr_error);
         let stay_id = $('#stay-id').data('id');
         let begin_date = $('#begin-date').val();
         let end_date = $('#end-date').val();
@@ -83,6 +84,7 @@ $(document).ready(function() {
             if (Number(data) < 0) {
                 $('#new-booking').hide();
                 $('#amount-booking').html('');
+
                 if (Number(data) === $_not_date) $('#error-booking').html('Укажите даты для расчета стоимости');
                 if (Number(data) === $_not_free) $('#error-booking').html('На выбранные даты нет свободных мест');
                 if (Number(data) === $_not_date_end) $('#error-booking').html('Неверная дата отъезда');

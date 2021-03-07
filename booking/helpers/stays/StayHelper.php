@@ -127,7 +127,7 @@ class StayHelper
 
     public static function getCostByParams(Stay $stay, array $params)
     {
-        //TODO Refactoring ===> !!! Засунуть в Сервис или Репозиторий
+        //TODO Refactoring ===> !!! Засунуть в Репозиторий(?) или в Сущность(!!!)
 
         if (empty($params)) return $stay->cost_base;
         $guest = (int)$params['guest'];
