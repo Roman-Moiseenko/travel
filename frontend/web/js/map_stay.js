@@ -28,10 +28,24 @@ function init() {
 
         myMapView.setCenter(coords, data_zoom);
         myMapView.container.enterFullscreen();
+        let MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+            '<div style="color: #6cc77f; font-weight: bold; background-color: white">Название Жилья. ЦЕНА. Фото!</div>'
+        ),
         myPlacemark = new ymaps.Placemark(coords, {
             iconCaption: ''
         }, {
-            preset: 'islands#violetDotIconWithCaption',
+            // Опции.
+            // Необходимо указать данный тип макета.
+           /* iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'geo_main.png',
+            // Размеры метки.
+            iconImageSize: [50, 81],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-20, -40],*/
+//            preset: 'islands#violetDotIconWithCaption',
+            iconContentLayout: MyIconContentLayout,
             draggable: false
         });
 

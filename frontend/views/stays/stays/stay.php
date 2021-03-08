@@ -225,7 +225,7 @@ $countReveiws = $stay->countReviews();
             </div>
     <div class="row pb-3">
         <div class="col-12">
-            <?= Html::a('<i class="fas fa-map-marker-alt"></i> Показать на карте', Url::to(['/stays/stays/map', 'id' => $stay->id]), ['rel' => 'fancybox', 'class' => 'various fancybox.iframe']);?>
+            <?= Html::a('<i class="fas fa-map-marker-alt"></i> ' . $stay->address->address, Url::to(['/stays/stays/map', 'id' => $stay->id]), ['rel' => 'fancybox', 'class' => 'various fancybox.iframe']);?>
         </div>
     </div>
             <!-- Описание -->
