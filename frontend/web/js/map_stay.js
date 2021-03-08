@@ -32,22 +32,45 @@ function init() {
             '<div style="color: #6cc77f; font-weight: bold; background-color: white">Название Жилья. ЦЕНА. Фото!</div>'
         ),
         myPlacemark = new ymaps.Placemark(coords, {
-            iconCaption: ''
+            //TODO Сделать красоту
+            hintContent: '<span style="color: red; height: 50px;"> <p>Название Жилья. ЦЕНА. Фото!</p></span>'
+            //balloonContent: ,
         }, {
             // Опции.
             // Необходимо указать данный тип макета.
-           /* iconLayout: 'default#image',
+            iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'geo_main.png',
+            iconImageHref: '/images/geo_main.png', // 'images/geo_main.png',
             // Размеры метки.
-            iconImageSize: [50, 81],
+            iconImageSize: [25, 40],
             // Смещение левого верхнего угла иконки относительно
             // её "ножки" (точки привязки).
-            iconImageOffset: [-20, -40],*/
+            iconImageOffset: [-12, -40],
 //            preset: 'islands#violetDotIconWithCaption',
-            iconContentLayout: MyIconContentLayout,
+           // iconContentLayout: MyIconContentLayout,
             draggable: false
         });
+        //TODO
+        /** ссылка по метке
+         *
+         var marker = new ymaps.Placemark(
+         //координаты
+         {
+            ...
+          },
+                 {
+            hasBalloon: false,
+            href: 'http://google.ru/'
+            ...
+          }
+                 );
+                 marker.events.add('click', function (e) {
+          location = e.get('target').options.get('href');
+        });
+
+
+
+         */
 
         myMapView.geoObjects.add(myPlacemark);
         // if ($('#' + suggest).val() === '')
