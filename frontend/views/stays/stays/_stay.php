@@ -43,10 +43,10 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                     <div itemscope itemtype="http://schema.org/ImageObject">
                         <a href="<?= Html::encode($url) ?>">
                             <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
-                                 alt=""
+                                 alt="<?= Lang::t($car->mainPhoto->alt) ?>"
                                  class="img-responsive" itemprop="contentUrl"/>
                         </a>
-                        <meta itemprop="name" content="Аренда жилья в Калининграде">
+                        <meta itemprop="name" content="<?= empty($stay->mainPhoto->alt) ? 'Аренда жилья в Калининграде' : Lang::t($stay->mainPhoto->alt) ?>">
                         <meta itemprop="description" content="<?= $stay->getName() ?>">
                     </div>
                 <?php endif; ?>
@@ -66,9 +66,11 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
         <div class="caption-car-list px-2">
             <div class="d-flex flex-column align-items-stretch" style="height: 228px">
                 <div class="pt-3 text-center">
-                    <h4 class="card-title card-object">
-                        <a href="<?= Html::encode($url) ?>"><?= Html::encode($stay->getName()) ?></a>
-                    </h4>
+                    <a href="<?= Html::encode($url) ?>">
+                    <h2 class="card-title card-object">
+                        <?= Html::encode($stay->getName()) ?>
+                    </h2>
+                    </a>
                 </div>
                 <div class="mb-auto text-justify">
                     <!-- БЛОК ОПИСАНИЯ -->
@@ -106,8 +108,6 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
 
                     </div>
                     <?= (StringHelper::truncateWords(strip_tags($stay->getDescription()), 10))  ?>
-
-
                 </div>
                 <div class="category-card">
                     <a href="<?= $url_city ?>"><?= Lang::t($stay->city) ?></a>

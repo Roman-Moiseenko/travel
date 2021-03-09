@@ -89,6 +89,7 @@ class Lang extends ActiveRecord
 
     public static function t($text, $lang = null): string
     {
+        if (empty($text)) return '';
         //Определяем какой User запросил перевод,
         //если клиент, то получаем текущий язык
         //иначе ставим Русский

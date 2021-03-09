@@ -672,6 +672,8 @@ div.required label:after {
 .card-object {
     font-weight: 600;
     letter-spacing: 3px;
+    font-size: 15px !important;
+    color: #2aabd2 !important;
 }
 
 .color-card-body {

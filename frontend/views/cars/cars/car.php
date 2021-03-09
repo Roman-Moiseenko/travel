@@ -44,10 +44,10 @@ $countReveiws = $car->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_main'); ?>"
-                                 alt="<?= Html::encode($car->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
+                                 alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
-                        <meta itemprop="name" content="Прокат транспорта в Калининграде">
-                        <meta itemprop="description" content="<?= $car->getName() ?>">
+                        <meta itemprop="name" content="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>">
+                        <meta itemprop="description" content="<?= strip_tags($car->getDescription()) ?>">
                         </div>
                     </li>
                 <?php else: ?>
@@ -55,10 +55,10 @@ $countReveiws = $car->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_cars_additional'); ?>"
-                                 alt="<?= $car->getName(); ?>" itemprop="contentUrl"/>
+                                 alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
                         </a>
-                            <meta itemprop="name" content="Прокат транспорта в Калининграде">
-                            <meta itemprop="description" content="<?= $car->getName() ?>">
+                            <meta itemprop="name" content="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($car->getDescription()) ?>">
                         </div>
                     </li>
                 <?php endif; ?>

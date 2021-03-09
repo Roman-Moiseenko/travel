@@ -19,10 +19,10 @@ use yii\helpers\Url;
             <?php if ($fun->mainPhoto): ?>
                 <div itemscope itemtype="http://schema.org/ImageObject">
                     <a href="<?= Html::encode($url) ?>">
-                        <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
+                        <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($fun->mainPhoto->alt) ?>"
                              class="img-responsive" itemprop="contentUrl"/>
                     </a>
-                    <meta itemprop="name" content="Развлечения и отдых в Калининграде">
+                    <meta itemprop="name" content="<?= empty($fun->mainPhoto->alt) ? 'Развлечения и отдых в Калининграде' : Lang::t($fun->mainPhoto->alt) ?>">
                     <meta itemprop="description" content="<?= $fun->getName() ?>">
                 </div>
             <?php endif; ?>
@@ -42,9 +42,11 @@ use yii\helpers\Url;
         <div class="caption-fun-list px-2">
             <div class="d-flex flex-column align-items-stretch" style="height: 228px">
                 <div class="pt-3 text-center">
-                    <h4 class="card-title card-object">
-                        <a href="<?= Html::encode($url) ?>"><?= Html::encode($fun->getName()) ?></a>
-                    </h4>
+                    <a href="<?= Html::encode($url) ?>">
+                    <h2 class="card-title card-object">
+                        <?= Html::encode($fun->getName()) ?>
+                    </h2>
+                    </a>
                 </div>
                 <div class="mb-auto text-justify">
                     <?= (StringHelper::truncateWords(strip_tags($fun->getDescription()), 20)) ?>

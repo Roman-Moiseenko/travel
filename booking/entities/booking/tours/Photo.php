@@ -15,6 +15,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $file
  * @property integer $sort
  * @property integer $tours_id
+ * @property string $alt
  * @mixin ImageUploadBehavior
  */
 class Photo extends ActiveRecord
@@ -36,10 +37,22 @@ class Photo extends ActiveRecord
         return $this->id == $id;
     }
 
+    public function setAlt(string $alt): void
+    {
+        $this->alt = $alt;
+    }
+
+    public function getAlt(): string
+    {
+        return $this->alt;
+    }
+
     public static function tableName(): string
     {
         return '{{%booking_tours_photos}}';
     }
+
+
 
    public function behaviors(): array
     {

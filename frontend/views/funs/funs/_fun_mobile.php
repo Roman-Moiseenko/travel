@@ -16,10 +16,14 @@ use yii\helpers\Url;
 <div class="card mb-3 p-2" style="border: 0 !important; ">
     <div class="holder"> <!-- style="position: relative" -->
         <?php if ($fun->mainPhoto): ?>
-            <a href="<?= Html::encode($url) ?>">
-                <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
-                     class="card-img-top"/>
-            </a>
+            <div itemscope itemtype="http://schema.org/ImageObject">
+                <a href="<?= Html::encode($url) ?>">
+                    <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($fun->mainPhoto->alt) ?>"
+                         class="card-img-top" itemprop="contentUrl"/>
+                </a>
+                <meta itemprop="name" content="<?= empty($fun->mainPhoto->alt) ? 'Развлечения и отдых в Калининграде' : Lang::t($tour->mainPhoto->alt) ?>">
+                <meta itemprop="description" content="<?= $fun->getName() ?>">
+            </div>
         <?php endif; ?>
         <div class="block-wishlist">
             <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
@@ -34,9 +38,11 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="card-body color-card-body">
-        <h4 class="card-title card-object">
-            <a href="<?= Html::encode($url) ?>"><?= Html::encode($fun->getName()) ?></a>
-        </h4>
+        <a href="<?= Html::encode($url) ?>">
+            <h2 class="card-title card-object">
+                <?= Html::encode($fun->getName()) ?>
+            </h2>
+        </a>
         <p class="card-text" style="height: available">
         <div class="mb-auto text-justify">
             <?= (StringHelper::truncateWords(strip_tags($fun->getDescription()), 20)) ?>

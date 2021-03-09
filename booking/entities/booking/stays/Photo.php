@@ -15,6 +15,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $file
  * @property integer $sort
  * @property integer $stay_id
+ * @property string $alt [varchar(255)]
  * @mixin ImageUploadBehavior
  */
 class Photo extends ActiveRecord
@@ -34,6 +35,16 @@ class Photo extends ActiveRecord
     public function isIdEqualTo($id): bool
     {
         return $this->id == $id;
+    }
+
+    public function setAlt(string $alt): void
+    {
+        $this->alt = $alt;
+    }
+
+    public function getAlt(): string
+    {
+        return $this->alt;
     }
 
     public static function tableName(): string

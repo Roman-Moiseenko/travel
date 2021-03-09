@@ -18,10 +18,11 @@ use yii\helpers\Url;
         <?php if ($tour->mainPhoto): ?>
         <div itemscope itemtype="http://schema.org/ImageObject">
             <a href="<?= Html::encode($url) ?>">
-                <img src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""
+                <img src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
+                     title="<?= $tour->getName() ?>"
                      class="card-img-top" itemprop="contentUrl"/>
             </a>
-            <meta itemprop="name" content="Туры и экскурсии в Калининграде">
+            <meta itemprop="name" content="<?= empty($tour->mainPhoto->alt) ? 'Туры и экскурсии в Калининграде' : Lang::t($tour->mainPhoto->alt) ?>">
             <meta itemprop="description" content="<?= $tour->getName() ?>">
         </div>
         <?php endif; ?>
@@ -38,9 +39,11 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="card-body color-card-body">
-        <h4 class="card-title card-object">
-            <a href="<?= Html::encode($url) ?>"><?= Html::encode($tour->getName()) ?></a>
-        </h4>
+        <a href="<?= Html::encode($url) ?>">
+        <h2 class="card-title card-object">
+            <?= Html::encode($tour->getName()) ?>
+        </h2>
+        </a>
         <p class="card-text" style="height: available">
         <div class="mb-auto text-justify">
             <?= (StringHelper::truncateWords(strip_tags($tour->getDescription()), 20)) ?>

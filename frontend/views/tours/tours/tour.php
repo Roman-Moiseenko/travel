@@ -45,10 +45,10 @@ $countReveiws = $tour->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
-                                 alt="<?= Html::encode($tour->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
+                                 alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                         </a>
-                            <meta itemprop="name" content="Экскурсии в Калининграде">
-                            <meta itemprop="description" content="<?= $tour->getName() ?>">
+                            <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
                         </div>
                     </li>
                 <?php else: ?>
@@ -56,10 +56,10 @@ $countReveiws = $tour->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                 <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
-                                     alt="<?= $tour->getName(); ?>" itemprop="contentUrl" class="img-responsive"/>
+                                     alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt)  ?>" itemprop="contentUrl" class="img-responsive"/>
                             </a>
-                            <meta itemprop="name" content="Экскурсии в Калининграде">
-                            <meta itemprop="description" content="<?= $tour->getName() ?>">
+                            <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
                         </div>
                     </li>
                 <?php endif; ?>

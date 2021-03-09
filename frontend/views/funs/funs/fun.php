@@ -44,10 +44,10 @@ $countReveiws = $fun->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_main'); ?>"
-                                 alt="<?= Html::encode($fun->getName()); ?>" class="card-img-top" itemprop="contentUrl"/>
+                                 alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
-                            <meta itemprop="name" content="Развлечения и отдых в Калининграде">
-                            <meta itemprop="description" content="<?= $fun->getName() ?>">
+                            <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
                         </div>
                     </li>
                 <?php else: ?>
@@ -55,10 +55,10 @@ $countReveiws = $fun->countReviews();
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_additional'); ?>"
-                                 alt="<?= $fun->getName(); ?>" itemprop="contentUrl"/>
+                                 alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
                             </a>
-                            <meta itemprop="name" content="Развлечения и отдых в Калининграде">
-                            <meta itemprop="description" content="<?= $fun->getName() ?>">
+                            <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
                         </div>
                     </li>
                 <?php endif; ?>

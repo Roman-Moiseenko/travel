@@ -178,11 +178,11 @@ $countReveiws = $stay->countReviews();
                             <div itemscope itemtype="http://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                                     <img src="<?= $photo->getThumbFileUrl('file', 'catalog_stays_main'); ?>"
-                                         alt="<?= Html::encode($stay->getName()); ?>" class="card-img-top"
+                                         alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top"
                                          itemprop="contentUrl"/>
                                 </a>
-                                <meta itemprop="name" content="Прокат транспорта в Калининграде">
-                                <meta itemprop="description" content="<?= $stay->getName() ?>">
+                                <meta itemprop="name" content="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>">
+                                <meta itemprop="description" content="<?= strip_tags($stay->getDescription()) ?>">
                             </div>
                         </li>
                     <?php else: ?>
@@ -190,10 +190,10 @@ $countReveiws = $stay->countReviews();
                             <div itemscope itemtype="http://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                     <img src="<?= $photo->getThumbFileUrl('file', 'catalog_stays_additional'); ?>"
-                                         alt="<?= $stay->getName(); ?>" itemprop="contentUrl"/>
+                                         alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
                                 </a>
-                                <meta itemprop="name" content="Прокат транспорта в Калининграде">
-                                <meta itemprop="description" content="<?= $stay->getName() ?>">
+                                <meta itemprop="name" content="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>">
+                                <meta itemprop="description" content="<?= strip_tags($stay->getDescription()) ?>">
                             </div>
                         </li>
                     <?php endif; ?>
