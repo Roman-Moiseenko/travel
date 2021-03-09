@@ -43,7 +43,7 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                     <div itemscope itemtype="http://schema.org/ImageObject">
                         <a href="<?= Html::encode($url) ?>">
                             <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
-                                 alt="<?= Lang::t($car->mainPhoto->alt) ?>"
+                                 alt="<?= Lang::t($stay->mainPhoto->alt) ?>"
                                  class="img-responsive" itemprop="contentUrl"/>
                         </a>
                         <meta itemprop="name" content="<?= empty($stay->mainPhoto->alt) ? 'Аренда жилья в Калининграде' : Lang::t($stay->mainPhoto->alt) ?>">

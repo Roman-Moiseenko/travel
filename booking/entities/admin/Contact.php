@@ -22,7 +22,7 @@ class Contact extends ActiveRecord
     const NO_LINK = 0;
     const LINK = 1;
 
-    public static function create($name, $type = 0, $prefix = ''): self
+    public static function create(string $name, int $type = 0, string $prefix = ''): self
     {
         $contact = new static();
         $contact->name = $name;
@@ -31,14 +31,14 @@ class Contact extends ActiveRecord
         return $contact;
     }
 
-    public function edit($name, $type = 0, $prefix = ''): void
+    public function edit(string $name, int $type = 0, string $prefix = ''): void
     {
         $this->name = $name;
         $this->type = $type;
         $this->prefix = $prefix;
     }
 
-    public function setPhoto(UploadedFile $file)
+    public function setPhoto(UploadedFile $file): void
     {
         $this->photo = $file;
     }

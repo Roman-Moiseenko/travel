@@ -28,7 +28,7 @@ class Help extends ActiveRecord
 {
     public $meta;
 
-    public static function create($title, $content, $icon): self
+    public static function create(string $title, string $content, string $icon): self
     {
         $page = new static();
         $page->title = $title;
@@ -38,7 +38,7 @@ class Help extends ActiveRecord
         return $page;
     }
 
-    public function edit($title, $content, $icon)
+    public function edit(string $title, string $content, string $icon): void
     {
         $this->title = $title;
         $this->content = $content;

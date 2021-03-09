@@ -9,6 +9,7 @@ use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
 use booking\forms\booking\stays\search\SearchStayForm;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\scr;
 use booking\helpers\SysHelper;
 use yii\data\ActiveDataProvider;
@@ -280,7 +281,8 @@ class StayRepository
 
     public function findForMap(array $params)
     {
-
+        if (!isset($params['stay_id'])) return null;
+        $current_id = $params['stay_id'];
         $query = Stay::find()->alias('t')->active('t')->select('t.*')->with('type', 'mainPhoto');
 
         $ids = [];
@@ -325,14 +327,15 @@ class StayRepository
         if (count($ids) == 1) {
             $query->andWhere(['IN', 't.id', $ids[0]]);
         }
+        $query->andWhere(['<>', 't.id', $current_id]);
         $stays = $query->all();
 
         $result = array_map(function (Stay $stay) use ($params){
             return [
                 'name' => $stay->getName(),
-                'photo' => $stay->mainPhoto->getThumbFileUrl('file', 'admin'),
-                'cost' => $stay->costBySearchParams($params),
-                'link' => Url::to(['/stay', 'id' => $stay->id], true),
+                'photo' => $stay->mainPhoto->getThumbFileUrl('file', 'map'),
+                'cost' => ($cost = $stay->costBySearchParams($params)) < 0 ? '<span style="color: #a00000">нет свободных мест</span>' : CurrencyHelper::stat($cost),
+                'link' => Url::to(['/stay/view', 'id' => $stay->id, 'SearchStayForm' => $params], true),
                 'description' => $stay->getDescription(),
                 'address' => $stay->address->address,
                 'latitude' => $stay->address->latitude,

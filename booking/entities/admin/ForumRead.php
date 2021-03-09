@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  */
 class ForumRead extends ActiveRecord
 {
-    public static function create($post_id): self
+    public static function create(int $post_id): self
     {
         $read = new static();
         $read->post_id = $post_id;
@@ -25,12 +25,12 @@ class ForumRead extends ActiveRecord
         return $read;
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->last_at = time();
     }
 
-    public function isFor($id): bool
+    public function isFor(int $id): bool
     {
         return $this->post_id == $id;
     }

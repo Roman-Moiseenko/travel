@@ -50,6 +50,9 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property Stay[] $stays
  * @property Car[] $cars
  * @property Cert[] $certs
+ * @property string $adr_address [varchar(255)]
+ * @property string $adr_latitude [varchar(255)]
+ * @property string $adr_longitude [varchar(255)]
  */
 class Legal extends ActiveRecord
 {
@@ -110,7 +113,7 @@ class Legal extends ActiveRecord
         $this->description_en = $description_en;
     }
 
-    public function setPhoto(UploadedFile $file)
+    public function setPhoto(UploadedFile $file): void
     {
         $this->photo = $file;
     }
@@ -118,7 +121,7 @@ class Legal extends ActiveRecord
 
     /** Cert ==========> */
 
-    public function addCert(UploadedFile $file, $name, $issue_at): void
+    public function addCert(UploadedFile $file, string $name, $issue_at): void
     {
         $certs = $this->certs;
         $certs[] = Cert::create($file, $name, $issue_at);

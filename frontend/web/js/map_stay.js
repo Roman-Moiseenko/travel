@@ -1,6 +1,6 @@
-ymaps.ready(init);
+ymaps.ready(['Panel']).then(
 
-function init() {
+function () {
     let  myPlacemark, coords;
     let stay_id = $('#data-stay').data('id');
     let date_from = $('#data-stay').data('date-from');
@@ -29,6 +29,7 @@ function init() {
         let coord_la = $('#map-stay').data('latitude');
         let coord_lo = $('#map-stay').data('longitude');
         let _name = $('#map-stay').data('name');
+        let _cost = $('#map-stay').data('cost');
         coords = [coord_la, coord_lo];
 
         var myMapView = new ymaps.Map(document.getElementById("map-stay"), {
@@ -47,38 +48,64 @@ function init() {
         myMapView.controls.remove('fullscreenControl');
 
         myMapView.setCenter(coords, data_zoom);
-        myMapView.container.enterFullscreen();
+       // myMapView.container.enterFullscreen();
 
         myPlacemark = new ymaps.Placemark(coords, {
             //TODO Сделать красоту
-            hintContent: '<div class="p-2 m-2"><span style="color: rgba(41,78,107,0.93); font-size: 18px;"> <p>' +_name + '</p></span> <span style="color: rgba(41,78,107,0.93); font-size: 20px;">00 000 РУБ.</span></div>'
-            //balloonContent: ,
+            hintContent: '<div class="p-2 m-2"><span style="color: rgba(41,78,107,0.93); font-size: 18px;"> <p>' +
+                _name + '</p></span> <span style="color: rgba(41,78,107,0.93); font-size: 20px;">'+ _cost +'</span></div>'
         }, {
-            // Опции.
-            // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
-            // Своё изображение иконки метки.
-            iconImageHref: '/images/geo_main.png', // 'images/geo_main.png',
-            // Размеры метки.
+            iconImageHref: '/images/geo_main.png',
             iconImageSize: [25, 40],
-            // Смещение левого верхнего угла иконки относительно
-            // её "ножки" (точки привязки).
             iconImageOffset: [-12, -40],
-//            preset: 'islands#violetDotIconWithCaption',
-           // iconContentLayout: MyIconContentLayout,
             draggable: false
         });
         myMapView.geoObjects.add(myPlacemark);
-        //
+        let panel = new ymaps.Panel();
+        myMapView.controls.add(panel, {
+            float: 'left'
+        });
+
         $.post('/stays/stays/get-maps', {stay_id: stay_id, date_from:date_from, date_to: date_to, guest: guest, children: children, children_age: children_age}, function (data) {
-            //console.log(data);
+            console.log(data);
+            // Создадим коллекцию геообъектов.
+            let collection = new ymaps.GeoObjectCollection(null, {
+                // Запретим появление балуна.
+                hasBalloon: false,
+            });
+
             let _result = JSON.parse(data);
-            console.log(_result);
+            //console.log(_result);
+            for (let i = 0; i < _result.length; i++) {
+                collection
+                    .add(new ymaps.Placemark([_result[i].latitude, _result[i].longitude], {
+                        hintContent: '<div class="p-2 m-2"><span style="color: rgba(41,78,107,0.93); font-size: 18px;"> <p>' +
+                            _result[i].name + '</p></span> <span style="color: rgba(41,78,107,0.93); font-size: 20px;">'+ _result[i].cost +'</span></div>',
+                        balloonContent: '<p><a href="' + _result[i].link + '" style="font-size: 16px;  color: rgba(41,78,107,0.93);">' + _result[i].name +'</a></p>' +
+                            '<p><img src="' + _result[i].photo + '"></p>' +
+                            '<p>' + _result[i].description+ '</p>' + '<p style="font-size: 22px; color: rgba(41,78,107,0.93);">' + _result[i].cost + '</p>' ,
+                    }, {
+                        iconLayout: 'default#image',
+                        iconImageHref: '/images/geo_all.png',
+                        iconImageSize: [25, 40],
+                        iconImageOffset: [-12, -40],
+                        draggable: false
+                    }));
+                collection.events.add('click', function (e) {
+                    // Получим ссылку на геообъект, по которому кликнул пользователь.
+                    var target = e.get('target');
+                    // Зададим контент боковой панели.
+                    panel.setContent(target.properties.get('balloonContent'));
+
+                });
+
+            }
+            myMapView.geoObjects.add(collection);
 
         });
         //TODO
-        /** ссылка по метке
-         *
+/*
          var marker = new ymaps.Placemark(
          //координаты
          {
@@ -90,17 +117,18 @@ function init() {
             ...
           }
                  );
-                 marker.events.add('click', function (e) {
+         marker.events.add('click', function (e) {
           location = e.get('target').options.get('href');
         });
 
 
+*/
 
-         */
 
 
 
         //TODO !
         //Пост запрос на массив объектов схожих по параметрам
     }
-}
+})
+

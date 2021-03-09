@@ -21,7 +21,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
 class Cert extends ActiveRecord
 {
 
-    public static function create(UploadedFile $file, $name, $issue_at): self
+    public static function create(UploadedFile $file, string $name, $issue_at): self
     {
         $cert = new static();
         $cert->file = $file;
@@ -30,7 +30,7 @@ class Cert extends ActiveRecord
         return $cert;
     }
 
-    public function edit($name, $issue_at): void
+    public function edit(string $name, $issue_at): void
     {
         $this->name = $name;
         $this->issue_at = $issue_at;
@@ -41,7 +41,7 @@ class Cert extends ActiveRecord
         $this->file = $file;
     }
 
-    public function isIdEqualTo($id): bool
+    public function isIdEqualTo(int $id): bool
     {
         return $this->id == $id;
     }

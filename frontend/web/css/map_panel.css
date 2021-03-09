@@ -1,0 +1,39 @@
+html, body, #map-stay {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
+}
+
+.customControl-map-panel {
+    display: none;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    /*width: 250px;
+    height: 100%;*/
+
+    max-width: 250px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.closeButton-map-panel {
+    flex-basis: 15px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 3px;
+    height: 15px;
+    cursor: pointer;
+    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTQgLjdsLS43LS43TDcgNi4zLjcgMCAwIC43IDYuMyA3IDAgMTMuM2wuNy43TDcgNy43bDYuMyA2LjMuNy0uN0w3LjcgN3oiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==") 50% no-repeat;
+    opacity: 0.3;
+}
+
+.content-map-panel {
+    padding: 5px;
+    max-height: 500px;
+    overflow: auto;
+}
+.ymaps-2-1-78-controls__control_toolbar {
+    margin-left: 40px !important;
+}

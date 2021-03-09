@@ -7,6 +7,7 @@ use booking\entities\booking\stays\Stay;
 /* @var $SearchStayForm array */
 
 use booking\entities\Lang;
+use booking\helpers\CurrencyHelper;
 use frontend\assets\AppAsset;
 use frontend\assets\MapStayAsset;
 
@@ -28,6 +29,13 @@ MapStayAsset::register($this);
      data-children-age6="<?= $SearchStayForm['children_age'][6]?>"
      data-children-age7="<?= $SearchStayForm['children_age'][7]?>"
      data-children-age8="<?= $SearchStayForm['children_age'][8]?>"
-
 ></div>
-<div id="map-stay" data-zoom="16" data-longitude="<?= $stay->address->longitude ?>" data-latitude="<?= $stay->address->latitude ?>" style="width: 100%; height: 100px" data-name="<?= $stay->getName() ?>"></div>
+<div id="map-stay"
+     data-zoom="16"
+     data-longitude="<?= $stay->address->longitude ?>"
+     data-latitude="<?= $stay->address->latitude ?>"
+     data-name="<?= $stay->getName() ?>"
+     data-cost="<?= ($cost = $stay->costBySearchParams($SearchStayForm)) < 0 ? '' : CurrencyHelper::stat($cost)?>"
+     
+     style="width: 100%; height: 100px"
+></div>

@@ -3,17 +3,11 @@
 
 namespace frontend\controllers\stays;
 
-
-use booking\entities\booking\stays\CostCalendar;
-use booking\entities\booking\stays\CustomServices;
 use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\scr;
-use booking\helpers\stays\StayHelper;
-use booking\helpers\SysHelper;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
 use yii\web\Controller;

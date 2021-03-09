@@ -21,7 +21,7 @@ use yii\db\ActiveRecord;
 class ContactAssignment extends ActiveRecord
 {
 
-    public static function create($contact_id, $value, $description): self
+    public static function create(int $contact_id, string $value, string $description): self
     {
         $assignment = new static();
         $assignment->contact_id = $contact_id;
@@ -30,7 +30,7 @@ class ContactAssignment extends ActiveRecord
         return $assignment;
     }
 
-    public function edit($value, $description)
+    public function edit(string $value, string $description): void
     {
         $this->value = $value;
         $this->description = $description;
