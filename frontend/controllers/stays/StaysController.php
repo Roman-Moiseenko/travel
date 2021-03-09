@@ -73,7 +73,6 @@ class StaysController extends Controller
                 'children' => 0,
                 'children_age' => [1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '',],
             ];
-
         }
         $form->load($params);
         if ($stay->isLock()) {
@@ -128,11 +127,42 @@ class StaysController extends Controller
 
     public function actionMap($id)
     {
-        $this->layout = '_blank';
+        $this->layout = 'main_map';
         $stay = $this->stays->get($id);
+        $params = \Yii::$app->request->queryParams;
+        if (!isset($params['SearchStayForm'])) {
+            $params['SearchStayForm'] = [
+                'date_from' => '',
+                'date_to' => '',
+                'guest' => 1,
+                'children' => 0,
+                'children_age' => [1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '',],
+            ];
+        }
+
         return $this->render('map', [
             'stay' => $stay,
+            'SearchStayForm' => $params['SearchStayForm'],
+
         ]);
     }
 
+    public function actionGetMaps()
+    {
+        $this->layout = 'main_ajax';
+        if (\Yii::$app->request->isAjax) {
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                //По параметрам ищем все Stays
+                $stays = $this->stays->findForMap($params);
+                //Отправляем Фото(ссылка), Название, Цена за период/ Ссылка, description, координаты coords[], адрес?
+
+                return json_encode($stays);
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
+
+        }
+        return'Error';
+    }
 }

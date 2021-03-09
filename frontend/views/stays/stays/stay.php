@@ -58,7 +58,7 @@ $_arr_error = Stay::listErrors();
 $_count_service = count($stay->services);
 $js = <<<JS
 $(document).ready(function() {
-
+    
     update_fields();
     update_data();
     $('body').on('change', '#children', function () {
@@ -88,7 +88,6 @@ $(document).ready(function() {
             if ($('#service-' + j).is(':checked')) _services[j] = $('#service-' + j).data('id');
         }
         $.post('/stays/stays/get-booking', {stay_id: stay_id, date_from: begin_date, date_to: end_date, guest: guest, children: children, children_age: children_age, services: _services}, function(data) {
-            console.log(data);
             if (Number(data) < 0) {
                 $('#new-booking').hide();
                 $('#amount-booking').html('');
@@ -129,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
 //MapAsset::register($this);
-MapStayAsset::register($this);
+//MapStayAsset::register($this);
 $mobile = SysHelper::isMobile();
 $countReveiws = $stay->countReviews();
 
@@ -225,7 +224,7 @@ $countReveiws = $stay->countReviews();
             </div>
     <div class="row pb-3">
         <div class="col-12">
-            <?= Html::a('<i class="fas fa-map-marker-alt"></i> ' . $stay->address->address, Url::to(['/stays/stays/map', 'id' => $stay->id]), ['rel' => 'fancybox', 'class' => 'various fancybox.iframe']);?>
+            <?= Html::a('<i class="fas fa-map-marker-alt"></i> ' . $stay->address->address, Url::to(['/stays/stays/map', 'id' => $stay->id, 'SearchStayForm' => $SearchStayForm]), ['rel' => 'fancybox', 'class' => 'various fancybox.iframe']);?>
         </div>
     </div>
             <!-- Описание -->

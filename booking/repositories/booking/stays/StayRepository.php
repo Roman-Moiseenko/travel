@@ -16,6 +16,7 @@ use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
 use yii\db\ArrayExpression;
 use yii\db\Expression;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
 class StayRepository
@@ -277,4 +278,71 @@ class StayRepository
         return Stay::findOne($id);
     }
 
+    public function findForMap(array $params)
+    {
+
+        $query = Stay::find()->alias('t')->active('t')->select('t.*')->with('type', 'mainPhoto');
+
+        $ids = [];
+        /******  Поиск по Гостям и детям ***/
+        if ($params['children'] == 0) {
+            $query->andWhere(['>=', 'params_guest', $params['guest']]);
+        } else {
+            $query->joinWith(['rules rl']);
+            $guest = $params['guest'];
+            $child_min = 16;
+            //Определяем минимальный возраст ребенка из form
+            for ($i = 0; $i <= 7; $i++) {
+                if ($params['children_age'][$i] == "") {
+                    //if ($i <= $params['children']) \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
+                } else {
+                    $child_min = min($child_min, $params['children_age'][$i]);
+                }
+            }
+            $query->andWhere(['rl.limit_children' => true]);
+            $query->andWhere(['<=', 'rl.limit_children_allow', $child_min]);
+            $query->andWhere(['>=', 'params_guest', $guest]);
+        }
+        /******  Поиск по Дате ***/
+
+        if ($params['date_from'] && $params['date_to']) {
+            $query2 = Stay::find()->alias('t')->active('t')->select('t.id');
+            $query2->joinWith(['actualCalendar ac']);
+            $begin = SysHelper::_renderDate($params['date_from']);
+            $end = SysHelper::_renderDate($params['date_to']);
+            $dates = []; //Массив дней из диапозона
+            for ($date = $begin; $date < $end; $date += 24 * 60 * 60) {
+                $dates[] = $date;
+            }
+            $query2->andWhere(['IN', 'ac.stay_at', $dates]);
+            $query2->having('count(ac.stay_at) = ' . count($dates)); //кол-во выбранных дней должно совпадать с кол-вом запрошенных дней
+            $query2->groupBy('t.id');
+            $ids[] = $query2->column();
+        } else {
+            $query->joinWith(['actualCalendar ac']);
+            $query->andWhere(['>=', 'ac.stay_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
+        }
+        if (count($ids) == 1) {
+            $query->andWhere(['IN', 't.id', $ids[0]]);
+        }
+        $stays = $query->all();
+
+        $result = array_map(function (Stay $stay) use ($params){
+            return [
+                'name' => $stay->getName(),
+                'photo' => $stay->mainPhoto->getThumbFileUrl('file', 'admin'),
+                'cost' => $stay->costBySearchParams($params),
+                'link' => Url::to(['/stay', 'id' => $stay->id], true),
+                'description' => $stay->getDescription(),
+                'address' => $stay->address->address,
+                'latitude' => $stay->address->latitude,
+                'longitude' => $stay->address->longitude,
+                ];
+        },
+        $stays);
+        //Отправляем  Ссылка,?
+
+        return $result;
+
+    }
 }

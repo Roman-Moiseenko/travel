@@ -155,6 +155,7 @@ return [
                 'stays/stays/get-booking' => 'stays/stays/get-booking',
                 'stays/stays/get-error' => 'stays/stays/get-error',
                 'stays/stays/map' => 'stays/stays/map',
+                'stays/stays/get-maps' => 'stays/stays/get-maps',
                 'stay/<id:\d+>' => 'stays/stays/stay',
 
                 'tickets' => 'tickets/tickets/index',
