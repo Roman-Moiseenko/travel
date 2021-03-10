@@ -17,8 +17,8 @@ AppAsset::register($this);
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
     <head>
-        <link rel="icon" href="https://koenigs.ru/favicon.ico" type="image/x-icon">
-        <link rel="apple-touch-icon" href="https://koenigs.ru/icon-150x150.png">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <link rel="author" href="https://koenigs.ru/humans.txt">
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +28,16 @@ AppAsset::register($this);
 
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+        <meta name="og:type" content="website">
+        <meta name="og:title" content="<?= Html::encode($this->title) ?>">
+        <meta name="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.png'?>">
+
+        <?php if (isset($this->params['canonical'])) {
+            echo '<meta name="og:url" content="' . $this->params['canonical'] .'">' . PHP_EOL;
+            echo '<link rel="canonical" href="' . $this->params['canonical'] .'">' . PHP_EOL;
+        } ?>
+
+
         <?php $this->head() ?>
 
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f83859ccbf60e8b">

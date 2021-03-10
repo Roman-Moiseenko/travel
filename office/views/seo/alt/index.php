@@ -82,8 +82,6 @@ MagnificPopupAsset::register($this);
                 </div>
             </div>
         </div>
-
-
     </div>
 <?php $js2 = <<<EOD
     $(document).ready(function() {

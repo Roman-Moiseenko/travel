@@ -26,13 +26,13 @@ $this->registerMetaTag(['name' =>'description', 'content' => Html::encode(String
 
 $this->title = $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $tour->getName();
+
+$this->params['canonical'] = Url::to(['/tour/view', 'id' => $tour->id], true);
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
-
 $mobile = SysHelper::isMobile();
-
 $countReveiws = $tour->countReviews();
 ?>
 <!-- ФОТО  -->
