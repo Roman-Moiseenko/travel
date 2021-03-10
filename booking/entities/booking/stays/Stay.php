@@ -858,7 +858,7 @@ class Stay extends ActiveRecord
         $children_age = $params['children_age'];
         if ($children > 0) {
             $n = $children;
-            for($i = 1; $i <= $n; $i ++) {
+            for($i = 0; $i < $n; $i ++) {
                 if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++; $children--;}
             }
             if ($children > round($guest / 2))  {
@@ -943,7 +943,7 @@ class Stay extends ActiveRecord
         if ($children > 0) {
             if (!$this->rules->limit->children) return self::ERROR_NOT_CHILD;
             $min_age = 16;
-            for ($i = 1; $i <= $children; $i++) {
+            for ($i = 0; $i < $children; $i++) {
                 if ($children_age[$i] == "") return self::ERROR_NOT_CHILD_AGE;
                 $min_age = min($min_age, (int)$children_age[$i]);
                 if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++;}

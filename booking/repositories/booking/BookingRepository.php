@@ -185,7 +185,7 @@ class BookingRepository
             ->all();
         foreach ($tours as $tour) {
             $result[$tour->getName()] = [
-                'photo' => $tour->getPhoto('tours_widget_list'),
+                'photo' => $tour->getPhoto('widget_list'),
                 'link' => $tour->getLinks()['booking'],
                 'name' => $tour->getName(),
                 'count' => $tour->countTickets() + (isset($result[$tour->getName()]) ? $result[$tour->getName()]['count'] : 0),
@@ -211,7 +211,7 @@ class BookingRepository
             ->all();
         foreach ($cars as $car) {
             $result[$car->getName()] = [
-                'photo' => $car->getPhoto('cars_widget_list'),
+                'photo' => $car->getPhoto('widget_list'),
                 'link' => $car->getLinks()['booking'],
                 'name' => $car->getName(),
                 'count' => $car->count + (isset($result[$car->getName()]) ? $result[$car->getName()]['count'] : 0),
@@ -239,7 +239,7 @@ class BookingRepository
             ->all();
         foreach ($funs as $fun) {
             $result[$fun->getName()] = [
-                'photo' => $fun->getPhoto('funs_widget_list'),
+                'photo' => $fun->getPhoto('widget_list'),
                 'link' => $fun->getLinks()['booking'],
                 'name' => $fun->getName(),
                 'count' => $fun->countTickets() + (isset($result[$fun->getName()]) ? $result[$fun->getName()]['count'] : 0),
@@ -271,12 +271,12 @@ class BookingRepository
 
     public function getByPaymentId($payment_id): BookingItemInterface
     {
+        //TODO ** BOOKING_OBJECT **
         $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
 
-        //TODO Заглушка Stay
-        //$result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
-        //if (!empty($result)) return $result;
+        $result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
+        if (!empty($result)) return $result;
 
         $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;

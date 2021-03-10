@@ -37,8 +37,8 @@ $(document).ready(function() {
     
     function update_fields() {
         let _count = $('#children').val();
-        for (let i = 1; i <= 8; i++) {
-            if (i <= _count) {
+        for (let i = 0; i < 8; i++) {
+            if (i < _count) {
                 $('#children_age-' + i).show();
             } else {
                 $('#children_age-' + i).hide();
@@ -109,7 +109,7 @@ $this->params['search']['children_age'] = $model->children_age;
         </div>
         <div class="row">
             <div class="col search-stay-not-margin">
-                <?php for ($i = 1; $i <= 8; $i++): ?>
+                <?php for ($i = 0; $i < 8; $i++): ?>
                     <span id="children_age-<?= $i ?>" style="display: none">
                      <?= $form->field($model, 'children_age[' . $i . ']')->dropdownList(StayHelper::listAge(), ['prompt' => 'Возраст ребенка', 'class' => 'form-control form-control-xl'])->label(false);?>
                      </span>

@@ -95,7 +95,7 @@ class YandexMarket
             $writer->writeElement('model', Html::encode($tour->name));
             $writer->writeElement('typePrefix', Html::encode($tour->type->name));
             $writer->writeElement('description', Html::encode(strip_tags($tour->description)));
-            $writer->writeElement('picture', $tour->mainPhoto->getThumbFileUrl('file', 'tours_list'));
+            $writer->writeElement('picture', $tour->mainPhoto->getThumbFileUrl('file', 'list'));
 
             $writer->startElement('param');
             $writer->writeAttribute('name', 'Тип');
@@ -126,7 +126,7 @@ class YandexMarket
             $writer->writeElement('model', Html::encode($car->name));
             $writer->writeElement('typePrefix', Html::encode($car->type->name));
             $writer->writeElement('description', Html::encode(strip_tags($car->description)));
-            $writer->writeElement('picture', $car->mainPhoto->getThumbFileUrl('file', 'cars_list'));
+            $writer->writeElement('picture', $car->mainPhoto->getThumbFileUrl('file', 'list'));
 
             $writer->startElement('param');
             $writer->writeAttribute('name', 'Минимальное бронирование');
@@ -159,7 +159,7 @@ class YandexMarket
             $writer->writeElement('model', Html::encode($fun->name));
             $writer->writeElement('typePrefix', Html::encode($fun->type->name));
             $writer->writeElement('description', Html::encode(strip_tags($fun->description)));
-            $writer->writeElement('picture', $fun->mainPhoto->getThumbFileUrl('file', 'funs_list'));
+            $writer->writeElement('picture', $fun->mainPhoto->getThumbFileUrl('file', 'list'));
 
             $writer->endElement();
         }

@@ -4,6 +4,8 @@ namespace booking\entities\booking\cars;
 
 //use shop\services\WaterMarker;
 
+use booking\entities\booking\BasePhoto;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
@@ -16,11 +18,15 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $sort
  * @property integer $car_id
  * @property string $alt [varchar(255)]
+ * @property Car $main
  * @mixin ImageUploadBehavior
  */
-class Photo extends ActiveRecord
+class Photo extends BasePhoto
 {
-    public static function create(UploadedFile $file): self
+    protected $catalog = 'cars';
+    protected $name_id = 'car_id';
+
+    public static function create(UploadedFile $file): BasePhoto
     {
         $photo = new static();
         $photo->file = $file;
@@ -54,29 +60,21 @@ class Photo extends ActiveRecord
 
    public function behaviors(): array
     {
-        return [
-            [
-                'class' => ImageUploadBehavior::class,
-                'attribute' => 'file',
-                'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/cars/[[attribute_car_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/cars/[[attribute_car_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/cars/[[attribute_car_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/cars/[[attribute_car_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbs' => [
-                    'admin' => ['width' => 100, 'height' => 70],
-                    'thumb' => ['width' => 320, 'height' => 240],
-                    'cars_list' => ['width' => 150, 'height' => 150],
-                    'top_widget_list'=> ['width' => 30, 'height' => 30],
-                    'cars_widget_list' => ['width' => 57, 'height' => 57],
-                    'cabinet_list' => ['width' => 70, 'height' => 70],
-                    'catalog_list' => ['width' => 228, 'height' => 228],
-                    'legal_list' => ['width' => 300, 'height' => 300],
-                    'catalog_cars_main' => ['width' => 1200, 'height' => 400], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
-                    'catalog_cars_additional' => ['width' => 66, 'height' => 66],
-                    'catalog_origin' => ['width' => 1024, 'height' => 768],
-                ],
-            ],
-        ];
+        return parent::behaviors();
+    }
+
+    public function getMain(): ActiveQuery
+    {
+        return $this->hasOne(Car::class, ['id' => 'car_id']);
+    }
+
+    public function getName(): string
+    {
+        return $this->main->getName();
+    }
+
+    public function getDescription(): string
+    {
+        return $this->main->getDescription();
     }
 }

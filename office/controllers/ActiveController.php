@@ -7,6 +7,7 @@ namespace office\controllers;
 use booking\entities\Rbac;
 use office\forms\CarsSearch;
 use office\forms\FunsSearch;
+use office\forms\StaysSearch;
 use office\forms\ToursSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -42,13 +43,13 @@ class ActiveController extends Controller
         ]);
         $dataProviderTours = $searchModelTours->search(\Yii::$app->request->queryParams);
 
-        //TODO StaysSearch
-/*
+        //TODO HotelSearch
+
         $searchModelStays = new StaysSearch([
             'verify' => true,
         ]);
         $dataProviderStays = $searchModelStays->search(\Yii::$app->request->queryParams);
-*/
+
         $searchModelCars = new CarsSearch([
             'verify' => true,
         ]);
@@ -63,8 +64,8 @@ class ActiveController extends Controller
             'searchModelTours' => $searchModelTours,
             'dataProviderTours' => $dataProviderTours,
 
-      /*      'searchModelStays' => $searchModelStays,
-            'dataProviderStays' => $dataProviderStays,*/
+            'searchModelStays' => $searchModelStays,
+            'dataProviderStays' => $dataProviderStays,
 
             'searchModelCars' => $searchModelCars,
             'dataProviderCars' => $dataProviderCars,

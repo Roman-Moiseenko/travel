@@ -63,7 +63,7 @@ $(document).ready(function() {
     let end_date;
     let guest;
     let children;
-    let children_age = new Array(9);
+    let children_age = new Array(8);
     
     
     update_fields();
@@ -73,7 +73,7 @@ $(document).ready(function() {
         update_data();
     });    
     $('body').on('click', '.click-field-stay-params', function() {
-        update_data();        
+       update_data();        
     });
     $(document).on('click', '.link-map-panel', function() {
         console.log($(this).attr('data-href'));        
@@ -89,22 +89,32 @@ $(document).ready(function() {
         guest = $('#guest').val();
         children = $('#children').val();
         children_age = new Array();
-        let old_link = $('#stay-map-link').attr('href');
-        let new_link = old_link.substr(0, old_link.indexOf('&'));
+        
+        $('#data-stay').attr('data-date-from', begin_date);
+        $('#data-stay').attr('data-date-to', end_date);
+        $('#data-stay').attr('data-guest', guest);
+        $('#data-stay').attr('data-children', children);
 
-        new_link = new_link + 
+
+        //let old_link = $('#stay-map-link').attr('href');
+        //console.log(old_link);
+        //let new_link = old_link.substr(0, old_link.indexOf('&'));
+
+        /*new_link = new_link + 
             '&SearchStayForm[date_from]=' + begin_date + 
             '&SearchStayForm[date_to]=' + end_date +
             '&SearchStayForm[guest]=' + guest +
-            '&SearchStayForm[children]=' + children;
+            '&SearchStayForm[children]=' + children;*/
             
-        
-        for (let i = 1; i <= 8; i++) {
+        //console.log(1);
+        for (let i = 0; i < 8; i++) {
+            //console.log(i);
             children_age[i] = $('#children-age-' + i).val();
-            new_link = new_link + '&SearchStayForm[children_age]['+ i +']=' + children_age[i];
+            $('#data-stay').attr('data-children-age-' + i, children_age[i]);
+            //new_link = new_link + '&SearchStayForm[children_age]['+ i +']=' + children_age[i];
         }
 
-        $('#stay-map-link').attr('href', new_link);
+        //$('#stay-map-link').attr('href', new_link);
         let _services = new Array();
         for (let j = 0; j < $_count_service; j++) {
             if ($('#service-' + j).is(':checked')) _services[j] = $('#service-' + j).data('id');
@@ -126,8 +136,8 @@ $(document).ready(function() {
     
     function update_fields() {
         let _count = $('#children').val();
-        for (let i = 1; i <= 8; i++) {
-            if (i <= _count) {
+        for (let i = 0; i < 8; i++) {
+            if (i < _count) {
                 $('#children_age-' + i).show();
             } else {
                 $('#children_age-' + i).hide();
@@ -199,7 +209,7 @@ newerton\fancybox\FancyBox::widget([
                         <li>
                             <div itemscope itemtype="http://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_stays_main'); ?>"
+                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
                                          alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"
                                          class="card-img-top"
                                          itemprop="contentUrl"/>
@@ -212,7 +222,7 @@ newerton\fancybox\FancyBox::widget([
                         <li class="image-additional">
                             <div itemscope itemtype="http://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_stays_additional'); ?>"
+                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                          alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"
                                          itemprop="contentUrl"/>
                                 </a>
@@ -248,7 +258,7 @@ newerton\fancybox\FancyBox::widget([
             </div>
             <div class="row pb-3">
                 <div class="col-12">
-                    <a href="#map-stay" title="" rel="fancybox">
+                    <a href="#map-stay" title="" rel="fancybox" >
                         <?= $stay->address->address ?>
 
                     </a>
@@ -267,6 +277,7 @@ newerton\fancybox\FancyBox::widget([
                          data-date-to="<?= $SearchStayForm['date_to']?>"
                          data-guest="<?= $SearchStayForm['guest']?>"
                          data-children="<?= $SearchStayForm['children']?>"
+                         data-children-age0="<?= $SearchStayForm['children_age'][0]?>"
                          data-children-age1="<?= $SearchStayForm['children_age'][1]?>"
                          data-children-age2="<?= $SearchStayForm['children_age'][2]?>"
                          data-children-age3="<?= $SearchStayForm['children_age'][3]?>"
@@ -274,7 +285,6 @@ newerton\fancybox\FancyBox::widget([
                          data-children-age5="<?= $SearchStayForm['children_age'][5]?>"
                          data-children-age6="<?= $SearchStayForm['children_age'][6]?>"
                          data-children-age7="<?= $SearchStayForm['children_age'][7]?>"
-                         data-children-age8="<?= $SearchStayForm['children_age'][8]?>"
                     ></div>
                     <?= '' /* Html::a('<i class="fas fa-map-marker-alt"></i> ' . $stay->address->address,
                         Url::to(['/stays/stays/map', 'id' => $stay->id, 'SearchStayForm' => $SearchStayForm]),
@@ -375,7 +385,7 @@ newerton\fancybox\FancyBox::widget([
                                     ->label(false); ?>
                             </div>
                             <div class="search-stay-not-margin">
-                                <?php for ($i = 1; $i <= 8; $i++): ?>
+                                <?php for ($i = 0; $i < 8; $i++): ?>
                                     <span id="children_age-<?= $i ?>" style="display: none">
                                         <?= $form
                                             ->field($model, 'children_age[' . $i . ']')

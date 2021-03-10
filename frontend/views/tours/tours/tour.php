@@ -44,7 +44,7 @@ $countReveiws = $tour->countReviews();
                     <li>
                         <div itemscope itemtype="http://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_main'); ?>"
+                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
                                  alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                         </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
@@ -55,7 +55,7 @@ $countReveiws = $tour->countReviews();
                     <li class="image-additional">
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_tours_additional'); ?>"
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                      alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt)  ?>" itemprop="contentUrl" class="img-responsive"/>
                             </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">

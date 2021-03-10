@@ -78,9 +78,9 @@ class StayRepository
             $guest = $form->guest;
             $child_min = 16;
             //Определяем минимальный возраст ребенка из form
-            for ($i = 1; $i <= 8; $i++) {
+            for ($i = 0; $i < 8; $i++) {
                 if ($form->children_age[$i] == "") {
-                    if ($i <= $form->children) \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
+                    if ($i < $form->children) \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
                 } else {
                     $child_min = min($child_min, $form->children_age[$i]);
                 }
@@ -294,7 +294,7 @@ class StayRepository
             $guest = $params['guest'];
             $child_min = 16;
             //Определяем минимальный возраст ребенка из form
-            for ($i = 0; $i <= 7; $i++) {
+            for ($i = 0; $i < 8; $i++) {
                 if ($params['children_age'][$i] == "") {
                     //if ($i <= $params['children']) \Yii::$app->session->setFlash('warning', 'Не указан возраст ребенка');
                 } else {
@@ -329,7 +329,7 @@ class StayRepository
         }
         $query->andWhere(['<>', 't.id', $current_id]);
         $stays = $query->all();
-
+        unset($params['stay_id']);
         $result = array_map(function (Stay $stay) use ($params){
             return [
                 'name' => $stay->getName(),

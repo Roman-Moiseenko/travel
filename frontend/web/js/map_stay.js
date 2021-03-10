@@ -9,6 +9,7 @@ function () {
     let children = $('#data-stay').data('children');
     let children_age = new Array(8);
     children_age = [
+        $('#data-stay').data('children-age0'),
         $('#data-stay').data('children-age1'),
         $('#data-stay').data('children-age2'),
         $('#data-stay').data('children-age3'),
@@ -16,7 +17,7 @@ function () {
         $('#data-stay').data('children-age5'),
         $('#data-stay').data('children-age6'),
         $('#data-stay').data('children-age7'),
-        $('#data-stay').data('children-age8'),
+
     ];
 
 
@@ -68,7 +69,7 @@ function () {
         });
 
         $.post('/stays/stays/get-maps', {stay_id: stay_id, date_from:date_from, date_to: date_to, guest: guest, children: children, children_age: children_age}, function (data) {
-            console.log(data);
+            //console.log(data);
             // Создадим коллекцию геообъектов.
             let collection = new ymaps.GeoObjectCollection(null, {
                 // Запретим появление балуна.

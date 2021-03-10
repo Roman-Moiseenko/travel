@@ -2,13 +2,10 @@
 
 namespace booking\entities\booking\stays;
 
-//use shop\services\WaterMarker;
-
-use yii\db\ActiveRecord;
+use booking\entities\booking\BasePhoto;
+use yii\db\ActiveQuery;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
-
-//use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * @property integer $id
@@ -16,11 +13,15 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $sort
  * @property integer $stay_id
  * @property string $alt [varchar(255)]
+ * @property Stay $main
  * @mixin ImageUploadBehavior
  */
-class Photo extends ActiveRecord
+class Photo extends BasePhoto
 {
-    public static function create(UploadedFile $file): self
+    protected $catalog = 'stays';
+    protected $name_id = 'stay_id';
+
+    public static function create(UploadedFile $file): BasePhoto
     {
         $photo = new static();
         $photo->file = $file;
@@ -54,27 +55,23 @@ class Photo extends ActiveRecord
 
    public function behaviors(): array
     {
-        return [
-            [
-                'class' => ImageUploadBehavior::class,
-                'attribute' => 'file',
-                'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/stays/[[attribute_stay_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/stays/[[attribute_stay_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/stays/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/stays/[[attribute_stay_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbs' => [
-                    'admin' => ['width' => 100, 'height' => 70],
-                    'thumb' => ['width' => 320, 'height' => 240],
-                    'map' => ['width' => 195, 'height' => 150],
-                    'stays_list' => ['width' => 150, 'height' => 150],
-                    'stays_widget_list' => ['width' => 57, 'height' => 57],
-                    'catalog_list' => ['width' => 228, 'height' => 228],
-                    'catalog_stays_main' => ['width' => 1200, 'height' => 400], //*/'processor' => [new WaterMarker(750, 500, '@frontend/web/image/logo.png'), 'process']],
-                    'catalog_stays_additional' => ['width' => 66, 'height' => 66],
-                    'catalog_origin' => ['width' => 1024, 'height' => 768],
-                ],
-            ],
-        ];
+        return parent::behaviors();
+
+    }
+
+    public function getMain(): ActiveQuery
+    {
+        return $this->hasOne(Stay::class, ['id' => 'stay_id']);
+    }
+
+
+    public function getName(): string
+    {
+        return $this->main->getName();
+    }
+
+    public function getDescription(): string
+    {
+        return $this->main->getDescription();
     }
 }

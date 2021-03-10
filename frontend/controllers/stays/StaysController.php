@@ -65,7 +65,7 @@ class StaysController extends Controller
                 'date_to' => '',
                 'guest' => 1,
                 'children' => 0,
-                'children_age' => [1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '',],
+                'children_age' => [0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '',],
             ];
         }
         $form->load($params);
@@ -118,7 +118,7 @@ class StaysController extends Controller
         }
         return 'Error page!';
     }
-
+/*
     public function actionMap($id)
     {
         $this->layout = 'main_map';
@@ -130,7 +130,7 @@ class StaysController extends Controller
                 'date_to' => '',
                 'guest' => 1,
                 'children' => 0,
-                'children_age' => [1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '',],
+                'children_age' => [0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '',],
             ];
         }
 
@@ -140,7 +140,7 @@ class StaysController extends Controller
 
         ]);
     }
-
+*/
     public function actionGetMaps()
     {
         $this->layout = 'main_ajax';

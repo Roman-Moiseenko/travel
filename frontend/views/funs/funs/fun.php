@@ -43,7 +43,7 @@ $countReveiws = $fun->countReviews();
                     <li>
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_main'); ?>"
+                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
                                  alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
@@ -54,7 +54,7 @@ $countReveiws = $fun->countReviews();
                     <li class="image-additional">
                         <div itemscope itemtype="http://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_funs_additional'); ?>"
+                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                  alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
