@@ -9,6 +9,7 @@ use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\TourParams;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\Meta;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\tours\CostForm;
@@ -16,6 +17,7 @@ use booking\forms\booking\tours\TourCommonForm;
 use booking\forms\booking\tours\TourExtraForm;
 use booking\forms\booking\tours\TourFinanceForm;
 use booking\forms\booking\tours\TourParamsForm;
+use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
@@ -370,6 +372,13 @@ class TourService
     public function upViews(Tour $tour)
     {
         $tour->upViews();
+        $this->tours->save($tour);
+    }
+
+    public function setMeta($id, MetaForm $form)
+    {
+        $tour = $this->tours->get($id);
+        $tour->setMeta(new Meta($form->title, $form->description, $form->keywords));
         $this->tours->save($tour);
     }
 

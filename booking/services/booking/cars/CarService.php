@@ -8,11 +8,13 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\CarParams;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\Meta;
 use booking\forms\booking\cars\CarCommonForm;
 use booking\forms\booking\cars\CarFinanceForm;
 use booking\forms\booking\cars\CarParamsForm;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
+use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
@@ -360,6 +362,13 @@ class CarService
             }
         }
         $car->actualCalendar = $calendars;
+        $this->cars->save($car);
+    }
+
+    public function setMeta($id, MetaForm $form)
+    {
+        $car = $this->cars->get($id);
+        $car->setMeta(new Meta($form->title, $form->description, $form->keywords));
         $this->cars->save($car);
     }
 

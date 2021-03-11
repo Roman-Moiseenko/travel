@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\repositories\booking;
+namespace booking\repositories\office;
 
 
 class PhotoRepository

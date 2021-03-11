@@ -8,7 +8,7 @@ use yii\helpers\Url; ?>
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <h5><?= Lang::t('Информация') ?></h5>
+                <label class="footer-title"><?= Lang::t('Информация') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О сайте') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/contacts'])) ?>"><?= Lang::t('Контакты') ?></a></li>
@@ -21,7 +21,7 @@ use yii\helpers\Url; ?>
             </div>
             <?php //TODO Жилье ?>
             <!--div class="col-sm-3">
-                <h5><?= Lang::t('Жилье') ?></h5>
+                <label><?= Lang::t('Жилье') ?></label>
                 <ul class="list-unstyled">
                     <li><a href=""><?= Lang::t('Отели') ?> (*)</a></li>
                     <li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li>
@@ -30,7 +30,7 @@ use yii\helpers\Url; ?>
                 </ul>
             </div-->
             <div class="col-sm-4">
-                <h5><?= Lang::t('Услуги') ?></h5>
+                <label><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотранспорта') ?></a></li>
                     <li><a href="<?= Url::to(['/tours']) ?>"><?= Lang::t('Найти тур') ?></a></li>
@@ -39,7 +39,7 @@ use yii\helpers\Url; ?>
                 </ul>
             </div>
             <div class="col-sm-4">
-                <h5><?= Lang::t('Личный кабинет') ?></h5>
+                <label><?= Lang::t('Личный кабинет') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/cabinet/profile'])) ?>"><?= Lang::t('Кабинет') ?></a></li>
                     <li>

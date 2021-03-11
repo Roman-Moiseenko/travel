@@ -15,7 +15,7 @@ $count = count($posts);
         <div class="card text-white shadow-lg" style="border: 0 !important; ">
             <img src="<?= $posts[0]->getThumbFileUrl('photo', 'widget_top') ?>" class="card-img">
             <div class="card-img-overlay">
-                <h4 class="card-title" style="color: white; text-shadow: black 2px 2px 1px"><?= $posts[0]->getTitle() ?></h4>
+                <h3 class="card-title title-blog-wodget"><?= $posts[0]->getTitle() ?></h3>
                 <div class=" d-none d-sm-block">
                 <p class="card-text"><?= Html::encode(StringHelper::truncateWords(strip_tags($posts[0]->getDescription()), 60)) ?></p>
                 </div>
@@ -31,8 +31,7 @@ $count = count($posts);
             <div class="card text-white shadow-lg" style="border: 0 !important; ">
                 <img src="<?= $posts[$i]->getThumbFileUrl('photo', 'widget_bottom') ?>" class="card-img">
                 <div class="card-img-overlay">
-                    <h4 class="card-title"
-                        style="color: white; text-shadow: black 2px 2px 1px"><?= $posts[$i]->getTitle() ?></h4>
+                    <h3 class="card-title title-blog-wodget"><?= $posts[$i]->getTitle() ?></h3>
                     <div class=" d-none d-sm-block">
                     <p class="card-text"><?= Html::encode(StringHelper::truncateWords(strip_tags($posts[$i]->getDescription()), 20)) ?></p>
                     </div>

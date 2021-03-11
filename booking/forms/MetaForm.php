@@ -13,6 +13,9 @@ class MetaForm extends Model
     public $description;
     public $keywords;
 
+    public $id;
+    public $class_name;
+
     public function __construct(Meta $meta = null, $config = [])
     {
         if ($meta) {
@@ -27,7 +30,8 @@ class MetaForm extends Model
     {
         return [
             [['title'], 'string', 'max' => 255],
-            [['description', 'keywords'], 'string'],
+            [['description', 'keywords', 'class_name'], 'string'],
+            ['id', 'integer'],
         ];
     }
 

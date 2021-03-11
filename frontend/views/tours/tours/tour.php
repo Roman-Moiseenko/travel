@@ -22,9 +22,9 @@ use yii\helpers\Url;
 /* @var $tour Tour */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($tour->getDescription()), 20))]);
+$this->registerMetaTag(['name' =>'description', 'content' => $tour->meta->description]);
 
-$this->title = $tour->getName();
+$this->title = $tour->meta->title ?? $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
 $this->params['breadcrumbs'][] = $tour->getName();
 

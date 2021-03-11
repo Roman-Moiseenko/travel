@@ -7,7 +7,7 @@ use booking\entities\booking\BasePhoto;
 use booking\entities\Rbac;
 use booking\forms\office\AltForm;
 use booking\helpers\scr;
-use booking\repositories\booking\PhotoRepository;
+use booking\repositories\office\PhotoRepository;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

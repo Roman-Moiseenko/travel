@@ -17,6 +17,7 @@ use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\StayParams;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\Meta;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 
@@ -30,6 +31,7 @@ use booking\forms\booking\stays\StayNearbyForm;
 use booking\forms\booking\stays\StayParamsForm;
 use booking\forms\booking\stays\StayRulesForm;
 use booking\forms\booking\stays\StayServicesForm;
+use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\Filling;
 use booking\helpers\scr;
@@ -494,6 +496,13 @@ class StayService
         $this->stays->save($stay);
     }
 
+    public function setMeta($id, MetaForm $form)
+    {
+        $stay = $this->stays->get($id);
+        $stay->setMeta(new Meta($form->title, $form->description, $form->keywords));
+        $this->stays->save($stay);
+    }
+
     public function upViews(Stay $stay)
     {
         $stay->upViews();
@@ -539,6 +548,8 @@ class StayService
         ];
         return $redirect[$stay->filling];
     }
+
+
 
 
 }

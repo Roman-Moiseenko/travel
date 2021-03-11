@@ -12,12 +12,14 @@ use booking\entities\booking\funs\WorkMode;
 use booking\entities\booking\tours\Cost;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\Meta;
 use booking\forms\booking\funs\FunCommonForm;
 use booking\forms\booking\funs\FunFinanceForm;
 use booking\forms\booking\funs\FunParamsForm;
 use booking\forms\booking\funs\WorkModeForm;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
+use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\funs\CostCalendarRepository;
@@ -393,6 +395,13 @@ class FunService
             }
         }
         $fun->actualCalendar = $calendars;
+        $this->funs->save($fun);
+    }
+
+    public function setMeta($id, MetaForm $form)
+    {
+        $fun = $this->funs->get($id);
+        $fun->setMeta(new Meta($form->title, $form->description, $form->keywords));
         $this->funs->save($fun);
     }
 
