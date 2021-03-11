@@ -18,7 +18,7 @@ class MetaRepository
                 'id' => $model->id,
                 'name' => $model->name,
                 'description' => $model->description,
-                'photo' => $model->mainPhoto->getThumbFileUrl('file', 'admin'),
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
         }, Tour::find()->active()->andWhere(['meta_json' => ''])->all());
@@ -28,7 +28,7 @@ class MetaRepository
                 'id' => $model->id,
                 'name' => $model->name,
                 'description' => $model->description,
-                'photo' => $model->mainPhoto->getThumbFileUrl('file', 'admin'),
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
         }, Car::find()->active()->andWhere(['meta_json' => ''])->all());
@@ -37,7 +37,7 @@ class MetaRepository
                 'id' => $model->id,
                 'name' => $model->name,
                 'description' => $model->description,
-                'photo' => $model->mainPhoto->getThumbFileUrl('file', 'admin'),
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
         }, Fun::find()->active()->andWhere(['meta_json' => ''])->all());
@@ -46,7 +46,7 @@ class MetaRepository
                 'id' => $model->id,
                 'name' => $model->name,
                 'description' => $model->description,
-                'photo' => $model->mainPhoto->getThumbFileUrl('file', 'admin'),
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
         }, Stay::find()->active()->andWhere(['meta_json' => ''])->all());

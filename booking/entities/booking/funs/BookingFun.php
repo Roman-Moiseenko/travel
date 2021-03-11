@@ -249,7 +249,7 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function getPhoto(string $photo = 'cabinet_list'): string
     {
-        return $this->fun->mainPhoto->getThumbFileUrl('file', $photo);
+        return $this->fun->mainPhoto ? $this->fun->mainPhoto->getThumbFileUrl('file', $photo) : '';
     }
 
     public function getType(): string

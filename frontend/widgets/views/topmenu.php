@@ -15,7 +15,7 @@ use yii\helpers\Url;
             <li class="nav-item">
                     <span class="hidden-xs hidden-sm hidden-md">
                         <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>"
-                           title="<?= Lang::t('Сообщения') ?>">
+                           title="<?= Lang::t('Сообщения') ?>" rel="nofollow">
                             <i class="fas fa-envelope"></i><span
                                     class="badge badge-danger"><?= MessageHelper::countNew() ?></span>
                         </a>
@@ -23,18 +23,18 @@ use yii\helpers\Url;
             </li>
             <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false" rel="nofollow">
                     <?= Lang::current() ?></a>
                 <div class="dropdown-menu">
                     <?php foreach (Lang::listLangs() as $lang): ?>
                         <a class="dropdown-item"
-                           href="<?= Html::encode(Url::to(['/', 'lang' => $lang])) ?>"><?= $lang ?></a>
+                           href="<?= Html::encode(Url::to(['/', 'lang' => $lang])) ?>" rel="nofollow"><?= $lang ?></a>
                     <?php endforeach; ?>
                 </div>
             </li>
             <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link"
-                   data-toggle="dropdown"><?= CurrencyHelper::currentString() ?></a>
+                   data-toggle="dropdown" rel="nofollow"><?= CurrencyHelper::currentString() ?></a>
                 <div class="dropdown-menu">
                     <?php foreach (CurrencyHelper::listCurrency() as $key => $currency): ?>
                         <a class="dropdown-item"
@@ -46,22 +46,22 @@ use yii\helpers\Url;
             </li>
             <li class="nav-item">
                 <span class="hidden-xs hidden-sm hidden-md">
-                    <a class="nav-link" href="<?= Url::to(['/support']) ?>" title="<?= Lang::t('Служба поддержки') ?>">
+                    <a class="nav-link" href="<?= Url::to(['/support']) ?>" title="<?= Lang::t('Служба поддержки') ?>" rel="nofollow">
                         <i class="far fa-question-circle"></i>
                     </a>
                 </span>
             </li>
             <li class="dropdown nav-item">
                 <?php if (Yii::$app->user->isGuest): ?>
-                    <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
+                    <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/login'])) ?>"><?= Lang::t('Войти') ?></a>
+                       href="<?= Html::encode(Url::to(['/login'])) ?>" rel="nofollow"><?= Lang::t('Войти') ?></a>
                     <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/signup'])) ?>"><?= Lang::t('Регистрация') ?></a>
+                       href="<?= Html::encode(Url::to(['/signup'])) ?>" rel="nofollow"><?= Lang::t('Регистрация') ?></a>
                 </div>
                 <?php else: ?>
-                <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow">
                     <i class="fa fa-user"></i>
                     <span class="hidden-xs hidden-sm hidden-md">
                         <?=  \Yii::$app->user->identity->personal->fullname->isEmpty() ? \Yii::$app->user->identity->username : \Yii::$app->user->identity->personal->fullname->getShortname()?>
