@@ -30,7 +30,7 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <meta name="og:type" content="website">
         <meta name="og:title" content="<?= Html::encode($this->title) ?>">
-        <meta name="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.png'?>">
+        <meta name="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'?>">
 
         <?php if (isset($this->params['canonical'])) {
             echo '<meta name="og:url" content="' . $this->params['canonical'] .'">' . PHP_EOL;

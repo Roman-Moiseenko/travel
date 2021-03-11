@@ -40,7 +40,7 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
         <div class="image-stay-list"> <!-- style="position: relative" -->
             <div class="holder">
                 <?php if ($stay->mainPhoto): ?>
-                    <div itemscope itemtype="http://schema.org/ImageObject">
+                    <div itemscope itemtype="https://schema.org/ImageObject">
                         <a href="<?= Html::encode($url) ?>">
                             <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
                                  alt="<?= Lang::t($stay->mainPhoto->alt) ?>"

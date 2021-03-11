@@ -17,7 +17,7 @@ use yii\helpers\Url;
         <div class="image-fun-list"> <!-- style="position: relative" -->
             <div class="holder">
             <?php if ($fun->mainPhoto): ?>
-                <div itemscope itemtype="http://schema.org/ImageObject">
+                <div itemscope itemtype="https://schema.org/ImageObject">
                     <a href="<?= Html::encode($url) ?>">
                         <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($fun->mainPhoto->alt) ?>"
                              class="img-responsive" itemprop="contentUrl"/>

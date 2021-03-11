@@ -19,7 +19,7 @@ use yii\helpers\Url;
         <div class="image-car-list" > <!-- style="position: relative" -->
             <div class="holder">
             <?php if ($car->mainPhoto): ?>
-                <div itemscope itemtype="http://schema.org/ImageObject">
+                <div itemscope itemtype="https://schema.org/ImageObject">
                     <a href="<?= Html::encode($url) ?>">
                         <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
                              class="img-responsive" itemprop="contentUrl"/>

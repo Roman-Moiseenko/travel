@@ -36,15 +36,16 @@ $mobile = SysHelper::isMobile();
 $countReveiws = $tour->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+<div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col-sm-12 ml-2">
         <ul class="thumbnails">
             <?php foreach ($tour->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
                     <li>
-                        <div itemscope itemtype="http://schema.org/ImageObject">
+                        <div itemscope itemtype="https://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
+                                 title="<?= Lang::t($photo->alt) ?>"
                                  alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                         </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
@@ -53,9 +54,10 @@ $countReveiws = $tour->countReviews();
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
-                        <div itemscope itemtype="http://schema.org/ImageObject">
+                        <div itemscope itemtype="https://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                 <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                     title="<?= Lang::t($photo->alt) ?>"
                                      alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt)  ?>" itemprop="contentUrl" class="img-responsive"/>
                             </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">

@@ -24,7 +24,7 @@ MagnificPopupAsset::register($this);
 
 <!-- ЛОГОТИП, ОПИСАНИЕ  -->
 <h1><?= $legal->getCaption() ?></h1>
-<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
+<div class="row" xmlns:fb="https://www.w3.org/1999/xhtml">
     <div class="col-md-8 params-tour">
         <p class="text-justify">
             <?= Yii::$app->formatter->asHtml($legal->getDescription(), [

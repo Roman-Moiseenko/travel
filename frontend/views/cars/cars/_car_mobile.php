@@ -18,7 +18,7 @@ use yii\helpers\Url;
 <div class="card mb-3 p-2" style="border: 0 !important; ">
     <div class="holder"> <!-- style="position: relative" -->
         <?php if ($car->mainPhoto): ?>
-            <div itemscope itemtype="http://schema.org/ImageObject">
+            <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
                     <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
                          class="card-img-top" itemprop="contentUrl"/>

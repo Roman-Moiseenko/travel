@@ -50,7 +50,7 @@ class LangRequest extends Request
         $pathInfo = urldecode($pathInfo);
 
         // try to encode in UTF8 if not so
-        // http://w3.org/International/questions/qa-forms-utf-8.html
+        // https://w3.org/International/questions/qa-forms-utf-8.html
         if (!preg_match('%^(?:
             [\x09\x0A\x0D\x20-\x7E]              # ASCII
             | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte

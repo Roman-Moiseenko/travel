@@ -201,13 +201,13 @@ newerton\fancybox\FancyBox::widget([
 ]);
 ?>
     <span id="stay-id" data-id="<?= $stay->id ?>"></span>
-    <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col-sm-12">
             <ul class="thumbnails">
                 <?php foreach ($stay->photos as $i => $photo): ?>
                     <?php if ($i == 0): ?>
                         <li>
-                            <div itemscope itemtype="http://schema.org/ImageObject">
+                            <div itemscope itemtype="https://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                                     <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
                                          alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"
@@ -220,7 +220,7 @@ newerton\fancybox\FancyBox::widget([
                         </li>
                     <?php else: ?>
                         <li class="image-additional">
-                            <div itemscope itemtype="http://schema.org/ImageObject">
+                            <div itemscope itemtype="https://schema.org/ImageObject">
                                 <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                     <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                          alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"

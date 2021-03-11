@@ -35,13 +35,13 @@ $mobile = SysHelper::isMobile();
 $countReveiws = $car->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="row" xmlns:fb="http://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+<div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col-sm-12">
         <ul class="thumbnails">
             <?php foreach ($car->photos as $i => $photo): ?>
                 <?php if ($i == 0): ?>
                     <li>
-                        <div itemscope itemtype="http://schema.org/ImageObject">
+                        <div itemscope itemtype="https://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
                                  alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
@@ -52,7 +52,7 @@ $countReveiws = $car->countReviews();
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
-                        <div itemscope itemtype="http://schema.org/ImageObject">
+                        <div itemscope itemtype="https://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                             <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                  alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
