@@ -45,7 +45,7 @@ abstract class BasePhoto extends ActiveRecord
         $this->alt = $alt;
     }
 
-    public function getAlt(): string
+    public function getAlt():? string
     {
         return $this->alt;
     }
@@ -72,6 +72,7 @@ abstract class BasePhoto extends ActiveRecord
                     'catalog_list' => ['width' => 228, 'height' => 228],
                     'legal_list' => ['width' => 300, 'height' => 300],
                     'catalog_main' => ['width' => 1200, 'height' => 400],
+                    'catalog_main_mobil' => ['width' => 600, 'height' => 200],
                     'catalog_additional' => ['width' => 66, 'height' => 66],
                     'catalog_origin' => ['width' => 1024, 'height' => 768],
                 ],

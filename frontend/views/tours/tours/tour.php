@@ -44,7 +44,7 @@ $countReveiws = $tour->countReviews();
                     <li>
                         <div itemscope itemtype="https://schema.org/ImageObject">
                         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
+                            <img src="<?= $photo->getThumbFileUrl('file', $mobile ? 'catalog_main_mobil' : 'catalog_main'); ?>"
                                  title="<?= Lang::t($photo->alt) ?>"
                                  alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
                         </a>

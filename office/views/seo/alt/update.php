@@ -13,9 +13,11 @@ $('#altModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); 
   let _id = button.data('id'); 
   let _class_name = button.data('class-name'); 
+  let _alt = button.data('alt');
 
   let modal = $(this);
   modal.find('#id').val(_id);
+  modal.find('#alt').val(_alt);
   modal.find('#class_name').val(_class_name);
 
 })
@@ -26,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 ?>
 <p>
-    <?= Html::a('Изменить', ['update'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Новые', ['index'], ['class' => 'btn btn-success']) ?>
 </p>
     <div class="card">
         <div class="card-body">
@@ -42,6 +44,7 @@ MagnificPopupAsset::register($this);
                                 </a>
                             </span>
                         </td>
+                        <td data-label="alt"><b><?= $object->getAlt() ?></b></td>
                         <td data-label="Название"><?= $object->getName() ?></td>
                         <td data-label="Описание"><?= $object->getDescription() ?></td>
                         <td data-label="Alt">
@@ -49,9 +52,11 @@ MagnificPopupAsset::register($this);
                                     data-target="#altModal"
                                     data-id="<?= $object->id ?>"
                                     data-class-name="<?= get_class($object) ?>"
+                                    data-alt="<?= $object->getAlt() ?>"
                                     style="color: #f4ffff; font-size: 1rem">Alt
                             </button>
                         </td>
+
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -71,7 +76,7 @@ MagnificPopupAsset::register($this);
                     <?php $form = ActiveForm::begin([
                     ]); ?>
                     <div class="modal-body">
-                        <?= $form->field($model, 'alt')->textInput()->label(false) ?>
+                        <?= $form->field($model, 'alt')->textInput(['id' => 'alt'])->label(false) ?>
                         <?= $form->field($model, 'id')->textInput(['type' => 'hidden', 'id' => 'id'])->label(false) ?>
                         <?= $form->field($model, 'class_name')->textInput(['type' => 'hidden', 'id' => 'class_name'])->label(false) ?>
 

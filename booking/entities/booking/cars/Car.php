@@ -6,11 +6,13 @@ namespace booking\entities\booking\cars;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
+use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\queries\CarQueries;
 use booking\entities\booking\City;
 use booking\entities\Lang;
+use booking\entities\Meta;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -53,6 +55,7 @@ use yii\web\UploadedFile;
  * ====== Составные поля ===================================
  * @property BookingAddress[] $address
  * @property CarParams $params Возраст, Вод.права категория (entities), Стаж, мин.срок, Доставка
+ * @property Meta $meta
 
  * ====== GET-Ы ============================================
  * @property Type $type
@@ -88,6 +91,8 @@ class Car extends ActiveRecord
     public $address;
     public $params;
     public $limit;
+    public $meta;
+
 
 
     public static function create($name, $name_en, $type_id, $description, $description_en, $year): self
@@ -244,6 +249,11 @@ class Car extends ActiveRecord
         return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
+    }
+
     public static function tableName()
     {
         return '{{%booking_cars}}';
@@ -252,6 +262,7 @@ class Car extends ActiveRecord
     public function behaviors()
     {
         return [
+            MetaBehavior::class,
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,

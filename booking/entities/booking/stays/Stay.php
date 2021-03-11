@@ -6,6 +6,7 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
+use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\hotels\rooms\Rooms;
 use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\comfort\AssignComfort;
@@ -20,6 +21,7 @@ use booking\entities\booking\stays\queries\StayQueries;
 use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
 use booking\entities\Lang;
+use booking\entities\Meta;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
@@ -66,7 +68,8 @@ use yii\web\UploadedFile;
  * @property StayParams $params
  * @property Type $type
  * @property Rules $rules
- *
+ * @property Meta $meta
+
  * ====== дополнительно ============================================
  * @property integer $filling ... текущий раздел при заполнении
  * ====== GET-Ы ============================================
@@ -113,6 +116,7 @@ class Stay extends ActiveRecord
     public $address;
     /** @var $params StayParams */
     public $params;
+    public $meta;
 
     public static function listErrors(): array
     {
@@ -490,6 +494,12 @@ class Stay extends ActiveRecord
         return $count;
     }
 
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
+    }
+
+
     public static function tableName()
     {
         return '{{%booking_stays}}';
@@ -498,6 +508,7 @@ class Stay extends ActiveRecord
     public function behaviors()
     {
         return [
+            MetaBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [

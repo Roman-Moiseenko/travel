@@ -43,7 +43,7 @@ class Photo extends BasePhoto
         $this->alt = $alt;
     }
 
-    public function getAlt(): string
+    public function getAlt():? string
     {
         return $this->alt;
     }

@@ -6,11 +6,13 @@ namespace booking\entities\booking\funs;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
+use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\funs\queries\FunQueries;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
+use booking\entities\Meta;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -53,7 +55,8 @@ use yii\web\UploadedFile;
  * @property Times[] $times - список времени
  * @property FunParams $params
  * @property Cost $baseCost Цена на билет взрослый, дети, льготные
- *
+ * @property Meta $meta
+
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -100,6 +103,8 @@ class Fun extends ActiveRecord
     public $params;
     public $baseCost;
     public $times;
+    public $meta;
+
 
     public static function isClearTimes($type): bool
     {
@@ -255,6 +260,11 @@ class Fun extends ActiveRecord
         return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
+    }
+
     public static function tableName()
     {
         return '{{%booking_funs}}';
@@ -263,6 +273,7 @@ class Fun extends ActiveRecord
     public function behaviors()
     {
         return [
+            MetaBehavior::class,
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,

@@ -6,11 +6,13 @@ namespace booking\entities\booking\tours;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
+use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\stays\Geo;
+//use booking\entities\booking\stays\Geo;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\tours\queries\TourQueries;
 use booking\entities\Lang;
+use booking\entities\Meta;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -49,6 +51,8 @@ use yii\web\UploadedFile;
  * @property Cost $baseCost
  * @property BookingAddress $address
  * @property TourParams $params
+ * @property Meta $meta
+
 
  * ====== GET-Ы ============================================
  * @property Type $type
@@ -65,6 +69,8 @@ use yii\web\UploadedFile;
  */
 class Tour extends ActiveRecord
 {
+    public $meta;
+
     const TOUR_FULL = 11;
     const TOUR_CANCEL = 12;
     const TOUR_CURRIENT = 13;
@@ -192,9 +198,15 @@ class Tour extends ActiveRecord
         return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
+    }
+
     public function behaviors()
     {
         return [
+            MetaBehavior::class,
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
