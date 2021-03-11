@@ -12,7 +12,7 @@ use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Развлечения и мероприятия в Калининграде и области');
+$this->title = Lang::t('Развлечения и мероприятия в Калининграде - активный культурный отдых');
 
 $js_search = <<<JS
 $(document).ready(function() {
@@ -33,7 +33,7 @@ $this->registerJs($js_search);
 ?>
 
 <div class="list-cars">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Развлечения и мероприятия в Калининграде и области') ?></h1>
     <div class="row">
         <div class="col-sm-3 p-2">
             <div class="leftbar-search-funs">

@@ -28,12 +28,12 @@ AppAsset::register($this);
 
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-        <meta name="og:type" content="website">
-        <meta name="og:title" content="<?= Html::encode($this->title) ?>">
-        <meta name="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'?>">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="<?= Html::encode($this->title) ?>">
+        <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'?>">
 
         <?php if (isset($this->params['canonical'])) {
-            echo '<meta name="og:url" content="' . $this->params['canonical'] .'">' . PHP_EOL;
+            echo '<meta property="og:url" content="' . $this->params['canonical'] .'">' . PHP_EOL;
             echo '<link rel="canonical" href="' . $this->params['canonical'] .'">' . PHP_EOL;
         } ?>
 

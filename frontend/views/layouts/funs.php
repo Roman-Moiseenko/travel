@@ -4,8 +4,12 @@
 /* @var $content string */
 
 use frontend\widgets\SearchToursWidget;
-$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru развлечение по своей душе в Калининграде, будь то активный отдых или культурный, и забронируйте его прямо сейчас']);
+use yii\helpers\Url;
+
+$this->registerMetaTag(['name' =>'description', 'content' => 'Развлечение и отдых в Калининграде, активный отдых на параплане, конных прогулках, пострелять в тире, сходить в баню или культурный посещение музея выставок поплавать в бассейне']);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'развлечения,отдых,Калининград,прогулки,полеты,достопримечательности']);
+$this->params['canonical'] = Url::to(['/funs'], true);
+
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
 <div class="row">

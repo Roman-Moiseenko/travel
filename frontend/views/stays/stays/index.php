@@ -11,12 +11,12 @@ use booking\forms\booking\stays\search\SearchStayForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Аренда квартир и домов в Калининграде и области');
+$this->title = Lang::t('Бронирование квартир аппартаментов домов в Калининграде и на море');
 
 ?>
 
 <div class="list-cars">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Аренда квартир и домов в Калининграде и области') ?></h1>
     <div class="row">
         <div class="col-sm-3 p-2">
             <?= $this->render('_search', ['model' => $model]) ?>

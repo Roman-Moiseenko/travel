@@ -4,8 +4,11 @@
 /* @var $content string */
 
 use frontend\widgets\SearchToursWidget;
-$this->registerMetaTag(['name' =>'description', 'content' => 'Найдите на koenigs.ru авто, вело, мото, водный транспорт по своему характеру в Калининграде, и возьмите в прокат его прямо сейчас']);
+use yii\helpers\Url;
+
+$this->registerMetaTag(['name' =>'description', 'content' => 'Прокат и аренда автомобиля, скутера, велосипеда, катера или мотоцикла в Калининграде недорогой прокат на сутки комфортабельные автомобили и бюджетные']);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'прокат,аренда,автомобили,велосипеды,скутеры,Калининград,Светлогорск,Зеленоградск,Куршская,Янтарный']);
+$this->params['canonical'] = Url::to(['/cars'], true);
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
