@@ -85,14 +85,14 @@ class Tour extends ActiveRecord
 
 
     /** base Data */
-    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en): self
+    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug): self
     {
         $tour = new static();
         $tour->user_id = \Yii::$app->user->id;
         $tour->created_at = time();
         $tour->status = StatusHelper::STATUS_INACTIVE;
         $tour->name = $name;
-        $tour->slug = SlugHelper::slug($name);
+        $tour->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
         $tour->type_id = $type_id;
         $tour->address = $address;
         $tour->description = $description;
@@ -102,9 +102,10 @@ class Tour extends ActiveRecord
         return $tour;
     }
 
-    public function edit($name, $type_id, $description, BookingAddress $address, $name_en, $description_en)
+    public function edit($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug)
     {
         $this->name = $name;
+        $this->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
         $this->type_id = $type_id;
         $this->address = $address;
         $this->description = $description;

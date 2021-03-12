@@ -72,13 +72,15 @@ MagnificPopupAsset::register($this);
                         ],
                         [
                             'attribute' => 'description',
-                            'value' => Yii::$app->formatter->asHtml($tour->description, [
-                                'Attr.AllowedRel' => array('nofollow'),
-                                'HTML.SafeObject' => true,
-                                'Output.FlashCompat' => true,
-                                'HTML.SafeIframe' => true,
-                                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                            ]),
+                            'value' => function (Tour $model) {
+                                return Yii::$app->formatter->asHtml($model->description, [
+                                    'Attr.AllowedRel' => array('nofollow'),
+                                    'HTML.SafeObject' => true,
+                                    'Output.FlashCompat' => true,
+                                    'HTML.SafeIframe' => true,
+                                    'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                                ]);
+                            },
                             'format' => 'raw',
                             'label' => 'Описание',
                         ],
@@ -89,14 +91,16 @@ MagnificPopupAsset::register($this);
                         ],
                         [
                             'attribute' => 'description_en',
-                            'value' => Yii::$app->formatter->asHtml($tour->description_en, [
-                                'Attr.AllowedRel' => array('nofollow'),
-                                'HTML.SafeObject' => true,
-                                'Output.FlashCompat' => true,
-                                'HTML.SafeIframe' => true,
-                                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                            ]),
-                            'format' => 'raw',
+                            'value' => function (Tour $model) {
+                                return Yii::$app->formatter->asHtml($model->description_en, [
+                                    'Attr.AllowedRel' => array('nofollow'),
+                                    'HTML.SafeObject' => true,
+                                    'Output.FlashCompat' => true,
+                                    'HTML.SafeIframe' => true,
+                                    'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                                ]);
+                            },
+                           // 'format' => 'raw',
                             'label' => 'Описание (En)',
                         ],
                         [

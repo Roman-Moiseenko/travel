@@ -82,7 +82,8 @@ class TourService
                 $form->address->longitude
             ),
             $form->name_en,
-            $form->description_en
+            $form->description_en,
+            $form->slug
         );
         foreach ($form->types->others as $otherId) {
             $type = $this->types->get($otherId);
@@ -105,7 +106,8 @@ class TourService
                 $form->address->longitude
             ),
             $form->name_en,
-            $form->description_en
+            $form->description_en,
+            $form->slug
         );
         $this->transaction->wrap(function () use ($form, $tour) {
             $tour->clearType();

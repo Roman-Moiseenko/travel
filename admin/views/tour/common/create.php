@@ -27,6 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название тура') ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <?= $form->field($model, 'slug')->textInput(['maxlength' => true])->label('Уникальная ссылка')->hint('Оставьте пустым для автоматической генерации') ?>
+                </div>
+            </div>
             <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class) ?>
         </div>
     </div>

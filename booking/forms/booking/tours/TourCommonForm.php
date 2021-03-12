@@ -19,6 +19,7 @@ class TourCommonForm extends CompositeForm
 {
     public $name;
     public $description;
+    public $slug;
 
     public $name_en;
     public $description_en;
@@ -30,6 +31,7 @@ class TourCommonForm extends CompositeForm
         if ($tours)
         {
             $this->name = $tours->name;
+            $this->slug = $tours->slug;
             $this->description = $tours->description;
             $this->name_en = $tours->name_en;
             $this->description_en = $tours->description_en;
@@ -47,7 +49,7 @@ class TourCommonForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name', 'description', 'name_en', 'description_en'], 'string'],
+            [['name', 'description', 'name_en', 'description_en', 'slug'], 'string'],
             ['name', 'required', 'message' => 'Обязательное поле'],
             ['name', 'unique', 'targetClass' => Tour::class, 'filter' => $this->_tour ? ['<>', 'id', $this->_tour->id] : null, 'message' => 'Такое имя уже есть'],
 
