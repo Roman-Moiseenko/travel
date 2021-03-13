@@ -13,7 +13,7 @@ $count = count($posts);
 <div class="row">
     <div class="col p-1">
         <div class="card text-white shadow-lg" style="border: 0 !important; ">
-            <img src="<?= $posts[0]->getThumbFileUrl('photo', 'widget_top') ?>" class="card-img">
+            <img src="<?= $posts[0]->getThumbFileUrl('photo', 'widget_top') ?>" class="card-img" alt="<?= $posts[0]->getTitle() ?>"  title="<?= $posts[0]->getTitle() ?>">
             <div class="card-img-overlay">
                 <h3 class="card-title title-blog-wodget"><?= $posts[0]->getTitle() ?></h3>
                 <div class=" d-none d-sm-block">
@@ -27,9 +27,8 @@ $count = count($posts);
 <div class="row">
     <?php for ($i = 1; $i < $count; $i++): ?>
         <div class="col-sm-4 px-1">
-
             <div class="card text-white shadow-lg" style="border: 0 !important; ">
-                <img src="<?= $posts[$i]->getThumbFileUrl('photo', 'widget_bottom') ?>" class="card-img">
+                <img src="<?= $posts[$i]->getThumbFileUrl('photo', 'widget_bottom') ?>" class="card-img" alt="<?= $posts[$i]->getTitle() ?>"  title="<?= $posts[$i]->getTitle() ?>">
                 <div class="card-img-overlay">
                     <h3 class="card-title title-blog-wodget"><?= $posts[$i]->getTitle() ?></h3>
                     <div class=" d-none d-sm-block">

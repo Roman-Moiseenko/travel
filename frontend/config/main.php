@@ -27,9 +27,9 @@ return [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
                     'class' => 'yii\bootstrap4\BootstrapAsset',
-                    'css' => [
+                  /*  'css' => [
                         'css/bootstrap.min.css',
-                    ],
+                    ],*/
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'class' => 'yii\bootstrap4\BootstrapPluginAsset'
