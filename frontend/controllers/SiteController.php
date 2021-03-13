@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use booking\helpers\scr;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -60,6 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //scr::v('!!!!');
         return $this->redirect(['/tours']);
     }
 

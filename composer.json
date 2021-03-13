@@ -21,8 +21,8 @@
   "require": {
     "php": ">=7.3",
     "yiisoft/yii2": "~2.0.14",
-    "yiisoft/yii2-bootstrap": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+    "yiisoft/yii2-bootstrap": "~2.0.0",
     "la-haute-societe/yii2-save-relations-behavior": "*",
     "yiisoft/yii2-authclient": "*",
     "kartik-v/yii2-widgets": "*",

@@ -8,6 +8,7 @@ use booking\helpers\SlugHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\assets\SwiperAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
 use yii\helpers\Html;
@@ -20,6 +21,7 @@ MapAsset::register($this);
 $this->title = $legal->caption;
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
+SwiperAsset::register($this);
 ?>
 
 <!-- ЛОГОТИП, ОПИСАНИЕ  -->

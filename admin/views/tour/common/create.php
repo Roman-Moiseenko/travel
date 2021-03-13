@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tour-create">
 
-<?=
-$this->render('_form', [
+    <?=
+    $this->render('_form', [
         'model' => $model,
-])
-?>
+    ])
+    ?>
 
 </div>
 

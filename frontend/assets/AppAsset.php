@@ -12,11 +12,11 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700',
+        '//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap',
         'css/site.css',
         'css/stylesheet.css',
         'css/glyphicon.css',
-        'css/swiper.min.css',
+//        'css/swiper.min.css',
         'css/multi_timer.css',
     ];
     public $js = [
@@ -25,12 +25,11 @@ class AppAsset extends AssetBundle
         'js/calendar_tour.js',
         'js/calendar_car.js',
         'js/calendar_fun.js',
-        'js/swiper.js',
+//        'js/swiper.js',
 
     ];
     public $depends = [
-        //  'frontend\assets\MagnificPopupAsset',
-        // 'sersid\fontawesome\Asset',
+
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
         'yii\bootstrap4\BootstrapPluginAsset',

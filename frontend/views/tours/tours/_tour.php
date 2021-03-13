@@ -18,9 +18,9 @@ use yii\helpers\Url;
         <?php if ($tour->mainPhoto): ?>
         <div itemscope itemtype="https://schema.org/ImageObject">
             <a href="<?= Html::encode($url) ?>">
-                <img src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
+                <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
                      title="<?= $tour->getName() ?>"
-                     class="card-img-top" itemprop="contentUrl"/>
+                     class="card-img-top lazyload" itemprop="contentUrl"/>
             </a>
             <meta itemprop="name" content="<?= empty($tour->mainPhoto->alt) ? 'Туры и экскурсии в Калининграде' : Lang::t($tour->mainPhoto->alt) ?>">
             <meta itemprop="description" content="<?= $tour->getName() ?>">

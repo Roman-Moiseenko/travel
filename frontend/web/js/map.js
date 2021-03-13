@@ -169,7 +169,6 @@ function init() {
             draggable: false
         });
         myMapView.geoObjects.add(myPlacemark);
-       // if ($('#' + suggest).val() === '')
         {
             ymaps.geocode(coords).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);

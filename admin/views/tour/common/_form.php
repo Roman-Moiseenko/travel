@@ -35,16 +35,16 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-md-6">
-                <span class="badge badge-success">Рекомендация к заполнению!</span><br>
+                <span class="badge badge-success" style="font-size: 16px;">Рекомендация к заполнению!</span><br>
                 <span class="badge badge-danger">1.</span> Избегайте слов паразитов и используйте поменьше слов без информационной нагрузки, так называемая "вода"<br>
                 <span class="badge badge-danger">2.</span> В тексте должны встречаться ключевые слова, по которым гости будут искать Вашу экскурсию.
                 Главное слово "экскурсия", которое должно присутствовать во всех экскурсиях.
-                Остальные, в зависимости от Вашей экскурсии, например в экскурсиях по городу, должны присутствовать слова: Калининград, Кёнигсберг, город, музей, обзорная и желательно более 1 раза.<br>
+                Остальные, в зависимости от Вашей экскурсии, например в экскурсиях по городу, должны присутствовать слова: Калининград, Кёнигсберг, город, музей, обзорная, и желательно более 1 раза.<br>
                 <span class="badge badge-danger">3.</span> Разбейте текст на несколько частей/глав.<br>
                 <span class="badge badge-danger">4.</span> У каждой части должен быть заголовок.<br>
                 <span class="badge badge-danger">5.</span> Выделите заголовок и нажмите кнопку <b>"Формат ... "</b> и выберите <b>"Заголовок 2"</b><br>
-                <span class="badge badge-danger">6.</span> В качестве примера, посмотрите экскурсию <a href="https://koenigs.ru/ru/tour/shaaken" target="_blank">Шаакен - орденский замок</a><br>
-                <span class="badge badge-danger">7.</span> Не называйте экскурсию одним словом, старайтесь раскрыть суть экскурсии в заголовке.<br>
+                <span class="badge badge-danger">6.</span> Не называйте экскурсию одним словом, старайтесь раскрыть суть экскурсии в заголовке.<br>
+                <span class="badge badge-danger">7.</span> В качестве примера посмотрите экскурсию <a href="https://koenigs.ru/ru/tour/shaaken" target="_blank">Шаакен - орденский замок</a><br>
             </div>
         </div>
         <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Описание')->widget(CKEditor::class) ?>

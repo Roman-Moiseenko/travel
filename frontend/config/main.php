@@ -26,7 +26,10 @@ return [
             'appendTimestamp' => true,
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
-                    'class' => 'yii\bootstrap4\BootstrapAsset'
+                    'class' => 'yii\bootstrap4\BootstrapAsset',
+                    'css' => [
+                        'css/bootstrap.min.css',
+                    ],
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'class' => 'yii\bootstrap4\BootstrapPluginAsset'
