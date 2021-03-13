@@ -9,7 +9,7 @@ use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
-$this->title = Lang::t('Туры и экскурсии по городу Калининград и области - замки, форты');
+$this->title = Lang::t('Туры и экскурсии по Калининграду обзорная, замки, форты');
 ?>
 
 <div class="list-tours">
