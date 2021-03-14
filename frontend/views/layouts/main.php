@@ -34,7 +34,7 @@ AppAsset::register($this);
         echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
     } ?>
     <?php $this->head() ?>
-    <?php if (!isset($this->params['notMap'])): ?>
+    <?php if (!isset($this->params['notMap-MMMM'])): ?>
         <!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f83859ccbf60e8b&async=1&domready=1">
             var addthis_config = {data_ga_property: <?= \Yii::$app->params['GoogleAnalyticAPI'] ?>};
         </script-->

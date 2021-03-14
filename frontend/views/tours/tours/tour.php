@@ -208,6 +208,7 @@ $countReveiws = $tour->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                 <div class="container-hr">
                     <hr/>
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -215,13 +216,13 @@ $countReveiws = $tour->countReviews();
                 <div class="params-item-map">
                     <div class="row">
                         <div class="col-4">
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
                                     data-target="#collapse-map"
                                     aria-expanded="false" aria-controls="collapse-map">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место сбора') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address"></div>
+                        <div class="col-8 align-self-center" id="address"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
@@ -249,13 +250,13 @@ $countReveiws = $tour->countReviews();
                     <div class="row">
                         <div class="col-4">
 
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
                                     data-target="#collapse-map-2"
                                     aria-expanded="false" aria-controls="collapse-map-2">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место окончания') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address-2"></div>
+                        <div class="col-8 align-self-center" id="address-2"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-2">
                         <div class="card card-body">
@@ -283,13 +284,13 @@ $countReveiws = $tour->countReviews();
                     <div class="row">
                         <div class="col-4">
 
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
                                     data-target="#collapse-map-3"
                                     aria-expanded="false" aria-controls="collapse-map-2">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место проведение') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address-3"></div>
+                        <div class="col-8 align-self-center" id="address-3"><?= $tour->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-3">
                         <div class="card card-body">

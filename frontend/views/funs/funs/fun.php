@@ -207,6 +207,7 @@ $countReveiws = $fun->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                 <div class="container-hr">
                     <hr/>
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -214,13 +215,13 @@ $countReveiws = $fun->countReviews();
                 <div class="params-item-map">
                     <div class="row">
                         <div class="col-3">
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
                                     data-target="#collapse-map"
                                     aria-expanded="false" aria-controls="collapse-map">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Адрес') ?>:
                         </div>
-                        <div class="col-9 align-self-center" id="address"></div>
+                        <div class="col-9 align-self-center" id="address"><?= $fun->address->address ?></div>
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
