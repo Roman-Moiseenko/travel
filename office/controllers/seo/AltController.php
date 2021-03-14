@@ -8,6 +8,7 @@ use booking\entities\Rbac;
 use booking\forms\office\AltForm;
 use booking\helpers\scr;
 use booking\repositories\office\PhotoRepository;
+use booking\services\PhotoResizeService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -19,11 +20,16 @@ class AltController extends Controller
      * @var PhotoRepository
      */
     private $photos;
+    /**
+     * @var PhotoResizeService
+     */
+    private $servicePhotoResize;
 
-    public function __construct($id, $module, PhotoRepository $photos, $config = [])
+    public function __construct($id, $module, PhotoRepository $photos, PhotoResizeService $servicePhotoResize, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->photos = $photos;
+        $this->servicePhotoResize = $servicePhotoResize;
     }
 
     public function behaviors()
@@ -97,4 +103,33 @@ class AltController extends Controller
             'model' => $form,
         ]);
     }
+/*
+    public function actionResizePhoto()
+    {
+        $host = \Yii::$app->params['staticPath'];
+        $categories = \Yii::$app->params['resize_categories'];
+        foreach ($categories as $type) {
+            $max_width = isset($type['width']) ? $type['width'] : null;
+            $max_height = isset($type['height']) ? $type['height'] : null;
+            $quality = $type['quality'];
+            foreach ($type['items'] as $category) {
+                $this->find($host . $category, $quality, $max_width, $max_height);
+            }
+        }
+    }
+
+    private function find($category, $quality, $max_width, $max_height): bool
+    {
+        if (!is_dir($category)) return false;
+        $list = scandir($category);
+        foreach ($list as $item) {
+            if ($item == '.' || $item == '..') continue;
+            if (is_dir($category . $item . '/')) {
+                $this->find($category . $item . '/', $quality, $max_width, $max_height);
+            } else {
+                $this->servicePhotoResize->resize($category . $item , $quality, $max_width, $max_height);
+            }
+        }
+        return true;
+    }*/
 }

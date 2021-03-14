@@ -25,10 +25,40 @@ return [
         'number-KKT' => '199036013074',
         'INN' => '3906396773',
         'site-FNS' => 'https://www.nalog.ru',
-        'OFD' =>'Яндекс.ОФД ',
-        'site-OFD' =>'https://ofd.yandex.ru/check ',
-        'INN-OFD' =>'7704358518',
+        'OFD' => 'Яндекс.ОФД ',
+        'site-OFD' => 'https://ofd.yandex.ru/check ',
+        'INN-OFD' => '7704358518',
         'tax' => 'УСН доход - расход',
     ],
+    //массив папок где надо сжать все фото
+    'resize_categories' => [
+        [
+            'width' => 1024,
+            'height' => 768,
+            'quality' => 75,
+            'items' => [
+                '/rrrt/',
+                '/origin/cars/',
+                '/origin/funs/',
+                '/origin/tours/',
+                '/origin/stays/',
+                '/origin/certs/',
+            ],
+        ],
+        [
+            'width' => 600,
+            'height' => 600,
+            'quality' => 75,
+            'items' => [
+                '/origin/admin_users/',
+            ],
+        ],
+        [
+            'quality' => 75,
+            'items' => [
+                '/cache/',
+            ],
+        ],
+    ]
 ];
 

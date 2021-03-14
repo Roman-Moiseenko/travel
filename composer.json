@@ -57,7 +57,8 @@
     "yoomoney/yookassa-sdk-php": "^2.0",
     "kartik-v/yii2-password": "^1.5",
     "kartik-v/yii2-widget-select2": "@dev",
-    "newerton/yii2-fancybox": "^1.0"
+    "newerton/yii2-fancybox": "^1.0",
+    "yiisoft/yii2-imagine": "^2.3"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

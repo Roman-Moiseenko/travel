@@ -74,7 +74,7 @@ abstract class BasePhoto extends ActiveRecord
                     'catalog_main' => ['width' => 1200, 'height' => 400, 'quality' => 80],
                     'catalog_main_mobil' => ['width' => 600, 'height' => 200, 'quality' => 80],
                     'catalog_additional' => ['width' => 66, 'height' => 66, 'quality' => 80],
-                    'catalog_origin' => ['width' => 1024, 'height' => 768, 'quality' => 80],
+                    'catalog_origin' => ['width' => 1080, 'height' => 720, 'quality' => 80],
                 ],
             ],
         ];

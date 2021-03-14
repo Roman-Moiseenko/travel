@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var  $car Car*/
+/* @var  $car Car */
 /* @var $photosForm PhotosForm */
 
 $this->title = 'Фотографии ' . $car->name;
@@ -55,13 +55,18 @@ $this->params['breadcrumbs'][] = 'Фотографии';
                 'options' => ['enctype' => 'multipart/form-data'],
             ]); ?>
 
-            <?= $form->field($photosForm, 'files[]')->label(false)->widget(FileInput::class, [
+            <?= $form->field($photosForm, 'files[]')
+                ->label(false)
+                ->widget(FileInput::class, [
                     'language' => 'ru',
-                'options' => [
-                    'accept' => 'image/*',
-                    'multiple' => true,
-                ]
-            ]) ?>
+                    'options' => [
+                        'accept' => 'image/*',
+                        'multiple' => true,
+                    ],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['jpg'],
+                    ],
+                ]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
