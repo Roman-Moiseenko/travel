@@ -6,8 +6,6 @@ use frontend\widgets\SearchToursWidget;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->params['notMap'] = true;
-
 ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 <div class="row">
