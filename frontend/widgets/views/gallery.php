@@ -19,7 +19,7 @@ use yii\helpers\Html;
                  title="<?= Lang::t($photo->getAlt()) ?>"
                  alt="<?= Html::encode($name) . '. ' . Lang::t($photo->getAlt()) ?>"
                  class="img-responsive" itemprop="contentUrl"/>
-            <?php if ($i == 2):?>
+            <?php if ($i == 2 && $count != 3):?>
                 <span class="photo-overlay">
                     <span class="photo-count">+<?= $count - 3 ?></span>
                 </span>
