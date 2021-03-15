@@ -48,14 +48,13 @@ use yii\helpers\Url;
             </h2>
         </a>
         <p class="card-text" style="height: available">
-        <div class="mb-auto text-justify">
-            <?= (StringHelper::truncateWords(strip_tags($car->getDescription()), 20)) ?>
-        </div>
+            <div class="mb-auto text-justify">
+                <?= (StringHelper::truncateWords(strip_tags($car->getDescription()), 20)) ?>
+            </div>
 
-        <div class="category-card pt-4">
-            <?= implode(', ', ArrayHelper::map($car->cities, 'id', 'name')) ?>
-        </div>
-
+            <div class="category-card pt-4">
+                <?= implode(', ', ArrayHelper::map($car->cities, 'id', 'name')) ?>
+            </div>
         </p>
     </div>
     <div class="card-footer color-card-body">

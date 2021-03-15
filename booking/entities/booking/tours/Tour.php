@@ -93,6 +93,7 @@ class Tour extends ActiveRecord
         $tour->status = StatusHelper::STATUS_INACTIVE;
         $tour->name = $name;
         $tour->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
+        if (Tour::find()->andWhere(['slug' => $tour->slug])->one()) $tour->slug .= '-' . $tour->user_id;
         $tour->type_id = $type_id;
         $tour->address = $address;
         $tour->description = $description;

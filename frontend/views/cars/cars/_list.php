@@ -20,6 +20,8 @@ $values = [
     'cost' => Lang::t('по цене (сначала дешевле)'),
 
 ];
+
+$mobile = SysHelper::isMobile();
 ?>
 <div class="sort-bar d-none d-sm-block">
     <ul>
@@ -38,16 +40,16 @@ $values = [
         <?php endforeach;?>
     </select>
 </div>
-<div class="row">
-<div class="col-sm-12">
+<div class="row <?= $mobile ? 'row-cols-1 row-cols-md-4' : ''?>">
+    <div class="<?= $mobile ? '' : 'col-sm-12'?>">
     <?php //TODO Показать из списка рекомендуемых, не более 4 (Виджет). Проплаченные Провайдерами ?>
     <?php
     foreach ($dataProvider->getModels() as $car): ?>
-        <?= $this->render( SysHelper::isMobile() ? '_car_mobile' : '_car', [
+        <?= $this->render($mobile ? '_car_mobile' : '_car', [
             'car' => $car
         ]) ?>
     <?php endforeach; ?>
-</div>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-6 text-left">
