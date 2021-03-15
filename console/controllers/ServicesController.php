@@ -4,6 +4,7 @@
 namespace console\controllers;
 
 
+use booking\entities\PhotoResize;
 use booking\services\PhotoResizeService;
 use yii\console\Controller;
 
@@ -32,6 +33,14 @@ class ServicesController extends Controller
             foreach ($type['items'] as $category) {
                 $this->find($host . $category, $quality, $max_width, $max_height);
             }
+        }
+    }
+
+    public function actionCacheClear()
+    {
+        $photoResizes = PhotoResize::find()->andWhere(['like', 'file', 'cache'])->all();
+        foreach ($photoResizes as $record) {
+            $record->delete();
         }
     }
 

@@ -18,10 +18,10 @@ use yii\helpers\Url;
         <?php if ($fun->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($fun->mainPhoto->alt) ?>"
+                    <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>" alt="<?= Lang::t($fun->mainPhoto->alt) ?>"
                          class="card-img-top" itemprop="contentUrl"/>
                 </a>
-                <meta itemprop="name" content="<?= empty($fun->mainPhoto->alt) ? 'Развлечения и отдых в Калининграде' : Lang::t($tour->mainPhoto->alt) ?>">
+                <meta itemprop="name" content="<?= empty($fun->mainPhoto->alt) ? 'Развлечения и отдых в Калининграде' : Lang::t($fun->mainPhoto->alt) ?>">
                 <meta itemprop="description" content="<?= $fun->getName() ?>">
             </div>
         <?php endif; ?>

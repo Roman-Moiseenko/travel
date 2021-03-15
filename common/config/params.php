@@ -54,7 +54,7 @@ return [
             ],
         ],
         [
-            'quality' => 75,
+            'quality' => 50,
             'items' => [
                 '/cache/',
             ],

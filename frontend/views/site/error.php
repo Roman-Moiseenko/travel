@@ -36,7 +36,7 @@ $this->title = $custom_name;
     </p>
     </span>
     <p>
-        <img src="https://static.koenigs.ru/images/page/about/koenigs-about-2.jpg" alt="about"/>
+        <img src="https://static.koenigs.ru/images/page/about/koenigs-about-2.jpg" alt="about" class="card-img-top"/>
     </p>
 
 </div>

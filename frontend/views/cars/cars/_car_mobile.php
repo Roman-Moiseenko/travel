@@ -20,7 +20,7 @@ use yii\helpers\Url;
         <?php if ($car->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
+                    <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
                          class="card-img-top" itemprop="contentUrl"/>
                 </a>
                 <meta itemprop="name" content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">

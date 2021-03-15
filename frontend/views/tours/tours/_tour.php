@@ -3,12 +3,14 @@
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\SysHelper;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $tour Tour */
+$mobile = SysHelper::isMobile();
 ?>
 
 <?php $url = Url::to(['/tour/view', 'id' => $tour->id]) ?>
@@ -18,7 +20,7 @@ use yii\helpers\Url;
         <?php if ($tour->mainPhoto): ?>
         <div itemscope itemtype="https://schema.org/ImageObject">
             <a href="<?= Html::encode($url) ?>">
-                <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
+                <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list')) ?>" alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
                      title="<?= $tour->getName() ?>"
                      class="card-img-top lazyload" itemprop="contentUrl"/>
             </a>

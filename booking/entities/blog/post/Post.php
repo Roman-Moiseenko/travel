@@ -292,6 +292,7 @@ class Post extends ActiveRecord
                     'blog_list' => ['width' => 1000, 'height' => 150],
                     'widget_list' => ['width' => 228, 'height' => 228],
                     'widget_top' => ['width' => 1000, 'height' => 150],
+                    'widget_mobile' => ['width' => 300, 'height' => 100],
                     'widget_bottom' => ['width' => 300, 'height' => 150],
                     'origin' => ['processor' => [new WaterMarker(1024, 768, '@static/files/images/logo-mail.png'), 'process']],
                 ],

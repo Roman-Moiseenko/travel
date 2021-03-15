@@ -1,6 +1,7 @@
 <?php
 
 
+use booking\helpers\SysHelper;
 use frontend\widgets\BlogViewerWidget;
 use frontend\widgets\SearchToursWidget;
 /* @var $this \yii\web\View */
@@ -15,6 +16,8 @@ use frontend\widgets\SearchToursWidget;
 
 </div>
 <div class="hidden-xs">
-    <?= BlogViewerWidget::widget() ?>
+    <?= BlogViewerWidget::widget([
+            'mobile' => SysHelper::isMobile(),
+    ]) ?>
 </div>
 <?php $this->endContent() ?>
