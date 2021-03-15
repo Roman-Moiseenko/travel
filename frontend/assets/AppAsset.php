@@ -21,10 +21,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/site.js',
-//        'js/calendar_tour.js',
-//        'js/calendar_car.js',
-//        'js/calendar_fun.js',
-//        'js/swiper.js',
 
     ];
     public $depends = [

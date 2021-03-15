@@ -63,6 +63,7 @@ class CostCalendarRepository
 
     public function getCalendarForDatePicker($tour_id, $month, $year, $day = 1)
     {
+        //TODO Ускорить работу через SQL запросы
         try {
             $interval = CalendarHelper::getInterval($month, $year, $day);
             $calendars = $this->getActualInterval($tour_id, $interval['min'], $interval['max']);

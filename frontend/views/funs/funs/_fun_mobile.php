@@ -55,11 +55,13 @@ use yii\helpers\Url;
     </div>
     <a href="<?= Html::encode($url) ?>">
     <div class="mt-auto card-footer color-card-footer">
+        <div class="d-flex p-1">
         <div class="p-2">
             <span class="price-card"><?= CurrencyHelper::get($fun->baseCost->adult) ?></span>
         </div>
-        <div class="pull-right rating">
+        <div class="ml-auto">
             <?= RatingWidget::widget(['rating' => $fun->rating]) ?>
+        </div>
         </div>
     </div>
     </a>

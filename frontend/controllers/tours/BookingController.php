@@ -53,6 +53,7 @@ class BookingController  extends Controller
                 $year = $params['year'];
                 $day = 1;
             }
+            //return null;
             return json_encode($this->calendar->getCalendarForDatePicker($params['tour_id'], $month, $year, $day));
         }
         return $this->goHome();

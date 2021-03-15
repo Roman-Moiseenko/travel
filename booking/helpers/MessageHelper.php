@@ -19,7 +19,7 @@ class MessageHelper
         {
             $field = 'user_id';
         }
-        $dialogs = Dialog::find()->andWhere([$field=>\Yii::$app->user->id])->all();
+        $dialogs = Dialog::find()->andWhere([$field =>\Yii::$app->user->id])->all();
         $count = 0;
         foreach ($dialogs as $dialog) {
             $count += $dialog->countNewConversation();

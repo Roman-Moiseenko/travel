@@ -1,26 +1,8 @@
-@font-face {
-    font-family: 'Comfortaa';
-    src: local('Comfortaa'),
-    url('../fonts/Comfortaa/Comfortaa-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'Forum';
-    src: local('Forum'),
-    url('../fonts/Forum/Forum-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'Didact Gothic';
-    src: local('Didact Gothic'),
-    url('../fonts/Didact_Gothic/DidactGothic.ttf');
-}
-
 
 html,
 body {
-    font-family: 'Open Sans', sans-serif;
     /*font-family: 'Open Sans', sans-serif;*/
+    font-family: 'PT Sans Caption', 'Verdana', 'Dejavu', 'Sans', sans-serif;
     font-weight: 400;
     color: #666;
     font-size: 12px;
@@ -38,32 +20,33 @@ body {
 
 /* Override the bootstrap defaults */
 h1 {
-    font-family: 'Comfortaa', sans-serif;
+   /* font-family: 'Comfortaa', sans-serif;*/
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 33px;
 }
 
 h2 {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 27px;
 }
 
 h3 {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 21px;
 }
 
 h4 {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 15px;
 }
 
 h5 {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 12px;
 }
 
 h6 {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 10.2px;
 }
 
@@ -423,9 +406,11 @@ div.required label:after {
 }
 
 .price-card {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #444;
-    font-weight: 600;
-    font-size: 22px;
+    font-weight: 700;
+    font-size: 24px;
+    color: #137b26;
 }
 
 .category-card {
@@ -671,9 +656,14 @@ div.required label:after {
 
 .card-object {
     font-weight: 600;
-    letter-spacing: 3px;
+    /*letter-spacing: 3px;*/
     font-size: 15px !important;
+    color: #000;
+    /* color: #2aabd2 !important;*/
+}
+.card-object:hover {
     color: #2aabd2 !important;
+
 }
 
 .color-card-body {
@@ -812,4 +802,9 @@ div.required label:after {
     font-size: 13px;
     font-weight: bold;
     color: #fff;
+}
+
+.rating-tour {
+    color: #F8CA03;
+    font-size: 12px !important;
 }

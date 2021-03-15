@@ -63,11 +63,14 @@ $mobile = SysHelper::isMobile();
     </div>
     <a href="<?= Html::encode($url) ?>">
     <div class="mt-auto card-footer color-card-footer">
-        <div class="p-2">
-            <span class="price-card"><?= CurrencyHelper::get($tour->baseCost->adult) ?></span>
-        </div>
-        <div class="pull-right rating">
-            <?= RatingWidget::widget(['rating' => $tour->rating]) ?>
+        <div class="d-flex">
+            <div class="p-2">
+                <div class="price-card"><?= CurrencyHelper::get($tour->baseCost->adult) ?></div>
+                <span style="color: #3c3c3c; font-size: 12px"><?= $tour->params->private ? Lang::t('за экскурсию') : Lang::t('за человека') ?></span>
+            </div>
+            <div class="ml-auto"> <!-- pull-right rating-->
+                <?= RatingWidget::widget(['rating' => $tour->rating]) ?>
+            </div>
         </div>
     </div>
     </a>

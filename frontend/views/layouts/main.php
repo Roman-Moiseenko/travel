@@ -5,7 +5,9 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
+use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
@@ -15,8 +17,8 @@ use frontend\assets\AppAsset;
 AppAsset::register($this);
 
 if (isset($this->params['fun'])) FunAsset::register($this);
-if (isset($this->params['car'])) FunAsset::register($this);
-if (isset($this->params['tout'])) FunAsset::register($this);
+if (isset($this->params['car'])) CarAsset::register($this);
+if (isset($this->params['tour'])) TourAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

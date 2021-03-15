@@ -16,29 +16,31 @@ use yii\helpers\Url;
 
 <div class="card p-0 my-3">
     <div class="card-body p-0">
-        <div class="image-car-list" > <!-- style="position: relative" -->
+        <div class="image-car-list"> <!-- style="position: relative" -->
             <div class="holder">
-            <?php if ($car->mainPhoto): ?>
-                <div itemscope itemtype="https://schema.org/ImageObject">
-                    <a href="<?= Html::encode($url) ?>">
-                        <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
-                             class="img-responsive" itemprop="contentUrl"/>
-                    </a>
-                    <meta itemprop="name" content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">
-                    <meta itemprop="description" content="<?= $car->getName() ?>">
+                <?php if ($car->mainPhoto): ?>
+                    <div itemscope itemtype="https://schema.org/ImageObject">
+                        <a href="<?= Html::encode($url) ?>">
+                            <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
+                                 alt="<?= Lang::t($car->mainPhoto->alt) ?>"
+                                 class="img-responsive" itemprop="contentUrl"/>
+                        </a>
+                        <meta itemprop="name"
+                              content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">
+                        <meta itemprop="description" content="<?= $car->getName() ?>">
+                    </div>
+                <?php endif; ?>
+                <div class="block-wishlist">
+                    <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
+                            title="<?= Lang::t('В избранное') ?>"
+                            href="<?= Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ?>"
+                            data-method="post">
+                        <i class="fa fa-heart"></i>
+                    </button>
                 </div>
-            <?php endif; ?>
-            <div class="block-wishlist">
-                <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                        title="<?= Lang::t('В избранное') ?>"
-                        href="<?= Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ?>"
-                        data-method="post">
-                    <i class="fa fa-heart"></i>
-                </button>
-            </div>
-            <?php if ($car->isNew()): ?>
-                <div class="new-object-booking"><span class="new-text">new</span></div>
-            <?php endif; ?>
+                <?php if ($car->isNew()): ?>
+                    <div class="new-object-booking"><span class="new-text">new</span></div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="caption-car-list px-2">
@@ -63,13 +65,16 @@ use yii\helpers\Url;
                 </div>
                 <a href="<?= Html::encode($url) ?>">
                     <div class="color-card-footer margin-card-footer">
-                    <div class="pl-4 py-2">
-                        <span class="price-card"><?= CurrencyHelper::get($car->cost) ?></span>
+                        <div class="d-flex p-2">
+                            <div class="pl-4 py-2">
+                                <div class="price-card"><?= CurrencyHelper::get($car->cost) ?></div>
+                                <span style="color: #3c3c3c; font-size: 12px"><?= Lang::t('за сутки') ?></span>
+                            </div>
+                            <div class="ml-auto">
+                                <?= RatingWidget::widget(['rating' => $car->rating]) ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pull-right rating pl-4 pb-2">
-                        <?= RatingWidget::widget(['rating' => $car->rating]) ?>
-                    </div>
-                </div>
                 </a>
             </div>
         </div>

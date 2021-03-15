@@ -20,10 +20,12 @@ use yii\helpers\Url;
         <?php if ($car->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>" alt="<?= Lang::t($car->mainPhoto->alt) ?>"
+                    <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>"
+                         alt="<?= Lang::t($car->mainPhoto->alt) ?>"
                          class="card-img-top" itemprop="contentUrl"/>
                 </a>
-                <meta itemprop="name" content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">
+                <meta itemprop="name"
+                      content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">
                 <meta itemprop="description" content="<?= $car->getName() ?>">
             </div>
         <?php endif; ?>
@@ -60,13 +62,16 @@ use yii\helpers\Url;
         <a href="<?= Url::to(['/cars/category', 'id' => $car->type->id]) ?>"><?= Lang::t($car->type->name) ?></a>
     </div>
     <a href="<?= Html::encode($url) ?>">
-    <div class="mt-auto card-footer color-card-footer">
-        <div class="p-2">
-            <span class="price-card"><?= CurrencyHelper::get($car->cost) ?></span>
+        <div class="mt-auto card-footer color-card-footer">
+            <div class="d-flex p-1">
+                <div class="p-2">
+                    <div class="price-card"><?= CurrencyHelper::get($car->cost) ?></div>
+                    <span style="color: #3c3c3c; font-size: 12px"><?= Lang::t('за сутки') ?></span>
+                </div>
+                <div class="ml-auto">
+                    <?= RatingWidget::widget(['rating' => $car->rating]) ?>
+                </div>
+            </div>
         </div>
-        <div class="pull-right rating">
-            <?= RatingWidget::widget(['rating' => $car->rating]) ?>
-        </div>
-    </div>
     </a>
 </div>
