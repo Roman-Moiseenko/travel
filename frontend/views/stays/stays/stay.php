@@ -14,6 +14,7 @@ use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\assets\MapStayAsset;
+use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewFunWidget;
 use frontend\widgets\reviews\NewReviewStayWidget;
@@ -201,39 +202,18 @@ newerton\fancybox\FancyBox::widget([
 ]);
 ?>
     <span id="stay-id" data-id="<?= $stay->id ?>"></span>
-    <div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-        <div class="col-sm-12">
-            <ul class="thumbnails">
-                <?php foreach ($stay->photos as $i => $photo): ?>
-                    <?php if ($i == 0): ?>
-                        <li>
-                            <div itemscope itemtype="https://schema.org/ImageObject">
-                                <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
-                                         alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"
-                                         class="card-img-top"
-                                         itemprop="contentUrl"/>
-                                </a>
-                                <meta itemprop="name" content="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>">
-                                <meta itemprop="description" content="<?= strip_tags($stay->getDescription()) ?>">
-                            </div>
-                        </li>
-                    <?php else: ?>
-                        <li class="image-additional">
-                            <div itemscope itemtype="https://schema.org/ImageObject">
-                                <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                                    <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
-                                         alt="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>"
-                                         itemprop="contentUrl"/>
-                                </a>
-                                <meta itemprop="name" content="<?= $stay->getName() . '. ' . Lang::t($photo->alt) ?>">
-                                <meta itemprop="description" content="<?= strip_tags($stay->getDescription()) ?>">
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+    <!-- ФОТО  -->
+    <div class="pb-4 thumbnails gallery"
+         xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <?php foreach ($stay->photos as $i => $photo) {
+            echo GalleryWidget::widget([
+                'photo' => $photo,
+                'iterator' => $i,
+                'count' => count($stay->photos),
+                'name' => $stay->getName(),
+                'description' => $stay->description,
+            ]);
+        } ?>
     </div>
     <!-- ОПИСАНИЕ -->
     <div class="row pt-2" <?= $mobile ? ' style="width: 100vw"' : '' ?>>

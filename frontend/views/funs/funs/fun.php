@@ -10,6 +10,7 @@ use booking\helpers\SysHelper;
 use frontend\assets\FunAsset;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
 use frontend\widgets\reviews\NewReviewFunWidget;
@@ -37,37 +38,17 @@ $mobile = SysHelper::isMobile();
 $countReveiws = $fun->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col-sm-12">
-        <ul class="thumbnails">
-            <?php foreach ($fun->photos as $i => $photo): ?>
-                <?php if ($i == 0): ?>
-                    <li>
-                        <div itemscope itemtype="https://schema.org/ImageObject">
-                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
-                                     alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top"
-                                     itemprop="contentUrl"/>
-                            </a>
-                            <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
-                            <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
-                        </div>
-                    </li>
-                <?php else: ?>
-                    <li class="image-additional">
-                        <div itemscope itemtype="https://schema.org/ImageObject">
-                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
-                                     alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
-                            </a>
-                            <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
-                            <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
-                        </div>
-                    </li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+<div class="pb-4 thumbnails gallery"
+     xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <?php foreach ($fun->photos as $i => $photo) {
+        echo GalleryWidget::widget([
+            'photo' => $photo,
+            'iterator' => $i,
+            'count' => count($fun->photos),
+            'name' => $fun->getName(),
+            'description' => $fun->description,
+        ]);
+    } ?>
 </div>
 <!-- ОПИСАНИЕ -->
 <div class="row pt-2" <?= $mobile ? ' style="width: 100vw"' : '' ?>>

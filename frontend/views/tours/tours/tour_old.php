@@ -9,7 +9,6 @@ use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
-use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
@@ -36,20 +35,42 @@ MagnificPopupAsset::register($this);
 MapAsset::register($this);
 $mobile = SysHelper::isMobile();
 $countReveiws = $tour->countReviews();
-
 ?>
 <!-- ФОТО  -->
-<div class="pb-4 thumbnails gallery"
-     xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <?php foreach ($tour->photos as $i => $photo) {
-        echo GalleryWidget::widget([
-            'photo' => $photo,
-            'iterator' => $i,
-            'count' => count($tour->photos),
-            'name' => $tour->getName(),
-            'description' => $tour->description,
-        ]);
-    } ?>
+<div class="row" xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col-sm-12 ml-2">
+        <ul class="thumbnails">
+            <?php foreach ($tour->photos as $i => $photo): ?>
+                <?php if ($i == 0): ?>
+                    <li>
+                        <div itemscope itemtype="https://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+                                <img src="<?= $photo->getThumbFileUrl('file', $mobile ? 'catalog_main_mobil' : 'catalog_main'); ?>"
+                                     title="<?= Lang::t($photo->alt) ?>"
+                                     alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>"
+                                     class="card-img-top" itemprop="contentUrl"/>
+                            </a>
+                            <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li class="image-additional">
+                        <div itemscope itemtype="https://schema.org/ImageObject">
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                     title="<?= Lang::t($photo->alt) ?>"
+                                     alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"
+                                     class="img-responsive"/>
+                            </a>
+                            <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
+                        </div>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </div>
 <!-- ОПИСАНИЕ -->
 
@@ -86,7 +107,7 @@ $countReveiws = $tour->countReviews();
 
             </div>
             <!--div class="col-sm-3">
-                <?= ''// LegalWidget::widget(['legal' => $tour->legal])    ?>
+                <?= ''// LegalWidget::widget(['legal' => $tour->legal])   ?>
             </div-->
         </div>
         <!-- Стоимость -->
@@ -349,7 +370,7 @@ $countReveiws = $tour->countReviews();
         </div>
     </div>
 </div>
-<?php $js = <<<EOD
+    <?php $js = <<<EOD
     $(document).ready(function() {
         $('.thumbnails').magnificPopup({
             type:'image',
@@ -360,4 +381,4 @@ $countReveiws = $tour->countReviews();
         });
     });
 EOD;
-$this->registerJs($js); ?>
+    $this->registerJs($js); ?>
