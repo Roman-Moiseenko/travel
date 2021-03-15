@@ -17,14 +17,13 @@ class AppAsset extends AssetBundle
         'css/stylesheet.css',
         'css/glyphicon.css',
 //        'css/swiper.min.css',
-        'css/multi_timer.css',
+//        'css/multi_timer.css',
     ];
     public $js = [
-        'js/common.js',
         'js/site.js',
-        'js/calendar_tour.js',
-        'js/calendar_car.js',
-        'js/calendar_fun.js',
+//        'js/calendar_tour.js',
+//        'js/calendar_car.js',
+//        'js/calendar_fun.js',
 //        'js/swiper.js',
 
     ];

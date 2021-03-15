@@ -26,6 +26,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => Html::encode(String
 $this->title = $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['car'] = true;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);

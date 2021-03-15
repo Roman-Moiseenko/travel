@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'),
 $this->params['breadcrumbs'][] = $tour->getName();
 
 $this->params['canonical'] = Url::to(['/tour/view', 'id' => $tour->id], true);
+$this->params['tour'] = true;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);

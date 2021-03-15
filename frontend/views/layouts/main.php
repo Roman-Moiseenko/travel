@@ -5,14 +5,18 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use frontend\assets\FunAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
+
+if (isset($this->params['fun'])) FunAsset::register($this);
+if (isset($this->params['car'])) FunAsset::register($this);
+if (isset($this->params['tout'])) FunAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

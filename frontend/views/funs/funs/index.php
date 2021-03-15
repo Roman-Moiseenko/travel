@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\forms\booking\cars\SearchCarForm;
 use booking\forms\booking\funs\SearchFunForm;
 use booking\forms\booking\tours\SearchTourForm;
+use frontend\assets\FunAsset;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 

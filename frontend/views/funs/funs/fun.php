@@ -7,6 +7,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\SysHelper;
+use frontend\assets\FunAsset;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\LegalWidget;
@@ -28,9 +29,10 @@ $this->title = $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['fun'] = true;
+//FunAsset::register($this);
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
-
 $mobile = SysHelper::isMobile();
 $countReveiws = $fun->countReviews();
 ?>
