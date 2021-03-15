@@ -23,7 +23,7 @@ use yii\helpers\Url;
 /* @var $fun Fun */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($fun->getDescription()), 20))]);
+$this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($fun->getDescription()), 20))]);
 
 $this->title = $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];
@@ -45,8 +45,9 @@ $countReveiws = $fun->countReviews();
                     <li>
                         <div itemscope itemtype="https://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
-                                 alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
+                                     alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top"
+                                     itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
                             <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
@@ -56,8 +57,8 @@ $countReveiws = $fun->countReviews();
                     <li class="image-additional">
                         <div itemscope itemtype="https://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
-                                 alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                     alt="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
                             </a>
                             <meta itemprop="name" content="<?= $fun->getName() . '. ' . Lang::t($photo->alt) ?>">
                             <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>">
@@ -91,7 +92,7 @@ $countReveiws = $fun->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-sm-9 params-tour text-justify">
+            <div class="col-sm-12 params-tour text-justify">
                 <?= Yii::$app->formatter->asHtml($fun->getDescription(), [
                     'Attr.AllowedRel' => array('nofollow'),
                     'HTML.SafeObject' => true,
@@ -100,9 +101,6 @@ $countReveiws = $fun->countReviews();
                     'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                 ]) ?>
 
-            </div>
-            <div class="col-sm-3">
-                <?= LegalWidget::widget(['legal' => $fun->legal]) ?>
             </div>
         </div>
         <!-- Стоимость -->
@@ -209,7 +207,8 @@ $countReveiws = $fun->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
-                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                 <div class="container-hr">
                     <hr/>
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -256,26 +255,33 @@ $countReveiws = $fun->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <?php if ($fun->isActive()) {
-            echo $this->render('_booking', [
-                'fun' => $fun,
-        ]);
-        } else {
-            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Мероприятие не активно.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
-        }
-        ?>
-        <div class="rating">
-            <p>
-                <?= RatingWidget::widget(['rating' => $fun->rating]); ?>
-                <a href="#review">
-                    <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
-                </a>
-                &nbsp;
-            </p>
-            <hr>
+        <div class="row">
+            <div class="col">
+                <?php if ($fun->isActive()) {
+                    echo $this->render('_booking', [
+                        'fun' => $fun,
+                    ]);
+                } else {
+                    echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Мероприятие не активно.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+                }
+                ?>
+                <div class="rating">
+                    <p>
+                        <?= RatingWidget::widget(['rating' => $fun->rating]); ?>
+                        <a href="#review">
+                            <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
+                        </a>
+                        &nbsp;
+                    </p>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <!-- Go to www.addthis.com/dashboard to customize your tools -->
-        <!--div class="addthis_inline_share_toolbox"></div-->
+        <div class="row">
+            <div class="col">
+                <?= LegalWidget::widget(['legal' => $fun->legal]) ?>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -204,6 +204,7 @@ class Legal extends ActiveRecord
                     'thumb' => ['width' => 320, 'height' => 320],
                     'cart_list' => ['width' => 160, 'height' => 160],
                     'profile' => ['width' => 400, 'height' => 400],
+                    'profile_new' => ['width' => 300, 'height' => 300],
                     'profile_mobile' => ['width' => 400, 'height' => 200],
                 ],
             ],

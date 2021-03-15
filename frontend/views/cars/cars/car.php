@@ -21,7 +21,7 @@ use yii\helpers\Url;
 /* @var $car Car */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' =>'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
+$this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
 
 $this->title = $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
@@ -44,20 +44,21 @@ $countReveiws = $car->countReviews();
                     <li>
                         <div itemscope itemtype="https://schema.org/ImageObject">
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
-                                 alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_main'); ?>"
+                                     alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" class="card-img-top"
+                                     itemprop="contentUrl"/>
                             </a>
-                        <meta itemprop="name" content="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>">
-                        <meta itemprop="description" content="<?= strip_tags($car->getDescription()) ?>">
+                            <meta itemprop="name" content="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>">
+                            <meta itemprop="description" content="<?= strip_tags($car->getDescription()) ?>">
                         </div>
                     </li>
                 <?php else: ?>
                     <li class="image-additional">
                         <div itemscope itemtype="https://schema.org/ImageObject">
-                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
-                            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
-                                 alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
-                        </a>
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
+                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                     alt="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"/>
+                            </a>
                             <meta itemprop="name" content="<?= $car->getName() . '. ' . Lang::t($photo->alt) ?>">
                             <meta itemprop="description" content="<?= strip_tags($car->getDescription()) ?>">
                         </div>
@@ -90,7 +91,7 @@ $countReveiws = $car->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-sm-9 params-tour text-justify">
+            <div class="col-sm-12 params-tour text-justify">
                 <?= Yii::$app->formatter->asHtml($car->getDescription(), [
                     'Attr.AllowedRel' => array('nofollow'),
                     'HTML.SafeObject' => true,
@@ -99,9 +100,6 @@ $countReveiws = $car->countReviews();
                     'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                 ]) ?>
 
-            </div>
-            <div class="col-sm-3">
-                <?= LegalWidget::widget(['legal' => $car->legal]) ?>
             </div>
         </div>
         <!-- Стоимость -->
@@ -113,7 +111,7 @@ $countReveiws = $car->countReviews();
                 </div>
                 <span class="params-item">
                         <i class="fas fa-car"></i>&#160;&#160;<?= Lang::t('Цена в сутки') ?> <span
-                                class="price-view">
+                            class="price-view">
                             <?= CurrencyHelper::get($car->cost) ?>
                         </span>
                     </span>
@@ -126,9 +124,9 @@ $countReveiws = $car->countReviews();
                         </span>
                     </span>
                 <p></p>
-                <?php if ($car->discount_of_days):?>
+                <?php if ($car->discount_of_days): ?>
                     <span class="params-item">
-                        <i class="fas fa-percent"></i>&#160;&#160;<?= Lang::t('Скидка при прокате более чем на 3 суток') . ' - '?> <span
+                        <i class="fas fa-percent"></i>&#160;&#160;<?= Lang::t('Скидка при прокате более чем на 3 суток') . ' - ' ?> <span
                                 class="price-view">
                             <?= $car->discount_of_days . ' %' ?>
                         </span>
@@ -149,16 +147,16 @@ $countReveiws = $car->countReviews();
                 </div>
                 <span class="params-item">
                     <i class="fas fa-hourglass-start"></i>&#160;&#160;
-                    <?= Lang::t('Минимальное бронирование ') . $car->params->min_rent . Lang::t(' д')?>
+                    <?= Lang::t('Минимальное бронирование ') . $car->params->min_rent . Lang::t(' д') ?>
                 </span>
                 <span class="params-item">
                     <i class="fas fa-id-card"></i>&#160;&#160;
-                    <?= Lang::t('Категория прав: ') . (($car->params->license == 'none') ? Lang::t('не требуются') : $car->params->license)?>
+                    <?= Lang::t('Категория прав: ') . (($car->params->license == 'none') ? Lang::t('не требуются') : $car->params->license) ?>
                 </span>
                 <?php if ($car->params->experience != 0): ?>
                     <span class="params-item">
                     <i class="fas fa-walking"></i>&#160;&#160;
-                    <?= Lang::t('Требуется стаж (лет): ') . $car->params->experience?>
+                    <?= Lang::t('Требуется стаж (лет): ') . $car->params->experience ?>
                     </span>
                 <?php endif; ?>
                 <span class="params-item">
@@ -172,20 +170,20 @@ $countReveiws = $car->countReviews();
         </div>
         <!-- Характеристики -->
         <?php if ($car->values): ?>
-        <div class="row pt-4">
-            <div class="col params-tour">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
-                </div>
-                <?php foreach ($car->values as $value): ?>
-                <span class="params-item">
+            <div class="row pt-4">
+                <div class="col params-tour">
+                    <div class="container-hr">
+                        <hr/>
+                        <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
+                    </div>
+                    <?php foreach ($car->values as $value): ?>
+                        <span class="params-item">
                     <i class="fas fa-dot-circle"></i>&#160;&#160;
-                    <?=  Lang::t($value->characteristic->name) . ': ' . $value->value ?>
+                    <?= Lang::t($value->characteristic->name) . ': ' . $value->value ?>
                 </span>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
         <!-- Дополнения -->
         <div class="row pt-4">
@@ -212,7 +210,8 @@ $countReveiws = $car->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
-                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                 <div class="container-hr">
                     <hr/>
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -230,12 +229,14 @@ $countReveiws = $car->countReviews();
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
-                            <div id="count-points" data-count="<?= count($car->address)?>">
+                            <div id="count-points" data-count="<?= count($car->address) ?>">
                                 <?php foreach ($car->address as $i => $address): ?>
-                                    <input type="hidden" id="address-<?= ($i+1)?>" value="<?= $address->address?>">
-                                    <input type="hidden" id="latitude-<?= ($i+1)?>" value="<?= $address->latitude?>">
-                                    <input type="hidden" id="longitude-<?= ($i+1)?>" value="<?= $address->longitude?>">
-                                <?php endforeach;?>
+                                    <input type="hidden" id="address-<?= ($i + 1) ?>" value="<?= $address->address ?>">
+                                    <input type="hidden" id="latitude-<?= ($i + 1) ?>"
+                                           value="<?= $address->latitude ?>">
+                                    <input type="hidden" id="longitude-<?= ($i + 1) ?>"
+                                           value="<?= $address->longitude ?>">
+                                <?php endforeach; ?>
                             </div>
                             <div class="row">
                                 <div id="map-car-view" style="width: 100%; height: 300px"></div>
@@ -263,26 +264,33 @@ $countReveiws = $car->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <?php if ($car->isActive()) {
-            echo $this->render('_booking', [
-            'car' => $car,
-        ]);
-        } else {
-            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Прокат не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
-        }
-        ?>
-        <div class="rating">
-            <p>
-                <?= RatingWidget::widget(['rating' => $car->rating]); ?>
-                <a href="#review">
-                    <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
-                </a>
-                &nbsp;
-            </p>
-            <hr>
+        <div class="row">
+            <div class="col">
+                <?php if ($car->isActive()) {
+                    echo $this->render('_booking', [
+                        'car' => $car,
+                    ]);
+                } else {
+                    echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Прокат не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+                }
+                ?>
+                <div class="rating">
+                    <p>
+                        <?= RatingWidget::widget(['rating' => $car->rating]); ?>
+                        <a href="#review">
+                            <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
+                        </a>
+                        &nbsp;
+                    </p>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <!-- Go to www.addthis.com/dashboard to customize your tools -->
-        <!--div class="addthis_inline_share_toolbox"></div-->
+        <div class="row">
+            <div class="col">
+                <?= LegalWidget::widget(['legal' => $car->legal]) ?>
+            </div>
+        </div>
     </div>
 </div>
 

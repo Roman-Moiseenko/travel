@@ -22,7 +22,7 @@ use yii\helpers\Url;
 /* @var $tour Tour */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' =>'description', 'content' => $tour->meta->description]);
+$this->registerMetaTag(['name' => 'description', 'content' => $tour->meta->description]);
 
 $this->title = $tour->meta->title ?? $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список туров'), 'url' => Url::to(['tours/index'])];
@@ -44,11 +44,12 @@ $countReveiws = $tour->countReviews();
                 <?php if ($i == 0): ?>
                     <li>
                         <div itemscope itemtype="https://schema.org/ImageObject">
-                        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
-                            <img src="<?= $photo->getThumbFileUrl('file', $mobile ? 'catalog_main_mobil' : 'catalog_main'); ?>"
-                                 title="<?= Lang::t($photo->alt) ?>"
-                                 alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>" class="card-img-top" itemprop="contentUrl"/>
-                        </a>
+                            <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+                                <img src="<?= $photo->getThumbFileUrl('file', $mobile ? 'catalog_main_mobil' : 'catalog_main'); ?>"
+                                     title="<?= Lang::t($photo->alt) ?>"
+                                     alt="<?= Html::encode($tour->getName()) . '. ' . Lang::t($photo->alt) ?>"
+                                     class="card-img-top" itemprop="contentUrl"/>
+                            </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
                             <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
                         </div>
@@ -59,7 +60,8 @@ $countReveiws = $tour->countReviews();
                             <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">&nbsp;
                                 <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
                                      title="<?= Lang::t($photo->alt) ?>"
-                                     alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt)  ?>" itemprop="contentUrl" class="img-responsive"/>
+                                     alt="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>" itemprop="contentUrl"
+                                     class="img-responsive"/>
                             </a>
                             <meta itemprop="name" content="<?= $tour->getName() . '. ' . Lang::t($photo->alt) ?>">
                             <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>">
@@ -94,7 +96,7 @@ $countReveiws = $tour->countReviews();
         </div>
         <!-- Описание -->
         <div class="row">
-            <div class="col-sm-9 params-tour text-justify">
+            <div class="col-sm-12 params-tour text-justify">
                 <?= Yii::$app->formatter->asHtml($tour->getDescription(), [
                     'Attr.AllowedRel' => array('nofollow'),
                     'HTML.SafeObject' => true,
@@ -104,9 +106,9 @@ $countReveiws = $tour->countReviews();
                 ]) ?>
 
             </div>
-            <div class="col-sm-3">
-                <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
-            </div>
+            <!--div class="col-sm-3">
+                <?= ''// LegalWidget::widget(['legal' => $tour->legal])   ?>
+            </div-->
         </div>
         <!-- Стоимость -->
         <div class="row pt-4">
@@ -117,7 +119,8 @@ $countReveiws = $tour->countReviews();
                 </div>
                 <span class="params-item">
                     <?php if ($tour->baseCost->adult): ?>
-                        <i class="fas fa-user"></i>&#160;&#160;<?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?> <span
+                        <i class="fas fa-user"></i>&#160;&#160;<?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?>
+                        <span
                                 class="price-view">
                             <?= CurrencyHelper::get($tour->baseCost->adult) ?>
                         </span>
@@ -125,22 +128,22 @@ $countReveiws = $tour->countReviews();
                 </span>
                 <p></p>
                 <?php if ($tour->baseCost->child): ?>
-                <span class="params-item">
+                    <span class="params-item">
                     <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
                     <span class="price-view">
                         <?= CurrencyHelper::get($tour->baseCost->child) ?>
                     </span>
                 </span>
-                <p></p>
+                    <p></p>
                 <?php endif; ?>
                 <?php if ($tour->baseCost->preference): ?>
-                                <span class="params-item">
+                    <span class="params-item">
                     <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
-                            class="price-view">
+                                class="price-view">
                     <?= CurrencyHelper::get($tour->baseCost->preference) ?>
                     </span>
                 </span>
-                <p></p>
+                    <p></p>
                 <?php endif; ?>
 
                 <span class="params-item">
@@ -209,7 +212,8 @@ $countReveiws = $tour->countReviews();
         <!-- Координаты -->
         <div class="row pt-4">
             <div class="col">
-                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                 <div class="container-hr">
                     <hr/>
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -223,7 +227,8 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место сбора') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
+                        <div class="col-8 align-self-center"
+                             id="address"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map">
                         <div class="card card-body">
@@ -257,7 +262,8 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место окончания') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address-2"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
+                        <div class="col-8 align-self-center"
+                             id="address-2"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-2">
                         <div class="card card-body">
@@ -291,7 +297,8 @@ $countReveiws = $tour->countReviews();
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>&#160;<?= Lang::t('Место проведение') ?>:
                         </div>
-                        <div class="col-8 align-self-center" id="address-3"><?= $tour->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
+                        <div class="col-8 align-self-center"
+                             id="address-3"><?= $tour->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-3">
                         <div class="card card-body">
@@ -334,30 +341,36 @@ $countReveiws = $tour->countReviews();
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <?php if ($tour->isActive()) {
-            echo $this->render('_booking', [
-                'tour' => $tour,
-            ]);
-        } else {
-            echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Тур не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
-        }
-        ?>
-        <div class="rating">
-            <p>
-                <?= RatingWidget::widget(['rating' => $tour->rating]); ?>
-                <a href="#review">
-                    <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
-                </a>
-                &nbsp;
-            </p>
-            <hr>
+        <div class="row">
+            <div class="col">
+                <?php if ($tour->isActive()) {
+                    echo $this->render('_booking', [
+                        'tour' => $tour,
+                    ]);
+                } else {
+                    echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Тур не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
+                }
+                ?>
+                <div class="rating">
+                    <p>
+                        <?= RatingWidget::widget(['rating' => $tour->rating]); ?>
+                        <a href="#review">
+                            <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
+                        </a>
+                        &nbsp;
+                    </p>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <!-- Go to www.addthis.com/dashboard to customize your tools -->
-        <!--div class="addthis_inline_share_toolbox"></div-->
+        <div class="row">
+            <div class="col">
+                <?= LegalWidget::widget(['legal' => $tour->legal]) ?>
+            </div>
+        </div>
     </div>
 </div>
-
-<?php $js = <<<EOD
+    <?php $js = <<<EOD
     $(document).ready(function() {
         $('.thumbnails').magnificPopup({
             type:'image',
@@ -368,4 +381,4 @@ $countReveiws = $tour->countReviews();
         });
     });
 EOD;
-$this->registerJs($js); ?>
+    $this->registerJs($js); ?>
