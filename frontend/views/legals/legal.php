@@ -3,16 +3,14 @@
 use booking\entities\admin\Contact;
 use booking\entities\admin\Legal;
 use booking\entities\Lang;
-use booking\helpers\CurrencyHelper;
 use booking\helpers\SlugHelper;
-use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\assets\SwiperAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
 use yii\helpers\Html;
-use yii\helpers\Url;
+
 
 /* @var $legal Legal */
 

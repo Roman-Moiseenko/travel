@@ -1,7 +1,9 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
+
 use booking\entities\Lang;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\TopmenuWidget;
@@ -35,9 +37,6 @@ AppAsset::register($this);
     } ?>
     <?php $this->head() ?>
     <?php if (isset($this->params['notMap-MMMM'])): ?>
-        <!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f83859ccbf60e8b&async=1&domready=1">
-            var addthis_config = {data_ga_property: <?= \Yii::$app->params['GoogleAnalyticAPI'] ?>};
-        </script-->
         <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= \Yii::$app->params['YandexAPI'] ?>&lang=<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"
                 type="text/javascript">
         </script>
@@ -68,7 +67,6 @@ AppAsset::register($this);
             src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -95,6 +93,28 @@ AppAsset::register($this);
 <!-- Main Footer -->
 <?= $this->render('footer') ?>
 <?php $this->endBody() ?>
+<script type="text/javascript">
+    let giftofspeed1 = document.createElement('link');
+    giftofspeed1.rel = 'stylesheet';
+    giftofspeed1.href = 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap';
+    giftofspeed1.type = 'text/css';
+    let godefer1 = document.getElementsByTagName('link')[0];
+    godefer1.parentNode.insertBefore(giftofspeed1, godefer1);
+
+    let giftofspeed2 = document.createElement('link');
+    giftofspeed2.rel = 'stylesheet';
+    giftofspeed2.href = 'https://use.fontawesome.com/releases/v5.15.1/css/all.css';
+    giftofspeed2.type = 'text/css';
+    let godefer2 = document.getElementsByTagName('link')[0];
+    godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
+
+    let giftofspeed3 = document.createElement('link');
+    giftofspeed3.rel = 'stylesheet';
+    giftofspeed3.href = 'css/bootstrap/bootstrap.css';
+    giftofspeed3.type = 'text/css';
+    let godefer3 = document.getElementsByTagName('link')[0];
+    godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

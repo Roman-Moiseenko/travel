@@ -12,7 +12,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap',
+        //'//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap',
         'css/site.css',
         'css/stylesheet.css',
         'css/glyphicon.css',
@@ -31,8 +31,8 @@ class AppAsset extends AssetBundle
     public $depends = [
 
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
+       // 'yii\bootstrap4\BootstrapAsset',
         'yii\bootstrap4\BootstrapPluginAsset',
-        'rmrevin\yii\fontawesome\CdnFreeAssetBundle',
+        //'rmrevin\yii\fontawesome\CdnFreeAssetBundle',
     ];
 }
