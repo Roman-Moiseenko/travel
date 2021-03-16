@@ -28,6 +28,7 @@ h1 {
 h2 {
     font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 27px;
+    text-align: left !important;
 }
 
 h3 {
