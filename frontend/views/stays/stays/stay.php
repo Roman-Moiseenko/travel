@@ -49,8 +49,6 @@ $layout = <<< HTML
 </div>
 HTML;
 
-$this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($stay->getDescription()), 20))]);
-
 $_not_date = Stay::ERROR_NOT_DATE;
 $_not_free = Stay::ERROR_NOT_FREE;
 $_not_child = Stay::ERROR_NOT_CHILD;
@@ -153,14 +151,13 @@ $this->registerJs($js);
 
 $_city = $SearchStayForm;
 $_city['city'] = $stay->city;
-
-$this->title = $stay->getName();
+$this->registerMetaTag(['name' => 'description', 'content' => $stay->meta->description]);
+$this->title = $stay->meta->title ? Lang::t($stay->meta->title) : $stay->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Все аппартаменты'), 'url' => Url::to(['stays/index', 'SearchStayForm' => $SearchStayForm])];
 $this->params['breadcrumbs'][] = ['label' => Lang::t($stay->city), 'url' => Url::to(['stays/index', 'SearchStayForm' => $_city])];
 $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
-//MapAsset::register($this);
 MapStayAsset::register($this);
 $mobile = SysHelper::isMobile();
 $countReveiws = $stay->countReviews();

@@ -3,6 +3,7 @@
 
 use booking\entities\blog\post\Post;
 use booking\helpers\PostHelper;
+use frontend\assets\MagnificPopupAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -14,6 +15,7 @@ $this->title = $post->title;
 $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+MagnificPopupAsset::register($this);
 ?>
 <div class="user-view">
 
@@ -143,3 +145,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+<?php $js = <<<EOD
+    $(document).ready(function() {
+        $('.thumbnails').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+EOD;
+$this->registerJs($js); ?>

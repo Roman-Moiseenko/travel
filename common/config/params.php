@@ -37,12 +37,20 @@ return [
             'height' => 768,
             'quality' => 75,
             'items' => [
-                '/rrrt/',
                 '/origin/cars/',
                 '/origin/funs/',
                 '/origin/tours/',
                 '/origin/stays/',
                 '/origin/certs/',
+            ],
+        ],
+        [
+            'width' => 1280,
+            'height' => 1024,
+            'quality' => 75,
+            'items' => [
+                '/origin/posts/',
+                '/images/blog/'
             ],
         ],
         [

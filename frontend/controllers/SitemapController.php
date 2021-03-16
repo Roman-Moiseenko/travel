@@ -128,7 +128,7 @@ class SitemapController extends Controller
                 return new MapItem(
                     Url::to(['/tour/view', 'id' => $tour->id], true),
                     $tour->updated_at ?? $tour->created_at,
-                    MapItem::WEEKLY
+                    MapItem::DAILY
                 );
             }, $this->tours->getAllForSitemap()));
         });

@@ -5,6 +5,7 @@
 
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
+use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
 
@@ -23,6 +24,7 @@ $tagLinks = [];
 foreach ($post->tags as $tag) {
     $tagLinks[] = Html::a(Html::encode($tag->name), ['tag', 'slug' => $tag->slug]);
 }
+MagnificPopupAsset::register($this);
 ?>
 
 <article>
@@ -48,5 +50,16 @@ foreach ($post->tags as $tag) {
 <?= CommentsWidget::widget([
     'post' => $post,
 ]) ?>
-
+<?php $js = <<<EOD
+    $(document).ready(function() {
+        $('.thumbnails').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+EOD;
+$this->registerJs($js); ?>
 

@@ -24,9 +24,9 @@ use yii\helpers\Url;
 /* @var $fun Fun */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($fun->getDescription()), 20))]);
+$this->registerMetaTag(['name' => 'description', 'content' => $fun->meta->description]);
 
-$this->title = $fun->getName();
+$this->title = $fun->meta->title ? Lang::t($fun->meta->title) : $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 

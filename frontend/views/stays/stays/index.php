@@ -16,7 +16,7 @@ $this->title = Lang::t('Бронирование квартир аппартам
 ?>
 
 <div class="list-cars">
-    <h1><?= Html::encode('Аренда квартир и домов в Калининграде и области') ?></h1>
+    <h1><?= Lang::t('Аренда квартир и домов в Калининграде и области') ?></h1>
     <div class="row">
         <div class="col-sm-3 p-2">
             <?= $this->render('_search', ['model' => $model]) ?>

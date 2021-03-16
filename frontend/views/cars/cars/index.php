@@ -39,7 +39,7 @@ $this->registerJs($js);
 ?>
 
 <div class="list-cars">
-    <h1><?= Html::encode('Прокат авто, велосипедов, скутеров в Калининграде и области') ?></h1>
+    <h1><?= Lang::t('Прокат авто, велосипедов, скутеров в Калининграде и области') ?></h1>
     <div class="row">
         <div class="col-sm-3 p-2">
             <div class="leftbar-search-cars">

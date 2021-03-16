@@ -22,9 +22,9 @@ use yii\helpers\Url;
 /* @var $car Car */
 /* @var $reviewForm ReviewForm */
 
-$this->registerMetaTag(['name' => 'description', 'content' => Html::encode(StringHelper::truncateWords(strip_tags($car->getDescription()), 20))]);
+$this->registerMetaTag(['name' => 'description', 'content' => $car->meta->description]);
 
-$this->title = $car->getName();
+$this->title = $car->meta->title ? Lang::t($car->meta->title) : $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['car'] = true;

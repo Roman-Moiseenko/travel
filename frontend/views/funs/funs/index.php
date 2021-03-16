@@ -34,7 +34,7 @@ $this->registerJs($js_search);
 ?>
 
 <div class="list-cars">
-    <h1><?= Html::encode('Развлечения и мероприятия в Калининграде и области') ?></h1>
+    <h1><?= Lang::t('Развлечения и мероприятия в Калининграде и области') ?></h1>
     <div class="row">
         <div class="col-sm-3 p-2">
             <div class="leftbar-search-funs">

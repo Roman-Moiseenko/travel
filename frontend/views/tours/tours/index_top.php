@@ -13,7 +13,7 @@ $this->title = Lang::t('Туры и экскурсии по Калинингра
 ?>
 
 <div class="list-tours">
-    <h1><?= Html::encode('Туры и экскурсии по Калининграду и области') ?></h1>
+    <h1><?= Lang::t('Туры и экскурсии по Калининграду и области') ?></h1>
     <?= $this->render('_search_top', ['model' => $model]) ?>
     <?= $this->render('_list', ['dataProvider' => $dataProvider]) ?>
 </div>

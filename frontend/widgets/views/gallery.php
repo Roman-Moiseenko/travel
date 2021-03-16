@@ -16,8 +16,8 @@ use yii\helpers\Html;
     <div itemscope itemtype="https://schema.org/ImageObject">
         <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
             <img src="<?= $photo->getThumbFileUrl('file', ($i == 0) ? 'catalog_gallery' : ($i == 1 || $i == 2 ? 'catalog_gallery_mini' : 'widget_list')); ?>"
-                 title="<?= Lang::t($photo->getAlt()) ?>"
-                 alt="<?= Html::encode($name) . '. ' . Lang::t($photo->getAlt()) ?>"
+                 title="<?= $photo->getAlt() ?>"
+                 alt="<?= Html::encode($name) . '. ' . $photo->getAlt() ?>"
                  class="img-responsive" itemprop="contentUrl"/>
             <?php if ($i == 2 && $count != 3):?>
                 <span class="photo-overlay">
@@ -25,7 +25,7 @@ use yii\helpers\Html;
                 </span>
             <?php endif; ?>
         </a>
-        <meta itemprop="name" content="<?= $name . '. ' . Lang::t($photo->getAlt()) ?>">
+        <meta itemprop="name" content="<?= $name . '. ' . $photo->getAlt() ?>">
         <meta itemprop="description" content="<?= strip_tags($description) ?>">
     </div>
 </div>
