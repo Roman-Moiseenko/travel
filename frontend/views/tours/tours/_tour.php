@@ -47,7 +47,7 @@ $mobile = SysHelper::isMobile();
         <div style="font-size: 12px; color: var(--main-nav-color); margin-top: -15px;">
             <?= $tour->params->private ? Lang::t('Индивидуальная') : Lang::t('Групповая') ?>
             <i class="fas fa-user-friends"></i> <?= $tour->params->groupMax ?>
-            <i class="fas fa-clock"></i> <?= $tour->params->duration ?>
+            <i class="fas fa-clock"></i> <?= Lang::duration($tour->params->duration) ?>
         </div>
         <a href="<?= Html::encode($url) ?>">
             <h2 class="card-title card-object">
