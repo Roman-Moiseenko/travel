@@ -110,6 +110,8 @@ class Car extends ActiveRecord
         $car->year = $year;
         $car->check_booking = BookingHelper::BOOKING_CONFIRMATION;
         $car->quantity = 1;
+        $car->meta = new Meta();
+
         return $car;
     }
 

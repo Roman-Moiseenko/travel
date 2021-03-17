@@ -147,6 +147,7 @@ class Stay extends ActiveRecord
         $stays->check_booking = BookingHelper::BOOKING_PAYMENT;
         $stays->params = new StayParams();
         $stays->rules = Rules::create();
+        $stays->meta = new Meta();
         $stays->city = $city;
         $stays->to_center = $to_center;
         return $stays;

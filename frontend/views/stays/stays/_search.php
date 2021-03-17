@@ -98,10 +98,12 @@ $this->params['search']['children_age'] = $model->children_age;
             </div>
         </div>
         <div class="row">
-            <div class="col form-inline">
+            <div class="col-lg search-guest">
                 <?= $form->field($model, 'guest')
                     ->dropDownList(StayHelper::listGuest(), ['class' => 'form-control form-control-xl'])
                     ->label(false); ?>
+            </div>
+            <div class="col-lg search-children">
                 <?= $form->field($model, 'children')
                     ->dropDownList(StayHelper::listChildren(), ['class' => 'form-control form-control-xl ml-1', 'id' => 'children'])
                     ->label(false); ?>

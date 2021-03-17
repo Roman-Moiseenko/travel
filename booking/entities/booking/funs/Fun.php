@@ -134,6 +134,7 @@ class Fun extends ActiveRecord
             $workModes[] = new WorkMode();
         }
         $fun->params = new FunParams(new AgeLimit(), '', $workModes);
+        $fun->meta = new Meta();
 
         if ($fun->type->isMulti()) {
             $fun->type_time = self::TYPE_TIME_INTERVAL;

@@ -100,6 +100,7 @@ class Tour extends ActiveRecord
         $tour->name_en = $name_en;
         $tour->description_en = $description_en;
         $tour->check_booking = BookingHelper::BOOKING_PAYMENT;
+        $tour->meta = new Meta();
         return $tour;
     }
 

@@ -873,3 +873,29 @@ div.required label:after {
         gap: 2vw;
     }
 }
+
+.search-guest {
+    padding-right: 12px;
+}
+.search-children {
+    padding-left: 12px;
+}
+
+@media (min-width: 992px) {
+    .search-guest {
+        padding-right: 0;
+
+    }
+    .search-children {
+        padding-left: 0;
+    }
+}
+
+
+#searchstayform-guest.form-control-xl {
+    padding-left: 6px;
+    padding-right: 3px;
+}
+#children.form-control-xl {
+    padding-left: 6px;
+}
