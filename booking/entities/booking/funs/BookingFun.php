@@ -19,19 +19,13 @@ use yii\helpers\Url;
  * @property integer $user_id
  * @property integer $status
  * @property string $comment - комментарий к заказу
- * @property Cost $count
  * @property integer $created_at
-
-Выплаты
-
 
  * @property integer $pincode
  * @property boolean $unload
-
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
-
  * @property Fun $fun
  * @property \booking\entities\check\User $checkUser
  * @property BookingFunOnDay[] $days
@@ -39,13 +33,22 @@ use yii\helpers\Url;
  * @property int $count_adult [int]
  * @property int $count_child [int]
  * @property int $count_preference [int]
- * @property int $calendar_id [int]
+ * @property string $confirmation [varchar(255)]
+ * @property string $payment_id [varchar(255)]
+ * @property float $payment_provider [float]
+ * @property float $payment_merchant [float]
+ * @property float $payment_deduction [float]
+ * @property int $payment_date [int]
+ * @property int $payment_full_cost [int]
+ * @property int $payment_prepay [int]
+ * @property int $payment_percent [int]
+ * @property string $payment_confirmation [varchar(255)]
  */
 
 
 class BookingFun extends BaseBooking
 {
-
+    /** @var $count Cost */
     public $count;
 
     public static function create(array $calendar_ids, Cost $count, $comment): self
@@ -151,15 +154,6 @@ class BookingFun extends BaseBooking
             Url::to(['funs/view', 'id' => $this->object_id])
         );
         return $link;
-        return [
-            'admin' => Url::to(['fun/common', 'id' => $this->object_id]),
-            'booking' => Url::to(['fun/booking/index', 'id' => $this->object_id]),
-            'frontend' => Url::to(['cabinet/fun/view', 'id' => $this->id]),
-            'pay' => Url::to(['cabinet/pay/fun', 'id' => $this->id]),
-            'cancelpay' => Url::to(['cabinet/fun/cancelpay', 'id' => $this->id]),
-            'entities' => Url::to(['fun/view', 'id' => $this->object_id]),
-            'office' => Url::to(['funs/view', 'id' => $this->object_id]),
-        ];
     }
 
     public function getPhoto(string $photo = 'cabinet_list'): string

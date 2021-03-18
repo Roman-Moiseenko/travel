@@ -25,8 +25,8 @@ use yii\helpers\Url;
  * @property integer $created_at
  * @property integer $begin_at
  * @property integer $end_at
-
-Выплаты
+ *
+* Выплаты
  * @property float $payment_provider - оплата провайдеру
  * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
  * @property string $payment_id - ID платежа по ЮКассе
@@ -34,21 +34,20 @@ use yii\helpers\Url;
  * @property float $payment_merchant - оплата комиссии банку (в руб)
  * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
  * @property string $confirmation - код подтверждения, для неоплачиваемых
-
  * @property integer $pincode
  * @property boolean $unload
-
- * @property integer $discount_id
  * @property integer $guest_add
  * @property string $comment
- * @property Discount $discount
- * @property integer $bonus
-
  * @property CostCalendar[] $calendars
  * @property BookingStayOnDay[] $days
  * @property Stay $stay
  * @property \booking\entities\user\User $user
  * @property \booking\entities\check\User $checkUser
+ * @property int $payment_date [int]
+ * @property int $payment_full_cost [int]
+ * @property int $payment_prepay [int]
+ * @property int $payment_percent [int]
+ * @property string $payment_confirmation [varchar(255)]
  */
 class BookingStay extends BaseBooking
 {
@@ -82,10 +81,6 @@ class BookingStay extends BaseBooking
             Url::to(['stays/view', 'id' => $this->object_id])
         );
         return $link;
-        return [
-            'admin' => Url::to(['stay/booking/index', 'id' => $this->id]),
-            'frontend' => Url::to(['cabinet/stay/view', 'id' => $this->id]),
-        ];
     }
 
     public function getPhoto(string $photo = 'cabinet_list'): string
@@ -103,33 +98,6 @@ class BookingStay extends BaseBooking
         // TODO: Implement getAdd() method.
     }
 
-    public function getStatus(): int
-    {
-         return $this->status;
-    }
-
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-        if (!$this->save()) {
-            throw new \DomainException(Lang::t('Ошибка изменения статуса'));
-        }
-    }
-
-    public function getUserId(): int
-    {
-        return $this->user_id;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getAdmin(): User
     {
@@ -141,96 +109,6 @@ class BookingStay extends BaseBooking
         // TODO: Implement getLegal() method.
     }
 
-    public function getCreated(): int
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getParentId(): int
-    {
-        // TODO: Implement getParentId() method.
-    }
-
-    public function getConfirmationCode(): string
-    {
-        return $this->confirmation;
-    }
-
-    public function getPinCode(): int
-    {
-        return $this->pincode;
-    }
-
-    public function setPaymentId(string $payment_id)
-    {
-        $this->payment_id = $payment_id;
-        if (!$this->save()) {
-            throw new \DomainException(Lang::t('Ошибка сохранения payment_id - ') . $payment_id);
-        }
-    }
-
-    public function getAmountDiscount(): float
-    {
-        // TODO: Implement getAmountDiscount() method.
-    }
-
-
-    public function getAmountPayAdmin(): float
-    {
-        // TODO: Implement getAmountPayAdmin() method.
-    }
-
-    public function getPaymentToProvider(): float
-    {
-        // TODO: Implement getPaymentToProvider() method.
-    }
-
-
-
-    public function getCheckBooking(): int
-    {
-        // TODO: Implement getCheckBooking() method.
-    }
-
-    public function setGive()
-    {
-        // TODO: Implement setGive() method.
-    }
-
-    /** is.. */
-    public function isPay(): bool
-    {
-        // TODO: Implement isPay() method.
-    }
-
-    public function isConfirmation(): bool
-    {
-        // TODO: Implement isConfirmation() method.
-    }
-
-    public function isCancel(): bool
-    {
-        // TODO: Implement isCancel() method.
-    }
-
-    public function getCount(): int
-    {
-        // TODO: Implement getCount() method.
-    }
-
-    public function isCheckBooking(): bool
-    {
-        // TODO: Implement isCheckBooking() method.
-    }
-
-    public function isNew(): bool
-    {
-        // TODO: Implement isNew() method.
-    }
-
     public function quantity(): int
     {
         // TODO: Implement quantity() method.
@@ -238,7 +116,7 @@ class BookingStay extends BaseBooking
 
     public function isPaidLocally(): bool
     {
-        // TODO: Implement isPaidLocally() method.
+        return $this->stay->prepay == 0;
     }
 
     public function getCalendar(): ActiveQuery
@@ -263,6 +141,11 @@ class BookingStay extends BaseBooking
 
     protected function getPrepayFrom(): int
     {
-        // TODO: Implement getPrepayFrom() method.
+        return $this->stay->prepay;
+    }
+
+    public function getStay(): ActiveQuery
+    {
+        return $this->hasOne(Stay::class, ['id' => 'object_id']);
     }
 }

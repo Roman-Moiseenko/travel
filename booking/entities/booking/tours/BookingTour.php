@@ -18,32 +18,36 @@ use yii\helpers\Url;
  * @property integer $calendar_id
  * @property integer $user_id
  * @property CostCalendar $calendar
- * @property Cost $count
  * @property integer $status
  * @property integer $created_at
-
  * @property integer $pincode
  * @property boolean $unload
  *
-
-Выплаты
-
-Выдача билета
+* Выдача билета
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
-
  * @property Tour $tour
  * @property \booking\entities\check\User $checkUser
  * @property \booking\entities\user\User $user
  * @property int $count_adult [int]
  * @property int $count_child [int]
  * @property int $count_preference [int]
+ * @property string $payment_id [varchar(255)]
+ * @property float $payment_provider [float]
+ * @property float $payment_merchant [float]
+ * @property float $payment_deduction [float]
+ * @property int $payment_date [int]
+ * @property int $payment_full_cost [int]
+ * @property int $payment_prepay [int]
+ * @property int $payment_percent [int]
+ * @property string $payment_confirmation [varchar(255)]
  */
 
 // unload - выгружен или нет для отчета в finance
 class BookingTour extends BaseBooking
 {
+    /** @var $count Cost */
     public $count;
 
     public static function create(CostCalendar $calendar, Cost $count): self
@@ -112,15 +116,6 @@ class BookingTour extends BaseBooking
             Url::to(['tours/view', 'id' => $this->object_id])
         );
         return $link;
-        return [
-            'admin' => Url::to(['tour/common', 'id' => $this->object_id]),
-            'booking' => Url::to(['tour/booking/index', 'id' => $this->object_id]),
-            'frontend' => Url::to(['cabinet/tour/view', 'id' => $this->id]),
-            'pay' => Url::to(['cabinet/pay/tour', 'id' => $this->id]),
-            'cancelpay' => Url::to(['cabinet/tour/cancelpay', 'id' => $this->id]),
-            'entities' => Url::to(['tour/view', 'id' => $this->object_id]),
-            'office' => Url::to(['tours/view', 'id' => $this->object_id]),
-        ];
     }
 
     public function getPhoto(string $photo = 'cabinet_list'): string

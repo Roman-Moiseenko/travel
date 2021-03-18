@@ -22,26 +22,32 @@ use yii\helpers\Url;
  * @property integer $created_at
  * @property integer $begin_at
  * @property integer $end_at
-
- Выплаты
+ *
+* Выплаты
  * @property integer $pincode
  * @property boolean $unload
-
-
  * @property integer $count
  * @property string $comment - адреса доставки и откуда забирать
  * @property integer $delivery
-
-Выдача билета
+ *
+* Выдача билета
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
-
  * @property CostCalendar[] $calendars
  * @property BookingCarOnDay[] $days
  * @property Car $car
  * @property \booking\entities\user\User $user
  * @property \booking\entities\check\User $checkUser
+ * @property string $payment_id [varchar(255)]
+ * @property float $payment_provider [float]
+ * @property float $payment_merchant [float]
+ * @property float $payment_deduction [float]
+ * @property int $payment_date [int]
+ * @property int $payment_full_cost [int]
+ * @property int $payment_prepay [int]
+ * @property int $payment_percent [int]
+ * @property string $payment_confirmation [varchar(255)]
  */
 
 
@@ -154,15 +160,6 @@ class BookingCar extends BaseBooking
             Url::to(['cars/view', 'id' => $this->object_id])
         );
         return $link;
-        return [
-            'admin' => Url::to(['car/common', 'id' => $this->object_id]),
-            'booking' => Url::to(['car/booking/index', 'id' => $this->object_id]),
-            'frontend' => Url::to(['cabinet/car/view', 'id' => $this->id]),
-            'pay' => Url::to(['cabinet/pay/car', 'id' => $this->id]),
-            'cancelpay' => Url::to(['cabinet/car/cancelpay', 'id' => $this->id]),
-            'entities' => Url::to(['car/view', 'id' => $this->object_id]),
-            'office' => Url::to(['cars/view', 'id' => $this->object_id]),
-        ];
     }
 
     public function getPhoto(string $photo = 'cabinet_list'): string
