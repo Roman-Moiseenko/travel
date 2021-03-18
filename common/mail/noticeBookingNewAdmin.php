@@ -16,7 +16,7 @@ $confirmation = $booking->isPaidLocally();
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
                 <?= 'Номер брони' ?>:&#160;
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['booking'] ?>">
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()->booking?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
             </td>
@@ -35,7 +35,7 @@ $confirmation = $booking->isPaidLocally();
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
 
                 <?= $confirmation ? 'У Вас новое бронирование. Бронирование НЕ ПОДТВЕРЖДЕНО.' : 'У Вас новое бронирование. Бронирование НЕ ОПЛАЧЕНО.' ?>
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['admin'] ?>">
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()->admin ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>

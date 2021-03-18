@@ -30,8 +30,8 @@ if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
     <div class="dialog-caption">
         <?php if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER): ?>
             <div class="caption pb-2"><?= '№ бронирования: ' ?> <a
-                        href="<?= $booking->getLinks()['frontend'] ?>"><?= $dialog->optional ?></a></div>
-            <a href="<?= $booking->getLinks()['entities'] ?>" class="caption-list">
+                        href="<?= $booking->getLinks()->frontend ?>"><?= $dialog->optional ?></a></div>
+            <a href="<?= $booking->getLinks()->entities ?>" class="caption-list">
                 <?= $booking->getName() ?>
             </a>
         <?php else: ?>

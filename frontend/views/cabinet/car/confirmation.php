@@ -12,7 +12,7 @@ use yii\helpers\Url;
 
 $this->title = Lang::t('Подтверждение отмены бронирования');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];
-$this->params['breadcrumbs'][] = ['label' => $booking->getName(), 'url' => $booking->getLinks()['frontend']];
+$this->params['breadcrumbs'][] = ['label' => $booking->getName(), 'url' => $booking->getLinks()->frontend];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <p class="pt-5"></p>

@@ -30,8 +30,8 @@ if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
 <div class="conversation">
     <div class="dialog-caption">
         <?php if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER): ?>
-        <div class="caption pb-2">Дата: <?= date('d-m-Y', $booking->getDate()) . ' ' . $booking->getAdd() ?> <?= '№: '?> <a href="<?= $booking->getLinks()['booking'] ?>"><?= $dialog->optional ?></a></div>
-        <a href="<?= $booking->getLinks()['admin'] ?>" class="caption-list">
+        <div class="caption pb-2">Дата: <?= date('d-m-Y', $booking->getDate()) . ' ' . $booking->getAdd() ?> <?= '№: '?> <a href="<?= $booking->getLinks()->booking ?>"><?= $dialog->optional ?></a></div>
+        <a href="<?= $booking->getLinks()->admin ?>" class="caption-list">
         <?= $booking->getName() ?>
         </a>
         <?php else: ?>

@@ -71,7 +71,7 @@ $mobil = SysHelper::isMobile();
                         </div>
                     </div>
                 </div>
-                <a class="stretched-link" href="<?= $booking->getLinks()['frontend'] ?>"></a>
+                <a class="stretched-link" href="<?= $booking->getLinks()->frontend ?>"></a>
             </div>
         </div>
     <?php endforeach; ?>

@@ -6,6 +6,7 @@ namespace booking\entities\booking\cars;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
+use booking\entities\booking\LinkBooking;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -141,8 +142,18 @@ class BookingCar extends BaseBooking
         return $this->car->getName();
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkBooking
     {
+        $link = new LinkBooking(
+            Url::to(['car/common', 'id' => $this->object_id]),
+            Url::to(['car/booking/index', 'id' => $this->object_id]),
+            Url::to(['cabinet/car/view', 'id' => $this->id]),
+            Url::to(['cabinet/pay/car', 'id' => $this->id]),
+            Url::to(['cabinet/car/cancelpay', 'id' => $this->id]),
+            Url::to(['car/view', 'id' => $this->object_id]),
+            Url::to(['cars/view', 'id' => $this->object_id])
+        );
+        return $link;
         return [
             'admin' => Url::to(['car/common', 'id' => $this->object_id]),
             'booking' => Url::to(['car/booking/index', 'id' => $this->object_id]),

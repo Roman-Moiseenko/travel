@@ -45,7 +45,7 @@ abstract class BaseBooking extends ActiveRecord
 
     abstract public function getName(): string;
 
-    abstract public function getLinks(): array;
+    abstract public function getLinks(): LinkBooking;
 
     abstract public function getPhoto(string $photo = ''): string;
 

@@ -38,7 +38,7 @@ $car = $booking->car;
             </ul>
         </div>
         <div class="flex-grow-1 align-self-center caption-list pl-3">
-            <a href="<?= $booking->getLinks()['entities']; ?>"><?= $car->getName() ?></a>
+            <a href="<?= $booking->getLinks()->entities; ?>"><?= $car->getName() ?></a>
 
         </div>
         <?php if ($booking->isNew() || $booking->isPay() || $booking->isConfirmation()): ?>

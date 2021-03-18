@@ -38,7 +38,7 @@ $tour = $booking->calendar->tour;
             </ul>
         </div>
         <div class="flex-grow-1 align-self-center caption-list pl-3">
-            <a href="<?= $booking->getLinks()['entities']; ?>"><?= $tour->getName() ?></a>
+            <a href="<?= $booking->getLinks()->entities; ?>"><?= $tour->getName() ?></a>
 
         </div>
         <?php if ($booking->isNew() || $booking->isPay() || $booking->isConfirmation()): ?>

@@ -831,7 +831,6 @@ div.required label:after {
     grid-column-start: a;
     grid-row-end: a;
     grid-column-end: a;
-
 }
 
 .gallery .item-gallery:nth-child(2) {

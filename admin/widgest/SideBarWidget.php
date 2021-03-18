@@ -42,7 +42,7 @@ class SideBarWidget extends Widget
             $events[] = [
                 'date' => $booking->getCreated(),
                 'event' => 'Бронирование ' . StringHelper::truncateWords(strip_tags($booking->getName()), 3),
-                'link' => $booking->getLinks()['admin'],
+                'link' => $booking->getLinks()->admin,
             ];
         }
 

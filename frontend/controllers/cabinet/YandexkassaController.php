@@ -81,7 +81,7 @@ class YandexkassaController extends Controller
         } catch (ApiException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect($booking->getLinks()['frontend']);
+            return $this->redirect($booking->getLinks()->frontend);
         }
     }
 
@@ -95,6 +95,7 @@ class YandexkassaController extends Controller
                 : new NotificationWaitingForCapture($requestBody);
             $payment = $notification->getObject();
             $booking = $this->bookings->getByPaymentId($payment->id);
+            if ($booking == null) return;
             $this->service->payBooking($booking);
         } catch (\Exception $e) {
             \Yii::$app->errorHandler->logException($e);

@@ -51,7 +51,7 @@ class YKassaService
                     ],
                     'confirmation' => [
                         'type' => 'redirect',
-                        'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()['frontend'],
+                        'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()->frontend,
                         'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
                     ],
                     'capture' => true,

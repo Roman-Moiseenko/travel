@@ -30,7 +30,6 @@ use yii\db\ActiveRecord;
  */
 class CostCalendar extends ActiveRecord  implements CalendarInterface
 {
-   // use ActiveRecordItemTrait;
     public $cost;
 
     public static function create($tour_at, $time_at, Cost $cost, $tickets): self
@@ -82,18 +81,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
     public function getTour(): ActiveQuery
     {
         return $this->hasOne(Tour::class, ['id' => 'tours_id']);
-    }
-
-    public function getFreeTickets(): int 
-    {
-        $count = 0;
-        $bookings = $this->bookings;
-        foreach ($bookings as $booking) {
-            $count += $booking->count->adult ?? 0;
-            $count += $booking->count->child ?? 0;
-            $count += $booking->count->preference ?? 0;
-        }
-        return $this->tickets - $count;
     }
     
     public function getBookings(): ActiveQuery

@@ -6,6 +6,7 @@ namespace booking\entities\booking\tours;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
+use booking\entities\booking\LinkBooking;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
@@ -99,8 +100,18 @@ class BookingTour extends BaseBooking
         return $this->tour->getName();
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkBooking
     {
+        $link = new LinkBooking(
+            Url::to(['tour/common', 'id' => $this->object_id]),
+            Url::to(['tour/booking/index', 'id' => $this->object_id]),
+            Url::to(['cabinet/tour/view', 'id' => $this->id]),
+            Url::to(['cabinet/pay/tour', 'id' => $this->id]),
+            Url::to(['cabinet/tour/cancelpay', 'id' => $this->id]),
+            Url::to(['tour/view', 'id' => $this->object_id]),
+            Url::to(['tours/view', 'id' => $this->object_id])
+        );
+        return $link;
         return [
             'admin' => Url::to(['tour/common', 'id' => $this->object_id]),
             'booking' => Url::to(['tour/booking/index', 'id' => $this->object_id]),

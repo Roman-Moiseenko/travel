@@ -19,8 +19,8 @@ $booking = BookingHelper::getByNumber($optional);
 ?>
 <div class="dialog-caption">
     <?php if ($booking): ?>
-        <div class="caption pb-2"><?= '№ бронирования: '?> <a href="<?= $booking->getLinks()['frontend'] ?>"><?= $optional ?></a></div>
-        <a href="<?= $booking->getLinks()['entities'] ?>" class="caption-list">
+        <div class="caption pb-2"><?= '№ бронирования: '?> <a href="<?= $booking->getLinks()->frontend ?>"><?= $optional ?></a></div>
+        <a href="<?= $booking->getLinks()->entities ?>" class="caption-list">
             <?= $booking->getName() ?>
         </a>
     <?php else: ?>

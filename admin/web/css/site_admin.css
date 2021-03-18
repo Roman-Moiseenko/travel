@@ -440,3 +440,8 @@ div.required label:after {
     top: 0;
     left: 60px; /*position where enlarged image should offset horizontally */
 }
+
+.rating-tour {
+    color: #F8CA03;
+    font-size: 12px !important;
+}

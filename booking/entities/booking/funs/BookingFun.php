@@ -5,6 +5,7 @@ namespace booking\entities\booking\funs;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
+use booking\entities\booking\LinkBooking;
 use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -138,8 +139,18 @@ class BookingFun extends BaseBooking
         return $this->fun->getName();
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkBooking
     {
+        $link = new LinkBooking(
+            Url::to(['fun/common', 'id' => $this->object_id]),
+            Url::to(['fun/booking/index', 'id' => $this->object_id]),
+            Url::to(['cabinet/fun/view', 'id' => $this->id]),
+            Url::to(['cabinet/pay/fun', 'id' => $this->id]),
+            Url::to(['cabinet/fun/cancelpay', 'id' => $this->id]),
+            Url::to(['fun/view', 'id' => $this->object_id]),
+            Url::to(['funs/view', 'id' => $this->object_id])
+        );
+        return $link;
         return [
             'admin' => Url::to(['fun/common', 'id' => $this->object_id]),
             'booking' => Url::to(['fun/booking/index', 'id' => $this->object_id]),

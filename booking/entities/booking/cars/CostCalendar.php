@@ -65,17 +65,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return false;
     }
 
-    public function getFreeCount(): int
-    {
-        $count = 0;
-        $bookings = $this->bookings;
-
-        foreach ($bookings as $booking) {
-            $count += $booking->count;
-        }
-        return $this->count - $count;
-    }
-
     public function getBookingOnDays(): ActiveQuery
     {
         return $this->hasMany(BookingCarOnDay::class, ['calendar_id' => 'id']);

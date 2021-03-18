@@ -184,7 +184,7 @@ class BookingRepository
         foreach ($tours as $tour) {
             $result[$tour->getName()] = [
                 'photo' => $tour->getPhoto('widget_list'),
-                'link' => $tour->getLinks()['booking'],
+                'link' => $tour->getLinks()->booking,
                 'name' => $tour->getName(),
                 'count' => $tour->quantity() + (isset($result[$tour->getName()]) ? $result[$tour->getName()]['count'] : 0),
             ];
@@ -210,7 +210,7 @@ class BookingRepository
         foreach ($cars as $car) {
             $result[$car->getName()] = [
                 'photo' => $car->getPhoto('widget_list'),
-                'link' => $car->getLinks()['booking'],
+                'link' => $car->getLinks()->booking,
                 'name' => $car->getName(),
                 'count' => $car->count + (isset($result[$car->getName()]) ? $result[$car->getName()]['count'] : 0),
             ];
@@ -238,7 +238,7 @@ class BookingRepository
         foreach ($funs as $fun) {
             $result[$fun->getName()] = [
                 'photo' => $fun->getPhoto('widget_list'),
-                'link' => $fun->getLinks()['booking'],
+                'link' => $fun->getLinks()->booking,
                 'name' => $fun->getName(),
                 'count' => $fun->quantity() + (isset($result[$fun->getName()]) ? $result[$fun->getName()]['count'] : 0),
             ];
@@ -267,7 +267,7 @@ class BookingRepository
         return $result;
     }
 
-    public function getByPaymentId($payment_id): BaseBooking
+    public function getByPaymentId($payment_id):? BaseBooking
     {
         //TODO ** BOOKING_OBJECT **
         $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
@@ -281,6 +281,7 @@ class BookingRepository
 
         $result = BookingFun::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
+        return null;
     }
 
     private function today()

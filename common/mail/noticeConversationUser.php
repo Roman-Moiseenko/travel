@@ -39,7 +39,7 @@ $lang = $dialog->user->preferences->lang;
                 <?php if (!empty($dialog->optional)): ?>
                     <?= Lang::t('Номер брони', $lang) . ': ' ?>
                 <?php $booking = BookingHelper::getByNumber($dialog->optional); ?>
-                    <a href="<?= $url . $booking->getLinks()['frontend'] ?>"><?= $dialog->optional ?></a>
+                    <a href="<?= $url . $booking->getLinks()->frontend ?>"><?= $dialog->optional ?></a>
                 <?php endif; ?>
             </td>
             <td style="width: 25%"></td>

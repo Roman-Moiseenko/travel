@@ -17,7 +17,7 @@ $lang = $user->preferences->lang;
             <td style="width: 25%"></td>
             <td style="text-align: right; width: 50%">
                 <?= Lang::t('Номер брони', $lang) ?>:&#160;
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['frontend'] ?>">
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()->frontend ?>">
                     <b><?= BookingHelper::number($booking) ?></b>
                 </a>
             </td>
@@ -37,7 +37,7 @@ $lang = $user->preferences->lang;
                 <?=
                     Lang::t('Ваше бронирование подтверждено', $lang) . '. ' . Lang::t('Вам необходимо будет оплатить', $lang) . ' ' . CurrencyHelper::get($booking->getPayment()->getFull())
                 ?>
-                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
+                <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()->entities ?>">
                     <?= $booking->getName() ?>
                 </a>
                 <?= ' ' . Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>

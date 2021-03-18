@@ -8,6 +8,7 @@ use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BaseBooking;
 use booking\entities\booking\Discount;
+use booking\entities\booking\LinkBooking;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
@@ -69,8 +70,18 @@ class BookingStay extends BaseBooking
         // TODO: Implement getName() method.
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkBooking
     {
+        $link = new LinkBooking(
+            Url::to(['stay/common', 'id' => $this->object_id]),
+            Url::to(['stay/booking/index', 'id' => $this->object_id]),
+            Url::to(['cabinet/stay/view', 'id' => $this->id]),
+            Url::to(['cabinet/pay/stay', 'id' => $this->id]),
+            Url::to(['cabinet/stay/cancelpay', 'id' => $this->id]),
+            Url::to(['stay/view', 'id' => $this->object_id]),
+            Url::to(['stays/view', 'id' => $this->object_id])
+        );
+        return $link;
         return [
             'admin' => Url::to(['stay/booking/index', 'id' => $this->id]),
             'frontend' => Url::to(['cabinet/stay/view', 'id' => $this->id]),
