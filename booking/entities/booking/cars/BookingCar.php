@@ -5,15 +5,11 @@ namespace booking\entities\booking\cars;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\Legal;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
-use booking\entities\booking\Discount;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
 /**

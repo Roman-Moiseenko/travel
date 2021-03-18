@@ -5,7 +5,7 @@ namespace booking\entities\finance;
 
 
 use booking\entities\admin\Legal;
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\user\User;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property float $amount
  * @property float $pay_legal
  * @property integer $status
- * @property BookingItemInterface $booking
+ * @property BaseBooking $booking
  * @property User $user
  * @property Legal $legal
  */

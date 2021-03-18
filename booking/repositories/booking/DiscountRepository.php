@@ -6,7 +6,7 @@ namespace booking\repositories\booking;
 
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\Discount;
 use booking\entities\booking\funs\BookingFun;
@@ -23,7 +23,7 @@ class DiscountRepository
         return $result;
     }
 
-    /** @return BookingItemInterface[] */
+    /** @return BaseBooking[] */
     public function getBookings($id): array
     {
         $tour = BookingTour::find()->andWhere(['discount_id' => $id])->all();
@@ -37,7 +37,7 @@ class DiscountRepository
         return array_merge($tour, $stay, $car, $fun);
     }
 
-    public function find($promo_code, BookingItemInterface $booking)
+    public function find($promo_code, BaseBooking $booking)
     {
         /** @var Discount $discount */
         $discount = Discount::find()->andWhere(['promo' => $promo_code])/*->andWhere(['>', 'count', 0])*/->one();

@@ -4,15 +4,12 @@
 namespace booking\repositories\booking;
 
 
-use booking\entities\admin\Legal;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\BookingCarOnDay;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\funs\Fun;
-use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\Tour;
@@ -276,8 +273,8 @@ class BookingRepository
         $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;
 
-        $result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
-        if (!empty($result)) return $result;
+      /*  $result = BookingStay::find()->andWhere(['payment_id' => $payment_id])->one();
+        if (!empty($result)) return $result;*/
 
         $result = BookingCar::find()->andWhere(['payment_id' => $payment_id])->one();
         if ($result) return $result;

@@ -4,17 +4,8 @@
 namespace booking\services\booking;
 
 
-use booking\entities\admin\User;
-use booking\entities\admin\Legal;
-use booking\entities\booking\BookingItemInterface;
-use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\Discount;
-use booking\entities\booking\stays\BookingStay;
-use booking\entities\booking\tours\BookingTour;
-use booking\entities\booking\tours\Tour;
 use booking\forms\booking\DiscountForm;
-use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\repositories\booking\DiscountRepository;
 
 class DiscountService

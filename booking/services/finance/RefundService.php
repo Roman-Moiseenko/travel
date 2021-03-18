@@ -4,7 +4,7 @@
 namespace booking\services\finance;
 
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\finance\Refund;
 use booking\repositories\finance\RefundRepository;
 
@@ -20,7 +20,7 @@ class RefundService
         $this->refunds = $refunds;
     }
 
-    public function create(BookingItemInterface $booking): Refund
+    public function create(BaseBooking $booking): Refund
     {
         $refund = Refund::create(
             $booking->getId(),

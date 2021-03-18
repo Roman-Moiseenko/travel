@@ -6,7 +6,6 @@ namespace booking\helpers;
 
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\BookingFun;

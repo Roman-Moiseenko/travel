@@ -3,8 +3,7 @@
 
 namespace booking\services\check;
 
-
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\helpers\BookingHelper;
 use booking\repositories\check\UserRepository;
 
@@ -24,7 +23,7 @@ class GiveOutService
     public function giveOut($user_id, $type, $booking_id)
     {
         $_class = BookingHelper::LIST_BOOKING_TYPE[$type];
-        /** @var BookingItemInterface $booking */
+        /** @var BaseBooking $booking */
         $booking = $_class::findOne($booking_id);
         //TODO Переделать в интерфейс->giveOut($user->id)
         $booking->give_out = true;

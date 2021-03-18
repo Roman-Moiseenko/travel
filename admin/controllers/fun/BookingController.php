@@ -4,7 +4,7 @@
 namespace admin\controllers\fun;
 
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\funs\CostCalendar;
 use booking\entities\booking\funs\Fun;
@@ -111,7 +111,7 @@ class BookingController extends Controller
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
             $booking_number = $params['booking_number'];
-            /** @var BookingItemInterface $booking */
+            /** @var BaseBooking $booking */
             $booking = BookingHelper::getByNumber($booking_number);
             if ($booking && $booking instanceof BookingFun) {
                 $booking->setGive();

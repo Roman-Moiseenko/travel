@@ -1,8 +1,8 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 
-/* @var $bookings BookingItemInterface */
+/* @var $bookings BaseBooking */
 /* @var $count int */
 ?>
 <li class="nav-item dropdown">

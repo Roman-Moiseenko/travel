@@ -3,8 +3,7 @@
 
 namespace admin\controllers\car;
 
-
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\CostCalendar;
@@ -99,7 +98,7 @@ class BookingController  extends Controller
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
             $booking_number = $params['booking_number'];
-            /** @var BookingItemInterface $booking */
+            /** @var BaseBooking $booking */
             $booking = BookingHelper::getByNumber($booking_number);
             if ($booking && $booking instanceof BookingCar) {
                 $booking->setGive();

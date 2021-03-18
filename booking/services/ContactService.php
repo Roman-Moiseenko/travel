@@ -4,7 +4,6 @@ namespace booking\services;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\Lang;
 use booking\entities\mailing\Mailing;

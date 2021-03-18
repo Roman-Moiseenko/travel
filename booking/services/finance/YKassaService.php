@@ -5,14 +5,9 @@ namespace booking\services\finance;
 
 
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\finance\Check54;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
-//use YandexCheckout\Client;
-use YandexCheckout\Model\Notification\NotificationSucceeded;
-use YandexCheckout\Model\Notification\NotificationWaitingForCapture;
-use YandexCheckout\Model\NotificationEventType;
 use YooKassa\Client;
 
 class YKassaService

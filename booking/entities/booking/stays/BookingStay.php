@@ -6,10 +6,11 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\Discount;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
@@ -48,7 +49,7 @@ use yii\helpers\Url;
  * @property \booking\entities\user\User $user
  * @property \booking\entities\check\User $checkUser
  */
-class BookingStay extends ActiveRecord implements BookingItemInterface
+class BookingStay extends BaseBooking
 {
 
     public static function tableName()
@@ -217,5 +218,40 @@ class BookingStay extends ActiveRecord implements BookingItemInterface
     public function isNew(): bool
     {
         // TODO: Implement isNew() method.
+    }
+
+    public function quantity(): int
+    {
+        // TODO: Implement quantity() method.
+    }
+
+    public function isPaidLocally(): bool
+    {
+        // TODO: Implement isPaidLocally() method.
+    }
+
+    public function getCalendar(): ActiveQuery
+    {
+        // TODO: Implement getCalendar() method.
+    }
+
+    public function getCalendars(): ActiveQuery
+    {
+        // TODO: Implement getCalendars() method.
+    }
+
+    public function getDays(): ActiveQuery
+    {
+        // TODO: Implement getDays() method.
+    }
+
+    protected function getFullCostFrom(): float
+    {
+        // TODO: Implement getFullCostFrom() method.
+    }
+
+    protected function getPrepayFrom(): int
+    {
+        // TODO: Implement getPrepayFrom() method.
     }
 }

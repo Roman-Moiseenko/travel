@@ -1,11 +1,10 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\helpers\BookingHelper;
-use booking\helpers\CurrencyHelper;
 use yii\helpers\Url;
 
-/* @var $bookings BookingItemInterface[] */
+/* @var $bookings BaseBooking[] */
 /* @var $name string */
 /* @var $link_selling string */
 

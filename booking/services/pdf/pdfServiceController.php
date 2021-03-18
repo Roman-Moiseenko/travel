@@ -5,7 +5,6 @@ namespace booking\services\pdf;
 
 
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use kartik\mpdf\Pdf;

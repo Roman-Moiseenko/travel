@@ -1,11 +1,11 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\helpers\MessageHelper;
 use yii\helpers\Url;
 
 /* @var $dialogs array */
-/* @var $bookings BookingItemInterface */
+/* @var $bookings BaseBooking */
 
 $count = MessageHelper::countNew();
 if ($count > 0) {$message_count = $count  . ' сообщений';} else {$message_count = 'Новых сообщений нет';}

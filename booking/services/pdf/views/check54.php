@@ -1,12 +1,10 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
-use booking\entities\Lang;
+use booking\entities\booking\BaseBooking;
 use booking\helpers\BookingHelper;
-use booking\helpers\CurrencyHelper;
 use YandexCheckout\Request\Receipts\ReceiptResponseInterface;
 
-/* @var $booking BookingItemInterface
+/* @var $booking BaseBooking
  * @var $item ReceiptResponseInterface
  */
 $kkt = \Yii::$app->params['kkt'];

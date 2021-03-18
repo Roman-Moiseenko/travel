@@ -4,9 +4,8 @@
 namespace booking\services\finance;
 
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\services\booking\cars\BookingCarService;
 use booking\services\booking\funs\BookingFunService;
 use booking\services\booking\tours\BookingTourService;
@@ -33,7 +32,7 @@ class PayManageService
         $this->funService = $funService;
     }
 
-    public function payBooking(BookingItemInterface $booking)
+    public function payBooking(BaseBooking $booking)
     {
         switch ($booking->getType()) {
             case BookingHelper::BOOKING_TYPE_TOUR:

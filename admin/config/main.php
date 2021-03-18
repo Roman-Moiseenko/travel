@@ -14,7 +14,7 @@ return [
     'language' => '',
     'basePath' => dirname(__DIR__),
     // перевести сайт в режим обслуживания
-    'catchAll' => ['site/update'],
+    //'catchAll' => ['site/update'],
     'aliases' => [
         '@staticRoot' => $params['staticPath'],
         '@static' => $params['staticHostInfo'],
