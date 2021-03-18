@@ -25,7 +25,7 @@ class CarHelper
             BookingHelper::BOOKING_STATUS_CONFIRMATION,
         ]
         ])
-            ->andWhere(['car_id' => $car_id])
+            ->andWhere(['object_id' => $car_id])
             ->andWhere(['>=', 'begin_at', time()])
             ->all();
         $count = 0;

@@ -5,6 +5,7 @@ namespace booking\helpers;
 
 
 use booking\entities\booking\AgeLimit;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
@@ -102,7 +103,7 @@ class BookingHelper
         ];
     }
 
-    public static function status(BookingItemInterface $booking): string
+    public static function status(BaseBooking $booking): string //BookingItemInterface
     {
         switch ($booking->getStatus()) {
             case self::BOOKING_STATUS_NEW:
@@ -128,7 +129,7 @@ class BookingHelper
         return '<span class="' . $class . '">' . (self::list())[$booking->getStatus()] . '</span>';
     }
 
-    public static function caption(BookingItemInterface $booking): string
+    public static function caption(BaseBooking $booking): string //BookingItemInterface
     {
         return (self::list())[$booking->getStatus()];
     }
@@ -143,7 +144,7 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_FUNS) return '<i class="fas fa-hot-tub"></i>';
     }
 
-    public static function stamp(BookingItemInterface $booking): string
+    public static function stamp(BaseBooking $booking): string //BookingItemInterface
     {
         if ($booking->isPay()) {
             return '<span class="big-red-paid-stamp">' . mb_strtoupper(Lang::t('ОПЛАЧЕНО')) . '</span>';
@@ -157,7 +158,7 @@ class BookingHelper
         return '';
     }
 
-    public static function number(BookingItemInterface $booking, $forPay = false): string
+    public static function number(BaseBooking $booking, $forPay = false): string //BookingItemInterface
     {
         if (!$forPay)
             return $booking->getAdmin()->id . '.' . $booking->getId() . $booking->getType();
@@ -165,7 +166,7 @@ class BookingHelper
 
     }
 
-    public static function getByNumber($number): ?BookingItemInterface
+    public static function getByNumber($number): ?BaseBooking //BookingItemInterface
     {
         if (empty($number)) return null;
         try {
@@ -185,7 +186,7 @@ class BookingHelper
         }
     }
 
-    public static function fieldAddToString(BookingItemInterface $booking): string
+    public static function fieldAddToString(BaseBooking $booking): string//BookingItemInterface
     {
         $datetime2 = $booking->getAdd();
         switch ($booking->getType()) {
@@ -202,9 +203,9 @@ class BookingHelper
         }
     }
 
-    public static function merchant(BookingItemInterface $booking)
+    public static function merchant(BaseBooking $booking) //BookingItemInterface
     {
-        return $booking->getAmountDiscount();
+        return $booking->getPayment()->getPrepay();
         //TODO Удалить и заменить в Кассе
     }
 
@@ -224,5 +225,15 @@ class BookingHelper
             $max = empty($ageLimit->ageMax) ? '' : ' ' . Lang::t('до') . ' ' . $ageLimit->ageMax . ' ' . Lang::t('лет');
             return $min . $max;
         }
+    }
+
+    public static function listPrepay()
+    {
+        return [
+            0 => 0,
+            20 => 20,
+            50 => 50,
+            100 => 100,
+        ];
     }
 }

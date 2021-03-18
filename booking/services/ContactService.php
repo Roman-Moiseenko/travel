@@ -3,6 +3,7 @@
 namespace booking\services;
 
 use booking\entities\admin\User;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\ReviewInterface;
 use booking\entities\Lang;
@@ -91,7 +92,7 @@ class ContactService
     }
 
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ И ПРОВАЙДЕРУ О БРОНИРОВАНИИ/НОВОМ СТАТУСЕ
-    public function sendNoticeBooking(BookingItemInterface $booking)
+    public function sendNoticeBooking(BaseBooking $booking) //BookingItemInterface
     {
         if ($this->loc) return;
         $user_admin = $booking->getAdmin();
@@ -138,8 +139,8 @@ class ContactService
         if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_CANCEL_PAY) {
             $this->mailerBooking($emailUser, $booking, 'noticeBookingCancelPayUser');
             $this->sendSMS($phoneUser, 'Отмена брони ' . $booking->getName(), $user_admin);
-            if ($booking->isCheckBooking() && $noticeAdmin->bookingCancelPay->phone)
-                $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getAmount() . ')', $user_admin);
+            if (!$booking->isPaidLocally() && $noticeAdmin->bookingCancelPay->phone)
+                $this->sendSMS($phoneAdmin, 'Возврат ' . $booking->getName() . ' (' . $booking->getPayment()->getPrepay() . ')', $user_admin);
             if ($noticeAdmin->bookingCancelPay->email)
                 $this->mailerBooking($emailAdmin, $booking, 'noticeBookingCancelPayAdmin');
         }
@@ -151,7 +152,7 @@ class ContactService
     }
 
 /// УВЕДОМЛЕНИЕ С КОДОМ ДЛЯ ПОДТВЕРЖДЕНИЯ БРОНИРОВАНИЯ
-    public function sendNoticeConfirmation(BookingItemInterface $booking, $template = 'pay')
+    public function sendNoticeConfirmation(BaseBooking $booking, $template = 'pay')//BookingItemInterface
     {
         if ($this->loc) return;
         $user = \booking\entities\user\User::findOne($booking->getUserId());
@@ -274,7 +275,7 @@ class ContactService
             if ($admin_user) $admin_user->sendSMS($phone, $message);
     }
 
-    private function mailerBooking($_email, BookingItemInterface $booking, $template, $attach_pdf = false)
+    private function mailerBooking($_email, BaseBooking $booking, $template, $attach_pdf = false) //BookingItemInterface
     {
         $message = $this->mailer->compose($template, ['booking' => $booking])
             ->setTo((string)$_email)//$email

@@ -233,6 +233,7 @@ class CarService
         $car->setDeposit($form->deposit);
         $car->setQuantity($form->quantity);
         $car->setDiscountOfDays($form->discount_of_days);
+        $car->setPrepay($form->prepay);
         //По умолчанию ч/з подтверждение
         $car->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         $car->setCancellation(($form->cancellation == '') ? null : $form->cancellation);

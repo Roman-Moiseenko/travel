@@ -78,14 +78,18 @@ class BookingController  extends Controller
     {
         $this->layout = 'main_ajax';
         if (\Yii::$app->request->isAjax) {
-            $params = \Yii::$app->request->bodyParams;
-            $car_id = $params['car_id'];
-            $date = strtotime($params['date']);
-            $calendar = CostCalendar::find()->andWhere(['car_id' => $car_id])->andWhere(['car_at' => $date])->one();
-            return $this->render('_booking-day', [
-                'calendar' => $calendar,
-                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
-            ]);
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                $car_id = $params['car_id'];
+                $date = strtotime($params['date']);
+                $calendar = CostCalendar::find()->andWhere(['car_id' => $car_id])->andWhere(['car_at' => $date])->one();
+                return $this->render('_booking-day', [
+                    'calendar' => $calendar,
+                    'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+                ]);
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
         }
     }
 

@@ -41,7 +41,6 @@ class CheckoutController extends Controller
             $count_car = $params['count_car'];
             $delivery = $params['delivery'] ?? false;
             $comment = $params['comment'] ?? null;
-            $promo = $params['promo'];
             $booking = $this->service->create(
                 $car_id,
                 $date_from,
@@ -49,10 +48,10 @@ class CheckoutController extends Controller
                 $count_car,
                 $delivery,
                 $comment,
-                $promo
             );
             return $this->redirect(['/cabinet/car/view', 'id' => $booking->id]);
-        } catch (\DomainException $e) {
+        } catch (\Throwable $e) {
+            //return $e->getMessage();
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(['/car/view', 'id' => $car_id]);

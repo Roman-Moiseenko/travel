@@ -53,36 +53,18 @@ class BookingTourService extends BookingService
         $this->stackService = $stackService;
     }
 
-    public function create($calendar_id, Cost $count, $promo_code): BookingTour
+    public function create($calendar_id, Cost $count): BookingTour
     {
-        $booking = BookingTour::create($calendar_id, $count);
+        $calendar = $this->calendar->get($calendar_id);
+        $booking = BookingTour::create($calendar, $count);
 
         if ($booking->calendar->free() < $count->count() ||  //кол-во свободных меньше покупаемого
             !$this->stackService->_empty($booking->calendar->tours_id, $booking->calendar->tour_at)) {  //Стек не пуст
             throw new \DomainException(Lang::t('Упс! Места закончились'));
         }
 
-        $discount_id = $this->discounts->find($promo_code, $booking);
-        $booking->setDiscount($discount_id);
-
-        //Проеряем скидку от портала
-        if ($booking->discount && $booking->discount->entities == Discount::E_OFFICE_USER) {
-            $notUsed = $booking->discount->countNotUsed();
-            $_discount = $booking->getAmount() * $booking->discount->percent / 100;
-            $bonus = $notUsed < $_discount ? $notUsed : $_discount;
-            if ($notUsed <= 0) $bonus = 0;
-            $booking->setBonus($bonus);
-        }
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
-        return $booking;
-    }
-
-    public function edit($booking_id, Cost $count)
-    {
-        $booking = $this->bookings->get($booking_id);
-        $booking->edit($count);
-        $this->bookings->save($booking);
         return $booking;
     }
 
@@ -118,9 +100,6 @@ class BookingTourService extends BookingService
     public function confirmation($id)
     {
         $booking = $this->bookings->get($id);
-        $booking->payment_provider = 0;
-        $booking->payment_merchant = 0;
-        $booking->payment_deduction = 0;
         $booking->confirmation();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
@@ -129,18 +108,6 @@ class BookingTourService extends BookingService
     public function pay($id)
     {
         $booking = $this->bookings->get($id);
-
-        $deduction = \Yii::$app->params['deduction'];
-        $merchant = \Yii::$app->params['merchant'];
-        $payment = $booking->getAmount();
-        if ($booking->discount && !$booking->discount->isOffice()) {
-            $payment -= $payment * $booking->discount->percent / 100;
-        }
-        $booking->payment_merchant = $payment * $merchant / 100;
-        $booking->payment_deduction = $payment * $deduction / 100;
-        $booking->payment_provider = $payment - $booking->payment_merchant - $booking->payment_deduction;
-        $booking->payment_at = time();
-
         $booking->pay();
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
@@ -149,12 +116,12 @@ class BookingTourService extends BookingService
     public function noticeConfirmation($id, $template = 'pay')
     {
         $booking = $this->bookings->get($id);
-        if (!empty($booking->confirmation)) {
+        if (!empty($booking->getConfirmationCode())) {
             $this->contact->sendNoticeConfirmation($booking, $template);
             return;
         }
         $code = uniqid();
-        $booking->confirmation = $code;
+        $booking->setConfirmation($code);
         $this->bookings->save($booking);
         $this->contact->sendNoticeConfirmation($booking, $template);
     }
@@ -162,7 +129,7 @@ class BookingTourService extends BookingService
     public function checkConfirmation($id, ConfirmationForm $form): bool
     {
         $booking = $this->bookings->get($id);
-        return $booking->confirmation == $form->confirmation;
+        return $booking->getConfirmationCode() == $form->confirmation;
     }
 
     private function cancelNotPay($day = 1)

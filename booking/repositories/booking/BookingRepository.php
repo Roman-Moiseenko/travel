@@ -5,6 +5,7 @@ namespace booking\repositories\booking;
 
 
 use booking\entities\admin\Legal;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\BookingCarOnDay;
@@ -20,7 +21,7 @@ use booking\helpers\scr;
 
 class BookingRepository
 {
-    /** @return  BookingItemInterface[] */
+    /** @return  BaseBooking[] */
     public function getTodayCheck($object_class, $object_id): array
     {
 
@@ -28,7 +29,7 @@ class BookingRepository
             $bookings = BookingTour::find()->alias('b')
                 ->joinWith('calendar c')
                 ->andWhere(['c.tour_at' => $this->today()])
-                ->andWhere(['c.tours_id' => $object_id])
+                ->andWhere(['c.object_id' => $object_id])
                 ->andWhere(['IN', 'b.status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
                 ->orderBy(['b.give_out' => SORT_ASC])
                 ->all();
@@ -37,7 +38,7 @@ class BookingRepository
         if ($object_class == BookingCar::class) {
             $bookings = BookingCar::find()
                 ->andWhere(['begin_at' => $this->today()])
-                ->andWhere(['car_id' => $object_id])
+                ->andWhere(['object_id' => $object_id])
                 ->andWhere(['IN', 'status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
                 ->orderBy(['give_out' => SORT_ASC])
                 ->all();
@@ -48,7 +49,7 @@ class BookingRepository
             $bookings = BookingFun::find()->alias('f')
                 ->joinWith('calendars c')
                 ->andWhere(['c.fun_at' => $this->today()])
-                ->andWhere(['f.fun_id' => $object_id])
+                ->andWhere(['f.object_id' => $object_id])
                 ->andWhere(['IN', 'f.status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
                 ->orderBy(['f.give_out' => SORT_ASC])
                 ->groupBy('f.id')
@@ -60,7 +61,7 @@ class BookingRepository
         return [];
     }
 
-    /** @return  BookingItemInterface[] */
+    /** @return  BaseBooking[] */
     public function getActive($user_id): array
     {
         $result = [];
@@ -85,7 +86,7 @@ class BookingRepository
         return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
-    /** @return  BookingItemInterface[] */
+    /** @return  BaseBooking[] */
     public function getPast($user_id): array
     {
         $tours = BookingTour::find()
@@ -109,7 +110,7 @@ class BookingRepository
         return $this->sort_merge($tours, $stays, $cars, $funs, -1);
     }
 
-    /** @return  BookingItemInterface[] */
+    /** @return  BaseBooking[] */
     public function getByAdminLastCreated($admin_id, $last_day = 1): array
     {
         $tours = BookingTour::find()
@@ -132,7 +133,7 @@ class BookingRepository
             ->andWhere(['>=', 'created_at', time() - 3600 * 24 * $last_day])
             ->andWhere([
                 'IN',
-                'car_id',
+                'object_id',
                 Car::find()->select('id')->andWhere(['user_id' => $admin_id])
             ])
             ->all();
@@ -142,7 +143,7 @@ class BookingRepository
             ->andWhere(
                 [
                     'IN',
-                    'fun_id',
+                    'object_id',
                     Fun::find()->select('id')->andWhere(['user_id' => $admin_id])
                 ]
             )
@@ -188,7 +189,7 @@ class BookingRepository
                 'photo' => $tour->getPhoto('widget_list'),
                 'link' => $tour->getLinks()['booking'],
                 'name' => $tour->getName(),
-                'count' => $tour->countTickets() + (isset($result[$tour->getName()]) ? $result[$tour->getName()]['count'] : 0),
+                'count' => $tour->quantity() + (isset($result[$tour->getName()]) ? $result[$tour->getName()]['count'] : 0),
             ];
         }
 
@@ -196,7 +197,7 @@ class BookingRepository
             ->andWhere(['>=', 'begin_at', time()])
             ->andWhere([
                 'IN',
-                'car_id',
+                'object_id',
                 Car::find()->select('id')
                     ->andWhere(['user_id' => $admin_id])
             ])
@@ -224,7 +225,7 @@ class BookingRepository
             ->andWhere(
                 [
                     'IN',
-                    'f.fun_id',
+                    'f.object_id',
                     Fun::find()->select('id')->andWhere(['user_id' => $admin_id])
                 ]
             )
@@ -242,7 +243,7 @@ class BookingRepository
                 'photo' => $fun->getPhoto('widget_list'),
                 'link' => $fun->getLinks()['booking'],
                 'name' => $fun->getName(),
-                'count' => $fun->countTickets() + (isset($result[$fun->getName()]) ? $result[$fun->getName()]['count'] : 0),
+                'count' => $fun->quantity() + (isset($result[$fun->getName()]) ? $result[$fun->getName()]['count'] : 0),
             ];
         }
 
@@ -255,21 +256,21 @@ class BookingRepository
     private function sort_merge(array $tours, array $stays, array $cars, array $funs, $arrow = 1): array
     {
         $result = array_merge($tours, $stays, $cars, $funs);
-        usort($result, function (BookingItemInterface $a, BookingItemInterface $b) use ($arrow) {
+        usort($result, function (BaseBooking $a, BaseBooking $b) use ($arrow) {
             if ($a->getDate() > $b->getDate()) {
                 return $arrow;
             } else {
                 return -1 * $arrow;
             }
         });
-        /** @var BookingItemInterface $booking */
+        /** @var BaseBooking $booking */
         foreach ($result as $booking) {
             if ($booking->getStatus() == BookingHelper::BOOKING_STATUS_NEW && (time() - $booking->getCreated() > 3600 * 24)) $booking->setStatus(BookingHelper::BOOKING_STATUS_CANCEL);
         }
         return $result;
     }
 
-    public function getByPaymentId($payment_id): BookingItemInterface
+    public function getByPaymentId($payment_id): BaseBooking
     {
         //TODO ** BOOKING_OBJECT **
         $result = BookingTour::find()->andWhere(['payment_id' => $payment_id])->one();
@@ -322,7 +323,7 @@ class BookingRepository
         $query = BookingFun::find()
             ->alias('b')
             ->joinWith('calendars c')
-            ->andWhere(['b.fun_id' => $fun_id])
+            ->andWhere(['b.object_id' => $fun_id])
             ->andWhere(['>=', 'c.fun_at', $begin])
             ->andWhere(['<=', 'c.fun_at', $end]);
         if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
@@ -410,7 +411,7 @@ class BookingRepository
     private function sumBookingCarAmount($begin, $end, $car_id): int
     {
         $query = BookingCar::find()
-            ->andWhere(['car_id' => $car_id])
+            ->andWhere(['object_id' => $car_id])
             ->andWhere(['>=', 'begin_at', $begin])
             ->andWhere(['<=', 'begin_at', $end])
             ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY]);

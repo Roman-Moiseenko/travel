@@ -189,6 +189,7 @@ $(document).ready(function () {
             $.post('/cars/checkout/booking',
                 {car_id: car_id, date_from: date_from, date_to: date_to, count_car: count_car,
                     delivery: delivery, comment: comment, promo: promo}, function (data) {
+                console.log(data);
                 $('#rent-car').html(data);
             });
     });

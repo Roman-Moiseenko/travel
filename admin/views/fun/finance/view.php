@@ -94,9 +94,9 @@ $this->params['breadcrumbs'][] = 'Цены';
                                 'value' => BookingHelper::cancellation($fun->cancellation),
                             ],
                             [
-                                'attribute' => 'check_booking',
-                                'label' => 'Способ оплаты',
-                                'value' => BookingHelper::listCheck()[$fun->check_booking],
+                                'attribute' => 'prepay',
+                                'label' => 'Предоплата (%)',
+                                'value' => $fun->prepay,
                             ],
                         ],
                     ]) ?>

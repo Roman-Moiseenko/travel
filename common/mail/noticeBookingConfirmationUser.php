@@ -1,11 +1,12 @@
 <?php
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
@@ -35,7 +36,7 @@ $lang = $user->preferences->lang;
             <td style="width: 25%"></td>
             <td style="width: 50%; text-align: justify; border: 0; font-size: 16px;">
                 <?=
-                    Lang::t('Ваше бронирование подтверждено', $lang) . '. ' . Lang::t('Вам необходимо будет оплатить', $lang) . ' ' . CurrencyHelper::get(BookingHelper::merchant($booking))
+                    Lang::t('Ваше бронирование подтверждено', $lang) . '. ' . Lang::t('Вам необходимо будет оплатить', $lang) . ' ' . CurrencyHelper::get($booking->getPayment()->getFull())
                 ?>
                 <a style="text-decoration: none; color: #0071c2;" href="<?= $url . $booking->getLinks()['entities'] ?>">
                     <?= $booking->getName() ?>

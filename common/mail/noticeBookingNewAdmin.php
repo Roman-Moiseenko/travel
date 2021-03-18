@@ -1,18 +1,15 @@
 <?php
 
-/* @var $booking BookingItemInterface */
-
-
-
-
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-
+/* @var $booking BaseBooking */
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
 
-$confirmation = !$booking->isCheckBooking();
+$confirmation = $booking->isPaidLocally();
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
@@ -44,7 +41,9 @@ $confirmation = !$booking->isCheckBooking();
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= 'Сумма бронирования' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                <?= 'Сумма к оплате' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
+                <?= 'Сумма бронирования' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></b><br>
+
                 <?= $confirmation ? 'Дождитесь подтверждения или автоматической отмены бронирования в течение суток.' : 'Дождитесь оплаты или автоматической отмены бронирования в течение суток.' ?>
             </td>
             <td style="width: 25%"></td>

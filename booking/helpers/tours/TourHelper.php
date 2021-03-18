@@ -81,7 +81,7 @@ class TourHelper
             ->all();
         $count = 0;
         foreach ($bookings as $booking) {
-            $count += $booking->countTickets();
+            $count += $booking->quantity();
         }
         return $count;
     }

@@ -46,6 +46,7 @@ use yii\web\UploadedFile;
 
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
+ * @property integer $prepay
 
  * ====== Составные поля ===================================
  * @property Cost $baseCost
@@ -83,8 +84,6 @@ class Tour extends ActiveRecord
     public $params;
     public $baseCost;
 
-
-    /** base Data */
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug): self
     {
         $tour = new static();
@@ -100,6 +99,7 @@ class Tour extends ActiveRecord
         $tour->name_en = $name_en;
         $tour->description_en = $description_en;
         $tour->check_booking = BookingHelper::BOOKING_PAYMENT;
+        $tour->prepay = 100;
         $tour->meta = new Meta();
         return $tour;
     }
@@ -115,13 +115,17 @@ class Tour extends ActiveRecord
         $this->description_en = $description_en;
     }
 
-    /** params Data */
+
     public function setParams(TourParams $params)
     {
         $this->params = $params;
     }
 
-    /** finance Data */
+    public function setPrepay($prepay)
+    {
+        $this->prepay = $prepay;
+    }
+
     public function setLegal($legalId)
     {
         $this->legal_id = $legalId;
@@ -149,7 +153,8 @@ class Tour extends ActiveRecord
 
     public function isConfirmation(): bool
     {
-        return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
+        return $this->prepay == 0;
+        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool

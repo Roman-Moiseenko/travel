@@ -4,6 +4,7 @@
 namespace booking\services\finance;
 
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\finance\Check54;
 use booking\entities\Lang;
@@ -29,12 +30,12 @@ class YKassaService
         $this->client->setAuth($this->yandexkassa['login'], $this->yandexkassa['password']);
     }
 
-    public function invoice(BookingItemInterface $booking)
+    public function invoice(BaseBooking $booking)
     {
             $payment = $this->client->createPayment(
                 [
                     'amount' => [
-                        'value' => BookingHelper::merchant($booking),
+                        'value' => $booking->getPayment()->getPrepay(),
                         'currency' => 'RUB',
                     ],
                     'payment_method_data' => $this->yandexkassa['payment_method_data'],
@@ -47,7 +48,7 @@ class YKassaService
                             [
                                 'description' => $booking->getName(),
                                 'quantity' => 1,
-                                'amount' => ['value' => BookingHelper::merchant($booking), 'currency' => 'RUB'],
+                                'amount' => ['value' => $booking->getPayment()->getPrepay(), 'currency' => 'RUB'],
                                 'vat_code' => 1
                             ],
                         ],

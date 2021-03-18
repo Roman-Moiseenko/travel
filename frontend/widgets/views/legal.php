@@ -19,8 +19,8 @@ $mobile = SysHelper::isMobile();
         </a>
     </div>
     <div class="col-sm-6">
-        <div class="py-2" style="font-size: 16px; color: #0b3e6f; font-weight: 600;"><?= $legal->getCaption() ?></div>
-        <div class="py-2" style="font-size: 13px; color: #343434; font-weight: 500;"><?= $legal->getName() ?></div>
+        <a href="<?= Url::to(['legals/view', 'id' => $legal->id]) ?>"><div class="py-2" style="font-size: 16px; color: #0b3e6f; font-weight: 600;"><?= $legal->getCaption() ?></div>
+            <div class="py-2" style="font-size: 13px; color: #343434; font-weight: 500;"><?= $legal->getName() ?></div></a>
         <p class="pt-2"><a href="mailto:<?= $legal->noticeEmail ?>" class="btn badge-success"><?= Lang::t('Напишите нам')?></a>
     </div>
 </div>

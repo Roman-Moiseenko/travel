@@ -38,25 +38,8 @@ use booking\helpers\CurrencyHelper;
         </div>
     </div>
 <?php endif; ?>
-    <!-- ПРОМО -->
-    <div class="row pt-4 pb-2">
-        <div class="col-5 pr-1">
-            <b><?= Lang::t('Промо-код') . ':' ?></b>
-        </div>
-        <div class="col-4 px-1">
-            <input class="form-control" id="discount" name="discount" type="text" value=""/>
-        </div>
-    </div>
     <!-- ИТОГО -->
-    <div class="row pt-4 pb-2">
-        <div class="col-5 pr-1">
-            <span style="font-size: 14px; font-weight: 600;">ИТОГО:</span>
-        </div>
-        <div class="col-4 px-1" id="rent-car-amount">
-
-        </div>
-    </div>
-
+    <div id="rent-car-amount"></div>
     <!-- ОШИБКИ -->
 <?php if (isset($rent_car['error'])): ?>
     <div class="row pb-2">

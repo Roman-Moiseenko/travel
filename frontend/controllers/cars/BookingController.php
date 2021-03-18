@@ -98,9 +98,12 @@ class BookingController extends Controller
             if ($car->discount_of_days && count($calendars) > 3) {
                 $result = $result * (1 - $car->discount_of_days /100);
             }
-
-            return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
-                    CurrencyHelper::get($result * $count) . '</span>';
+            $result *= $count;
+            return $this->render('_amount', [
+                'full_cost' => $result,
+                'prepay' => $result * $calendars[0]->car->prepay / 100,
+                'percent' => $calendars[0]->car->prepay
+            ]);
         }
         return $this->goHome();
     }

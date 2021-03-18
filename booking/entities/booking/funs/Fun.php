@@ -45,6 +45,8 @@ use yii\web\UploadedFile;
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
  * @property integer $check_booking - Оплата через портал или  провайдера
  * @property integer $quantity - Количество автосредств данной модели
+ * @property integer $prepay
+ *
  *
  * @property float $rating
  * @property integer $views  Кол-во просмотров
@@ -140,6 +142,8 @@ class Fun extends ActiveRecord
             $fun->type_time = self::TYPE_TIME_INTERVAL;
             $fun->multi = true;
         }
+        $fun->prepay = 100;
+
         return $fun;
     }
 
@@ -175,7 +179,11 @@ class Fun extends ActiveRecord
         $this->params = $params;
     }
 
-    /** finance Data */
+    public function setPrepay($prepay)
+    {
+        $this->prepay = $prepay;
+    }
+
     public function setLegal($legalId)
     {
         $this->legal_id = $legalId;
@@ -209,7 +217,8 @@ class Fun extends ActiveRecord
 
     public function isConfirmation(): bool
     {
-        return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
+        return $this->prepay == 0;
+        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool

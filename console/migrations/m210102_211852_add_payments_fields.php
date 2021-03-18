@@ -28,7 +28,7 @@ class m210102_211852_add_payments_fields extends Migration
         $this->addColumn('{{%booking_funs_calendar_booking}}', 'payment_merchant', $this->float());
         $this->addColumn('{{%booking_funs_calendar_booking}}', 'payment_deduction', $this->float());
 
-        $bookings = BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
+      /*  $bookings = BookingTour::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
         foreach ($bookings as $booking) {
 //            echo $booking->getAmount() . '<br>';
             $booking->payment_merchant = $booking->getAmount() * (float)\Yii::$app->params['merchant']/100;
@@ -38,7 +38,7 @@ class m210102_211852_add_payments_fields extends Migration
 //            echo $booking->payment_deduction . '<br>';
             $booking->payment_at = time();
             $booking->save();
-        }
+        }*/
 /*
         $bookings = BookingFun::find()->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])->all();
         foreach ($bookings as $booking) {

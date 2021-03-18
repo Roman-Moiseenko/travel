@@ -24,7 +24,7 @@ class FunHelper
     {
         $bookings = BookingFun::find()->alias('f')
             ->joinWith('calendars c')
-            ->andWhere(['f.fun_id' => $fun_id])
+            ->andWhere(['f.object_id' => $fun_id])
             ->andWhere(['>=', 'c.fun_at', time()])
             ->andWhere(
                 [
@@ -39,7 +39,7 @@ class FunHelper
             ->all();
         $count = 0;
         foreach ($bookings as $booking) {
-            $count += $booking->countTickets();
+            $count += $booking->quantity();
         }
         return $count;
     }

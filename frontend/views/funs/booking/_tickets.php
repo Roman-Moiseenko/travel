@@ -48,17 +48,5 @@ use booking\helpers\CurrencyHelper;
     <textarea id="comment" name="comment" class="form-control" rows="2"></textarea>
 </div>
 <?php endif; ?>
-
-<p><b><?= Lang::t('Промо-код') . ':' ?></b></p>
-<input class="form-control" id="discount" name="discount" type="text" value=""/>
 <!-- ИТОГО -->
-<div class="row pt-4 pb-2">
-    <div class="col-5 pr-1">
-        <span style="font-size: 14px; font-weight: 600;">ИТОГО:</span>
-    </div>
-    <div class="col-4 px-1" id="fun-amount" data-amount="<?= 0 ?>">
-        <span class="badge badge-success" style="font-size: 18px; font-weight: 600;">
-            <?= ' - ' ?>
-        </span>
-    </div>
-</div>
+<div id="fun-amount"></div>

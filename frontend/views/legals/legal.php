@@ -15,10 +15,11 @@ use yii\helpers\Html;
 /* @var $legal Legal */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $legal->description]);
-MapAsset::register($this);
+
 $this->title = $legal->caption;
 $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
+MapAsset::register($this);
 SwiperAsset::register($this);
 ?>
 

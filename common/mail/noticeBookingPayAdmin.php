@@ -1,10 +1,11 @@
 <?php
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
@@ -38,7 +39,7 @@ $url = \Yii::$app->params['adminHostInfo'];
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
                 <?= '' ?>
             </td>
             <td style="width: 25%"></td>

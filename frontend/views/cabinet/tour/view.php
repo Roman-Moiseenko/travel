@@ -10,7 +10,8 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\SysHelper;use booking\helpers\tours\TourHelper;
+use booking\helpers\SysHelper;
+use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use yii\helpers\Html;
@@ -20,8 +21,8 @@ $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 $this->params['breadcrumbs'][] = $this->title;
 
-MapAsset::register($this);
 MagnificPopupAsset::register($this);
+MapAsset::register($this);
 $tour = $booking->calendar->tour;
 ?>
     <!-- Фото + Название + Ссылка -->
@@ -74,44 +75,42 @@ $tour = $booking->calendar->tour;
                         <th><?= Lang::t('Время начало') ?>:</th>
                         <td colspan="3"><?= $booking->calendar->time_at ?></td>
                     </tr>
-                    <?php if ($booking->count->adult !== 0): ?>
-                        <tr>
-                            <th><?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->adult) ?></td>
-                            <td>x <?= $booking->count->adult ?> шт</td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->adult * (int)$booking->calendar->cost->adult) ?> </td>
-                        </tr>
+                    <?php if (!$tour->params->private): ?>
+                        <?php if ($booking->count->adult !== 0): ?>
+                            <tr>
+                                <th><?= Lang::t('Взрослый билет') ?></th>
+                                <td><?= $booking->count->adult ?> шт</td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($booking->count->child !== 0): ?>
+                            <tr>
+                                <th><?= Lang::t('Детский билет') ?></th>
+                                <td><?= $booking->count->child ?> <?= Lang::t('шт') ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($booking->count->preference !== 0): ?>
+                            <tr>
+                                <th><?= Lang::t('Льготный билет') ?></th>
+                                <td><?= $booking->count->preference ?> <?= Lang::t('шт') ?></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif; ?>
-                    <?php if ($booking->count->child !== 0): ?>
-                        <tr>
-                            <th><?= Lang::t('Детский билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->child) ?></td>
-                            <td>x <?= $booking->count->child ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->child * (int)$booking->calendar->cost->child) ?> </td>
-                        </tr>
-                    <?php endif; ?>
-                    <?php if ($booking->count->preference !== 0): ?>
-                        <tr>
-                            <th><?= Lang::t('Льготный билет') ?></th>
-                            <td><?= CurrencyHelper::get($booking->calendar->cost->preference) ?></td>
-                            <td>x <?= $booking->count->preference ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$booking->calendar->cost->preference) ?> </td>
-                        </tr>
-                    <?php endif; ?>
-                    <?php if ($booking->discount != null): ?>
-                        <tr class="py-2 my-2">
-                            <th class="py-3 my-2"><?= Lang::t('Скидка') ?></th>
-                            <td></td>
-                            <td></td>
-                            <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent / 100 : $booking->bonus) . ' (' . $booking->discount->promo . ')' ?> </td>
-                        </tr>
-                    <?php endif; ?>
+
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
-                        <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
+                        <th class="py-3 my-2"><?= $tour->params->private ? Lang::t('Стоимость экскурсии') : Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get($booking->getAmountDiscount()) ?> </td>
+                        <td style="font-size: 22px;"><span
+                                    class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
+                    </tr>
+                    <tr class="price-view py-2 my-2">
+                        <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' (' . $booking->getPayment()->percent . '%)' ?></th>
+                        <td></td>
+                        <td></td>
+                        <td style="font-size: 26px;"><span
+                                    class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -124,15 +123,16 @@ $tour = $booking->calendar->tour;
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/tour', 'id' => $booking->id]) ?>"
                                class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->calendar->tour->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
+                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
                     </div>
-                    <div>
-                        <?php if ($booking->isCheckBooking()): ?>
-                            <?= Lang::t('Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
+                    <div style="font-size: 12px">
+                        <?= Lang::t('* При предоплате, оставшаяся часть оплачивается на месте') ?><br>
+                        <?php if ($booking->isPaidLocally()): ?>
+                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
                         <?php else: ?>
-                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
+                            <?= Lang::t('* Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
@@ -156,12 +156,12 @@ $tour = $booking->calendar->tour;
                                     <i class="fas fa-print"></i></a>
                             </div>
                         </li>
-                            <li>
-                                <?= Lang::t('Распечатать чек об оплате')  ?>
-                                <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' =>$booking->payment_id]) //'/cabinet/print/check', 'id' => $booking->id?>">
+                        <li>
+                            <?= Lang::t('Распечатать чек об оплате') ?>
+                            <a class="btn-sm btn-primary"
+                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->payment_id]) //'/cabinet/print/check', 'id' => $booking->id ?>">
                                 <i class="fas fa-print"></i></a>
-                            </li>
+                        </li>
                     </ul>
                     <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
                         <div class="py-3">
@@ -284,6 +284,8 @@ $tour = $booking->calendar->tour;
             <!-- Координаты -->
             <div class="row pt-4">
                 <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                     <div class="container-hr">
                         <hr/>
                         <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
@@ -291,13 +293,14 @@ $tour = $booking->calendar->tour;
                     <div class="params-item-map">
                         <div class="row">
                             <div class="col-4">
-                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                <button class="btn btn-outline-secondary loader_ymap" type="button"
+                                        data-toggle="collapse"
                                         data-target="#collapse-map"
                                         aria-expanded="false" aria-controls="collapse-map">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место сбора') ?>:
                             </div>
-                            <div class="col-8" id="address"></div>
+                            <div class="col-8"><?= $tour->params->beginAddress->address ?? ' ' ?></div>
                         </div>
                         <div class="collapse" id="collapse-map">
                             <div class="card card-body">
@@ -327,13 +330,14 @@ $tour = $booking->calendar->tour;
                         <div class="row">
                             <div class="col-4">
 
-                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                <button class="btn btn-outline-secondary loader_ymap" type="button"
+                                        data-toggle="collapse"
                                         data-target="#collapse-map-2"
                                         aria-expanded="false" aria-controls="collapse-map-2">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место окончания') ?>:
                             </div>
-                            <div class="col-8" id="address-2"></div>
+                            <div class="col-8"><?= $tour->params->endAddress->address ?></div>
                         </div>
                         <div class="collapse" id="collapse-map-2">
                             <div class="card card-body">
@@ -362,13 +366,14 @@ $tour = $booking->calendar->tour;
                         <div class="row">
                             <div class="col-4">
 
-                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+                                <button class="btn btn-outline-secondary loader_ymap" type="button"
+                                        data-toggle="collapse"
                                         data-target="#collapse-map-3"
                                         aria-expanded="false" aria-controls="collapse-map-2">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>&#160;<?= Lang::t('Место проведение') ?>:
                             </div>
-                            <div class="col-8" id="address-3"></div>
+                            <div class="col-8"><?= $tour->address->address ?? ' ' ?></div>
                         </div>
                         <div class="collapse" id="collapse-map-3">
                             <div class="card card-body">

@@ -1,11 +1,12 @@
 <?php
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];

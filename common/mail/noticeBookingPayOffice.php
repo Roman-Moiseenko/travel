@@ -1,10 +1,11 @@
 <?php
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 ?>
 
@@ -24,7 +25,7 @@ use booking\helpers\CurrencyHelper;
                 <?= $booking->getName() ?><br>
                 <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
                 Номер брони:&#160;<b><?= BookingHelper::number($booking) ?></b><br>
-                Сумма:&#160;<b><?= CurrencyHelper::get($booking->getAmountPayAdmin()) ?></b><br>
+                Сумма:&#160;<b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
             </td>
             <td style="width: 25%"></td>
         </tr>

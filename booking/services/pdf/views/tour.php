@@ -96,7 +96,7 @@ $legal = $booking->getLegal();
                 <?php endif; ?>
                 <tr style="background-color: #e4e4e4">
                     <td><b><?= Lang::t('Оплачено') ?>:</b></td>
-                    <td><?= CurrencyHelper::cost($booking->getAmountDiscount()) ?></td>
+                    <td><?= CurrencyHelper::cost($booking->getPayment()->getPrepay()) ?></td>
                 </tr>
                 </tbody>
             </table>

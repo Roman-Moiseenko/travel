@@ -76,26 +76,23 @@ $car = $booking->car;
                         <td colspan="3"><?= date('d-m-Y', $booking->end_at) ?></td>
                     </tr>
                         <tr>
-                            <th><?= Lang::t('Стоимость проката') ?></th>
-                            <td><?= CurrencyHelper::get($booking->getAmount()) ?></td>
-                            <td>x <?= $booking->count ?> шт</td>
-                            <td><?= CurrencyHelper::get((int)$booking->count * (int)$booking->getAmount()) ?> </td>
+                            <th><?= Lang::t('Транспортное средство') ?></th>
+                            <td><?= $booking->quantity() ?> шт</td>
                         </tr>
 
-                    <?php if ($booking->discount != null): ?>
-                        <tr class="py-2 my-2">
-                            <th class="py-3 my-2"><?= Lang::t('Скидка') ?></th>
-                            <td></td>
-                            <td></td>
-                            <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent / 100 : $booking->bonus) . ' (' . $booking->discount->promo . ')' ?> </td>
-                        </tr>
-                    <?php endif; ?>
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get($booking->getAmountDiscount()) ?> </td>
+                        <td style="font-size: 22px;"><span class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
+
+                    </tr>
+                    <tr class="price-view py-2 my-2">
+                        <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' ('. $booking->getPayment()->percent . '%)' ?></th>
+                        <td></td>
+                        <td></td>
+                        <td style="font-size: 26px;"><span class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?> </span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -108,15 +105,16 @@ $car = $booking->car;
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/car', 'id' => $booking->id]) ?>"
                                class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->car->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
+                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
                     </div>
-                    <div>
-                        <?php if ($booking->isCheckBooking()): ?>
-                            <?= Lang::t('Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
+                    <div style="font-size: 12px">
+                        <?= Lang::t('* При предоплате, оставшаяся часть оплачивается на месте') ?><br>
+                        <?php if ($booking->isPaidLocally()): ?>
+                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
                         <?php else: ?>
-                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте прокат на месте.') ?>
+                            <?= Lang::t('* Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

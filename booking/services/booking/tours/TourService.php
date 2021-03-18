@@ -244,6 +244,7 @@ class TourService
         );
         //По умолчанию ч/з подтверждение
         $tour->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
+        $tour->setPrepay($form->prepay);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tour);
     }

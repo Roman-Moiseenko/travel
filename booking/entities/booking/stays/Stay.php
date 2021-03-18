@@ -56,6 +56,7 @@ use yii\web\UploadedFile;
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
  * @property integer $check_booking - Оплата через портал или  провайдера
  * @property integer $quantity - Количество автосредств данной модели
+ * @property integer $prepay
  *
  * @property float $rating
  * @property integer $views  Кол-во просмотров
@@ -150,6 +151,7 @@ class Stay extends ActiveRecord
         $stays->meta = new Meta();
         $stays->city = $city;
         $stays->to_center = $to_center;
+        $stays->prepay = 100;
         return $stays;
     }
 
@@ -163,6 +165,11 @@ class Stay extends ActiveRecord
         $this->description_en = $description_en;
         $this->city = $city;
         $this->to_center = $to_center;
+    }
+
+    public function setPrepay($prepay)
+    {
+        $this->prepay = $prepay;
     }
 
     //// AssignComfort::class ///////////////////////////

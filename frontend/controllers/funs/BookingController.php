@@ -114,8 +114,11 @@ class BookingController extends Controller
                 $calendar = $this->calendar->get($calendar_id);
                 $result += $count_adult * $calendar->cost->adult + $count_child * $calendar->cost->child + $count_preference * $calendar->cost->preference;
             }
-            return '<span class="badge badge-success" style="font-size: 18px; font-weight: 600;"> ' .
-                ($result !== 0 ? CurrencyHelper::get($result) : ' - ') . '</span>';
+            return $this->render('_amount', [
+                'full_cost' => $result,
+                'prepay' => $result * $calendar->fun->prepay / 100,
+                'percent' => $calendar->fun->prepay
+            ]);
         }
         return $this->goHome();
     }

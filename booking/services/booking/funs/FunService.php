@@ -249,6 +249,7 @@ class FunService
                 $form->baseCost->preference
             )
         );
+        $fun->setPrepay($form->prepay);
         //По умолчанию ч/з подтверждение
         $fun->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         //По умолчанию комиссия на Провайдере

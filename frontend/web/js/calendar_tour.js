@@ -112,6 +112,14 @@ $(document).ready(function () {
                 $('.tickets-tours').html(data);
                 if (_private) {
                     $('#button-booking-tour').removeAttr('disabled');
+                    $.post('/tours/booking/get-amount', {
+                        calendar_id: calendar_id,
+                        count_adult: 1,
+                        count_child: 0,
+                        count_preference: 0
+                    }, function (data) {
+                        $('#tour-amount').html(data);
+                    });
                 } else {
                     $('#button-booking-tour').attr('disabled', 'disabled');
                 }

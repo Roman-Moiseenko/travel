@@ -153,9 +153,9 @@ $this->registerJs($js);
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <?= $form->field($model, 'check_booking')
-                                ->radioList(BookingHelper::listCheck(), ['itemOptions' => $disabled])->label('Способ оплаты:')
+                        <div class="col-sm-2">
+                            <?= $form->field($model, 'prepay')
+                                ->dropdownList(BookingHelper::listPrepay())->label('Предоплата (%):')
                             ?>
                         </div>
                     </div>

@@ -47,6 +47,7 @@ use yii\web\UploadedFile;
  * @property integer $check_booking - Оплата через портал (102) или  провайдера (101)
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $discount_of_days - Скидка % при заказе более 3 дней
+ * @property integer $prepay
 
  * @property float $rating
  * @property integer $views  Кол-во просмотров
@@ -111,6 +112,7 @@ class Car extends ActiveRecord
         $car->check_booking = BookingHelper::BOOKING_CONFIRMATION;
         $car->quantity = 1;
         $car->meta = new Meta();
+        $car->prepay = 100;
 
         return $car;
     }
@@ -129,6 +131,11 @@ class Car extends ActiveRecord
     public function setParams(CarParams $params)
     {
         $this->params = $params;
+    }
+
+    public function setPrepay($prepay)
+    {
+        $this->prepay = $prepay;
     }
 
     public function assignCity($id): void
@@ -204,7 +211,8 @@ class Car extends ActiveRecord
 
     public function isConfirmation(): bool
     {
-        return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
+        return $this->prepay == 0;
+        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool

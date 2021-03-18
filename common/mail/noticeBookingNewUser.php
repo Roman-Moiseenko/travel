@@ -1,17 +1,18 @@
 <?php
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 $user = User::findOne($booking->getUserId());
 $url = \Yii::$app->params['frontendHostInfo'];
 
-$confirmation = !$booking->isCheckBooking();
+$confirmation = $booking->isPaidLocally();
 $lang = $user->preferences->lang;
 ?>
 
@@ -43,7 +44,8 @@ $lang = $user->preferences->lang;
                     <?= $booking->getName() ?>
                 </a>
                 <?= Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
-                <?= Lang::t('Сумма к оплате', $lang) ?>: <b><?= CurrencyHelper::get(BookingHelper::merchant($booking)) ?></b><br>
+                <?= Lang::t('Предоплата', $lang) . '(' . $booking->getPayment()->percent . '%)' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
+                <?= Lang::t('Сумма бронирования', $lang) ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></b><br>
                 <?= $confirmation ? Lang::t('Необходимо подтвердить бронирование в течение суток. В противном случае, Ваше бронирование будет отменено автоматически', $lang). '.' : Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>
             </td>
             <td style="width: 25%"></td>

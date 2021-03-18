@@ -87,7 +87,7 @@ class BookingController extends Controller
             foreach ($times as $time) {
                 $bookings = BookingFun::find()->alias('f')
                     ->joinWith('calendars c')
-                    ->andWhere(['f.fun_id' => $fun_id])
+                    ->andWhere(['f.object_id' => $fun_id])
                     ->andWhere(['c.fun_at' => $date])
                     ->andWhere(['c.time_at' => $time]);
                 if (!\Yii::$app->user->identity->preferences->view_cancel) {

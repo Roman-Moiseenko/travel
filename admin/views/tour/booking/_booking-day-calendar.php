@@ -84,8 +84,7 @@ $i = 0;
                 </span>
                         <br>
                         <span class="booking-item">
-                    <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getAmountPayAdmin()); ?>
-                            <?php if ($booking->discount) echo ' (' . $booking->discount->promo . ')' ?>
+                    <i class="fas fa-money-bill-alt"></i>&#160;&#160;<?= CurrencyHelper::get($booking->getPayment()->getPrepay()) . ' (' . $booking->getPayment()->percent . '%)'; ?>
                 </span>
                         <span class="booking-item">
                     <i class="fas fa-ticket-alt"></i>&#160;&#160;<?= $booking->count->adult + $booking->count->child + $booking->count->preference; ?>

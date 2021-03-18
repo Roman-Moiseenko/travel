@@ -39,16 +39,13 @@ class CheckoutController extends Controller
         try {
             $params = $session->get('params') ?? \Yii::$app->request->bodyParams; //параметры вернулись или напрямую с формы
             $session->remove('params');
-
             $booking = $this->service->create(
-                $params['fun-id'],
                 $params['calendar-id'],
                 new Cost(
                     $params['count-adult'] ?? 0,
                     $params['count-child'] ?? 0,
                     $params['count-preference'] ?? 0
                 ),
-                $params['discount'] ?? null,
                 $params['comment'] ?? ''
             );
             return $this->redirect(['/cabinet/fun/view', 'id' => $booking->id]);

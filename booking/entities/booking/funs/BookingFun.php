@@ -3,16 +3,12 @@
 
 namespace booking\entities\booking\funs;
 
-use booking\entities\admin\Legal;
 use booking\entities\admin\User;
-use booking\entities\booking\BookingItemInterface;
-use booking\entities\booking\Discount;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\tours\Cost;
-use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
 /**
@@ -20,31 +16,21 @@ use yii\helpers\Url;
  * @package booking\entities\booking\funs
  * @property integer $id
  * @property integer $user_id
- * @property integer $fun_id
  * @property integer $status
  * @property string $comment - комментарий к заказу
  * @property Cost $count
  * @property integer $created_at
 
 Выплаты
- * @property float $payment_provider - оплата провайдеру
- * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
- * @property string $payment_id - ID платежа по ЮКассе
- * @property integer $payment_at - дата оплаты
- * @property float $payment_merchant - оплата комиссии банку (в руб)
- * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
- * @property string $confirmation - код подтверждения, для неоплачиваемых
+
 
  * @property integer $pincode
  * @property boolean $unload
- * @property integer $discount_id
- * @property integer $bonus
 
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
 
- * @property Discount $discount
  * @property Fun $fun
  * @property \booking\entities\check\User $checkUser
  * @property BookingFunOnDay[] $days
@@ -56,23 +42,24 @@ use yii\helpers\Url;
  */
 
 
-class BookingFun extends ActiveRecord implements BookingItemInterface
+class BookingFun extends BaseBooking
 {
 
     public $count;
 
-    public static function create($fun_id, Cost $count, $comment): self
+    public static function create(array $calendar_ids, Cost $count, $comment): self
     {
+        if (count($calendar_ids) == 0) throw new \DomainException('Не заполнен календарь');
+        $calendar = CostCalendar::findOne($calendar_ids[0]);
         $booking = new static();
-        $booking->user_id = \Yii::$app->user->id;
-        $booking->fun_id = $fun_id;
-
         $booking->count = $count;
         $booking->comment = $comment;
-        $booking->status = BookingHelper::BOOKING_STATUS_NEW;
-        $booking->created_at = time();
-        $booking->pincode = rand(1001, 9900);
-        $booking->unload = false;
+
+        foreach ($calendar_ids as $calendar_id) {
+            $booking->addDay($calendar_id);
+        }
+
+        $booking->initiate($calendar->fun_id, $calendar->fun->legal_id, \Yii::$app->user->id, $calendar->fun->prepay);
         return $booking;
     }
 
@@ -81,45 +68,6 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         $days = $this->days;
         $days[] = BookingFunOnDay::create($calendar_id);
         $this->days = $days;
-    }
-
-    public function isFor($id): bool
-    {
-        return $this->id === $id;
-    }
-    public function setDiscount($discount_id)
-    {
-        $this->discount_id = $discount_id;
-    }
-
-    public function setBonus($bonus)
-    {
-        $this->bonus = $bonus;
-    }
-
-    public function pay()
-    {
-        $this->status = BookingHelper::BOOKING_STATUS_PAY;
-    }
-
-    public function confirmation()
-    {
-        $this->status = BookingHelper::BOOKING_STATUS_CONFIRMATION;
-    }
-
-    public function cancel()
-    {
-        $this->status = BookingHelper::BOOKING_STATUS_CANCEL;
-    }
-
-    public function cancelPay()
-    {
-        $this->status = BookingHelper::BOOKING_STATUS_CANCEL_PAY;
-    }
-
-    public function countTickets(): int
-    {
-        return (($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0)) * count($this->days);
     }
 
     public function afterFind(): void
@@ -143,7 +91,7 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
 
     public function getFun(): ActiveQuery
     {
-        return $this->hasOne(Fun::class, ['id' => 'fun_id']);
+        return $this->hasOne(Fun::class, ['id' => 'object_id']);
     }
 
 
@@ -156,24 +104,6 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
     {
         return $this->hasMany(CostCalendar::class, ['id' => 'calendar_id'])->via('days');
     }
-
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(\booking\entities\user\User::class, ['id' => 'user_id']);
-    }
-
-    /** ==========> Interface для личного кабинета */
-
-    public function getDiscount(): ActiveQuery
-    {
-        return $this->hasOne(Discount::class, ['id' => 'discount_id']);
-    }
-
-    public function getCheckUser(): ActiveQuery
-    {
-        return $this->hasOne(\booking\entities\check\User::class, ['id' => 'give_user_id']);
-    }
-
 
     public static function tableName()
     {
@@ -198,35 +128,9 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         return $this->fun->legal->user;
     }
 
-    public function getLegal(): Legal
-    {
-        return $this->fun->legal;
-    }
-
-    /** get field */
-    public function getParentId(): int
-    {
-        return $this->fun_id;
-    }
-
-    public function getUserId(): int
-    {
-        return $this->user_id;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function getDate(): int
     {
         return $this->days[0]->calendar->fun_at;
-    }
-
-    public function getCreated(): int
-    {
-        return $this->created_at;
     }
 
     public function getName(): string
@@ -237,13 +141,13 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
     public function getLinks(): array
     {
         return [
-            'admin' => Url::to(['fun/common', 'id' => $this->fun_id]),
-            'booking' => Url::to(['fun/booking/index', 'id' => $this->fun_id]),
+            'admin' => Url::to(['fun/common', 'id' => $this->object_id]),
+            'booking' => Url::to(['fun/booking/index', 'id' => $this->object_id]),
             'frontend' => Url::to(['cabinet/fun/view', 'id' => $this->id]),
             'pay' => Url::to(['cabinet/pay/fun', 'id' => $this->id]),
             'cancelpay' => Url::to(['cabinet/fun/cancelpay', 'id' => $this->id]),
-            'entities' => Url::to(['fun/view', 'id' => $this->fun_id]),
-            'office' => Url::to(['funs/view', 'id' => $this->fun_id]),
+            'entities' => Url::to(['fun/view', 'id' => $this->object_id]),
+            'office' => Url::to(['funs/view', 'id' => $this->object_id]),
         ];
     }
 
@@ -264,33 +168,9 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
             $result .= $day->calendar->time_at . ' ';
         }
         return $result;
-        //return $this->calendar->time_at;
     }
 
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
-    public function getAmount(): int
-    {
-        $cost = $this->getAmountCost();
-        return $this->count->adult * $cost->adult + $this->count->child * $cost->child + $this->count->preference * $cost->preference;
-
-        /*$amount = 0;
-        foreach ($this->days as $day) {
-            $amount += ($this->count->adult * $day->calendar->cost->adult ?? 0) +
-                ($this->count->child * $day->calendar->cost->child ?? 0) +
-                ($this->count->preference * $day->calendar->cost->preference ?? 0);
-        }
-
-        return $amount;*/
-        /*return ($this->count->adult * $this->calendar->cost->adult ?? 0) +
-            ($this->count->child * $this->calendar->cost->child ?? 0) +
-            ($this->count->preference * $this->calendar->cost->preference ?? 0); */
-    }
-
-    public function getAmountCost(): Cost
+    public function getCostClass(): Cost
     {
         $cost = new Cost();
         foreach ($this->days as $day) {
@@ -301,89 +181,29 @@ class BookingFun extends ActiveRecord implements BookingItemInterface
         return $cost;
     }
 
-    public function getAmountDiscount(): float
+    public function quantity(): int
     {
-        if (!$this->discount) return $this->getAmount(); //Скидок нет
-        if ($this->discount->isOffice()) {
-            return ($this->getAmount() - $this->bonus); // - Скидка от Портала
-        } else {
-            return ($this->getAmount() * (1 - $this->discount->percent / 100)); // - Скидка от Провайдера
-        }
+        return (($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0)) * count($this->days);
     }
 
-    public function getAmountPayAdmin(): float
+    public function isPaidLocally(): bool
     {
-        if (!$this->discount) return $this->getAmount();
-        if ($this->discount->isOffice()) return $this->getAmountDiscount();
-        return $this->getAmount();
+        return $this->fun->prepay == 0;
     }
 
-    public function getPaymentToProvider(): float
+    public function getCalendar(): ActiveQuery
     {
-        return $this->payment_provider;
+        throw new \DomainException('Не используется!');
     }
 
-    public function getConfirmationCode(): string
+    protected function getFullCostFrom(): float
     {
-        return $this->confirmation;
+        $cost = $this->getCostClass();
+        return $this->count->adult * $cost->adult + $this->count->child * $cost->child + $this->count->preference * $cost->preference;
     }
 
-    public function getPinCode(): int
+    protected function getPrepayFrom(): int
     {
-        return $this->pincode;
-    }
-
-    public function getCount(): int
-    {
-        return ($this->count->adult ?? 0) + ($this->count->child ?? 0) + ($this->count->preference ?? 0);
-    }
-
-    /** set */
-    public function setStatus(int $status)
-    {
-        $this->status = $status;
-        if (!$this->save()) {
-            throw new \DomainException(Lang::t('Ошибка изменения статуса'));
-        }
-    }
-
-    public function setPaymentId(string $payment_id)
-    {
-        $this->payment_id = $payment_id;
-        if (!$this->save()) {
-            throw new \DomainException(Lang::t('Ошибка сохранения payment_id - ') . $payment_id);
-        }
-    }
-
-    public function setGive()
-    {
-        $this->give_out = true;
-        $this->give_at = time();
-    }
-
-    /** is.. */
-    public function isPay(): bool
-    {
-        return $this->status == BookingHelper::BOOKING_STATUS_PAY;
-    }
-
-    public function isConfirmation(): bool
-    {
-        return $this->status == BookingHelper::BOOKING_STATUS_CONFIRMATION;
-    }
-
-    public function isCancel(): bool
-    {
-        return ($this->status == BookingHelper::BOOKING_STATUS_CANCEL || $this->status == BookingHelper::BOOKING_STATUS_CANCEL_PAY);
-    }
-
-    public function isCheckBooking(): bool
-    {
-        return $this->fun->check_booking == BookingHelper::BOOKING_PAYMENT;
-    }
-
-    public function isNew(): bool
-    {
-        return $this->status == BookingHelper::BOOKING_STATUS_NEW;
+        return $this->fun->prepay;
     }
 }

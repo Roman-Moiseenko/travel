@@ -4,6 +4,7 @@
 namespace booking\services\pdf;
 
 
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -20,7 +21,7 @@ use yii\web\Controller;
 class pdfServiceController extends Controller
 {
 
-    public function pdfFile(BookingItemInterface $booking, $file = false)
+    public function pdfFile(BaseBooking $booking, $file = false)
     {
         //TODO Заглушка Stay
         switch ($booking->getType()) {
@@ -75,12 +76,12 @@ class pdfServiceController extends Controller
         }
     }
 
-    public function pdfCheck54(BookingItemInterface $booking, ReceiptResponseInterface $item, $file = false)
+    public function pdfCheck54(BaseBooking $booking, ReceiptResponseInterface $item, $file = false)
     {
         //Генерируем QR qr.jpg
         $text =
             't='.date('YmdTHis', $item->registered_at->getTimestamp()).
-            '&s=' . number_format(BookingHelper::merchant($booking), 2, '.', '') .
+            '&s=' . number_format($booking->getPayment()->getPrepay(), 2, '.', '') .
             '&fn=' . $item->fiscal_storage_number.
             '&i=' . $item->fiscal_document_number .
             '&fp=' . $item->fiscal_attribute.

@@ -74,7 +74,7 @@ class PayController extends Controller
     {
         $booking = BookingTour::findOne($id);
         //Тур -> оплата на месте
-        if (!$booking->isCheckBooking()) {
+        if ($booking->isPaidLocally()) {
             //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
             $this->tourService->noticeConfirmation($id);
             $form = new ConfirmationForm();
@@ -98,7 +98,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         }
-        if ($booking->isCheckBooking()){
+        if (!$booking->isPaidLocally()){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }
@@ -107,7 +107,7 @@ class PayController extends Controller
     {
         $booking = BookingCar::findOne($id);
         //Авто -> оплата на месте
-        if (!$booking->isCheckBooking()) {
+        if ($booking->isPaidLocally()) {
             //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
             $this->carService->noticeConfirmation($id);
             $form = new ConfirmationForm();
@@ -131,7 +131,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         }
-        if ($booking->isCheckBooking()){
+        if (!$booking->isPaidLocally()){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }
@@ -140,7 +140,7 @@ class PayController extends Controller
     {
         $booking = BookingFun::findOne($id);
         //Тур -> оплата на месте
-        if (!$booking->isCheckBooking()) {
+        if ($booking->isPaidLocally()) {
             //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
             $this->funService->noticeConfirmation($id);
             $form = new ConfirmationForm();
@@ -164,7 +164,7 @@ class PayController extends Controller
                 'booking' => $booking,
             ]);
         }
-        if ($booking->isCheckBooking()){
+        if (!$booking->isPaidLocally()){
             return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
         }
     }

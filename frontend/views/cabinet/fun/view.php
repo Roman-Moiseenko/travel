@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 MapAsset::register($this);
 MagnificPopupAsset::register($this);
 $fun = $booking->fun;
-$cost_fun = $booking->getAmountCost();
+$cost_fun = $booking->getCostClass();
 ?>
     <!-- Фото + Название + Ссылка -->
     <div class="d-flex p-2">
@@ -80,33 +80,19 @@ $cost_fun = $booking->getAmountCost();
                     <?php if ($booking->count->adult !== 0): ?>
                         <tr>
                             <th width="40%"><?= Lang::t('Взрослый билет') ?></th>
-                            <td width="20%"><?= CurrencyHelper::get($cost_fun->adult) ?></td>
-                            <td width="20%">x <?= $booking->count->adult ?> шт</td>
-                            <td width="20%"><?= CurrencyHelper::get((int)$booking->count->adult * (int)$cost_fun->adult) ?> </td>
+                            <td width="20%"><?= $booking->count->adult ?> шт</td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->count->child !== 0): ?>
                         <tr>
                             <th><?= Lang::t('Детский билет') ?></th>
-                            <td><?= CurrencyHelper::get($cost_fun->child) ?></td>
-                            <td>x <?= $booking->count->child ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->child * (int)$cost_fun->child) ?> </td>
+                            <td><?= $booking->count->child ?> <?= Lang::t('шт') ?></td>
                         </tr>
                     <?php endif; ?>
                     <?php if ($booking->count->preference !== 0): ?>
                         <tr>
                             <th><?= Lang::t('Льготный билет') ?></th>
-                            <td><?= CurrencyHelper::get($cost_fun->preference) ?></td>
-                            <td>x <?= $booking->count->preference ?> <?= Lang::t('шт') ?></td>
-                            <td><?= CurrencyHelper::get((int)$booking->count->preference * (int)$cost_fun->preference) ?> </td>
-                        </tr>
-                    <?php endif; ?>
-                    <?php if ($booking->discount != null): ?>
-                        <tr class="py-2 my-2">
-                            <th class="py-3 my-2"><?= Lang::t('Скидка') ?></th>
-                            <td></td>
-                            <td></td>
-                            <td><?= CurrencyHelper::get($booking->bonus == 0 ? $booking->getAmount() * $booking->discount->percent / 100 : $booking->bonus) . ' (' . $booking->discount->promo . ')' ?> </td>
+                            <td><?= $booking->count->preference ?> <?= Lang::t('шт') ?></td>
                         </tr>
                     <?php endif; ?>
                     <tr></tr>
@@ -114,7 +100,13 @@ $cost_fun = $booking->getAmountCost();
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td><?= CurrencyHelper::get($booking->getAmountDiscount()) ?> </td>
+                        <td style="font-size: 22px;"><span class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
+                    </tr>
+                    <tr class="price-view py-2 my-2">
+                        <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' ('. $booking->getPayment()->percent . '%)' ?></th>
+                        <td></td>
+                        <td></td>
+                        <td style="font-size: 26px;"><span class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?> </span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -127,15 +119,16 @@ $cost_fun = $booking->getAmountCost();
                         <div class="ml-auto">
                             <a href="<?= Url::to(['/cabinet/pay/fun', 'id' => $booking->id]) ?>"
                                class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->fun->isConfirmation()) ? 'Подтвердить' : 'Оплатить') ?>
+                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
                             </a>
                         </div>
                     </div>
-                    <div>
-                        <?php if ($booking->isCheckBooking()): ?>
-                            <?= Lang::t('Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
+                    <div style="font-size: 12px">
+                        <?= Lang::t('* При предоплате, оставшаяся часть оплачивается на месте') ?><br>
+                        <?php if ($booking->isPaidLocally()): ?>
+                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
                         <?php else: ?>
-                            <?= Lang::t('Подтверждение бронирования - бесплатно. Оплачивайте мероприятие на месте.') ?>
+                            <?= Lang::t('* Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
@@ -227,7 +220,7 @@ $cost_fun = $booking->getAmountCost();
             </div>
             <!-- Описание -->
             <div class="row">
-                <div class="col-sm-9 params-tour text-justify">
+                <div class="col-sm-12 params-tour text-justify">
                     <?= Yii::$app->formatter->asHtml($fun->getDescription(), [
                         'Attr.AllowedRel' => array('nofollow'),
                         'HTML.SafeObject' => true,
@@ -236,9 +229,6 @@ $cost_fun = $booking->getAmountCost();
                         'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                     ]) ?>
 
-                </div>
-                <div class="col-sm-3">
-                    <?= LegalWidget::widget(['legal' => $fun->legal]) ?>
                 </div>
             </div>
             <!-- Стоимость -->

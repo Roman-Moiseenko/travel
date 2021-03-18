@@ -21,10 +21,12 @@ class CarFinanceForm extends Model
     public $cost;
     public $quantity;
     public $discount_of_days;
+    public $prepay;
 
     public function __construct(Car $car, $config = [])
     {
         $this->legal_id = $car->legal_id;
+        $this->prepay = $car->prepay;
         $this->cancellation = $car->cancellation;
         $this->check_booking = $car->check_booking;
         $this->deposit = $car->deposit;
@@ -38,7 +40,7 @@ class CarFinanceForm extends Model
     public function rules()
     {
         return [
-            [['legal_id', 'cancellation', 'deposit','cost', 'quantity', 'discount_of_days'], 'integer'],
+            [['legal_id', 'prepay', 'cancellation', 'deposit','cost', 'quantity', 'discount_of_days'], 'integer'],
             [['legal_id','cost','quantity'], 'required', 'message' => 'Обязательное поле'],
             [['check_booking'], 'in', 'range' => [BookingHelper::BOOKING_CONFIRMATION, BookingHelper::BOOKING_PAYMENT]],
           //  ['check_booking', 'required', 'message' => 'Обязательное поле']

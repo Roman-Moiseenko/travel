@@ -61,7 +61,7 @@ $mobil = SysHelper::isMobile();
                     <div class="ml-auto  align-self-center">
                         <div class="row price-list">
                             <div class="col-12">
-                                <?= CurrencyHelper::get($booking->getAmountDiscount()); ?>
+                                <?= CurrencyHelper::get($booking->getPayment()->getFull()); ?>
                             </div>
                         </div>
                         <div class="row">
