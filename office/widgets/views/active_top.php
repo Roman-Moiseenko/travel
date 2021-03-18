@@ -1,6 +1,5 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
 use yii\helpers\Url;
 
 

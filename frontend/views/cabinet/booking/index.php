@@ -1,14 +1,14 @@
 <?php
 
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SysHelper;use yii\helpers\Html;
 use yii\helpers\Url;
 
-/* @var $bookings BookingItemInterface[] */
+/* @var $bookings BaseBooking[] */
 /* @var $active bool */
 if ($active) {
     $this->title = Lang::t('Мои бронирования');

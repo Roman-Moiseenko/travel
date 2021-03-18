@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\booking\BookingItemInterface;
+use booking\entities\booking\BaseBooking;
 use booking\forms\booking\ConfirmationForm;
 use booking\entities\Lang;
 use yii\bootstrap4\ActiveForm;
@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $model ConfirmationForm */
-/* @var $booking BookingItemInterface */
+/* @var $booking BaseBooking */
 
 $this->title = Lang::t('Подтверждение отмены бронирования');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];

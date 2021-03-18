@@ -1,7 +1,6 @@
 <?php
 
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;

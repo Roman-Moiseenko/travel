@@ -78,6 +78,7 @@ $mobile = SysHelper::isMobile();
                 </div>
                 <div class="ml-auto"> <!-- pull-right rating-->
                     <?= RatingWidget::widget(['rating' => $tour->rating]) ?>
+                    <span class="badge badge-success"><?= ($tour->prepay == 0) ? Lang::t('без предоплаты') : ($tour->prepay != 100 ? Lang::t('предоплата') . ' '. $tour->prepay .'%' : '' ) ?></span>
                 </div>
             </div>
         </div>

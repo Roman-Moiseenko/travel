@@ -1,8 +1,6 @@
 <?php
 
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
-use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 /* @var $booking BaseBooking */

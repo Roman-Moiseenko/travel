@@ -1,7 +1,6 @@
 <?php
 
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\BookingItemInterface;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 

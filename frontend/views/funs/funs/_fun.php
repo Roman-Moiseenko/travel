@@ -66,6 +66,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="ml-auto">
                         <?= RatingWidget::widget(['rating' => $fun->rating]) ?>
+                        <span class="badge badge-success"><?= ($fun->prepay == 0) ? Lang::t('без предоплаты') : ($fun->prepay != 100 ? Lang::t('предоплата') . ' '. $fun->prepay .'%' : '' ) ?></span>
                     </div>
                     </div>
                 </div>

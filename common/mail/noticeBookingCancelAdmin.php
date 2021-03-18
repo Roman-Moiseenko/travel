@@ -5,11 +5,9 @@
 $user = $booking->getAdmin();
 $url = \Yii::$app->params['adminHostInfo'];
 
-
 use booking\entities\booking\BaseBooking;
-
 use booking\helpers\BookingHelper;
-use booking\helpers\CurrencyHelper; ?>
+?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
     <table style="width: 100%; border: 0;color: #0b0b0b;">
