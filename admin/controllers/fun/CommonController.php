@@ -41,6 +41,7 @@ class CommonController extends Controller
     public function actionIndex($id)
     {
         $fun = $this->findModel($id);
+        if ($fun->filling) return $this->redirect($this->service->redirect_filling($fun));
         return $this->render('view', [
             'fun' => $fun
         ]);
@@ -53,8 +54,11 @@ class CommonController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $fun = $this->service->create($form);
-                \Yii::$app->session->setFlash('success', 'Тур успешно создан, теперь вы можете загрузить фотографии и настроить остальные параметры');
-                return $this->redirect(['/fun/common', 'id' => $fun->id]);
+                if ($fun->filling) {
+                    return $this->redirect($this->service->next_filling($fun));
+                } else {
+                    return $this->redirect(['/fun/common', 'id' => $fun->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

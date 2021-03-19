@@ -69,11 +69,14 @@ $this->params['breadcrumbs'][] = 'Фотографии';
                 ]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                <?php if ($fun->filling) {
+                    echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
+                } else {
+                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+                }
+                ?>
             </div>
-
             <?php ActiveForm::end(); ?>
-
         </div>
     </div>
 </div>

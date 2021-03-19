@@ -17,4 +17,6 @@ class Filling
     const DUTY = 9;
     const SERVICES = 10;
     const COMFORT_ROOM = 11;
+    const FINANCE = 12;
+    const CALENDAR = 13;
 }

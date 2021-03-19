@@ -57,12 +57,18 @@ class FinanceController extends Controller
     public function actionUpdate($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling) { $this->layout = 'main-create';}
         $form = new CarFinanceForm($car);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 //scr::p([$form->check_booking, \Yii::$app->request->post()]);
                 $this->service->setFinance($car->id, $form);
-                return $this->redirect(['/car/finance', 'id' => $car->id]);
+                if ($car->filling) {
+                    \Yii::$app->session->setFlash('success', 'Авто успешно создано! Заполните календарь и отправьте на модерацию с раздела Описание');
+                    return $this->redirect($this->service->next_filling($car));
+                } else {
+                    return $this->redirect(['/car/finance', 'id' => $car->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

@@ -63,11 +63,17 @@ class FinanceController extends Controller
     public function actionUpdate($id)
     {
         $fun = $this->findModel($id);
+        if ($fun->filling) { $this->layout = 'main-create';}
         $form = new FunFinanceForm($fun);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->setFinance($fun->id, $form);
-                return $this->redirect(['/fun/finance', 'id' => $fun->id]);
+                if ($fun->filling) {
+                    \Yii::$app->session->setFlash('success', 'Развлечение успешно создано! Заполните календарь и отправьте на модерацию с раздела Описание');
+                    return $this->redirect($this->service->next_filling($fun));
+                } else {
+                    return $this->redirect(['/fun/finance', 'id' => $fun->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

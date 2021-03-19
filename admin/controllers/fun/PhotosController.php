@@ -5,6 +5,7 @@ namespace admin\controllers\fun;
 
 use booking\entities\booking\funs\Fun;
 use booking\forms\booking\PhotosForm;
+use booking\helpers\Filling;
 use booking\services\booking\funs\FunService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -51,11 +52,21 @@ class PhotosController extends Controller
     public function actionIndex($id)
     {
         $fun = $this->findModel($id);
+        if ($fun->filling)
+            if ($fun->filling == Filling::PHOTOS) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($fun));
+            }
         $form = new PhotosForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addPhotos($fun->id, $form);
-                return $this->redirect(['/fun/photos/index', 'id' => $id, '#' => 'photos']);
+                if ($fun->filling) {
+                    return $this->redirect($this->service->next_filling($fun));
+                } else {
+                    return $this->redirect(['/fun/photos/index', 'id' => $id, '#' => 'photos']);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

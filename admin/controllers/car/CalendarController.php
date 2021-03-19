@@ -55,6 +55,7 @@ class CalendarController extends Controller
     public function actionIndex($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling) $this->service->next_filling($car);
         if ($car->user_id != \Yii::$app->user->id) {
             throw new \DomainException('У вас нет прав для данного Авто');
         }

@@ -13,10 +13,6 @@ use yii\helpers\Html;
 
 ?>
 
-<?php $form = ActiveForm::begin([
-    'options' => ['enctype' => 'multipart/form-data']
-]); ?>
-
 <div class="card card-secondary">
     <div class="card-header with-border">Основные</div>
     <div class="card-body">
@@ -99,8 +95,3 @@ use yii\helpers\Html;
     </div>
 </div>
 
-<div class="form-group">
-    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-</div>
-
-<?php ActiveForm::end(); ?>

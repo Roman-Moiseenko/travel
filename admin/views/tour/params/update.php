@@ -178,7 +178,12 @@ $this->params['breadcrumbs'][] = 'Редактировать';
 </div>
 
 <div class="form-group">
-    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    <?php if ($tour->filling) {
+        echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
+    } else {
+        echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+    }
+    ?>
 </div>
 
 <?php ActiveForm::end(); ?>

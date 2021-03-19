@@ -11,6 +11,23 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model CarParamsForm */
 /* @var $car Car */
+$js=<<<JS
+$(document).ready(function() {
+    $('body').on('change', '#agelimitform-on', function () {
+
+        if ($(this).is(':checked')) {
+            $('#agelimitform-agemin').val('');
+            $('#agelimitform-agemax').val('');
+            $('.agelimit-edit').show();
+
+        } else {
+
+            $('.agelimit-edit').hide();
+        }
+    });
+});    
+JS;
+$this->registerJs($js);
 
 $this->title = 'Редактировать Авто ' . $car->name;
 $this->params['id'] = $car->id;
@@ -118,7 +135,12 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php if ($car->filling) {
+            echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
+        } else {
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+        }
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

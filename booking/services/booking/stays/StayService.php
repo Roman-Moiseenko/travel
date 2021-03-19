@@ -198,8 +198,6 @@ class StayService
     public function setComfort($id, StayComfortForm $form)
     {
         $stay = $this->stays->get($id);
-        //$stay->revokeComforts();
-        //$this->stays->save($stay);
         foreach ($form->assignComforts as $item) {
             if ($item->checked) {
                 $stay->setComfort($item->comfort_id, $item->pay, $item->file);

@@ -66,12 +66,18 @@ class FinanceController extends Controller
     public function actionUpdate($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling) { $this->layout = 'main-create';}
         $form = new TourFinanceForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 //scr::p([$form->check_booking, \Yii::$app->request->post()]);
                 $this->service->setFinance($tour->id, $form);
-                return $this->redirect(['/tour/finance', 'id' => $tour->id]);
+                if ($tour->filling) {
+                    \Yii::$app->session->setFlash('success', 'Тур успешно создан! Заполните календарь и отправьте на модерацию с раздела Описание');
+                    return $this->redirect($this->service->next_filling($tour));
+                } else {
+                    return $this->redirect(['/tour/finance', 'id' => $tour->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

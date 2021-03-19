@@ -6,6 +6,7 @@ namespace admin\controllers\tour;
 
 use booking\entities\booking\tours\Tour;
 use booking\forms\booking\PhotosForm;
+use booking\helpers\Filling;
 use booking\services\booking\tours\TourService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -55,11 +56,21 @@ class PhotosController extends Controller
     public function actionIndex($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling)
+            if ($tour->filling == Filling::PHOTOS) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($tour));
+            }
         $form = new PhotosForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addPhotos($tour->id, $form);
-                return $this->redirect(['/tour/photos/index', 'id' => $id, '#' => 'photos']);
+                if ($tour->filling) {
+                    return $this->redirect($this->service->next_filling($tour));
+                } else {
+                    return $this->redirect(['/tour/photos/index', 'id' => $id, '#' => 'photos']);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

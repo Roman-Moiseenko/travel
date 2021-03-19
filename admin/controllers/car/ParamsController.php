@@ -40,7 +40,7 @@ class ParamsController extends Controller
     public function actionIndex($id)
     {
         $car = $this->findModel($id);
-
+        if ($car->filling) return $this->redirect($this->service->redirect_filling($car));
         return $this->render('view', [
             'car' => $car,
         ]);
@@ -50,12 +50,16 @@ class ParamsController extends Controller
     {
         $car = $this->findModel($id);
         $form = new CarParamsForm($car);
-        //scr::p(\Yii::$app->request->post());
+        if ($car->filling) { $this->layout = 'main-create';}
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             //scr::v('-');
             try {
                 $this->service->setParams($car->id, $form);
-                return $this->redirect(['/car/params', 'id' => $car->id]);
+                if ($car->filling) {
+                    return $this->redirect($this->service->next_filling($car));
+                } else {
+                    return $this->redirect(['/car/params', 'id' => $car->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

@@ -9,6 +9,7 @@ use booking\entities\booking\tours\Tour;
 use booking\forms\booking\tours\ExtraForm;
 use booking\forms\booking\tours\TourExtraForm;
 use booking\forms\booking\tours\TourParamsForm;
+use booking\helpers\Filling;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\services\booking\tours\ExtraService;
 use booking\services\booking\tours\TourService;
@@ -55,6 +56,12 @@ class ExtraController extends Controller
     public function actionIndex($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling)
+            if ($tour->filling == Filling::EXTRA) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($tour));
+            }
         $searchModel = new ExtraSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
@@ -65,6 +72,11 @@ class ExtraController extends Controller
         ]);
     }
 
+    public function actionFilling($id)
+    {
+        $tour = $this->findModel($id);
+        if ($tour->filling && $tour->filling == Filling::EXTRA) return $this->redirect($this->service->next_filling($tour));
+    }
 
     public function actionSetextra($tour_id, $extra_id, $set = false)
     {
@@ -76,6 +88,8 @@ class ExtraController extends Controller
     public function actionCreate($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling) { $this->layout = 'main-create';}
+
         $form = new ExtraForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -94,6 +108,8 @@ class ExtraController extends Controller
     public function actionUpdate($id, $extra_id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling) { $this->layout = 'main-create';}
+
         $extra = $this->extra->get($extra_id);
         $form = new ExtraForm($extra);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {

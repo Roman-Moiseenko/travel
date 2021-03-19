@@ -5,9 +5,7 @@ use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
 
-<?php $form = ActiveForm::begin([
-    'options' => ['enctype' => 'multipart/form-data']
-]); ?>
+
 <div class="row">
     <div class="col-md-6">
         <div class="card card-secondary">
@@ -57,8 +55,4 @@ use yii\helpers\Html; ?>
     </div>
 </div>
 
-<div class="form-group">
-    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-</div>
 
-<?php ActiveForm::end(); ?>

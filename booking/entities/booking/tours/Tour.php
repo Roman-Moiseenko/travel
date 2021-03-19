@@ -39,22 +39,17 @@ use yii\web\UploadedFile;
  * @property string $description_en
  * @property integer type_id
  * @property float $rating
+ * @property int $filling [int]
  *
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
  * @property integer $check_booking - Оплата через портал или  провайдера
-
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
  * @property integer $prepay
-
  * ====== Составные поля ===================================
- * @property Cost $baseCost
- * @property BookingAddress $address
  * @property TourParams $params
  * @property Meta $meta
-
-
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -67,6 +62,29 @@ use yii\web\UploadedFile;
  * @property CostCalendar[] $actualCalendar
  * @property Legal $legal
  * @property User $user
+ * @property string $adr_address [varchar(255)]
+ * @property string $adr_latitude [varchar(255)]
+ * @property string $adr_longitude [varchar(255)]
+ * @property string $params_duration [varchar(255)]
+ * @property string $params_begin_address [varchar(255)]
+ * @property string $params_begin_latitude [varchar(255)]
+ * @property string $params_begin_longitude [varchar(255)]
+ * @property string $params_end_address [varchar(255)]
+ * @property string $params_end_latitude [varchar(255)]
+ * @property string $params_end_longitude [varchar(255)]
+ * @property bool $params_limit_on [tinyint(1)]
+ * @property int $params_limit_min [int]
+ * @property int $params_limit_max [int]
+ * @property bool $params_private [tinyint(1)]
+ * @property int $params_groupMin [int]
+ * @property int $params_groupMax [int]
+ * @property bool $params_children [tinyint(1)]
+ * @property int $cost_adult [int]
+ * @property int $cost_child [int]
+ * @property int $cost_preference [int]
+ * @property string $meta_json
+ * @property string $params_annotation [varchar(255)]
+
  */
 class Tour extends ActiveRecord
 {
@@ -79,9 +97,10 @@ class Tour extends ActiveRecord
 
     //Кол-во дней от публикации, когда объект "новый"
     const NEW_DAYS = 7;
-
+    /** @var $address BookingAddress */
     public $address;
     public $params;
+    /** @var $baseCost Cost */
     public $baseCost;
 
     public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug): self

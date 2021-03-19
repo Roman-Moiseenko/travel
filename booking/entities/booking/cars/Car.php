@@ -39,7 +39,6 @@ use yii\web\UploadedFile;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
-
  * ====== Финансы ===================================
  * @property integer $deposit - Залог
  * @property integer $cost - цена в сутки
@@ -48,16 +47,13 @@ use yii\web\UploadedFile;
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $discount_of_days - Скидка % при заказе более 3 дней
  * @property integer $prepay
-
  * @property float $rating
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
-
  * ====== Составные поля ===================================
  * @property BookingAddress[] $address
  * @property CarParams $params Возраст, Вод.права категория (entities), Стаж, мин.срок, Доставка
  * @property Meta $meta
-
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -71,6 +67,16 @@ use yii\web\UploadedFile;
  * @property AssignmentCity[] $assignmentCities
  * @property City[] $cities
  * @property User $user
+ * @property bool $params_age_on [tinyint(1)]
+ * @property int $params_age_min [int]
+ * @property int $params_age_max [int]
+ * @property int $params_min_rent [int]
+ * @property bool $params_delivery [tinyint(1)]
+ * @property string $params_license [varchar(5)]
+ * @property int $params_experience [int]
+ * @property string $address_json [json]
+ * @property string $meta_json
+ * @property int $filling [int]
  */
 class Car extends ActiveRecord
 {

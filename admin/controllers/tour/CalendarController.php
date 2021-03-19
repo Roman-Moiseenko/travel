@@ -60,6 +60,7 @@ class CalendarController extends Controller
     public function actionIndex($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling) $this->service->next_filling($tour);
         if ($tour->user_id != \Yii::$app->user->id) {
             throw new \DomainException('У вас нет прав для данного тура');
         }

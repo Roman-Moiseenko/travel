@@ -14,8 +14,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Авто', 'url' => ['/cars']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-create">
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
     <?= $this->render('_form', [
         'model' => $model,
+        'form' => $form
     ]) ?>
+    <div class="form-group">
+        <?= Html::submitButton('Далее >>', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 </div>
 

@@ -19,6 +19,7 @@ use booking\forms\booking\tours\TourFinanceForm;
 use booking\forms\booking\tours\TourParamsForm;
 use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
+use booking\helpers\Filling;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\ExtraRepository;
@@ -89,6 +90,7 @@ class TourService
             $type = $this->types->get($otherId);
             $tour->assignType($type->id);
         }
+        $tour->filling = Filling::COMMON;
         $this->tours->save($tour);
         return $tour;
     }
@@ -383,6 +385,38 @@ class TourService
         $tour = $this->tours->get($id);
         $tour->setMeta(new Meta($form->title, $form->description, $form->keywords));
         $this->tours->save($tour);
+    }
+
+    /** FILLING */
+
+    public function next_filling(Tour $tour)
+    {
+        if ($tour->filling == null) return null;
+        $next = [
+            Filling::COMMON => Filling::PHOTOS,
+            Filling::PHOTOS => Filling::PARAMS,
+            Filling::PARAMS => Filling::EXTRA,
+            Filling::EXTRA => Filling::FINANCE,
+            Filling::FINANCE => Filling::CALENDAR,
+            Filling::CALENDAR => null,
+        ];
+        $tour->filling = $next[$tour->filling];
+        $this->tours->save($tour);
+        return $this->redirect_filling($tour);
+    }
+
+    public function redirect_filling(Tour $tour)
+    {
+        if ($tour->filling == null) return null;
+        $redirect = [
+            Filling::COMMON => ['/tour/common/create', 'id' => $tour->id],
+            Filling::PHOTOS => ['/tour/photos/index', 'id' => $tour->id],
+            Filling::PARAMS => ['/tour/params/update', 'id' => $tour->id],
+            Filling::EXTRA => ['/tour/extra/index', 'id' => $tour->id],
+            Filling::FINANCE => ['/tour/finance/update', 'id' => $tour->id],
+            Filling::CALENDAR => ['/tour/calendar/index', 'id' => $tour->id],
+        ];
+        return $redirect[$tour->filling];
     }
 
 }

@@ -21,6 +21,7 @@ use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
+use booking\helpers\Filling;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\funs\CostCalendarRepository;
 use booking\repositories\booking\funs\ExtraRepository;
@@ -102,7 +103,7 @@ class FunService
             $form->name_en,
             $form->description_en
         );
-
+        $fun->filling = Filling::COMMON;
         $this->funs->save($fun);
         return $fun;
     }
@@ -410,5 +411,37 @@ class FunService
     {
         $fun->upViews();
         $this->funs->save($fun);
+    }
+
+    /** FILLING */
+
+    public function next_filling(Fun $fun)
+    {
+        if ($fun->filling == null) return null;
+        $next = [
+            Filling::COMMON => Filling::PHOTOS,
+            Filling::PHOTOS => Filling::PARAMS,
+            Filling::PARAMS => Filling::EXTRA,
+            Filling::EXTRA => Filling::FINANCE,
+            Filling::FINANCE => Filling::CALENDAR,
+            Filling::CALENDAR => null
+        ];
+        $fun->filling = $next[$fun->filling];
+        $this->funs->save($fun);
+        return $this->redirect_filling($fun);
+    }
+
+    public function redirect_filling(Fun $fun)
+    {
+        if ($fun->filling == null) return null;
+        $redirect = [
+            Filling::COMMON => ['/fun/common/create', 'id' => $fun->id],
+            Filling::PHOTOS => ['/fun/photos/index', 'id' => $fun->id],
+            Filling::PARAMS => ['/fun/params/update', 'id' => $fun->id],
+            Filling::EXTRA => ['/fun/extra/index', 'id' => $fun->id],
+            Filling::FINANCE => ['/fun/finance/update', 'id' => $fun->id],
+            Filling::CALENDAR => ['/fun/calendar/index', 'id' => $fun->id],
+        ];
+        return $redirect[$fun->filling];
     }
 }

@@ -58,7 +58,6 @@ use yii\web\UploadedFile;
  * @property FunParams $params
  * @property Cost $baseCost Цена на билет взрослый, дети, льготные
  * @property Meta $meta
-
  * ====== GET-Ы ============================================
  * @property Type $type
  * @property Photo $mainPhoto
@@ -70,7 +69,6 @@ use yii\web\UploadedFile;
  * @property Legal $legal
  * @property Value[] $values
  * @property User $user
-
  * ====== Скрытые поля ===================================
  * @property int $cost_adult [int]
  * @property int $cost_child [int]
@@ -83,6 +81,8 @@ use yii\web\UploadedFile;
  * @property int $params_limit_max [int]
  * @property string $params_annotation [varchar(255)]
  * @property string $params_work_mode [json]
+ * @property string $meta_json
+ * @property int $filling [int]
  */
 
 class Fun extends ActiveRecord

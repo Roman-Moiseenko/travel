@@ -11,6 +11,25 @@ use yii\bootstrap4\ActiveForm;
 /* @var $model FunParamsForm */
 /* @var $fun Fun */
 
+
+$js=<<<JS
+$(document).ready(function() {
+    $('body').on('change', '#agelimitform-on', function () {
+
+        if ($(this).is(':checked')) {
+            $('#agelimitform-agemin').val('');
+            $('#agelimitform-agemax').val('');
+            $('.agelimit-edit').show();
+
+        } else {
+
+            $('.agelimit-edit').hide();
+        }
+    });
+});    
+JS;
+$this->registerJs($js);
+
 $this->title = 'Редактировать Развлечение ' . $fun->name;
 $this->params['id'] = $fun->id;
 $this->params['breadcrumbs'][] = ['label' => 'Развлечения', 'url' => ['/funs']];
@@ -94,7 +113,12 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php if ($fun->filling) {
+            echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
+        } else {
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+        }
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

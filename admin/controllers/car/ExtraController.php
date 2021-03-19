@@ -6,6 +6,7 @@ namespace admin\controllers\car;
 use admin\forms\cars\ExtraSearch;
 use booking\entities\booking\cars\Car;
 use booking\forms\booking\cars\ExtraForm;
+use booking\helpers\Filling;
 use booking\repositories\booking\cars\ExtraRepository;
 use booking\services\booking\cars\CarService;
 use booking\services\booking\cars\ExtraService;
@@ -52,6 +53,12 @@ class ExtraController extends Controller
     public function actionIndex($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling)
+            if ($car->filling == Filling::EXTRA) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($car));
+            }
         $searchModel = new ExtraSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
@@ -62,17 +69,21 @@ class ExtraController extends Controller
         ]);
     }
 
+    public function actionFilling($id)
+    {
+        $car = $this->findModel($id);
+        if ($car->filling && $car->filling == Filling::EXTRA) return $this->redirect($this->service->next_filling($car));
+    }
 
     public function actionSetextra($car_id, $extra_id, $set = false)
     {
         $this->service->setExtra($car_id, $extra_id, $set);
     }
 
-
-
     public function actionCreate($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling) { $this->layout = 'main-create';}
         $form = new ExtraForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -91,6 +102,7 @@ class ExtraController extends Controller
     public function actionUpdate($id, $extra_id)
     {
         $car = $this->findModel($id);
+        if ($car->filling) { $this->layout = 'main-create';}
         $extra = $this->extra->get($extra_id);
         $form = new ExtraForm($extra);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {

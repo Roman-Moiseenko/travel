@@ -45,6 +45,7 @@ class CommonController extends Controller
     public function actionIndex($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling) return $this->redirect($this->service->redirect_filling($car));
         return $this->render('view', [
             'car' => $car
         ]);
@@ -56,9 +57,13 @@ class CommonController extends Controller
         $form = new CarCommonForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $tour = $this->service->create($form);
-                \Yii::$app->session->setFlash('success', 'Авто успешно создано, теперь вы можете загрузить фотографии и настроить остальные параметры');
-                return $this->redirect(['/car/common', 'id' => $tour->id]);
+                $car = $this->service->create($form);
+
+                if ($car->filling) {
+                    return $this->redirect($this->service->next_filling($car));
+                } else {
+                    return $this->redirect(['/car/common', 'id' => $car->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

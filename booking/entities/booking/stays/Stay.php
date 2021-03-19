@@ -70,7 +70,6 @@ use yii\web\UploadedFile;
  * @property Type $type
  * @property Rules $rules
  * @property Meta $meta
-
  * ====== дополнительно ============================================
  * @property integer $filling ... текущий раздел при заполнении
  * ====== GET-Ы ============================================
@@ -99,6 +98,7 @@ use yii\web\UploadedFile;
  * @property int $params_guest [int]
  * @property int $params_deposit [int]
  * @property int $params_access [int]
+ * @property string $meta_json
  */
 class Stay extends ActiveRecord
 {

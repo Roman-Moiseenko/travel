@@ -132,4 +132,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
         </div>
     </div>
 </div>
-
+<?php if ($tour->filling) {
+    echo Html::a('Далее >>', Url::to(['filling', 'id' => $tour->id]), ['class' => 'btn btn-primary']);
+}
+?>

@@ -16,6 +16,7 @@ use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
+use booking\helpers\Filling;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\cars\CarRepository;
@@ -99,7 +100,7 @@ class CarService
         foreach ($form->cities->cities as $city) {
             $car->assignCity($city);
         }
-
+        $car->filling = Filling::COMMON;
         $this->cars->save($car);
         return $car;
     }
@@ -379,4 +380,35 @@ class CarService
         $this->cars->save($car);
     }
 
+    /** FILLING */
+
+    public function next_filling(Car $car)
+    {
+        if ($car->filling == null) return null;
+        $next = [
+            Filling::COMMON => Filling::PHOTOS,
+            Filling::PHOTOS => Filling::PARAMS,
+            Filling::PARAMS => Filling::EXTRA,
+            Filling::EXTRA => Filling::FINANCE,
+            Filling::FINANCE => Filling::CALENDAR,
+            Filling::CALENDAR => null
+        ];
+        $car->filling = $next[$car->filling];
+        $this->cars->save($car);
+        return $this->redirect_filling($car);
+    }
+
+    public function redirect_filling(Car $car)
+    {
+        if ($car->filling == null) return null;
+        $redirect = [
+            Filling::COMMON => ['/car/common/create', 'id' => $car->id],
+            Filling::PHOTOS => ['/car/photos/index', 'id' => $car->id],
+            Filling::PARAMS => ['/car/params/update', 'id' => $car->id],
+            Filling::EXTRA => ['/car/extra/index', 'id' => $car->id],
+            Filling::FINANCE => ['/car/finance/update', 'id' => $car->id],
+            Filling::CALENDAR => ['/car/calendar/index', 'id' => $car->id],
+        ];
+        return $redirect[$car->filling];
+    }
 }

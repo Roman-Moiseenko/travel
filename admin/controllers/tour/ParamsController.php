@@ -40,7 +40,7 @@ class ParamsController extends Controller
     public function actionIndex($id)
     {
         $tour = $this->findModel($id);
-
+        if ($tour->filling) return $this->redirect($this->service->redirect_filling($tour));
         return $this->render('view', [
             'tour' => $tour,
         ]);
@@ -49,11 +49,16 @@ class ParamsController extends Controller
     public function actionUpdate($id)
     {
         $tour = $this->findModel($id);
+        if ($tour->filling) { $this->layout = 'main-create';}
         $form = new TourParamsForm($tour->params);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->setParams($tour->id, $form);
-                return $this->redirect(['/tour/params', 'id' => $tour->id]);
+                if ($tour->filling) {
+                    return $this->redirect($this->service->next_filling($tour));
+                } else {
+                    return $this->redirect(['/tour/params', 'id' => $tour->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

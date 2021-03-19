@@ -6,6 +6,7 @@ namespace admin\controllers\car;
 
 use booking\entities\booking\cars\Car;
 use booking\forms\booking\PhotosForm;
+use booking\helpers\Filling;
 use booking\services\booking\cars\CarService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -56,11 +57,21 @@ class PhotosController extends Controller
     public function actionIndex($id)
     {
         $car = $this->findModel($id);
+        if ($car->filling)
+            if ($car->filling == Filling::PHOTOS) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($car));
+            }
         $form = new PhotosForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addPhotos($car->id, $form);
-                return $this->redirect(['/car/photos/index', 'id' => $id, '#' => 'photos']);
+                if ($car->filling) {
+                    return $this->redirect($this->service->next_filling($car));
+                } else {
+                    return $this->redirect(['/car/photos/index', 'id' => $id, '#' => 'photos']);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

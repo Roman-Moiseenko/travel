@@ -132,4 +132,7 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
         </div>
     </div>
 </div>
+<?php if ($fun->filling) {
+    echo Html::a('Далее >>', Url::to(['filling', 'id' => $fun->id]), ['class' => 'btn btn-primary']);
+}
 

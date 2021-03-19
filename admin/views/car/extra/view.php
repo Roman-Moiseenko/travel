@@ -134,3 +134,6 @@ $this->params['breadcrumbs'][] = 'Дополнительные услуги';
     </div>
 </div>
 
+<?php if ($car->filling) {
+    echo Html::a('Далее >>', Url::to(['filling', 'id' => $car->id]), ['class' => 'btn btn-primary']);
+}

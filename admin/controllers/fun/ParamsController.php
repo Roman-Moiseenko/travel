@@ -40,7 +40,7 @@ class ParamsController extends Controller
     public function actionIndex($id)
     {
         $fun = $this->findModel($id);
-
+        if ($fun->filling) return $this->redirect($this->service->redirect_filling($fun));
         return $this->render('view', [
             'fun' => $fun,
         ]);
@@ -49,11 +49,16 @@ class ParamsController extends Controller
     public function actionUpdate($id)
     {
         $fun = $this->findModel($id);
+        if ($fun->filling) { $this->layout = 'main-create';}
         $form = new FunParamsForm($fun);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->setParams($fun->id, $form);
-                return $this->redirect(['/fun/params', 'id' => $fun->id]);
+                if ($fun->filling) {
+                    return $this->redirect($this->service->next_filling($fun));
+                } else {
+                    return $this->redirect(['/fun/params', 'id' => $fun->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
