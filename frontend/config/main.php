@@ -120,6 +120,7 @@ return [
                 'apple-touch-icon.png' => 'apple-touch-icon.png',
                 'humans.txt' => 'humans.txt',
 
+                //'main' => 'site/main',
 
 
                 'cars' => 'cars/cars/index',

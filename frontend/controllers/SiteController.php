@@ -62,6 +62,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         //scr::v('!!!!');
+        $params = \Yii::$app->request->queryParams;
+        if (isset($params['_1984'])) return $this->render('index', []);
         return $this->redirect(['/tours']);
     }
 
@@ -69,6 +71,14 @@ class SiteController extends Controller
     {
         $this->layout ='main-update';
         return $this->render('update', []);
+    }
+
+    public function actionMain()
+    {
+        //TODO Тестовый экшн для будущей главной страницы index
+        //TODO Грузим  Экскурсии из Рекомендуем
+
+        return $this->render('index', []);
     }
 
 }

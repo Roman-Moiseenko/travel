@@ -67,7 +67,7 @@ class BookingObjectWidget extends Widget
             $obj[] = [
                 'photo' => $fun->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
                 'name' => $fun->getName(),
-                'link' => Url::to(['fun/view', 'id' => $car->id]),
+                'link' => Url::to(['fun/view', 'id' => $fun->id]),
                 'description' => $fun->getDescription(),
             ];
         }

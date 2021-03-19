@@ -24,6 +24,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <script src="https://www.googleoptimize.com/optimize.js?id=OPT-KW9ZPDX"></script>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="author" href="https://koenigs.ru/humans.txt">
@@ -64,10 +65,10 @@ if (isset($this->params['tour'])) TourAsset::register($this);
             accurateTrackBounce: true
         });
     </script>
-    <noscript>
+
         <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt=""/></div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
+
+    <!-- <noscript></noscript>  /Yandex.Metrika counter -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async
             src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>

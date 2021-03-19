@@ -10,8 +10,8 @@ use booking\entities\Lang;
 use yii\helpers\Html;
 
 
-if (isset(\Yii::$app->params['errors'][$exception->statusCode])) {
-    $custom_name = \Yii::$app->params['errors'][$exception->statusCode] . ' (' . $exception->statusCode . ')';
+if (isset(\Yii::$app->params['errors'][$exception->getCode()])) {
+    $custom_name = \Yii::$app->params['errors'][$exception->getCode()] . ' (' . $exception->getCode() . ')';
 } else {
     $custom_name = $name;
 }
