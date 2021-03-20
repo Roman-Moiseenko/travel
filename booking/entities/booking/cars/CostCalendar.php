@@ -16,7 +16,6 @@ use yii\db\ActiveRecord;
  * @property integer $car_id
  * @property integer $car_at
  * @property integer $count
- * @property integer $status
  * @property integer $cost
  * @property Car $car
  * @property BookingCarOnDay[] $bookingOnDays
@@ -32,7 +31,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         $calendar->car_at = $car_at;
         $calendar->count = $count;
         $calendar->cost = $cost;
-        $calendar->status = Car::CAR_EMPTY;
         return $calendar;
     }
 

@@ -213,7 +213,7 @@ class TourService
     {
 
         $tour = $this->tours->get($id);
-        echo $id . $extra_id . $set;
+        //echo $id . $extra_id . $set;
         if ($set) {
             $tour->assignExtra($extra_id);
         } else {
@@ -244,17 +244,9 @@ class TourService
                 $form->baseCost->preference
             )
         );
-        //По умолчанию ч/з подтверждение
-        $tour->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         $tour->setPrepay($form->prepay);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->tours->save($tour);
-    }
-
-
-    public function save(Tour $tours)
-    {
-        throw new \DomainException('ОШИБКА!!!!!!!!!!!!!!!!!!!!! БЛЯДЬ ОТКУДА!!!!!!!!!!!!!!!!!!!!11');
     }
 
     public function verify($id)

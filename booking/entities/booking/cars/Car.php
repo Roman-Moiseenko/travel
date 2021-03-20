@@ -43,7 +43,6 @@ use yii\web\UploadedFile;
  * @property integer $deposit - Залог
  * @property integer $cost - цена в сутки
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property integer $check_booking - Оплата через портал (102) или  провайдера (101)
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $discount_of_days - Скидка % при заказе более 3 дней
  * @property integer $prepay
@@ -80,12 +79,6 @@ use yii\web\UploadedFile;
  */
 class Car extends ActiveRecord
 {
-
-    const CAR_FULL = 11;
-    const CAR_CANCEL = 12;
-    const CAR_CURRIENT = 13;
-    const CAR_EMPTY = 14;
-
     const LICENSE = [
         'none' => 'none',
         'A' => 'A',
@@ -95,7 +88,7 @@ class Car extends ActiveRecord
         'M' => 'M',
     ];
 
-    public $address;
+    public $address = [];
     public $params;
     public $limit;
     public $meta;
@@ -115,7 +108,6 @@ class Car extends ActiveRecord
         $car->name_en = $name_en;
         $car->description_en = $description_en;
         $car->year = $year;
-        $car->check_booking = BookingHelper::BOOKING_CONFIRMATION;
         $car->quantity = 1;
         $car->meta = new Meta();
         $car->prepay = 100;
@@ -203,11 +195,6 @@ class Car extends ActiveRecord
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    public function setCheckBooking($check_booking)
-    {
-        $this->check_booking = $check_booking;
     }
 
     public function setDiscountOfDays($discount_of_days)

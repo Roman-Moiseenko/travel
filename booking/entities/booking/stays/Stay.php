@@ -28,6 +28,7 @@ use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use booking\helpers\SysHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
@@ -36,6 +37,7 @@ use yii\web\UploadedFile;
 /**
  * Class Stays
  * @package booking\entities\booking\stays
+ * Общие параметры *****************************
  * @property integer $id
  * @property integer $legal_id
  * @property integer $user_id
@@ -49,18 +51,27 @@ use yii\web\UploadedFile;
  * @property string $slug
  * @property integer $status
  * @property integer $main_photo_id
- * @property string $city
- * @property integer $to_center
- *
- * ====== Финансы ===================================
- * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property integer $check_booking - Оплата через портал или  провайдера
- * @property integer $quantity - Количество автосредств данной модели
- * @property integer $prepay
- *
  * @property float $rating
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
+ * @property Meta $meta
+ * @property BookingAddress $address
+ * ====== Финансы ===================================
+ * @property integer $cancellation Отмена бронирования - нет/за сколько дней
+ * @property integer $quantity - Количество автосредств данной модели
+ * @property integer $prepay
+
+ * @property integer $filling ... текущий раздел при заполнении
+ *
+ *
+ * Специфические параметры
+ * @property string $city
+ * @property integer $to_center
+ *
+ *
+
+ *
+
  * @property integer $cost_base
  * @property integer $guest_base
  * @property integer $cost_add
@@ -69,9 +80,8 @@ use yii\web\UploadedFile;
  * @property StayParams $params
  * @property Type $type
  * @property Rules $rules
- * @property Meta $meta
- * ====== дополнительно ============================================
- * @property integer $filling ... текущий раздел при заполнении
+
+
  * ====== GET-Ы ============================================
  * @property AssignComfort[] $assignComforts
  * @property AssignComfortRoom[] $assignComfortsRoom
@@ -103,7 +113,6 @@ use yii\web\UploadedFile;
 class Stay extends ActiveRecord
 {
     const MAX_BEDROOMS = 8;
-    const STAY_EMPTY = 14;
 
     const ERROR_NOT_FREE = -10;
     const ERROR_NOT_DATE = -20;
@@ -117,6 +126,7 @@ class Stay extends ActiveRecord
     public $address;
     /** @var $params StayParams */
     public $params;
+    /** @var $meta Meta */
     public $meta;
 
     public static function listErrors(): array
@@ -145,7 +155,6 @@ class Stay extends ActiveRecord
         $stays->description = $description;
         $stays->name_en = $name_en;
         $stays->description_en = $description_en;
-        $stays->check_booking = BookingHelper::BOOKING_PAYMENT;
         $stays->params = new StayParams();
         $stays->rules = Rules::create();
         $stays->meta = new Meta();
@@ -438,14 +447,9 @@ class Stay extends ActiveRecord
         $this->status = $status;
     }
 
-    public function setCheckBooking($check_booking)
-    {
-        $this->check_booking = $check_booking;
-    }
-
     public function isConfirmation(): bool
     {
-        return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
+        return $this->prepay == 0;
     }
 
     public function isActive(): bool
@@ -517,6 +521,7 @@ class Stay extends ActiveRecord
     {
         return [
             MetaBehavior::class,
+            TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [

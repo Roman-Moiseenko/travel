@@ -7,6 +7,7 @@ namespace booking\entities\booking\tours;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
+use booking\entities\booking\BasePhoto;
 use booking\entities\booking\BookingAddress;
 //use booking\entities\booking\stays\Geo;
 use booking\entities\booking\AgeLimit;
@@ -25,6 +26,7 @@ use yii\web\UploadedFile;
 /**
  * Class Tours
  * @package booking\entities\booking\tours
+ * Общие параметры *****************************
  * @property integer $id
  * @property integer $user_id
  * @property string $name
@@ -39,18 +41,24 @@ use yii\web\UploadedFile;
  * @property string $description_en
  * @property integer type_id
  * @property float $rating
- * @property int $filling [int]
- *
- * ====== Финансы ===================================
- * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property integer $check_booking - Оплата через портал или  провайдера
+ * @property integer $filling
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
- * @property integer $prepay
- * ====== Составные поля ===================================
- * @property TourParams $params
  * @property Meta $meta
- * ====== GET-Ы ============================================
+ *
+ * ====== Финансы
+ * @property integer $cancellation Отмена бронирования - нет/за сколько дней
+ * @property integer $prepay
+ *
+ * ====== Внешние связи
+ * @property Legal $legal
+ * @property User $user
+ *
+ * Специфические параметры*****************************
+ * ====== Составные поля ==============================
+ * @property TourParams $params
+
+ * ====== Внешние связи ===============================
  * @property Type $type
  * @property Photo $mainPhoto
  * @property ExtraAssignment[] $extraAssignments
@@ -60,8 +68,7 @@ use yii\web\UploadedFile;
  * @property Photo[] $photos
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
- * @property Legal $legal
- * @property User $user
+
  * @property string $adr_address [varchar(255)]
  * @property string $adr_latitude [varchar(255)]
  * @property string $adr_longitude [varchar(255)]
@@ -90,11 +97,6 @@ class Tour extends ActiveRecord
 {
     public $meta;
 
-    const TOUR_FULL = 11;
-    const TOUR_CANCEL = 12;
-    const TOUR_CURRIENT = 13;
-    const TOUR_EMPTY = 14;
-
     //Кол-во дней от публикации, когда объект "новый"
     const NEW_DAYS = 7;
     /** @var $address BookingAddress */
@@ -117,7 +119,6 @@ class Tour extends ActiveRecord
         $tour->description = $description;
         $tour->name_en = $name_en;
         $tour->description_en = $description_en;
-        $tour->check_booking = BookingHelper::BOOKING_PAYMENT;
         $tour->prepay = 100;
         $tour->meta = new Meta();
         return $tour;
@@ -133,7 +134,6 @@ class Tour extends ActiveRecord
         $this->name_en = $name_en;
         $this->description_en = $description_en;
     }
-
 
     public function setParams(TourParams $params)
     {
@@ -165,15 +165,9 @@ class Tour extends ActiveRecord
         $this->status = $status;
     }
 
-    public function setCheckBooking($check_booking)
-    {
-        $this->check_booking = $check_booking;
-    }
-
     public function isConfirmation(): bool
     {
         return $this->prepay == 0;
-        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool
@@ -555,9 +549,11 @@ class Tour extends ActiveRecord
 
     /** <==========  Reviews  */
 
-    /** Photo ==========> */
+    /** Photo ==========>
+     * @param BasePhoto $photo
+     */
 
-    public function addPhotoClass(Photo $photo): void
+    public function addPhotoClass(BasePhoto $photo): void
     {
         $photos = $this->photos;
         $photos[] = $photo;

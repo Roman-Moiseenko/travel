@@ -43,7 +43,6 @@ use yii\web\UploadedFile;
  * @property bool $multi
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
- * @property integer $check_booking - Оплата через портал или  провайдера
  * @property integer $quantity - Количество автосредств данной модели
  * @property integer $prepay
  *
@@ -127,7 +126,6 @@ class Fun extends ActiveRecord
         $fun->slug = SlugHelper::slug($name); //?
         $fun->created_at = time();
         $fun->status = StatusHelper::STATUS_INACTIVE;
-        $fun->check_booking = BookingHelper::BOOKING_CONFIRMATION;
         $fun->quantity = 1;
         $fun->times = [];
         //Заполняем массив недели
@@ -209,16 +207,9 @@ class Fun extends ActiveRecord
         $this->status = $status;
     }
 
-    public function setCheckBooking($check_booking)
-    {
-        $this->check_booking = $check_booking;
-    }
-
-
     public function isConfirmation(): bool
     {
         return $this->prepay == 0;
-        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
     }
 
     public function isActive(): bool

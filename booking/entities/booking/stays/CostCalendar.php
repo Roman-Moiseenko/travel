@@ -14,7 +14,6 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property $stay_id
  * @property $stay_at
- * @property integer $status
  * @property integer $cost_base
  * @property integer $guest_base
  * @property integer $cost_add
@@ -31,8 +30,6 @@ class CostCalendar extends ActiveRecord
         $calendar->cost_base = $cost_base;
         $calendar->guest_base = $guest_base;
         $calendar->cost_add = $cost_add;
-
-        $calendar->status = Stay::STAY_EMPTY;
         return $calendar;
     }
 

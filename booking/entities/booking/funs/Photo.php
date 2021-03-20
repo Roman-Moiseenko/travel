@@ -33,26 +33,6 @@ class Photo extends BasePhoto
         return $photo;
     }
 
-    public function setSort($sort): void
-    {
-        $this->sort = $sort;
-    }
-
-    public function isIdEqualTo($id): bool
-    {
-        return $this->id == $id;
-    }
-
-    public function setAlt(string $alt): void
-    {
-        $this->alt = $alt;
-    }
-
-    public function getAlt():? string
-    {
-        return $this->alt;
-    }
-
     public static function tableName(): string
     {
         return '{{%booking_funs_photos}}';

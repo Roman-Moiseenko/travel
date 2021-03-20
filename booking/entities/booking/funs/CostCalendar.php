@@ -18,7 +18,6 @@ use yii\db\ActiveRecord;
  * @property integer $fun_at
  * @property integer $time_at
  * @property integer $tickets
- * @property integer $status
  * @property Cost $cost
  * @property Fun $fun
  * @property BookingFunOnDay[] $bookingOnDays
@@ -40,7 +39,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         $calendar->time_at = $time_at;
         $calendar->tickets = $tickets;
         $calendar->cost = $cost;
-        //$calendar->status = Fun::TOUR_EMPTY;
         return $calendar;
     }
 

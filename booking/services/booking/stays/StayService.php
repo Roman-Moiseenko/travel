@@ -363,7 +363,6 @@ class StayService
         $stay->cost_add = $form->cost_add;
         //По умолчанию ч/з подтверждение
         $stay->setPrepay($form->prepay);
-        $stay->setCheckBooking(!empty($form->check_booking) ? $form->check_booking : BookingHelper::BOOKING_CONFIRMATION);
         $stay->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
         $this->stays->save($stay);
     }
