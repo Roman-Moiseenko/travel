@@ -473,7 +473,7 @@ class StayService
     public function addCostCalendar($stay_id, $stay_at, $cost_base, $guest_base, $cost_add)
     {
         $stay = $this->stays->get($stay_id);
-        $stay->addCostCalendar($stay_at, $cost_base, $guest_base, $cost_add);
+        $stay->addCostCalendar(CostCalendar::create($stay_at, $cost_base, $guest_base, $cost_add));
         $this->stays->save($stay);
     }
 
