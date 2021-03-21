@@ -80,8 +80,6 @@ return [
                 'reset' => '/auth/reset/request',
                 'reset/reset' => '/auth/reset/reset',
 
-                'discount' => 'discount/index',
-
                 'funs' => 'funs/index',
                 'fun/common' => '/fun/common/index',
                 'fun/photos' => '/fun/photos/index',

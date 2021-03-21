@@ -82,7 +82,7 @@ use yii\helpers\Url;
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
                     ['label' => 'Рассылка', 'icon' => 'mail-bulk', 'url' => ['/mailing'], 'active' => $this->context->id == 'mailing'],
-                    ['label' => 'Промо-коды', 'icon' => 'percent', 'url' => ['/discount'], 'active' => $this->context->id == 'discount'],
+                  //  ['label' => 'Промо-коды', 'icon' => 'percent', 'url' => ['/discount'], 'active' => $this->context->id == 'discount'],
                     ['label' => 'Перевод', 'icon' => 'language', 'url' => ['/lang'], 'active' => $this->context->id == 'lang'],
                     ['label' => 'SEO', 'iconStyle' => 'fab', 'icon' => 'internet-explorer', 'items' => [
                         ['label' => 'IMG Alt', 'iconStyle' => 'far', 'icon' => 'images', 'url' => ['/seo/alt'], 'active' => $this->context->id == 'seo/alt'],
