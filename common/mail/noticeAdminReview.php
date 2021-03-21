@@ -1,7 +1,7 @@
 <?php
 
-use booking\entities\booking\ReviewInterface;
-/* @var $review ReviewInterface */
+use booking\entities\booking\BaseReview;
+/* @var $review BaseReview */
 
 $url = \Yii::$app->params['adminHostInfo'];
 ?>

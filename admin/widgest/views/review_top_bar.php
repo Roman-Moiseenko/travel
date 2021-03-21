@@ -1,6 +1,6 @@
 <?php
 
-/* @var $reviews \booking\entities\booking\ReviewInterface[] */
+/* @var $reviews \booking\entities\booking\BaseReview[] */
 /* @var $last_day int */
 /* @var $count int */
 

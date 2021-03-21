@@ -4,10 +4,9 @@
 namespace booking\entities\booking\tours;
 
 
-use booking\entities\booking\CalendarInterface;
+use booking\entities\booking\BaseCalendar;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class CostCalendar
@@ -15,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $tours_id
  * @property integer $tour_at
+ *
  * @property integer $time_at
  * @property integer $tickets
 
@@ -27,7 +27,7 @@ use yii\db\ActiveRecord;
  * @property int $cost_child [int]
  * @property int $cost_preference [int]
  */
-class CostCalendar extends ActiveRecord  implements CalendarInterface
+class CostCalendar extends BaseCalendar
 {
     public $cost;
 
@@ -65,12 +65,7 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return parent::beforeSave($insert);
     }
 
-    public function isFor($id)
-    {
-        return $this->id == $id;
-    }
-
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         $bookings = BookingTour::find()->andWhere(['calendar_id' => $this->id])->count();
         return $bookings == 0;
@@ -101,28 +96,15 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
 
     public function free(): int
     {
-        /*$count = 0;
-        $bookings = $this->bookings;
-        foreach ($this->selling as $sale) {
-            $count += $sale->count;
-        }
-        foreach ($bookings as $booking) {
-            $count += $booking->count->adult ?? 0;
-            $count += $booking->count->child ?? 0;
-            $count += $booking->count->preference ?? 0;
-        }*/
-
-        return $this->tickets - $this->count();
+        return $this->tickets - $this->_count();
     }
 
     public function stack(): bool
     {
         //TODO Проверка стека
-
-
     }
 
-    private function count(): int
+    protected function _count(): int
     {
         $count = 0;
         $bookings = $this->bookings;
@@ -143,8 +125,28 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         if ($this->tour_at < time()) return false; //Тур уже прошел
         $tour = $this->tour;
         if ($tour->params->private) return false; //Индивидуальный тур
-        if ($this->count() == 0) return false; //Нет ни одного не отмененного
-        if ($tour->params->groupMin > $this->count()) return true;
+        if ($this->_count() == 0) return false; //Нет ни одного не отмененного
+        if ($tour->params->groupMin > $this->_count()) return true;
         return false;
+    }
+
+    public function isBooking()
+    {
+        // TODO: Implement isBooking() method.
+    }
+
+    public function getDate_at(): int
+    {
+        return $this->tour_at;
+    }
+
+    public function setDate_at(int $date_at): void
+    {
+        $this->tour_at = $date_at;
+    }
+
+    public function cloneDate(int $date_at): BaseCalendar
+    {
+        return CostCalendar::create($date_at, $this->time_at, new Cost($this->cost->adult, $this->cost->child, $this->cost->preference), $this->tickets);
     }
 }

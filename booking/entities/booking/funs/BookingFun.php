@@ -126,10 +126,10 @@ class BookingFun extends BaseBooking
         ];
     }
 
-    /** get entities */
+
     public function getAdmin(): User
     {
-        return $this->fun->legal->user;
+        return $this->fun->user;
     }
 
     public function getDate(): int

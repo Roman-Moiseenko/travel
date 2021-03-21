@@ -4,11 +4,10 @@ namespace booking\entities\booking\funs;
 
 
 use booking\entities\admin\Legal;
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
 /**
@@ -22,74 +21,17 @@ use yii\helpers\Url;
  * @property int $status
  * @property User $user
  */
-class ReviewFun extends ActiveRecord implements ReviewInterface
+class ReviewFun extends BaseReview
 {
-    const STATUS_INACTIVE = 1;
-    const STATUS_ACTIVE = 2;
-    const STATUS_CANCEL = 3;
-
-    public static function create($userId, int $vote, string $text): self
-    {
-        $review = new static();
-        $review->user_id = $userId;
-        $review->vote = $vote;
-        $review->text = $text;
-        $review->status = self::STATUS_ACTIVE;
-        $review->created_at = time();
-        return $review;
-    }
-
-    public function edit($vote, $text): void
-    {
-        $this->vote = $vote;
-        $this->text = $text;
-    }
-
-
-    public function getRating(): int
-    {
-        return $this->vote;
-    }
-
-    public function isIdEqualTo($id): bool
-    {
-        return $this->id == $id;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->status == self::STATUS_ACTIVE;
-    }
-
-    public function draft(): void
-    {
-        $this->status = self::STATUS_INACTIVE;
-    }
-
-    public function activate(): void
-    {
-        $this->status = self::STATUS_ACTIVE;
-    }
-
 
     public static function tableName(): string
     {
         return '{{%booking_funs_reviews}}';
     }
 
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
     public function getFun(): ActiveQuery
     {
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getLinks(): array
@@ -102,26 +44,6 @@ class ReviewFun extends ActiveRecord implements ReviewInterface
         ];
     }
 
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    public function getVote(): int
-    {
-        return $this->vote;
-    }
-
-    public function getUserId(): string
-    {
-        return $this->user_id;
-    }
-
-    public function getDate(): int
-    {
-        return $this->created_at;
-    }
-
     public function getType(): int
     {
         return BookingHelper::BOOKING_TYPE_FUNS;
@@ -132,9 +54,6 @@ class ReviewFun extends ActiveRecord implements ReviewInterface
         return $this->fun->getName();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getAdmin(): \booking\entities\admin\User
     {
         $id = $this->fun->user_id;

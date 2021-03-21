@@ -22,7 +22,14 @@ abstract class BasePhoto extends ActiveRecord
     protected $catalog;
     protected $name_id;
 
-    abstract public static function create(UploadedFile $file): self;
+    final public static function create(UploadedFile $file): self
+    {
+        $photo = new static();
+        if (empty($photo->catalog) || empty($photo->name_id))
+            throw new \DomainException('Ошибка определения класса - ' . get_class($photo));
+        $photo->file = $file;
+        return $photo;
+    }
 
     abstract public function getMain(): ActiveQuery;
 
@@ -50,7 +57,7 @@ abstract class BasePhoto extends ActiveRecord
         return $this->alt;
     }
 
-    public function behaviors(): array
+    final public function behaviors(): array
     {
         if (empty($this->catalog)) throw new \DomainException('Ошибка объявления наследника класса BasePhoto');
         return [
@@ -72,11 +79,9 @@ abstract class BasePhoto extends ActiveRecord
                     'catalog_list' => ['width' => 228, 'height' => 228],
                     'catalog_list_mobile' => ['width' => 320, 'height' => 160],
                     'legal_list' => ['width' => 300, 'height' => 300],
-                    //'catalog_main' => ['width' => 1200, 'height' => 400],
                     'catalog_gallery' => ['width' => 800, 'height' => 400],
                     'catalog_gallery_mini' => ['width' => 400, 'height' => 200],
                     'catalog_main_mobil' => ['width' => 600, 'height' => 200],
-                    //'catalog_additional' => ['width' => 66, 'height' => 66],
                     'catalog_origin' => ['width' => 1080, 'height' => 720],
                 ],
             ],

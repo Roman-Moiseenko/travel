@@ -4,11 +4,10 @@
 namespace booking\entities\booking\funs;
 
 
-use booking\entities\booking\CalendarInterface;
+use booking\entities\booking\BaseCalendar;
 use booking\entities\booking\tours\Cost;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class CostCalendar
@@ -16,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $fun_id
  * @property integer $fun_at
+ *
  * @property integer $time_at
  * @property integer $tickets
  * @property Cost $cost
@@ -27,7 +27,7 @@ use yii\db\ActiveRecord;
  * @property int $cost_child [int]
  * @property int $cost_preference [int]
  */
-class CostCalendar extends ActiveRecord  implements CalendarInterface
+class CostCalendar extends BaseCalendar
 {
    // use ActiveRecordItemTrait;
     public $cost;
@@ -66,12 +66,7 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return parent::beforeSave($insert);
     }
 
-    public function isFor($id)
-    {
-        return $this->id == $id;
-    }
-
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         $bookings = BookingFun::find()->andWhere(['calendar_id' => $this->id])->count();
         return $bookings == 0;
@@ -81,18 +76,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
     {
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);
     }
-/*
-    public function getFreeTickets(): int 
-    {
-        $count = 0;
-        $bookings = $this->bookings;
-        foreach ($bookings as $booking) {
-            $count += $booking->count->adult ?? 0;
-            $count += $booking->count->child ?? 0;
-            $count += $booking->count->preference ?? 0;
-        }
-        return $this->tickets - $count;
-    }*/
 
     public function getBookingOnDays(): ActiveQuery
     {
@@ -132,5 +115,37 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return count(BookingFun::find()->alias('f')
                 ->joinWith('calendars c')
                 ->andWhere(['c.id' => $this->id])->all()) > 0;
+    }
+
+    public function getAllBookings(): ActiveQuery
+    {
+        return $this->hasMany(BookingFun::class, ['calendar_id' => 'id']);
+    }
+
+    public function isCancelProvider(): bool
+    {
+        if ($this->fun_at < time()) return false; //уже прошло
+        //Добавить условия для отмены, если понадобятся
+        return false;
+    }
+
+    protected function _count(): int
+    {
+        return $this->tickets;
+    }
+
+    public function getDate_at(): int
+    {
+        return $this->fun_at;
+    }
+
+    public function setDate_at(int $date_at): void
+    {
+        $this->fun_at = $date_at;
+    }
+
+    public function cloneDate(int $date_at): BaseCalendar
+    {
+        return CostCalendar::create($date_at, $this->time_at, new Cost($this->cost->adult, $this->cost->child, $this->cost->preference), $this->tickets);
     }
 }

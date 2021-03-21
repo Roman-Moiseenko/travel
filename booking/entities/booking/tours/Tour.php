@@ -7,7 +7,9 @@ namespace booking\entities\booking\tours;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
+use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BasePhoto;
+use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
 //use booking\entities\booking\stays\Geo;
 use booking\entities\booking\AgeLimit;
@@ -15,6 +17,7 @@ use booking\entities\booking\tours\queries\TourQueries;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -93,12 +96,9 @@ use yii\web\UploadedFile;
  * @property string $params_annotation [varchar(255)]
 
  */
-class Tour extends ActiveRecord
+class Tour extends BaseObjectOfBooking
 {
-    public $meta;
 
-    //Кол-во дней от публикации, когда объект "новый"
-    const NEW_DAYS = 7;
     /** @var $address BookingAddress */
     public $address;
     public $params;
@@ -140,67 +140,9 @@ class Tour extends ActiveRecord
         $this->params = $params;
     }
 
-    public function setPrepay($prepay)
-    {
-        $this->prepay = $prepay;
-    }
-
-    public function setLegal($legalId)
-    {
-        $this->legal_id = $legalId;
-    }
-
     public function setCost(Cost $baseCost)
     {
         $this->baseCost = $baseCost;
-    }
-
-    public function setCancellation($cancellation)
-    {
-        $this->cancellation = $cancellation;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    public function isConfirmation(): bool
-    {
-        return $this->prepay == 0;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_ACTIVE;
-    }
-
-    public function isVerify(): bool
-    {
-        return $this->status === StatusHelper::STATUS_VERIFY;
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === StatusHelper::STATUS_DRAFT;
-    }
-
-    public function isInactive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function isLock()
-    {
-        return $this->status === StatusHelper::STATUS_LOCK;
-    }
-
-    public function isCancellation($date_tour)
-    {
-        if ($this->cancellation == null) return false;
-        if ($date_tour <= time()) return false;
-        if (($date_tour - time()) / (24 * 3600) < $this->cancellation) return false;
-        return true;
     }
 
     public function isPrivate(): bool
@@ -208,46 +150,23 @@ class Tour extends ActiveRecord
         return $this->params->private == true;
     }
 
-    public function upViews(): void
-    {
-        $this->views++;
-    }
-
-    public function isNew(): bool
-    {
-        if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
-    }
-
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
-    }
 
     public function behaviors()
     {
-        return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
-            [
+        $relations =
+             [
+                [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
-                    'photos',
                     'typeAssignments',
                     'extraAssignments',
-                    'reviews',
                     'actualCalendar',
                 ],
             ],
         ];
+        return array_merge($relations, parent::behaviors());
     }
 
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
-    }
 
     public static function tableName()
     {
@@ -323,16 +242,7 @@ class Tour extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public function afterSave($insert, $changedAttributes)
-    {
-        $related = $this->getRelatedRecords();
-        parent::afterSave($insert, $changedAttributes);
-        if (array_key_exists('mainPhoto', $related)) {
-            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-        }
-    }
-
-    /** AssignExtra ==========> */
+//**** Дополнения (AssignExtra) **********************************
 
     public function assignExtra($id): void
     {
@@ -375,9 +285,7 @@ class Tour extends ActiveRecord
         $this->extraAssignments = [];
     }
 
-    /** <========== AssignExtra */
-
-    /** AssignType ==========> */
+//**** Категории дополнительные (AssignType) **********************************
 
     public function assignType($id): void
     {
@@ -409,19 +317,9 @@ class Tour extends ActiveRecord
         $this->typeAssignments = [];
     }
 
-    /** <========== AssignType */
+//**** Календарь (CostCalendar) **********************************
 
-    /** CostCalendar  ==========>
-     * @param $tour_at
-     * @param $time_at
-     * @param $tickets
-     * @param $cost_adult
-     * @param null $cost_child
-     * @param null $cost_preference
-     * @return CostCalendar
-     */
-
-    public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
+ /*   public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
         $calendar = CostCalendar::create(
             $tour_at,
@@ -433,9 +331,9 @@ class Tour extends ActiveRecord
         $calendars[] = $calendar;
         $this->actualCalendar = $calendars;
         return $calendar;
-    }
+    }*/
 
-    public function clearCostCalendar($new_day)
+  /*  public function clearCostCalendar($new_day)
     {
         $calendars = $this->actualCalendar;
         foreach ($calendars as $i => $calendar) {
@@ -490,147 +388,10 @@ class Tour extends ActiveRecord
         }
         return false;
     }
-    /** <==========  CostCalendar  */
+*/
 
-    /** Review  ==========>*/
+//**** Внешние связи **********************************
 
-    public function addReview($userId, $vote, $text): ReviewTour
-    {
-        $reviews = $this->reviews;
-        $review = ReviewTour::create($userId, $vote, $text);
-        $reviews[] = $review;
-        $this->updateReviews($reviews);
-        return $review;
-    }
-
-    public function editReview($id, $vote, $text): void
-    {
-
-        $reviews = $this->reviews;
-        foreach ($reviews as $review) {
-            if ($review->isIdEqualTo($id)) {
-                $review->edit($vote, $text);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function removeReview($id): void
-    {
-        $reviews = $this->reviews;
-        foreach ($reviews as $i => $review) {
-            if ($review->isIdEqualTo($id)) {
-                unset($reviews[$i]);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function countReviews(): int
-    {
-        $reviews = $this->reviews;
-        return count($reviews);
-    }
-
-    private function updateReviews(array $reviews): void
-    {
-        $total = 0;
-        /* @var ReviewTour $review */
-        foreach ($reviews as $review) {
-            $total += $review->getRating();
-        }
-        $this->reviews = $reviews;
-        $this->rating = $total / count($reviews);
-    }
-
-    /** <==========  Reviews  */
-
-    /** Photo ==========>
-     * @param BasePhoto $photo
-     */
-
-    public function addPhotoClass(BasePhoto $photo): void
-    {
-        $photos = $this->photos;
-        $photos[] = $photo;
-        $this->updatePhotos($photos);
-    }
-
-    public function addPhoto(UploadedFile $file): void
-    {
-        $photos = $this->photos;
-        $photos[] = Photo::create($file);
-        $this->updatePhotos($photos);
-        $this->updated_at = time();
-    }
-
-    public function removePhoto($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                unset($photos[$i]);
-                $this->updatePhotos($photos);
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function removePhotos(): void
-    {
-        $this->updatePhotos([]);
-    }
-
-    public function movePhotoUp($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($prev = $photos[$i - 1] ?? null) {
-                    $photos[$i - 1] = $photo;
-                    $photos[$i] = $prev;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function movePhotoDown($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($next = $photos[$i + 1] ?? null) {
-                    $photos[$i] = $next;
-                    $photos[$i + 1] = $photo;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    private function updatePhotos(array $photos): void
-    {
-        foreach ($photos as $i => $photo) {
-            $photo->setSort($i);
-        }
-        $this->photos = $photos;
-        $this->populateRelation('mainPhoto', reset($photos));
-    }
-
-    /** <========== Photo */
-
-
-    /** getXXX ==========> */
     public function getPhotos(): ActiveQuery
     {
         return $this->hasMany(Photo::class, ['tours_id' => 'id'])->orderBy('sort');
@@ -656,11 +417,6 @@ class Tour extends ActiveRecord
         return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
 
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
     public function getTypes(): ActiveQuery
     {
         return $this->hasMany(Type::class, ['id' => 'type_id'])->via('typeAssignments');
@@ -669,7 +425,8 @@ class Tour extends ActiveRecord
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])->andWhere([ReviewTour::tableName() . '.status' => ReviewTour::STATUS_ACTIVE]);
+        return $this->hasMany(ReviewTour::class, ['tour_id' => 'id'])
+            ->andWhere([ReviewTour::tableName() . '.status' => BaseReview::STATUS_ACTIVE]);
     }
 
     public function getMainPhoto(): ActiveQuery
@@ -677,27 +434,11 @@ class Tour extends ActiveRecord
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
     }
 
-    public function getLegal(): ActiveQuery
-    {
-        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
-    }
-
     public function getActualCalendar(): ActiveQuery
     {
         return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);
     }
 
-    public function getName()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
-    }
-
-    public function getDescription()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
-    }
-
-    /** <========== getXXX */
 
     public static function find(): TourQueries
     {

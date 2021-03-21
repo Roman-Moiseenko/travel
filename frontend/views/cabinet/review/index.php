@@ -1,6 +1,6 @@
 <?php
 
-/* @var $reviews \booking\entities\booking\ReviewInterface[] */
+/* @var $reviews \booking\entities\booking\BaseReview[] */
 
 use booking\entities\Lang;
 use yii\helpers\Url;

@@ -4,8 +4,8 @@
 namespace booking\entities\booking\tours;
 
 
+use booking\entities\booking\BaseSelling;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class SellingTour
@@ -16,18 +16,8 @@ use yii\db\ActiveRecord;
  * @property int $created_at
  * @property CostCalendar $calendar
  */
-class SellingTour extends ActiveRecord
+class SellingTour extends BaseSelling
 {
-
-    public static function create($calendar_id, $count): self
-    {
-        $selling = new static();
-        $selling->calendar_id = $calendar_id;
-        $selling->count = $count;
-        $selling->created_at = time();
-        return $selling;
-    }
-
     public static function tableName()
     {
         return '{{%selling_tour}}';

@@ -6,36 +6,23 @@ namespace booking\entities\booking\hotels;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
+use booking\entities\booking\BaseBooking;
 use booking\entities\booking\BookingObject;
+use booking\entities\booking\LinkBooking;
 use booking\entities\booking\tours\Cost;
+use yii\db\ActiveQuery;
 
-class BookingHotel extends BookingObject
+class BookingHotel extends BaseBooking
 {
 
-    public static function create($idcalendar = null, Cost $cost = null): BookingObject
+    public static function create($idcalendar = null, Cost $cost = null): BaseBooking
     {
         // TODO: Implement create() method.
     }
 
-    public function getAmount(): int
+    public function getAdmin(): User
     {
-        // TODO: Implement getAmount() method.
-
-    }
-
-    public function getAmountDiscount(): float
-    {
-        // TODO: Implement getAmountDiscount() method.
-    }
-
-    public function getAmountPayAdmin(): float
-    {
-        // TODO: Implement getAmountPayAdmin() method.
-    }
-
-    public function getPaymentToProvider(): float
-    {
-        // TODO: Implement getPaymentToProvider() method.
+        // TODO: Implement getAdmin() method.
     }
 
     public function getDate(): int
@@ -48,12 +35,12 @@ class BookingHotel extends BookingObject
         // TODO: Implement getName() method.
     }
 
-    public function getLinks(): array
+    public function getLinks(): LinkBooking
     {
         // TODO: Implement getLinks() method.
     }
 
-    public function getPhoto(string $photo = 'cabinet_list'): string
+    public function getPhoto(string $photo = ''): string
     {
         // TODO: Implement getPhoto() method.
     }
@@ -68,28 +55,38 @@ class BookingHotel extends BookingObject
         // TODO: Implement getAdd() method.
     }
 
-    public function getAdmin(): User
+    public function quantity(): int
     {
-        // TODO: Implement getAdmin() method.
+        // TODO: Implement quantity() method.
     }
 
-    public function getLegal(): Legal
+    public function isPaidLocally(): bool
     {
-        // TODO: Implement getLegal() method.
+        // TODO: Implement isPaidLocally() method.
     }
 
-    public function getParentId(): int
+    public function getCalendar(): ActiveQuery
     {
-        // TODO: Implement getParentId() method.
+        // TODO: Implement getCalendar() method.
     }
 
-    public function getCount(): int
+    public function getCalendars(): ActiveQuery
     {
-        // TODO: Implement getCount() method.
+        // TODO: Implement getCalendars() method.
     }
 
-    public function isCheckBooking(): bool
+    public function getDays(): ActiveQuery
     {
-        // TODO: Implement isCheckBooking() method.
+        // TODO: Implement getDays() method.
+    }
+
+    protected function getFullCostFrom(): float
+    {
+        // TODO: Implement getFullCostFrom() method.
+    }
+
+    protected function getPrepayFrom(): int
+    {
+        // TODO: Implement getPrepayFrom() method.
     }
 }

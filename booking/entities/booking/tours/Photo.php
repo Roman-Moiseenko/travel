@@ -27,23 +27,15 @@ class Photo extends BasePhoto
     protected $catalog = 'tours';
     protected $name_id = 'tours_id';
 
-    public static function create(UploadedFile $file): BasePhoto
-    {
-        $photo = new static();
-        $photo->file = $file;
-        return $photo;
-    }
-
-
     public static function tableName(): string
     {
         return '{{%booking_tours_photos}}';
     }
 
-   public function behaviors(): array
+   /*public function behaviors(): array
     {
         return parent::behaviors();
-    }
+    }*/
 
     public function getMain(): ActiveQuery
     {

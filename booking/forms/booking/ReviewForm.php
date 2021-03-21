@@ -4,9 +4,8 @@
 namespace booking\forms\booking;
 
 
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
-use frontend\widgets\RatingWidget;
 use yii\base\Model;
 
 class ReviewForm extends Model
@@ -17,7 +16,7 @@ class ReviewForm extends Model
     public $vote;
     public $text;
 
-    public function __construct(ReviewInterface $review = null, $config = [])
+    public function __construct(BaseReview $review = null, $config = [])
     {
         if ($review != null)
         {

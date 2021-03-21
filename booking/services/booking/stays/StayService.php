@@ -8,6 +8,8 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\stays\bedroom\AssignBed;
 use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\CostCalendar;
+use booking\entities\booking\stays\Photo;
+use booking\entities\booking\stays\ReviewStay;
 use booking\entities\booking\stays\rules\Beds;
 use booking\entities\booking\stays\rules\CheckIn;
 use booking\entities\booking\stays\rules\Limit;
@@ -142,7 +144,7 @@ class StayService
         $stay = $this->stays->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
-                $stay->addPhoto($file);
+                $stay->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
@@ -174,7 +176,7 @@ class StayService
     public function addReview($tour_id, $user_id, ReviewForm $form)
     {
         $stay = $this->stays->get($tour_id);
-        $review = $stay->addReview($user_id, $form->vote, $form->text);
+        $review = $stay->addReview(ReviewStay::create($user_id, $form->vote, $form->text));
         $this->stays->save($stay);
         $this->contactService->sendNoticeReview($review);
     }

@@ -1,11 +1,11 @@
 <?php
 
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
 use frontend\widgets\RatingWidget;
 
 
-/* @var $reviews ReviewInterface[] */
+/* @var $reviews BaseReview[] */
 /* @var $rating float */
 
 $script = <<<JS

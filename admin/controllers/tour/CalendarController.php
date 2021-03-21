@@ -174,7 +174,7 @@ class CalendarController extends Controller
                         strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00'),
                     );
                     $this->tours->save($tours);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     return $e->getMessage();
                 }
             }

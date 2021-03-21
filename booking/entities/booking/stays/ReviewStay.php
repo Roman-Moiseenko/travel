@@ -4,11 +4,10 @@ namespace booking\entities\booking\stays;
 
 
 use booking\entities\admin\Legal;
-use booking\entities\booking\ReviewInterface;
-use booking\entities\user\User;
+use booking\entities\booking\BaseReview;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * @property int $id
@@ -17,46 +16,15 @@ use yii\db\ActiveRecord;
  * @property int $vote
  * @property string $text
  * @property integer $stay_id
+ * @property Stay $stay
  */
-//TODO  В разработке
 
-class ReviewStay extends ActiveRecord implements ReviewInterface
+class ReviewStay extends BaseReview
 {
-    public static function create($userId, int $vote, string $text): self
-    {
-        $review = new static();
-        $review->user_id = $userId;
-        $review->vote = $vote;
-        $review->text = $text;
-        $review->created_at = time();
-        return $review;
-    }
-
-    public function edit($vote, $text): void
-    {
-        $this->vote = $vote;
-        $this->text = $text;
-    }
-
-
-    public function getRating(): int
-    {
-        return $this->vote;
-    }
-
-    public function isIdEqualTo($id): bool
-    {
-        return $this->id == $id;
-    }
 
     public static function tableName(): string
     {
         return '{{%booking_stays_reviews}}';
-    }
-
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getStays(): ActiveQuery
@@ -64,50 +32,24 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
         return $this->hasOne(Stay::class, ['id' => 'stay_id']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getAdmin(): \booking\entities\admin\User
     {
-        // TODO: Implement getAdmin() method.
+        return $this->stay->user;
     }
 
     public function getLegal(): Legal
     {
-        // TODO: Implement getLegal() method.
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getId(): int
-    {
-        // TODO: Implement getId() method.
+        return $this->stay->legal;
     }
 
     public function getLinks(): array
     {
-        // TODO: Implement getLinks() method.
-    }
-
-    public function getText(): string
-    {
-        // TODO: Implement getText() method.
-    }
-
-    public function getVote(): int
-    {
-        // TODO: Implement getVote() method.
-    }
-
-    public function getUserId(): string
-    {
-        // TODO: Implement getUserId() method.
-    }
-
-    public function getDate(): int
-    {
-        return $this->created_at;
+        return [
+            'admin' => Url::to(['stay/review/index', 'id' => $this->stay_id]),
+            'frontend' => Url::to(['stay/view', 'id' => $this->stay_id]),
+            'update' => Url::to(['cabinet/review/update-stay', 'id' => $this->id]),
+            'remove' => Url::to(['cabinet/review/delete-stay', 'id' => $this->id]),
+        ];
     }
 
     public function getType(): int
@@ -117,6 +59,6 @@ class ReviewStay extends ActiveRecord implements ReviewInterface
 
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return $this->stay->getName();
     }
 }

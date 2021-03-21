@@ -34,8 +34,6 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $payment_at
- * @property integer $payment_level
  * @property Legal[] $legals
  * @property Personal $personal
  * @property Notice $notice

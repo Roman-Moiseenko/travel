@@ -4,6 +4,7 @@
 namespace booking\entities\booking\stays;
 
 
+use booking\entities\booking\BaseCalendar;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -14,13 +15,14 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property $stay_id
  * @property $stay_at
+ *
  * @property integer $cost_base
  * @property integer $guest_base
  * @property integer $cost_add
  *
  * @property Stay $stay
  */
-class CostCalendar extends ActiveRecord
+class CostCalendar extends BaseCalendar
 {
 
     public static function create($stay_at, $cost_base, $guest_base, $cost_add): self
@@ -38,12 +40,7 @@ class CostCalendar extends ActiveRecord
         return '{{%booking_stays_calendar_cost}}';
     }
 
-    public function isFor($id)
-    {
-        return $this->id == $id;
-    }
-
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return true;
         //$onDays = BookingCarOnDay::find()->andWhere(['calendar_id' => $this->id])->count();
@@ -117,5 +114,35 @@ class CostCalendar extends ActiveRecord
         /*return count(BookingCar::find()->alias('b')
                 ->joinWith('calendars c')
                 ->andWhere(['c.id' => $this->id])->all()) > 0; */
+    }
+
+    public function getAllBookings(): ActiveQuery
+    {
+        // TODO: Implement getAllBookings() method.
+    }
+
+    public function isCancelProvider(): bool
+    {
+        // TODO: Implement isCancelProvider() method.
+    }
+
+    protected function _count(): int
+    {
+        // TODO: Implement _count() method.
+    }
+
+    public function getDate_at(): int
+    {
+        return $this->stay_at;
+    }
+
+    public function setDate_at(int $date_at): void
+    {
+        $this->stay_at = $date_at;
+    }
+
+    public function cloneDate(int $date_at): BaseCalendar
+    {
+        // TODO: Implement cloneDate() method.
     }
 }

@@ -21,21 +21,9 @@ class Photo extends BasePhoto
     protected $catalog = 'stays';
     protected $name_id = 'stay_id';
 
-    public static function create(UploadedFile $file): BasePhoto
-    {
-        $photo = new static();
-        $photo->file = $file;
-        return $photo;
-    }
-
     public static function tableName(): string
     {
         return '{{%booking_stays_photos}}';
-    }
-
-   public function behaviors(): array
-    {
-        return parent::behaviors();
     }
 
     public function getMain(): ActiveQuery

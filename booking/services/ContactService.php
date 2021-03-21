@@ -4,7 +4,7 @@ namespace booking\services;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
 use booking\entities\mailing\Mailing;
 use booking\entities\message\Conversation;
@@ -37,7 +37,7 @@ class ContactService
     }
 
 /// УВЕДОМЛЕНИЕ ПРОВАЙДЕРУ ОБ ОТЗЫВЕ
-    public function sendNoticeReview(ReviewInterface $review)
+    public function sendNoticeReview(BaseReview $review)
     {
         if ($this->loc) return;
         $user_admin = $review->getAdmin();

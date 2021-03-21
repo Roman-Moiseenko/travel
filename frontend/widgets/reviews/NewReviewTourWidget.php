@@ -23,7 +23,6 @@ class NewReviewTourWidget extends Widget
         $reviews = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['tour_id' => $this->tour_id])->all();
         if (count($reviews) != 0) return '';
 
-
         /** @var BookingTour[] $bookings */
         $bookings = BookingTour::find()->andWhere(['user_id' => $user_id])->all();
         foreach ($bookings as $booking) {
@@ -31,7 +30,6 @@ class NewReviewTourWidget extends Widget
                 $booking->calendar->tours_id == $this->tour_id &&
                 ($booking->status == BookingHelper::BOOKING_STATUS_PAY || $booking->status == BookingHelper::BOOKING_STATUS_CONFIRMATION)) {
                 $reviewForm = new ReviewForm();
-                //scr::p(date('d-m-Y H:i:s', $booking->calendar->tour_at));
 
                 return $this->render('new-review', [
                     'reviewForm' => $reviewForm,

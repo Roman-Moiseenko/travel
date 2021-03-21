@@ -9,14 +9,14 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\ReviewCar;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\funs\ReviewFun;
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\scr;
 
 class ReviewRepository
 {
-    /** @return ReviewInterface[] */
+    /** @return BaseReview[] */
     public function getByLegal($legal_id): array
     {
         $tours = ReviewTour::find()
@@ -54,7 +54,7 @@ class ReviewRepository
         return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
-    /** @return ReviewInterface[] */
+    /** @return BaseReview[] */
     public function getByUser($user_id): array
     {
         $tours = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['status' => ReviewTour::STATUS_ACTIVE])->all();
@@ -70,7 +70,7 @@ class ReviewRepository
         return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
-    /** @return ReviewInterface[] */
+    /** @return BaseReview[] */
     public function getByAdmin($admin_id, $last_day = 7): array
     {
         $old = time() - 3600 * 24 * $last_day;
@@ -113,7 +113,7 @@ class ReviewRepository
     private function sort_merge(array $tours, array $stays, array $cars, array $funs): array
     {
         $result = array_merge($tours, $stays, $cars, $funs);
-        usort($result, function (ReviewInterface $a, ReviewInterface $b) {
+        usort($result, function (BaseReview $a, BaseReview $b) {
             if ($a->getDate() > $b->getDate()) {
                 return -1;
             } else {

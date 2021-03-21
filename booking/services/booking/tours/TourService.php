@@ -5,6 +5,9 @@ namespace booking\services\booking\tours;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\tours\Cost;
+use booking\entities\booking\tours\CostCalendar;
+use booking\entities\booking\tours\Photo;
+use booking\entities\booking\tours\ReviewTour;
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\TourParams;
 use booking\entities\message\Dialog;
@@ -127,7 +130,7 @@ class TourService
         $tour = $this->tours->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
-                $tour->addPhoto($file);
+                $tour->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
@@ -159,7 +162,7 @@ class TourService
     public function addReview($tour_id, $user_id, ReviewForm $form)
     {
         $tour = $this->tours->get($tour_id);
-        $review = $tour->addReview($user_id, $form->vote, $form->text);
+        $review = $tour->addReview(ReviewTour::create($user_id, $form->vote, $form->text));
         $this->tours->save($tour);
         $this->contactService->sendNoticeReview($review);
     }
@@ -356,13 +359,20 @@ class TourService
             return 'Данное время (' . $time_at . ') уже занято ';
         }
         $tour->addCostCalendar(
-            $tour_at,
+            CostCalendar::create(
+                $tour_at,
+                $time_at,
+                new Cost($cost_adult, $cost_child, $cost_preference),
+                $tickets
+            )
+        );
+           /* $tour_at,
             $time_at,
             $tickets,
             $cost_adult,
             $cost_child,
             $cost_preference
-        );
+        );*/
         $this->tours->save($tour);
     }
 

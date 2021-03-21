@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\booking\ReviewInterface;
+use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
@@ -9,7 +9,7 @@ use booking\helpers\BookingHelper;
 use yii\helpers\Url;
 
 
-/* @var $review ReviewInterface */
+/* @var $review BaseReview */
 /* @var $dialog Dialog */
 /* @var $conversation Conversation */
 /* @var $user_name string */

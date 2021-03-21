@@ -179,7 +179,7 @@ class BookingCar extends BaseBooking
 
     public function getAdmin(): User
     {
-        return $this->car->legal->user;
+        return $this->car->user;
     }
 
     public function getAmount(): int

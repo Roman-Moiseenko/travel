@@ -135,6 +135,7 @@ $(document).ready(function () {
         }
         $.post('/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
             function (data) {
+                //console.log(data);
                 full_array_tours = JSON.parse(data);
                 $('#datepicker-tour').datepicker('update');
                 //Очищаем чекбоксы

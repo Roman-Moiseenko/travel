@@ -66,7 +66,7 @@ class BookingStay extends BaseBooking
 
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return $this->stay->getName();
     }
 
     public function getLinks(): LinkBooking
@@ -85,7 +85,7 @@ class BookingStay extends BaseBooking
 
     public function getPhoto(string $photo = 'cabinet_list'): string
     {
-        // TODO: Implement getPhoto() method.
+        return $this->stay->mainPhoto->getThumbFileUrl('file', $photo);
     }
 
     public function getType(): string
@@ -101,13 +101,9 @@ class BookingStay extends BaseBooking
 
     public function getAdmin(): User
     {
-        // TODO: Implement getAdminId() method.
+        return $this->stay->user;
     }
 
-    public function getLegal(): Legal
-    {
-        // TODO: Implement getLegal() method.
-    }
 
     public function quantity(): int
     {
@@ -126,7 +122,7 @@ class BookingStay extends BaseBooking
 
     public function getCalendars(): ActiveQuery
     {
-        // TODO: Implement getCalendars() method.
+        return $this->hasMany(CostCalendar::class, ['id' => 'calendar_id'])->via('days');
     }
 
     public function getDays(): ActiveQuery

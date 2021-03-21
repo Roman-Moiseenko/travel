@@ -121,9 +121,7 @@ class BookingTour extends BaseBooking
     public function getPhoto(string $photo = 'cabinet_list'): string
     {
         return $this->tour->mainPhoto->getThumbFileUrl('file', $photo);
-
     }
-
     public function getType(): string
     {
         return BookingHelper::BOOKING_TYPE_TOUR;
@@ -136,8 +134,7 @@ class BookingTour extends BaseBooking
 
     public function getAdmin(): User
     {
-        $id = $this->tour->user_id;
-        return User::findOne($id);
+        return $this->tour->user;
     }
 
     public function quantity(): int

@@ -7,6 +7,7 @@ namespace booking\entities\booking\stays;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
+use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\hotels\rooms\Rooms;
 use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\comfort\AssignComfort;
@@ -110,7 +111,7 @@ use yii\web\UploadedFile;
  * @property int $params_access [int]
  * @property string $meta_json
  */
-class Stay extends ActiveRecord
+class Stay extends BaseObjectOfBooking
 {
     const MAX_BEDROOMS = 8;
 
@@ -126,8 +127,7 @@ class Stay extends ActiveRecord
     public $address;
     /** @var $params StayParams */
     public $params;
-    /** @var $meta Meta */
-    public $meta;
+
 
     public static function listErrors(): array
     {
@@ -174,11 +174,6 @@ class Stay extends ActiveRecord
         $this->description_en = $description_en;
         $this->city = $city;
         $this->to_center = $to_center;
-    }
-
-    public function setPrepay($prepay)
-    {
-        $this->prepay = $prepay;
     }
 
     //// AssignComfort::class ///////////////////////////
@@ -348,10 +343,8 @@ class Stay extends ActiveRecord
         $result = [];
         foreach ($this->nearbyes as $nearby) {
             $category = $nearby->category;
-            //$result[$category->group]['name'] = NearbyCategory::listGroup()[$category->group];
             $result[$category->group][$category->name][] = ['name' => $nearby->name, 'distance' => $nearby->distance, 'unit' => $nearby->unit];
         }
-        //scr::p($result);
         return $result;
     }
 
@@ -362,9 +355,6 @@ class Stay extends ActiveRecord
     public function addDuty($duty_id, $value, $payment, $include)
     {
         $duty = $this->duty;
-        /*foreach ($duty as $assignDuty) {
-            if ($assignDuty->isFor($duty_id)) return;
-        } */
         $duty[] = AssignDuty::create($duty_id, $value, $payment, $include);
         $this->duty = $duty;
     }
@@ -422,10 +412,6 @@ class Stay extends ActiveRecord
 
     ////////////////////////////////
 
-    public function setLegal($legalId): void
-    {
-        $this->legal_id = $legalId;
-    }
 
     public function updateRules(Rules $rules)
     {
@@ -435,65 +421,6 @@ class Stay extends ActiveRecord
     public function setParams(StayParams $params)
     {
         $this->params = $params;
-    }
-
-    public function setCancellation($cancellation)
-    {
-        $this->cancellation = $cancellation;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    public function isConfirmation(): bool
-    {
-        return $this->prepay == 0;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_ACTIVE;
-    }
-
-    public function isVerify(): bool
-    {
-        return $this->status === StatusHelper::STATUS_VERIFY;
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === StatusHelper::STATUS_DRAFT;
-    }
-
-    public function isInactive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function isLock()
-    {
-        return $this->status === StatusHelper::STATUS_LOCK;
-    }
-
-    public function isCancellation($date_tour)
-    {
-        if ($this->cancellation == null) return false;
-        if ($date_tour <= time()) return false;
-        if (($date_tour - time()) / (24 * 3600) < $this->cancellation) return false;
-        return true;
-    }
-
-    public function upViews(): void
-    {
-        $this->views++;
-    }
-
-    public function isNew(): bool
-    {
-        if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
     public function getMaxGuest(): int
@@ -506,10 +433,6 @@ class Stay extends ActiveRecord
         return $count;
     }
 
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
-    }
 
 
     public static function tableName()
@@ -519,15 +442,11 @@ class Stay extends ActiveRecord
 
     public function behaviors()
     {
-        return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
+        $relations = [
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
-                    'photos',
                     'rules',
-                    'reviews',
                     'nearbyes',
                     'assignComforts',
                     'assignComfortsRoom',
@@ -538,13 +457,7 @@ class Stay extends ActiveRecord
                 ],
             ],
         ];
-    }
-
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
+        return array_merge($relations, parent::behaviors());
     }
 
     public function afterFind(): void
@@ -582,15 +495,6 @@ class Stay extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public function afterSave($insert, $changedAttributes)
-    {
-        $related = $this->getRelatedRecords();
-        parent::afterSave($insert, $changedAttributes);
-        if (array_key_exists('mainPhoto', $related)) {
-            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-        }
-    }
-
     /** Nearby  ==========>*/
 
     public function addNearby($name, $distance, $category_id, $unit)
@@ -619,175 +523,21 @@ class Stay extends ActiveRecord
     }
     /** <==========  Nearby  */
 
-
-    /** Review  ==========>*/
-
-    public function addReview($userId, $vote, $text): ReviewStay
-    {
-        $reviews = $this->reviews;
-        $review = ReviewStay::create($userId, $vote, $text);
-        $reviews[] = $review;
-        $this->updateReviews($reviews);
-        return $review;
-    }
-
-    public function editReview($id, $vote, $text): void
-    {
-
-        $reviews = $this->reviews;
-        foreach ($reviews as $review) {
-            if ($review->isIdEqualTo($id)) {
-                $review->edit($vote, $text);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function removeReview($id): void
-    {
-        $reviews = $this->reviews;
-        foreach ($reviews as $i => $review) {
-            if ($review->isIdEqualTo($id)) {
-                unset($reviews[$i]);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    private function updateReviews(array $reviews): void
-    {
-        $total = 0;
-        /* @var ReviewStay $review */
-        foreach ($reviews as $review) {
-            $total += $review->getRating();
-        }
-        $this->reviews = $reviews;
-        $this->rating = $total / count($reviews);
-    }
-
-    public function countReviews(): int
-    {
-        $reviews = $this->reviews;
-        return count($reviews);
-    }
-
-    /** <==========  Reviews  */
-
-    /** Photo ==========> */
-
-    public function addPhotoClass(Photo $photo): void
-    {
-        $photos = $this->photos;
-        $photos[] = $photo;
-        $this->updatePhotos($photos);
-    }
-
-    public function addPhoto(UploadedFile $file): void
-    {
-        $photos = $this->photos;
-        $photos[] = Photo::create($file);
-        $this->updatePhotos($photos);
-    }
-
-    public function removePhoto($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                unset($photos[$i]);
-                $this->updatePhotos($photos);
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function removePhotos(): void
-    {
-        $this->updatePhotos([]);
-    }
-
-    public function movePhotoUp($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($prev = $photos[$i - 1] ?? null) {
-                    $photos[$i - 1] = $photo;
-                    $photos[$i] = $prev;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function movePhotoDown($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($next = $photos[$i + 1] ?? null) {
-                    $photos[$i] = $next;
-                    $photos[$i + 1] = $photo;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    private function updatePhotos(array $photos): void
-    {
-        foreach ($photos as $i => $photo) {
-            $photo->setSort($i);
-        }
-        $this->photos = $photos;
-        $this->populateRelation('mainPhoto', reset($photos));
-    }
-
-    /** <========== Photo */
-
+/*
     public function addCostCalendar($stay_at, $cost_base, $guest_base, $cost_add)
     {
         $calendar = CostCalendar::create($stay_at, $cost_base, $guest_base, $cost_add);
         $calendars = $this->actualCalendar;
         $calendars[] = $calendar;
         $this->actualCalendar = $calendars;
-        //TODO !!!!
 
-    }
 
-    public function getName()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
-    }
-
-    public function getDescription()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
-    }
+    }*/
 
     /** getXXX ==========> */
     public function getType(): ActiveQuery
     {
         return $this->hasOne(Type::class, ['id' => 'type_id']);
-    }
-
-    public function getLegal(): ActiveQuery
-    {
-        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
-    }
-
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getReviews(): ActiveQuery

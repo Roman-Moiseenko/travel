@@ -6,6 +6,9 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\cars\CarParams;
+use booking\entities\booking\cars\CostCalendar;
+use booking\entities\booking\cars\Photo;
+use booking\entities\booking\cars\ReviewCar;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\Meta;
@@ -132,7 +135,7 @@ class CarService
         $car = $this->cars->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
-                $car->addPhoto($file);
+                $car->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
@@ -164,7 +167,7 @@ class CarService
     public function addReview($car_id, $user_id, ReviewForm $form)
     {
         $car = $this->cars->get($car_id);
-        $review = $car->addReview($user_id, $form->vote, $form->text);
+        $review = $car->addReview(ReviewCar::create($user_id, $form->vote, $form->text));
         $this->cars->save($car);
         $this->contactService->sendNoticeReview($review);
     }
@@ -343,11 +346,11 @@ class CarService
         {
             return 'Данное время (' . $car_at . ') уже занято';
         }
-        $car->addCostCalendar(
+        $car->addCostCalendar(CostCalendar::create(
             $car_at,
-            $count,
-            $cost
-        );
+            $cost,
+            $count
+        ));
         $this->cars->save($car);
     }
 

@@ -17,7 +17,6 @@ class StayFinanceForm extends Model
 {
     public $legal_id;
     public $cancellation;
-    public $check_booking;
     public $cost_base;
     public $guest_base;
     public $cost_add;
@@ -32,7 +31,6 @@ class StayFinanceForm extends Model
         $this->cost_base = $stay->cost_base;
         $this->guest_base = $stay->guest_base;
         $this->cost_add = $stay->cost_add;
-        $this->check_booking = $stay->check_booking;
         parent::__construct($config);
     }
 
@@ -42,7 +40,6 @@ class StayFinanceForm extends Model
             [['legal_id', 'cost_base', 'guest_base', 'cost_add', 'prepay'], 'integer'],
             ['cancellation', 'integer'],
             [['legal_id', 'cost_base', 'guest_base'], 'required', 'message' => 'Обязательное поле'],
-            [['check_booking'], 'in', 'range' => [BookingHelper::BOOKING_CONFIRMATION, BookingHelper::BOOKING_PAYMENT]],
         ];
     }
 

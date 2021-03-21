@@ -26,21 +26,9 @@ class Photo extends BasePhoto
     protected $catalog = 'cars';
     protected $name_id = 'car_id';
 
-    public static function create(UploadedFile $file): BasePhoto
-    {
-        $photo = new static();
-        $photo->file = $file;
-        return $photo;
-    }
-
     public static function tableName(): string
     {
         return '{{%booking_cars_photos}}';
-    }
-
-   public function behaviors(): array
-    {
-        return parent::behaviors();
     }
 
     public function getMain(): ActiveQuery

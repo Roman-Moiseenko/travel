@@ -8,6 +8,8 @@ use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\AgeLimit;
+use booking\entities\booking\BaseObjectOfBooking;
+use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\funs\queries\FunQueries;
 use booking\entities\booking\tours\Cost;
@@ -84,7 +86,7 @@ use yii\web\UploadedFile;
  * @property int $filling [int]
  */
 
-class Fun extends ActiveRecord
+class Fun extends BaseObjectOfBooking
 {
     const TYPE_TIME_FULLDAY = 1; //весь день
     const TYPE_TIME_WEEKEND = 2; //билет выходного дня (сб, вс)
@@ -104,7 +106,6 @@ class Fun extends ActiveRecord
     public $params;
     public $baseCost;
     public $times;
-    public $meta;
 
 
     public static function isClearTimes($type): bool
@@ -177,16 +178,6 @@ class Fun extends ActiveRecord
         $this->params = $params;
     }
 
-    public function setPrepay($prepay)
-    {
-        $this->prepay = $prepay;
-    }
-
-    public function setLegal($legalId)
-    {
-        $this->legal_id = $legalId;
-    }
-
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
@@ -197,73 +188,9 @@ class Fun extends ActiveRecord
         $this->baseCost = $cost;
     }
 
-    public function setCancellation($cancellation)
-    {
-        $this->cancellation = $cancellation;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    public function isConfirmation(): bool
-    {
-        return $this->prepay == 0;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_ACTIVE;
-    }
-
-    public function isVerify(): bool
-    {
-        return $this->status === StatusHelper::STATUS_VERIFY;
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === StatusHelper::STATUS_DRAFT;
-    }
-
-    public function isInactive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function isLock()
-    {
-        return $this->status === StatusHelper::STATUS_LOCK;
-    }
-
     public function isMulti(): bool
     {
         return $this->multi;
-    }
-
-    public function isCancellation($date_fun)
-    {
-        if ($this->cancellation == null) return false;
-        if ($date_fun <= time()) return false;
-        if (($date_fun - time()) / (24 * 3600) < $this->cancellation) return false;
-        return true;
-    }
-
-    public function upViews(): void
-    {
-        $this->views++;
-    }
-
-    public function isNew(): bool
-    {
-        if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
-    }
-
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
     }
 
     public static function tableName()
@@ -273,27 +200,18 @@ class Fun extends ActiveRecord
 
     public function behaviors()
     {
-        return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
+        $relations = [
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
-                    'photos',
                     'extraAssignments',
                     'values',
-                    'reviews',
                     'actualCalendar',
                 ],
             ],
         ];
-    }
+        return array_merge($relations, parent::behaviors());
 
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
     }
 
     public function afterFind(): void
@@ -360,14 +278,6 @@ class Fun extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public function afterSave($insert, $changedAttributes)
-    {
-        $related = $this->getRelatedRecords();
-        parent::afterSave($insert, $changedAttributes);
-        if (array_key_exists('mainPhoto', $related)) {
-            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-        }
-    }
 
     /** AssignExtra ==========> */
 
@@ -414,137 +324,10 @@ class Fun extends ActiveRecord
 
     /** <========== AssignExtra */
 
-    /** Review  ==========>*/
-
-    public function addReview($userId, $vote, $text): ReviewFun
-    {
-        $reviews = $this->reviews;
-        $review = ReviewFun::create($userId, $vote, $text);
-        $reviews[] = $review;
-        $this->updateReviews($reviews);
-        return $review;
-    }
-
-    public function editReview($id, $vote, $text): void
-    {
-
-        $reviews = $this->reviews;
-        foreach ($reviews as $review) {
-            if ($review->isIdEqualTo($id)) {
-                $review->edit($vote, $text);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function removeReview($id): void
-    {
-        $reviews = $this->reviews;
-        foreach ($reviews as $i => $review) {
-            if ($review->isIdEqualTo($id)) {
-                unset($reviews[$i]);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function countReviews(): int
-    {
-        $reviews = $this->reviews;
-        return count($reviews);
-    }
-
-    private function updateReviews(array $reviews): void
-    {
-        $total = 0;
-        /* @var ReviewFun $review */
-        foreach ($reviews as $review) {
-            $total += $review->getRating();
-        }
-        $this->reviews = $reviews;
-        $this->rating = count($reviews) == 0 ? 0 : $total / count($reviews);
-    }
-
-    /** <==========  Reviews  */
-
-    /** Photo ==========> */
-
-    public function addPhoto(UploadedFile $file): void
-    {
-        $photos = $this->photos;
-        $photos[] = Photo::create($file);
-        $this->updatePhotos($photos);
-        $this->updated_at = time();
-    }
-
-    public function removePhoto($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                unset($photos[$i]);
-                $this->updatePhotos($photos);
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function removePhotos(): void
-    {
-        $this->updatePhotos([]);
-    }
-
-    public function movePhotoUp($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($prev = $photos[$i - 1] ?? null) {
-                    $photos[$i - 1] = $photo;
-                    $photos[$i] = $prev;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function movePhotoDown($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($next = $photos[$i + 1] ?? null) {
-                    $photos[$i] = $next;
-                    $photos[$i + 1] = $photo;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    private function updatePhotos(array $photos): void
-    {
-        foreach ($photos as $i => $photo) {
-            $photo->setSort($i);
-        }
-        $this->photos = $photos;
-        $this->populateRelation('mainPhoto', reset($photos));
-    }
-
-    /** <========== Photo */
 
     /** CostCalendar  ==========> */
 
-    public function addCostCalendar($fun_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
+ /*   public function addCostCalendar($fun_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
     {
         $calendar = CostCalendar::create(
             $fun_at,
@@ -613,7 +396,7 @@ class Fun extends ActiveRecord
             }
         }
         return false;
-    }
+    }*/
     /** <==========  CostCalendar  */
 
     /** Value ==========> */
@@ -678,7 +461,7 @@ class Fun extends ActiveRecord
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewFun::class, ['fun_id' => 'id'])->andWhere([ReviewFun::tableName() .'.status' => ReviewFun::STATUS_ACTIVE]);
+        return $this->hasMany(ReviewFun::class, ['fun_id' => 'id'])->andWhere([ReviewFun::tableName() .'.status' => BaseReview::STATUS_ACTIVE]);
     }
 
     public function getMainPhoto(): ActiveQuery

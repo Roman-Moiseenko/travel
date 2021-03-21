@@ -8,6 +8,8 @@ use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\AgeLimit;
+use booking\entities\booking\BaseObjectOfBooking;
+use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\cars\queries\CarQueries;
 use booking\entities\booking\City;
@@ -77,7 +79,7 @@ use yii\web\UploadedFile;
  * @property string $meta_json
  * @property int $filling [int]
  */
-class Car extends ActiveRecord
+class Car extends BaseObjectOfBooking
 {
     const LICENSE = [
         'none' => 'none',
@@ -87,12 +89,9 @@ class Car extends ActiveRecord
         'D' => 'D',
         'M' => 'M',
     ];
-
     public $address = [];
     public $params;
     public $limit;
-    public $meta;
-
 
 
     public static function create($name, $name_en, $type_id, $description, $description_en, $year): self
@@ -131,11 +130,6 @@ class Car extends ActiveRecord
         $this->params = $params;
     }
 
-    public function setPrepay($prepay)
-    {
-        $this->prepay = $prepay;
-    }
-
     public function assignCity($id): void
     {
         $assignments = $this->assignmentCities;
@@ -166,11 +160,6 @@ class Car extends ActiveRecord
         $this->assignmentCities = [];
     }
 
-    /** finance Data */
-    public function setLegal($legalId)
-    {
-        $this->legal_id = $legalId;
-    }
 
     public function setQuantity($quantity)
     {
@@ -187,74 +176,10 @@ class Car extends ActiveRecord
         $this->deposit = $deposit;
     }
 
-    public function setCancellation($cancellation)
-    {
-        $this->cancellation = $cancellation;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
 
     public function setDiscountOfDays($discount_of_days)
     {
         $this->discount_of_days = $discount_of_days;
-    }
-
-    public function isConfirmation(): bool
-    {
-        return $this->prepay == 0;
-        //return $this->check_booking == BookingHelper::BOOKING_CONFIRMATION;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_ACTIVE;
-    }
-
-    public function isVerify(): bool
-    {
-        return $this->status === StatusHelper::STATUS_VERIFY;
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === StatusHelper::STATUS_DRAFT;
-    }
-
-    public function isInactive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function isLock()
-    {
-        return $this->status === StatusHelper::STATUS_LOCK;
-    }
-
-    public function isCancellation($date_tour)
-    {
-        if ($this->cancellation == null) return false;
-        if ($date_tour <= time()) return false;
-        if (($date_tour - time()) / (24 * 3600) < $this->cancellation) return false;
-        return true;
-    }
-
-    public function upViews(): void
-    {
-        $this->views++;
-    }
-
-    public function isNew(): bool
-    {
-        if ($this->public_at == null) return false;
-        return (time() - $this->public_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
-    }
-
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
     }
 
     public static function tableName()
@@ -264,30 +189,21 @@ class Car extends ActiveRecord
 
     public function behaviors()
     {
-        return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
+        $relations = [
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
-                    'photos',
                     'extraAssignments',
-                    'reviews',
                     'values',
                     'actualCalendar',
                     'assignmentCities',
                 ],
             ],
         ];
+        return array_merge($relations, parent::behaviors());
+
     }
 
-
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
-    }
 
     public static function find(): CarQueries
     {
@@ -301,7 +217,6 @@ class Car extends ActiveRecord
             $this->address = [];
         } else {
             foreach ($addresses as $address) {
-                //scr::v($address);
                 $this->address[] = new BookingAddress($address['address'], $address['latitude'], $address['longitude']);
             }
         }
@@ -337,16 +252,8 @@ class Car extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public function afterSave($insert, $changedAttributes)
-    {
-        $related = $this->getRelatedRecords();
-        parent::afterSave($insert, $changedAttributes);
-        if (array_key_exists('mainPhoto', $related)) {
-            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-        }
-    }
 
-    public function addCostCalendar($car_at, $count, $cost)
+   /* public function addCostCalendar($car_at, $count, $cost)
     {
         $calendar = CostCalendar::create(
             $car_at,
@@ -408,7 +315,7 @@ class Car extends ActiveRecord
             }
         }
         return false;
-    }
+    }*/
     /** <==========  CostCalendar  */
 
     /** Value ==========> */
@@ -489,133 +396,6 @@ class Car extends ActiveRecord
     }
 
     /** <========== AssignExtra */
-    /** Review  ==========>*/
-
-    public function addReview($userId, $vote, $text): ReviewCar
-    {
-        $reviews = $this->reviews;
-        $review = ReviewCar::create($userId, $vote, $text);
-        $reviews[] = $review;
-        $this->updateReviews($reviews);
-        return $review;
-    }
-
-    public function editReview($id, $vote, $text): void
-    {
-
-        $reviews = $this->reviews;
-        foreach ($reviews as $review) {
-            if ($review->isIdEqualTo($id)) {
-                $review->edit($vote, $text);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function removeReview($id): void
-    {
-        $reviews = $this->reviews;
-        foreach ($reviews as $i => $review) {
-            if ($review->isIdEqualTo($id)) {
-                unset($reviews[$i]);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function countReviews(): int
-    {
-        $reviews = $this->reviews;
-        return count($reviews);
-    }
-
-    private function updateReviews(array $reviews): void
-    {
-        $total = 0;
-        /* @var ReviewCar $review */
-        foreach ($reviews as $review) {
-            $total += $review->getRating();
-        }
-        $this->reviews = $reviews;
-        $this->rating = count($reviews) == 0 ? 0 : $total / count($reviews);
-    }
-
-    /** <==========  Reviews  */
-
-    /** Photo ==========> */
-
-    public function addPhoto(UploadedFile $file): void
-    {
-        $photos = $this->photos;
-        $photos[] = Photo::create($file);
-        $this->updatePhotos($photos);
-        $this->updated_at = time();
-    }
-
-    public function removePhoto($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                unset($photos[$i]);
-                $this->updatePhotos($photos);
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function removePhotos(): void
-    {
-        $this->updatePhotos([]);
-    }
-
-    public function movePhotoUp($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($prev = $photos[$i - 1] ?? null) {
-                    $photos[$i - 1] = $photo;
-                    $photos[$i] = $prev;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    public function movePhotoDown($id): void
-    {
-        $photos = $this->photos;
-        foreach ($photos as $i => $photo) {
-            if ($photo->isIdEqualTo($id)) {
-                if ($next = $photos[$i + 1] ?? null) {
-                    $photos[$i] = $next;
-                    $photos[$i + 1] = $photo;
-                    $this->updatePhotos($photos);
-                }
-                return;
-            }
-        }
-        throw new \DomainException('Фото не найдено.');
-    }
-
-    private function updatePhotos(array $photos): void
-    {
-        foreach ($photos as $i => $photo) {
-            $photo->setSort($i);
-        }
-        $this->photos = $photos;
-        $this->populateRelation('mainPhoto', reset($photos));
-    }
-
-    /** <========== Photo */
 
     /** getXXX ==========> */
     public function getPhotos(): ActiveQuery
@@ -641,27 +421,12 @@ class Car extends ActiveRecord
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewCar::class, ['car_id' => 'id'])->andWhere([ReviewCar::tableName() . '.status' => ReviewCar::STATUS_ACTIVE]);
+        return $this->hasMany(ReviewCar::class, ['car_id' => 'id'])->andWhere([ReviewCar::tableName() . '.status' => BaseReview::STATUS_ACTIVE]);
     }
 
     public function getMainPhoto(): ActiveQuery
     {
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
-    }
-
-    public function getLegal(): ActiveQuery
-    {
-        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
-    }
-
-    public function getName()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
-    }
-
-    public function getDescription()
-    {
-        return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
 
     public function getValues(): ActiveQuery
@@ -684,8 +449,4 @@ class Car extends ActiveRecord
         return $this->hasMany(City::class, ['id' => 'city_id'])->via('assignmentCities');
     }
 
-    public function getUser(): ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
 }

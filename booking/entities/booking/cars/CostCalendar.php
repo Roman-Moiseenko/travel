@@ -4,10 +4,10 @@
 namespace booking\entities\booking\cars;
 
 
-use booking\entities\booking\CalendarInterface;
+use booking\entities\booking\BaseCalendar;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+
 
 /**
  * Class CostCalendar
@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $car_id
  * @property integer $car_at
+ *
  * @property integer $count
  * @property integer $cost
  * @property Car $car
@@ -22,7 +23,7 @@ use yii\db\ActiveRecord;
  * @property BookingCar[] $bookings
  * @property SellingCar[] $selling
  */
-class CostCalendar extends ActiveRecord  implements CalendarInterface
+class CostCalendar extends BaseCalendar
 {
 
     public static function create($car_at, $cost, $count): self
@@ -39,12 +40,7 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return '{{%booking_cars_calendar_cost}}';
     }
 
-    public function isFor($id)
-    {
-        return $this->id == $id;
-    }
-
-    public function isEmpty()
+    public function isEmpty():bool
     {
         $onDays = BookingCarOnDay::find()->andWhere(['calendar_id' => $this->id])->count();
         return $onDays == 0;
@@ -74,7 +70,6 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
             ->via('bookingOnDays')
             ->andWhere(['<>', 'booking_cars_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_cars_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
-        //BookingCarOnDay::tableName(), ['calendar_id' => 'id']
     }
 
     public function getSelling(): ActiveQuery
@@ -100,5 +95,37 @@ class CostCalendar extends ActiveRecord  implements CalendarInterface
         return count(BookingCar::find()->alias('b')
                 ->joinWith('calendars c')
                 ->andWhere(['c.id' => $this->id])->all()) > 0;
+    }
+
+    public function getAllBookings(): ActiveQuery
+    {
+        return $this->hasMany(BookingCar::class, ['calendar_id' => 'id']);
+    }
+
+    public function isCancelProvider(): bool
+    {
+        if ($this->car_at < time()) return false; //уже прошло
+        //Добавить условия для отмены, если понадобятся
+        return false;
+    }
+
+    protected function _count(): int
+    {
+        return $this->count;
+    }
+
+    public function getDate_at(): int
+    {
+        return $this->car_at;
+    }
+
+    public function setDate_at(int $date_at): void
+    {
+        $this->car_at = $date_at;
+    }
+
+    public function cloneDate(int $date_at): BaseCalendar
+    {
+        return CostCalendar::create($date_at, $this->cost, $this->count);
     }
 }

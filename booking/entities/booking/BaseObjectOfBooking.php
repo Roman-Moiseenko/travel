@@ -10,7 +10,9 @@ use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\helpers\StatusHelper;
+use Faker\Provider\Base;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -47,6 +49,8 @@ use yii\web\UploadedFile;
  * @property Legal $legal
  * @property User $user
  * @property BasePhoto[] $photos
+ * @property BaseReview[] $reviews
+ * @property BaseCalendar[] $actualCalendar
  *
  * @property string $meta_json
  */
@@ -167,14 +171,15 @@ abstract class BaseObjectOfBooking extends ActiveRecord
     public function behaviors()
     {
         return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
                     'photos',
+                    'reviews',
                 ],
             ],
+            MetaBehavior::class,
+            TimestampBehavior::class,
         ];
     }
 
@@ -185,11 +190,17 @@ abstract class BaseObjectOfBooking extends ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
 
 
-    /** Photo ==========>
-     * @param BasePhoto $photo
-     */
+//====== Photo         ============================================
 
     public function addPhotoClass(BasePhoto $photo): void
     {
@@ -265,5 +276,126 @@ abstract class BaseObjectOfBooking extends ActiveRecord
         $this->populateRelation('mainPhoto', reset($photos));
     }
 
-    /** <========== Photo */
+//====== Review        ============================================
+
+    public function addReview(BaseReview $review): BaseReview
+    {
+        $reviews = $this->reviews;
+        $reviews[] = $review;
+        $this->updateReviews($reviews);
+        return $review;
+    }
+
+    public function editReview($id, $vote, $text): void
+    {
+
+        $reviews = $this->reviews;
+        foreach ($reviews as $review) {
+            if ($review->isIdEqualTo($id)) {
+                $review->edit($vote, $text);
+                $this->updateReviews($reviews);
+                return;
+            }
+        }
+        throw new \DomainException('Отзыв не найден');
+    }
+
+    public function removeReview($id): void
+    {
+        $reviews = $this->reviews;
+        foreach ($reviews as $i => $review) {
+            if ($review->isIdEqualTo($id)) {
+                unset($reviews[$i]);
+                $this->updateReviews($reviews);
+                return;
+            }
+        }
+        throw new \DomainException('Отзыв не найден');
+    }
+
+    public function countReviews(): int
+    {
+        $reviews = $this->reviews;
+        return count($reviews);
+    }
+
+    private function updateReviews(array $reviews): void
+    {
+        $total = 0;
+        /* @var BaseReview $review */
+        foreach ($reviews as $review) {
+            $total += $review->getRating();
+        }
+        $this->reviews = $reviews;
+        $this->rating = $total / count($reviews);
+    }
+
+//**** Календарь (CostCalendar) **********************************
+
+    public function addCostCalendar(BaseCalendar $calendar): BaseCalendar
+    {
+        $calendars = $this->actualCalendar;
+        $calendars[] = $calendar;
+        $this->actualCalendar = $calendars;
+        return $calendar;
+    }
+
+    public function clearCostCalendar($new_day)
+    {
+        $calendars = $this->actualCalendar;
+        foreach ($calendars as $i => $calendar) {
+            if ($calendar->getDate_at() === $new_day) {
+                unset($calendars[$i]);
+            }
+        }
+        $this->actualCalendar = $calendars;
+        return;
+    }
+
+    public function copyCostCalendar($new_day, $copy_day)
+    {
+        /** @var BaseCalendar $calendars */
+        $calendars = $this->actualCalendar;
+        $temp_array = [];
+        foreach ($calendars as $i => $calendar) {
+            if ($calendar->getDate_at() === $new_day) {
+                unset($calendars[$i]);
+            }
+            if ($calendar->getDate_at() === $copy_day) {
+               /* $calendar_copy = clone $calendar;
+                /*$calendar_copy = CostCalendar::create(
+                    $new_day,
+                    $calendar->time_at,
+                    new Cost(
+                        $calendar->cost->adult,
+                        $calendar->cost->child,
+                        $calendar->cost->preference
+                    ),
+                    $calendar->tickets
+                );*/
+                /*$calendar_copy->setDate_at($new_day);*/
+                $temp_array[] = $calendar->cloneDate($new_day);
+                //$calendar_copy;
+            }
+        }
+        //scr::
+        $this->actualCalendar = array_merge((array)$calendars, $temp_array);
+    }
+
+    public function removeCostCalendar($id): bool
+    {
+        $calendars = $this->actualCalendar;
+        foreach ($calendars as $i => $calendar) {
+            if ($calendar->isFor($id)) {
+                if ($calendar->isEmpty()) {
+                    unset($calendars[$i]);
+                    $this->actualCalendar = $calendars;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }

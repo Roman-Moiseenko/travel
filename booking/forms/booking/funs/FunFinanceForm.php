@@ -22,7 +22,6 @@ class FunFinanceForm extends CompositeForm
 {
     public $legal_id;
     public $cancellation;
-    public $check_booking;
     public $type_time;
     public $quantity;
     public $multi;
@@ -36,7 +35,6 @@ class FunFinanceForm extends CompositeForm
         $this->quantity = $fun->quantity ?? 1;
         $this->cancellation = $fun->cancellation;
         $this->multi = $fun->multi;
-        $this->check_booking = $fun->check_booking;
         $this->baseCost = new CostForm($fun->baseCost);
 
         /*$_times = array_map(function (Times $times) {
@@ -57,7 +55,6 @@ class FunFinanceForm extends CompositeForm
             [['legal_id', 'prepay', 'type_time', 'cancellation', 'quantity'], 'integer'],
             [['legal_id', 'type_time', 'quantity'], 'required', 'message' => 'Обязательное поле'],
             [['multi'], 'boolean'],
-            [['check_booking'], 'in', 'range' => [BookingHelper::BOOKING_CONFIRMATION, BookingHelper::BOOKING_PAYMENT]],
         ];
     }
 

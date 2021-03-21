@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $model \booking\forms\booking\ReviewForm */
-/* @var $review \booking\entities\booking\ReviewInterface */
+/* @var $review \booking\entities\booking\BaseReview */
 $this->title = Lang::t('Изменить отзыв на') .  ' ' . $review->getName();
 $this->params['breadcrumbs'][] = ['label' =>  Lang::t('Мои отзывы'), 'url' => Url::to(['cabinet/review/index'])];;
 $this->params['breadcrumbs'][] = $this->title;

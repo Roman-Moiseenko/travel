@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\booking\ReviewInterface;
+
 use yii\web\IdentityInterface;
 
 /* @var $user IdentityInterface */

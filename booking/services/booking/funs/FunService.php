@@ -7,6 +7,8 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\funs\CostCalendar;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\funs\FunParams;
+use booking\entities\booking\funs\Photo;
+use booking\entities\booking\funs\ReviewFun;
 use booking\entities\booking\funs\Times;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\booking\tours\Cost;
@@ -131,7 +133,7 @@ class FunService
         $fun = $this->funs->get($id);
         if ($form->files != null)
             foreach ($form->files as $file) {
-                $fun->addPhoto($file);
+                $fun->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         ini_set('max_execution_time', 180);
@@ -163,7 +165,7 @@ class FunService
     public function addReview($fun_id, $user_id, ReviewForm $form)
     {
         $fun = $this->funs->get($fun_id);
-        $review = $fun->addReview($user_id, $form->vote, $form->text);
+        $review = $fun->addReview(ReviewFun::create($user_id, $form->vote, $form->text));
         $this->funs->save($fun);
         $this->contactService->sendNoticeReview($review);
     }
@@ -351,14 +353,12 @@ class FunService
     {
         /** @var Fun $fun */
         $fun = $this->funs->get($id);
-        $fun->addCostCalendar(
+        $fun->addCostCalendar(CostCalendar::create(
             $fun_at,
             $time_at,
-            $tickets,
-            $cost_adult,
-            $cost_child,
-            $cost_preference
-        );
+            new Cost($cost_adult, $cost_child, $cost_preference),
+            $tickets
+        ));
         $this->funs->save($fun);
     }
 
