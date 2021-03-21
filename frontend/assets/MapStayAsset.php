@@ -13,7 +13,7 @@ class MapStayAsset extends AssetBundle
         'css/map_panel.css',
     ];
     public $js = [
-        'js/map_panel.js',
+      //  'js/map_panel.js',
         'js/map_stay.js',
     ];
 }

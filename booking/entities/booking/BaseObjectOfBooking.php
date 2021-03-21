@@ -10,14 +10,11 @@ use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\helpers\StatusHelper;
-use Faker\Provider\Base;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
 
 /**
  * Class BaseObjectOfBooking
@@ -40,6 +37,7 @@ use yii\web\UploadedFile;
  * @property int $filling [int]
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
+ * @property string $meta_json - Хранение  мета-параметров
  * @property Meta $meta
  * ====== Финансы ===================================
  * @property integer $cancellation Отмена бронирования - нет/за сколько дней
@@ -52,7 +50,6 @@ use yii\web\UploadedFile;
  * @property BaseReview[] $reviews
  * @property BaseCalendar[] $actualCalendar
  *
- * @property string $meta_json
  */
 abstract class BaseObjectOfBooking extends ActiveRecord
 {
@@ -153,10 +150,12 @@ abstract class BaseObjectOfBooking extends ActiveRecord
 
 //====== Внешние связи ============================================
     abstract public function getActualCalendar(): ActiveQuery;
-    abstract public function getMainPhoto(): ActiveQuery;
-    abstract public function getReviews(): ActiveQuery;
-    abstract public function getPhotos(): ActiveQuery;
 
+    abstract public function getMainPhoto(): ActiveQuery;
+
+    abstract public function getReviews(): ActiveQuery;
+
+    abstract public function getPhotos(): ActiveQuery;
 
     public function getLegal(): ActiveQuery
     {
@@ -344,9 +343,7 @@ abstract class BaseObjectOfBooking extends ActiveRecord
     {
         $calendars = $this->actualCalendar;
         foreach ($calendars as $i => $calendar) {
-            if ($calendar->getDate_at() === $new_day) {
-                unset($calendars[$i]);
-            }
+            if ($calendar->getDate_at() === $new_day) unset($calendars[$i]);
         }
         $this->actualCalendar = $calendars;
         return;
@@ -362,23 +359,9 @@ abstract class BaseObjectOfBooking extends ActiveRecord
                 unset($calendars[$i]);
             }
             if ($calendar->getDate_at() === $copy_day) {
-               /* $calendar_copy = clone $calendar;
-                /*$calendar_copy = CostCalendar::create(
-                    $new_day,
-                    $calendar->time_at,
-                    new Cost(
-                        $calendar->cost->adult,
-                        $calendar->cost->child,
-                        $calendar->cost->preference
-                    ),
-                    $calendar->tickets
-                );*/
-                /*$calendar_copy->setDate_at($new_day);*/
                 $temp_array[] = $calendar->cloneDate($new_day);
-                //$calendar_copy;
             }
         }
-        //scr::
         $this->actualCalendar = array_merge((array)$calendars, $temp_array);
     }
 

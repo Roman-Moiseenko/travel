@@ -6,25 +6,17 @@ namespace booking\entities\booking\tours;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
-use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\BaseObjectOfBooking;
-use booking\entities\booking\BasePhoto;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
-//use booking\entities\booking\stays\Geo;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\tours\queries\TourQueries;
-use booking\entities\Lang;
 use booking\entities\Meta;
-use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
+
 
 /**
  * Class Tours
@@ -150,7 +142,6 @@ class Tour extends BaseObjectOfBooking
         return $this->params->private == true;
     }
 
-
     public function behaviors()
     {
         $relations =
@@ -166,7 +157,6 @@ class Tour extends BaseObjectOfBooking
         ];
         return array_merge($relations, parent::behaviors());
     }
-
 
     public static function tableName()
     {
@@ -316,79 +306,6 @@ class Tour extends BaseObjectOfBooking
     {
         $this->typeAssignments = [];
     }
-
-//**** Календарь (CostCalendar) **********************************
-
- /*   public function addCostCalendar($tour_at, $time_at, $tickets, $cost_adult, $cost_child = null, $cost_preference = null): CostCalendar
-    {
-        $calendar = CostCalendar::create(
-            $tour_at,
-            $time_at,
-            new Cost($cost_adult, $cost_child, $cost_preference),
-            $tickets
-        );
-        $calendars = $this->actualCalendar;
-        $calendars[] = $calendar;
-        $this->actualCalendar = $calendars;
-        return $calendar;
-    }*/
-
-  /*  public function clearCostCalendar($new_day)
-    {
-        $calendars = $this->actualCalendar;
-        foreach ($calendars as $i => $calendar) {
-            if ($calendar->tour_at === $new_day) {
-                unset($calendars[$i]);
-            }
-        }
-        $this->actualCalendar = $calendars;
-        return;
-    }
-
-    public function copyCostCalendar($new_day, $copy_day)
-    {
-        $calendars = $this->actualCalendar;
-        $temp_array = [];
-        foreach ($calendars as $i => $calendar) {
-            if ($calendar->tour_at === $new_day) {
-                unset($calendars[$i]);
-            }
-            if ($calendar->tour_at === $copy_day) {
-
-                $calendar_copy = CostCalendar::create(
-                    $new_day,
-                    $calendar->time_at,
-                    new Cost(
-                        $calendar->cost->adult,
-                        $calendar->cost->child,
-                        $calendar->cost->preference
-                    ),
-                    $calendar->tickets
-                );
-                $calendar_copy->tour_at = $new_day;
-                $temp_array[] = $calendar_copy;
-            }
-        }
-        $this->actualCalendar = array_merge($calendars, $temp_array);
-    }
-
-    public function removeCostCalendar($id): bool
-    {
-        $calendars = $this->actualCalendar;
-        foreach ($calendars as $i => $calendar) {
-            if ($calendar->isFor($id)) {
-                if ($calendar->isEmpty()) {
-                    unset($calendars[$i]);
-                    $this->actualCalendar = $calendars;
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-*/
 
 //**** Внешние связи **********************************
 

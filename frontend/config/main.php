@@ -160,6 +160,7 @@ return [
                 'stays/stays/get-error' => 'stays/stays/get-error',
                 'stays/stays/map' => 'stays/stays/map',
                 'stays/stays/get-maps' => 'stays/stays/get-maps',
+                'stays/checkout/booking' => 'stays/checkout/booking',
                 'stay/<id:\d+>' => 'stays/stays/stay',
 
                 'tickets' => 'tickets/tickets/index',

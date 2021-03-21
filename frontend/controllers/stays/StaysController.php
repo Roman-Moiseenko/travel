@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\scr;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
 use yii\web\Controller;
@@ -59,6 +60,10 @@ class StaysController extends Controller
         $form = new SearchStayForm();
         $stay = $this->stays->get($id);
         $params = \Yii::$app->request->queryParams;
+        $onMap = isset($params['map']) ? true : false;
+        if ($onMap) {
+            unset($_GET['map']);
+        }
         if (!isset($params['SearchStayForm'])) {
             $params['SearchStayForm'] = [
                 'date_from' => '',
@@ -89,6 +94,7 @@ class StaysController extends Controller
             'SearchStayForm' => $params['SearchStayForm'],
             'reviewForm' => $reviewForm,
             'model' => $form,
+            'openMap' => isset($params['map']) ? true : false,
         ]);
     }
 
@@ -108,39 +114,26 @@ class StaysController extends Controller
                 $params = \Yii::$app->request->bodyParams;
                 $stay = $this->stays->get($params['stay_id']);
                 $result = $stay->checkBySearchParams($params);
-                if ($result !== true) return $result; //Неверные параметры для поиска
+                $error = 0;
+                if ($result !== true) $error = Stay::listErrors()[$result];
                 //Вычисляем новую стоимость от параметров и выбранных услуг
                 $cost = $stay->costBySearchParams($params);
-                return CurrencyHelper::stat($cost);
+                return json_encode(
+                    [
+                        'error' => $error,
+                        'cost' => CurrencyHelper::stat($cost),
+                        'prepay' => CurrencyHelper::stat($cost * $stay->prepay / 100),
+                        'percent' => $stay->prepay,
+                    ]);
+
+
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
         }
         return 'Error page!';
     }
-/*
-    public function actionMap($id)
-    {
-        $this->layout = 'main_map';
-        $stay = $this->stays->get($id);
-        $params = \Yii::$app->request->queryParams;
-        if (!isset($params['SearchStayForm'])) {
-            $params['SearchStayForm'] = [
-                'date_from' => '',
-                'date_to' => '',
-                'guest' => 1,
-                'children' => 0,
-                'children_age' => [0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '',],
-            ];
-        }
 
-        return $this->render('map', [
-            'stay' => $stay,
-            'SearchStayForm' => $params['SearchStayForm'],
-
-        ]);
-    }
-*/
     public function actionGetMaps()
     {
         $this->layout = 'main_ajax';
@@ -157,6 +150,6 @@ class StaysController extends Controller
             }
 
         }
-        return'Error';
+        return 'Error';
     }
 }

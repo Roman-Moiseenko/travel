@@ -29,6 +29,7 @@ use yii\helpers\Url;
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $stay Stay */
 /* @var $SearchStayForm array */
+/* @var $openMap bool */
 
 $layout = <<< HTML
 <div class="row">
@@ -64,7 +65,6 @@ $(document).ready(function() {
     let children;
     let children_age = new Array(8);
     
-    
     update_fields();
     update_data();
     $('body').on('change', '#children', function () {
@@ -73,9 +73,6 @@ $(document).ready(function() {
     });    
     $('body').on('click', '.click-field-stay-params', function() {
        update_data();        
-    });
-    $(document).on('click', '.link-map-panel', function() {
-        console.log($(this).attr('data-href'));        
     });
     $('body').on('change', '.change-field-stay-params', function() {
         update_data();       
@@ -93,42 +90,32 @@ $(document).ready(function() {
         $('#data-stay').attr('data-date-to', end_date);
         $('#data-stay').attr('data-guest', guest);
         $('#data-stay').attr('data-children', children);
-
-
-        //let old_link = $('#stay-map-link').attr('href');
-        //console.log(old_link);
-        //let new_link = old_link.substr(0, old_link.indexOf('&'));
-
-        /*new_link = new_link + 
-            '&SearchStayForm[date_from]=' + begin_date + 
-            '&SearchStayForm[date_to]=' + end_date +
-            '&SearchStayForm[guest]=' + guest +
-            '&SearchStayForm[children]=' + children;*/
-            
-        //console.log(1);
+        
         for (let i = 0; i < 8; i++) {
-            //console.log(i);
             children_age[i] = $('#children-age-' + i).val();
-            $('#data-stay').attr('data-children-age-' + i, children_age[i]);
-            //new_link = new_link + '&SearchStayForm[children_age]['+ i +']=' + children_age[i];
+            $('#data-stay').attr('data-children-age' + i, children_age[i]);
         }
-
-        //$('#stay-map-link').attr('href', new_link);
+        
         let _services = new Array();
         for (let j = 0; j < $_count_service; j++) {
             if ($('#service-' + j).is(':checked')) _services[j] = $('#service-' + j).data('id');
         }
-        $.post('/stays/stays/get-booking', {stay_id: stay_id, date_from: begin_date, date_to: end_date, guest: guest, children: children, children_age: children_age, services: _services}, function(data) {
-            if (Number(data) < 0) {
-                $('#new-booking').hide();
+        $.post('/stays/stays/get-booking', 
+        {stay_id: stay_id, date_from: begin_date, date_to: end_date, guest: guest, children: children, children_age: children_age, services: _services}, 
+        function(data) {
+            let _result = JSON.parse(data);
+            if (_result.error != 0) {
+                $('.new-booking').hide();
+                $('#error-booking').html(_result.error);
                 $('#amount-booking').html('');
-                $.post('/stays/stays/get-error', {code_error: Number(data)}, function(data) {
-                    $('#error-booking').html(data);
-                });
+                $('#amount-prepay').html('');
             } else {
                 $('#error-booking').html('');
-                $('#new-booking').show();
-                $('#amount-booking').html(data);
+                $('.new-booking').show();
+                $('#map-stay').attr('data-cost', _result.cost);
+                $('#amount-booking').html(_result.cost);
+                $('#amount-prepay').html(_result.prepay);
+                $('#amount-percent').html(_result.percent);
             }
         });
     }
@@ -159,11 +146,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
 MagnificPopupAsset::register($this);
 MapStayAsset::register($this);
+
+//Клик по карте
+if ($openMap) {
+    $url = Url::current(['map' => null]);
+    $js_click = <<<JS
+$(document).ready(function() {
+    $('#a-map-stay').click();
+
+$('.fancybox-close').click(function(e){
+    e.preventDefault();
+    history.pushState({}, '', '$url');
+    });
+});
+JS;
+    $this->registerJs($js_click);
+}
 $mobile = SysHelper::isMobile();
 $countReveiws = $stay->countReviews();
 
 ?>
-
+    <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+          data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <?=
 newerton\fancybox\FancyBox::widget([
     'target' => 'a[rel=fancybox]',
@@ -198,6 +202,21 @@ newerton\fancybox\FancyBox::widget([
     ]
 ]);
 ?>
+    <span id="data-stay"
+         data-id="<?= $stay->id ?>"
+         data-date-from="<?= $SearchStayForm['date_from']?>"
+         data-date-to="<?= $SearchStayForm['date_to']?>"
+         data-guest="<?= $SearchStayForm['guest']?>"
+         data-children="<?= $SearchStayForm['children']?>"
+         data-children-age0="<?= $SearchStayForm['children_age'][0]?>"
+         data-children-age1="<?= $SearchStayForm['children_age'][1]?>"
+         data-children-age2="<?= $SearchStayForm['children_age'][2]?>"
+         data-children-age3="<?= $SearchStayForm['children_age'][3]?>"
+         data-children-age4="<?= $SearchStayForm['children_age'][4]?>"
+         data-children-age5="<?= $SearchStayForm['children_age'][5]?>"
+         data-children-age6="<?= $SearchStayForm['children_age'][6]?>"
+         data-children-age7="<?= $SearchStayForm['children_age'][7]?>"
+    ></span>
     <span id="stay-id" data-id="<?= $stay->id ?>"></span>
     <!-- ФОТО  -->
     <div class="pb-4 thumbnails gallery"
@@ -235,8 +254,8 @@ newerton\fancybox\FancyBox::widget([
             </div>
             <div class="row pb-3">
                 <div class="col-12">
-                    <a href="#map-stay" title="" rel="fancybox" >
-                        <?= $stay->address->address ?>
+                    <a href="#map-stay" id="a-map-stay" title="" rel="fancybox" class="loader_ymap">
+                        <i class="fas fa-map-marker-alt"></i> <?= $stay->address->address ?>
 
                     </a>
                     <div id="map-stay"
@@ -245,32 +264,13 @@ newerton\fancybox\FancyBox::widget([
                          data-latitude="<?= $stay->address->latitude ?>"
                          data-name="<?= $stay->getName() ?>"
                          data-cost="<?= ($cost = $stay->costBySearchParams($SearchStayForm)) < 0 ? '' : CurrencyHelper::stat($cost)?>"
-
                          style="display: none; height: 100%;"
                     ></div>
-                    <div id="data-stay"
-                         data-id="<?= $stay->id ?>"
-                         data-date-from="<?= $SearchStayForm['date_from']?>"
-                         data-date-to="<?= $SearchStayForm['date_to']?>"
-                         data-guest="<?= $SearchStayForm['guest']?>"
-                         data-children="<?= $SearchStayForm['children']?>"
-                         data-children-age0="<?= $SearchStayForm['children_age'][0]?>"
-                         data-children-age1="<?= $SearchStayForm['children_age'][1]?>"
-                         data-children-age2="<?= $SearchStayForm['children_age'][2]?>"
-                         data-children-age3="<?= $SearchStayForm['children_age'][3]?>"
-                         data-children-age4="<?= $SearchStayForm['children_age'][4]?>"
-                         data-children-age5="<?= $SearchStayForm['children_age'][5]?>"
-                         data-children-age6="<?= $SearchStayForm['children_age'][6]?>"
-                         data-children-age7="<?= $SearchStayForm['children_age'][7]?>"
-                    ></div>
-                    <?= '' /* Html::a('<i class="fas fa-map-marker-alt"></i> ' . $stay->address->address,
-                        Url::to(['/stays/stays/map', 'id' => $stay->id, 'SearchStayForm' => $SearchStayForm]),
-                        ['rel' => 'fancybox', 'class' => 'various fancybox.iframe', 'id' => 'stay-map-link']); */?>
                 </div>
             </div>
             <!-- Описание -->
             <div class="row">
-                <div class="col-sm-10 params-tour text-justify">
+                <div class="col-sm-8 params-tour text-justify">
                     <?= Yii::$app->formatter->asHtml($stay->getDescription(), [
                         'Attr.AllowedRel' => array('nofollow'),
                         'HTML.SafeObject' => true,
@@ -300,7 +300,7 @@ newerton\fancybox\FancyBox::widget([
                             <?php endif; ?>
                         </p>
                         <p></p>
-                        <p>Что поблизости:<br>
+                        <p><?= Lang::t('Что поблизости') ?>:<br>
                             <?php foreach ($stay->getNearbySortCategory() as $group => $category): ?>
                                 <?php foreach ($category as $name_category => $nearby_list): ?>
                                     <?= $name_category ?>
@@ -315,11 +315,12 @@ newerton\fancybox\FancyBox::widget([
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <?= LegalWidget::widget(['legal' => $stay->legal]) ?>
                 </div>
             </div>
             <!-- БРОНЬ -->
+            <?= Html::beginForm(['stays/checkout/booking']); ?>
             <div class="leftbar-search-stays">
                 <table width="100%">
                     <tr>
@@ -375,34 +376,49 @@ newerton\fancybox\FancyBox::widget([
                         </td>
                         <td class="p-2" valign="top">
                             <?php if (count($stay->services) > 0) {
-                                echo '<b>Выберите дополнительные услуги:</b>';
+                                echo '<b>' . Lang::t('Выберите дополнительные услуги') . ':</b>';
                             } ?>
                             <?php foreach ($stay->services as $i => $service): ?>
                                 <div class="custom-control custom-checkbox">
 
                                     <input type="checkbox" class="custom-control-input click-field-stay-params"
-                                           id="service-<?= $i ?>" data-id="<?= $service->id; ?>">
+                                           id="service-<?= $i ?>" data-id="<?= $service->id; ?>" name="service[<?= $i ?>]">
                                     <label class="custom-control-label"
                                            for="service-<?= $i ?>"><?= $service->name . ' (' . $service->value . ' ' . CustomServices::listPayment()[$service->payment] . ')' ?> </label>
                                 </div>
                             <?php endforeach; ?>
                         </td>
-                        <td class="p-2" width="270px" valign="top" style="border-left: #575757 solid 1px">
-                            <div class="mb-auto"
-                                 style="align-items: center; text-align: center; display: inline-flex;">
-                                <span class="py-2 my-2" id="amount-booking"
-                                      style="color: #122b40; font-size: 48px; font-weight: 800"></span>
+                        <td class="p-2" width="320px" valign="top" style="border-left: #575757 solid 1px">
+                            <div class="mb-auto" style="align-items: center; text-align: center; display: inline-flex;">
+                                <span class="py-2 my-2" id="amount-booking" style="color: #122b40; font-size: 48px; font-weight: 800"></span>
                             </div>
                             <div class="form-group pt-2">
-                                <a class="btn btn-lg btn-primary form-control" id="new-booking"
-                                   style="height: 60px; align-items: center; text-align: center; display: none;">Забронировать</a>
+
+
+                                <?= Html::submitButton(
+                                    Lang::t('Забронировать'),
+                                    [
+                                        'class' => 'btn btn-lg btn-primary form-control new-booking',
+                                        'id' => 'new-booking',
+                                        'style' => 'height: 60px; align-items: center; text-align: center; display: none;',
+                                    ]
+                                ) ?>
+
                             </div>
+                            <div>
+                                <span class="new-booking" style="font-size: 24px; color: #0a0a0a; display: none;">
+                                    <?= Lang::t('предоплата') ?> (<span id="amount-percent"></span>%):
+                                </span><br>
+                                <span class="py-2 my-2 badge badge-success" id="amount-prepay" style="font-size: 38px; font-weight: 800"></span>
+                            </div>
+
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
+            <?= Html::endForm() ?>
             <!-- УДОБСТВА -->
             <div class="container-hr">
                 <hr/>

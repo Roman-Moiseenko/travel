@@ -52,6 +52,13 @@ use yii\helpers\Url;
 class BookingStay extends BaseBooking
 {
 
+    public static function create(): self
+    {
+        $stay = new static();
+
+        return $stay;
+    }
+
     public static function tableName()
     {
         return '{{%booking_stays_calendar_booking}}';
