@@ -42,24 +42,19 @@ class StayHelper
 
         ]
         ])
-            ->andWhere(
-                [
-                    'IN',
-                    'calendar_id',
-                    CostCalendar::find()->select('id')->andWhere(['stay_id' => $stay_id])->andWhere(['>=', 'stay_at', time()])
-                ]
-            )
+            ->andWhere(['object_id' => $stay_id])
+            ->andWhere(['>=', 'begin_at', time()])
             ->all();
         $count = 0;
         foreach ($bookings as $booking) {
-            $count += $booking->countTickets();
+            $count += $booking->quantity();
         }
         return $count;
     }
 
-    public static function getCountReview($tour_id): int
+    public static function getCountReview($stay_id): int
     {
-        return ReviewStay::find()->andWhere(['tour_id' => $tour_id])->count();
+        return ReviewStay::find()->andWhere(['stay_id' => $stay_id])->count();
     }
 
     public static function listChildAge($max = 16): array
