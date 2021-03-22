@@ -703,9 +703,9 @@ class Stay extends BaseObjectOfBooking
                 ->andWhere(['stay_id' => $this->id])
                 ->andWhere(['>=', 'stay_at', $begin])
                 ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
-                ->count('id');
-            if ($days != $calendars) {
-                return Stay::ERROR_NOT_FREE;
+                ->all();
+            foreach ($calendars as $calendar) {
+                if ($calendar->free() == 0) return Stay::ERROR_NOT_FREE;
             }
         } else {
             return Stay::ERROR_NOT_DATE;

@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'js/booking_car_admin.js',
         'js/booking_tour_admin.js',
         'js/booking_fun_admin.js',
+        'js/booking_stay_admin.js',
         'js/notice_admin.js',
         'js/discount_admin.js',
         'js/refresh_widget_admin.js',

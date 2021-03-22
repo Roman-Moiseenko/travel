@@ -5,6 +5,7 @@ namespace booking\repositories\booking\stays;
 
 
 use booking\entities\booking\stays\bedroom\AssignRoom;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
@@ -168,15 +169,26 @@ class StayRepository
             $query2 = Stay::find()->alias('t')->active('t')->select('t.id');
             $query2->joinWith(['actualCalendar ac']);
             $begin = SysHelper::_renderDate($form->date_from);
-            $end = SysHelper::_renderDate($form->date_to);
+            $end = SysHelper::_renderDate($form->date_to) - 24 * 60 * 60;
             $dates = []; //Массив дней из диапозона
-            for ($date = $begin; $date < $end; $date += 24 * 60 * 60) {
+            for ($date = $begin; $date <= $end; $date += 24 * 60 * 60) {
                 $dates[] = $date;
             }
             $query2->andWhere(['IN', 'ac.stay_at', $dates]);
             $query2->having('count(ac.stay_at) = ' . count($dates)); //кол-во выбранных дней должно совпадать с кол-вом запрошенных дней
             $query2->groupBy('t.id');
-            $ids[] = $query2->column();
+            $_ids = $query2->column();
+            $ids = [];
+            foreach ($_ids as $i => $id) {
+                $_b = BookingStay::find()
+                    ->orWhere(['and', ['<=', 'begin_at', $begin], ['>=', 'end_at', $begin]])
+                    ->orWhere(['and', ['>=', 'begin_at', $begin], ['<=', 'end_at', $end]])
+                    ->orWhere(['and', ['<=', 'begin_at', $end], ['>=', 'end_at', $end]])
+                    ->andWhere(['object_id' => $id])
+                    ->all();
+                if (count($_b) == 0) $ids[] = $id;
+            }
+            if (count($ids) == 0) $ids[] = 0;
         } else {
             $query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.stay_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
@@ -187,7 +199,6 @@ class StayRepository
             $form->city = trim(htmlspecialchars($form->city));
             $query->andWhere(['like', 'city', $form->city]);
         }
-
 
         /******  Поиск по Цене ***/
         //TODO на будущее
@@ -203,8 +214,7 @@ class StayRepository
             $query->andWhere(['IN', 't.id', $ids[0]]);
         }
         if (count($ids) > 1) {
-            $id = array_intersect(...$ids);
-            $query->andWhere(['IN', 't.id', $id]);
+            $query->andWhere(['IN', 't.id', $ids]);
         }
         $query->groupBy('t.id');
 

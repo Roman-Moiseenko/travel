@@ -44,7 +44,7 @@ class CostCalendar extends BaseCalendar
     public function isEmpty(): bool
     {
         return true;
-        //$onDays = BookingCarOnDay::find()->andWhere(['calendar_id' => $this->id])->count();
+        $onDays = BookingStayOnDay::find()->andWhere(['calendar_id' => $this->id])->count();
         return $onDays == 0;
     }
 
@@ -55,9 +55,9 @@ class CostCalendar extends BaseCalendar
 
     public function isBegin(): bool
     {
-        /*foreach ($this->bookings as $booking) {
-            if ($this->car_at == $booking->begin_at) return true;
-        }*/
+        foreach ($this->bookings as $booking) {
+            if ($this->stay_at == $booking->begin_at) return true;
+        }
         return false;
     }
 
@@ -72,20 +72,15 @@ class CostCalendar extends BaseCalendar
             ->via('bookingOnDays')
             ->andWhere(['<>', 'booking_stays_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_stays_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
-
     }
 
     public function getSelling(): ActiveQuery
     {
         return $this->hasMany(SellingStay::class, ['calendar_id' => 'id']);
-
     }
 
     public function free(): int
     {
-       /* scr::_p($this->bookings);
-        scr::_p($this->selling);
-*/
         if ($this->bookings) return 0;
         if ($this->selling) return 0;
         return 1;

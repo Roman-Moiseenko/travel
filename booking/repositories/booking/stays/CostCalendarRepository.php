@@ -104,13 +104,8 @@ class CostCalendarRepository
             $m = (int)date('m', $calendar->stay_at);
             $d = (int)date('d', $calendar->stay_at);
             $free = $calendar->free();
-            $all = $calendar->tickets;
-            if (isset($result[$y]) && isset($result[$y][$m]) && isset($result[$y][$m][$d])) {
-                $free += $result[$y][$m][$d]['free'];
-                $all += $result[$y][$m][$d]['all'];
-            }
-
-            $result[$y][$m][$d] = ['free' => $free, 'count' => ($all - $free), 'all' => $all];
+            $begin = $calendar->isBegin();
+            $result[$y][$m][$d] = ['free' => $free,  'begin' => $begin];
         }
         return $result;
     }
