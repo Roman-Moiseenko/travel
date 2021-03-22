@@ -20,15 +20,15 @@ use yii\helpers\Url; ?>
                 </ul>
             </div>
             <?php //TODO Жилье ?>
-            <!--div class="col-sm-3">
+            <div class="col-sm-3">
                 <label><?= Lang::t('Жилье') ?></label>
                 <ul class="list-unstyled">
-                    <li><a href=""><?= Lang::t('Отели') ?> (*)</a></li>
-                    <li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li>
-                    <li><a href=""><?= Lang::t('Аппартаменты') ?> (*)</a></li>
-                    <li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li>
+                    <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
+                    <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
+                    <li><a href="<?= Url::to(['/stays']) ?>"><?= Lang::t('Аппартаменты/дома целиком') ?></a></li>
+                    <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
                 </ul>
-            </div-->
+            </div>
             <div class="col-sm-4">
                 <label><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">

@@ -29,7 +29,7 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Мои Жилища', 'icon' => 'hotel', 'url' => ['/stays/default'], 'active' => $this->context->id == 'stays/default'],
+                    ['label' => 'Мое Жилье', 'icon' => 'hotel', 'url' => ['/stays/default'], 'active' => $this->context->id == 'stays/default'],
                     ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars/default'], 'active' => $this->context->id == 'cars/default'],
                     ['label' => 'Мои Туры', 'icon' => 'umbrella-beach', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
                     ['label' => 'Отзывы', 'icon' => 'umbrella-beach', 'url' => ['/reviews/default'], 'active' => $this->context->id == 'reviews/default'],

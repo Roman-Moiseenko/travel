@@ -102,13 +102,13 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Отдых') ?></a>
                 </li>
                 <?php //TODO Жилье ?>
-                <!--li class="nav-item">
+                <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/stays'])) ?>">
                         <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_STAY) ?>
                         &#160;<?= Lang::t('Жилье') ?>
                     </a>
-                </li-->
+                </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/cars'])) ?>">

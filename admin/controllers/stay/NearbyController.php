@@ -112,7 +112,7 @@ class NearbyController extends Controller
     {
         if (($model = Stay::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
-                throw new \DomainException('У вас нет прав для данного жилища');
+                throw new \DomainException('У вас нет прав для данного жилья');
             }
             return $model;
         }

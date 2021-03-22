@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
 
 $this->title = $stay->name;
 $this->params['id'] = $stay->id;
-$this->params['breadcrumbs'][] = ['label' => 'Жилища', 'url' => ['/stays']];
+$this->params['breadcrumbs'][] = ['label' => 'Жилье', 'url' => ['/stays']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'type_id',
                         'value' => ArrayHelper::getValue($stay, 'type.name'),
-                        'label' => 'Тип жилища',
+                        'label' => 'Тип жилья',
                     ],
                 ],
             ]) ?>

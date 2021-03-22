@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 $this->title = 'Удобства ' . $stay->name;
 $this->params['id'] = $stay->id;
-$this->params['breadcrumbs'][] = ['label' => 'Жилища', 'url' => ['/stays']];
+$this->params['breadcrumbs'][] = ['label' => 'Жилье', 'url' => ['/stays']];
 $this->params['breadcrumbs'][] = ['label' => $stay->name, 'url' => ['/stay/common', 'id' => $stay->id]];
 $this->params['breadcrumbs'][] = 'Удобства';
 ?>

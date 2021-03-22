@@ -106,7 +106,7 @@ class CommonController extends Controller
         $stay = $this->findModel($id);
         try {
             $this->service->cancel($stay->id);
-            \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию жилища');
+            \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию жилья');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -119,7 +119,7 @@ class CommonController extends Controller
         $stay = $this->findModel($id);
         try {
             $this->service->draft($stay->id);
-            \Yii::$app->session->setFlash('success', 'Жилище снято с публикации.');
+            \Yii::$app->session->setFlash('success', 'Жилье снято с публикации.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -157,7 +157,7 @@ class CommonController extends Controller
     {
         if (($model = Stay::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
-                throw new \DomainException('У вас нет прав для данного жилища');
+                throw new \DomainException('У вас нет прав для данного жилья');
             }
             return $model;
         }
