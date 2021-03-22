@@ -8,6 +8,8 @@ use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\stays\BookingStay;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
@@ -20,6 +22,7 @@ class StaticWidget extends Widget
 
     public function run()
     {
+        //TODO ** BOOKING_OBJECT **
         $views = $this->object->views;
         $next_amount = 0;
         $last_tickets = 0;
@@ -46,18 +49,18 @@ class StaticWidget extends Widget
         if (get_class($this->object) == Car::class) {
             $next_amount = BookingCar::find()
                 ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
-                ->andWhere(['car_id' => $this->object->id])
+                ->andWhere(['object_id' => $this->object->id])
                 ->andWhere(['>=', 'begin_at', $now])
                 ->sum('payment_provider');
             $last_amount = BookingCar::find()
                 ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
-                ->andWhere(['car_id' => $this->object->id])
+                ->andWhere(['object_id' => $this->object->id])
                 ->andWhere(['<', 'begin_at', $now])
                 ->sum('payment_provider');
             $last_tickets = BookingCar::find()->alias('b')
                 ->joinWith('calendars c')
                 ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY])
-                ->andWhere(['b.car_id' => $this->object->id])
+                ->andWhere(['b.object_id' => $this->object->id])
                 ->andWhere(['<', 'c.car_at', $now])
                 ->sum('b.count');
         }
@@ -65,7 +68,7 @@ class StaticWidget extends Widget
         if (get_class($this->object) == Fun::class) {
             $bookings = BookingFun::find()
                 ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
-                ->andWhere(['fun_id' => $this->object->id])->all();
+                ->andWhere(['object_id' => $this->object->id])->all();
             $next_amount = 0;
             $last_amount = 0;
             foreach ($bookings as $booking) {
@@ -78,11 +81,29 @@ class StaticWidget extends Widget
             $last_tickets = BookingFun::find()->alias('b')
                 ->joinWith('calendars c')
                 ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY])
-                ->andWhere(['b.fun_id' => $this->object->id])
+                ->andWhere(['b.object_id' => $this->object->id])
                 ->andWhere(['<', 'c.fun_at', $now])
                 ->sum('b.count_adult + b.count_child + b.count_preference');
         }
 
+        if (get_class($this->object) == Stay::class) {
+            $next_amount = BookingStay::find()
+                ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
+                ->andWhere(['object_id' => $this->object->id])
+                ->andWhere(['>=', 'begin_at', $now])
+                ->sum('payment_provider');
+            $last_amount = BookingStay::find()
+                ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
+                ->andWhere(['object_id' => $this->object->id])
+                ->andWhere(['<', 'begin_at', $now])
+                ->sum('payment_provider');
+            $last_tickets = BookingStay::find()->alias('b')
+                ->joinWith('calendars c')
+                ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY])
+                ->andWhere(['b.object_id' => $this->object->id])
+                ->andWhere(['<', 'c.stay_at', $now])
+                ->sum('b.guest');
+        }
         return $this->render('static', [
             'views' => $views,
             'next_amount' => $next_amount,

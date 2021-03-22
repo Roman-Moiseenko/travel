@@ -27,7 +27,7 @@ class ReviewStay extends BaseReview
         return '{{%booking_stays_reviews}}';
     }
 
-    public function getStays(): ActiveQuery
+    public function getStay(): ActiveQuery
     {
         return $this->hasOne(Stay::class, ['id' => 'stay_id']);
     }

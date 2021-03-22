@@ -360,7 +360,7 @@ class BookingRepository
                 if (get_class($object) == Tour::class) $result[] = $this->sumBookingTour($begin, $end, $status, $object->id);
                 if (get_class($object) == Fun::class) $result[] = $this->sumBookingFun($begin, $end, $status, $object->id);
                 if (get_class($object) == Car::class) $result[] = $this->sumBookingCar($begin, $end, $status, $object->id);
-                if (get_class($object) == Car::class) $result[] = $this->sumBookingStay($begin, $end, $status, $object->id);
+                if (get_class($object) == Stay::class) $result[] = $this->sumBookingStay($begin, $end, $status, $object->id);
             }
         }
         return $result;
@@ -413,7 +413,7 @@ class BookingRepository
             ->leftJoin(BookingStayOnDay::tableName() . ' d', 'd.calendar_id = c.id')
             ->leftJoin(BookingStay::tableName() . ' b', 'b.id = d.booking_id');
         if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
-        return $query->sum('b.count') ?? 0;
+        return $query->sum('b.guest') ?? 0;
     }
 
     public function getforChartAmount($object, int $month, int $year)
