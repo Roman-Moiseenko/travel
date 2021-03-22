@@ -7,6 +7,7 @@ namespace booking\services\mailing;
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\mailing\Mailing;
 use booking\forms\MailingForm;
@@ -88,10 +89,11 @@ class MailingService
         return true;
     }
 
+    //TODO ** BOOKING_OBJECT **
+
     public function createTours():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_TOURS);
-        /** @var Tour[] $tours */
         $tours = Tour::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
         //Создаем сообщение
         if (count($tours) == 0) return null;
@@ -110,7 +112,19 @@ class MailingService
     public function createStays():? Mailing
     {
         $mailing_last_at = $this->mailings->getLast(Mailing::NEW_STAYS);
-        //TODO Заглушка Рассылки Stay
+        $stays = Stay::find()->active()->andWhere(['>=', 'public_at', $mailing_last_at])->all();
+        //Создаем сообщение
+        if (count($stays) == 0) return null;
+        $subject = '<h1>Обзор новых апартаментов целиком</h1>';
+        foreach ($stays as $stay) {
+            $row = ' <img src="' . $stay->mainPhoto->getThumbFileUrl('file', 'cabinet_list'). '"> <span style="font-size: 16px">' .
+                Html::a($stay->name, \Yii::$app->params['frontendHostInfo'] . '/tour/'. $stay->id) .
+                ' от ' . $stay->legal->caption . '</span><br>';
+            $subject .= $row;
+        }
+        $mailing = Mailing::create(Mailing::NEW_STAYS, $subject);
+        $this->mailings->save($mailing);
+        return $mailing;
     }
 
     public function createCars():? Mailing

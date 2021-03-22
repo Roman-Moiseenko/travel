@@ -5,14 +5,13 @@ namespace booking\entities\booking\stays;
 
 
 use booking\entities\admin\User;
-use booking\entities\admin\Legal;
 use booking\entities\booking\BaseBooking;
-use booking\entities\booking\Discount;
 use booking\entities\booking\LinkBooking;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
+use booking\helpers\SysHelper;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
 /**
@@ -20,26 +19,26 @@ use yii\helpers\Url;
  * @package booking\entities\booking\stays
  * @property integer $id
  * @property integer $user_id
- * @property integer $stay_id
  * @property integer $status
  * @property integer $created_at
  * @property integer $begin_at
  * @property integer $end_at
  *
-* Выплаты
+ * @property integer $guest - Кол-во гостей (взрослых, с оплатой)
+ * @property integer $children - Кол-во детей (без оплаты)
  * @property float $payment_provider - оплата провайдеру
- * @property float $pay_merchant - % оплаты клиентом комиссии: 0 - оплачивает провайдер
  * @property string $payment_id - ID платежа по ЮКассе
  * @property integer $payment_at - дата оплаты
  * @property float $payment_merchant - оплата комиссии банку (в руб)
  * @property float $payment_deduction - оплата вознаграждения порталу (в руб)
- * @property string $confirmation - код подтверждения, для неоплачиваемых
+
  * @property integer $pincode
  * @property boolean $unload
- * @property integer $guest_add
+
  * @property string $comment
  * @property CostCalendar[] $calendars
  * @property BookingStayOnDay[] $days
+ * @property BookingStayServices[] $services
  * @property Stay $stay
  * @property \booking\entities\user\User $user
  * @property \booking\entities\check\User $checkUser
@@ -52,11 +51,52 @@ use yii\helpers\Url;
 class BookingStay extends BaseBooking
 {
 
-    public static function create(): self
+    public static function create($stay_id, $date_from, $date_to, $guest, $children, array $children_age, array $services): self
     {
-        $stay = new static();
+        $booking = new static();
+        $booking->object_id = $stay_id;
+        $booking->begin_at = SysHelper::_renderDate($date_from);
+        $booking->end_at = SysHelper::_renderDate($date_to) - 24 * 60 * 60;
+        //Проверка на детей возраст, попадают ли они под взрослых
+        $stay = Stay::findOne($stay_id);
 
-        return $stay;
+        if ($children > 0) {
+            $n = $children;
+            for($i = 0; $i < $n; $i ++) {
+                if ($children_age[$i] >= $stay->rules->beds->child_by_adult) {$guest++; $children--;}
+            }
+            if ($children > $guest)  {
+                $guest = round(($children + $guest) / 2);
+                $children = $children - $guest;
+            }
+        }
+
+        $booking->guest = $guest;
+        $booking->children = $children;
+
+        $calendars = CostCalendar::find()->andWhere(['stay_id' => $stay_id])->andWhere(['>=', 'stay_at', $booking->begin_at])->andWhere(['<=', 'stay_at', $booking->end_at])->all();
+        if (count($calendars) == 0) throw new \DomainException(Lang::t('Неверный диапозон дат'));
+        foreach ($calendars as $calendar) {
+            if ($calendar->free() == 0) {
+                throw new \DomainException(Lang::t('Недостаточно свободных на дату ') . date('d-m-Y', $calendar->stay_at));
+            };
+            $booking->addDay($calendar->id);
+        }
+
+        foreach ($services as $service) {
+            $booking->addService($service);
+        }
+        $booking->initiate($stay_id, $calendars[0]->stay->legal_id, \Yii::$app->user->id, $calendars[0]->stay->prepay);
+
+        return $booking;
+    }
+
+    public function addService($service_id)
+    {
+        $services = $this->services;
+        $service = $this->stay->getServicesById($service_id);
+        $services[] = BookingStayServices::create($service->name, $service->value, $service->payment);
+        $this->services = $services;
     }
 
     public static function tableName()
@@ -64,11 +104,29 @@ class BookingStay extends BaseBooking
         return '{{%booking_stays_calendar_booking}}';
     }
 
-    /** ==========> Interface для личного кабинета */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'days',
+                    'services',
+                ],
+            ],
+        ];
+    }
+
+    public function addDay($calendar_id)
+    {
+        $days = $this->days;
+        $days[] = BookingStayOnDay::create($calendar_id);
+        $this->days = $days;
+    }
 
     public function getDate(): int
     {
-        // TODO: Implement getDate() method.
+        return $this->begin_at;
     }
 
     public function getName(): string
@@ -102,19 +160,17 @@ class BookingStay extends BaseBooking
 
     public function getAdd(): string
     {
-        // TODO: Implement getAdd() method.
+        return date('d-m-Y', $this->end_at);
     }
-
 
     public function getAdmin(): User
     {
         return $this->stay->user;
     }
 
-
     public function quantity(): int
     {
-        // TODO: Implement quantity() method.
+        return 1;
     }
 
     public function isPaidLocally(): bool
@@ -124,7 +180,7 @@ class BookingStay extends BaseBooking
 
     public function getCalendar(): ActiveQuery
     {
-        // TODO: Implement getCalendar() method.
+        throw new \DomainException('Не используется');
     }
 
     public function getCalendars(): ActiveQuery
@@ -134,12 +190,22 @@ class BookingStay extends BaseBooking
 
     public function getDays(): ActiveQuery
     {
-        // TODO: Implement getDays() method.
+        return $this->hasMany(BookingStayOnDay::class, ['booking_id' => 'id']);
     }
 
     protected function getFullCostFrom(): float
     {
-        // TODO: Implement getFullCostFrom() method.
+        $cost = 0;
+        foreach ($this->calendars as $calendar) {
+            $add_guest = ($this->guest > $calendar->guest_base) ? ($this->guest - $calendar->guest_base) : 0;
+            $cost += $calendar->cost_base + $add_guest * $calendar->cost_add;
+        }
+        $days = count($this->calendars);
+        $cost_service = 0;
+        foreach ($this->services as $service) {
+            $cost_service += $service->cost($this->guest, $days, $cost);
+        }
+        return $cost + $cost_service;
     }
 
     protected function getPrepayFrom(): int
@@ -150,5 +216,10 @@ class BookingStay extends BaseBooking
     public function getStay(): ActiveQuery
     {
         return $this->hasOne(Stay::class, ['id' => 'object_id']);
+    }
+
+    public function getServices(): ActiveQuery
+    {
+        return $this->hasMany(BookingStayServices::class, ['booking_id' => 'id']);
     }
 }

@@ -18,11 +18,10 @@ use yii\db\ActiveRecord;
 
 class BookingStayOnDay extends ActiveRecord
 {
-    public static function create($calendar_id/*, $guest_add*/): self
+    public static function create($calendar_id): self
     {
         $bookingOnDay = new static();
         $bookingOnDay->calendar_id = $calendar_id;
- //       $bookingOnDay->guest_add = $guest_add;
         return $bookingOnDay;
     }
 

@@ -8,11 +8,13 @@ use booking\entities\blog\Category;
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\funs\FunRepository;
+use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\sitemap\IndexItem;
 use booking\services\sitemap\MapItem;
@@ -61,6 +63,14 @@ class SitemapController extends Controller
      * @var CategoryRepository
      */
     private $postType;
+    /**
+     * @var StayRepository
+     */
+    private $stays;
+    /**
+     * @var \booking\repositories\booking\stays\TypeRepository
+     */
+    private $stayTypes;
 
     public function __construct(
         $id,
@@ -69,10 +79,12 @@ class SitemapController extends Controller
         TourRepository $tours,
         CarRepository $cars,
         FunRepository $funs,
+        StayRepository $stays,
         PostRepository $posts,
         \booking\repositories\booking\tours\TypeRepository $tourTypes,
         \booking\repositories\booking\cars\TypeRepository $carTypes,
         \booking\repositories\booking\funs\TypeRepository $funTypes,
+        \booking\repositories\booking\stays\TypeRepository $stayTypes,
         CategoryRepository $postType,
         $config = []
     )
@@ -87,12 +99,14 @@ class SitemapController extends Controller
         $this->carTypes = $carTypes;
         $this->funTypes = $funTypes;
         $this->postType = $postType;
+        $this->stays = $stays;
+        $this->stayTypes = $stayTypes;
     }
 
     public function actionIndex(): Response
     {
-        // TODO заглушка Stay
-        /* */
+        //TODO ** BOOKING_OBJECT **
+
         return $this->renderSitemap('sitemap-index', function () {
             return $this->sitemap->generateIndex([
                 new IndexItem(Url::to(['tours'], true)),
@@ -101,6 +115,8 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['car-categories'], true)),
                 new IndexItem(Url::to(['funs'], true)),
                 new IndexItem(Url::to(['fun-categories'], true)),
+                new IndexItem(Url::to(['stays'], true)),
+//                new IndexItem(Url::to(['stay-categories'], true)),
                 new IndexItem(Url::to(['posts'], true)),
                 new IndexItem(Url::to(['post-categories'], true)),
                 new IndexItem(Url::to(['mains'], true)),
@@ -117,7 +133,7 @@ class SitemapController extends Controller
                     null,
                     MapItem::ALWAYS
                 );
-            }, ['/tours', '/cars', '/funs', '/about', '/contacts']));
+            }, ['/tours', '/cars', '/stays', '/funs', '/about', '/contacts']));
         });
     }
 
@@ -199,6 +215,32 @@ class SitemapController extends Controller
         });
     }
 
+    public function actionStays(): Response
+    {
+        return $this->renderSitemap('sitemap-stays', function () {
+            return $this->sitemap->generateMap(array_map(function (Stay $stay) {
+                return new MapItem(
+                    Url::to(['/stay/view', 'id' => $stay->id], true),
+                    $stay->updated_at ?? $stay->created_at,
+                    MapItem::DAILY
+                );
+            }, $this->stays->getAllForSitemap()));
+        });
+    }
+/*
+    public function actionStayCategories(): Response
+    {
+        return $this->renderSitemap('sitemap-stays-categories', function () {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\booking\stays\Type $type) {
+                return new MapItem(
+                    Url::to(['/stays/' . $type->slug], true),
+                    null,
+                    MapItem::ALWAYS
+                );
+            }, $this->stayTypes->getAll()));
+        });
+    }
+*/
     public function actionPosts(): Response
     {
         return $this->renderSitemap('sitemap-posts', function () {

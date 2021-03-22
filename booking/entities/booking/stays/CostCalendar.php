@@ -6,6 +6,7 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\booking\BaseCalendar;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -60,52 +61,34 @@ class CostCalendar extends BaseCalendar
         return false;
     }
 
-    public function getFreeCount(): int
-    {
-        $count = 0;
-        return 0;
-       /* $bookings = $this->bookings;
-
-        foreach ($bookings as $booking) {
-            $count += $booking->count;
-        }
-        return $this->count - $count; */
-    }
-
     public function getBookingOnDays(): ActiveQuery
     {
-        return null;
-        //return $this->hasMany(BookingStayOnDay::class, ['calendar_id' => 'id']);
+        return $this->hasOne(BookingStayOnDay::class, ['calendar_id' => 'id']);
     }
 
     public function getBookings(): ActiveQuery
     {
-        return null;
-        /*return $this->hasMany(BookingCar::class, ['id' => 'booking_id'])
+        return $this->hasMany(BookingStay::class, ['id' => 'booking_id'])
             ->via('bookingOnDays')
             ->andWhere(['<>', 'booking_stays_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL])
             ->andWhere(['<>', 'booking_stays_calendar_booking.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
-        */
+
     }
 
     public function getSelling(): ActiveQuery
     {
-        //return $this->hasMany(SellingCar::class, ['calendar_id' => 'id']);
-        return null;
+        return $this->hasMany(SellingStay::class, ['calendar_id' => 'id']);
+
     }
 
     public function free(): int
     {
-        $count = 0;
+       /* scr::_p($this->bookings);
+        scr::_p($this->selling);
+*/
+        if ($this->bookings) return 0;
+        if ($this->selling) return 0;
         return 1;
-        /*$bookings = $this->bookings;
-        foreach ($this->selling as $sale) {
-            $count += $sale->count;
-        }
-        foreach ($bookings as $booking) {
-            $count += $booking->count;
-        }
-        return $this->count - $count; */
     }
 
     public function isBooking()

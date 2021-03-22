@@ -37,6 +37,7 @@ use yii\web\UploadedFile;
  * @property WishlistTour[] wishlistTours
  * @property WishlistCar[] wishlistCars
  * @property WishlistFun[] wishlistFuns
+ * @property WishlistStay[] wishlistStays
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -181,6 +182,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'wishlistTours',
                     'wishlistCars',
                     'wishlistFuns',
+                    'wishlistStays',
                     'mailing',
                     ],
             ],
@@ -245,6 +247,8 @@ class User extends ActiveRecord implements IdentityInterface
         throw new \DomainException(Lang::t('Бронирование не найдено'));
     }
 
+    //**** ИЗБРАННОЕ                 ******
+    ////*** Tour ****
     public function addWishlistTour($tour_id)
     {
         $wishlist = $this->wishlistTours;
@@ -253,8 +257,7 @@ class User extends ActiveRecord implements IdentityInterface
                 throw new \DomainException(Lang::t('Уже добавлено в избранное'));
             }
         }
-        $wishlistTour = WishlistTour::create($tour_id);
-        $wishlist[] = $wishlistTour;
+        $wishlist[] = WishlistTour::create($tour_id);
         $this->wishlistTours = $wishlist;
     }
 
@@ -271,9 +274,9 @@ class User extends ActiveRecord implements IdentityInterface
         }
         throw new \DomainException(Lang::t('Избранное не найдено'));
     }
-    /** <=============== Tours*/
 
-    /** Cars ===================> */
+    ////*** Car  ****
+
     public function addWishlistCar($car_id)
     {
         $wishlist = $this->wishlistCars;
@@ -282,8 +285,7 @@ class User extends ActiveRecord implements IdentityInterface
                 throw new \DomainException(Lang::t('Уже добавлено в избранное'));
             }
         }
-        $wishlistCar = WishlistCar::create($car_id);
-        $wishlist[] = $wishlistCar;
+        $wishlist[] = WishlistCar::create($car_id);
         $this->wishlistCars = $wishlist;
     }
 
@@ -300,9 +302,9 @@ class User extends ActiveRecord implements IdentityInterface
         }
         throw new \DomainException(Lang::t('Избранное не найдено'));
     }
-    /** <=============== Cars*/
 
-    /** Funs ===================> */
+    ////*** Fun  ****
+
     public function addWishlistFun($id)
     {
         $wishlist = $this->wishlistFuns;
@@ -311,8 +313,7 @@ class User extends ActiveRecord implements IdentityInterface
                 throw new \DomainException(Lang::t('Уже добавлено в избранное'));
             }
         }
-        $wishlistFun = WishlistFun::create($id);
-        $wishlist[] = $wishlistFun;
+        $wishlist[] = WishlistFun::create($id);
         $this->wishlistFuns = $wishlist;
     }
 
@@ -329,7 +330,35 @@ class User extends ActiveRecord implements IdentityInterface
         }
         throw new \DomainException(Lang::t('Избранное не найдено'));
     }
-    /** <=============== Funs*/
+
+    ////*** Stay ****
+
+    public function addWishlistStay($id)
+    {
+        $wishlist = $this->wishlistStays;
+        foreach ($wishlist as $item) {
+            if ($item->isFor($id)) {
+                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
+            }
+        }
+        $wishlist[] = WishlistStay::create($id);
+        $this->wishlistStays = $wishlist;
+    }
+
+    public function removeWishlistStay($id)
+    {
+        $wishlist = $this->wishlistStays;
+        foreach ($wishlist as $i => &$item) {
+            if ($item->isFor($id)) {
+                $item->delete();
+                unset($wishlist[$i]);
+                $this->wishlistStays = $wishlist;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Избранное не найдено'));
+    }
+
 
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
@@ -357,6 +386,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(WishlistFun::class, ['user_id' => 'id']);
     }
 
+    public function getWishlistStays(): ActiveQuery
+    {
+        return $this->hasMany(WishlistStay::class, ['user_id' => 'id']);
+    }
+
     public function getNetworks(): ActiveQuery
     {
         return $this->hasMany(Network::class, ['user_id' => 'id']);
@@ -379,32 +413,7 @@ class User extends ActiveRecord implements IdentityInterface
     /** <=============== getXX*/
 
     /** Repository ===================> */
-/*
-    public function addToWishlist($productId): void
-    {
-        $items = $this->wishlistItems;
-        foreach ($items as $item) {
-            if ($item->isForProduct($productId)) {
-                throw new \DomainException('Уже в избранном.');
-            }
-        }
-        $items[] = WishlistItem::create($productId);
-        $this->wishlistItems = $items;
-    }
 
-    public function removeFromWishlist($productId): void
-    {
-        $items = $this->wishlistItems;
-        foreach ($items as $i => $item) {
-            if ($item->isForProduct($productId)) {
-                unset($items[$i]);
-                $this->wishlistItems = $items;
-                return;
-            }
-        }
-        throw new \DomainException('Не найден в избранном.');
-    }
-*/
     public function setLang($lang)
     {
         $preferences = $this->preferences;
@@ -512,6 +521,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->verification_token = null;
     }
+
 
 
     /** <=============== Identity*/

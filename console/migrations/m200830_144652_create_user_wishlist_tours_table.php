@@ -31,6 +31,6 @@ class m200830_144652_create_user_wishlist_tours_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%booking_tours_wishlist}}');
+        $this->dropTable('{{%user_wishlist_tours}}');
     }
 }

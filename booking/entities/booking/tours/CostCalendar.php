@@ -99,11 +99,6 @@ class CostCalendar extends BaseCalendar
         return $this->tickets - $this->_count();
     }
 
-    public function stack(): bool
-    {
-        //TODO Проверка стека
-    }
-
     protected function _count(): int
     {
         $count = 0;

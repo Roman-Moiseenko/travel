@@ -4,21 +4,15 @@
 namespace booking\services\booking\tours;
 
 
-use booking\entities\booking\Discount;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
-use booking\helpers\BookingHelper;
-use booking\helpers\scr;
-use booking\repositories\booking\DiscountRepository;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\services\booking\BookingService;
-use booking\services\booking\DiscountService;
 use booking\services\ContactService;
 use booking\services\finance\RefundService;
-use Mpdf\Tag\P;
 
 
 class BookingTourService extends BookingService
@@ -26,7 +20,6 @@ class BookingTourService extends BookingService
     private $bookings;
     private $calendar;
     private $contact;
-    private $discounts;
     /**
      * @var RefundService
      */
@@ -41,14 +34,12 @@ class BookingTourService extends BookingService
         CostCalendarRepository $calendar,
         ContactService $contact,
         RefundService $refund,
-        DiscountRepository $discounts,
         StackService $stackService
     )
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
         $this->contact = $contact;
-        $this->discounts = $discounts;
         $this->refund = $refund;
         $this->stackService = $stackService;
     }

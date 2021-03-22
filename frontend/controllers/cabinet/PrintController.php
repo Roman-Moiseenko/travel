@@ -6,6 +6,7 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\funs\BookingFun;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
@@ -75,10 +76,16 @@ class PrintController extends Controller
         }
     }
 
-    //TODO Заглушка Stay
+    //TODO ** BOOKING_OBJECT **
     public function actionTour($id)
     {
         $booking = BookingTour::findOne($id);
+        return $this->pdf->pdfFile($booking);
+    }
+
+    public function actionStay($id)
+    {
+        $booking = BookingStay::findOne($id);
         return $this->pdf->pdfFile($booking);
     }
 

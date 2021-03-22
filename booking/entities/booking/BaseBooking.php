@@ -32,7 +32,6 @@ use yii\db\ActiveRecord;
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
- * @property Discount $discount
  * @property User $user
  */
 abstract class BaseBooking extends ActiveRecord
@@ -102,12 +101,12 @@ abstract class BaseBooking extends ActiveRecord
         $this->payment->confirmation = $confirmation;
     }
 
-    public function confirmation()
+    final public function confirmation()
     {
         $this->status = BookingHelper::BOOKING_STATUS_CONFIRMATION;
     }
 
-    public function cancel()
+    final public function cancel()
     {
         $this->status = BookingHelper::BOOKING_STATUS_CANCEL;
     }
@@ -218,7 +217,6 @@ abstract class BaseBooking extends ActiveRecord
     {
         return $this->status == BookingHelper::BOOKING_STATUS_NEW;
     }
-
 
 //*************************** Внешние связи
 

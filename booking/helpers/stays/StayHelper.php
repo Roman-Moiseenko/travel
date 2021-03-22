@@ -10,8 +10,6 @@ use booking\entities\booking\stays\ReviewStay;
 use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
-use booking\helpers\scr;
-use booking\helpers\SysHelper;
 
 class StayHelper
 {
@@ -34,10 +32,9 @@ class StayHelper
     }
 
 
-    public static function getCountActiveBooking($tour_id): int
+    public static function getCountActiveBooking($stay_id): int
     {
-        //TODO заглушка
-        /*
+
         $bookings = BookingStay::find()->andWhere(['IN', 'status', [
             BookingHelper::BOOKING_STATUS_NEW,
             BookingHelper::BOOKING_STATUS_PAY,
@@ -49,7 +46,7 @@ class StayHelper
                 [
                     'IN',
                     'calendar_id',
-                    CostCalendar::find()->select('id')->andWhere(['tours_id' => $tour_id])->andWhere(['>=', 'tour_at', time()])
+                    CostCalendar::find()->select('id')->andWhere(['stay_id' => $stay_id])->andWhere(['>=', 'stay_at', time()])
                 ]
             )
             ->all();
@@ -57,15 +54,12 @@ class StayHelper
         foreach ($bookings as $booking) {
             $count += $booking->countTickets();
         }
-        return $count;*/
-        return 0;
+        return $count;
     }
 
     public static function getCountReview($tour_id): int
     {
-        //TODO заглушка
-        //return ReviewStay::find()->andWhere(['tour_id' => $tour_id])->count();
-        return 0;
+        return ReviewStay::find()->andWhere(['tour_id' => $tour_id])->count();
     }
 
     public static function listChildAge($max = 16): array

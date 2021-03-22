@@ -10,6 +10,9 @@ use booking\entities\booking\cars\BookingCarOnDay;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\stays\BookingStay;
+use booking\entities\booking\stays\BookingStayOnDay;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\Tour;
@@ -53,8 +56,18 @@ class BookingRepository
                 ->all();
             return $bookings;
         }
-
-        //TODO Заглушка Stay
+        if ($object_class == BookingStay::class) {
+            $bookings = BookingStay::find()->alias('f')
+                ->joinWith('calendars c')
+                ->andWhere(['c.stay_at' => $this->today()])
+                ->andWhere(['f.object_id' => $object_id])
+                ->andWhere(['IN', 'f.status', [BookingHelper::BOOKING_STATUS_PAY, BookingHelper::BOOKING_STATUS_CONFIRMATION]])
+                ->orderBy(['f.give_out' => SORT_ASC])
+                ->groupBy('f.id')
+                ->all();
+            return $bookings;
+        }
+        //TODO ** BOOKING_OBJECT **
         return [];
     }
 
@@ -76,10 +89,12 @@ class BookingRepository
             ->where(['>=', 'c.fun_at', time()])
             ->andWhere(['f.user_id' => $user_id])
             ->all();
-
-        //TODO Заглушка Stay
-        $stays = [];
-
+        $stays = BookingStay::find()->alias('f')
+            ->joinWith('calendars c')
+            ->where(['>=', 'c.stay_at', time()])
+            ->andWhere(['f.user_id' => $user_id])
+            ->all();
+        //TODO ** BOOKING_OBJECT **
         return $this->sort_merge($tours, $stays, $cars, $funs);
     }
 
@@ -100,10 +115,12 @@ class BookingRepository
             ->andWhere(['<', 'c.fun_at', time()])
             ->andWhere(['user_id' => $user_id])
             ->all();
-
-        //TODO Заглушка Stay
-        $stays = [];
-
+        $stays = BookingStay::find()->alias('f')
+            ->joinWith('calendars c')
+            ->where(['<', 'c.stay_at', time()])
+            ->andWhere(['f.user_id' => $user_id])
+            ->all();
+        //TODO ** BOOKING_OBJECT **
         return $this->sort_merge($tours, $stays, $cars, $funs, -1);
     }
 
@@ -146,9 +163,18 @@ class BookingRepository
             )
             ->all();
 
+        $stays = BookingStay::find()
+            ->andWhere(['>=', 'created_at', time() - 3600 * 24 * $last_day])
+            ->andWhere(
+                [
+                    'IN',
+                    'object_id',
+                    Stay::find()->select('id')->andWhere(['user_id' => $admin_id])
+                ]
+            )
+            ->all();
+
         //TODO ** BOOKING_OBJECT **
-        //TODO Заглушка Stay
-        $stays = [];
         return $this->sort_merge($tours, $stays, $cars, $funs, -1);
     }
 
@@ -212,7 +238,7 @@ class BookingRepository
                 'photo' => $car->getPhoto('widget_list'),
                 'link' => $car->getLinks()->booking,
                 'name' => $car->getName(),
-                'count' => $car->count + (isset($result[$car->getName()]) ? $result[$car->getName()]['count'] : 0),
+                'count' => $car->quantity() + (isset($result[$car->getName()]) ? $result[$car->getName()]['count'] : 0),
             ];
         }
 
@@ -243,11 +269,34 @@ class BookingRepository
                 'count' => $fun->quantity() + (isset($result[$fun->getName()]) ? $result[$fun->getName()]['count'] : 0),
             ];
         }
+        $stays = BookingStay::find()
+            ->andWhere(['>=', 'begin_at', time()])
+            ->andWhere([
+                'IN',
+                'object_id',
+                Stay::find()->select('id')
+                    ->andWhere(['user_id' => $admin_id])
+            ])
+            ->andWhere([
+                'IN',
+                'status', [
+                    BookingHelper::BOOKING_STATUS_NEW,
+                    BookingHelper::BOOKING_STATUS_PAY,
+                    BookingHelper::BOOKING_STATUS_CONFIRMATION,
+                ]
+            ])
+            ->all();
+        foreach ($stays as $stay) {
+            $result[$stay->getName()] = [
+                'photo' => $stay->getPhoto('widget_list'),
+                'link' => $stay->getLinks()->booking,
+                'name' => $stay->getName(),
+                'count' => $stay->quantity() + (isset($result[$stay->getName()]) ? $result[$stay->getName()]['count'] : 0),
+            ];
+        }
+        //TODO ** BOOKING_OBJECT **
 
-        //TODO Заглушка Stay
-        $stays = [];
-
-        return $result; // $this->sort_merge($tours, $stays, $cars, -1);
+        return $result;
     }
 
     private function sort_merge(array $tours, array $stays, array $cars, array $funs, $arrow = 1): array
@@ -292,7 +341,7 @@ class BookingRepository
     public function getforChart($object, int $month, int $year, $status)
     {
         $result = [];
-        //TODO Заглушка Stay
+        //TODO ** BOOKING_OBJECT **
         if ($month == 0) {
             for ($i = 1; $i <= 12; $i++) {
                 $begin = strtotime('01-' . $i . '-' . $year . ' 00:00:00');
@@ -301,6 +350,7 @@ class BookingRepository
                 if (get_class($object) == Tour::class) $result[] = $this->sumBookingTour($begin, $end, $status, $object->id);
                 if (get_class($object) == Fun::class) $result[] = $this->sumBookingFun($begin, $end, $status, $object->id);
                 if (get_class($object) == Car::class) $result[] = $this->sumBookingCar($begin, $end, $status, $object->id);
+                if (get_class($object) == Stay::class) $result[] = $this->sumBookingStay($begin, $end, $status, $object->id);
             }
         } else {
             $t = date('t', strtotime('01-' . $month . '-' . $year));
@@ -310,6 +360,7 @@ class BookingRepository
                 if (get_class($object) == Tour::class) $result[] = $this->sumBookingTour($begin, $end, $status, $object->id);
                 if (get_class($object) == Fun::class) $result[] = $this->sumBookingFun($begin, $end, $status, $object->id);
                 if (get_class($object) == Car::class) $result[] = $this->sumBookingCar($begin, $end, $status, $object->id);
+                if (get_class($object) == Car::class) $result[] = $this->sumBookingStay($begin, $end, $status, $object->id);
             }
         }
         return $result;
@@ -317,7 +368,6 @@ class BookingRepository
 
     private function sumBookingFun($begin, $end, $status, $fun_id): int
     {
-        //TODO Возможно ошибочни считает
         $query = BookingFun::find()
             ->alias('b')
             ->joinWith('calendars c')
@@ -353,10 +403,23 @@ class BookingRepository
         return $query->sum('b.count') ?? 0;
     }
 
+    private function sumBookingStay($begin, $end, $status, $stay_id): int
+    {
+        $query = \booking\entities\booking\stays\CostCalendar::find()
+            ->alias('c')
+            ->andWhere(['c.stay_id' => $stay_id])
+            ->andWhere(['>=', 'c.stay_at', $begin])
+            ->andWhere(['<=', 'c.stay_at', $end])
+            ->leftJoin(BookingStayOnDay::tableName() . ' d', 'd.calendar_id = c.id')
+            ->leftJoin(BookingStay::tableName() . ' b', 'b.id = d.booking_id');
+        if ($status) $query = $query->andWhere(['IN', 'b.status',  $status]);
+        return $query->sum('b.count') ?? 0;
+    }
+
     public function getforChartAmount($object, int $month, int $year)
     {
         $result = [];
-        //TODO Заглушка Stay
+        //TODO ** BOOKING_OBJECT **
         if ($month == 0) {
             for ($i = 1; $i <= 12; $i++) {
                 $begin = strtotime('01-' . $i . '-' . $year . ' 00:00:00');
@@ -365,6 +428,7 @@ class BookingRepository
                 if (get_class($object) == Tour::class) $result[] = $this->sumBookingTourAmount($begin, $end, $object->id);
                 if (get_class($object) == Fun::class) $result[] = $this->sumBookingFunAmount($begin, $end, $object->id);
                 if (get_class($object) == Car::class) $result[] = $this->sumBookingCarAmount($begin, $end, $object->id);
+                if (get_class($object) == Car::class) $result[] = $this->sumBookingStayAmount($begin, $end, $object->id);
             }
         } else {
             $t = date('t', strtotime('01-' . $month . '-' . $year));
@@ -374,6 +438,7 @@ class BookingRepository
                 if (get_class($object) == Tour::class) $result[] = $this->sumBookingTourAmount($begin, $end, $object->id);
                 if (get_class($object) == Fun::class) $result[] = $this->sumBookingFunAmount($begin, $end, $object->id);
                 if (get_class($object) == Car::class) $result[] = $this->sumBookingCarAmount($begin, $end, $object->id);
+                if (get_class($object) == Car::class) $result[] = $this->sumBookingStayAmount($begin, $end, $object->id);
             }
         }
         return $result;
@@ -414,17 +479,15 @@ class BookingRepository
             ->andWhere(['<=', 'begin_at', $end])
             ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY]);
         return $query->sum('payment_provider') ?? 0;
+    }
 
-        /*
-        $query = \booking\entities\booking\cars\CostCalendar::find()
-            ->alias('b')
-            ->andWhere(['c.car_id' => $car_id])
-            ->andWhere(['>=', 'c.car_at', $begin])
-            ->andWhere(['<=', 'c.car_at', $end])
-            ->leftJoin(BookingCarOnDay::tableName() . ' d', 'd.calendar_id = c.id')
-            ->leftJoin(BookingCar::tableName() . ' b', 'b.id = d.booking_id')
-            ->andWhere(['b.status' => BookingHelper::BOOKING_STATUS_PAY]);
-        return $query->sum('b.payment_provider') ?? 0;
-         */
+    private function sumBookingStayAmount($begin, $end, $stay_id): int
+    {
+        $query = BookingStay::find()
+            ->andWhere(['object_id' => $stay_id])
+            ->andWhere(['>=', 'begin_at', $begin])
+            ->andWhere(['<=', 'begin_at', $end])
+            ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY]);
+        return $query->sum('payment_provider') ?? 0;
     }
 }

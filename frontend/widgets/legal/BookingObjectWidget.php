@@ -71,10 +71,18 @@ class BookingObjectWidget extends Widget
                 'description' => $fun->getDescription(),
             ];
         }
-        //TODO Заглушка ($stays)
-//        $stays = $this->stays->getByLegal($this->legal_id);
-      //
 
+        $stays = $this->stays->getByLegal($this->legal_id);
+        foreach ($stays as $stay) {
+            $obj[] = [
+                'photo' => $stay->mainPhoto->getThumbFileUrl('file', 'catalog_list'),
+                'name' => $stay->getName(),
+                'link' => Url::to(['stay/view', 'id' => $stay->id]),
+                'description' => $stay->getDescription(),
+            ];
+        }
+      //
+        //TODO ** BOOKING_OBJECT **
         shuffle($obj);
 
         return $this->render('objects', [

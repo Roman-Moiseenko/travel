@@ -4,13 +4,10 @@
 namespace booking\services\booking\funs;
 
 
-use booking\entities\booking\Discount;
 use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
-use booking\repositories\booking\DiscountRepository;
-
 use booking\repositories\booking\funs\BookingFunRepository;
 use booking\repositories\booking\funs\CostCalendarRepository;
 use booking\services\booking\BookingService;
@@ -22,19 +19,16 @@ class BookingFunService extends BookingService
     private $bookings;
     private $calendar;
     private $contact;
-    private $discounts;
 
     public function __construct(
         BookingFunRepository $bookings,
         CostCalendarRepository $calendar,
-        ContactService $contact,
-        DiscountRepository $discounts
+        ContactService $contact
     )
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
         $this->contact = $contact;
-        $this->discounts = $discounts;
     }
 
     public function create(array $calendar_ids, Cost $count, $comment): BookingFun

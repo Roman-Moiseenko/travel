@@ -321,6 +321,7 @@ newerton\fancybox\FancyBox::widget([
             </div>
             <!-- БРОНЬ -->
             <?= Html::beginForm(['stays/checkout/booking']); ?>
+            <input type="hidden" name="SearchStayForm[stay_id]" value="<?= $stay->id ?>">
             <div class="leftbar-search-stays">
                 <table width="100%">
                     <tr>
@@ -382,7 +383,7 @@ newerton\fancybox\FancyBox::widget([
                                 <div class="custom-control custom-checkbox">
 
                                     <input type="checkbox" class="custom-control-input click-field-stay-params"
-                                           id="service-<?= $i ?>" data-id="<?= $service->id; ?>" name="service[<?= $i ?>]">
+                                           id="service-<?= $i ?>" data-id="<?= $service->id; ?>" name="SearchStayForm[service][<?= $i ?>]" value="<?= $service->id ?>">
                                     <label class="custom-control-label"
                                            for="service-<?= $i ?>"><?= $service->name . ' (' . $service->value . ' ' . CustomServices::listPayment()[$service->payment] . ')' ?> </label>
                                 </div>

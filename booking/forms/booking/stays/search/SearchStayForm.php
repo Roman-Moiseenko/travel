@@ -34,6 +34,8 @@ class SearchStayForm extends CompositeForm
     public $children_age = [];
     public $invalid = [];
 
+    public $service = [];
+    public $stay_id;
 
     public function __construct($config = [])
     {
@@ -69,10 +71,11 @@ class SearchStayForm extends CompositeForm
     public function rules()
     {
         return [
-            [['guest', 'children'], 'integer'],
-            [['date_from', 'date_to'], 'date', 'format' => 'php:d-m-Y'],
+            [['guest', 'children', 'stay_id'], 'integer'],
+            [['date_from', 'date_to'], 'safe'],
             ['city', 'string'],
             ['children_age', 'each', 'rule' => ['integer']],
+            ['service', 'each', 'rule' => ['integer']],
         ];
     }
 

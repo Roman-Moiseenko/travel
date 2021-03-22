@@ -13,6 +13,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\funs\FunRepository;
+use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\check\UserManageService;
 use yii\filters\AccessControl;
@@ -38,6 +39,10 @@ class StaffController extends Controller
      * @var FunRepository
      */
     private $funs;
+    /**
+     * @var StayRepository
+     */
+    private $stays;
 
     public function __construct(
         $id,
@@ -46,7 +51,8 @@ class StaffController extends Controller
         TourRepository $tours,
         CarRepository $cars,
         FunRepository $funs,
-        //TODO Заглушка Stays
+        StayRepository $stays,
+        //TODO ** BOOKING_OBJECT **
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -54,6 +60,7 @@ class StaffController extends Controller
         $this->tours = $tours;
         $this->cars = $cars;
         $this->funs = $funs;
+        $this->stays = $stays;
     }
 
     public function behaviors()
@@ -107,6 +114,7 @@ class StaffController extends Controller
         $tours = $this->tours->getByAdminList($admin_id);
         $cars = $this->cars->getByAdminList($admin_id);
         $funs = $this->funs->getByAdminList($admin_id);
+        $stays = $this->stays->getByAdminList($admin_id);
 
         foreach ($tours as $tour) {
             $objects[] = [
@@ -133,7 +141,15 @@ class StaffController extends Controller
                 'id' => $fun->id
             ];
         }
-//TODO Заглушка Stays
+        foreach ($stays as $stay) {
+            $objects[] = [
+                'check' => $user->existObject(BookingHelper::BOOKING_TYPE_STAY, $stay->id),
+                'type' => BookingHelper::BOOKING_TYPE_STAY,
+                'name' => $stay->name,
+                'id' => $stay->id
+            ];
+        }
+        //TODO ** BOOKING_OBJECT **
 
         return $this->render('view', [
             'user' => $user,

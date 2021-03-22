@@ -199,70 +199,6 @@ class UserManageService
         $user->setLang($lang);
         $this->users->save($user);
     }
-    //TODO Не используется .......
-    public function addBookingTours($id, BookingTourForm $form): BookingTour
-    {
-        $user = $this->users->get($id);
-        $calendar = $this->calendarsTours->get($form->calendar_id);
-        $count_booking = $form->count->adult ?? 0 + $form->count->child ?? 0 + $form->count->preference ?? 0;
-        if ($calendar->free() < $count_booking) {
-            throw new \DomainException(Lang::t('Количество билетов превышает имеющихся в свободном доступе.'));
-        }
-        $amount = $calendar->cost->adult * $form->count->adult;
-        if ($calendar->cost->child && $form->count->child)
-            $amount += $calendar->cost->child * $form->count->child;
-        if ($calendar->cost->preference && $form->count->preference)
-            $amount += $calendar->cost->preference * $form->count->preference;
-
-        $user->addBookingTours(
-            $form->calendar_id,
-            new Cost(
-                $form->count->adult,
-                $form->count->child,
-                $form->count->preference,
-            )
-        );
-        $this->users->save($user);
-    }
-
-    public function editBookingTours($id, $booking_id, BookingTourForm $form)
-    {
-        $user = $this->users->get($id);
-        $calendar = $this->calendarsTours->get($form->calendar_id);
-        $booking = $this->bookingTours->get($booking_id);
-
-        $count_booking = $form->count->adult ?? 0 + $form->count->child ?? 0 + $form->count->preference ?? 0;
-        if ($calendar->free() < $count_booking - $booking->quantity()) {
-            throw new \DomainException(Lang::t('Количество билетов превышает имеющихся в свободном доступе.'));
-        }
-        $amount = $calendar->cost->adult * $form->count->adult;
-        if ($calendar->cost->child && $form->count->child)
-            $amount += $calendar->cost->child * $form->count->child;
-        if ($calendar->cost->preference && $form->count->preference)
-            $amount += $calendar->cost->preference * $form->count->preference;
-        $user->editBookingTours(
-            $booking_id,
-            new Cost(
-                $form->count->adult,
-                $form->count->child,
-                $form->count->preference,
-            )
-        );
-        $this->users->save($user);
-    }
-    
-    public function removeBookingTours($id, $booking_id)
-    {
-        $user = $this->users->get($id);
-        $user->cancelBookingTours($booking_id);
-        $this->users->save($user);
-    }
-    public function payBookingTours($id, $booking_id)
-    {
-        $user = $this->users->get($id);
-        $user->payBookingTours($booking_id);
-        $this->users->save($user);
-    }
 
     /** ............................................  */
 
@@ -279,9 +215,6 @@ class UserManageService
         $user->removeWishlistTour($tour_id);
         $this->users->save($user);
     }
-
-
-
 
     public function addWishlistCar($id, $car_id)
     {
@@ -310,6 +243,18 @@ class UserManageService
         $user->removeWishlistFun($fun_id);
         $this->users->save($user);
     }
-    //public function
 
+    public function addWishlistStay($id, $stay_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlistStay($stay_id);
+        $this->users->save($user);
+    }
+
+    public function removeWishlistStay($id, $stay_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlistStay($stay_id);
+        $this->users->save($user);
+    }
 }

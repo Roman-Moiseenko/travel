@@ -8,9 +8,11 @@ namespace booking\services\booking\stays;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
+use booking\forms\booking\stays\search\SearchStayForm;
 use booking\repositories\booking\stays\BookingStayRepository;
 
 use booking\repositories\booking\stays\CostCalendarRepository;
+use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\BookingService;
 
 use booking\services\ContactService;
@@ -37,30 +39,36 @@ class BookingStayService extends BookingService
      * @var RefundService
      */
     private $refund;
+    /**
+     * @var StayRepository
+     */
+    private $stays;
 
     public function __construct(
         BookingStayRepository $bookings,
         CostCalendarRepository $calendar,
         ContactService $contact,
-        RefundService $refund
+        RefundService $refund,
+        StayRepository $stays
     )
     {
         $this->bookings = $bookings;
         $this->calendar = $calendar;
         $this->contact = $contact;
         $this->refund = $refund;
+        $this->stays = $stays;
     }
 
-    public function create($params): BookingStay
+    public function create(SearchStayForm $form): BookingStay
     {
         //$calendar = $this->calendar->get($calendar_id);
-        $stay = $this->stays->get($params['stay_id']);
+        $stay = $this->stays->get($form->stay_id);
         //Выполнить проверку на места
-        if (!$stay->checkBySearchParams($params)) {  //кол-во свободных меньше покупаемого
+        if (!$stay->checkByDateString($form->date_from, $form->date_to)) {  //кол-во свободных меньше покупаемого
             throw new \DomainException(Lang::t('Упс! Места закончились'));
         }
 
-        $booking = BookingStay::create($params);
+        $booking = BookingStay::create($form->stay_id, $form->date_from, $form->date_to, $form->guest, $form->children, $form->children_age, $form->service);
         $this->bookings->save($booking);
         $this->contact->sendNoticeBooking($booking);
         return $booking;

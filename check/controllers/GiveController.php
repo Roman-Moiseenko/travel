@@ -7,6 +7,7 @@ namespace check\controllers;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
+use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Tour;
 use booking\entities\check\BookingObject;
@@ -68,14 +69,16 @@ class GiveController extends Controller
         $object = BookingObject::findOne($id);
         $bookings = $this->bookings->getTodayCheck($object->classBooking(), $object->object_id);
         $name = $object->classObject()::findOne($object->object_id)->name;
-        //scr::v($object->classObject());
         if ($object->classObject() == Tour::class)
             $link_selling = Url::to(['selling-tour/index', 'id' => $object->id]);
         if ($object->classObject() == Car::class)
             $link_selling = Url::to(['selling-car/index', 'id' => $object->id]);
         if ($object->classObject() == Fun::class)
             $link_selling = Url::to(['selling-fun/index', 'id' => $object->id]);
-        //TODO Заглушка Stay
+        if ($object->classObject() == Stay::class)
+            $link_selling = Url::to(['selling-stay/index', 'id' => $object->id]);
+
+        //TODO ** BOOKING_OBJECT **
         return $this->render('view', [
             'bookings' => $bookings,
             'name' => $name,

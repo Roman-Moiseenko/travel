@@ -3,9 +3,8 @@
 namespace admin\controllers;
 
 
-use admin\forms\DiscountSearch;
 use admin\forms\TourSearch;
-use booking\repositories\booking\DiscountRepository;
+
 use booking\services\admin\UserManageService;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -20,18 +19,13 @@ class SiteController extends Controller
 {
     public $layout = 'main-login';
     /**
-     * @var DiscountRepository
-     */
-    private $discounts;
-    /**
      * @var UserManageService
      */
     private $service;
 
-    public function __construct($id, $module, DiscountRepository $discounts, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->discounts = $discounts;
         $this->service = $service;
     }
 
@@ -100,6 +94,5 @@ class SiteController extends Controller
         $this->layout ='main-update';
         return $this->render('update', []);
     }
-
 
 }

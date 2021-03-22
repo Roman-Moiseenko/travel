@@ -35,14 +35,14 @@ class CustomServices extends ActiveRecord
         return $service;
     }
 
-    public function edit($name, $value, $payment): void
+    final public function edit($name, $value, $payment): void
     {
         $this->name = $name;
         $this->value = $value;
         $this->payment = $payment;
     }
 
-    public function isFor($id): bool
+    final public function isFor($id): bool
     {
         return $this->id == $id;
     }
@@ -52,7 +52,30 @@ class CustomServices extends ActiveRecord
         return '{{%booking_stays_services}}';
     }
 
-    public static function listPayment(): array
+    final public function cost($guest, $days, $cost): int
+    {
+        switch ($this->payment) {
+            case CustomServices::PAYMENT_PERCENT :
+                return $cost * ($this->value / 100);
+                break;
+            case CustomServices::PAYMENT_FIX_DAY:
+                return $this->value * $days;
+                break;
+            case CustomServices::PAYMENT_FIX_ALL:
+                return $this->value;
+                break;
+            case CustomServices::PAYMENT_FIX_DAY_GUEST:
+                return $this->value * $days * $guest;
+                break;
+            case CustomServices::PAYMENT_FIX_ALL_GUEST:
+                return $this->value * $guest;
+                break;
+            default:
+                return 0;
+        }
+    }
+
+    final public static function listPayment(): array
     {
         return [
             self::PAYMENT_PERCENT => '%',

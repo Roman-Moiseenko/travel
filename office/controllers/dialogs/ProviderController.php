@@ -8,8 +8,6 @@ use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
 use booking\entities\Rbac;
 use booking\forms\message\ConversationForm;
-use booking\forms\message\DialogForm;
-use booking\helpers\DiscountHelper;
 use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
 use office\forms\DialogsSearch;

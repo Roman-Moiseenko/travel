@@ -39,7 +39,7 @@ $(document).ready(function () {
             let coord_la = $('#map-stay').data('latitude');
             let coord_lo = $('#map-stay').data('longitude');
             let _name = $('#map-stay').data('name');
-            let _cost = $('#map-stay').data('cost');
+            let _cost = $('#map-stay').attr('data-cost');
             coords = [coord_la, coord_lo];
 
             myMapView = new ymaps.Map(document.getElementById("map-stay"), {

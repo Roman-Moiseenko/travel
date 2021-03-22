@@ -6,6 +6,7 @@ namespace console\controllers;
 
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\funs\BookingFun;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 
 use booking\helpers\BookingHelper;
@@ -93,7 +94,23 @@ class FinanceController extends Controller
             echo 'Транзакция сохранения выполнена';
             //});
         }
-        //TODO Заглушка stays
+
+        $stays = BookingStay::find()
+            ->andWhere(['status' => BookingHelper::BOOKING_STATUS_PAY])
+            ->andWhere(['unload' => false])
+            ->andWhere(['<=', 'begin_at', time()])
+            ->all();
+        echo 'Нашлось ' . count($stays);
+        foreach ($stays as $stay) {
+            $stay->unload = true;
+            echo 'ID $stay = ' . $stay->id;
+            $stay->save();
+            $this->service->create($stay);
+            echo 'Транзакция сохранения выполнена';
+
+        }
+        echo 'КОНЕЦ';
+        //TODO ** BOOKING_OBJECT **
     }
 
 }

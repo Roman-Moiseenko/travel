@@ -630,15 +630,17 @@ class Stay extends BaseObjectOfBooking
         $guest = (int)$params['guest'];
         $children = (int)$params['children'];
         $children_age = $params['children_age'];
+        //TODO Повторяется способ высчитывания $guest $children
         if ($children > 0) {
             $n = $children;
             for($i = 0; $i < $n; $i ++) {
                 if ($children_age[$i] >= $this->rules->beds->child_by_adult) {$guest++; $children--;}
             }
-            if ($children > round($guest / 2))  {
-                $guest += round(($children - round($guest / 2)) / 2);
+            if ($children > $guest)  {
+                $guest = round(($children + $guest) / 2);
             }
         }
+
         if (empty($params['date_from'])) {
             $add_guest = ($guest > $this->guest_base) ? ($guest - $this->guest_base) : 0;
             return $this->cost_base + $add_guest * $this->cost_add;
@@ -661,33 +663,32 @@ class Stay extends BaseObjectOfBooking
             $cost += $calendar->cost_base + $add_guest * $calendar->cost_add;
         }
         $cost_service = 0;
-        //$guest = $params['guest'];
         if (isset($params['services']))
             foreach ($params['services'] as $service_id) {
                 if ($service_id != "") {
                     $service = $this->getServicesById((int)$service_id);
-                    switch ($service->payment) {
-                        case CustomServices::PAYMENT_PERCENT :
-                            $cost_service += $cost * ($service->value / 100);
-                            break;
-                        case CustomServices::PAYMENT_FIX_DAY:
-                            $cost_service += $service->value * $days;
-                            break;
-                        case CustomServices::PAYMENT_FIX_ALL:
-                            $cost_service += $service->value;
-                            break;
-                        case CustomServices::PAYMENT_FIX_DAY_GUEST:
-                            $cost_service += $service->value * $days * $guest;
-                            break;
-                        case CustomServices::PAYMENT_FIX_ALL_GUEST:
-                            $cost_service += $service->value * $guest;
-                            break;
-                        default:
-                            $cost_service += 0;
-                    }
+                    $cost_service += $service->cost($guest, $days, $cost);
                 }
             }
         return $cost + $cost_service;
+    }
+
+
+//TODO Вынести функции проверко в другое место ... в helper
+    public function checkByDateString(string $date_from, string $date_to)
+    {
+        $begin = SysHelper::_renderDate($date_from);
+        $end = SysHelper::_renderDate($date_to);
+        $days = round(($end - $begin) / (24 * 60 * 60));
+        $calendars = CostCalendar::find()
+            ->andWhere(['stay_id' => $this->id])
+            ->andWhere(['>=', 'stay_at', $begin])
+            ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
+            ->count('id');
+        if ($days != $calendars) {
+            return false;
+        }
+        return true;
     }
 
     public function checkBySearchParams(array $params)

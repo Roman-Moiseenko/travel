@@ -15,8 +15,7 @@ $this->title = 'Мои апартаменты/дома';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
-    <h1 style="color: red">Ведется разработка</h1>
-    <h2 style="color: red">Просьба не вводить данные в даном разделе</h2>
+    <h2 style="color: red">Тестирование</h2>
     <p>
         <?= Html::a('Создать Жилье', Url::to('stay/common/create'), ['class' => 'btn btn-success']) ?>
     </p>

@@ -6,7 +6,6 @@ namespace booking\services\admin;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\Discount;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\CertForm;
@@ -16,13 +15,10 @@ use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
-use booking\forms\booking\DiscountForm;
-use booking\helpers\scr;
 use booking\repositories\admin\UserLegalRepository;
 use booking\repositories\admin\UserRepository;
-use booking\services\booking\DiscountService;
 use booking\services\TransactionManager;
-use yii\web\UploadedFile;
+
 
 class UserManageService
 {
@@ -287,39 +283,6 @@ class UserManageService
         $legal = $this->legals->get($legal_id);
         $legal->removeCert($cert_id);
         $this->legals->save($legal);
-    }
-
-    /** <== Legal RelationShip */
-
-
-    /**
-    * @param $user_id
-     * @param DiscountForm $form
-     */
-    public function addDiscount($user_id, DiscountForm $form): void
-    {
-        $user = $this->users->get($user_id);
-        ini_set('max_execution_time', 30 + $form->repeat * 2);
-        for ($i = 1; $i <= $form->repeat; $i++) {
-            $discount = Discount::create(
-                $form->entities,
-                $form->entities_id == 0 ? null : $form->entities_id,
-                DiscountService::generatePromo($form->entities),
-                $form->percent,
-                $form->count
-            );
-            $user->addDiscount($discount);
-            sleep(1);
-        }
-        $this->users->save($user);
-        ini_set('max_execution_time', 30);
-    }
-
-    public function draftDiscount($user_id, $discount_id): void
-    {
-        $user = $this->users->get($user_id);
-        $user->draftDiscount($discount_id);
-        $this->users->save($user);
     }
 
     public function update($id, UserEditForm $form): User

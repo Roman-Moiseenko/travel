@@ -1,17 +1,12 @@
 <?php
 namespace booking\entities\admin;
 
-use booking\entities\admin\Notice;
-use booking\entities\admin\Personal;
-use booking\entities\admin\Legal;
 use booking\entities\booking\cars\Car;
-use booking\entities\booking\Discount;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
-use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -37,7 +32,6 @@ use yii\web\IdentityInterface;
  * @property Legal[] $legals
  * @property Personal $personal
  * @property Notice $notice
- * @property Discount[] $discounts
  * @property Preferences $preferences
  * @property ForumRead[] $forumsRead
  * property string $password write-only password
@@ -91,26 +85,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function UpdatePreferences(Preferences $preferences)
     {
         $this->preferences = $preferences;
-    }
-
-    public function addDiscount(Discount $discount)
-    {
-        $discounts = $this->discounts;
-        $discounts[] = $discount;
-        $this->discounts = $discounts;
-    }
-
-    public function draftDiscount($id)
-    {
-        $discounts = $this->discounts;
-        foreach ($discounts as &$discount) {
-            if ($discount->isFor($id)) {
-                $discount->draft();
-                $this->discounts = $discounts;
-                return;
-            }
-        }
-        throw new \DomainException('Не найдена скидка');
     }
 
     public function addLegal(Legal $legal)
@@ -427,7 +401,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Notice::class, ['user_id' => 'id']);
     }
 
-    //TODO Заглушка Stay
+    //TODO ** BOOKING_OBJECT **
+
     public function getTours(): ActiveQuery
     {
         return $this->hasMany(Tour::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
@@ -449,10 +424,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     //
 
-    public function getDiscounts(): ActiveQuery
-    {
-        return $this->hasMany(Discount::class, ['user_id' => 'id']);
-    }
+
 
     public function getPreferences(): ActiveQuery
     {

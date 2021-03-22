@@ -133,13 +133,13 @@ class BookingCar extends BaseBooking
 
     public function getDate(): int
     {
-        $min = 0;
+        /*$min = 0;
         foreach ($this->days as $i => $day) {
             if ($i == 0) $min = $day->calendar->car_at;
             if ($day->calendar->car_at < $min) {
                 $min = $day->calendar->car_at;
             }
-        }
+        }*/
         return $this->begin_at;
     }
 

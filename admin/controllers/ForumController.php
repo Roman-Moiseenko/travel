@@ -97,7 +97,6 @@ class ForumController extends Controller
             try {
                 $this->postService->addMessage($post->id, $form);
                 return $this->redirect(['forum/post', 'id' => $post->id]);
-                //TODO Переход на последнюю страницу
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
