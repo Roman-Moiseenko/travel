@@ -95,20 +95,13 @@ class SellingController extends Controller
         if (\Yii::$app->request->isAjax) {
             $this->layout = 'main_ajax';
             try {
-                $error = '';
                 $params = \Yii::$app->request->bodyParams;
                 $calendar = $this->calendars->getDay($params['stay_id'], strtotime($params['date']), false);
-                if ($calendar == null) {
-                    $error = 'Нет свободных';
-
-                }
-                    $sales = $this->sellingStays->getByCalendarId($calendar->id);
-
-
+                $sales = $this->sellingStays->getByCalendarId($calendar->id);
                 return $this->render('_list_selling', [
                     'calendar_id' => $calendar ? $calendar->id : null,
                     'sales' => $sales,
-                    'error' => $error,
+                    'error' => '',
                 ]);
             } catch (\Throwable $e) {
                 return $e->getMessage();

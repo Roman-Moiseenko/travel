@@ -44,7 +44,7 @@ use yii\helpers\Url;
                     ['label' => 'Отчеты', 'icon' => 'chart-pie', 'url' => ['/stay/report', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/report'],
                     ['label' => 'Прямая продажа', 'icon' => 'hand-holding-usd', 'url' => ['/stay/selling', 'id' => $this->params['id']], 'active' => $this->context->id == 'stay/selling'],
                     ['label' => 'koenigs.ru', 'header' => true],
-                    ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/stay/' . Stay::findOne($this->params['id'])->slug)],
+                    ['label' => 'Просмотр на сайте', 'iconStyle' => 'far', 'icon' => 'eye', 'url' => Url::to(\Yii::$app->params['frontendHostInfo'] . '/stay/' . $this->params['id']/*Stay::findOne($this->params['id'])->slug*/)],
 
                 ],
             ]);
