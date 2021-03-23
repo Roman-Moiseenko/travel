@@ -38,6 +38,7 @@ class BedsForm extends Model
         return [
             [['child_on', 'adult_on'], 'boolean'],
             [['child_agelimit', 'child_cost', 'child_by_adult', 'child_count', 'adult_cost', 'adult_count'], 'integer'],
+            [['child_by_adult'], 'required', 'message' => 'Необходимо заполнить']
         ];
     }
 

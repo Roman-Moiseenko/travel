@@ -47,7 +47,7 @@ class StayCommonForm extends CompositeForm
     {
         return [
             [['name', 'description', 'name_en', 'description_en', 'city'], 'string'],
-            [['name', 'description', 'type_id'], 'required', 'message' => 'Обязательное поле'],
+            [['name', 'description', 'type_id', 'city'], 'required', 'message' => 'Обязательное поле'],
             [['type_id', 'to_center'], 'integer'],
             ['name', 'unique', 'targetClass' => Stay::class, 'filter' => $this->_stay ? ['<>', 'id', $this->_stay->id] : null, 'message' => 'Такое имя уже есть'],
         ];

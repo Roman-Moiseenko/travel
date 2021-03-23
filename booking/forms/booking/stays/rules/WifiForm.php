@@ -32,6 +32,7 @@ class WifiForm extends Model
     {
         return [
             [['status', 'area', 'cost', 'cost_type'], 'integer'],
+            [['status', 'area'], 'required', 'message' => 'Необходимо заполнить']
         ];
     }
 

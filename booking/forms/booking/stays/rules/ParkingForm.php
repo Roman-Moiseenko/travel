@@ -42,6 +42,7 @@ class ParkingForm extends Model
         return [
             [['private', 'inside', 'reserve', 'security', 'covered', 'street', 'invalid'], 'boolean'],
             [['status', 'cost', 'cost_type'], 'integer'],
+            [['status', 'private', 'inside', 'reserve'], 'required', 'message' => 'Необходимо заполнить']
         ];
     }
 

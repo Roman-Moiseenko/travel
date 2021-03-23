@@ -29,6 +29,7 @@ class LimitForm extends Model
         return [
             [['smoking', 'children'], 'boolean'],
             [['children_allow', 'animals'], 'integer'],
+            ['animals', 'required', 'message' => 'Необходимо заполнить'],
         ];
     }
 
