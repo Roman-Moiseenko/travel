@@ -13,7 +13,7 @@ class PhotoResizeService
     public function resize($item, $quality, $max_width, $max_height)
     {
         $ext = pathinfo($item, PATHINFO_EXTENSION);
-        if ($ext != 'jpg') return;
+        if ($ext != 'jpg' && $ext != 'jpeg') return;
         $photoResize = PhotoResize::find()->andWhere(['file' => $item])->one();
         if ($photoResize) return; //Файл уже был изменен
 

@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = 'Фотографии';
                         'multiple' => true,
                     ],
                     'pluginOptions' => [
-                        'allowedFileExtensions' => ['jpg'],
+                        'allowedFileExtensions' => ['jpg', 'jpeg'],
                     ],
                 ]) ?>
 
