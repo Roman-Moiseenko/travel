@@ -59,11 +59,17 @@ class FinanceController extends Controller
     public function actionUpdate($id)
     {
         $stay = $this->findModel($id);
+        if ($stay->filling) { $this->layout = 'main-create';}
         $form = new StayFinanceForm($stay);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->setFinance($stay->id, $form);
-                return $this->redirect(['/stay/finance', 'id' => $stay->id]);
+                if ($stay->filling) {
+                    \Yii::$app->session->setFlash('success', 'Жилье успешно создано! Заполните календарь и отправьте на модерацию с раздела Описание');
+                    return $this->redirect($this->service->next_filling($stay));
+                } else {
+                    return $this->redirect(['/stay/finance', 'id' => $stay->id]);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

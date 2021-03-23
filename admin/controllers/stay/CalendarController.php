@@ -62,6 +62,7 @@ class CalendarController extends Controller
     public function actionIndex($id)
     {
         $stay = $this->findModel($id);
+        if ($stay->filling) $this->service->next_filling($stay);
         if ($stay->user_id != \Yii::$app->user->id) {
             throw new \DomainException('У вас нет прав для данного Развлечения');
         }

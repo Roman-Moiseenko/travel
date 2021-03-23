@@ -54,16 +54,23 @@ class PhotosController extends Controller
     public function actionIndex($id)
     {
         $stay = $this->findModel($id);
-        if ($stay->filling && $stay->filling != Filling::PHOTOS) return $this->redirect($this->service->redirect_filling($stay));
-        if ($stay->filling) {
-            $this->layout = 'main-create';
-        }
+
+        if ($stay->filling)
+            if ($stay->filling == Filling::PHOTOS) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($stay));
+            }
+
         $form = new PhotosForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addPhotos($stay->id, $form);
-                if ($stay->filling) $this->service->next_filling($stay);
-                return $this->redirect(['/stay/photos/index', 'id' => $id, '#' => 'photos']);
+                if ($stay->filling) {
+                    return $this->redirect($this->service->next_filling($stay));
+                } else {
+                    return $this->redirect(['/stay/photos/index', 'id' => $id, '#' => 'photos']);
+                }
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

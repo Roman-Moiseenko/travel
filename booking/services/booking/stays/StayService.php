@@ -524,7 +524,9 @@ class StayService
             Filling::NEARBY => Filling::DUTY,
             Filling::DUTY => Filling::SERVICES,
             Filling::SERVICES => Filling::PHOTOS,
-            Filling::PHOTOS => null,
+            Filling::PHOTOS => Filling::FINANCE,
+            Filling::FINANCE => Filling::CALENDAR,
+            Filling::CALENDAR => null,
         ];
         $stay->filling = $next[$stay->filling];
         $this->stays->save($stay);
@@ -545,6 +547,8 @@ class StayService
             Filling::DUTY => ['/stay/duty/update', 'id' => $stay->id],
             Filling::SERVICES => ['/stay/services/update', 'id' => $stay->id],
             Filling::PHOTOS => ['/stay/photos/index', 'id' => $stay->id],
+            Filling::FINANCE => ['/stay/finance/update', 'id' => $stay->id],
+            Filling::CALENDAR => ['/stay/calendar/index', 'id' => $stay->id],
         ];
         return $redirect[$stay->filling];
     }

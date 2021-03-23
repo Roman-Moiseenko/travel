@@ -44,6 +44,7 @@ if ($comfort->category_id == $category->id): ?>
                         'showUpload' => false,
                         'browseLabel' => '',
                         'browseClass' => 'btn btn-outline-primary btn-file',
+                        'allowedFileExtensions' => ['jpg', 'jpeg'],
                     ],
                 ])->label(false) .
                 '</div>';

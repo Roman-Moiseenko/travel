@@ -66,6 +66,7 @@ $categories = ComfortCategory::find()->all();
                                             'showUpload' => false,
                                             'browseLabel' => '',
                                             'browseClass' => 'btn btn-outline-primary btn-file',
+                                            'allowedFileExtensions' => ['jpg', 'jpeg'],
                                         ],
                                     ])->label(false) .
                                     '</div>';
