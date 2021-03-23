@@ -43,6 +43,9 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
             <div class="col-md-6">
                 <?= $form->field($model, 'cost_add')->textInput(['maxlength' => true])->label('Цена за каждого дополнительного гостя в сутки')->hint('За каждого сверх базового значения') ?>
             </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'min_rent')->dropdownList([1 => '1 сутки', 2 => '2 суток', 3 => '3 суток', 4 => '4 суток', 5 => '5 суток'])->label('Минимальный период бронирования') ?>
+            </div>
         </div>
     </div>
     <div class="row">

@@ -376,6 +376,7 @@ newerton\fancybox\FancyBox::widget([
                                      </span>
                                 <?php endfor; ?>
                             </div>
+                            <span style="font-weight: 600; color: #212121">* <?= Lang::t('бронирование от ') . $stay->min_rent . Lang::t(' суток')?></span>
                             <?php ActiveForm::end(); ?>
                 <?php if ($mobile) {
                     echo '</div><div>';

@@ -82,11 +82,9 @@ class StayService
         StayRepository $stays,
         TransactionManager $transaction,
         TypeRepository $types,
-        //ExtraRepository $extra,
         ContactService $contactService,
         ReviewStayRepository $reviews,
         DialogRepository $dialogs
-       // CostCalendarRepository $calendars
     )
     {
 
@@ -222,6 +220,7 @@ class StayService
         }
         $this->stays->save($stay);
     }
+
     public function setRules($id, StayRulesForm $form)
     {
         $stay = $this->stays->get($id);
@@ -355,7 +354,6 @@ class StayService
         $this->stays->save($stay);
     }
 
-
     public function setFinance($id, StayFinanceForm $form): void
     {
         $stay = $this->stays->get($id);
@@ -363,6 +361,7 @@ class StayService
         $stay->cost_base = $form->cost_base;
         $stay->guest_base = $form->guest_base;
         $stay->cost_add = $form->cost_add;
+        $stay->min_rent = $form->min_rent;
         //По умолчанию ч/з подтверждение
         $stay->setPrepay($form->prepay);
         $stay->setCancellation(($form->cancellation == '') ? null : $form->cancellation);

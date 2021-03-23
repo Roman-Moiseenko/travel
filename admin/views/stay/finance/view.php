@@ -45,7 +45,10 @@ $this->params['breadcrumbs'][] = 'Цены';
                         'label' => 'Стоимость дополнительной кровати',
                         'value' => $stay->rules->beds->adult_cost,
                     ],
-
+                    [
+                        'attribute' => 'min_rent',
+                        'label' => 'Минимальный период бронирования (сут)',
+                    ],
                 ],
             ]) ?>
         </div>

@@ -21,6 +21,7 @@ class StayFinanceForm extends Model
     public $guest_base;
     public $cost_add;
     public $prepay;
+    public $min_rent;
 
     public function __construct(Stay $stay, $config = [])
     {
@@ -31,13 +32,14 @@ class StayFinanceForm extends Model
         $this->cost_base = $stay->cost_base;
         $this->guest_base = $stay->guest_base;
         $this->cost_add = $stay->cost_add;
+        $this->min_rent = $stay->min_rent;
         parent::__construct($config);
     }
 
     public function rules()
     {
         return [
-            [['legal_id', 'cost_base', 'guest_base', 'cost_add', 'prepay'], 'integer'],
+            [['legal_id', 'cost_base', 'guest_base', 'cost_add', 'prepay', 'min_rent'], 'integer'],
             ['cancellation', 'integer'],
             [['legal_id', 'cost_base', 'guest_base'], 'required', 'message' => 'Обязательное поле'],
         ];

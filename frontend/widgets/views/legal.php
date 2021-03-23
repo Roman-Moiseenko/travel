@@ -8,12 +8,19 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $mobile = SysHelper::isMobile();
+if (!empty($legal->photo)) {
+    $photoLegal = $legal->getThumbFileUrl('photo', $mobile ? 'profile_mobile' : 'profile_new');
+} else {
+    $photoLegal = $mobile ?
+        \Yii::$app->params['staticHostInfo'] . '/files/images/no_photo_mobile.jpg' :
+        \Yii::$app->params['staticHostInfo'] . '/files/images/no_photo.jpg';
+}
 ?>
 
 <div class="row align-content-center">
     <div class="col-sm-6">
         <a href="<?= Url::to(['legals/view', 'id' => $legal->id]) ?>">
-            <img src="<?= $legal->getThumbFileUrl('photo', $mobile ? 'profile_mobile' : 'profile_new'); ?>"
+            <img src="<?= $photoLegal; ?>"
                  alt="<?= Html::encode($legal->getName()); ?>" title="<?= Html::encode($legal->getName()); ?>"
                  class="img-responsive"/>
         </a>

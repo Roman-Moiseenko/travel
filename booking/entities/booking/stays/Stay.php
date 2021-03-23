@@ -68,7 +68,7 @@ use yii\web\UploadedFile;
  * Специфические параметры
  * @property string $city
  * @property integer $to_center
- *
+ * @property integer $min_rent
  *
 
  *
@@ -122,6 +122,7 @@ class Stay extends BaseObjectOfBooking
     const ERROR_NOT_GUEST = -50;
     const ERROR_NOT_CHILD_AGE = -60;
     const ERROR_LIMIT_CHILD_AGE = -70;
+    const ERROR_MIN_RENT = -80;
 
     /** @var $address BookingAddress */
     public $address;
@@ -139,6 +140,7 @@ class Stay extends BaseObjectOfBooking
             self::ERROR_NOT_GUEST => Lang::t('Превышено количество гостей'),
             self::ERROR_NOT_CHILD_AGE => Lang::t('Не указан возраст детей'),
             self::ERROR_LIMIT_CHILD_AGE => Lang::t('Ограничение по возрасту ребенка'),
+            self::ERROR_MIN_RENT => Lang::t('Количество дней меньше минимального'),
         ];
     }
 
@@ -699,6 +701,7 @@ class Stay extends BaseObjectOfBooking
             $end = SysHelper::_renderDate($params['date_to']);
             $days = round(($end - $begin) / (24 * 60 * 60));
             if ($days <= 0) return Stay::ERROR_NOT_DATE_END;
+            if ($days < $this->min_rent) return Stay::ERROR_MIN_RENT;
             $calendars = CostCalendar::find()
                 ->andWhere(['stay_id' => $this->id])
                 ->andWhere(['>=', 'stay_at', $begin])
