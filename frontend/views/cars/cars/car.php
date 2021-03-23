@@ -37,7 +37,7 @@ $mobile = SysHelper::isMobile();
 $countReveiws = $car->countReviews();
 ?>
 <!-- ФОТО  -->
-<div class="pb-4 thumbnails gallery"
+<div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"
      xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <?php foreach ($car->photos as $i => $photo) {
         echo GalleryWidget::widget([

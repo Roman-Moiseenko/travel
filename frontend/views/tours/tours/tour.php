@@ -39,7 +39,7 @@ $countReveiws = $tour->countReviews();
 
 ?>
 <!-- ФОТО  -->
-<div class="pb-4 thumbnails gallery"
+<div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"
      xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <?php foreach ($tour->photos as $i => $photo) {
         echo GalleryWidget::widget([

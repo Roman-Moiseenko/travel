@@ -142,7 +142,7 @@ $this->registerMetaTag(['name' => 'description', 'content' => $stay->meta->descr
 $this->title = $stay->meta->title ? Lang::t($stay->meta->title) : $stay->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Все аппартаменты'), 'url' => Url::to(['stays/index', 'SearchStayForm' => $SearchStayForm])];
 $this->params['breadcrumbs'][] = ['label' => Lang::t($stay->city), 'url' => Url::to(['stays/index', 'SearchStayForm' => $_city])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $stay->getName();
 
 MagnificPopupAsset::register($this);
 MapStayAsset::register($this);
@@ -219,7 +219,7 @@ newerton\fancybox\FancyBox::widget([
     ></span>
     <span id="stay-id" data-id="<?= $stay->id ?>"></span>
     <!-- ФОТО  -->
-    <div class="pb-4 thumbnails gallery"
+    <div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"
          xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <?php foreach ($stay->photos as $i => $photo) {
             echo GalleryWidget::widget([
@@ -323,9 +323,12 @@ newerton\fancybox\FancyBox::widget([
             <?= Html::beginForm(['stays/checkout/booking']); ?>
             <input type="hidden" name="SearchStayForm[stay_id]" value="<?= $stay->id ?>">
             <div class="leftbar-search-stays">
-                <table width="100%">
-                    <tr>
-                        <td class="p-2" width="263px">
+                <?php if ($mobile) {
+                    echo '<div>';
+                } else {
+                    echo '<table width="100%"><tr><td class="p-2" width="263px">';
+                }?>
+
                             <?php $form = ActiveForm::begin([
                                 'id' => 'search-stay-form',
                                 'action' => '/' . Lang::current() . '/stay/',
@@ -374,8 +377,12 @@ newerton\fancybox\FancyBox::widget([
                                 <?php endfor; ?>
                             </div>
                             <?php ActiveForm::end(); ?>
-                        </td>
-                        <td class="p-2" valign="top">
+                <?php if ($mobile) {
+                    echo '</div><div>';
+                } else {
+                    echo '</td><td class="p-2" valign="top">';
+                }?>
+
                             <?php if (count($stay->services) > 0) {
                                 echo '<b>' . Lang::t('Выберите дополнительные услуги') . ':</b>';
                             } ?>
@@ -388,8 +395,12 @@ newerton\fancybox\FancyBox::widget([
                                            for="service-<?= $i ?>"><?= $service->name . ' (' . $service->value . ' ' . CustomServices::listPayment()[$service->payment] . ')' ?> </label>
                                 </div>
                             <?php endforeach; ?>
-                        </td>
-                        <td class="p-2" width="320px" valign="top" style="border-left: #575757 solid 1px">
+                <?php if ($mobile) {
+                    echo '</div><div>';
+                } else {
+                    echo '</td><td class="p-2" width="320px" valign="top" style="border-left: #575757 solid 1px">';
+                }?>
+
                             <div class="mb-auto" style="align-items: center; text-align: center; display: inline-flex;">
                                 <span class="py-2 my-2" id="amount-booking" style="color: #122b40; font-size: 48px; font-weight: 800"></span>
                             </div>
@@ -412,12 +423,14 @@ newerton\fancybox\FancyBox::widget([
                                 </span><br>
                                 <span class="py-2 my-2 badge badge-success" id="amount-prepay" style="font-size: 38px; font-weight: 800"></span>
                             </div>
-
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                <?php if ($mobile) {
+                    echo '</div>';
+                } else {
+                    echo '</td></tr></table>';
+                }?>
+
             </div>
             <?= Html::endForm() ?>
             <!-- УДОБСТВА -->
