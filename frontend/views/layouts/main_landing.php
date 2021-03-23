@@ -38,10 +38,9 @@ if (isset($this->params['tour'])) TourAsset::register($this);
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">
-    <?php if (isset($this->params['canonical'])) {
-        echo '<meta property="og:url" content="' . $this->params['canonical'] . '">' . PHP_EOL;
-        echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
-    } ?>
+    <meta property="og:url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>">
+    <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>">
+
     <?php $this->head() ?>
     <script src="/js/lazysizes.min.js" async></script>
     <!-- Yandex.Metrika counter -->
@@ -76,18 +75,8 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<nav id="top"><?= TopmenuWidget::widget() ?></nav>
-<div id="common-home" class="container content-container">
-    <?= Breadcrumbs::widget([
-        'options' => ['class' => 'breadcrumb-site'],
-        'homeLink' => [
-            'label' => Lang::t('Главная'),
-            'url' => Yii::$app->homeUrl,
-            'title' => Lang::t('На главную'),
-        ],
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= AlertWidget::widget() ?>
+<!--nav id="top"><?= ''//TopmenuWidget::widget() ?></nav -->
+<div id="common-home" class="content-container">
     <?= $content ?>
 </div>
 <!-- Main Footer -->

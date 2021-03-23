@@ -124,8 +124,7 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
             </div>
             <div class="ml-auto mt-1 mr-1">
                 <a href="<?= Html::encode($url) ?>" class="btn btn-lg btn-primary"
-                   style="height: 58px; align-items: center; display: inline-flex;">Проверить наличие
-                    мест</a>
+                   style="height: 58px; align-items: center; display: inline-flex;">Проверить ></a>
             </div>
         </div>
     </div>

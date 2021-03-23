@@ -898,3 +898,16 @@ div.required label:after {
 #children.form-control-xl {
     padding-left: 6px;
 }
+.landing-block-center {
+    text-align: center;
+    display: block;
+}
+.landing-header {
+    transition: all 200ms ease-out 0s;
+    background: rgba(1,0,0,0.4);
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    left: 0;
+    top: 0;
+}

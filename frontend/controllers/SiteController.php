@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use booking\helpers\scr;
+use booking\helpers\SysHelper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -61,9 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //scr::v('!!!!');
+        $this->layout = 'main_landing';
+        $mobile = SysHelper::isMobile();
         $params = \Yii::$app->request->queryParams;
-        if (isset($params['_1984'])) return $this->render('index', []);
+        if (isset($params['_1984'])) return $this->render($mobile ? 'index_mobile' : 'index', []);
         return $this->redirect(['/tours']);
     }
 
