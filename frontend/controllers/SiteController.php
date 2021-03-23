@@ -65,7 +65,22 @@ class SiteController extends Controller
         $this->layout = 'main_landing';
         $mobile = SysHelper::isMobile();
         $params = \Yii::$app->request->queryParams;
-        if (isset($params['_1984'])) return $this->render($mobile ? 'index_mobile' : 'index', []);
+        if (isset($params['_1984'])) {
+            //получаем список файлов на карусель
+            $path = \Yii::$app->params['staticPath'] . '/files/images/landing/'; //перенести куда нить в параметры
+            $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/'; //перенести куда нить в параметры
+
+            $list = scandir($path);
+            $images = [];
+            foreach ($list as $item) {
+                if ($item == '.' || $item == '..') continue;
+                    $images[] = $url . $item;
+            }
+            return $this->render($mobile ? 'index_mobile' : 'index', [
+                'images' => $images,
+            ]);
+        }
+
         return $this->redirect(['/tours']);
     }
 
