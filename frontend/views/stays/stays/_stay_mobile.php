@@ -40,9 +40,9 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
         <?php if ($stay->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
-                    <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
+                    <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>"
                          alt="<?= Lang::t($stay->mainPhoto->alt) ?>"
-                         class="img-responsive" itemprop="contentUrl"/>
+                         class="card-img-top" itemprop="contentUrl"/>
                 </a>
                 <meta itemprop="name"
                       content="<?= empty($stay->mainPhoto->alt) ? 'Аренда жилья в Калининграде' : Lang::t($stay->mainPhoto->alt) ?>">
@@ -106,13 +106,13 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
             <div class="category-card">
                 <a href="<?= $url_city ?>"><?= Lang::t($stay->city) ?></a>
                 &#8226;
-                <span style="border: 0 !important; background-color: white !important;">
+                <span style="border: 0 !important;">
                         <a href="<?= $url_category ?>"><?= Lang::t($stay->type->name) ?></a>
                     </span>
             </div>
         </div>
     </div>
-    <div class="color-card-footer margin-card-footer">
+    <div class="mt-auto card-footer color-card-footer">
         <div class="d-flex">
             <div>
                 <div class="pl-4 py-2">
