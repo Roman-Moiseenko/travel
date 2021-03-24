@@ -75,9 +75,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         <div class="container">
             <div class="carousel-caption">
                 <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
-                <?php if ($i == 0) { echo '<h1 class="landing-h2">';} else {echo '<p class="landing-h2">';} ?>
-                    <span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span>
-                <?php if ($i == 0) { echo '</h1>';} else {echo '</p>';} ?>
+                <?php if ($i == 0) { echo '<h1 class="landing-h2">';} else {echo '<p class="landing-h2">';} ?><span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span><?php if ($i == 0) { echo '</h1>';} else {echo '</p>';} ?>
             </div>
         </div>
     </div>

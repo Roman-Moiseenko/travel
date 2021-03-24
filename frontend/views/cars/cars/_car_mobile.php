@@ -43,9 +43,7 @@ use yii\helpers\Url;
     </div>
     <div class="card-body color-card-body">
         <a href="<?= Html::encode($url) ?>">
-            <h2 class="card-title card-object">
-                <?= Html::encode($car->getName()) ?>
-            </h2>
+            <h2 class="card-title card-object"><?= Html::encode($car->getName()) ?></h2>
         </a>
         <p class="card-text" style="height: available">
             <div class="mb-auto text-justify">

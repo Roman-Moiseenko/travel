@@ -63,9 +63,7 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
     </div>
     <div class="card-body color-card-body">
         <a href="<?= Html::encode($url) ?>">
-            <h2 class="card-title card-object">
-                <?= Html::encode($stay->getName()) ?>
-            </h2>
+            <h2 class="card-title card-object"><?= Html::encode($stay->getName()) ?></h2>
         </a>
         <div class="card-text" style="height: available">
             <!-- БЛОК ОПИСАНИЯ -->
