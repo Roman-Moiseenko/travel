@@ -65,7 +65,7 @@ class SiteController extends Controller
         $this->layout = 'main_landing';
         $mobile = SysHelper::isMobile();
         $params = \Yii::$app->request->queryParams;
-        if (isset($params['_1984'])) {
+        //if (isset($params['_1984'])) {
             //получаем список файлов на карусель
             $path = \Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
             $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
@@ -79,9 +79,9 @@ class SiteController extends Controller
             return $this->render($mobile ? 'index_mobile' : 'index', [
                 'images' => $images,
             ]);
-        }
+     // }
 
-        return $this->redirect(['/tours']);
+       // return $this->redirect(['/tours']);
     }
 
     public function actionUpdate()

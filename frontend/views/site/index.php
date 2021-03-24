@@ -20,7 +20,8 @@ SwiperAsset::register($this);
             <div id="Oplao" data-cl="white" data-id="33141" data-wd="200px" data-hg="80px" data-l="ru" data-c="554234"
                  data-t="C" data-w="m/s" data-p="hPa" data-wg="widget_3" class="170 80"></div>
             <script type="text/javascript" id="weather_widget" charset="UTF-8"
-                    src="https://oplao.com/js/weather_widget.js"></script>
+                    src="../js/weather_widget.js"></script> <!-- https://oplao.com/js/weather_widget.js -->
+
         </div>
         <div  style="align-items: center">
             <a href="/" class="landing-logo">
@@ -184,17 +185,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
     </div>
 </div>
-<div class="landing-block-center">
-    <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>Календарь событий<span
-                    class="line-b-title"></span></h2>
-        <div id="nb_events">
-            <script id="nbEventsScript" type="text/javascript"
-                    src="http://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
-            </script>
-        </div>
-    </div>
-</div>
+
 
 <!--div class="landing-block-center">
     <div class="container">
@@ -209,10 +200,22 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
                     class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
-                Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы может подключиться к нашему порталу и размещать их на нашем сайте.
+                Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы можете разместить их на нашем сайте.
+                Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
                 <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="=nofollow" target="_blank" >admin.koenigs.ru</a>.<br>
-                Сейчас доступны для размещения следующие услуги: экскурсии, прокат транспортных средств, бронирование апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="landing-block-center">
+    <div class="container">
+        <h2 class="landing-title-h2"><span class="line-t-title"></span>Календарь событий<span
+                    class="line-b-title"></span></h2>
+        <div id="nb_events">
+            <script id="nbEventsScript" type="text/javascript"
+                    src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
+            </script>
         </div>
     </div>
 </div>
