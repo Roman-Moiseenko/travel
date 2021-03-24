@@ -10,10 +10,10 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $images array */
-$this->title = Lang::t('На отдых в Калининград');
+$this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
 $this->registerMetaTag(['name' =>'description', 'content' => 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело']);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
-
+$this->registerLinkTag(['rel' => "preload",  'as' => "image", 'href' => $images[0]]);
 
 SwiperAsset::register($this);
 ?>
@@ -71,8 +71,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
 <?php foreach ($images as $i => $image): ?>
     <div class="item-class">
-        <img src="<?= $image ?>"
-             alt="Image 1">
+        <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
         <div class="container">
             <div class="carousel-caption">
                 <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
@@ -93,7 +92,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/tours']) ?>">
-                    <img src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -111,7 +110,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/stays']) ?>">
-                    <img src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -128,7 +127,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/funs']) ?>">
-                    <img src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -145,7 +144,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/cars']) ?>">
-                    <img src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -176,7 +175,8 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
                 На территории региона расположено много историко-культурных и архитектурных памятников, такие как форты, замки, кирхи и многое другое.
                 Сегодня происходит восстановление многих памятников, а также создание новых архитектурных достопримечательностей, которые могут посетить туристы.
                 Также имеются природные и заповедные парки, открытые для посещения гостями, а в теплые летние можно искупаться в балтийском море и погреться на песчаных пляжах.
-                Или прогуляться по уютным улочкам приморских городов и посетить кафешки с домашней обстановкой.<br>
+                Или прогуляться по уютным улочкам приморских городов и посетить кафешки с домашней обстановкой. <br>А может Вам будет интересна история города или Вы хотели бы посетить необычные места,
+                тогда можно совершить экскурсию с одним из наших гидов.<br>
             </div>
         </div>
         <div class="row pt-5">

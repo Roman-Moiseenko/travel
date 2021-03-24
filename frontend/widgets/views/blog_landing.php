@@ -51,7 +51,7 @@ $this->registerJs($script);
         <?php foreach ($posts as $post): ?>
             <div class="swiper-slide text-center">
                 <div class="card text-white shadow-lg" style="border: 0 !important; ">
-                    <img src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img">
+                    <img data-src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img  lazyload">
                     <div class="card-img-overlay d-flex flex-column">
                         <div class="mt-auto">
                             <h4 class="card-title"

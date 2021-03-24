@@ -8,6 +8,7 @@ use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model SearchStayForm */
+/* @var $mobile boolean */
 
 $layout = <<< HTML
 <div class="row">
@@ -126,6 +127,12 @@ $this->params['search']['children_age'] = $model->children_age;
     </div>
 </div>
 <div class="p-3"></div>
+<?php if ($mobile) {
+    echo '                        <a class="form-control" data-toggle="collapse" href="#collapse" role="button"
+                           aria-expanded="false" aria-controls="collapseExample">
+                            &#160;&#160;Фильтр</a>';
+    echo '<div class="collapse" id="collapse">';
+} ?>
 <div class="leftbar-search-stays-fields">
     <div class="search-block">
         <div class="search-name">Спальни</div>

@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $images array */
-$this->title = Lang::t('На отдых в Калининград');
+$this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
 $this->registerMetaTag(['name' => 'description', 'content' => 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 
@@ -30,7 +30,7 @@ SwiperAsset::register($this);
             <div class="col p-0 mb-2" style="border: white solid 2px">
 
                 <a href="<?= Url::to(['/tours']) ?>">
-                    <img src="<?= $url_img_booking . 'tour_mobile.jpg' ?>" class="img-responsive" width="100%"
+                    <img data-src="<?= $url_img_booking . 'tour_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
                          height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
@@ -47,7 +47,7 @@ SwiperAsset::register($this);
             </div>
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/stays']) ?>">
-                    <img src="<?= $url_img_booking . 'stay_mobile.jpg' ?>" class="img-responsive" width="100%"
+                    <img data-src="<?= $url_img_booking . 'stay_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
                          height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
@@ -64,7 +64,7 @@ SwiperAsset::register($this);
             </div>
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/funs']) ?>">
-                    <img src="<?= $url_img_booking . 'fun_mobile.jpg' ?>" class="img-responsive" width="100%"
+                    <img data-src="<?= $url_img_booking . 'fun_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
                          height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
@@ -81,7 +81,7 @@ SwiperAsset::register($this);
             </div>
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/cars']) ?>">
-                    <img src="<?= $url_img_booking . 'car_mobile.jpg' ?>" class="img-responsive" width="100%"
+                    <img data-src="<?= $url_img_booking . 'car_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
                          height="300px">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>

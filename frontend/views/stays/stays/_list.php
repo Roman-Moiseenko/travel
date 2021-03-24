@@ -9,6 +9,8 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
 /* @var $dataProvider DataProviderInterface */
+/* @var $mobile boolean */
+
 $current = \Yii::$app->request->get('sort') ?? '';
 $up = Lang::t('По возрастанию');
 $down = Lang::t('По убыванию');
@@ -19,7 +21,7 @@ $values = [
     'cost' => Lang::t('по цене (сначала дешевле)'),
 
 ];
-$mobile = SysHelper::isMobile();
+//$mobile = SysHelper::isMobile();
 ?>
 <div class="sort-bar d-none d-sm-block">
     <ul>
