@@ -64,21 +64,22 @@ class SiteController extends Controller
     {
         $this->layout = 'main_landing';
         $mobile = SysHelper::isMobile();
+        if ($mobile) return $this->redirect(['/tours']);
         $params = \Yii::$app->request->queryParams;
         //if (isset($params['_1984'])) {
             //получаем список файлов на карусель
-            $path = \Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
-            $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
+        $path = \Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
+        $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
 
-            $list = scandir($path);
-            $images = [];
-            foreach ($list as $item) {
-                if ($item == '.' || $item == '..') continue;
-                    $images[] = $url . $item;
-            }
-            return $this->render($mobile ? 'index_mobile' : 'index', [
-                'images' => $images,
-            ]);
+        $list = scandir($path);
+        $images = [];
+        foreach ($list as $item) {
+            if ($item == '.' || $item == '..') continue;
+                $images[] = $url . $item;
+        }
+        return $this->render($mobile ? 'index_mobile' : 'index', [
+            'images' => $images,
+        ]);
      // }
 
        // return $this->redirect(['/tours']);
@@ -90,12 +91,5 @@ class SiteController extends Controller
         return $this->render('update', []);
     }
 
-    public function actionMain()
-    {
-        //TODO Тестовый экшн для будущей главной страницы index
-        //TODO Грузим  Экскурсии из Рекомендуем
-
-        return $this->render('index', []);
-    }
 
 }

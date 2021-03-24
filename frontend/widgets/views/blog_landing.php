@@ -12,7 +12,7 @@ $script = <<<JS
 $(document).ready(function() {
         var swiper2 = new Swiper('.swiper2',{
           //  el: '.swiper-container',
-            initialSlide: 1,
+            initialSlide: 2,
             spaceBetween: 10,
             slidesPerView: $count,
           //  loop: true,

@@ -87,7 +87,12 @@ use yii\helpers\Url;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="top-menu-a mt-1 nav-link"
+                       href="<?= Html::encode(Url::to(['/'])) ?>" title="<?= Lang::t('На главную') ?>">
+                        <i class="fas fa-bars"></i>&#160;
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/tours'])) ?>">

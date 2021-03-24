@@ -290,7 +290,7 @@ class Post extends ActiveRecord
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 640, 'height' => 480],
                     'blog_list' => ['width' => 1000, 'height' => 150],
-                    'landing_list' => ['width' => 150, 'height' => 200],
+                    'landing_list' => ['width' => 300, 'height' => 400],
                     'widget_list' => ['width' => 228, 'height' => 228],
                     'widget_top' => ['width' => 1000, 'height' => 150],
                     'widget_mobile' => ['width' => 300, 'height' => 100],
