@@ -2,12 +2,15 @@
 
 
 use booking\entities\Lang;
+use frontend\assets\SwiperAsset;
+use frontend\widgets\BlogLandingWidget;
 use kv4nt\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $images array */
 $this->title = Lang::t('На отдых в Калининград');
+SwiperAsset::register($this);
 ?>
 
 <header class="landing-header">
@@ -109,14 +112,21 @@ OwlCarouselWidget::begin([
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>О Калининградской области<span
                     class="line-b-title"></span></h2>
-        <div class="row" style="height: 300px">
-            <div class="col-12" style="background-color: #d4d4d4;font-size: 16px">
-                Текст об области, 3 или 4 фото
+        <div class="row">
+            <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
+                Калининградская область — самый западный регион России и единственный не имеющий сухопутной границей с Россией.
+                Добраться к нам быстрее и дешевле будет на самолете, для этого потребуется только паспорт гражданина РФ.<br>
+                История Калининградской области - это богатая история в которой оставили свой след племена Пруссии, рыцари Тевтонского ордена и советское прошлое.
+                <br>
+                На территории региона расположено много историко-культурных и архитектурных памятников, такие как форты, замки, кирхи и многое другое.
+                Сегодня происходит восстановление многих памятников, а также создание новых архитектурных достопримечательностей, которые могут посетить туристы.
+                Также имеются природные и заповедные парки, открытые для посещения гостями, а в теплые летние можно искупаться в балтийском море и погреться на песчаных пляжах.
+                Или прогуляться по уютным улочкам приморских городов и посетить кафешки с домашней обстановкой.<br>
             </div>
         </div>
-        <div class="row" style="height: 100px">
+        <div class="row pt-5">
             <div class="col-12">
-                Карусель с постами блога
+                <?= BlogLandingWidget::widget(); ?>
             </div>
         </div>
 
@@ -141,5 +151,10 @@ OwlCarouselWidget::begin([
     </div>
 </div>
 
-
+<div class="landing-block-center">
+    <div class="container">
+        <h2 class="landing-title-h2"><span class="line-t-title"></span>Для туристических компаний<span
+                    class="line-b-title"></span></h2>
+    </div>
+</div>
 <h1>Вас здесь не должно быть ... пока-что ;)</h1>

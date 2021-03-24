@@ -53,7 +53,7 @@ class ActiveTopWidget extends Widget
         foreach ($stays as $stay) {
             $objects[] = ['name' => $stay->name,
                 'photo' => $stay->mainPhoto ? $stay->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
-                'link' => Url::to(['stay/view', 'id' => $stay->id]),
+                'link' => Url::to(['stays/view', 'id' => $stay->id]),
                 'created_at' => date('d-m-Y', $stay->created_at),
             ];
         }

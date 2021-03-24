@@ -52,6 +52,11 @@ class PostRepository
         return Post::find()->active()->orderBy(['id' => SORT_ASC])->limit($limit)->offset($offset)->all();
     }
 
+    public function getAllForLanding()
+    {
+        return Post::find()->active()->orderBy(['public_at' => SORT_DESC])->all();
+    }
+
     public function getAll(): DataProviderInterface
     {
         $query = Post::find()->active()->with('category')->orderBy(['public_at' => SORT_DESC]);

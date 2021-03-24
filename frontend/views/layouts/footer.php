@@ -7,7 +7,7 @@ use yii\helpers\Url; ?>
 <footer class="pb-2">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Информация') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О сайте') ?></a></li>
@@ -29,7 +29,7 @@ use yii\helpers\Url; ?>
                     <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
                 </ul>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотранспорта') ?></a></li>
@@ -38,7 +38,7 @@ use yii\helpers\Url; ?>
                     <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление') ?></a></li>
                 </ul>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label><?= Lang::t('Личный кабинет') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/cabinet/profile'])) ?>" rel="nofollow"><?= Lang::t('Кабинет') ?></a></li>

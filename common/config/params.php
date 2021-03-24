@@ -67,6 +67,14 @@ return [
                 '/cache/',
             ],
         ],
+        [
+            'width' => 1280,
+            'height' => 458,
+            'quality' => 75,
+            'items' => [
+                '/files/images/landing/',
+            ],
+        ],
     ]
 ];
 

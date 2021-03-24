@@ -899,6 +899,7 @@ div.required label:after {
     padding-left: 6px;
 }
 .landing-block-center {
+    padding-top: 20px;
     text-align: center;
     display: block;
     align-items: center;
