@@ -67,8 +67,8 @@ class SiteController extends Controller
         $params = \Yii::$app->request->queryParams;
         if (isset($params['_1984'])) {
             //получаем список файлов на карусель
-            $path = \Yii::$app->params['staticPath'] . '/files/images/landing/'; //перенести куда нить в параметры
-            $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/'; //перенести куда нить в параметры
+            $path = \Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
+            $url = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
 
             $list = scandir($path);
             $images = [];

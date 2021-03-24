@@ -4,6 +4,7 @@
 use booking\entities\Lang;
 use frontend\assets\SwiperAsset;
 use frontend\widgets\BlogLandingWidget;
+use frontend\widgets\RatingWidget;
 use kv4nt\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Url;
 
@@ -60,6 +61,9 @@ OwlCarouselWidget::begin([
         //   'itemsDesktopSmall' => [979, 3]
     ]
 ]);
+
+$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
+
 ?>
 
 
@@ -82,27 +86,76 @@ OwlCarouselWidget::begin([
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>Для гостей<span class="line-b-title"></span></h2>
 
-        <div class="row" style="height: 250px">
+        <div class="row">
 
-            <div class="col-3" style="background-color: #0c525d; color: white; font-size: 22px">
+            <div class="col-3">
                 <a href="<?= Url::to(['/tours']) ?>">
-                    Экскурсии
+                    <img src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <div class="card-img-overlay d-flex flex-column">
+                        <div>
+                            <h3 class="card-title"
+                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Экскурсии') ?></h3>
+                        </div>
+                        <div class="mt-auto mb-3">
+                            <?= RatingWidget::widget([
+                                    'rating' => '5',
+                            ])?>
+                        </div>
+                    </div>
                 </a>
             </div>
 
 
-            <div class="col-3" style="background-color: #265d3c; color: white; font-size: 22px">
-                <a href="<?= Url::to(['/stays']) ?>">Апартаменты</a>
+            <div class="col-3">
+                <a href="<?= Url::to(['/stays']) ?>">
+                    <img src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <div class="card-img-overlay d-flex flex-column">
+                        <div>
+                            <h3 class="card-title"
+                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Апартаменты') ?></h3>
+                        </div>
+                        <div class="mt-auto mb-3">
+                            <?= RatingWidget::widget([
+                                'rating' => '5',
+                            ])?>
+                        </div>
+                    </div>
+                </a>
             </div>
 
 
-            <div class="col-3" style="background-color: #5d2c18; color: white; font-size: 22px">
-                <a href="<?= Url::to(['/funs']) ?>">Развлечения</a>
+            <div class="col-3">
+                <a href="<?= Url::to(['/funs']) ?>">
+                    <img src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <div class="card-img-overlay d-flex flex-column">
+                        <div>
+                            <h3 class="card-title"
+                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Развлечения') ?></h3>
+                        </div>
+                        <div class="mt-auto mb-3">
+                            <?= RatingWidget::widget([
+                                'rating' => '5',
+                            ])?>
+                        </div>
+                    </div>
+                </a>
             </div>
 
-
-            <div class="col-3" style="background-color: #481a5d; color: white; font-size: 22px">
-                <a href="<?= Url::to(['/cars']) ?>">Прокат Авто</a>
+            <div class="col-3">
+                <a href="<?= Url::to(['/cars']) ?>">
+                    <img src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive" width="100%" height="300px">
+                    <div class="card-img-overlay d-flex flex-column">
+                        <div>
+                            <h3 class="card-title"
+                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Прокат авто') ?></h3>
+                        </div>
+                        <div class="mt-auto mb-3">
+                            <?= RatingWidget::widget([
+                                'rating' => '5',
+                            ])?>
+                        </div>
+                    </div>
+                </a>
             </div>
 
         </div>
