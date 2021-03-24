@@ -11,7 +11,7 @@ use booking\forms\booking\stays\search\SearchStayForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
-$this->title = Lang::t('Бронирование квартир аппартаментов домов в Калининграде и на море');
+$this->title = Lang::t('Бронирование квартир апартаментов домов в Калининграде и на море');
 
 ?>
 

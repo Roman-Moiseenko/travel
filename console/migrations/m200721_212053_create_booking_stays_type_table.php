@@ -19,7 +19,7 @@ class m200721_212053_create_booking_stays_type_table extends Migration
             'mono' => $this->boolean()
         ], $tableOptions);
         $this->insert('{{%booking_stays_type}}', [
-            'name' => 'Аппартаменты',
+            'name' => 'Апартаменты',
             'mono' => true
         ]);
         $this->insert('{{%booking_stays_type}}', [

@@ -67,7 +67,7 @@ class BookingHelper
 
     const STRING_TYPE = [
         self::BOOKING_TYPE_TOUR => 'Туры и экскурсии',
-        self::BOOKING_TYPE_STAY => 'Аппартаменты и дома',
+        self::BOOKING_TYPE_STAY => 'Апартаменты и дома',
         self::BOOKING_TYPE_CAR => 'Прокат авто',
         self::BOOKING_TYPE_TICKET => 'Билеты на концерты',
         self::BOOKING_TYPE_FUNS => 'Развлечения и мероприятия',

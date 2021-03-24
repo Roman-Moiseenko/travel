@@ -11,9 +11,12 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $images array */
 $this->title = Lang::t('На отдых в Калининград');
+$this->registerMetaTag(['name' =>'description', 'content' => 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело']);
+$this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+
+
 SwiperAsset::register($this);
 ?>
-
 <header class="landing-header">
     <div class="container d-flex  justify-content-between"  style="align-items: center; display: flow-root">
         <div class="" style="float: left">
@@ -74,9 +77,9 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
              alt="Image 1">
         <div class="container">
             <div class="carousel-caption">
-                <h1 class="landing-h1">Кёнигсберг</h1>
+                <h1 class="landing-h1"><?= Lang::t('Кёнигсберг') ?></h1>
                 <p class="landing-h2">
-                    <span class="line-t"></span>На отдых в Калининградскую область<span class="line-b"></span></p>
+                    <span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span></p>
             </div>
         </div>
     </div>
@@ -85,7 +88,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 <?php OwlCarouselWidget::end(); ?>
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>Для гостей<span class="line-b-title"></span></h2>
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span class="line-b-title"></span></h2>
 
         <div class="row">
 
@@ -163,7 +166,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 </div>
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>О Калининградской области<span
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('О Калининградской области')?><span
                     class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
@@ -196,7 +199,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>Для туристических компаний<span
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для туристических компаний') ?><span
                     class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
@@ -210,7 +213,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>Календарь событий<span
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
                     class="line-b-title"></span></h2>
         <div id="nb_events">
             <script id="nbEventsScript" type="text/javascript"

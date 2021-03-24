@@ -15,10 +15,6 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
-
-if (isset($this->params['fun'])) FunAsset::register($this);
-if (isset($this->params['car'])) CarAsset::register($this);
-if (isset($this->params['tour'])) TourAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -75,7 +71,6 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<!--nav id="top"><?= ''//TopmenuWidget::widget() ?></nav -->
 <div id="common-home" class="content-container">
     <?= $content ?>
 </div>

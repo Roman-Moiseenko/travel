@@ -25,7 +25,7 @@ use yii\helpers\Url; ?>
                 <ul class="list-unstyled">
                     <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
                     <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
-                    <li><a href="<?= Url::to(['/stays']) ?>"><?= Lang::t('Аппартаменты/дома целиком') ?></a></li>
+                    <li><a href="<?= Url::to(['/stays']) ?>"><?= Lang::t('Апартаменты/дома целиком') ?></a></li>
                     <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
                 </ul>
             </div>

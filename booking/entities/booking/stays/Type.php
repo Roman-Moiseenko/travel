@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $slug
  */
 
-//Квартира, Аппартаменты, Пентхаус, Загородный дом, Дача, Коттедж, Таунхаус
+//Квартира, Апартаменты, Пентхаус, Загородный дом, Дача, Коттедж, Таунхаус
 class Type extends ActiveRecord
 {
     public static function create($name, $slug): self
