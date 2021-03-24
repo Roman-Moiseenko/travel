@@ -72,9 +72,16 @@ return [
             'height' => 458,
             'quality' => 75,
             'items' => [
-                '/files/images/landing/',
+                '/files/images/landing/carousel/',
             ],
         ],
+        [
+            'quality' => 75,
+            'items' => [
+                '/files/images/landing/booking/',
+                '/files/images/landing/other/',
+            ],
+        ]
     ]
 ];
 

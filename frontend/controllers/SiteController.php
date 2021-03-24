@@ -64,7 +64,7 @@ class SiteController extends Controller
     {
         $this->layout = 'main_landing';
         $mobile = SysHelper::isMobile();
-        if ($mobile) return $this->redirect(['/tours']);
+        //if ($mobile) return $this->redirect(['/tours']);
         $params = \Yii::$app->request->queryParams;
         //if (isset($params['_1984'])) {
             //получаем список файлов на карусель

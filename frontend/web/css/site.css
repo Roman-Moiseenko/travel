@@ -942,6 +942,7 @@ div.required label:after {
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
+    color: white;
 }
 
 .line-t {
@@ -1008,4 +1009,11 @@ div.required label:after {
     display: inline-block;
     margin-top: -13px;
 
+}
+.mobile-landing {
+    display: block;
+    background: url(https://static.koenigs.ru/files/images/landing/other/background.jpg) no-repeat;
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
 }

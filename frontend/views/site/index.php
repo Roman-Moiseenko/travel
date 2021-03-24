@@ -61,8 +61,6 @@ OwlCarouselWidget::begin([
         'items' => 1,
         'loop' => true,
         'info' => true,
-        //    'itemsDesktop'      => [1199, 3],
-        //   'itemsDesktopSmall' => [979, 3]
     ]
 ]);
 

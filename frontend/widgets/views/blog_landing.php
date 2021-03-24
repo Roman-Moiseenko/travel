@@ -2,7 +2,6 @@
 
 use booking\entities\blog\post\Post;
 use booking\helpers\SysHelper;
-use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $posts Post[] */
@@ -15,7 +14,7 @@ $(document).ready(function() {
             initialSlide: 2,
             spaceBetween: 10,
             slidesPerView: $count,
-          //  loop: true,
+            loop: true,
             centeredSlides: true,
            // slideToClickedSlide: true,
           //  grabCursor: true,
@@ -27,11 +26,10 @@ $(document).ready(function() {
           /*  mousewheel: {
               enabled: true,
             },*/
-
-      pagination: {
+         /*       pagination: {
         el: '.swiper-pagination2',
         clickable: true,
-      },
+      },*/
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
