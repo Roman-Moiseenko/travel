@@ -71,7 +71,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div id="common-home" class="content-container">
+<div id="common-home" class="container-mobile content-container">
     <?= $content ?>
 </div>
 <!-- Main Footer -->

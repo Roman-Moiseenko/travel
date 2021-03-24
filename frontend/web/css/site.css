@@ -9,6 +9,8 @@ body {
     line-height: 20px;
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
     /*background: #4f85a5;*/
     --main-light2-color: #3dc7ff;
     --main-light1-color: #34a0cf;
@@ -1016,4 +1018,12 @@ div.required label:after {
     min-height: 100vh;
     background-position: center;
     background-size: cover;
+}
+.container-mobile {
+
+    margin-right: -36px;
+    margin-top: -36px;
+    margin-bottom: -30px;
+    padding: 0;
+    width: 100%;
 }

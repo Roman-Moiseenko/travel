@@ -17,7 +17,6 @@ $this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,т
 $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 SwiperAsset::register($this);
 ?>
-
 <div class="mobile-landing m-0 p-0">
     <div class="container">
         <div class="mt-5">
