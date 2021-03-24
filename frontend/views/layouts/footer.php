@@ -56,18 +56,18 @@ use yii\helpers\Url; ?>
 
         <hr>
             <div class="float-right d-none d-sm-inline">
-                <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo']) ?>
+                <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo'], ['rel' => 'nofollow']) ?>
             </div>
             <p>
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank">
+                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="=nofollow">
                     <img src="https://static.koenigs.ru/cache/files_contacts/list_3.png" alt="Инстаграм koenigs.ru" title="Инстаграм koenigs.ru" /> koenigs.ru
                 </a>
-                <a href="https://vk.com/koenigsru" target="_blank">
+                <a href="https://vk.com/koenigsru" target="_blank"  rel="=nofollow">
                     <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru" title="Вконтакте koenigs.ru"/> koenigsru
                 </a>
 
                 <?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
-                                                target="_blank"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
+                                                target="_blank" rel="=nofollow"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
                 &copy; 2020 <?= Lang::t('Все права защищены') ?>
             </p>
     </div>

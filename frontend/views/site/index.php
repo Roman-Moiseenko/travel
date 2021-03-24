@@ -123,7 +123,6 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
                 </a>
             </div>
 
-
             <div class="col-3">
                 <a href="<?= Url::to(['/funs']) ?>">
                     <img src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive" width="100%" height="300px">
@@ -197,17 +196,23 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
     </div>
 </div>
 
-<div class="landing-block-center">
+<!--div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>Отзывы Партнеры Ссылки<span
                     class="line-b-title"></span></h2>
     </div>
-</div>
+</div-->
 
 <div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>Для туристических компаний<span
                     class="line-b-title"></span></h2>
+        <div class="row">
+            <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
+                Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы может подключиться к нашему порталу и размещать их на нашем сайте.
+                <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="=nofollow" target="_blank" >admin.koenigs.ru</a>.<br>
+                Сейчас доступны для размещения следующие услуги: экскурсии, прокат транспортных средств, бронирование апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
+            </div>
+        </div>
     </div>
 </div>
-<h1>Вас здесь не должно быть ... пока-что ;)</h1>
