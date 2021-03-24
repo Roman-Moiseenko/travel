@@ -69,15 +69,16 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 ?>
 
 
-<?php foreach ($images as $image): ?>
+<?php foreach ($images as $i => $image): ?>
     <div class="item-class">
         <img src="<?= $image ?>"
              alt="Image 1">
         <div class="container">
             <div class="carousel-caption">
-                <h1 class="landing-h1"><?= Lang::t('Кёнигсберг') ?></h1>
-                <p class="landing-h2">
-                    <span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span></p>
+                <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
+                <?php if ($i == 0) { echo '<h1 class="landing-h2">';} else {echo '<p class="landing-h2">';} ?>
+                    <span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span>
+                <?php if ($i == 0) { echo '</h1>';} else {echo '</p>';} ?>
             </div>
         </div>
     </div>

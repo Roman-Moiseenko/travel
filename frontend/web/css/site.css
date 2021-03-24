@@ -916,6 +916,13 @@ div.required label:after {
     top: 0;
     align-items: center;
 }
+.landing-block-dark {
+    background: rgba(1,0,0,0.75);
+    border: white solid 2px;
+    padding: 0;
+    margin: 0;
+
+}
 .carousel-caption {
     position: absolute;
     top: 50%;
@@ -930,10 +937,12 @@ div.required label:after {
 }
 .landing-h1 {
     text-shadow: 1px 1px 2px black, 0 0 1em black;
+    line-height: 1.2;
     font-weight: 400;
     font-size: 72px !important;
     color: #FFF !important;
     margin-bottom: 17px;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
 }
 
 .landing-h2 {
@@ -1020,9 +1029,6 @@ div.required label:after {
     background-size: cover;
 }
 .container-mobile {
-
-    margin-right: -36px;
-    margin-top: -36px;
     margin-bottom: -30px;
     padding: 0;
     width: 100%;
