@@ -128,12 +128,21 @@ class SitemapController extends Controller
     {
         return $this->renderSitemap('sitemap-mains', function () {
             return $this->sitemap->generateMap(array_map(function ($item) {
-                return new MapItem(
-                    Url::to([$item], true),
-                    null,
-                    MapItem::ALWAYS
-                );
-            }, ['/tours', '/cars', '/stays', '/funs', '/about', '/contacts']));
+                if ($item == '') {
+                    return new MapItem(
+                        \Yii::$app->params['frontendHostInfo'],
+                        null,
+                        MapItem::ALWAYS
+                    );
+                }
+                else {
+                    return new MapItem(
+                        Url::to([$item], true),
+                        null,
+                        MapItem::ALWAYS
+                    );
+                }
+            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts']));
         });
     }
 

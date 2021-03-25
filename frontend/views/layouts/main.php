@@ -108,12 +108,12 @@ if (isset($this->params['tour'])) TourAsset::register($this);
     let godefer2 = document.getElementsByTagName('link')[0];
     godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
 
-    let giftofspeed3 = document.createElement('link');
+ /*   let giftofspeed3 = document.createElement('link');
     giftofspeed3.rel = 'stylesheet';
     giftofspeed3.href = '/css/bootstrap/bootstrap.css';
     giftofspeed3.type = 'text/css';
     let godefer3 = document.getElementsByTagName('link')[0];
-    godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
+    godefer3.parentNode.insertBefore(giftofspeed3, godefer3);*/
 </script>
 </body>
 </html>
