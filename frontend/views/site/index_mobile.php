@@ -31,7 +31,7 @@ SwiperAsset::register($this);
 
                 <a href="<?= Url::to(['/tours']) ?>">
                     <img data-src="<?= $url_img_booking . 'tour_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px">
+                         height="300px" alt="Экскурсии в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h2 class="card-title"
@@ -48,7 +48,7 @@ SwiperAsset::register($this);
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/stays']) ?>">
                     <img data-src="<?= $url_img_booking . 'stay_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px">
+                         height="300px" alt="Бронирование жилья в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h2 class="card-title"
@@ -65,7 +65,7 @@ SwiperAsset::register($this);
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/funs']) ?>">
                     <img data-src="<?= $url_img_booking . 'fun_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px">
+                         height="300px" alt="Развлечения и отдых в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h2 class="card-title"
@@ -82,7 +82,7 @@ SwiperAsset::register($this);
             <div class="col p-0 mb-2" style="border: white solid 2px">
                 <a href="<?= Url::to(['/cars']) ?>">
                     <img data-src="<?= $url_img_booking . 'car_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px">
+                         height="300px" alt="Прокат авто в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h2 class="card-title"

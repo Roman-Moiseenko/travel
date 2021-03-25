@@ -15,7 +15,7 @@ $url = Url::to(['post', 'id' => $model->id]);
     <?php if ($model->photo): ?>
         <div>
             <a href="<?= Html::encode($url) ?>">
-                <img src="<?= Html::encode($model->getThumbFileUrl('photo', 'blog_list')) ?>" alt=""
+                <img src="<?= Html::encode($model->getThumbFileUrl('photo', 'blog_list')) ?>" alt="<?= $model->getTitle() ?>"
                      class="img-responsive"/>
             </a>
         </div>

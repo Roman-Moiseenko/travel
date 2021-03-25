@@ -12,14 +12,14 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = Lang::t('Регистрация');
+$this->title = Lang::t('Регистрация на портале туристических услуг');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <div class="row pt-4">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-            <h1><?= $this->title ?></h1>
+            <h1><?= Lang::t('Регистрация'); ?></h1>
             <div class="card">
                 <div class="card-body">
                     <?php $form = ActiveForm::begin([]); ?>

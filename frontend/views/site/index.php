@@ -28,7 +28,7 @@ SwiperAsset::register($this);
         </div>
         <div  style="align-items: center">
             <a href="/" class="landing-logo">
-                <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/koenigs_ru.png' ?>" class="img-responsive">
+                <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/koenigs_ru.png' ?>" class="img-responsive" alt="Портал бронирования экскурсий">
             </a>
         </div>
         <div class="d-flex">
@@ -90,7 +90,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/tours']) ?>">
-                    <img data-src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Экскурсии в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -104,11 +104,9 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
                     </div>
                 </a>
             </div>
-
-
             <div class="col-3">
                 <a href="<?= Url::to(['/stays']) ?>">
-                    <img data-src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Бронирование жилья в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -125,7 +123,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/funs']) ?>">
-                    <img data-src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Развлечения и отдых в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"
@@ -142,7 +140,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
             <div class="col-3">
                 <a href="<?= Url::to(['/cars']) ?>">
-                    <img data-src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive lazyload" width="100%" height="300px">
+                    <img data-src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Прокат авто в Калининграде">
                     <div class="card-img-overlay d-flex flex-column">
                         <div>
                             <h3 class="card-title"

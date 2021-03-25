@@ -51,11 +51,11 @@ $this->registerJs($script);
         <?php foreach ($posts as $post): ?>
             <div class="swiper-slide text-center">
                 <div class="card text-white shadow-lg" style="border: 0 !important; ">
-                    <img data-src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img  lazyload">
+                    <img data-src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img  lazyload" alt="<?= $post->getTitle()?>">
                     <div class="card-img-overlay d-flex flex-column">
                         <div class="mt-auto">
                             <h4 class="card-title"
-                                style="color: white; text-shadow: black 2px 2px 1px"><?= $post->title ?></h4>
+                                style="color: white; text-shadow: black 2px 2px 1px"><?= $post->getTitle() ?></h4>
                         </div>
                     </div>
                     <a href="<?= Url::to(['/post/view', 'id' => $post->id]) ?>" class="stretched-link"></a>
