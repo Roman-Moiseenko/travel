@@ -22,11 +22,11 @@ use yii\helpers\Url;
                     <div itemscope itemtype="https://schema.org/ImageObject">
                         <a href="<?= Html::encode($url) ?>">
                             <img src="<?= Html::encode($car->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
-                                 alt="<?= Lang::t($car->mainPhoto->alt) ?>"
+                                 alt="<?= $car->mainPhoto->getAlt() ?>"
                                  class="img-responsive" itemprop="contentUrl"/>
                         </a>
                         <meta itemprop="name"
-                              content="<?= empty($car->mainPhoto->alt) ? 'Прокат авто в Калининграде' : Lang::t($car->mainPhoto->alt) ?>">
+                              content="<?= empty($car->mainPhoto->getAlt()) ? 'Прокат авто в Калининграде' : $car->mainPhoto->getAlt() ?>">
                         <meta itemprop="description" content="<?= $car->getName() ?>">
                     </div>
                 <?php endif; ?>

@@ -41,11 +41,11 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
                     <img src="<?= Html::encode($stay->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>"
-                         alt="<?= Lang::t($stay->mainPhoto->alt) ?>"
+                         alt="<?= $stay->mainPhoto->getAlt() ?>"
                          class="card-img-top" itemprop="contentUrl"/>
                 </a>
                 <meta itemprop="name"
-                      content="<?= empty($stay->mainPhoto->alt) ? 'Аренда жилья в Калининграде' : Lang::t($stay->mainPhoto->alt) ?>">
+                      content="<?= empty($stay->mainPhoto->alt) ? 'Аренда жилья в Калининграде' : $stay->mainPhoto->getAlt() ?>">
                 <meta itemprop="description" content="<?= $stay->getName() ?>">
             </div>
         <?php endif; ?>

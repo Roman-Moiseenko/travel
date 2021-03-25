@@ -21,12 +21,12 @@ $mobile = SysHelper::isMobile();
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
                     <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list')) ?>"
-                         alt="<?= Lang::t($tour->mainPhoto->alt) ?>"
+                         alt="<?= $tour->mainPhoto->getAlt() ?>"
                          title="<?= $tour->getName() ?>"
                          class="card-img-top lazyload" itemprop="contentUrl"/>
                 </a>
                 <meta itemprop="name"
-                      content="<?= empty($tour->mainPhoto->alt) ? 'Туры и экскурсии в Калининграде' : Lang::t($tour->mainPhoto->alt) ?>">
+                      content="<?= empty($tour->mainPhoto->alt) ? 'Туры и экскурсии в Калининграде' : $tour->mainPhoto->getAlt() ?>">
                 <meta itemprop="description" content="<?= $tour->getName() ?>">
             </div>
         <?php endif; ?>
