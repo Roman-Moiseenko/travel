@@ -354,6 +354,22 @@ newerton\fancybox\FancyBox::widget([
                                         'autoclose' => true,
                                         'format' => 'DD, dd MM yyyy',
                                     ],
+                                    'pluginEvents' =>  [
+                                        'changeDate' => "function(e) {       
+                                            if (e.target.id == 'begin-date') {sessionStorage.setItem('date_to', e.date);}
+                                            if (e.target.id == 'end-date') {sessionStorage.setItem('date_from', e.date);}
+                                            let _date_to = sessionStorage.getItem('date_to');
+                                            let _date_from = sessionStorage.getItem('date_from'); 
+                                            if (_date_to !== null && _date_from !== null) {
+                                                if (_date_to === _date_from) {
+                                                    let _date = e.date;
+                                                    _date.setDate(_date.getDate() + 1)
+                                                    $('#end-date').kvDatepicker('update', _date);
+                                                    sessionStorage.setItem('date_from', _date);
+                                    }                                   
+                                }                             
+                            }",
+                                    ],
                                 ]) ?>
                             </div>
                             <div class="d-flex">

@@ -35,7 +35,6 @@ $(document).ready(function() {
     $('body').on('change', '#children', function () {
         update_fields();
     });
-    
     function update_fields() {
         let _count = $('#children').val();
         for (let i = 0; i < 8; i++) {
@@ -93,6 +92,22 @@ $this->params['search']['children_age'] = $model->children_age;
                             'todayHighLight' => true,
                             'autoclose' => true,
                             'format' => 'DD, dd MM yyyy',
+                        ],
+                        'pluginEvents' =>  [
+                            'changeDate' => "function(e) {                                
+                                if (e.target.id == 'searchstayform-date_to') {sessionStorage.setItem('date_to', e.date);}
+                                if (e.target.id == 'searchstayform-date_from') {sessionStorage.setItem('date_from', e.date);}
+                                let _date_to = sessionStorage.getItem('date_to');
+                                let _date_from = sessionStorage.getItem('date_from'); 
+                                if (_date_to !== null && _date_from !== null) {
+                                    if (_date_to === _date_from) {
+                                        let _date = e.date;
+                                        _date.setDate(_date.getDate() + 1)
+                                        $('#searchstayform-date_to').kvDatepicker('update', _date);
+                                        sessionStorage.setItem('date_from', _date);
+                                    }                                   
+                                }                             
+                            }",
                         ],
                     ]) ?>
                 </div>
