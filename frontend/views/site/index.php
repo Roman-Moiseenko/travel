@@ -33,11 +33,11 @@ SwiperAsset::register($this);
         </div>
         <div class="d-flex">
             <div class="mr-4">
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank"><span class="landing-top-contact"><i
+                <a href="https://vk.com/koenigsru" target="_blank" rel="nofollow"><span class="landing-top-contact"><i
                                 class="fab fa-vk"></i></span></a>
             </div>
             <div class="mr-4">
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank"><span class="landing-top-contact"><i
+                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow"><span class="landing-top-contact"><i
                                 class="fab fa-instagram"></i></span></a>
             </div>
             <div style="align-items: center">

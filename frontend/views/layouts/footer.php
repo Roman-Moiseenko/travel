@@ -59,10 +59,10 @@ use yii\helpers\Url; ?>
                 <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo'], ['rel' => 'nofollow']) ?>
             </div>
             <p>
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="=nofollow">
+                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow">
                     <img src="https://static.koenigs.ru/cache/files_contacts/list_3.png" alt="Инстаграм koenigs.ru" title="Инстаграм koenigs.ru" /> koenigs.ru
                 </a>
-                <a href="https://vk.com/koenigsru" target="_blank"  rel="=nofollow">
+                <a href="https://vk.com/koenigsru" target="_blank"  rel="nofollow">
                     <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru" title="Вконтакте koenigs.ru"/> koenigsru
                 </a>
 
@@ -70,6 +70,26 @@ use yii\helpers\Url; ?>
                                                 target="_blank" rel="=nofollow"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
                 &copy; 2020 <?= Lang::t('Все права защищены') ?>
             </p>
+        <div>
+            <div>
+                <div itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">ООО "Кёнигс.РУ"</span>
+                    Контактная информация:
+
+                    <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+                        Почтовый адрес:
+                        <span itemprop="streetAddress">10, ул.Маршала Жукова</span>
+                        <span itemprop="postalCode"> 236001</span>
+                        <span itemprop="addressLocality">Калининград</span>,
+                    </div>
+
+                    Телефон:<span itemprop="telephone">+7-911-471-0701</span>,
+
+                    E-mail: <span itemprop="email">koenigs.ru@gmail.com</span>
+                </div>
+
+            </div>
+        </div>
     </div>
 </footer>
 
