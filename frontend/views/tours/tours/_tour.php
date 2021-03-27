@@ -42,7 +42,6 @@ $mobile = SysHelper::isMobile();
             <div class="new-object-booking"><span class="new-text">new</span></div>
         <?php endif; ?>
     </div>
-
     <div class="card-body color-card-body">
         <div style="font-size: 12px; color: var(--main-nav-color); margin-top: -15px;">
             <?= $tour->params->private ? Lang::t('Индивидуальная') : Lang::t('Групповая') ?>
@@ -81,4 +80,26 @@ $mobile = SysHelper::isMobile();
             </div>
         </div>
     </a>
+    <div itemtype="https://schema.org/TouristTrip" itemscope>
+        <meta itemprop="name" content="<?= Lang::t('Экскурсия ') . $tour->getName() ?>" />
+        <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>" />
+        <?php foreach ($tour->types as $type): ?>
+            <meta itemprop="touristType" content="<?= Lang::t($type->name) ?>" />
+        <?php endforeach; ?>
+        <meta itemprop="touristType" content="<?= Lang::t($tour->type->name) ?>" />
+        <div itemprop="offers" itemtype="https://schema.org/Offer" itemscope>
+            <meta itemprop="name" content="<?= $tour->getName() ?>" />
+            <meta itemprop="description" content="<?= Lang::t('Билет на экскурсию цена за ') .  ($tour->params->private ? Lang::t('экскурсию') : Lang::t('1 человека')) ?>" />
+            <meta itemprop="price" content="<?= $tour->baseCost->adult ?>" />
+            <meta itemprop="priceCurrency" content="RUB" />
+            <link itemprop="url" href="<?= Url::to(['/tour/view', 'id' => $tour->id], true) ?>" />
+            <div itemprop="eligibleRegion" itemtype="https://schema.org/Country" itemscope>
+                <meta itemprop="name" content="Russia, Kaliningrad" />
+            </div>
+            <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
+                <meta itemprop="name" content="<?= $tour->legal->caption ?>" />
+                <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $tour->legal->id], true) ?>" />
+            </div>
+        </div>
+    </div>
 </div>

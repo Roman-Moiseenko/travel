@@ -64,3 +64,22 @@ use yii\helpers\Url;
     </div>
     </a>
 </div>
+<div itemtype="https://schema.org/TouristTrip" itemscope>
+    <meta itemprop="name" content="<?= Lang::t('Мероприятие ') . $fun->getName() ?>" />
+    <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>" />
+    <meta itemprop="touristType" content="<?= Lang::t($fun->type->name) ?>" />
+    <div itemprop="offers" itemtype="https://schema.org/Offer" itemscope>
+        <meta itemprop="name" content="<?= $fun->getName() ?>" />
+        <meta itemprop="description" content="<?= Lang::t('Цена за билет') ?>" />
+        <meta itemprop="price" content="<?= $fun->baseCost->adult ?>" />
+        <meta itemprop="priceCurrency" content="RUB" />
+        <link itemprop="url" href="<?= Url::to(['/fun/view', 'id' => $fun->id], true) ?>" />
+        <div itemprop="eligibleRegion" itemtype="https://schema.org/Country" itemscope>
+            <meta itemprop="name" content="Russia, Kaliningrad" />
+        </div>
+        <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
+            <meta itemprop="name" content="<?= $fun->legal->caption ?>" />
+            <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $fun->legal->id], true) ?>" />
+        </div>
+    </div>
+</div>
