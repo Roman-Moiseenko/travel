@@ -27,7 +27,7 @@ use yii\helpers\Url;
 $this->registerMetaTag(['name' => 'description', 'content' => $fun->meta->description]);
 
 $this->title = $fun->meta->title ? Lang::t($fun->meta->title) : $fun->getName();
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index']), 'template' => "<li><b>{link}</b></li>\n"];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['fun'] = true;

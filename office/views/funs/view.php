@@ -46,7 +46,7 @@ MagnificPopupAsset::register($this);
                     <?php foreach ($fun->photos as $i => $photo): ?>
                         <li class="image-additional"><a class="thumbnail"
                                                         href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">
-                                <img src="<?= $photo->getThumbFileUrl('file', 'catalog_additional'); ?>"
+                                <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"
                                      alt="<?= $fun->name; ?>"/>
                             </a></li>
                     <?php endforeach; ?>

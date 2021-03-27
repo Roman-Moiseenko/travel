@@ -9,6 +9,7 @@ use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
+use frontend\widgets\BreadcrumbsWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
@@ -78,7 +79,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 <?php $this->beginBody() ?>
 <nav id="top"><?= TopmenuWidget::widget() ?></nav>
 <div id="common-home" class="container content-container">
-    <?= Breadcrumbs::widget([
+    <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],
         'homeLink' => [
             'label' => Lang::t('Главная'),

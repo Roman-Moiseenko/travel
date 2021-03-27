@@ -74,6 +74,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
         <div class="container">
             <div class="carousel-caption">
+
                 <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
                 <?php if ($i == 0) { echo '<h1 class="landing-h2">';} else {echo '<p class="landing-h2">';} ?><span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span><?php if ($i == 0) { echo '</h1>';} else {echo '</p>';} ?>
             </div>
@@ -211,8 +212,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
                     class="line-b-title"></span></h2>
         <div id="nb_events">
-            <script id="nbEventsScript" type="text/javascript"
-                    src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
+            <script id="nbEventsScript" type="text/javascript"  src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
             </script>
         </div>
     </div>
