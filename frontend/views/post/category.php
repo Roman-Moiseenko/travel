@@ -7,13 +7,14 @@
 use booking\entities\blog\Category;
 use booking\entities\Lang;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $category->getSeoTitle();
 
 $this->registerMetaTag(['name' =>'description', 'content' => $category->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $category->meta->keywords]);
 
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => Url::to(['/post'])];
 $this->params['breadcrumbs'][] = $category->getName();
 
 $this->params['active_category'] = $category;

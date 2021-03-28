@@ -1,11 +1,12 @@
 <?php
 
+use booking\entities\Lang;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $page \booking\entities\Page */
 
-$this->title = $page->getSeoTitle();
+$this->title = Lang::t($page->getSeoTitle());
 
 $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $page->title;
 ?>
 <article class="page-view">
 
-    <h1><?= Html::encode($page->title) ?></h1>
+    <h1><?= Lang::t(Html::encode($page->title)) ?></h1>
 
     <?= Yii::$app->formatter->asHtml($page->content, [
         'Attr.AllowedRel' => array('nofollow'),
