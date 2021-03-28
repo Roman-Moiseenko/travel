@@ -128,3 +128,17 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
     </div>
 
 </div>
+<div itemprop="offers" itemtype="https://schema.org/Offer" itemscope>
+    <meta itemprop="name" content="<?= $stay->getName() ?>" />
+    <meta itemprop="description" content="<?= Lang::t('Бронирование жилья') ?>" />
+    <meta itemprop="price" content="<?= $stay->cost_base ?>" />
+    <meta itemprop="priceCurrency" content="RUB" />
+    <link itemprop="url" href="<?= Url::to(['/stay/view', 'id' => $stay->id], true) ?>" />
+    <div itemprop="eligibleRegion" itemtype="https://schema.org/Country" itemscope>
+        <meta itemprop="name" content="Russia, Kaliningrad" />
+    </div>
+    <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
+        <meta itemprop="name" content="<?= $stay->legal->caption ?>" />
+        <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $stay->legal->id], true) ?>" />
+    </div>
+</div>

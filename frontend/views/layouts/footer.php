@@ -73,6 +73,10 @@ use yii\helpers\Url; ?>
         <div>
             <div>
                 <div itemscope itemtype="https://schema.org/Organization">
+                    <meta itemprop="url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>"></meta>
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
+                    </div>
                     <span itemprop="name">ООО "Кёнигс.РУ"</span>
                     Контактная информация:
 
@@ -82,9 +86,7 @@ use yii\helpers\Url; ?>
                         <span itemprop="postalCode"> 236001</span>
                         <span itemprop="addressLocality">Калининград</span>,
                     </div>
-
                     Телефон:<span itemprop="telephone">+7-911-471-0701</span>,
-
                     E-mail: <span itemprop="email">koenigs.ru@gmail.com</span>
                 </div>
 
