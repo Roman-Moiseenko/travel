@@ -8,14 +8,15 @@ use booking\entities\Lang;
 use frontend\assets\MagnificPopupAsset;
 use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $post->getSeoTitle();
 
 $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
 
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $post->category->getName(), 'url' => ['category', 'slug' => $post->category->slug]];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => Url::to(['/post'])];
+$this->params['breadcrumbs'][] = ['label' => $post->category->getName(), 'url' => Url::to(['/post/category', 'slug' => $post->category->slug])];
 $this->params['breadcrumbs'][] = $post->getTitle();
 
 $this->params['active_category'] = $post->category;
@@ -27,22 +28,45 @@ foreach ($post->tags as $tag) {
 MagnificPopupAsset::register($this);
 ?>
 
-<article>
-    <h1><?= Html::encode($post->getTitle()) ?></h1>
 
+    <!--span itemprop="description">Описание</span>
+    <span itemprop="author">Автор</span-->
+
+
+
+
+<article>
+    <div itemscope="" itemtype="https://schema.org/Article">
+        <span itemprop="name"><h1><?= Html::encode($post->getTitle()) ?></h1></span>
+        <link itemprop="url" href="<?= Url::to(['/post/view', 'id' => $post->id], true)?>">
     <p><span class="glyphicon glyphicon-calendar"></span> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
 
     <?php if ($post->photo): ?>
-        <p><img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>" alt="" class="img-responsive" /></p>
+        <p><img itemprop="image" src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>" alt="<?= $post->getTitle()?>" class="img-responsive" /></p>
     <?php endif; ?>
-
-    <?= Yii::$app->formatter->asHtml($post->getContent(), [
-        'Attr.AllowedRel' => array('nofollow'),
-        'HTML.SafeObject' => true,
-        'Output.FlashCompat' => true,
-        'HTML.SafeIframe' => true,
-        'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-    ]) ?>
+        <meta itemprop="datePublished" content="<?= date('Y-m-d', $post->public_at)?>">
+        <meta itemprop="dateModified" content="<?= date('Y-m-d', $post->public_at)?>">
+        <meta itemprop="headline" content="<?= $post->getTitle()?>">
+        <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="ООО Кёнигс.РУ">
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
+            </div>
+        </div>
+        <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/URL">
+        </div>
+        <meta itemprop="author" content="ООО Кёнигс.РУ">
+        <meta itemprop="description" content="<?= $post->getDescription() ?>">
+        <div itemprop="articleBody">
+            <?= Yii::$app->formatter->asHtml($post->getContent(), [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
+    </div>
 </article>
 
 <p><?= Lang::t('Метки') ?>: <?= implode(', ', $tagLinks) ?></p>

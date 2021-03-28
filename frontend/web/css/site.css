@@ -517,6 +517,32 @@ div.required label:after {
       -o-transform: rotate(-45deg);
       transform: rotate(-45deg);*/
 }
+.breadcrumb-site > div > li {
+    text-shadow: 0 1px 0 #FFF;
+    padding: 0 10px;
+    position: relative;
+    white-space: nowrap;
+}
+.breadcrumb-site > div > li + li:before {
+    content: ' ';
+    padding: 0;
+}
+
+.breadcrumb-site > div > li:after {
+    content: '>';
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: -5px;
+/*      width: 26px;
+      height: 26px;
+      border-right: 1px solid #DDD;
+      border-bottom: 1px solid #DDD;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg);*/
+}
 
 .img-responsive {
     /* display: block;*/
