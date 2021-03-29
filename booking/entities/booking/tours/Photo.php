@@ -32,11 +32,6 @@ class Photo extends BasePhoto
         return '{{%booking_tours_photos}}';
     }
 
-   /*public function behaviors(): array
-    {
-        return parent::behaviors();
-    }*/
-
     public function getMain(): ActiveQuery
     {
         return $this->hasOne(Tour::class, ['id' => 'tours_id']);

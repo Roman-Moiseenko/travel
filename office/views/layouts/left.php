@@ -79,10 +79,16 @@ use yii\helpers\Url;
                         ['label' => 'Метки', 'icon' => 'tags', 'url' => ['/blog/tag'], 'active' => $this->context->id == 'blog/tag'],
                         ['label' => 'Комментарии', 'icon' => 'comment-dots', 'url' => ['/blog/comment'], 'active' => $this->context->id == 'blog/comment'],
                     ]],
+                    ['label' => 'Информер', 'icon' => 'info-circle', 'items' => [
+                          ['label' => 'Питание', 'icon' => 'utensils', 'items' => [
+                              ['label' => '- Заведения', 'icon' => 'utensils', 'url' => ['/info/foods/food'], 'active' => $this->context->id == 'info/foods/food'],
+                              ['label' => '- Типы кухни', 'icon' => 'book', 'url' => ['/info/foods/kitchen'], 'active' => $this->context->id == 'info/foods/kitchen'],
+                              ['label' => '- Типы заведений', 'icon' => 'book', 'url' => ['/info/foods/category'], 'active' => $this->context->id == 'info/foods/category'],
+                          ]],
+                    ]],
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
                     ['label' => 'Рассылка', 'icon' => 'mail-bulk', 'url' => ['/mailing'], 'active' => $this->context->id == 'mailing'],
-                  //  ['label' => 'Промо-коды', 'icon' => 'percent', 'url' => ['/discount'], 'active' => $this->context->id == 'discount'],
                     ['label' => 'Перевод', 'icon' => 'language', 'url' => ['/lang'], 'active' => $this->context->id == 'lang'],
                     ['label' => 'SEO', 'iconStyle' => 'fab', 'icon' => 'internet-explorer', 'items' => [
                         ['label' => 'IMG Alt', 'iconStyle' => 'far', 'icon' => 'images', 'url' => ['/seo/alt'], 'active' => $this->context->id == 'seo/alt'],
