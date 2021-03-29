@@ -42,7 +42,7 @@ class ContactAssign extends ActiveRecord
 
     public static function tableName()
     {
-        return '{{%foods_contact_assignment}}';
+        return '{{%foods_contact_assign}}';
     }
 
     public function getContact(): ActiveQuery
