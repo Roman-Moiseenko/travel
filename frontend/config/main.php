@@ -163,6 +163,10 @@ return [
                 'stays/checkout/booking' => 'stays/checkout/booking',
                 'stay/<id:\d+>' => 'stays/stays/stay',
 
+                'foods' => 'food/index',
+                'food/map-foods' => 'food/map-foods',
+                'food/<id:\d+>' => 'food/view',
+
                 'tickets' => 'tickets/tickets/index',
 
                 'legals/view' => 'legals/view',

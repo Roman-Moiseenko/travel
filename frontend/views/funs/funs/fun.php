@@ -29,6 +29,7 @@ $this->registerMetaTag(['name' => 'description', 'content' => $fun->meta->descri
 $this->title = $fun->meta->title ? Lang::t($fun->meta->title) : $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Список развлечений'), 'url' => Url::to(['funs/index'])];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['canonical'] = Url::to(['/fun/view', 'id' => $fun->id], true);
 
 $this->params['fun'] = true;
 //FunAsset::register($this);

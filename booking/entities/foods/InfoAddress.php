@@ -1,9 +1,10 @@
 <?php
 
 
-namespace booking\entities\booking;
+namespace booking\entities\foods;
 
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $address
  * @property string $latitude
  * @property string $longitude
+ * @property Food $food
  */
 
 class InfoAddress extends ActiveRecord
@@ -51,4 +53,8 @@ class InfoAddress extends ActiveRecord
         return '{{%foods_info_address}}';
     }
 
+    public function getFood(): ActiveQuery
+    {
+        return $this->hasOne(Food::class, ['id' => 'food_id']);
+    }
 }

@@ -36,6 +36,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property TagAssignment[] $tagAssignments
  * @property Tag[] $tags
  * @property Comment[] $comments
+ * @property string $meta_json [json]
  *
  * @mixin ImageUploadBehavior
  */

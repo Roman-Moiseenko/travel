@@ -83,11 +83,7 @@ $countReveiws = $tour->countReviews();
                     'HTML.SafeIframe' => true,
                     'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                 ]) ?>
-
             </div>
-            <!--div class="col-sm-3">
-                <?= ''// LegalWidget::widget(['legal' => $tour->legal])    ?>
-            </div-->
         </div>
         <!-- Стоимость -->
         <div class="row pt-4">

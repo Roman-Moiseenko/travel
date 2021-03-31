@@ -5,6 +5,7 @@ function init() {
     let suggest = 'bookingaddressform-address';
     let latitude = 'bookingaddressform-latitude';
     let longitude = 'bookingaddressform-longitude';
+    let suggest_city = 'staycommonform-city';
 
     /*** Для MAP-CAR ***/
     let array_coords = [];
@@ -139,6 +140,31 @@ function init() {
             setData2(coords2);
         });
     }
+
+    ////Убираем из адреса Страну и Область
+    function getChangeAddress(_address) {
+        let m_dev;
+        let _country;
+        for (let jx = 0; jx < 2; jx++) {
+            m_dev = _address.indexOf(',');
+            if (m_dev !== -1) {
+                _country = _address.slice(0, m_dev);
+                if (_country === "Россия" || _country === "Калининградская область") {
+                    _address = _address.slice(m_dev + 1, _address.length);
+                    _address = _address.trimStart();
+                }
+            }
+        }
+        return _address;
+    }
+
+    //Вытаскиваем название нас.пункта без типа
+    function getCityAddress(_city) {
+        let n_dev = _city.indexOf(' ');
+        if (n_dev !== -1) _city = _city.slice(n_dev + 1, _city.length);
+        return _city;
+    }
+
     if (document.getElementById("map-view")) {
         let coord_la = $('#' + latitude).val();
         let coord_lo = $('#' + longitude).val();
@@ -254,7 +280,19 @@ function init() {
         $('#' + longitude).val(coords[1]);
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
-            $('#' + suggest).val(firstGeoObject.getAddressLine());
+            $('#' + suggest).val(getChangeAddress(firstGeoObject.getAddressLine()));
+            if (document.getElementById(suggest_city)) {
+                let _city = getCityAddress(firstGeoObject.getLocalities()[0]);
+                $('#' + suggest_city).val(_city);
+                //Получаем название города + оласть
+                if (document.getElementById(to_center)) {
+                    ymaps.geocode('Калининградская область, ' + _city).then(function (res) {
+                        let _coord_center = res.geoObjects.get(0).geometry.getCoordinates();
+                        let distance = ymaps.coordSystem.geo.getDistance(coords, _coord_center);
+                        $('#' + to_center).val(distance.toFixed());
+                    });
+                }
+            }
         });
     }
 

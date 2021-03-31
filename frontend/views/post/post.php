@@ -10,7 +10,7 @@ use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = $post->getSeoTitle();
+$this->title = Lang::t($post->getSeoTitle());
 
 $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
@@ -27,14 +27,6 @@ foreach ($post->tags as $tag) {
 }
 MagnificPopupAsset::register($this);
 ?>
-
-
-    <!--span itemprop="description">Описание</span>
-    <span itemprop="author">Автор</span-->
-
-
-
-
 <article>
     <div itemscope="" itemtype="https://schema.org/Article">
         <span itemprop="name"><h1><?= Html::encode($post->getTitle()) ?></h1></span>
@@ -68,9 +60,7 @@ MagnificPopupAsset::register($this);
         </div>
     </div>
 </article>
-
 <p><?= Lang::t('Метки') ?>: <?= implode(', ', $tagLinks) ?></p>
-<!--div class="addthis_inline_share_toolbox"></div-->
 <?= CommentsWidget::widget([
     'post' => $post,
 ]) ?>

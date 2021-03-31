@@ -7,7 +7,7 @@ $(document).ready(function () {
                 check_if_load = 1;
                 let _api = $('#ymap-params').data('api');
                 let _lang = $('#ymap-params').data('lang');
-                loadScript("https://api-maps.yandex.ru/2.1/?apikey="+_api+"&lang="+_lang, function () {
+                loadScript("https://api-maps.yandex.ru/2.1/?apikey=" + _api + "&lang=" + _lang, function () {
                     ymaps.load(init);
                 });
             }
@@ -38,6 +38,7 @@ $(document).ready(function () {
                     [55.317, 22.975]
                 ]
             });
+
             mapCarView.controls.remove('searchControl');
             mapCarView.controls.remove('trafficControl');
             mapCarView.controls.remove('geolocationControl');
@@ -90,7 +91,47 @@ $(document).ready(function () {
 
         }
 
-        /********************************************************** MAP-FUN ***/
+        if (document.getElementById("map-food-view")) {
+            let count_ = $('#count-points').data('count');
+            let x, y, t, p;
+            let center_;
+            if (count_ !== 0) {
+                center_ = [Number($('#latitude-1').val()), Number($('#longitude-1').val())];
+            } else {
+                center_ = [54.74639455404805, 20.537801017695948];
+            }
+            console.log(center_);
+            let mapFoodView = new ymaps.Map(document.getElementById("map-food-view"), {
+                center: center_,
+                zoom: 10
+            }, {
+                restrictMapArea: [
+                    [54.256, 19.586],
+                    [55.317, 22.975]
+                ]
+            });
+            mapFoodView.controls.remove('searchControl');
+            mapFoodView.controls.remove('trafficControl');
+            mapFoodView.controls.remove('geolocationControl');
+            //Проходим по элементам, если есть список, грузим в карту
+
+            for (let i = 0; i < count_; i++) {
+                t = $('#address-' + (i + 1)).val();
+                p = $('#phone-' + (i + 1)).val();
+                x = $('#latitude-' + (i + 1)).val();
+                y = $('#longitude-' + (i + 1)).val();
+                mapFoodView.geoObjects.add(new ymaps.Placemark([x, y], {
+                    iconContent: i + 1,
+                    iconCaption: '',
+                    balloonContent: t + '<br><i class="fas fa-phone-alt"></i> ' + p
+                }, {
+                    preset: 'islands#violetIcon',//'islands#violetDotIconWithCaption',
+                    draggable: false
+                }));
+            }
+        }
+
+        /*************************************************************/
 
         if (document.getElementById("map")) {
             let data_zoom = $('this').attr('data-zoom');
@@ -186,7 +227,7 @@ $(document).ready(function () {
                 ymaps.geocode(coords).then(function (res) {
                     var firstGeoObject = res.geoObjects.get(0);
                     $('#' + suggest).val(firstGeoObject.getAddressLine());
-                   // $('#address').html(firstGeoObject.getAddressLine());
+                    // $('#address').html(firstGeoObject.getAddressLine());
                 });
             }
         }
@@ -224,7 +265,7 @@ $(document).ready(function () {
                 ymaps.geocode(coords2).then(function (res) {
                     var firstGeoObject = res.geoObjects.get(0);
                     $('#' + suggest + '-2').val(firstGeoObject.getAddressLine());
-                   // $('#address-2').html(firstGeoObject.getAddressLine());
+                    // $('#address-2').html(firstGeoObject.getAddressLine());
                 });
             }
         }
@@ -263,7 +304,7 @@ $(document).ready(function () {
                 ymaps.geocode(coords3).then(function (res) {
                     var firstGeoObject = res.geoObjects.get(0);
                     $('#' + suggest + '-3').val(firstGeoObject.getAddressLine());
-                   // $('#address-3').html(firstGeoObject.getAddressLine());
+                    // $('#address-3').html(firstGeoObject.getAddressLine());
                 });
             }
         }

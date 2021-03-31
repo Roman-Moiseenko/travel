@@ -1,24 +1,27 @@
 <?php
 
 
-namespace booking\forms\booking;
+namespace booking\forms\foods;
 
 
 use booking\entities\booking\BaseReview;
+use booking\entities\foods\ReviewFood;
 use booking\entities\Lang;
 use yii\base\Model;
 
-class ReviewForm extends Model
+class ReviewFoodForm extends Model
 {
     public $vote;
     public $text;
+    public $email;
+    public $username;
 
-    public function __construct(BaseReview $review = null, $config = [])
+    public function __construct(ReviewFood $review = null, $config = [])
     {
         if ($review != null)
         {
-            $this->vote = $review->getVote();
-            $this->text = $review->getText();
+            $this->vote = $review->vote;
+            $this->text = $review->text;
         }
         parent::__construct($config);
     }
@@ -26,9 +29,9 @@ class ReviewForm extends Model
     public function rules()
     {
         return [
-            [['vote', 'text'], 'required', 'message' => 'Обязательное поле'],
+            [['vote', 'text', 'email', 'username'], 'required', 'message' => 'Обязательное поле'],
             [['vote'], 'in', 'range' => $this->voteList()],
-            ['text', 'string'],
+            [['text', 'email', 'username'], 'string'],
         ];
     }
 
@@ -47,6 +50,5 @@ class ReviewForm extends Model
         parent::afterValidate();
         if ($this->vote == null)
             \Yii::$app->session->setFlash('error', Lang::t('Не указан рейтинг в отзыве'));
-
     }
 }

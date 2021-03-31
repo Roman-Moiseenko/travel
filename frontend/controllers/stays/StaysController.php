@@ -117,7 +117,7 @@ class StaysController extends Controller
                 $error = 0;
                 if ($result !== true) $error = Stay::listErrors()[$result];
                 //Вычисляем новую стоимость от параметров и выбранных услуг
-                $cost = $stay->costBySearchParams($params);
+                $cost = ($error === 0) ? $stay->costBySearchParams($params) : 0;
                 return json_encode(
                     [
                         'error' => $error,
@@ -126,9 +126,15 @@ class StaysController extends Controller
                         'percent' => $stay->prepay,
                     ]);
 
-
             } catch (\Throwable $e) {
-                return $e->getMessage();
+                return json_encode(
+                    [
+                        'error' => $e->getMessage() . ' Отправьте пожалуйста снимок экрана нам на почту',
+                        'cost' => 0,
+                        'prepay' => 0,
+                        'percent' => 0,
+                    ]);
+
             }
         }
         return 'Error page!';

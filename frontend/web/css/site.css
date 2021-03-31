@@ -200,6 +200,14 @@ a.desc:after {
     /* margin: 10px 10px;*/
     /*font-size: 14px !important;*/
 }
+.topbar-search-foods {
+    padding: 20px 20px;
+    background: white;
+    border: #122b40 2px;
+    margin: 10px -7px;
+    border: #8a8a8a solid 0px;
+    /*font-size: 14px !important;*/
+}
 
 .content-container {
     /* background: #ffffff;*/
@@ -245,6 +253,20 @@ a.desc:after {
     padding-bottom: 10px;
 }
 
+.container-hr-food {
+    /*font-family: 'Comfortaa', sans-serif;*/
+    position: relative;
+    padding-top: 26px;
+    padding-bottom: 10px;
+}
+.text-left-hr-food {
+    position: absolute;
+    left: 40px;
+    top: 29px;
+    background: #fff;
+    padding: 0 10px;
+    font-size: 18px;
+}
 .text-left-hr {
     position: absolute;
     left: 40px;
@@ -1058,4 +1080,22 @@ div.required label:after {
     margin-bottom: -30px;
     padding: 0;
     width: 100%;
+}
+.btn-map {
+    background-image: url("../images/view_map.jpg");
+    background-repeat : no-repeat;
+    cursor: pointer;
+    border: #636363 solid 1px;
+    border-radius: 5px;
+    height: 100%;
+    margin-top: -6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #636363;
+}
+
+.btn-map:hover {
+    box-shadow:0 0 0 128px rgba(0, 0, 0, 0.33) inset;
+    color: white;
+    border: white solid 1px;
 }

@@ -140,6 +140,8 @@ $_city = $SearchStayForm;
 $_city['city'] = $stay->city;
 $this->registerMetaTag(['name' => 'description', 'content' => $stay->meta->description]);
 $this->title = $stay->meta->title ? Lang::t($stay->meta->title) : $stay->getName();
+$this->params['canonical'] = Url::to(['/stay/view', 'id' => $stay->id], true);
+
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Все апартаменты'), 'url' => Url::to(['stays/index', 'SearchStayForm' => $SearchStayForm])];
 $this->params['breadcrumbs'][] = ['label' => Lang::t($stay->city), 'url' => Url::to(['stays/index', 'SearchStayForm' => $_city])];
 $this->params['breadcrumbs'][] = $stay->getName();

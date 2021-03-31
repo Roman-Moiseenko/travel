@@ -658,7 +658,7 @@ class Stay extends BaseObjectOfBooking
             ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
             ->orderBy('stay_at')->all();
         if ($days != count($calendars)) {
-            return self::ERROR_NOT_FREE;
+            throw new \DomainException('Нет мест. Исключение Stay.php (661)');
         }
         foreach ($calendars as $calendar) {
             $add_guest = ($guest > $calendar->guest_base) ? ($guest - $calendar->guest_base) : 0;
@@ -707,6 +707,9 @@ class Stay extends BaseObjectOfBooking
                 ->andWhere(['>=', 'stay_at', $begin])
                 ->andWhere(['<=', 'stay_at', $end - 24 * 60 * 60])
                 ->all();
+            if ($days != count($calendars)) {
+                return self::ERROR_NOT_FREE;
+            }
             foreach ($calendars as $calendar) {
                 if ($calendar->free() == 0) return Stay::ERROR_NOT_FREE;
             }

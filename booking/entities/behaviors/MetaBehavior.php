@@ -3,6 +3,7 @@
 namespace booking\entities\behaviors;
 
 use booking\entities\Meta;
+use booking\helpers\scr;
 use yii\base\Behavior;
 use yii\base\Event;
 use yii\db\ActiveRecord;
@@ -26,6 +27,7 @@ class MetaBehavior extends Behavior
     {
         /** @var ActiveRecord $brand */
         $brand = $event->sender;
+        //
         $meta = Json::decode($brand->getAttribute($this->jsonAttribute));
         $brand->{$this->attribute} = new Meta(
             $meta['title'] ?? null,
