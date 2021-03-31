@@ -103,7 +103,8 @@ $countReveiws = $food->countReviews();
                 <div class="col params-tour">
                     <div class="params-item" style="display: block !important;">
                         <?php foreach ($food->workModes as $i => $workMode) {
-                            echo '' . WorkModeHelper::week($i) . ':&#160;<i class="far fa-clock"></i>&#160;' . $workMode->day_begin . ' - ' . $workMode->day_end . '<br>';
+                            if ($workMode->day_begin != '')
+                                echo '' . WorkModeHelper::week($i) . ':&#160;<i class="far fa-clock"></i>&#160;' . $workMode->day_begin . ' - ' . $workMode->day_end . '<br>';
                         } ?>
                     </div>
                 </div>
@@ -141,7 +142,7 @@ $countReveiws = $food->countReviews();
                 <div class="col params-tour">
                     <div class="params-item" style="display: block !important;">
                         <?php foreach ($food->addresses as $i => $address) {
-                            echo '<p><i class="fas fa-map-marker-alt"></i>&#160;' . $address->address . '</p>';
+                            echo '<p><i class="fas fa-map-marker-alt"></i>&#160;' . $address->address . '&#160;&#160;<i class="fas fa-phone-alt"></i>' . $address->phone . '</p>';
                         } ?>
                     </div>
                 </div>

@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+        'action' => ['/info/foods/food/contact', 'id' => $food->id],
+        ]
+); ?>
     <div class="card card-secondary">
         <div class="card-header with-border">Редактировать контакт</div>
         <div class="card-body">

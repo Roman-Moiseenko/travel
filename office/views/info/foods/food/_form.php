@@ -4,7 +4,27 @@ use booking\helpers\FoodHelper;
 use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\scr;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html; ?>
+use yii\helpers\Html;
+
+$js = <<<JS
+$(document).ready(function() {
+    $('body').on('change', '.work-mode-begin', function () {
+        for (let i = 0; i < 7; i++){
+            if ($('#workmodeform-' + i + '-day_begin').val() === '') $('#workmodeform-' + i + '-day_begin').val($(this).val());
+        }
+    });
+    
+    $('body').on('change', '.work-mode-end', function () {
+        for (let i = 0; i < 7; i++){
+            if ($('#workmodeform-' + i + '-day_end').val() === '') $('#workmodeform-' + i + '-day_end').val($(this).val());
+        }
+    });
+});
+JS;
+$this->registerJs($js);
+?>
+
+
 
 <?php $form = ActiveForm::begin([
     'options' => ['enctype' => 'multipart/form-data']
@@ -52,10 +72,10 @@ use yii\helpers\Html; ?>
                             <?= WorkModeHelper::week($i) ?>
                         </div>
                         <div class="col-sm-3">
-                            <?= $form->field($mode, '[' . $i . ']day_begin')->textInput(['type' => 'time'])->label(false) ?>
+                            <?= $form->field($mode, '[' . $i . ']day_begin')->textInput(['type' => 'time', 'class' => 'work-mode-begin form-control'])->label(false) ?>
                         </div>
                         <div class="col-sm-3">
-                            <?= $form->field($mode, '[' . $i . ']day_end')->textInput(['type' => 'time'])->label(false) ?>
+                            <?= $form->field($mode, '[' . $i . ']day_end')->textInput(['type' => 'time', 'class' => 'work-mode-end form-control'])->label(false) ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

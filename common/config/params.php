@@ -42,6 +42,7 @@ return [
                 '/origin/tours/',
                 '/origin/stays/',
                 '/origin/certs/',
+                '/origin/foods/',
             ],
         ],
         [
@@ -81,7 +82,15 @@ return [
                 '/files/images/landing/booking/',
                 '/files/images/landing/other/',
             ],
-        ]
+        ],
+        [
+        'width' => 150,
+        'height' => 150,
+        'quality' => 80,
+        'items' => [
+            '/files/images/contacts/',
+        ],
+    ],
     ]
 ];
 

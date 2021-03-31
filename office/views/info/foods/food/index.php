@@ -22,7 +22,7 @@ use yii\helpers\Url;
     <p>
         <?= Html::a('Создать Заведение', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <div class="card adaptive-width-70">
+    <div class="card">
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,

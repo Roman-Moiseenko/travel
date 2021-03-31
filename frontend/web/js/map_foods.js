@@ -77,7 +77,7 @@ $(document).ready(function () {
                                 "balloonContentHeader": '<a href="' + _result[i].link + '" style="font-size: 16px;  color: rgba(41,78,107,0.93);" target="_blank">' + _result[i].name + '</a>',
                                 "balloonContentBody": '<p><img src="' + _result[i].photo + '"></p>',
                                 "balloonContentFooter": '<p><i class="fas fa-map-marker-alt"></i> ' + _result[i].address + '</p><p><i class="fas fa-phone-alt"></i> ' + _result[i].phone + '</p>',
-                                "clusterCaption": '<strong>' + _result[i].name + '</strong>',
+                                "clusterCaption": '<a href="' + _result[i].link + '" style="color: rgba(41,78,107,0.93);" target="_blank">' + _result[i].name + '</a>',
                                 "hintContent": '<div class="p-2 m-2"><span style="color: rgba(41,78,107,0.93); font-size: 18px;"> <p>' +
                                     _result[i].name + '</p></span>'
                             }
