@@ -44,9 +44,9 @@ class FoodService
             $food->assignCategory($category);
         }
         $food->setMeta(new Meta(
-            $food->meta->title,
-            $food->meta->description,
-            $food->meta->keywords
+            $form->meta->title,
+            $form->meta->description,
+            $form->meta->keywords
         ));
         $food->setWorkMode(array_map(function (WorkModeForm $modeForm) {
             return new WorkMode(
