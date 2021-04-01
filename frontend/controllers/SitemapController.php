@@ -292,7 +292,7 @@ class SitemapController extends Controller
                 return new MapItem(
                     Url::to(['/food/view', 'id' => $food->id], true),
                     $food->created_at,
-                    MapItem::MONTHLY
+                    MapItem::WEEKLY
                 );
             }, $this->foods->getAllForSitemap()));
         });
