@@ -38,6 +38,7 @@ use yii\web\UploadedFile;
  * @property WishlistCar[] wishlistCars
  * @property WishlistFun[] wishlistFuns
  * @property WishlistStay[] wishlistStays
+ * @property WishlistFood[] wishlistFoods
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -183,6 +184,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'wishlistCars',
                     'wishlistFuns',
                     'wishlistStays',
+                    'wishlistFoods',
                     'mailing',
                     ],
             ],
@@ -359,6 +361,33 @@ class User extends ActiveRecord implements IdentityInterface
         throw new \DomainException(Lang::t('Избранное не найдено'));
     }
 
+    ////*** Food ****
+
+    public function addWishlistFood($id)
+    {
+        $wishlist = $this->wishlistFoods;
+        foreach ($wishlist as $item) {
+            if ($item->isFor($id)) {
+                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
+            }
+        }
+        $wishlist[] = WishlistFood::create($id);
+        $this->wishlistFoods = $wishlist;
+    }
+
+    public function removeWishlistFood($id)
+    {
+        $wishlist = $this->wishlistFoods;
+        foreach ($wishlist as $i => &$item) {
+            if ($item->isFor($id)) {
+                $item->delete();
+                unset($wishlist[$i]);
+                $this->wishlistFoods = $wishlist;
+                return;
+            }
+        }
+        throw new \DomainException(Lang::t('Избранное не найдено'));
+    }
 
     /** getXX ===================> */
     public function getBookingTours(): ActiveQuery
@@ -389,6 +418,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getWishlistStays(): ActiveQuery
     {
         return $this->hasMany(WishlistStay::class, ['user_id' => 'id']);
+    }
+
+    public function getWishlistFoods(): ActiveQuery
+    {
+        return $this->hasMany(WishlistFood::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

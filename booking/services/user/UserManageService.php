@@ -257,4 +257,18 @@ class UserManageService
         $user->removeWishlistStay($stay_id);
         $this->users->save($user);
     }
+
+    public function addWishlistFood($id, $food_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlistFood($food_id);
+        $this->users->save($user);
+    }
+
+    public function removeWishlistFood($id, $food_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlistFood($food_id);
+        $this->users->save($user);
+    }
 }

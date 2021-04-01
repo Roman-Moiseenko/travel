@@ -35,6 +35,9 @@ class BookingHelper
     const BOOKING_TYPE_FUNS = 5;
     const BOOKING_TYPE_HOTEL = 6;
 
+    //******* Не бронируемые типы  ****/
+    const BOOKING_TYPE_FOOD = 106;
+
     const LIST_BOOKING_TYPE = [
         self::BOOKING_TYPE_TOUR => BookingTour::class,
         self::BOOKING_TYPE_STAY => BookingStay::class,
@@ -141,6 +144,11 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_CAR) return '<i class="fas fa-car"></i>';
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
         if ($type == self::BOOKING_TYPE_FUNS) return '<i class="fas fa-hot-tub"></i>';
+
+
+        //******* Не бронируемые типы  ****/
+        if ($type == self::BOOKING_TYPE_FOOD) return '<i class="fas fa-utensils"></i>';
+
     }
 
     public static function stamp(BaseBooking $booking): string //BookingItemInterface

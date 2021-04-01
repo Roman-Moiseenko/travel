@@ -44,6 +44,14 @@ class WishlistController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $wishlist = $this->wishlist->getAll(\Yii::$app->user->id);
+        return $this->render('index', [
+            'wishlist' => $wishlist,
+        ]);
+    }
+
     public function actionAddTour($id)
     {
         if (\Yii::$app->user->isGuest) {
@@ -60,14 +68,6 @@ class WishlistController extends Controller
 
         }
         return $this->redirect(\Yii::$app->request->referrer);
-    }
-
-    public function actionIndex()
-    {
-        $wishlist = $this->wishlist->getAll(\Yii::$app->user->id);
-        return $this->render('index', [
-            'wishlist' => $wishlist,
-        ]);
     }
 
     public function actionDelTour($id)
@@ -165,6 +165,36 @@ class WishlistController extends Controller
         try {
             $user_id = \Yii::$app->user->id;
             $this->service->removeWishlistStay($user_id, $id);
+            \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionAddFood($id)
+    {
+        if (\Yii::$app->user->isGuest) {
+            \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
+        } else {
+            try {
+                $user_id = \Yii::$app->user->id;
+                $this->service->addWishlistFood($user_id, $id);
+                \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+                return $this->redirect(\Yii::$app->request->referrer);
+            }
+
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionDelFood($id)
+    {
+        try {
+            $user_id = \Yii::$app->user->id;
+            $this->service->removeWishlistFood($user_id, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());

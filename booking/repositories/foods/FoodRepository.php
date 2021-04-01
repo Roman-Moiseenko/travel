@@ -7,6 +7,7 @@ namespace booking\repositories\foods;
 use booking\entities\foods\Food;
 use booking\entities\foods\InfoAddress;
 use booking\forms\foods\SearchFoodForm;
+use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
@@ -41,6 +42,18 @@ class FoodRepository
     public function search(SearchFoodForm $form = null): DataProviderInterface
     {
         $query = Food::find()->alias('f')->active('f');
+        if ($form == null) return $this->getProvider($query);
+        if (!empty($form->kitchen_id)) {
+            $query->joinWith('kitchenAssign ka')->andWhere(['ka.kitchen_id' => $form->kitchen_id]);
+        }
+
+        if (!empty($form->category_id)) {
+            $query->joinWith('categoryAssign ca')->andWhere(['ca.category_id' => $form->category_id]);
+        }
+
+        if (!empty($form->city)) {
+            $query->joinWith('addresses aa')->andWhere(['aa.city' => $form->city]);
+        }
 
         return $this->getProvider($query);
     }
