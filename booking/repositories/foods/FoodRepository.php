@@ -111,4 +111,9 @@ class FoodRepository
         }, $info->all());
         return $result;
     }
+
+    public function getAllForSitemap()
+    {
+        return Food::find()->active()->all();
+    }
 }

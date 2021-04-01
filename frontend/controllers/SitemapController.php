@@ -10,12 +10,14 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
+use booking\entities\foods\Food;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
+use booking\repositories\foods\FoodRepository;
 use booking\services\sitemap\IndexItem;
 use booking\services\sitemap\MapItem;
 use booking\services\sitemap\Sitemap;
@@ -71,6 +73,10 @@ class SitemapController extends Controller
      * @var \booking\repositories\booking\stays\TypeRepository
      */
     private $stayTypes;
+    /**
+     * @var FoodRepository
+     */
+    private $foods;
 
     public function __construct(
         $id,
@@ -81,6 +87,7 @@ class SitemapController extends Controller
         FunRepository $funs,
         StayRepository $stays,
         PostRepository $posts,
+        FoodRepository $foods,
         \booking\repositories\booking\tours\TypeRepository $tourTypes,
         \booking\repositories\booking\cars\TypeRepository $carTypes,
         \booking\repositories\booking\funs\TypeRepository $funTypes,
@@ -101,6 +108,7 @@ class SitemapController extends Controller
         $this->postType = $postType;
         $this->stays = $stays;
         $this->stayTypes = $stayTypes;
+        $this->foods = $foods;
     }
 
     public function actionIndex(): Response
@@ -119,6 +127,7 @@ class SitemapController extends Controller
 //                new IndexItem(Url::to(['stay-categories'], true)),
                 new IndexItem(Url::to(['posts'], true)),
                 new IndexItem(Url::to(['post-categories'], true)),
+                new IndexItem(Url::to(['foods'], true)),
                 new IndexItem(Url::to(['mains'], true)),
             ]);
         });
@@ -142,7 +151,7 @@ class SitemapController extends Controller
                         MapItem::ALWAYS
                     );
                 }
-            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts']));
+            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods']));
         });
     }
 
@@ -273,6 +282,19 @@ class SitemapController extends Controller
                     MapItem::ALWAYS
                 );
             }, $this->postType->getAll()));
+        });
+    }
+
+    public function actionFoods(): Response
+    {
+        return $this->renderSitemap('sitemap-foods', function () {
+            return $this->sitemap->generateMap(array_map(function (Food $food) {
+                return new MapItem(
+                    Url::to(['/food/view', 'id' => $food->id], true),
+                    $food->created_at,
+                    MapItem::MONTHLY
+                );
+            }, $this->foods->getAllForSitemap()));
         });
     }
 
