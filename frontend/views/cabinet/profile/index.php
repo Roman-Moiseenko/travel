@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'fullname.secondname',
+                        'value' => $user->personal->fullname->secondname ?? '',
                         'label' => Lang::t('Отчество'),
                     ],
                     [

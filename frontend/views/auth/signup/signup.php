@@ -19,22 +19,17 @@ $this->title = Lang::t('Регистрация на портале турист�
     <div class="row pt-4">
         <div class="col-sm-2 col-md-3 col-lg-4"></div>
         <div class="col-sm-8 col-md-6 col-lg-4">
-            <h1><?= Lang::t('Регистрация'); ?></h1>
+            <h3><?= Lang::t('Регистрация'); ?></h3>
             <div class="card">
                 <div class="card-body">
                     <?php $form = ActiveForm::begin([
                         'enableClientValidation' => false,
                     ]); ?>
                     <div class="row">
-
-
-                            <?= ''; //$form->field($model, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
-
                         <div class="col-sm-12">
-                            <?=''// $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин')) ?>
                             <?= $form->field($model, 'firstname')->textInput(['placeholder' => Lang::t('Имя')])->label(false); ?>
                             <?= $form->field($model, 'surname')->textInput(['placeholder' => Lang::t('Фамилия')])->label(false); ?>
-                            <?= $form->field($model, 'username')->textInput(['placeholder' => Lang::t('Телефон *')])->label(false)->hint(Lang::t('* 10 цифр без символов: +70001112222')); ?>
+                            <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => Lang::t('Телефон *')])->label(false)->hint(Lang::t('* 10 цифр без символов: +70001112222')); ?>
 
                             <?= $form->field($model, 'email')->textInput(['placeholder' => Lang::t('Электронная почта')])->label(false) ?>
                             <?= $form->field($model, 'password')
@@ -74,7 +69,6 @@ $this->title = Lang::t('Регистрация на портале турист�
             </div>
             <?= Lang::t('Если Вы уже зарегистрированы, то войдите') ?> <a href="<?= Url::to(['/login']) ?>"><?= Lang::t('в личный кабинет')?></a>
         </div>
-
     </div>
     <div class="col-sm-2"></div>
 </div>
