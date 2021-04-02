@@ -17,7 +17,7 @@ use yii\web\NotFoundHttpException;
 
 class FoodController extends Controller
 {
-    public $layout = 'tours';
+    public $layout = 'foods';
     /**
      * @var FoodRepository
      */
