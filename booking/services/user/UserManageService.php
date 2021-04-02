@@ -4,19 +4,13 @@
 namespace booking\services\user;
 
 
-use booking\entities\booking\tours\BookingTour;
-use booking\entities\booking\tours\Cost;
-use booking\entities\Lang;
 use booking\entities\user\FullName;
 use booking\entities\user\User;
 use booking\entities\user\UserAddress;
-use booking\forms\admin\PersonalForm;
-use booking\forms\booking\tours\BookingTourForm;
+use booking\forms\user\PersonalForm;
 use booking\forms\user\PreferencesForm;
 use booking\forms\user\UserCreateForm;
 use booking\forms\user\UserEditForm;
-use booking\forms\user\UserMailingForm;
-use booking\helpers\scr;
 use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\user\UserRepository;
@@ -56,6 +50,7 @@ class UserManageService
         $this->bookingTours = $bookingTours;
     }
 
+    //Не используется
     public function create(UserCreateForm $form): User
     {
         $user = User::create(
@@ -83,8 +78,6 @@ class UserManageService
 
     public function setPersonal($id, PersonalForm $form)
     {
-      /*  if ($form->agreement == false)
-            throw new \DomainException(Lang::t('Вы не подтвердили Согласие'));*/
         $user = $this->users->get($id);
         $personal = $user->personal;
         if ($form->photo->files != null) {
@@ -121,10 +114,7 @@ class UserManageService
             new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname),
             $form->agreement
         );
-        /*$personal->phone = $form->phone;
-        $personal->dateborn = $form->dateborn;
-        $personal->address =  new UserAddress($form->address->country, $form->address->town, $form->address->address, $form->address->index);
-        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);*/
+        if (User::find()->andWhere(['username' => $form->phone])->andWhere(['<>', 'id', $id])->one() != null) throw new \DomainException('Данный номер уже используется');
         $user->updatePersonal($personal);
         $this->users->save($user);
     }

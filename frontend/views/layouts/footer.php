@@ -26,6 +26,8 @@ use yii\helpers\Url; ?>
                     <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
                     <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
                     <li><a href="<?= Url::to(['/stays']) ?>"><?= Lang::t('Апартаменты/дома целиком') ?></a></li>
+                    <li><hr/></li>
+                    <li><a href="<?= Url::to(['/foods']) ?>"><?= Lang::t('Где поесть') ?></a></li>
                     <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
                 </ul>
             </div>

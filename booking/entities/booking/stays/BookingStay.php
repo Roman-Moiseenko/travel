@@ -150,7 +150,7 @@ class BookingStay extends BaseBooking
 
     public function getPhoto(string $photo = 'cabinet_list'): string
     {
-        return $this->stay->mainPhoto->getThumbFileUrl('file', $photo);
+        return $this->stay->main_photo_id ? $this->stay->mainPhoto->getThumbFileUrl('file', $photo) : '';
     }
 
     public function getType(): string

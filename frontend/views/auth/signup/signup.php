@@ -17,34 +17,38 @@ $this->title = Lang::t('Регистрация на портале турист�
 ?>
 <div class="site-signup">
     <div class="row pt-4">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+        <div class="col-sm-2 col-md-3 col-lg-4"></div>
+        <div class="col-sm-8 col-md-6 col-lg-4">
             <h1><?= Lang::t('Регистрация'); ?></h1>
             <div class="card">
                 <div class="card-body">
-                    <?php $form = ActiveForm::begin([]); ?>
+                    <?php $form = ActiveForm::begin([
+                        'enableClientValidation' => false,
+                    ]); ?>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин')) ?>
-                            <?= $form->field($model, 'email')->label(Lang::t('Электронная почта')) ?>
+
+
+                            <?= ''; //$form->field($model, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
+
+                        <div class="col-sm-12">
+                            <?=''// $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин')) ?>
+                            <?= $form->field($model, 'firstname')->textInput(['placeholder' => Lang::t('Имя')])->label(false); ?>
+                            <?= $form->field($model, 'surname')->textInput(['placeholder' => Lang::t('Фамилия')])->label(false); ?>
+                            <?= $form->field($model, 'username')->textInput(['placeholder' => Lang::t('Телефон *')])->label(false)->hint(Lang::t('* 10 цифр без символов: +70001112222')); ?>
+
+                            <?= $form->field($model, 'email')->textInput(['placeholder' => Lang::t('Электронная почта')])->label(false) ?>
                             <?= $form->field($model, 'password')
-                                ->passwordInput()
-                                ->label(Lang::t('Пароль'))
+                                ->label(false)
                                 ->widget(PasswordInput::class, [
                                     'language' => 'ru',
                                     'bsVersion' => 4,
+                                    'options' => ['placeholder' => Lang::t('Пароль')],
                                     'pluginOptions' => [
                                         'showMeter' =>false, // не обязательно, при следующем параметре:
                                         'mainTemplate' => '<table class="kv-strength-container"><tr><td>{input}</td></tr></table>',
                                     ],
                                 ])
                                 ->hint('Минимальная длина 6 символов') ?>
-                        </div>
-                        <div class="col-sm-6">
-                            <?= $form->field($model, 'surname')->textInput()->label(Lang::t('Фамилия')); ?>
-                            <?= $form->field($model, 'firstname')->textInput()->label(Lang::t('Имя')); ?>
-                            <?= $form->field($model, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
-                            <?= $form->field($model, 'phone')->textInput()->label(Lang::t('Телефон'))->hint(Lang::t('Код страны + 10 цифр без пробелов и символов: +70001112222')); ?>
                         </div>
                     </div>
                     <div class="row">

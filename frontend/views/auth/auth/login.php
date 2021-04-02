@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-sm-6">
             <div>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Логин или Email')) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Lang::t('Номер телефона или Email'))->hint('Если Вы регистрировались по логину, то используйте его для входа') ?>
                 <?= $form->field($model, 'password')->passwordInput()->label(Lang::t('Пароль')) ?>
                 <?= $form->field($model, 'rememberMe')->checkbox()->label(Lang::t('Запомнить меня')) ?>
                 <div style="color:#999;margin:1em 0">

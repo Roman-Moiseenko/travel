@@ -45,9 +45,10 @@ class SignupService
 
     public function signup(SignupForm $form): User
     {
+
         $user = User::signup($form->username, $form->email, $form->password);
-       $user->updatePersonal(Personal::create(
-            $form->phone,
+        $user->updatePersonal(Personal::create(
+            $form->username,
             null,
             new UserAddress(),
             new FullName(
@@ -56,7 +57,7 @@ class SignupService
                 $form->secondname
             ),
             true,
-        ));
+            ));
         if ($this->users->save($user))
             $this->contact->noticeNewUser($user);
         if (!$this->sendEmail($user)) {

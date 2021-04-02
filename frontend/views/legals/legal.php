@@ -124,7 +124,7 @@ SwiperAsset::register($this);
                                 <?= Html::encode($contact->value) ?>
                             <?php else: ?>
                                 <a href="<?= $contact->contact->prefix . $contact->value ?>"
-                                   target="_blank"><?= Html::encode($contact->value) ?></a>
+                                   target="_blank" rel="noopener noreferrer nofollow"><?= Html::encode($contact->value) ?></a>
                             <?php endif; ?>
                         </th>
                         <td><?= Html::encode($contact->description) ?></td>

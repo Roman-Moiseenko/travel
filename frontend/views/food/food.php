@@ -22,7 +22,7 @@ use yii\helpers\Url;
 $this->params['canonical'] = Url::to(['/foods/view', 'id' => $food->id], true);
 $this->registerMetaTag(['name' => 'description', 'content' => $food->meta->description]);
 $this->title = $food->meta->title ? Lang::t($food->meta->title) : $food->name;
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Где поесть?'), 'url' => Url::to(['foods/index'])];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Где поесть'), 'url' => Url::to(['foods/index'])];
 $this->params['breadcrumbs'][] = $food->name;
 
 MagnificPopupAsset::register($this);
@@ -124,7 +124,7 @@ $countReveiws = $food->countReviews();
                                     <?= Html::encode($contact->value) ?>
                                 <?php else: ?>
                                     <a href="<?= $contact->contact->prefix . $contact->value ?>"
-                                       target="_blank"><?= Html::encode($contact->value) ?></a>
+                                       target="_blank" rel="noopener noreferrer nofollow"><?= Html::encode($contact->value) ?></a>
                                 <?php endif; ?>
 
                                 &#160;<?= Html::encode($contact->description) ?>
@@ -198,6 +198,38 @@ $countReveiws = $food->countReviews();
                 </div>
             </div>
         </div>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/Restaurant">
+        <meta itemprop="name" content="<?= $food->name ?>">
+        <meta itemprop="image" content="<?= $food->mainPhoto->getThumbFileUrl('file', 'catalog_list') ?>">
+        <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+            <meta itemprop="bestRating" content="5">
+            <meta itemprop="worstRating" content="0">
+            <meta itemprop="ratingValue" content="<?= $food->rating ?? 5 ?>">
+            <meta itemprop="reviewCount" content="<?= count($food->reviews) + 1 ?>">
+        </div>
+        <?php foreach ($food->addresses as $address): ?>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <meta itemprop="streetAddress" content="<?= $address->address ?>">
+            <meta itemprop="addressLocality" content="<?= $address->city ?>">
+            <meta itemprop="addressRegion" content="Калининградская область">
+        </div>
+        <meta itemprop="telephone" content="<?= $address->phone ?>">
+        <?php endforeach; ?>
+        <?php foreach ($food->contactAssign as $contact)
+             if ($contact->contact->type != Contact::NO_LINK)
+                echo '<meta itemprop="url" content="' . $contact->contact->prefix . $contact->value . '">' . PHP_EOL;
+        ?>
+
+    <?php foreach ($food->workModes as $i => $workMode)
+        if ($workMode->day_begin != '')
+            echo '<meta itemprop="openingHours" content="' . WorkModeHelper::week($i) . ' ' . $workMode->day_begin . '-' . $workMode->day_end . '">';
+    ?>
+        <?php foreach ($food->kitchens as $kitchen): ?>
+            <meta itemprop="servesCuisine" content="<?= $kitchen->name?>">
+        <?php endforeach; ?>
+
     </div>
 <?php $js = <<<EOD
     $(document).ready(function() {

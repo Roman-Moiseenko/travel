@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 [
                     'attribute' => 'username',
-                    'label' => Lang::t('Логин'),
+                    'label' => Lang::t('Логин (номер телефона)'),
                 ],
                 [
                     'attribute' => 'email',

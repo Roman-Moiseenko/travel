@@ -6,12 +6,13 @@ use booking\entities\user\User;
 use booking\forms\user\UserEditForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $model UserEditForm */
 /* @var $user User */
 
 $this->title = Lang::t('Изменить');
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Аутентификация'), 'url' => ['/cabinet/auth']];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Аутентификация'), 'url' => Url::to(['/cabinet/auth'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auth-update">
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <div class="row">
         <div class="col-md-3">
-            <?= $form->field($model, 'username')->textInput()->label(Lang::t('логин')); ?>
+            <?= $form->field($model, 'username')->textInput()->label(Lang::t('логин (номер телефона)')); ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'email')->textInput()->label(Lang::t('Электронная почта')); ?>

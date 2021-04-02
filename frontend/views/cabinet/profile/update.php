@@ -2,7 +2,7 @@
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\admin\PersonalForm;
+use booking\forms\user\PersonalForm;
 use booking\helpers\country\CountryHelper;
 use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;

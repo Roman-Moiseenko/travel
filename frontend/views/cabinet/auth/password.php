@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $user User */
 
 $this->title = 'Изменить Пароль';
-$this->params['breadcrumbs'][] = ['label' => 'Аутентификация', 'url' => ['/cabinet/auth']];
+$this->params['breadcrumbs'][] = ['label' => 'Аутентификация', 'url' => Url::to(['/cabinet/auth'])];
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Профиль'), 'url' => Url::to(['/cabinet/profile'])];;
 $this->params['breadcrumbs'][] = $this->title;
 ?>

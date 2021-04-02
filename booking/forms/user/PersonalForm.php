@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\admin;
+namespace booking\forms\user;
 
 
 use booking\entities\Lang;
@@ -22,7 +22,6 @@ class PersonalForm extends CompositeForm
 {
     public $dateborn;
     public $phone;
-    public $position;
     public $datebornform;
     public $agreement;
 
@@ -30,7 +29,6 @@ class PersonalForm extends CompositeForm
     {
         $this->datebornform = $personal->dateborn ? date('d-m-Y', $personal->dateborn) : '';
         $this->phone = $personal->phone;
-        $this->position = $personal->position ?? null;
         $this->address = new UserAddressForm($personal->address);
         $this->fullname = new FullNameForm($personal->fullname);
         $this->photo = new PhotosForm();
@@ -41,7 +39,6 @@ class PersonalForm extends CompositeForm
     public function rules()
     {
         return [
-            [['position'], 'string'],
             ['datebornform', 'safe'],
             ['phone', 'string', 'min' => 10, 'max' => 13, 'message' => Lang::t('Неверный номер телефона')],
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i', 'message' => Lang::t('Неверный номер телефона')],

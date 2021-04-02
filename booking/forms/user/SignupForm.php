@@ -34,28 +34,28 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required', 'message' => Lang::t('Обязательно для заполнения')],
-            ['username', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' => Lang::t('Имя пользователя уже занято')],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+           // ['username', 'required', 'message' => Lang::t('Обязательно для заполнения')],
+            ['username', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' => Lang::t('Номер телефона уже используется')],
+            ['username', 'string', 'min' => 10, 'max' => 13],
+            ['username', 'match', 'pattern' => '/^[+][0-9]*$/i', 'message' => Lang::t('Неверный номер телефона')],
+            ['username', 'required', 'message' => Lang::t('Заполните это поле')],
 
             ['email', 'trim'],
-            ['email', 'required', 'message' => Lang::t('Обязательно для заполнения')],
+            ['email', 'required', 'message' => Lang::t('Заполните это поле')],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' =>  Lang::t('Данный email уже используется')],
+            ['email', 'unique', 'targetClass' => '\booking\entities\user\User', 'message' =>  Lang::t('Email уже используется')],
 
-            ['password', 'string', 'min' => 6],
-            ['password', 'required', 'message' => Lang::t('Обязательно для заполнения, длина не менее 6 символов')],
+            ['password', 'string', 'min' => 6, 'message' => Lang::t('Не менее 6 символов')],
+            ['password', 'required', 'message' => Lang::t('Заполните это поле')],
 
             [['agreement', 'policy'], 'boolean'],
             [['agreement', 'policy'], 'compare', 'compareValue' => true, 'operator' => '==', 'message' => Lang::t('Необходимо согласие')],
 
-            ['phone', 'string', 'min' => 10, 'max' => 13],
-            ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i'],
-            [['phone'], 'required', 'message' => Lang::t('Обязательное поле. Формат +КодСтраныЦифры, например +79990001111')],
+
 
             [['surname', 'firstname', 'secondname'], 'string', 'max' => 33],
-            [['surname', 'firstname'], 'required'],
+            [['surname', 'firstname'], 'required', 'message' => Lang::t('Заполните это поле')],
         ];
     }
 

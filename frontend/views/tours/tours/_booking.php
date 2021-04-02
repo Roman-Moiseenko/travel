@@ -35,6 +35,7 @@ DatepickerAsset::register($this);
                 ]
             ) ?>
         </div>
+        <span style="color: #560005; ">* <?= Lang::t('При покупке экскурсии менее чем за 7 дней, предварительно уточните ее доступность') ?></span>
         <?= Html::endForm() ?>
     </div>
 </div>

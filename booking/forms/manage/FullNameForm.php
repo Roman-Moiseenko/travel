@@ -4,6 +4,7 @@
 namespace booking\forms\manage;
 
 
+use booking\entities\Lang;
 use booking\entities\user\FullName;
 use yii\base\Model;
 
@@ -27,7 +28,8 @@ class FullNameForm extends Model
     {
         return [
             [['surname', 'firstname', 'secondname'], 'string', 'max' => 33],
-            [['surname', 'firstname'], 'required'],
+            [['surname'], 'required', 'message' => Lang::t('Заполните это поле')],
+            [['firstname'], 'required', 'message' => Lang::t('Заполните это поле')],
         ];
     }
 

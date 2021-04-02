@@ -8,6 +8,7 @@ use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
 use booking\entities\booking\LinkBooking;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
@@ -118,9 +119,10 @@ class BookingTour extends BaseBooking
         return $link;
     }
 
+
     public function getPhoto(string $photo = 'cabinet_list'): string
     {
-        return $this->tour->mainPhoto->getThumbFileUrl('file', $photo);
+        return $this->tour->main_photo_id ? $this->tour->mainPhoto->getThumbFileUrl('file', $photo) : '';
     }
     public function getType(): string
     {

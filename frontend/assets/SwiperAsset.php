@@ -14,6 +14,6 @@ class SwiperAsset extends AssetBundle
     ];
     public $js = [
         'js/swiper.js',
-
     ];
+
 }

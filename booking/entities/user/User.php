@@ -26,6 +26,7 @@ use yii\web\UploadedFile;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
+ ___________________________________________property string $phone
  * @property integer $created_at
  * @property integer $updated_at
  * @property Network[] $networks
@@ -66,6 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function updatePersonal(Personal $personal): void
     {
+        if (!empty($personal->phone)) $this->username = $personal->phone;
         $this->personal = $personal;
     }
 
@@ -85,6 +87,9 @@ class User extends ActiveRecord implements IdentityInterface
         $this->username = $username;
         $this->email = $email;
         $this->updated_at = time();
+        $personal = $this->personal;
+        $personal->phone = $username;
+        $this->personal = $personal;
     }
 
     //Не используется

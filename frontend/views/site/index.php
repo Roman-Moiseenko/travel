@@ -7,6 +7,7 @@ use frontend\widgets\BlogLandingWidget;
 use frontend\widgets\RatingWidget;
 use kv4nt\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Url;
+use yii\web\JqueryAsset;
 
 /* @var $this yii\web\View */
 /* @var $images array */
@@ -16,6 +17,7 @@ $this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,т
 $this->registerLinkTag(['rel' => "preload",  'as' => "image", 'href' => $images[0]]);
 
 SwiperAsset::register($this);
+//JqueryAsset::register($this);
 ?>
 <header class="landing-header">
     <div class="container d-flex  justify-content-between"  style="align-items: center; display: flow-root">
@@ -40,13 +42,21 @@ SwiperAsset::register($this);
                 <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow"><span class="landing-top-contact"><i
                                 class="fab fa-instagram"></i></span></a>
             </div>
+            <div style="align-items: center" class="mr-4">
+                <span class="landing-top-contact"><i class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
+            </div>
             <div style="align-items: center">
-                <span class="landing-top-contact"><i class="fas fa-phone"></i> +7911-471-0701</span>
+                <?php if (\Yii::$app->user->isGuest): ?>
+                    <span class="landing-top-contact"><a href="<?= Url::to(['/login']) ?>" title="<?= Lang::t('Войти') ?>" rel="nofollow"><i class="fas fa-sign-in-alt"></i></a></span>
+                <?php else: ?>
+                    <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>" title="<?= Lang::t('Кабинет') ?>" rel="nofollow"><i class="fas fa-user"></i></a></span>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
 </header>
+
 <?php
 
 OwlCarouselWidget::begin([
@@ -67,8 +77,6 @@ OwlCarouselWidget::begin([
 $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 
 ?>
-
-
 <?php foreach ($images as $i => $image): ?>
     <div class="item-class">
         <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
@@ -81,8 +89,8 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         </div>
     </div>
 <?php endforeach; ?>
-
 <?php OwlCarouselWidget::end(); ?>
+
 <div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span class="line-b-title"></span></h2>
@@ -159,6 +167,7 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         </div>
     </div>
 </div>
+
 <div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('О Калининградской области')?><span
@@ -185,7 +194,6 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
     </div>
 </div>
 
-
 <!--div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>Отзывы Партнеры Ссылки<span
@@ -209,11 +217,12 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
 
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
-                    class="line-b-title"></span></h2>
+        <!--h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
+                    class="line-b-title"></span></h2-->
         <div id="nb_events">
             <script id="nbEventsScript" type="text/javascript"  src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
             </script>
         </div>
     </div>
 </div>
+

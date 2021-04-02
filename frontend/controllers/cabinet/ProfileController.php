@@ -6,7 +6,7 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\Lang;
 use booking\entities\user\User;
-use booking\forms\admin\PersonalForm;
+use booking\forms\user\PersonalForm;
 use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,6 +61,7 @@ class ProfileController extends Controller
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
+                $form = new PersonalForm($user->personal);//Страный глюк с катриком
             }
         }
         return $this->render('update', [

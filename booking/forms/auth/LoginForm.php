@@ -20,7 +20,7 @@ class LoginForm extends Model
     {
         return [
             [['password'], 'required', 'message' => Lang::t('Необходимо ввести пароль')],
-            [['username'], 'required', 'message' => Lang::t('Необходимо ввести логин или email')],
+            [['username'], 'required', 'message' => Lang::t('Необходимо ввести телефон или email')],
             ['rememberMe', 'boolean'],
         ];
     }

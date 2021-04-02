@@ -29,7 +29,7 @@ use yii\db\ActiveRecord;
  * @property integer $main_photo_id
  * @property string $name
  * @property string $description
- * @property integer $rating
+ * @property float $rating
  *
  ********************************* Внешние связи
  * @property InfoAddress[] $addresses
@@ -100,6 +100,7 @@ class Food extends ActiveRecord
         if ($this->created_at == null) return false;
         return (time() - $this->created_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
+
     public static function tableName()
     {
         return '{{%foods}}';
