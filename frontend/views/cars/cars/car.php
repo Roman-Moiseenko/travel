@@ -25,7 +25,7 @@ use yii\helpers\Url;
 $this->registerMetaTag(['name' => 'description', 'content' => $car->meta->description]);
 
 $this->title = $car->meta->title ? Lang::t($car->meta->title) : $car->getName();
-$this->params['breadcrumbs'][] = ['label' => Lang::t('Список авто'), 'url' => Url::to(['cars/index'])];
+$this->params['breadcrumbs'][] = ['label' => Lang::t('Прокат авто'), 'url' => Url::to(['cars/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['car'] = true;
 $this->params['canonical'] = Url::to(['/car/view', 'id' => $car->id], true);

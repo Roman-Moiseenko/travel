@@ -60,7 +60,7 @@ $this->title = Lang::t('Вход на сайт');
                         <?= Html::a(Lang::t('Восстановить пароль'), ['auth/reset/request']) ?>
                         </div>
                         <div class="ml-auto">
-                        <?= Html::a(Lang::t('Регистрация'), ['signup']) ?>
+                        <?= Html::a(Lang::t('Регистрация'), ['/signup']) ?>
                         </div>
                     </div>
                 </div>
