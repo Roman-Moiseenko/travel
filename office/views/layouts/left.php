@@ -57,16 +57,24 @@ use yii\helpers\Url;
                         ['label' => '- Туры (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
                         ['label' => '- Авто (категории)', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
                         ['label' => '- Развлечения (категории)', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
-                        ['label' => '- Жилье (категории)', 'icon' => 'house-user', 'url' => ['/guides/stay-type'], 'active' => $this->context->id == 'guides/stay-type'],
-                        ['label' => '- Жилье (общие удобства)', 'icon' => 'house-user', 'url' => ['/guides/stay-comfort'], 'active' => $this->context->id == 'guides/stay-comfort'],
-                        ['label' => '- Жилье (удобства в комнатах)', 'icon' => 'house-user', 'url' => ['/guides/stay-comfort-room'], 'active' => $this->context->id == 'guides/stay-comfort-room'],
-                        ['label' => '- Жилье (кровати)', 'icon' => 'house-user', 'url' => ['/guides/type-of-bed'], 'active' => $this->context->id == 'guides/type-of-bed'],
-                        ['label' => '- Жилье (окрестности)', 'icon' => 'house-user', 'url' => ['/guides/nearby-category'], 'active' => $this->context->id == 'guides/nearby-category'],
-                        ['label' => '- Жилье (сборы)', 'icon' => 'house-user', 'url' => ['/guides/duty'], 'active' => $this->context->id == 'guides/duty'],
+                        ['label' => '- Жилье', 'icon' => 'house-user', 'items' => [
+                            ['label' => '-- категории', 'icon' => false, 'url' => ['/guides/stay-type'], 'active' => $this->context->id == 'guides/stay-type'],
+                            ['label' => '-- общие удобства', 'icon' => false, 'url' => ['/guides/stay-comfort'], 'active' => $this->context->id == 'guides/stay-comfort'],
+                            ['label' => '-- удобства в комнатах', 'icon' => false, 'url' => ['/guides/stay-comfort-room'], 'active' => $this->context->id == 'guides/stay-comfort-room'],
+                            ['label' => '-- кровати', 'icon' => false, 'url' => ['/guides/type-of-bed'], 'active' => $this->context->id == 'guides/type-of-bed'],
+                            ['label' => '-- окрестности', 'icon' => false, 'url' => ['/guides/nearby-category'], 'active' => $this->context->id == 'guides/nearby-category'],
+                            ['label' => '-- сборы', 'icon' => false, 'url' => ['/guides/duty'], 'active' => $this->context->id == 'guides/duty'],
+
+                        ]],
                         ['label' => '- Города ', 'icon' => 'city', 'url' => ['/guides/city'], 'active' => $this->context->id == 'guides/city'],
                         ['label' => '- Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/contact-legal'], 'active' => $this->context->id == 'guides/contact-legal'],
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],
                         ['label' => '- Темы форума', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
+                        ['label' => '- Магазин', 'icon' => 'store', 'items' => [
+                            ['label' => '-- тип магазина', 'icon' => false, 'url' => [''], 'active' => $this->context->id == ''],
+                            ['label' => '-- категория товара', 'icon' => false, 'url' => [''], 'active' => $this->context->id == ''],
+
+                        ]],
                     ]],
                     ['label' => 'Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'items' => [
                         ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/file'], 'active' => $this->context->id == 'file'],
