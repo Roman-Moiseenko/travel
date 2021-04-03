@@ -19,6 +19,7 @@ class FoodSearch extends Food
         ];
     }
 
+
     public function search($params): ActiveDataProvider
     {
         $query = Food::find()->with(['categoryAssign', 'kitchenAssign']);
@@ -26,7 +27,7 @@ class FoodSearch extends Food
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['name' => SORT_ASC]
+                'defaultOrder' => ['id' => SORT_DESC]
             ],
         ]);
         $this->load($params);

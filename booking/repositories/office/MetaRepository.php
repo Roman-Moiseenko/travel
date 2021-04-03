@@ -21,7 +21,7 @@ class MetaRepository
                 'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
-        }, Tour::find()->active()->andWhere(['meta_json' => ''])->all());
+        }, Tour::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
 
         $cars = array_map(function (Car $model) {
             return [
@@ -31,7 +31,7 @@ class MetaRepository
                 'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
-        }, Car::find()->active()->andWhere(['meta_json' => ''])->all());
+        }, Car::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
         $funs = array_map(function (Fun $model) {
             return [
                 'id' => $model->id,
@@ -40,7 +40,7 @@ class MetaRepository
                 'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
-        }, Fun::find()->active()->andWhere(['meta_json' => ''])->all());
+        }, Fun::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
         $stays = array_map(function (Stay $model) {
             return [
                 'id' => $model->id,
@@ -49,7 +49,7 @@ class MetaRepository
                 'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
                 'class' => get_class($model),
             ];
-        }, Stay::find()->active()->andWhere(['meta_json' => ''])->all());
+        }, Stay::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
         return array_merge($tours, $funs, $cars, $stays);
     }
 }
