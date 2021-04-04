@@ -80,13 +80,10 @@ use yii\helpers\Url; ?>
                         <meta itemprop="url" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
                     </div>
                     <span itemprop="name">ООО "Кёнигс.РУ"</span>
-                    Контактная информация:
-
                     <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
-                        Почтовый адрес:
-                        <span itemprop="streetAddress">10, ул.Маршала Жукова</span>
-                        <span itemprop="postalCode"> 236001</span>
-                        <span itemprop="addressLocality">Калининград</span>,
+                        <meta itemprop="streetAddress" content="10, ул.Маршала Жукова">
+                        <meta itemprop="postalCode" content="236001">
+                        <span itemprop="addressLocality">г.Калининград</span>
                     </div>
                     Телефон:<span itemprop="telephone">+7-911-471-0701</span>,
                     E-mail: <span itemprop="email">koenigs.ru@gmail.com</span>

@@ -56,7 +56,7 @@ AppAsset::register($this);
             accurateTrackBounce: true
         });
     </script>
-    <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt=""/></div>
+    <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <!-- <noscript></noscript>  /Yandex.Metrika counter -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async

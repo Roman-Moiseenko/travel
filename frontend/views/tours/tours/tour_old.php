@@ -386,16 +386,18 @@ EOD;
 
 <!--div class="row thumbnails">
     <div class="col-sm-4">
-        <a href="https://static.koenigs.ru/images/blog/4/id004-41.jpg">
-            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/4/id004-41.jpg" /></a></div>
-    <div class="col-sm-4">
-        <a href="https://static.koenigs.ru/images/blog/4/id004-42.jpg">
-            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/4/id004-42.jpg" />
+        <a href="https://static.koenigs.ru/images/blog/10/id010-43.jpg">
+            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/10/id010-43.jpg" />
         </a>
     </div>
     <div class="col-sm-4">
-        <a href="https://static.koenigs.ru/images/blog/4/id004-43.jpg">
-            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/4/id004-43.jpg" />
+        <a href="https://static.koenigs.ru/images/blog/10/id010-44.jpg">
+            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/10/id010-44.jpg" />
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a href="https://static.koenigs.ru/images/blog/10/id010-45.jpg">
+            <img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/10/id010-45.jpg" />
         </a>
     </div>
 </div-->
