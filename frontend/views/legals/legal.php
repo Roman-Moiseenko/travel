@@ -15,6 +15,7 @@ use yii\helpers\Html;
 /* @var $legal Legal */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $legal->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $legal->description]);
 
 $this->title = $legal->caption;
 $this->params['breadcrumbs'][] = $this->title;

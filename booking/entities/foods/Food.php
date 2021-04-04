@@ -69,6 +69,16 @@ class Food extends ActiveRecord
         return $food;
     }
 
+    public function getName():string
+    {
+        return $this->name;
+    }
+
+    public function getDescription():string
+    {
+        return $this->description;
+    }
+
     public function edit(string $name, string $description)
     {
         $this->name = $name;

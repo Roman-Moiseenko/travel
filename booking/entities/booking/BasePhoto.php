@@ -33,9 +33,15 @@ abstract class BasePhoto extends ActiveRecord
 
     abstract public function getMain(): ActiveQuery;
 
-    abstract public function getName(): string;
+    public function getName(): string
+    {
+        return $this->main->getName();
+    }
 
-    abstract public function getDescription(): string;
+    public function getDescription(): string
+    {
+        return $this->main->description;
+    }
 
     public function setSort($sort): void
     {

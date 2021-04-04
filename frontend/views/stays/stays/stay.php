@@ -139,6 +139,8 @@ $this->registerJs($js);
 $_city = $SearchStayForm;
 $_city['city'] = $stay->city;
 $this->registerMetaTag(['name' => 'description', 'content' => $stay->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $stay->meta->description]);
+
 $this->title = $stay->meta->title ? Lang::t($stay->meta->title) : $stay->getName();
 $this->params['canonical'] = Url::to(['/stay/view', 'id' => $stay->id], true);
 

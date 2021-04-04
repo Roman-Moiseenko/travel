@@ -31,6 +31,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
     <link rel="author" href="https://koenigs.ru/humans.txt">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Моисеенко Роман Александрович">
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>

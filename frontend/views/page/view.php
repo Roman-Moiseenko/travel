@@ -9,6 +9,7 @@ use yii\helpers\Html;
 $this->title = Lang::t($page->getSeoTitle());
 
 $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
 
 foreach ($page->parents as $parent) {

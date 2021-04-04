@@ -6,7 +6,10 @@
 use frontend\widgets\SearchToursWidget;
 use yii\helpers\Url;
 
-$this->registerMetaTag(['name' =>'description', 'content' => 'Прокат и аренда автомобиля, скутера, велосипеда, катера или мотоцикла в Калининграде недорогой прокат на сутки комфортабельные автомобили и бюджетные']);
+
+$description = 'Прокат и аренда автомобиля, скутера, велосипеда, катера или мотоцикла в Калининграде недорогой прокат на сутки комфортабельные автомобили и бюджетные';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'прокат,аренда,автомобили,велосипеды,скутеры,Калининград,Светлогорск,Зеленоградск,Куршская,Янтарный']);
 $this->params['canonical'] = Url::to(['/cars'], true);
 

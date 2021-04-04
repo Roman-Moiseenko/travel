@@ -23,6 +23,7 @@ use yii\helpers\Url;
 /* @var $reviewForm ReviewForm */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $car->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $car->meta->description]);
 
 $this->title = $car->meta->title ? Lang::t($car->meta->title) : $car->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Прокат авто'), 'url' => Url::to(['cars/index'])];

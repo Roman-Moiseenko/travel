@@ -7,7 +7,10 @@
 use booking\entities\blog\Category;
 use booking\entities\Lang;
 use yii\helpers\Html;
-$this->registerMetaTag(['name' =>'description', 'content' => 'Цикл статей о Калининграде и Калининградской области. Достопримечательности, города, увлечения, природа.']);
+$description = 'Стати о Калининграде, об истории, обзорный материал, история Кёнигсберга. Достопримечательности, города, увлечения, природа, замки и форты Кенигсберга и о путешествии в Калининград';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
+
 $this->title = Lang::t('О Калининградской области подробно');
 $this->params['breadcrumbs'][] = Lang::t('О Калининградской области');
 ?>

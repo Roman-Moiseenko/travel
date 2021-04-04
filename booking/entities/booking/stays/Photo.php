@@ -31,13 +31,4 @@ class Photo extends BasePhoto
         return $this->hasOne(Stay::class, ['id' => 'stay_id']);
     }
 
-    public function getName(): string
-    {
-        return $this->main->getName();
-    }
-
-    public function getDescription(): string
-    {
-        return $this->main->getDescription();
-    }
 }

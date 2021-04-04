@@ -6,7 +6,9 @@
 use frontend\widgets\SearchToursWidget;
 use yii\helpers\Url;
 
-$this->registerMetaTag(['name' =>'description', 'content' => 'Развлечение и отдых в Калининграде, активный отдых на параплане, конных прогулках, пострелять в тире, сходить в баню или культурный посещение музея выставок поплавать в бассейне']);
+$description = 'Развлечение и отдых в Калининграде, активный отдых на параплане, конных прогулках, пострелять в тире, сходить в баню или культурный посещение музея выставок поплавать в бассейне';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'развлечения,отдых,Калининград,прогулки,полеты,достопримечательности']);
 $this->params['canonical'] = Url::to(['/funs'], true);
 

@@ -21,6 +21,8 @@ use yii\helpers\Url;
 
 $this->params['canonical'] = Url::to(['/foods/view', 'id' => $food->id], true);
 $this->registerMetaTag(['name' => 'description', 'content' => $food->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $food->meta->description]);
+
 $this->title = $food->meta->title ? Lang::t($food->meta->title) : $food->name;
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Где поесть'), 'url' => Url::to(['foods/index'])];
 $this->params['breadcrumbs'][] = $food->name;

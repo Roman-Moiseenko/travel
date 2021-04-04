@@ -31,9 +31,11 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>">
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">
     <meta property="og:url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>">
+
     <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>">
 
     <?php $this->head() ?>

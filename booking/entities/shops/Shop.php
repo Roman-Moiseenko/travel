@@ -27,31 +27,23 @@ use yii\db\ActiveRecord;
  * @property string $name_en
  * @property string $description
  * @property string $description_en
- * @property integer $main_photo_id
- * @property float $raiting
+ * @property float $rating
  * @property integer $status
 
  ********************************* Внешние связи
- * @property InfoAddress[] $addresses
- * @property Photo $mainPhoto
- * @property Photo[] $photos
-
- * @property Contact[] $contacts
- * @property ContactAssign[] $contactAssign
  * @property ReviewShop[] $reviews
  *
  *********************************** Скрытые поля
  * @property Meta $meta
  * @property string $meta_json
- * @property string $work_mode_json
+
  */
 
 class Shop extends ActiveRecord
 {
     /** @var Meta $meta */
     public $meta;
-    /** @var WorkMode[] $workModes */
-    public $workModes = [];
+
 
 
     public function getName(): string

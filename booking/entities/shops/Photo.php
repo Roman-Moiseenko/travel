@@ -33,13 +33,4 @@ class Photo extends BasePhoto
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
     }
 
-    public function getName(): string
-    {
-        return $this->main->getName();
-    }
-
-    public function getDescription(): string
-    {
-        return $this->main->getDescription();
-    }
 }

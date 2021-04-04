@@ -25,6 +25,7 @@ use yii\helpers\Url;
 /* @var $reviewForm ReviewForm */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $fun->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $fun->meta->description]);
 
 $this->title = $fun->meta->title ? Lang::t($fun->meta->title) : $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Развлечения и мероприятия'), 'url' => Url::to(['funs/index'])];

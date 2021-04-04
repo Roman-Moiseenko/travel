@@ -36,13 +36,4 @@ class Photo extends BasePhoto
         return $this->hasOne(Fun::class, ['id' => 'fun_id']);
     }
 
-    public function getName(): string
-    {
-        return $this->main->getName();
-    }
-
-    public function getDescription(): string
-    {
-        return $this->main->getDescription();
-    }
 }

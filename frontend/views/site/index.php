@@ -12,12 +12,21 @@ use yii\web\JqueryAsset;
 /* @var $this yii\web\View */
 /* @var $images array */
 $this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
-$this->registerMetaTag(['name' =>'description', 'content' => 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело']);
+
+$description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
+
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 $this->registerLinkTag(['rel' => "preload",  'as' => "image", 'href' => $images[0]]);
-
+JqueryAsset::register($this);
 SwiperAsset::register($this);
-//JqueryAsset::register($this);
+$script = <<<JS
+$(document).ready(function() {
+});
+JS;
+$this->registerJs($script);
+$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 ?>
 <header class="landing-header">
     <div class="container d-flex  justify-content-between"  style="align-items: center; display: flow-root">
@@ -73,8 +82,6 @@ OwlCarouselWidget::begin([
         'info' => true,
     ]
 ]);
-
-$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 
 ?>
 <?php foreach ($images as $i => $image): ?>
@@ -220,8 +227,8 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         <!--h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
                     class="line-b-title"></span></h2-->
         <div id="nb_events">
-            <script id="nbEventsScript" type="text/javascript"  src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
-            </script>
+            <!--script id="nbEventsScript" type="text/javascript"  src="https://widget.nbcrs.org/Js/Widget/loader.js?key=aa3ea4347e024444b40b50157ddef198&subKey=39930838">
+            </script-->
         </div>
     </div>
 </div>

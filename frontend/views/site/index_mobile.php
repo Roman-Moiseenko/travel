@@ -11,7 +11,9 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $images array */
 $this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
-$this->registerMetaTag(['name' => 'description', 'content' => 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело']);
+$description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 
 $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры

@@ -13,6 +13,7 @@ use yii\helpers\Url;
 $this->title = Lang::t($post->getSeoTitle());
 
 $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
 
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => Url::to(['/post'])];

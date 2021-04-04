@@ -28,16 +28,6 @@ class Photo extends BasePhoto
         return $this->hasOne(Food::class, ['id' => 'food_id']);
     }
 
-    public function getName(): string
-    {
-        return $this->main->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->main->description;
-    }
-
     public static function tableName()
     {
         return '{{%foods_photo}}';

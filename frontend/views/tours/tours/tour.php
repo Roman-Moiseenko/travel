@@ -24,6 +24,7 @@ use yii\helpers\Url;
 /* @var $reviewForm ReviewForm */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $tour->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $tour->meta->description]);
 
 $this->title = $tour->meta->title ? Lang::t($tour->meta->title) : $tour->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Экскурсии'), 'url' => Url::to(['tours/index'])];

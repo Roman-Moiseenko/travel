@@ -6,7 +6,9 @@
 use frontend\widgets\SearchToursWidget;
 use yii\helpers\Url;
 
-//$this->registerMetaTag(['name' =>'description', 'content' => 'Обзорная, историческая экскурсия по городу Калининград, групповая и индивидуальная, экскурсии по новостройкам и курортным городам, на выездной экскурсии осмотреть замки, форты, кирхи и архитектуру немецких вилл, экскурсия на куршская коса и по изделиям из янтаря']);
+$description = 'Рестораны Калининграда где недорого и вкусно поесть кафе, пиццерии, кофейни, морепродукты, попить кофес круассанами, заказать пиво в пабе и баре, перекусить суши';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'где поесть,ресторан,Калининград,кафе,кухня,пить кофе,деликатесы']);
 
 ?>
