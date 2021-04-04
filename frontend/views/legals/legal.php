@@ -59,7 +59,7 @@ SwiperAsset::register($this);
     </div>
 
     <!-- Адрес -->
-    <div class="row pt-4">
+    <!--div class="row pt-4">
         <div class="col">
             <div class="container-hr">
                 <hr/>
@@ -106,9 +106,9 @@ SwiperAsset::register($this);
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
     <!-- Контакты -->
-    <div class="row pt-4">
+    <!--div class="row pt-4">
         <div class="col">
             <div class="container-hr pb-3">
                 <hr/>
@@ -133,10 +133,10 @@ SwiperAsset::register($this);
                 </tbody>
             </table>
         </div>
-    </div>
+    </div-->
 
     <!-- Юридические сведения -->
-    <div class="row pt-4">
+    <!--div class="row pt-4">
         <div class="col params-tour">
             <div class="container-hr">
                 <hr/>
@@ -158,7 +158,7 @@ SwiperAsset::register($this);
                 <span style="font-weight: 600;"><?= Lang::t('Расчетный счет') ?></span>&#160;&#160;<?= $legal->account ?>
             </div>
         </div>
-    </div>
+    </div-->
     <!-- Объекты бронирования -->
     <div class="row pt-4">
         <div class="col params-tour">

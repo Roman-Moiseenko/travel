@@ -55,9 +55,9 @@ $this->registerJs($script)
                 <div class="card text-white shadow-lg" style="border: 0 !important; ">
                     <img src="<?= $object['photo'] ?>" class="card-img">
                     <div class="card-img-overlay">
-                        <h4 class="card-title"
-                            style="color: white; text-shadow: black 2px 2px 1px"><?= $object['name'] ?></h4>
-                        <p class="card-text pt-4"><?= StringHelper::truncateWords(strip_tags($object['description']), 20) ?></p>
+                        <h3 class="card-title"
+                            style="color: white; text-shadow: black 2px 2px 1px"><?= $object['name'] ?></h3>
+                        <!--p class="card-text pt-4"><?= StringHelper::truncateWords(strip_tags($object['description']), 20) ?></p-->
                     </div>
                     <a href="<?= $object['link'] ?>" class="stretched-link"></a>
                 </div>
