@@ -42,8 +42,14 @@ MagnificPopupAsset::register($this);
         <meta itemprop="headline" content="<?= $post->getTitle()?>">
         <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" content="ООО Кёнигс.РУ">
+            <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">
+            <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+                <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
+                <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
+                <meta itemprop="addressLocality" content="<?= \Yii::$app->params['address']['addressLocality'] ?>">
+            </div>
             <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                <meta itemprop="url" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
+                <link itemprop="contentUrl" href="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
             </div>
         </div>
         <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/URL">

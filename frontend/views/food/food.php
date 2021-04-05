@@ -204,7 +204,7 @@ $countReveiws = $food->countReviews();
 
     <div itemscope itemtype="https://schema.org/Restaurant">
         <meta itemprop="name" content="<?= $food->name ?>">
-        <meta itemprop="image" content="<?= $food->mainPhoto->getThumbFileUrl('file', 'catalog_list') ?>">
+        <link itemprop="image" href="<?= $food->mainPhoto->getThumbFileUrl('file', 'catalog_list') ?>">
         <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
             <meta itemprop="bestRating" content="5">
             <meta itemprop="worstRating" content="0">
@@ -221,7 +221,7 @@ $countReveiws = $food->countReviews();
         <?php endforeach; ?>
         <?php foreach ($food->contactAssign as $contact)
              if ($contact->contact->type != Contact::NO_LINK)
-                echo '<meta itemprop="url" content="' . $contact->contact->prefix . $contact->value . '">' . PHP_EOL;
+                echo '<link itemprop="url" href="' . $contact->contact->prefix . $contact->value . '">' . PHP_EOL;
         ?>
 
     <?php foreach ($food->workModes as $i => $workMode)

@@ -24,7 +24,9 @@ $mobile = SysHelper::isMobile();
                     <img data-src="<?= Html::encode($food->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list_food')) ?>"
                          alt="<?= $food->mainPhoto->getAlt() ?>"
                          title="<?= $food->name ?>"
-                         class="card-img-top lazyload" itemprop="contentUrl"/>
+                         class="card-img-top lazyload"/>
+                    <link  itemprop="contentUrl" href="<?= Html::encode($food->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list_food')) ?>">
+
                 </a>
                 <meta itemprop="name"
                       content="<?= empty($food->mainPhoto->alt) ? 'Где поесть в Калининграде' : $food->mainPhoto->getAlt() ?>">
