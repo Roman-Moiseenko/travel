@@ -79,7 +79,7 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<div itemprop="offers" itemtype="https://schema.org/Offer" itemscope>
+<div itemtype="https://schema.org/Offer" itemscope>
     <meta itemprop="name" content="<?= $car->getName() ?>" />
     <meta itemprop="description" content="<?= Lang::t('Прокат авто') ?>" />
     <meta itemprop="price" content="<?= $car->cost ?>" />
@@ -87,9 +87,21 @@ use yii\helpers\Url;
     <link itemprop="url" href="<?= Url::to(['/car/view', 'id' => $car->id], true) ?>" />
     <div itemprop="eligibleRegion" itemtype="https://schema.org/Country" itemscope>
         <meta itemprop="name" content="Russia, Kaliningrad" />
+        <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">,
+        <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+            <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
+            <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
+            <meta itemprop="addressLocality" content="<?= \Yii::$app->params['address']['addressLocality'] ?>">
+        </div>
     </div>
     <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
         <meta itemprop="name" content="<?= $car->legal->caption ?>" />
         <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $car->legal->id], true) ?>" />
+        <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">,
+        <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+            <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
+            <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
+            <meta itemprop="addressLocality" content="<?= \Yii::$app->params['address']['addressLocality'] ?>">
+        </div>
     </div>
 </div>

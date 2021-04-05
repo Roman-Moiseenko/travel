@@ -75,20 +75,19 @@ use yii\helpers\Url; ?>
         <div>
             <div>
                 <div itemscope itemtype="https://schema.org/Organization">
-                    <meta itemprop="url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>"></meta>
+                    <link itemprop="url" href="<?= \Yii::$app->params['frontendHostInfo'] ?>"/>
                     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                        <meta itemprop="url" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>">
+                        <link itemprop="contentUrl" href="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg'; ?>" />
                     </div>
                     <span itemprop="name">ООО "Кёнигс.РУ"</span>
                     <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
-                        <meta itemprop="streetAddress" content="10, ул.Маршала Жукова">
-                        <meta itemprop="postalCode" content="236001">
-                        <span itemprop="addressLocality">г.Калининград</span>
+                        <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
+                        <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
+                        <span itemprop="addressLocality"><?= \Yii::$app->params['address']['addressLocality'] ?></span>
                     </div>
                     Телефон:<span itemprop="telephone">+7-911-471-0701</span>,
                     E-mail: <span itemprop="email">koenigs.ru@gmail.com</span>
                 </div>
-
             </div>
         </div>
     </div>

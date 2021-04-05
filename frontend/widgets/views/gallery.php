@@ -18,7 +18,8 @@ use yii\helpers\Html;
             <img src="<?= $photo->getThumbFileUrl('file', ($i == 0) ? 'catalog_gallery' : ($i == 1 || $i == 2 ? 'catalog_gallery_mini' : 'widget_list')); ?>"
                  title="<?= $photo->getAlt() ?>"
                  alt="<?= Html::encode($name) . '. ' . $photo->getAlt() ?>"
-                 class="img-responsive" itemprop="contentUrl"/>
+                 class="img-responsive"/>
+            <link  itemprop="contentUrl" href="<?= $photo->getThumbFileUrl('file', ($i == 0) ? 'catalog_gallery' : ($i == 1 || $i == 2 ? 'catalog_gallery_mini' : 'widget_list')); ?>">
             <?php if ($i == 2 && $count != 3):?>
                 <span class="photo-overlay">
                     <span class="photo-count">+<?= $count - 3 ?></span>
