@@ -315,4 +315,17 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
+
+    public function sendLockShop(\booking\entities\shops\Shop $shop)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockShop', ['shop' => $shop])
+            ->setTo($shop->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($shop->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
 }

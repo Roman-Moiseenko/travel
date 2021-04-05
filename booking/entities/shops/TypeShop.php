@@ -16,17 +16,18 @@ use yii\db\ActiveRecord;
  */
 class TypeShop extends ActiveRecord
 {
-    public static function create($name): self
+    public static function create($name, $slug): self
     {
         $type = new static();
         $type->name = $name;
-        $type->slug = SlugHelper::slug($name);
+        $type->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
+        return $type;
     }
 
-    public function edit($name): void
+    public function edit($name, $slug): void
     {
         $this->name = $name;
-        $this->slug = SlugHelper::slug($name);
+        $this->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
     }
 
     public function isFor($id): bool

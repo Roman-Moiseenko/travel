@@ -24,27 +24,6 @@ use yii\helpers\Url;
 class ReviewShop extends BaseReview
 {
 
- /*   final public static function create(int $vote, string $text, string $username, string $email): self
-    {
-        $review = new static();
-        $review->vote = $vote;
-        $review->text = $text;
-        $review->username = $username;
-        $review->email = $email;
-        $review->created_at = time();
-        return $review;
-    }
-*/
-    public function getRating(): int
-    {
-        return $this->vote;
-    }
-
-    public function isIdEqualTo($id): bool
-    {
-        return $this->id == $id;
-    }
-
     public static function tableName(): string
     {
         return '{{%shops_reviews}}';
@@ -55,29 +34,35 @@ class ReviewShop extends BaseReview
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
     }
 
-
     public function getLinks(): array
     {
-        // TODO: Implement getLinks() method.
+        return [
+            'admin' => Url::to(['shop/review/index', 'id' => $this->shop_id]),
+            'frontend' => Url::to(['shop/view', 'id' => $this->shop_id]),
+            'update' => Url::to(['cabinet/review/update-shop', 'id' => $this->id]),
+            'remove' => Url::to(['cabinet/review/delete-shop', 'id' => $this->id]),
+        ];
     }
 
     public function getType(): int
     {
-        // TODO: Implement getType() method.
+        return BookingHelper::BOOKING_TYPE_SHOP;
     }
 
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return $this->shop->getName();
     }
 
     public function getAdmin(): \booking\entities\admin\User
     {
-        // TODO: Implement getAdmin() method.
+        $id = $this->shop->user_id;
+        return \booking\entities\admin\User::findOne($id);
     }
 
     public function getLegal(): Legal
     {
-        // TODO: Implement getLegal() method.
+        $id = $this->shop->legal_id;
+        return Legal::findOne($id);
     }
 }

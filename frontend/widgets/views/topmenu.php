@@ -61,10 +61,11 @@ use yii\helpers\Url;
                        href="<?= Html::encode(Url::to(['/signup'])) ?>" rel="nofollow"><?= Lang::t('Регистрация') ?></a>
                 </div>
                 <?php else: ?>
+                <?php $user = \Yii::$app->user->identity; ?>
                 <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow">
                     <i class="fa fa-user"></i>
                     <span class="hidden-xs hidden-sm hidden-md">
-                        <?=  \Yii::$app->user->identity->personal->fullname->isEmpty() ? \Yii::$app->user->identity->username : \Yii::$app->user->identity->personal->fullname->getShortname()?>
+                        <?=  $user->personal->fullname->isEmpty() ? $user->username : $user->personal->fullname->firstname?>
                     </span> <span class="caret"></span>
                 </a>
                     <div class="dropdown-menu">
@@ -114,14 +115,38 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Жилье') ?>
                     </a>
                 </li>
+                <?php if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->username == '+79118589719'): ?>
+                    <li class="nav-item">
+                        <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'hotels/hotels' ? 'active' : '' ?>"
+                           href="<?= Html::encode(Url::to(['/hotels'])) ?>">
+                        <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_HOTEL) ?>
+                        &#160;<?= Lang::t('Отели') ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'cars/cars' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/cars'])) ?>">
                         <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_CAR) ?>
                         &#160;<?= Lang::t('Авто') ?>
-
                     </a>
                 </li>
+                <?php if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->username == '+79118589719'): ?>
+                    <li class="nav-item">
+                        <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'food' ? 'active' : '' ?>"
+                           href="<?= Html::encode(Url::to(['/foods'])) ?>">
+                        <span class="badge badge-success"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_FOOD) ?>
+                        &#160;<?= Lang::t('Где поесть') ?></span>
+                        </a>
+                    </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'shops/shops' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/shops'])) ?>">
+                        <span class="badge badge-warning"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_SHOP) ?>
+                        &#160;<?= Lang::t('Shops') ?></span>
+                    </a>
+                </li>
+                <?php endif; ?>
                 <!--li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tickets/tickets' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/tickets'])) ?>">

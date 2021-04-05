@@ -8,8 +8,10 @@ use booking\entities\admin\Contact;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\foods\Photo;
+use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\helpers\BookingHelper;
+use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -18,58 +20,54 @@ use yii\db\ActiveRecord;
 /**
  * Class Shop
  * @package booking\entities\shops
- * @property integer $id
- * @property integer $user_id
- * @property integer $legal_id
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $name
- * @property string $name_en
- * @property string $description
- * @property string $description_en
- * @property float $rating
- * @property integer $status
-
  ********************************* Внешние связи
  * @property ReviewShop[] $reviews
  *
  *********************************** Скрытые поля
- * @property Meta $meta
- * @property string $meta_json
+
 
  */
 
-class Shop extends ActiveRecord
+class Shop extends BaseShop
 {
     /** @var Meta $meta */
     public $meta;
 
 
 
-    public function getName(): string
+ /*   public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en): self
     {
-        //TODO
-    }
+        $shop = new static();
+        $shop->created_at = time();
+        $shop->user_id = $user_id;
+        $shop->legal_id = $legal_id;
+        $shop->name = $name;
+        $shop->name_en = $name_en;
+        $shop->description = $description;
+        $shop->description_en = $description_en;
+        $shop->status = StatusHelper::STATUS_INACTIVE;
+        return $shop;
+    }*/
 
-    public function getDescription(): string
+   /* public function edit($name, $name_en, $description, $description_en): void
     {
-        //TODO
-    }
 
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
-    }
+    }*/
 
-    public function setWorkMode(array $workModes): void
-    {
-        $this->workModes = $workModes;
-    }
 
-    public function isNew(): bool
+    //**************** Set ****************************
+
+
+
+    //**************** Get ****************************
+
+
+
+    //**************** is ****************************
+
+    public function isAd(): bool
     {
-        if ($this->created_at == null) return false;
-        return (time() - $this->created_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
+        return false;
     }
 
     public static function tableName()
@@ -85,10 +83,7 @@ class Shop extends ActiveRecord
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
-                    'photos',
                     'reviews',
-                    'contactAssign',
-                    'addresses',
                 ],
             ],
 
@@ -104,46 +99,12 @@ class Shop extends ActiveRecord
 
     //**** Контакты (ContactAssign) **********************************
 
-    public function addContact(int $contact_id, string $value, string $description)
-    {
-        $contacts = $this->contactAssign;
-        $contact = ContactAssign::create($contact_id, $value, $description);
-        $contacts[] = $contact;
-        $this->contactAssign = $contacts;
-    }
-
-    public function updateContact($contact_id, string $value, string $description)
-    {
-        $contacts = $this->contactAssign;
-        foreach ($contacts as &$contact) {
-            if ($contact->isFor($contact_id)) {
-                $contact->edit($value, $description);
-            }
-        }
-        $this->contactAssign = $contacts;
-    }
-
-    public function removeContact($contact_id)
-    {
-        $contacts = $this->contactAssign;
-        foreach ($contacts as $i => $contact) {
-            if ($contact->isFor($contact_id)) {
-                unset($contacts[$i]);
-                $this->contactAssign = $contacts;
-                return;
-            }
-        }
-    }
 
     //****** Внешние связи *****
 
-    public function getContactAssign(): ActiveQuery
-    {
-        return $this->hasMany(ContactAssign::class, ['food_id' => 'id']);
-    }
 
-    public function getContacts(): ActiveQuery
+    public function getReviews(): ActiveQuery
     {
-        return $this->hasMany(Contact::class, ['id' => 'contact_id'])->via('contactAssign');
+        return $this->hasMany(ReviewShop::class, ['shop_id' => 'id']);
     }
 }

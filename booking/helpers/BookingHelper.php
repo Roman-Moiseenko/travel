@@ -37,6 +37,7 @@ class BookingHelper
 
     //******* Не бронируемые типы  ****/
     const BOOKING_TYPE_FOOD = 106;
+    const BOOKING_TYPE_SHOP = 107;
 
     const LIST_BOOKING_TYPE = [
         self::BOOKING_TYPE_TOUR => BookingTour::class,
@@ -148,6 +149,7 @@ class BookingHelper
 
         //******* Не бронируемые типы  ****/
         if ($type == self::BOOKING_TYPE_FOOD) return '<i class="fas fa-utensils"></i>';
+        if ($type == self::BOOKING_TYPE_SHOP) return '<i class="fas fa-store"></i>';
 
     }
 

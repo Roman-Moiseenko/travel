@@ -71,7 +71,7 @@ use yii\helpers\Url;
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],
                         ['label' => '- Темы форума', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
                         ['label' => '- Магазин', 'icon' => 'store', 'items' => [
-                            ['label' => '-- тип магазина', 'icon' => false, 'url' => [''], 'active' => $this->context->id == ''],
+                            ['label' => '-- тип магазина', 'icon' => false, 'url' => ['/guides/shop-type'], 'active' => $this->context->id == 'guides/shop-type'],
                             ['label' => '-- категория товара', 'icon' => false, 'url' => [''], 'active' => $this->context->id == ''],
 
                         ]],

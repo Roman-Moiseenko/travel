@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $category_id - категория (вид изделия)
  * @property Size $size - размер
  * @property string $size_json
+ * @property boolean $request_available
  */
 class Product extends ActiveRecord
 {

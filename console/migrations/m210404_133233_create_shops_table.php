@@ -27,10 +27,7 @@ class m210404_133233_create_shops_table extends Migration
 
             'rating' => $this->decimal(3, 2),
             'status' => $this->integer(),
-
-            'main_photo_id' => $this->integer(),
             'meta_json' => 'JSON',
-            'work_mode_json' => 'JSON',
         ], $tableOptions);
 
         $this->createIndex('{{%idx-shops-user_id}}', '{{%shops}}', 'user_id');
