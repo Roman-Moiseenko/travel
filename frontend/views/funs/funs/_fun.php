@@ -85,7 +85,7 @@ use yii\helpers\Url;
         <link itemprop="url" href="<?= Url::to(['/fun/view', 'id' => $fun->id], true) ?>" />
         <div itemprop="eligibleRegion" itemtype="https://schema.org/Country" itemscope>
             <meta itemprop="name" content="Russia, Kaliningrad" />
-            <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">,
+            <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">
             <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
                 <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
                 <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
@@ -95,7 +95,7 @@ use yii\helpers\Url;
         <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
             <meta itemprop="name" content="<?= $fun->legal->caption ?>" />
             <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $fun->legal->id], true) ?>" />
-            <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">,
+            <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">
             <div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
                 <meta itemprop="streetAddress" content="<?= \Yii::$app->params['address']['streetAddress'] ?>">
                 <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
