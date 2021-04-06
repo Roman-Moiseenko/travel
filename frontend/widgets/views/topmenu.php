@@ -37,7 +37,7 @@ use yii\helpers\Url;
                    data-toggle="dropdown" rel="nofollow"><?= CurrencyHelper::currentString() ?></a>
                 <div class="dropdown-menu">
                     <?php foreach (CurrencyHelper::listCurrency() as $key => $currency): ?>
-                        <a class="dropdown-item"
+                        <a class="dropdown-item" rel="nofollow"
                            href="<?= Html::encode(Url::to(['/cabinet/user/currency', 'currency' => $key])) ?>">
                             <?= $currency ?>
                         </a>

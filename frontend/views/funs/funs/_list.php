@@ -25,7 +25,7 @@ $mobile = SysHelper::isMobile();
     <ul>
         <?php foreach ($values as $value => $label): ?>
         <li <?php if ($current === $value ): ?>class="select"<?php endif; ?>>
-            <a href="<?= Html::encode(Url::current(['sort' => $value])) ?>"><?= $label ?></a>
+            <a href="<?= Html::encode(Url::current(['sort' => $value])) ?>" rel="nofollow"><?= $label ?></a>
         </li>
         <?php endforeach;?>
     </ul>
