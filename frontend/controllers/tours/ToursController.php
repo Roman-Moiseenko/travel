@@ -44,7 +44,7 @@ class ToursController extends Controller
         } else {
             $dataProvider = $this->tours->search();
         }
-
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 1);
         return $this->render('index_top', [
             'model' => $form,
             'dataProvider' => $dataProvider,
@@ -72,6 +72,7 @@ class ToursController extends Controller
             }
         }
         $this->service->upViews($tour);//Перед показом увеличиваем счетчик
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 1);
         return $this->render('tour', [
             'tour' => $tour,
             'reviewForm' => $reviewForm,

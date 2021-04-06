@@ -24,6 +24,7 @@ class LegalsController extends Controller
             \Yii::$app->session->setFlash('error', 'Провайдер не активен, доступ к информации ограничен!');
             return $this->goHome();
         }
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24 * 7);
         return $this->render('legal', [
             'legal' => $legal,
         ]);

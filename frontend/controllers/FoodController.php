@@ -44,6 +44,7 @@ class FoodController extends Controller
         } else {
             $dataProvider = $this->foods->search();
         }
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24 * 1);
         return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,
@@ -67,7 +68,7 @@ class FoodController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24 * 7);
         return $this->render('food', [
             'food' => $food,
             'model' => $form,
