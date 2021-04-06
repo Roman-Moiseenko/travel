@@ -216,7 +216,7 @@ OwlCarouselWidget::begin([
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
                 Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы можете разместить их на нашем сайте.
                 Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
-                <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="=nofollow" target="_blank" >admin.koenigs.ru</a>.<br>
+                <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="nofollow" target="_blank" >admin.koenigs.ru</a>.<br>
             </div>
         </div>
     </div>

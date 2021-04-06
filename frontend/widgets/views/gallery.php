@@ -14,7 +14,7 @@ use yii\helpers\Html;
 
 <div class="item-gallery">
     <div itemscope itemtype="https://schema.org/ImageObject">
-        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>">
+        <a class="thumbnail" href="<?= $photo->getImageFileUrl('file') ?>" rel="nofollow">
             <img src="<?= $photo->getThumbFileUrl('file', ($i == 0) ? 'catalog_gallery' : ($i == 1 || $i == 2 ? 'catalog_gallery_mini' : 'widget_list')); ?>"
                  title="<?= $photo->getAlt() ?>"
                  alt="<?= Html::encode($name) . '. ' . $photo->getAlt() ?>"

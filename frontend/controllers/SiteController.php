@@ -77,6 +77,7 @@ class SiteController extends Controller
             if ($item == '.' || $item == '..') continue;
                 $images[] = $url . $item;
         }
+        \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24);
         return $this->render($mobile ? 'index_mobile' : 'index', [
             'images' => $images,
         ]);

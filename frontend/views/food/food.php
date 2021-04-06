@@ -126,7 +126,7 @@ $countReveiws = $food->countReviews();
                                     <?= Html::encode($contact->value) ?>
                                 <?php else: ?>
                                     <a href="<?= $contact->contact->prefix . $contact->value ?>"
-                                       target="_blank" rel="noopener noreferrer nofollow"><?= Html::encode($contact->value) ?></a>
+                                       target="_blank" rel="nofollow"><?= Html::encode($contact->value) ?></a>
                                 <?php endif; ?>
 
                                 &#160;<?= Html::encode($contact->description) ?>

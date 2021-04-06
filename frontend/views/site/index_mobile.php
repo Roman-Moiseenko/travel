@@ -122,7 +122,7 @@ SwiperAsset::register($this);
                         разместить их на нашем сайте.
                         Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование
                         апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
-                        <br> Зарегистрироваться можно по адресу <a class="link" href="https://admin.koenigs.ru" rel="=nofollow"
+                        <br> Зарегистрироваться можно по адресу <a class="link" href="https://admin.koenigs.ru" rel="nofollow"
                                                                    target="_blank">admin.koenigs.ru</a>.<br>
                     </div>
                 </div>

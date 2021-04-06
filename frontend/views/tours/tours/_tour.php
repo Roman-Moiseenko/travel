@@ -56,9 +56,6 @@ $mobile = SysHelper::isMobile();
             <div class="mb-auto text-justify">
                 <?= (StringHelper::truncateWords(strip_tags($tour->getDescription()), 20)) ?>
             </div>
-            <div class="category-card pt-4">
-
-            </div>
         </p>
     </div>
     <div class="card-footer color-card-body">
