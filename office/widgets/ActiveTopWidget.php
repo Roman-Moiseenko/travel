@@ -8,6 +8,7 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
+use booking\entities\shops\Shop;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\funs\FunRepository;
 use yii\base\Widget;
@@ -27,6 +28,7 @@ class ActiveTopWidget extends Widget
         $cars = Car::find()->verify()->all();
         $funs = Fun::find()->verify()->all();
         $stays = Stay::find()->verify()->all();
+        $shops = Shop::find()->verify()->all();
         foreach ($tours as $tour) {
             $objects[] = ['name' => $tour->name,
                 'photo' => $tour->mainPhoto ? $tour->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
@@ -55,6 +57,14 @@ class ActiveTopWidget extends Widget
                 'photo' => $stay->mainPhoto ? $stay->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
                 'link' => Url::to(['stays/view', 'id' => $stay->id]),
                 'created_at' => date('d-m-Y', $stay->created_at),
+            ];
+        }
+
+        foreach ($shops as $shop) {
+            $objects[] = ['name' => $shop->name,
+                'photo' => '',
+                'link' => Url::to(['shops/view', 'id' => $shop->id]),
+                'created_at' => date('d-m-Y', $shop->created_at),
             ];
         }
 

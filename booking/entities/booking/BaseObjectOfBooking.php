@@ -4,6 +4,7 @@
 namespace booking\entities\booking;
 
 
+use booking\ActivateObjectInterface;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
@@ -51,7 +52,7 @@ use yii\db\ActiveRecord;
  * @property BaseCalendar[] $actualCalendar
  *
  */
-abstract class BaseObjectOfBooking extends ActiveRecord
+abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjectInterface
 {
     /** @var $meta Meta */
     public $meta;

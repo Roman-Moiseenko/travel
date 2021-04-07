@@ -10,8 +10,8 @@ use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\AgeLimit;
-use booking\entities\booking\tours\queries\TourQueries;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -357,9 +357,9 @@ class Tour extends BaseObjectOfBooking
     }
 
 
-    public static function find(): TourQueries
+    public static function find(): ObjectActiveQuery
     {
-        return new TourQueries(static::class);
+        return new ObjectActiveQuery(static::class);
     }
 
 }

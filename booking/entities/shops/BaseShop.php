@@ -4,6 +4,7 @@
 namespace booking\entities\shops;
 
 
+use booking\ActivateObjectInterface;
 use booking\entities\admin\Contact;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
@@ -11,6 +12,7 @@ use booking\entities\booking\BaseReview;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\foods\Photo;
 use booking\entities\Lang;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\entities\shops\products\BaseProduct;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
@@ -45,7 +47,7 @@ use yii\db\ActiveRecord;
  *********************************** Скрытые поля
  */
 
-abstract class BaseShop extends ActiveRecord
+abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
 {
 
     public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
@@ -231,5 +233,10 @@ abstract class BaseShop extends ActiveRecord
     public function getLegal(): ActiveQuery
     {
         return $this->hasOne(Legal::class, ['id' => 'legal_id']);
+    }
+
+    public static function find(): ObjectActiveQuery
+    {
+        return new ObjectActiveQuery(static::class);
     }
 }

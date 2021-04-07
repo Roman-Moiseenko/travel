@@ -23,6 +23,7 @@ use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
 use booking\entities\Lang;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
@@ -621,9 +622,9 @@ class Stay extends BaseObjectOfBooking
 
     /** <========== getXXX */
 
-    public static function find(): StayQueries
+    public static function find(): ObjectActiveQuery
     {
-        return new StayQueries(static::class);
+        return new ObjectActiveQuery(static::class);
     }
 
     public function costBySearchParams(array $params)

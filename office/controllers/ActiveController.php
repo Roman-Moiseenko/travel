@@ -7,6 +7,7 @@ namespace office\controllers;
 use booking\entities\Rbac;
 use office\forms\CarsSearch;
 use office\forms\FunsSearch;
+use office\forms\ShopsSearch;
 use office\forms\StaysSearch;
 use office\forms\ToursSearch;
 use yii\filters\AccessControl;
@@ -60,6 +61,11 @@ class ActiveController extends Controller
         ]);
         $dataProviderFuns = $searchModelFuns->search(\Yii::$app->request->queryParams);
 
+        $searchModelShops = new ShopsSearch([
+            'verify' => true,
+        ]);
+        $dataProviderShops = $searchModelShops->search(\Yii::$app->request->queryParams);
+
         return $this->render('index', [
             'searchModelTours' => $searchModelTours,
             'dataProviderTours' => $dataProviderTours,
@@ -73,6 +79,8 @@ class ActiveController extends Controller
             'searchModelFuns' => $searchModelFuns,
             'dataProviderFuns' => $dataProviderFuns,
 
+            'searchModelShops' => $searchModelShops,
+            'dataProviderShops' => $dataProviderShops,
         ]);
 
 

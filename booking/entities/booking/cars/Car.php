@@ -15,6 +15,7 @@ use booking\entities\booking\cars\queries\CarQueries;
 use booking\entities\booking\City;
 use booking\entities\Lang;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -205,9 +206,9 @@ class Car extends BaseObjectOfBooking
     }
 
 
-    public static function find(): CarQueries
+    public static function find(): ObjectActiveQuery
     {
-        return new CarQueries(static::class);
+        return new ObjectActiveQuery(static::class);
     }
 
     public function afterFind(): void

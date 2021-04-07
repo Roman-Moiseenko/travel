@@ -15,6 +15,7 @@ use booking\entities\booking\funs\queries\FunQueries;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -500,9 +501,9 @@ class Fun extends BaseObjectOfBooking
     }
     /** <========== getXXX */
 
-    public static function find(): FunQueries
+    public static function find(): ObjectActiveQuery
     {
-        return new FunQueries(static::class);
+        return new ObjectActiveQuery(static::class);
     }
 
 }
