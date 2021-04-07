@@ -119,6 +119,7 @@ return [
                 'shop/<id:\d+>' => 'shop/shop/view',
                 'shop/update/<id:\d+>' => 'shop/shop/update',
                 'shop/create' => 'shop/shop/create',
+                'shop/verify' => 'shop/shop/verify',
 
 
                 'cabinet/profile' => '/cabinet/profile/index',

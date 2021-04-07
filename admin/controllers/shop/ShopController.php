@@ -42,7 +42,10 @@ class ShopController extends Controller
 
     public function actionView($id)
     {
-
+        $shop = $this->findModel($id);
+        return $this->render('view', [
+            'shop' => $shop,
+        ]);
     }
 
     public function actionCreate()
@@ -80,11 +83,6 @@ class ShopController extends Controller
             'model' => $form,
             'shop' => $shop
         ]);
-    }
-
-    public function actionDelete($id)
-    {
-
     }
 
     public function actionVerify($id)

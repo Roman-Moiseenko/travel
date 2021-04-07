@@ -10,7 +10,6 @@ use yii\base\Model;
 class ShopCreateForm extends Model
 {
     public $name;
-    public $slug;
     public $name_en;
     public $description;
     public $description_en;
@@ -21,10 +20,11 @@ class ShopCreateForm extends Model
     {
         if ($shop) {
             $this->name = $shop->name;
-            $this->slug = $shop->slug;
             $this->name_en = $shop->name_en;
             $this->description = $shop->description;
             $this->description_en = $shop->description_en;
+            $this->type_id = $shop->type_id;
+            $this->legal_id = $shop->legal_id;
         }
         parent::__construct($config);
     }
@@ -32,7 +32,7 @@ class ShopCreateForm extends Model
     public function rules()
     {
         return [
-            [['name', 'slug', 'name_en', 'description', 'description_en'], 'string'],
+            [['name', 'name_en', 'description', 'description_en'], 'string'],
             [['name', 'description', 'type_id', 'legal_id'], 'required'],
             [['type_id', 'legal_id'], 'integer']
         ];

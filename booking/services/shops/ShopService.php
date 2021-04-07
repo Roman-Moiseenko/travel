@@ -84,7 +84,7 @@ class ShopService
         );
         $dialog->addConversation(Shop::class . ' ID=' . $shop->id . '&' . 'STATUS=' . StatusHelper::STATUS_VERIFY);
         $this->dialogs->save($dialog);
-        $this->contactService->sendActivate($shop->name, $tour->user->username);
+        $this->contactService->sendActivate($shop->name, $shop->user->username);
         $this->shops->save($shop);
     }
 
