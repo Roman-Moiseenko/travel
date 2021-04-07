@@ -72,7 +72,7 @@ use yii\helpers\Url;
                         ['label' => '- Темы форума', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
                         ['label' => '- Магазин', 'icon' => 'store', 'items' => [
                             ['label' => '-- тип магазина', 'icon' => false, 'url' => ['/guides/shop-type'], 'active' => $this->context->id == 'guides/shop-type'],
-                            ['label' => '-- категория товара', 'icon' => false, 'url' => [''], 'active' => $this->context->id == ''],
+                            ['label' => '-- категория товара', 'icon' => false, 'url' => ['/guides/product-category'], 'active' => $this->context->id == 'guides/product-category'],
 
                         ]],
                     ]],

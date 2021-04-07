@@ -4,7 +4,7 @@
 namespace admin\controllers\shop;
 
 
-use booking\entities\shops\products\Product;
+use booking\entities\shops\products\BaseProduct;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 

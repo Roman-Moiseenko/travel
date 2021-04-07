@@ -10,6 +10,8 @@ use booking\entities\booking\funs\WorkMode;
 use booking\entities\foods\Photo;
 use booking\entities\Lang;
 use booking\entities\Meta;
+use booking\entities\shops\products\BaseProduct;
+use booking\entities\shops\products\Product;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -23,22 +25,14 @@ use yii\db\ActiveRecord;
  * @package booking\entities\shops
  ********************************* Внешние связи
  * @property ReviewShop[] $reviews
+ * @property Product[] $products
  *
  *********************************** Скрытые поля
-
-
  */
 
 class Shop extends BaseShop
 {
 
-
-
-
-   /* public function edit($name, $name_en, $description, $description_en): void
-    {
-
-    }*/
 
 
     //**************** Set ****************************
@@ -62,14 +56,16 @@ class Shop extends BaseShop
     }
 
 
-    //**** Контакты (ContactAssign) **********************************
-
-
-    //****** Внешние связи *****
+    //****** Внешние связи ****************************
 
 
     public function getReviews(): ActiveQuery
     {
         return $this->hasMany(ReviewShop::class, ['shop_id' => 'id']);
+    }
+
+    public function getProducts(): ActiveQuery
+    {
+        return $this->hasMany(Product::class, ['shop_id' => 'id']);
     }
 }

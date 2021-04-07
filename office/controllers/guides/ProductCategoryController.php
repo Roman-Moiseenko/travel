@@ -4,26 +4,24 @@
 namespace office\controllers\guides;
 
 
-use booking\entities\booking\tours\Type;
 use booking\entities\Rbac;
-use booking\entities\shops\TypeShop;
-use booking\forms\office\guides\ShopTypeForm;
-use booking\forms\office\guides\TourTypeForm;
-use booking\services\office\guides\TypeShopService;
-use booking\services\office\guides\TypeTourService;
+use booking\entities\shops\products\Category;
+use booking\forms\office\guides\ProductCategoryForm;
+use booking\services\office\guides\ProductCategoryService;
+use office\forms\guides\ProductCategorySearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class ShopTypeController extends Controller
+class ProductCategoryController extends Controller
 {
 
     /**
-     * @var TypeShopService
+     * @var ProductCategoryService
      */
     private $service;
 
-    public function __construct($id, $module, TypeShopService $service, $config = [])
+    public function __construct($id, $module, ProductCategoryService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -50,22 +48,31 @@ class ShopTypeController extends Controller
         ];
     }
 
-
     public function actionIndex()
     {
-        $types = TypeShop::find()->all();
+        $searchModel = new ProductCategorySearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
         return $this->render('index', [
-            'types' => $types,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'category' => $this->find($id),
         ]);
     }
 
     public function actionCreate()
     {
-        $form = new ShopTypeForm();
+        $form = new ProductCategoryForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->create($form);
-                return $this->redirect(['guides/shop-type/index']);
+                return $this->redirect(['guides/product-category/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -78,12 +85,12 @@ class ShopTypeController extends Controller
 
     public function actionUpdate($id)
     {
-        $type = $this->find($id);
-        $form = new ShopTypeForm($type);
+        $category = $this->find($id);
+        $form = new ProductCategoryForm($category);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($id, $form);
-                return $this->redirect(['guides/shop-type/index']);
+                return $this->redirect(['guides/product-category/index']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -91,6 +98,7 @@ class ShopTypeController extends Controller
         }
         return $this->render('update', [
             'model' => $form,
+            'category' => $category,
         ]);
     }
 
@@ -100,9 +108,21 @@ class ShopTypeController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionMoveDown($id)
+    {
+        $this->service->moveDown($id);
+        return $this->redirect(['index']);
+    }
+
+    public function actionMoveUp($id)
+    {
+        $this->service->moveUp($id);
+        return $this->redirect(['index']);
+    }
+
     private function find($id)
     {
-        if (!$result = TypeShop::findOne($id))
+        if (!$result = Category::findOne($id))
             throw new \DomainException('Не найден элемент');
         return $result;
     }

@@ -11,6 +11,7 @@ use booking\entities\booking\BaseReview;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\foods\Photo;
 use booking\entities\Lang;
+use booking\entities\shops\products\BaseProduct;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -37,6 +38,7 @@ use yii\db\ActiveRecord;
  * @property integer $status
 
  ********************************* Внешние связи
+ * @property BaseProduct[] $products
  * @property BaseReview[] $reviews
  * @property User $user
  * @property Legal $legal
@@ -146,6 +148,23 @@ abstract class BaseShop extends ActiveRecord
         ];
     }
 
+    //**************** Product ****************************
+
+    public function addProduct(BaseProduct $product)
+    {
+
+    }
+
+    public function updateProduct(BaseProduct $product)
+    {
+
+    }
+
+    public function removeProduct($id)
+   {
+
+   }
+
     //====== Review        ============================================
 
     public function addReview(BaseReview $review): BaseReview
@@ -202,6 +221,7 @@ abstract class BaseShop extends ActiveRecord
     //====== Внешние связи        ============================================
 
     abstract public function getReviews(): ActiveQuery;
+    abstract public function getProducts(): ActiveQuery;
 
     public function getUser(): ActiveQuery
     {
