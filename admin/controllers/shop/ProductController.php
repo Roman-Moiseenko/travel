@@ -5,6 +5,8 @@ namespace admin\controllers\shop;
 
 
 use booking\entities\shops\products\BaseProduct;
+use booking\forms\shops\ProductForm;
+use booking\services\shops\ProductService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -59,7 +61,7 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $this->layout = 'main-create';
-        $form = new ProductCreateForm();
+        $form = new ProductForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $shop = $this->service->create($form);
@@ -77,7 +79,7 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $shop = $this->findModel($id);
-        $form = new ProductCreateForm($shop);
+        $form = new ProductForm($shop);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($shop->id, $form);

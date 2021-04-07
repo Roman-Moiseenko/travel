@@ -120,6 +120,8 @@ return [
                 'shop/update/<id:\d+>' => 'shop/shop/update',
                 'shop/create' => 'shop/shop/create',
                 'shop/verify' => 'shop/shop/verify',
+                'shop/products/<id:\d+>' => 'shop/product/index',
+                'shop/product/<id:\d+>' => 'shop/product/view',
 
 
                 'cabinet/profile' => '/cabinet/profile/index',

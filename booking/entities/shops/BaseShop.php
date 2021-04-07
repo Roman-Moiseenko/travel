@@ -139,7 +139,6 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
                     'reviews',
                 ],
             ],
-
         ];
     }
 

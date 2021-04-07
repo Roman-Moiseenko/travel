@@ -16,8 +16,9 @@ class Material extends ActiveRecord
 {
     public static function create($name): self
     {
-        $type = new static();
-        $type->name = $name;
+        $material = new static();
+        $material->name = $name;
+        return $material;
     }
 
     public function edit($name): void

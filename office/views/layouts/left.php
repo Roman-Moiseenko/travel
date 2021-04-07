@@ -74,6 +74,7 @@ use yii\helpers\Url;
                         ['label' => '- Магазин', 'icon' => 'store', 'items' => [
                             ['label' => '-- тип магазина', 'icon' => false, 'url' => ['/guides/shop-type'], 'active' => $this->context->id == 'guides/shop-type'],
                             ['label' => '-- категория товара', 'icon' => false, 'url' => ['/guides/product-category'], 'active' => $this->context->id == 'guides/product-category'],
+                            ['label' => '-- материал', 'icon' => false, 'url' => ['/guides/material'], 'active' => $this->context->id == 'guides/material'],
 
                         ]],
                     ]],

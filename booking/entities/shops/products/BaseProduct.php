@@ -4,7 +4,14 @@
 namespace booking\entities\shops\products;
 
 
+use booking\entities\behaviors\MetaBehavior;
+use booking\entities\booking\BasePhoto;
+use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
+use booking\entities\Meta;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -29,11 +36,21 @@ use yii\db\ActiveRecord;
  * @property Size $size - размер
  * @property string $size_json
  * @property boolean $request_available
+ * @property integer $main_photo_id
+ *
+ * @property string $meta_json
+ * @property BasePhoto $mainPhoto
+ * @property BasePhoto[] $photos
+ * @property BaseReview[] $reviews
+ * @property
  */
 abstract class BaseProduct extends ActiveRecord
 {
     /** @var $size Size */
     public $size;
+
+    /** @var $meta Meta */
+    public $meta;
 
     public static function create($name, $name_en, $description, $description_en,
                                   $weight, $size, $article, $collection, $color,
@@ -108,5 +125,28 @@ abstract class BaseProduct extends ActiveRecord
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
+
+    public function behaviors()
+    {
+        return [
+            MetaBehavior::class,
+            TimestampBehavior::class,
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'reviews',
+                    'photos',
+                ],
+            ],
+        ];
+    }
+
+    //********** Внешние связи **********************
+    abstract public function getPhotos(): ActiveQuery;
+
+    abstract public function getMainPhoto(): ActiveQuery;
+
+    abstract public function getReviews(): ActiveQuery;
+
 
 }
