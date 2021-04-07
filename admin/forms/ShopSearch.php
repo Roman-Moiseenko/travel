@@ -30,7 +30,7 @@ class ShopSearch extends Shop
      */
     public function search($params)
     {
-        $query = Shop::find()->with('type')->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
+        $query = Shop::find()->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -57,17 +57,6 @@ class ShopSearch extends Shop
         $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
-    }
-
-    public function typeList(): array
-    {
-        return ArrayHelper::map(TypeShop::find()->
-        orderBy('id')->asArray()->all(),
-            'id',
-            function (array $type) {
-                return  $type['name'];
-            }
-        );
     }
 
 }

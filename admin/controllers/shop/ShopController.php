@@ -45,7 +45,7 @@ class ShopController extends Controller
 
     }
 
-    public function actionCreate($id)
+    public function actionCreate()
     {
         $this->layout = 'main-create';
         $form = new ShopCreateForm();

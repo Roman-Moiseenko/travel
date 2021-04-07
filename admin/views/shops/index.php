@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function (BaseShop $model) {
                     return ShopTypeHelper::list()[$model->type_id];
                 },
-                'filter' => $searchModel->typeList(),
+                'filter' => ShopTypeHelper::list(),
                 'contentOptions' => ['data-label' => 'Категория'],
 
             ],
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name',
                 'value' => function (BaseShop $model) {
-                    return Html::a(Html::encode($model->name), ['/tour/common', 'id' => $model->id]);
+                    return Html::a(Html::encode($model->name), ['/shop/view', 'id' => $model->id]);
                 },
                 'format' => 'raw',
                 'label' => 'Название',

@@ -50,7 +50,6 @@ class ShopService
             $form->description_en,
             $form->type_id
         );
-        $shop->setSlug($form->slug);
         $this->shops->save($shop);
         return $shop;
     }

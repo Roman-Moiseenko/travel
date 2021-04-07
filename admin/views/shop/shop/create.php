@@ -16,19 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tour-create">
 
-    <?php $form = ActiveForm::begin([
-        'options' => ['enctype' => 'multipart/form-data']
-    ]); ?>
+
 
     <?= $this->render('_form', [
         'model' => $model,
-        'form' => $form
     ])?>
 
-    <div class="form-group p-2">
-        <?= Html::submitButton('Далее >>', ['class' => 'btn btn-primary']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
 
 </div>
 

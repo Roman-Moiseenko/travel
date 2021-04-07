@@ -61,27 +61,6 @@ class Shop extends BaseShop
         return '{{%shops}}';
     }
 
-    public function behaviors()
-    {
-        return [
-            MetaBehavior::class,
-            TimestampBehavior::class,
-            [
-                'class' => SaveRelationsBehavior::class,
-                'relations' => [
-                    'reviews',
-                ],
-            ],
-
-        ];
-    }
-
-    public function transactions(): array
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
-    }
 
     //**** Контакты (ContactAssign) **********************************
 
