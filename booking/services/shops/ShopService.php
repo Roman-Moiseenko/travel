@@ -7,6 +7,7 @@ namespace booking\services\shops;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\shops\Shop;
+use booking\forms\shops\ShopCreateForm;
 use booking\helpers\StatusHelper;
 use booking\repositories\message\DialogRepository;
 use booking\repositories\shops\ShopRepository;
@@ -36,6 +37,36 @@ class ShopService
         $this->shops = $shops;
         $this->contactService = $contactService;
         $this->dialogs = $dialogs;
+    }
+
+    public function create(ShopCreateForm $form): Shop
+    {
+        $shop = Shop::create(
+            \Yii::$app->user->id,
+            $form->legal_id,
+            $form->name,
+            $form->name_en,
+            $form->description,
+            $form->description_en,
+            $form->type_id
+        );
+        $shop->setSlug($form->slug);
+        $this->shops->save($shop);
+        return $shop;
+    }
+
+    public function edit(int $id, ShopCreateForm $form): void
+    {
+        $shop = $this->shops->get($id);
+        $shop->edit(
+            $form->legal_id,
+            $form->name,
+            $form->name_en,
+            $form->description,
+            $form->description_en,
+            $form->type_id
+        );
+        $this->shops->save($shop);
     }
 
     public function verify($id)
@@ -115,4 +146,5 @@ class ShopService
         $shop->setStatus(StatusHelper::STATUS_INACTIVE);
         $this->shops->save($shop);
     }
+
 }

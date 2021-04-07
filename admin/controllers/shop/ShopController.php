@@ -5,6 +5,7 @@ namespace admin\controllers\shop;
 
 
 use booking\entities\shops\Shop;
+use booking\forms\shops\ShopCreateForm;
 use booking\services\shops\ShopService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -46,12 +47,39 @@ class ShopController extends Controller
 
     public function actionCreate($id)
     {
-
+        $this->layout = 'main-create';
+        $form = new ShopCreateForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $shop = $this->service->create($form);
+                return $this->redirect(['/shop/view', 'id' => $shop->id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('create', [
+            'model' => $form,
+        ]);
     }
 
     public function actionUpdate($id)
     {
-
+        $shop = $this->findModel($id);
+        $form = new ShopCreateForm($shop);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->edit($shop->id, $form);
+                return $this->redirect(['/shop/view', 'id' => $shop->id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('update', [
+            'model' => $form,
+            'shop' => $shop
+        ]);
     }
 
     public function actionDelete($id)
@@ -61,9 +89,9 @@ class ShopController extends Controller
 
     public function actionVerify($id)
     {
-        $tour = $this->findModel($id);
+        $shop = $this->findModel($id);
         try {
-            $this->service->verify($tour->id);
+            $this->service->verify($shop->id);
             \Yii::$app->session->setFlash('success', 'Ваш магазин успешно отправлен на Модерацию. Мы постараемся проверить Вашу информацию в кратчайшие сроки. Дождитесь, пожалуйста, результата. ');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
@@ -74,9 +102,9 @@ class ShopController extends Controller
 
     public function actionCancel($id)
     {
-        $tour = $this->findModel($id);
+        $shop = $this->findModel($id);
         try {
-            $this->service->cancel($tour->id);
+            $this->service->cancel($shop->id);
             \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию магазина');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
@@ -87,9 +115,9 @@ class ShopController extends Controller
 
     public function actionDraft($id)
     {
-        $tour = $this->findModel($id);
+        $shop = $this->findModel($id);
         try {
-            $this->service->draft($tour->id);
+            $this->service->draft($shop->id);
             \Yii::$app->session->setFlash('success', 'Магазин снят с публикации.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
@@ -100,9 +128,9 @@ class ShopController extends Controller
 
     public function actionActivate($id)
     {
-        $tour = $this->findModel($id);
+        $shop = $this->findModel($id);
         try {
-            $this->service->activate($tour->id);
+            $this->service->activate($shop->id);
             \Yii::$app->session->setFlash('success', 'Магазин активирован.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);

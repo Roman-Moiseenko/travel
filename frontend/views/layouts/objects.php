@@ -15,7 +15,7 @@ use frontend\widgets\SearchToursWidget;
     </div>
 
 </div>
-<div class="hidden-xs">
+<div class="hidden-xs pt-5">
     <?= BlogViewerWidget::widget([
             'mobile' => SysHelper::isMobile(),
     ]) ?>

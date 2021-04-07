@@ -6,6 +6,8 @@ namespace booking\entities\shops;
 use booking\entities\admin\Contact;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\funs\WorkMode;
+use booking\entities\Meta;
+use booking\helpers\SlugHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -14,6 +16,8 @@ use yii\db\ActiveQuery;
  * Class AdShop
  * @package booking\entities\shops
  * @property integer $main_photo_id
+ * @property string $slug
+ *
  * @property InfoAddress[] $addresses
  * @property Photo $mainPhoto
  * @property Photo[] $photos
@@ -21,16 +25,28 @@ use yii\db\ActiveQuery;
  * @property ContactAssign[] $contactAssign
  * @property string $work_mode_json
  *
- *
+ * @property Meta $meta
+ * @property string $meta_json
  */
 class AdShop extends BaseShop
 {
     /** @var WorkMode[] $workModes */
     public $workModes = [];
-
+    /** @var Meta $meta */
+    public $meta;
+    public function setSlug($slug): void
+    {
+        $this->slug = empty($slug) ? SlugHelper::slug($this->name) : $slug;
+        if (AdShop::find()->andWhere(['slug' => $this->slug])->one()) $this->slug .= '-' . $this->user_id;
+    }
     public function isAd(): bool
     {
         return true;
+    }
+
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
     }
 
     public function setWorkMode(array $workModes): void
@@ -47,6 +63,7 @@ class AdShop extends BaseShop
     {
         $result = parent::behaviors();
         $new_behaviors = [
+            MetaBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
@@ -104,5 +121,10 @@ class AdShop extends BaseShop
     public function getContacts(): ActiveQuery
     {
         return $this->hasMany(Contact::class, ['id' => 'contact_id'])->via('contactAssign');
+    }
+
+    public function getReviews(): ActiveQuery
+    {
+        // TODO: Implement getReviews() method.
     }
 }

@@ -115,6 +115,11 @@ return [
                 'car/reports' => '/car/reports/index',
 
                 'stays' => 'stays/index',
+                'shops' => 'shops/index',
+                'shop/<id:\d+>' => 'shop/shop/view',
+                'shop/update/<id:\d+>' => 'shop/shop/update',
+                'shop/create' => 'shop/shop/create',
+
 
                 'cabinet/profile' => '/cabinet/profile/index',
                 'legal' => '/legal/index',

@@ -96,7 +96,6 @@ class CommonController extends Controller
             'model' => $form,
             'tour' => $tour
         ]);
-
     }
 
     public function actionVerify($id)

@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $name
+
  * @property string $name_en
  * @property string $description
  * @property string $description_en
@@ -42,17 +43,12 @@ use yii\db\ActiveRecord;
  * @property User $user
  * @property Legal $legal
  *********************************** Скрытые поля
- * @property Meta $meta
- * @property string $meta_json
-
  */
 
 abstract class BaseShop extends ActiveRecord
 {
-    /** @var Meta $meta */
-    public $meta;
 
-    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en): self
+    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
     {
         $shop = new static();
         $shop->created_at = time();
@@ -62,25 +58,23 @@ abstract class BaseShop extends ActiveRecord
         $shop->name_en = $name_en;
         $shop->description = $description;
         $shop->description_en = $description_en;
+        $shop->type_id = $type_id;
         $shop->status = StatusHelper::STATUS_INACTIVE;
         return $shop;
     }
 
-    public function edit($name, $name_en, $description, $description_en): void
+    public function edit($legal_id, $name, $name_en, $description, $description_en, $type_id): void
     {
+        $this->legal_id = $legal_id;
         $this->name = $name;
         $this->name_en = $name_en;
         $this->description = $description;
         $this->description_en = $description_en;
+        $this->type_id = $type_id;
     }
 
 
     //**************** Set ****************************
-
-    final public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
-    }
 
     public function setStatus($status)
     {
@@ -136,7 +130,6 @@ abstract class BaseShop extends ActiveRecord
     public function behaviors()
     {
         return [
-            MetaBehavior::class,
             TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
