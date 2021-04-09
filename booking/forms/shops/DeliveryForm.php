@@ -8,6 +8,8 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\shops\Delivery;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\CompositeForm;
+use booking\helpers\scr;
+use booking\helpers\shops\DeliveryHelper;
 use yii\base\Model;
 
 /**
@@ -25,20 +27,23 @@ class DeliveryForm extends CompositeForm
     public $period; //0 - по заказу, 1..7 - сколько раз в неделю
     public $deliveryCompany = []; //транспортные компании
     public $onPoint; //есть ли выдача в городе
-//    /** @var $addressPoint BookingAddress */
-  //  public $addressPoint; //адрес откуда можно забрать после оплаты ??
+
+  //  public $addressPoint; //адрес откуда можно забрать после оплаты
 
     public function __construct(Delivery $delivery = null, $config = [])
     {
+        //scr::v($delivery);
         if ($delivery) {
             $this->onCity = $delivery->onCity;
-            $this->costCity = $delivery->onCity;
-            $this->minAmountCity = $delivery->onCity;
-            $this->minAmountCompany = $delivery->onCity;
-            $this->period = $delivery->onCity;
-            $this->deliveryCompany = $delivery->onCity;
-            $this->onPoint = $delivery->onCity;
+            $this->costCity = $delivery->costCity;
+            $this->minAmountCity = $delivery->minAmountCity;
+            $this->minAmountCompany = $delivery->minAmountCompany;
+            $this->period = $delivery->period;
+            $this->deliveryCompany = $delivery->deliveryCompany;
+            $this->onPoint = $delivery->onPoint;
             $this->addressPoint = new BookingAddressForm($delivery->addressPoint);
+        } else {
+            $this->addressPoint = new BookingAddressForm();
         }
         parent::__construct($config);
     }
@@ -47,7 +52,7 @@ class DeliveryForm extends CompositeForm
     {
         return [
             [['onCity', 'onPoint'], 'boolean'],
-            [['minAmountCity', 'minAmountCompany', 'period'], 'integer'],
+            [['minAmountCity', 'minAmountCompany', 'period', 'costCity'], 'integer'],
             ['deliveryCompany', 'each', 'rule' => ['integer']],
         ];
     }
@@ -56,4 +61,11 @@ class DeliveryForm extends CompositeForm
     {
         return ['addressPoint'];
     }
+
+    public function beforeValidate(): bool
+    {
+        $this->deliveryCompany = array_filter((array)$this->deliveryCompany);
+        return parent::beforeValidate();
+    }
+
 }

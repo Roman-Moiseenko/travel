@@ -6,6 +6,7 @@ namespace admin\controllers\shop;
 
 use booking\entities\shops\Shop;
 use booking\forms\shops\ShopCreateForm;
+use booking\helpers\scr;
 use booking\services\shops\ShopService;
 use yii\filters\AccessControl;
 use yii\web\Controller;

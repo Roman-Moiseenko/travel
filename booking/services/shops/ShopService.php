@@ -4,10 +4,13 @@
 namespace booking\services\shops;
 
 
+use booking\entities\booking\BookingAddress;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\shops\Delivery;
 use booking\entities\shops\Shop;
 use booking\forms\shops\ShopCreateForm;
+use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\message\DialogRepository;
 use booking\repositories\shops\ShopRepository;
@@ -50,6 +53,20 @@ class ShopService
             $form->description_en,
             $form->type_id
         );
+        $shop->setDelivery(Delivery::create(
+            $form->delivery->onCity,
+            $form->delivery->costCity,
+            $form->delivery->minAmountCity,
+            $form->delivery->minAmountCompany,
+            $form->delivery->period,
+            $form->delivery->deliveryCompany,
+            $form->delivery->onPoint,
+            new BookingAddress(
+                $form->delivery->addressPoint->address,
+                $form->delivery->addressPoint->latitude,
+                $form->delivery->addressPoint->longitude
+            )
+        ));
         $this->shops->save($shop);
         return $shop;
     }
@@ -65,6 +82,21 @@ class ShopService
             $form->description_en,
             $form->type_id
         );
+        //scr::v($form->delivery);
+        $shop->setDelivery(Delivery::create(
+            $form->delivery->onCity,
+            $form->delivery->costCity,
+            $form->delivery->minAmountCity,
+            $form->delivery->minAmountCompany,
+            $form->delivery->period,
+            $form->delivery->deliveryCompany,
+            $form->delivery->onPoint,
+            new BookingAddress(
+                $form->delivery->addressPoint->address,
+                $form->delivery->addressPoint->latitude,
+                $form->delivery->addressPoint->longitude
+            )
+        ));
         $this->shops->save($shop);
     }
 

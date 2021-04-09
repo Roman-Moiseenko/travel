@@ -22,8 +22,7 @@ class ShopCreateForm extends CompositeForm
     public $description_en;
     public $legal_id;
     public $type_id;
-    /** @var $delivery Delivery */
-    public $delivery;
+
 
     public function __construct(Shop $shop = null, $config = [])
     {
@@ -35,6 +34,8 @@ class ShopCreateForm extends CompositeForm
             $this->type_id = $shop->type_id;
             $this->legal_id = $shop->legal_id;
             $this->delivery = new DeliveryForm($shop->delivery);
+        } else {
+            $this->delivery = new DeliveryForm();
         }
         parent::__construct($config);
     }

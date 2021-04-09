@@ -4,6 +4,8 @@ use admin\widgest\StatusActionWidget;
 use booking\entities\booking\tours\Tour;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
+use booking\helpers\CurrencyHelper;
+use booking\helpers\shops\DeliveryHelper;
 use booking\helpers\shops\ShopTypeHelper;
 use booking\helpers\StatusHelper;
 use booking\helpers\tours\TourHelper;
@@ -86,6 +88,46 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'legal_id',
                                 'value' => $shop->legal->name,
                                 'label' => 'Организация',
+                            ],
+                        ],
+                    ]) ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-secondary">
+                <div class="card-header with-border">Доставка</div>
+                <div class="card-body">
+                    <?= DetailView::widget([
+                        'model' => $shop,
+                        'attributes' => [
+                            [
+                                'value' => !$shop->delivery->onCity ? 'нет' : 'Стоимость ' . CurrencyHelper::cost($shop->delivery->costCity) . ' при заказе от ' . CurrencyHelper::stat($shop->delivery->minAmountCity),
+                                'format' => 'raw',
+                                'label' => 'Доставка по городу',
+                            ],
+                            [
+                                'value' => !$shop->delivery->onPoint ? 'нет' : $shop->delivery->addressPoint->address,
+                                'label' => 'Точка выдачи в городе',
+                            ],
+                            [
+                                'value' => CurrencyHelper::stat($shop->delivery->minAmountCompany),
+                                'format' => 'raw',
+                                'label' => 'Отправка ТК при заказе от',
+                            ],
+                            [
+                                'value' => $shop->delivery->period,
+                                'label' => 'Периодичность отправки в неделю',
+                            ],
+                            [
+                                'value' => implode(', ',
+                                    array_filter(array_map(function ($item){
+                                        return DeliveryHelper::list()[$item];
+                                    }, $shop->delivery->deliveryCompany))),
+                                'label' => 'Транспортные Компании',
                             ],
                         ],
                     ]) ?>

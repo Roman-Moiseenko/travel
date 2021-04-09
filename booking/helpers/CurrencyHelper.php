@@ -44,6 +44,7 @@ class CurrencyHelper
 
     public static function stat($cost)
     {
+        if (empty($cost)) $cost = 0;
         return number_format($cost, 0, '.', ' ') . ' &#8381;';
     }
 

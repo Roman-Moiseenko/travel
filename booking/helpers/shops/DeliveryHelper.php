@@ -11,6 +11,6 @@ class DeliveryHelper
 {
     public static function list(): array
     {
-        return ArrayHelper::map(DeliveryCompany::find()->asArray()->all(), 'id', 'name');
+        return ArrayHelper::map(DeliveryCompany::find()->all(), function (DeliveryCompany $company) {return $company->id;}, function (DeliveryCompany $company) {return $company->name;});
     }
 }

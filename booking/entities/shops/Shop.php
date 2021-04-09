@@ -37,7 +37,7 @@ class Shop extends BaseShop
     /** @var $delivery Delivery */
     public $delivery;
 
-    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): BaseShop
+    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): Shop
     {
         $shop = new static($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id);
         //TODO свои параметры
