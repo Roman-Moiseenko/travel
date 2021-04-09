@@ -35,7 +35,6 @@ use yii\db\ActiveRecord;
  * @property bool $active
  * @property Size $size - размер
  * @property string $size_json
- * @property boolean $request_available
  * @property integer $main_photo_id
  *
  * @property string $meta_json
@@ -52,7 +51,35 @@ abstract class BaseProduct extends ActiveRecord
     /** @var $meta Meta */
     public $meta;
 
-    public static function create($name, $name_en, $description, $description_en,
+    public function __construct($name = null, $name_en = null, $description = null, $description_en = null,
+                                $weight = null, Size $size = null, $article = null, $collection = null, $color = null,
+                                $manufactured_id = null, $category_id = null, $cost = null, $discount = null,
+        $config = [])
+    {
+        parent::__construct($config);
+        if ($name) {
+            $this->name = $name;
+            $this->name_en = $name_en;
+            $this->description = $description;
+            $this->description_en = $description_en;
+
+            $this->weight = $weight;
+            $this->size = $size;
+            $this->article = $article;
+            $this->collection = $collection;
+            $this->color = $color;
+
+            $this->manufactured_id = $manufactured_id;
+            $this->category_id = $category_id;
+            $this->cost = $cost;
+            $this->discount = $discount;
+
+            $this->active = false;
+            $this->created_at = time();
+        }
+    }
+
+  /*  public static function create($name, $name_en, $description, $description_en,
                                   $weight, $size, $article, $collection, $color,
                                   $manufactured_id, $category_id, $cost, $discount): self
     {
@@ -78,28 +105,7 @@ abstract class BaseProduct extends ActiveRecord
 
         return $product;
         //Во view при создании проверяетс тип магазина и заполняется $manufactured_id
-    }
-
-    public function edit($name, $name_en, $description, $description_en,
-                         $weight, $size, $article, $collection, $color,
-                         $manufactured_id, $category_id, $cost, $discount): void
-    {
-        $this->name = $name;
-        $this->name_en = $name_en;
-        $this->description = $description;
-        $this->description_en = $description_en;
-
-        $this->weight = $weight;
-        $this->size = $size;
-        $this->article = $article;
-        $this->collection = $collection;
-        $this->color = $color;
-
-        $this->manufactured_id = $manufactured_id;
-        $this->category_id = $category_id;
-        $this->cost = $cost;
-        $this->discount = $discount;
-    }
+    }*/
 
     final public function active(): void
     {

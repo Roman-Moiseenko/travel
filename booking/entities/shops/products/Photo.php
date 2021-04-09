@@ -22,7 +22,7 @@ class Photo extends BasePhoto
 {
 
     protected $catalog = 'products';
-    protected $name_id = 'prduct_id';
+    protected $name_id = 'product_id';
 
     public static function tableName()
     {

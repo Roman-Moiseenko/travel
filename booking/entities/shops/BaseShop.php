@@ -50,9 +50,26 @@ use yii\db\ActiveRecord;
 abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
 {
 
-    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
+    public function __construct($user_id = null, $legal_id = null, $name = null, $name_en = null, $description = null, $description_en = null, $type_id = null, $config = [])
     {
-        $shop = new static();
+        parent::__construct($config);
+        if ($user_id) {
+            $this->created_at = time();
+            $this->user_id = $user_id;
+            $this->legal_id = $legal_id;
+            $this->name = $name;
+            $this->name_en = $name_en;
+            $this->description = $description;
+            $this->description_en = $description_en;
+            $this->type_id = $type_id;
+            $this->status = StatusHelper::STATUS_INACTIVE;
+        }
+    }
+
+   // abstract public static function create(): self;
+   /* public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
+    {
+        $shop = new static($user_id);
         $shop->created_at = time();
         $shop->user_id = $user_id;
         $shop->legal_id = $legal_id;
@@ -63,7 +80,7 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
         $shop->type_id = $type_id;
         $shop->status = StatusHelper::STATUS_INACTIVE;
         return $shop;
-    }
+    }*/
 
     public function edit($legal_id, $name, $name_en, $description, $description_en, $type_id): void
     {

@@ -34,11 +34,22 @@ class AdShop extends BaseShop
     public $workModes = [];
     /** @var Meta $meta */
     public $meta;
+
+    public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id, Meta $meta)
+    {
+        $shop = new static($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id);
+        $shop->meta = $meta;
+
+        //TODO свои параметры
+        return $shop;
+    }
+
     public function setSlug($slug): void
     {
         $this->slug = empty($slug) ? SlugHelper::slug($this->name) : $slug;
         if (AdShop::find()->andWhere(['slug' => $this->slug])->one()) $this->slug .= '-' . $this->user_id;
     }
+
     public function isAd(): bool
     {
         return true;
@@ -126,5 +137,10 @@ class AdShop extends BaseShop
     public function getReviews(): ActiveQuery
     {
         // TODO: Implement getReviews() method.
+    }
+
+    public function getProducts(): ActiveQuery
+    {
+        // TODO: Implement getProducts() method.
     }
 }
