@@ -41,7 +41,8 @@ use yii\db\ActiveRecord;
  * @property BasePhoto $mainPhoto
  * @property BasePhoto[] $photos
  * @property BaseReview[] $reviews
- * @property
+ * @property Category $category
+ * @property MaterialAssign[] $materialAssign
  */
 abstract class BaseProduct extends ActiveRecord
 {
@@ -154,5 +155,18 @@ abstract class BaseProduct extends ActiveRecord
 
     abstract public function getReviews(): ActiveQuery;
 
+    public function getCategory(): ActiveQuery
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
 
+    public function getMaterialAssign(): ActiveQuery
+    {
+        return $this->hasMany(MaterialAssign::class, ['product_id' => 'id']);
+    }
+
+    public function getMaterials(): ActiveQuery
+    {
+        return $this->hasMany(Material::class, ['id' => 'material_id'])->via('materialAssign');
+    }
 }

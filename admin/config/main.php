@@ -115,14 +115,14 @@ return [
                 'car/reports' => '/car/reports/index',
 
                 'stays' => 'stays/index',
-                'shops' => 'shops/index',
-                'shop/<id:\d+>' => 'shop/shop/view',
-                'shop/update/<id:\d+>' => 'shop/shop/update',
-                'shop/create' => 'shop/shop/create',
-                'shop/verify' => 'shop/shop/verify',
-                'shop/products/<id:\d+>' => 'shop/product/index',
-                'shop/product/<id:\d+>' => 'shop/product/view',
 
+                'shops' => '/shops/index',
+                'shop/products/<id:\d+>' => '/shop/product/index',
+                'shop/update/<id:\d+>' => '/shop/shop/update',
+                'shop/create/<id:\d+>' => '/shop/shop/create',
+                'shop/verify' => '/shop/shop/verify',
+                'shop/<id:\d+>' => '/shop/shop/view',
+                'shop/product' => '/shop/product/view',
 
                 'cabinet/profile' => '/cabinet/profile/index',
                 'legal' => '/legal/index',

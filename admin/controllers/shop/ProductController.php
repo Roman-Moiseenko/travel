@@ -4,11 +4,15 @@
 namespace admin\controllers\shop;
 
 
-use booking\entities\shops\products\BaseProduct;
+use admin\forms\shops\ProductSearch;
+use booking\entities\shops\products\Product;
+use booking\entities\shops\Shop;
 use booking\forms\shops\ProductForm;
+use booking\helpers\scr;
 use booking\services\shops\ProductService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {
@@ -41,12 +45,13 @@ class ProductController extends Controller
 
     public function actionIndex($id)
     {
-        $searchModel = new ProductSearch($id); //$id - shop_id
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-
+        $searchModel = new ProductSearch(); //$id - shop_id
+        $shop = Shop::findOne($id);
+        $dataProvider = $searchModel->search($id, \Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'shop' => $shop,
         ]);
     }
 
@@ -58,9 +63,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $this->layout = 'main-create';
+
+        $shop = Shop::findOne($id);
         $form = new ProductForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -73,17 +79,18 @@ class ProductController extends Controller
         }
         return $this->render('create', [
             'model' => $form,
+            'shop' => $shop,
         ]);
     }
 
     public function actionUpdate($id)
     {
-        $shop = $this->findModel($id);
-        $form = new ProductForm($shop);
+        $product = $this->findModel($id);
+        $form = new ProductForm($product);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($shop->id, $form);
-                return $this->redirect(['/shop/product/view', 'id' => $shop->id]);
+                $this->service->edit($product->id, $form);
+                return $this->redirect(['/shop/product/view', 'id' => $product->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -91,7 +98,16 @@ class ProductController extends Controller
         }
         return $this->render('update', [
             'model' => $form,
-            'shop' => $shop
+            'shop' => $product->shop,
+            'product' => $product,
         ]);
+    }
+
+    private function findModel($id): Product
+    {
+        if (($model = Product::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

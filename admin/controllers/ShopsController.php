@@ -4,7 +4,7 @@
 namespace admin\controllers;
 
 
-use admin\forms\ShopSearch;
+use admin\forms\shops\ShopSearch;
 use admin\forms\TourSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;

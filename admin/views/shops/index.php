@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel admin\forms\ShopSearch */
+/* @var $searchModel \admin\forms\shops\ShopSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Мои магазины';

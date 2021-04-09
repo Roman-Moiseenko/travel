@@ -1,6 +1,6 @@
 <?php
 
-namespace admin\forms;
+namespace admin\forms\shops;
 
 use booking\entities\shops\Shop;
 use booking\entities\shops\TypeShop;
