@@ -13,6 +13,7 @@ use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 
 /**
  * Class Product
@@ -24,6 +25,7 @@ use yii\db\ActiveRecord;
  * @property string $name_en
  * @property string $description_en
  * @property integer $created_at
+ * @property integer $updated_at
  * @property integer $weight - вес
  * @property string $article - артикул
  * @property string $collection - колекция/серия
@@ -42,7 +44,7 @@ use yii\db\ActiveRecord;
  * @property BasePhoto[] $photos
  * @property BaseReview[] $reviews
  * @property Category $category
- * @property MaterialAssign[] $materialAssign
+ * @property BaseMaterialAssign[] $materialAssign
  */
 abstract class BaseProduct extends ActiveRecord
 {
@@ -133,6 +135,11 @@ abstract class BaseProduct extends ActiveRecord
         return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
 
+    final public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
+    }
+
     public function behaviors()
     {
         return [
@@ -147,6 +154,124 @@ abstract class BaseProduct extends ActiveRecord
             ],
         ];
     }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
+        ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
+
+    public function afterFind(): void
+    {
+        $size = Json::decode($this->getAttribute('size_json'));
+        $this->size = Size::create(
+            $size['width'] ?? null,
+            $size['height'] ?? null,
+            $size['depth'] ?? null,
+
+        );
+
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert): bool
+    {
+
+        $size = $this->size;
+        $this->setAttribute('size_json', Json::encode([
+            'width' => $size->width,
+            'height' => $size->height,
+            'depth' => $size->depth,
+        ]));
+
+        return parent::beforeSave($insert);
+    }
+    //====== Photo         ============================================
+
+    public function addPhotoClass(BasePhoto $photo): void
+    {
+        $photos = $this->photos;
+        $photos[] = $photo;
+        $this->updatePhotos($photos);
+    }
+
+    public function addPhoto(BasePhoto $photo): void
+    {
+        $photos = $this->photos;
+        $photos[] = $photo;
+        $this->updatePhotos($photos);
+        $this->updated_at = time();
+    }
+
+    public function removePhoto($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                unset($photos[$i]);
+                $this->updatePhotos($photos);
+                return;
+            }
+        }
+        throw new \DomainException('Фото не найдено.');
+    }
+
+    public function removePhotos(): void
+    {
+        $this->updatePhotos([]);
+    }
+
+    public function movePhotoUp($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($prev = $photos[$i - 1] ?? null) {
+                    $photos[$i - 1] = $photo;
+                    $photos[$i] = $prev;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Фото не найдено.');
+    }
+
+    public function movePhotoDown($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($next = $photos[$i + 1] ?? null) {
+                    $photos[$i] = $next;
+                    $photos[$i + 1] = $photo;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Фото не найдено.');
+    }
+
+    protected function updatePhotos(array $photos): void
+    {
+        foreach ($photos as $i => $photo) {
+            $photo->setSort($i);
+        }
+        $this->photos = $photos;
+        $this->populateRelation('mainPhoto', reset($photos));
+    }
+
 
     //********** Внешние связи **********************
     abstract public function getPhotos(): ActiveQuery;

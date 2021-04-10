@@ -68,10 +68,12 @@ class ProductController extends Controller
 
         $shop = Shop::findOne($id);
         $form = new ProductForm();
+        //scr::v(\Yii::$app->request->post());
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $shop = $this->service->create($form);
-                return $this->redirect(['/shop/product/view', 'id' => $shop->id]);
+
+                $product = $this->service->create($shop->id, $form);
+                return $this->redirect(['/shop/product/view', 'id' => $product->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

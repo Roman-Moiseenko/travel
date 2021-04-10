@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'main_photo_id',
                 'label' => '',
                 'value' => function (Product $model) {
-                    return $model->mainPhoto->getThumbFileUrl('file', 'admin');
+                    return '<img src="' . $model->mainPhoto->getThumbFileUrl('file', 'admin') .'">';
                 },
                 'format' => 'raw',
                 'contentOptions' => ['data-label' => 'Фото'],

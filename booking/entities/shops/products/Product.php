@@ -5,6 +5,7 @@ namespace booking\entities\shops\products;
 
 
 use booking\entities\shops\Shop;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 
 /**
@@ -14,6 +15,9 @@ use yii\db\ActiveQuery;
  * @property integer $deadline -- срок изготовления/отправки (не более)
  * @property boolean $request_available - предзапрос при покупке
  * @property Shop $shop
+ * @property Photo $mainPhoto
+ * @property Photo[] $photos
+ * @property MaterialAssign[] $materialAssign
  */
 class Product extends BaseProduct
 {
@@ -61,6 +65,33 @@ class Product extends BaseProduct
         return '{{%shops_product}}';
     }
 
+    public function behaviors()
+    {
+        $new = [
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'materialAssign',
+                ],
+            ],
+        ];
+        $old = parent::behaviors();
+        return array_merge($new, $old);
+    }
+
+    public function clearMaterial()
+    {
+        $this->materialAssign = [];
+    }
+
+    public function assignMaterial($material)
+    {
+        $assign = $this->materialAssign;
+        $assign[] = MaterialAssign::create($material);
+        $this->materialAssign = $assign;
+    }
+
+
     public function getPhotos(): ActiveQuery
     {
         return $this->hasMany(Photo::class, ['product_id' => 'id']);
@@ -80,4 +111,5 @@ class Product extends BaseProduct
     {
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
     }
+
 }

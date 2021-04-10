@@ -9,6 +9,7 @@ use booking\entities\shops\products\Product;
 use booking\entities\shops\products\Size;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
+use booking\forms\MetaForm;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -60,9 +61,10 @@ class ProductForm extends CompositeForm
 
             //TODO MaterialAssign
             $this->materials = ArrayHelper::getColumn($product->materialAssign, 'material_id');
-
+          //  $this->meta = new MetaForm($product->meta);
         } else {
             $this->size = new SizeForm();
+          //  $this->meta = new MetaForm();
         }
 
         $this->photo = new PhotosForm();

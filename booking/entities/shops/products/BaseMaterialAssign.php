@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * Class MaterialAssign
  * @package booking\entities\shops\products
- * @property integer $shop_id
+ * @property integer $product_id
  * @property integer $material_id
  * @property Material $material
  */
