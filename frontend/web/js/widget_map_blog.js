@@ -14,7 +14,7 @@ $(document).ready(function () {
         let zoom = $('#widget-map-blog').data('zoom');
         if (zoom === undefined) zoom = 10;
         myMapView = new ymaps.Map(document.getElementById("widget-map-blog"), {
-            center: [54.74639455404805, 20.537801017695948],
+            center: [54.70685185623284, 20.509538208007516],
             zoom: zoom
         }, {
             restrictMapArea: [
@@ -26,7 +26,7 @@ $(document).ready(function () {
         myMapView.controls.remove('trafficControl');
         myMapView.controls.remove('geolocationControl');
         myMapView.controls.remove('fullscreenControl');
-        myMapView.setCenter([54.74639455404805, 20.537801017695948], zoom);
+        myMapView.setCenter([54.70685185623284, 20.509538208007516], zoom);
 
         $.post('/post/widget-map', {slug: slug}, function (data) {
 
