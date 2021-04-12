@@ -4,12 +4,15 @@
 namespace frontend\controllers;
 
 
+use booking\entities\blog\map\Point;
 use booking\entities\Lang;
 use booking\forms\blog\CommentForm;
 use booking\repositories\blog\CategoryRepository;
+use booking\repositories\blog\MapRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\blog\TagRepository;
 use booking\services\blog\CommentService;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -21,6 +24,10 @@ class PostController extends Controller
     private $service;
     private $categories;
     private $tags;
+    /**
+     * @var MapRepository
+     */
+    private $maps;
 
     public function __construct(
         $id,
@@ -29,6 +36,7 @@ class PostController extends Controller
         CommentService $service,
         CategoryRepository $categories,
         TagRepository $tags,
+        MapRepository $maps,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -36,6 +44,7 @@ class PostController extends Controller
         $this->service = $service;
         $this->categories = $categories;
         $this->tags = $tags;
+        $this->maps = $maps;
     }
 
     public function actionIndex()
@@ -131,10 +140,25 @@ class PostController extends Controller
     public function actionWidgetMap()
     {
         if (\Yii::$app->request->isAjax) {
-            $params = \Yii::$app->request->bodyParams;
-            $slug = $params['slug'];
-            //получаем все точки из базы
-            return json_encode(['точки данных из базы']);
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                $slug = $params['slug'];
+                //получаем все точки из базы
+                $map = $this->maps->getBySlug($slug);
+                $points = array_map(function (Point $point) {
+                    return [
+                        'caption' => $point->caption,
+                        'address' => $point->geo->address,
+                        'latitude' => $point->geo->latitude,
+                        'longitude' => $point->geo->longitude,
+                        'photo' => $point->getThumbFileUrl('photo', 'map'),
+                        'link' => $point->link,
+                    ];
+                }, $map->points);
+                return json_encode($points);
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
         }
         return $this->goHome();
     }

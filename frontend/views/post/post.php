@@ -6,6 +6,7 @@
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
 use frontend\assets\MagnificPopupAsset;
+use frontend\assets\MapBlogAsset;
 use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -27,7 +28,10 @@ foreach ($post->tags as $tag) {
     $tagLinks[] = Html::a(Html::encode($tag->name), ['tag', 'slug' => $tag->slug]);
 }
 MagnificPopupAsset::register($this);
+MapBlogAsset::register($this);
 ?>
+<span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <article>
     <div itemscope="" itemtype="https://schema.org/Article">
         <span itemprop="name"><h1><?= Html::encode($post->getTitle()) ?></h1></span>
@@ -57,13 +61,7 @@ MagnificPopupAsset::register($this);
         <meta itemprop="author" content="ООО Кёнигс.РУ">
         <meta itemprop="description" content="<?= $post->getDescription() ?>">
         <div itemprop="articleBody">
-            <?= Yii::$app->formatter->asHtml($post->getContent(), [
-                'Attr.AllowedRel' => array('nofollow'),
-                'HTML.SafeObject' => true,
-                'Output.FlashCompat' => true,
-                'HTML.SafeIframe' => true,
-                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-            ]) ?>
+            <?= Yii::$app->formatter->asRaw($post->getContent()) ?>
         </div>
     </div>
 </article>

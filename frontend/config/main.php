@@ -176,6 +176,7 @@ return [
                 'conversation' => 'cabinet/dialog/conversation',
                 'support' => 'cabinet/dialog/support',
                 'post' => 'post/index',
+                'post/widget-map' => 'post/widget-map',
                 'post/tag/<slug:[\w\-]+>' => 'post/tag',
                 'post/<id:\d+>' => 'post/post',
                 'post/<slug:[\w\-]+>' => 'post/category',
