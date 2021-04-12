@@ -15,6 +15,8 @@ use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
+use booking\helpers\scr;
+use booking\helpers\SysHelper;
 use booking\repositories\admin\UserLegalRepository;
 use booking\repositories\admin\UserRepository;
 use booking\services\TransactionManager;
@@ -63,30 +65,7 @@ class UserManageService
         $personal = $user->personal;
         if ($form->photo->files != null) {
             $personal->setPhoto($form->photo->files[0]);
-            $filename = $form->photo->files[0]->tempName;
-            $exif = exif_read_data($filename);
-            if ($exif && isset($exif['Orientation'])) {
-                $orientation = $exif['Orientation'];
-                if ($orientation != 1) {
-                    $img = imagecreatefromjpeg($filename);
-                    $deg = 0;
-                    switch ($orientation) {
-                        case 3:
-                            $deg = 180;
-                            break;
-                        case 6:
-                            $deg = 270;
-                            break;
-                        case 8:
-                            $deg = 90;
-                            break;
-                    }
-                    if ($deg) {
-                        $img = imagerotate($img, $deg, 0);
-                    }
-                    imagejpeg($img, $filename, 95);
-                }
-            }
+            SysHelper::orientation($form->photo->files[0]->tempName);
         }
         $personal->edit(
             $form->phone,
@@ -96,40 +75,9 @@ class UserManageService
             $personal->position = $form->position,
             $form->agreement
         );
-       /* $personal->phone = $form->phone;
-        $personal->dateborn = $form->dateborn;
-        $personal->position = $form->position;
-        $personal->address = new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
-        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);*/
+
         $user->updatePersonal($personal);
         $this->users->save($user);
-       /* if ($form->photo->files != null) {
-            $filename = $personal->getUploadedFilePath('photo');
-            $exif = exif_read_data($filename);
-          //  scr::p($exif);
-            if ($exif && isset($exif['Orientation'])) {
-                $orientation = $exif['Orientation'];
-                if ($orientation != 1) {
-                    $img = imagecreatefromjpeg($filename);
-                    $deg = 0;
-                    switch ($orientation) {
-                        case 3:
-                            $deg = 180;
-                            break;
-                        case 6:
-                            $deg = 270;
-                            break;
-                        case 8:
-                            $deg = 90;
-                            break;
-                    }
-                    if ($deg) {
-                        $img = imagerotate($img, $deg, 0);
-                    }
-                    imagejpeg($img, $filename, 95);
-                }
-            }
-        }*/
     }
 
     /** Не используется */

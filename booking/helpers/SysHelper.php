@@ -34,7 +34,7 @@ class SysHelper
                 if ($deg) {
                     $img = imagerotate($img, $deg, 0);
                 }
-                imagejpeg($img, $filename, 95);
+                imagejpeg($img, $filename, 80);
             }
         }
     }

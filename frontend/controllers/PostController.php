@@ -127,4 +127,15 @@ class PostController extends Controller
             'model' => $form,
         ]);
     }
+
+    public function actionWidgetMap()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $params = \Yii::$app->request->bodyParams;
+            $slug = $params['slug'];
+            //получаем все точки из базы
+            return json_encode(['точки данных из базы']);
+        }
+        return $this->goHome();
+    }
 }

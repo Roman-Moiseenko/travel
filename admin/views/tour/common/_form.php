@@ -74,7 +74,6 @@ use yii\helpers\Html;
                         <?= $form->field($model->address, 'longitude')->textInput(['maxlength' => true, 'readOnly' => true])->label(false) ?>
                     </div>
                 </div>
-
                 <div class="row">
                     <div id="map" style="width: 100%; height: 400px"></div>
                 </div>
