@@ -51,7 +51,7 @@ class Point extends ActiveRecord
 
     public function equal(Point $point): bool
     {
-        return $this->caption == $point->caption || $this->link == $point->link;
+        return $this->caption == $point->caption || ($this->link == $point->link && !empty($point->link));
     }
 
     public function isFor($id): bool
