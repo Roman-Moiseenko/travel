@@ -38,7 +38,7 @@ use yii\helpers\Json;
  * @property Size $size - размер
  * @property string $size_json
  * @property integer $main_photo_id
- *
+ * @property integer $views
  * @property string $meta_json
  * @property BasePhoto $mainPhoto
  * @property BasePhoto[] $photos
@@ -79,6 +79,8 @@ abstract class BaseProduct extends ActiveRecord
 
             $this->active = false;
             $this->created_at = time();
+
+            $this->views = 0;
         }
     }
 
@@ -138,6 +140,11 @@ abstract class BaseProduct extends ActiveRecord
     final public function setMeta(Meta $meta): void
     {
         $this->meta = $meta;
+    }
+
+    final public function upViews()
+    {
+        $this->views++;
     }
 
     public function behaviors()
@@ -280,14 +287,11 @@ abstract class BaseProduct extends ActiveRecord
 
     abstract public function getReviews(): ActiveQuery;
 
+    abstract public function getMaterialAssign(): ActiveQuery;
+
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
-    }
-
-    public function getMaterialAssign(): ActiveQuery
-    {
-        return $this->hasMany(MaterialAssign::class, ['product_id' => 'id']);
     }
 
     public function getMaterials(): ActiveQuery

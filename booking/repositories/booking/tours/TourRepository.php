@@ -28,12 +28,10 @@ class TourRepository
         return Tour::find()->active()->andWhere(['legal_id' => $legal_id])->all();
     }
 
-
     public function getByAdminList($user_id)
     {
         return Tour::find()->active()->andWhere(['user_id' => $user_id])->orderBy(['name' => SORT_ASC])->all();
     }
-
 
     public function getByUser($user_id)
     {
@@ -126,33 +124,33 @@ class TourRepository
     private function getProvider(ActiveQuery $query): ActiveDataProvider
     {
         return new ActiveDataProvider([
-                'query' => $query,
-                'sort' => [
-                    'defaultOrder' => ['id' => SORT_DESC],
-                    'attributes' => [
-                        'id' => [
-                            'asc' => ['t.public_at' => SORT_ASC], 'desc' => ['t.public_at' => SORT_DESC],
-                        ],
-                        'name' => [
-                            'asc' => ['t.name' => SORT_ASC], 'desc' => ['t.name' => SORT_DESC],
-                        ],
-                        'date' => [
-                            'asc' => ['t.created_at' => SORT_ASC], 'desc' => ['t.created_at' => SORT_DESC],
-                        ],
-                        'cost' => [
-                            'asc' => ['t.cost_adult' => SORT_ASC], 'desc' => ['t.cost_adult' => SORT_DESC],
-                        ],
-                        'rating' => [
-                            'asc' => ['t.rating' => SORT_ASC], 'desc' => ['t.rating' => SORT_DESC],
-                        ],
-
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC],
+                'attributes' => [
+                    'id' => [
+                        'asc' => ['t.public_at' => SORT_ASC], 'desc' => ['t.public_at' => SORT_DESC],
                     ],
+                    'name' => [
+                        'asc' => ['t.name' => SORT_ASC], 'desc' => ['t.name' => SORT_DESC],
+                    ],
+                    'date' => [
+                        'asc' => ['t.created_at' => SORT_ASC], 'desc' => ['t.created_at' => SORT_DESC],
+                    ],
+                    'cost' => [
+                        'asc' => ['t.cost_adult' => SORT_ASC], 'desc' => ['t.cost_adult' => SORT_DESC],
+                    ],
+                    'rating' => [
+                        'asc' => ['t.rating' => SORT_ASC], 'desc' => ['t.rating' => SORT_DESC],
+                    ],
+
                 ],
-                'pagination' => [
-                    'defaultPageSize' => \Yii::$app->params['paginationTour'],
-                    'pageSizeLimit' => [\Yii::$app->params['paginationTour'], \Yii::$app->params['paginationTour']],
-                ],
-            ]);
+            ],
+            'pagination' => [
+                'defaultPageSize' => \Yii::$app->params['paginationTour'],
+                'pageSizeLimit' => [\Yii::$app->params['paginationTour'], \Yii::$app->params['paginationTour']],
+            ],
+        ]);
     }
 
     public function findBySlug($slug)
@@ -163,7 +161,7 @@ class TourRepository
         return $tour;
     }
 
-    public function find($id):? Tour
+    public function find($id): ?Tour
     {
         return Tour::findOne($id);
     }

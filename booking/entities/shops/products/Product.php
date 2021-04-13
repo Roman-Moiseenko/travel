@@ -4,6 +4,7 @@
 namespace booking\entities\shops\products;
 
 
+use booking\entities\shops\products\queries\ProductQuery;
 use booking\entities\shops\Shop;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
@@ -14,10 +15,13 @@ use yii\db\ActiveQuery;
  * @property ReviewProduct[] $reviews
  * @property integer $deadline -- срок изготовления/отправки (не более)
  * @property boolean $request_available - предзапрос при покупке
+ * @property integer $buys
+ * @property integer $quantity
  * @property Shop $shop
  * @property Photo $mainPhoto
  * @property Photo[] $photos
  * @property MaterialAssign[] $materialAssign
+ * @property Material[] $materials
  */
 class Product extends BaseProduct
 {
@@ -25,7 +29,7 @@ class Product extends BaseProduct
     public static function create($name, $name_en, $description, $description_en,
                                   $weight, $size, $article, $collection, $color,
                                   $manufactured_id, $category_id, $cost, $discount,
-                                  $deadline, $request_available): self
+                                  $deadline, $request_available, $quantity): self
     {
         $product = new static($name, $name_en, $description, $description_en,
             $weight, $size, $article, $collection, $color,
@@ -33,12 +37,15 @@ class Product extends BaseProduct
 
         $product->deadline = $deadline;
         $product->request_available = $request_available;
+        $product->buys = 0;
+        $product->quantity = $quantity;
         return $product;
     }
+
     public function edit($name, $name_en, $description, $description_en,
                          $weight, $size, $article, $collection, $color,
                          $manufactured_id, $category_id, $cost, $discount,
-                         $deadline, $request_available): void
+                         $deadline, $request_available, $quantity): void
     {
         $this->name = $name;
         $this->name_en = $name_en;
@@ -55,6 +62,7 @@ class Product extends BaseProduct
         $this->category_id = $category_id;
         $this->cost = $cost;
         $this->discount = $discount;
+        $this->quantity = $quantity;
 
         $this->deadline = $deadline;
         $this->request_available = $request_available;
@@ -110,6 +118,16 @@ class Product extends BaseProduct
     public function getShop(): ActiveQuery
     {
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
+    }
+
+    public function getMaterialAssign(): ActiveQuery
+    {
+        return $this->hasMany(MaterialAssign::class, ['product_id' => 'id']);
+    }
+
+    public static function find(): ProductQuery
+    {
+        return new ProductQuery(static::class);
     }
 
 }

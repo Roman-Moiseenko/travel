@@ -62,7 +62,7 @@ $this->registerJs($js);
     'enableClientValidation' => false,
 ]); ?>
     <div class="card card-secondary">
-        <div class="card-header with-border">Основные</div>
+        <div class="card-header with-border">Описание</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-6">
@@ -90,6 +90,28 @@ $this->registerJs($js);
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="card card-secondary">
+    <div class="card-header with-border">Ценообразование</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'cost')->textInput(['type' => 'number'])->label('Стоимость') ?>
+                </div>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'quantity')->textInput(['type' => 'number'])->label('Количество')
+                        ->hint('Укажите кол-во товара в наличии, если товар постоянно поступает, укажите большое число, например 9999') ?>
+                </div>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'discount')->textInput(['type' => 'number'])->label('Скидка для онлайн (%)') ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($model, 'request_available')->checkbox([])->label('Требуется подтверждение продавца при продаже') ?>
+                </div>
             </div>
         </div>
     </div>
@@ -130,24 +152,14 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <?= $form->field($model, 'manufactured_id')->dropdownList(ManufacturedHelper::list(), ['prompt' => ''])->label('Тип производства') ?>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <?= $form->field($model, 'deadline')->textInput(['type' => 'number'])->label('Срок производства (дней)') ?>
                 </div>
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'cost')->textInput(['type' => 'number'])->label('Стоимость') ?>
-                </div>
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'discount')->textInput(['type' => 'number'])->label('Скидка для онлайн (%)') ?>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->field($model, 'request_available')->checkbox([])->label('Требуется подтверждение продавца при продаже') ?>
-                </div>
-            </div>
+
         </div>
     </div>
 

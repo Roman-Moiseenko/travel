@@ -7,6 +7,7 @@ namespace admin\controllers\shop;
 use admin\forms\shops\ProductSearch;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
+use booking\forms\shops\CostModalForm;
 use booking\forms\shops\ProductForm;
 use booking\helpers\scr;
 use booking\services\shops\ProductService;
@@ -48,18 +49,21 @@ class ProductController extends Controller
         $searchModel = new ProductSearch(); //$id - shop_id
         $shop = Shop::findOne($id);
         $dataProvider = $searchModel->search($id, \Yii::$app->request->queryParams);
+        $form = new CostModalForm();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'shop' => $shop,
+            'model' => $form,
         ]);
     }
 
     public function actionView($id)
     {
-        $shop = $this->findModel($id);
+        $product = $this->findModel($id);
         return $this->render('view', [
-            'shop' => $shop,
+            'shop' => $product->shop,
+            'product' => $product,
         ]);
     }
 
@@ -68,7 +72,6 @@ class ProductController extends Controller
 
         $shop = Shop::findOne($id);
         $form = new ProductForm();
-        //scr::v(\Yii::$app->request->post());
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
 
@@ -104,6 +107,26 @@ class ProductController extends Controller
             'product' => $product,
         ]);
     }
+
+    public function actionDelete($id)
+    {
+        $this->service->remove($id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionActive($id)
+    {
+        $this->service->active($id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+
+    public function actionDraft($id)
+    {
+        $this->service->draft($id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
 
     private function findModel($id): Product
     {

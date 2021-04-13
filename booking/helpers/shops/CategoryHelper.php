@@ -20,4 +20,10 @@ class CategoryHelper
             }
         );
     }
+
+    public static function name($id): string
+    {
+        $result = Category::findOne($id);
+        return $result->name;
+    }
 }

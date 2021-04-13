@@ -352,6 +352,7 @@ class TourService
         /** @var Tour $tour */
         $tour = $this->tours->get($id);
         if ($tour->isPrivate() && $tickets != 1) {
+            //TODO Сделать вызов исключения и отлавливать выше
             return 'Для индивидуального тура кол-во билетов должно быть равно 1';
         }
 
@@ -366,13 +367,6 @@ class TourService
                 $tickets
             )
         );
-           /* $tour_at,
-            $time_at,
-            $tickets,
-            $cost_adult,
-            $cost_child,
-            $cost_preference
-        );*/
         $this->tours->save($tour);
     }
 

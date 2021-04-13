@@ -119,7 +119,7 @@ return [
                 'shops' => '/shops/index',
                 'shop/products/<id:\d+>' => '/shop/product/index',
                 'shop/update/<id:\d+>' => '/shop/shop/update',
-                'shop/create/<id:\d+>' => '/shop/shop/create',
+                'shop/create' => '/shop/shop/create',
                 'shop/verify' => '/shop/shop/verify',
                 'shop/<id:\d+>' => '/shop/shop/view',
                 'shop/product' => '/shop/product/view',

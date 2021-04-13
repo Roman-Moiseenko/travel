@@ -9,6 +9,8 @@ return [
     'paginationTour' => 24,
     'paginationCar' => 16,
     'paginationFun' => 24,
+    'paginationStay' => 24,
+    'paginationFood' => 24,
     'paginationPost' => 10,
     'mode_confirmation' => false, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
     'notSMS' => false,

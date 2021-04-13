@@ -9,7 +9,7 @@ use booking\entities\shops\products\Product;
 
 class ProductRepository
 {
-    public function get($id): BaseProduct
+    public function get($id): Product
     {
         if (!$product = Product::findOne($id)) {
             throw new \DomainException('Продукт не найден');

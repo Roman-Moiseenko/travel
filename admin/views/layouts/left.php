@@ -3,7 +3,7 @@
 use admin\widgest\ProfileLeftBarWidget;
 use yii\helpers\Url;
 
-$test = 'saint' == \Yii::$app->user->identity->username || 'admin' == \Yii::$app->user->identity->username;
+$test = 'Saint' == \Yii::$app->user->identity->username || 'saint' == \Yii::$app->user->identity->username || 'admin' == \Yii::$app->user->identity->username;
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->

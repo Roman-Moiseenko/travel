@@ -33,6 +33,7 @@ class ProductForm extends CompositeForm
     public $category_id;
     public $cost;
     public $discount;
+    public $quantity;
 
     public $deadline;
     public $request_available;
@@ -55,16 +56,14 @@ class ProductForm extends CompositeForm
             $this->category_id = $product->category_id;
             $this->cost = $product->cost;
             $this->discount = $product->discount;
+            $this->quantity = $product->quantity;
 
             $this->deadline = $product->deadline;
             $this->request_available = $product->request_available;
 
-            //TODO MaterialAssign
             $this->materials = ArrayHelper::getColumn($product->materialAssign, 'material_id');
-          //  $this->meta = new MetaForm($product->meta);
         } else {
             $this->size = new SizeForm();
-          //  $this->meta = new MetaForm();
         }
 
         $this->photo = new PhotosForm();
@@ -75,7 +74,7 @@ class ProductForm extends CompositeForm
     {
         return [
             [['name', 'name_en', 'description', 'description_en', 'collection', 'article', 'color'], 'string'],
-            [['weight', 'manufactured_id', 'category_id', 'cost', 'discount', 'deadline'], 'integer'],
+            [['weight', 'manufactured_id', 'category_id', 'cost', 'discount', 'deadline', 'quantity'], 'integer'],
             [['request_available'], 'boolean'],
             ['materials', 'each', 'rule' => ['integer']],
         ];

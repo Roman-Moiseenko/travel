@@ -3,7 +3,7 @@
 
 namespace booking\entities\shops\products;
 
-
+use booking\entities\shops\products\queries\AdProductQuery;
 use yii\db\ActiveQuery;
 
 class AdProduct extends BaseProduct
@@ -28,5 +28,15 @@ class AdProduct extends BaseProduct
     public function getReviews(): ActiveQuery
     {
         // TODO: Implement getReviews() method.
+    }
+
+    public static function find(): AdProductQuery
+    {
+        return new AdProductQuery(static::class);
+    }
+
+    public function getMaterialAssign(): ActiveQuery
+    {
+        // TODO: Implement getMaterialAssign() method.
     }
 }
