@@ -26,7 +26,6 @@ use yii\helpers\Json;
  * Class Shop
  * @package booking\entities\shops
  ********************************* Внешние связи
- * @property ReviewShop[] $reviews
  * @property Product[] $products
  *
  *********************************** Скрытые поля
@@ -40,23 +39,14 @@ class Shop extends BaseShop
     public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): Shop
     {
         $shop = new static($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id);
-        //TODO свои параметры
         $shop->delivery = new Delivery();
         return $shop;
     }
-
-    //**************** Set ****************************
 
     public function setDelivery(Delivery $delivery): void
     {
         $this->delivery = $delivery;
     }
-
-
-    //**************** Get ****************************
-
-
-    //**************** is ****************************
 
     public function isAd(): bool
     {
@@ -91,7 +81,6 @@ class Shop extends BaseShop
 
     public function beforeSave($insert): bool
     {
-
         $delivery = $this->delivery;
         $this->setAttribute('delivery_json', Json::encode([
             'onCity' => $delivery->onCity,
@@ -112,12 +101,6 @@ class Shop extends BaseShop
     }
 
     //****** Внешние связи ****************************
-
-
-    public function getReviews(): ActiveQuery
-    {
-        return $this->hasMany(ReviewShop::class, ['shop_id' => 'id']);
-    }
 
     public function getProducts(): ActiveQuery
     {

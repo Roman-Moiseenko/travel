@@ -59,7 +59,6 @@ class CommonController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $tour = $this->service->create($form);
-
                 if ($tour->filling) {
                     return $this->redirect($this->service->next_filling($tour));
                 } else {

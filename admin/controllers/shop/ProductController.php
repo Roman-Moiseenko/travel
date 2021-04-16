@@ -50,6 +50,15 @@ class ProductController extends Controller
         $shop = Shop::findOne($id);
         $dataProvider = $searchModel->search($id, \Yii::$app->request->queryParams);
         $form = new CostModalForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->setCost($form);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

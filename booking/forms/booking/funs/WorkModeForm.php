@@ -31,10 +31,8 @@ class WorkModeForm extends Model
         return [
             [['day_begin', 'day_end', 'break_begin', 'break_end'], 'string', 'enableClientValidation' => false],
             //[['day_begin', 'day_end'], 'notEmptyDay', 'skipOnEmpty' => false, 'skipOnError' => false],
-
         ];
     }
-
 
     public function beforeValidate()
     {

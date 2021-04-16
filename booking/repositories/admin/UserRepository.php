@@ -2,9 +2,15 @@
 
 namespace booking\repositories\admin;
 
+use booking\entities\admin\Debiting;
+use booking\entities\admin\Deposit;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\Lang;
+use booking\helpers\scr;
+use yii\data\ActiveDataProvider;
+use yii\data\DataProviderInterface;
+use yii\db\ActiveQuery;
 
 class UserRepository
 {
@@ -76,5 +82,38 @@ class UserRepository
         return User::find()->select(['email'])->andWhere(['status' => User::STATUS_ACTIVE])->asArray()->column();
     }
 
+    public function searchDeposit($user_id, $search = null): DataProviderInterface
+    {
+        $query = Deposit::find()->andWhere(['user_id' => $user_id]);
+        return $this->getProvider($query);
+    }
+
+    public function searchDebiting($user_id, $search = null): DataProviderInterface
+    {
+        $query = Debiting::find()->andWhere(['user_id' => $user_id]);
+        return $this->getProvider($query);
+    }
+
+    private function getProvider(ActiveQuery $query): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['created_at' => SORT_DESC],
+               /* 'attributes' => [
+                    'amount' => [
+                        'asc' => ['amount' => SORT_ASC], 'desc' => ['amount' => SORT_DESC],
+                    ],
+                    'date' => [
+                        'asc' => ['created_at' => SORT_ASC], 'desc' => ['created_at' => SORT_DESC],
+                    ],
+                ],*/
+            ],
+            'pagination' => [
+                'defaultPageSize' => 30,
+                'pageSizeLimit' => [30, 30],
+            ],
+        ]);
+    }
 
 }

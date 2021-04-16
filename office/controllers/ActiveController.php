@@ -5,6 +5,7 @@ namespace office\controllers;
 
 
 use booking\entities\Rbac;
+use office\forms\AdShopsSearch;
 use office\forms\CarsSearch;
 use office\forms\FunsSearch;
 use office\forms\ShopsSearch;
@@ -66,6 +67,11 @@ class ActiveController extends Controller
         ]);
         $dataProviderShops = $searchModelShops->search(\Yii::$app->request->queryParams);
 
+        $searchModelShopsAd = new AdShopsSearch([
+            'verify' => true,
+        ]);
+        $dataProviderShopsAd = $searchModelShopsAd->search(\Yii::$app->request->queryParams);
+
         return $this->render('index', [
             'searchModelTours' => $searchModelTours,
             'dataProviderTours' => $dataProviderTours,
@@ -81,6 +87,9 @@ class ActiveController extends Controller
 
             'searchModelShops' => $searchModelShops,
             'dataProviderShops' => $dataProviderShops,
+
+            'dataProviderShopsAd' => $dataProviderShopsAd,
+            'searchModelShopsAd' => $searchModelShopsAd,
         ]);
 
 

@@ -14,15 +14,15 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $sort
  * @property integer $product_id
  * @property string $alt
- * @property BaseProduct $main
+ * @property AdProduct $main
  * @mixin ImageUploadBehavior
  */
 
 class AdPhoto extends BasePhoto
 {
 
-    protected $catalog = 'products';
-    protected $name_id = 'prduct_id';
+    protected $catalog = 'products_ad';
+    protected $name_id = 'product_id';
 
     public static function tableName()
     {
@@ -31,7 +31,7 @@ class AdPhoto extends BasePhoto
 
     public function getMain(): ActiveQuery
     {
-        return $this->hasOne(BaseProduct::class, ['id' => 'product_id']);
+        return $this->hasOne(AdProduct::class, ['id' => 'product_id']);
 
     }
 

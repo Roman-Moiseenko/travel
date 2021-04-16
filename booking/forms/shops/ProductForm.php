@@ -76,6 +76,7 @@ class ProductForm extends CompositeForm
             [['name', 'name_en', 'description', 'description_en', 'collection', 'article', 'color'], 'string'],
             [['weight', 'manufactured_id', 'category_id', 'cost', 'discount', 'deadline', 'quantity'], 'integer'],
             [['request_available'], 'boolean'],
+            [['manufactured_id', 'cost', 'name', 'description'], 'required', 'message' => 'Обязательное поле'],
             ['materials', 'each', 'rule' => ['integer']],
         ];
     }

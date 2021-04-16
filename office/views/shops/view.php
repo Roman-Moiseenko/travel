@@ -3,6 +3,7 @@
 use booking\entities\admin\Legal;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\shops\ShopTypeHelper;
 use frontend\assets\MagnificPopupAsset;
 use yii\helpers\ArrayHelper;
@@ -111,5 +112,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['inde
     <div class="card">
         <div class="card-header">Товары</div>
         <div class="card-body">
+            <table class="table table-adaptive table-striped">
+                <tr></tr>
+                <?php foreach ($shop->products as $i => $product): ?>
+                <tr>
+                    <td width="20px"><?= $i + 1 ?></td>
+                    <td><img src="<?= $product->mainPhoto->getThumbFileUrl('file', 'admin') ?>"></td>
+                    <td><?= $product->name ?></td>
+                    <td><?= CurrencyHelper::stat($product->cost) ?></td>
+                    <td><?= $product->views ?></td>
+                    <td><?= $product->buys ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
     </div>

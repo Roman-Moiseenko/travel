@@ -41,9 +41,9 @@ class CarParamsForm extends CompositeForm
         $address = array_map(function (BookingAddress $address) {
             return new BookingAddressForm($address);
         }, $car->address);
-
+        $n = 10 - count($address);
         //Добавляем до 10 точек
-        for ($i = 1; $i <= 10 - count($address); $i++) {
+        for ($i = 1; $i <= $n; $i++) {
             $address[] = new BookingAddressForm();
         }
         $this->address = $address;

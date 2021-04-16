@@ -38,7 +38,8 @@ use yii\helpers\Url;
                         ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
                         ['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                         ['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
-                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
+                        ['label' => ' - Магазины', 'icon' => 'store-alt', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
+                        ['label' => ' - Витрины', 'icon' => 'store', 'url' => ['/shops-ad'], 'active' => $this->context->id == 'shops-ad'],
                     ]],
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
                         ['label' => ' - Туры', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],

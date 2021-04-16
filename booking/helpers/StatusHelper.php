@@ -51,4 +51,9 @@ class StatusHelper
 
         return $check ? '<span class="badge badge-' . $yes . '">Да</span>' : '<span class="badge badge-' . $no . '">Нет</span>';
     }
+
+    public static function check($status, array $options = [true => '', false => ''])
+    {
+        return $status ? '<span class="badge badge-success">' . $options[true] . '</span>' : '<span class="badge badge-secondary">' . $options[false] . '</span>';
+    }
 }

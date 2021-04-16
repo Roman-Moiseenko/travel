@@ -4,8 +4,9 @@
 namespace booking\services\finance;
 
 
+use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
-use booking\entities\finance\Check54;
+//use booking\entities\finance\Check54;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use YooKassa\Client;
@@ -25,6 +26,7 @@ class YKassaService
         $this->client->setAuth($this->yandexkassa['login'], $this->yandexkassa['password']);
     }
 
+    //Оплата клиентами бронирования
     public function invoice(BaseBooking $booking)
     {
             $payment = $this->client->createPayment(
@@ -64,6 +66,56 @@ class YKassaService
                 uniqid('', true)
             );
             return $payment;
+    }
+
+    //Пополнение баланса провйдерам
+    public function invoiceAdmin(User $user, $amount)
+    {
+        //TODO Настройка параметров
+        $payment = $this->client->createPayment(
+            [
+                'amount' => [
+                    'value' => $amount,
+                    'currency' => 'RUB',
+                ],
+                'payment_method_data' => $this->yandexkassa['payment_method_data'],
+                'receipt' => [
+                    'customer' => [
+                        'full_name' => $user->username,
+                        'email' => $user->email,
+                    ],
+                    'items' => [
+                        [
+                            'description' => 'Оплата рекламных услуг на сайте Koenigs.ru',
+                            'quantity' => 1,
+                            'amount' => ['value' => $amount, 'currency' => 'RUB'],
+                            'vat_code' => 1
+                        ],
+                    ],
+                    'email' => $user->email,
+                ],
+                'confirmation' => [
+                    'type' => 'redirect',
+                    'return_url' => \Yii::$app->params['adminHostInfo'] . '/deposit/',
+                    'locale' => 'ru_RU',
+                ],
+                'capture' => true,
+                'description' => $user->username . ' #' . $amount,
+                'metadata' => [
+                    'class' => User::class,
+                    'id' => $user->id,
+                ],
+            ],
+            uniqid('', true)
+        );
+        return $payment;
+    }
+
+    //Оплата клиентами товаров в корзине
+
+    public function invoiceShop()
+    {
+        //TODO invoiceShop()
     }
 
     public function check($payment_id)

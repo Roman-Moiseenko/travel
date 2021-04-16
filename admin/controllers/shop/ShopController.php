@@ -56,7 +56,7 @@ class ShopController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $shop = $this->service->create($form);
-                return $this->redirect(['/shop/view', 'id' => $shop->id]);
+                return $this->redirect(['/shop/products/' . $shop->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

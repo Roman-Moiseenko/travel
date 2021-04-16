@@ -316,7 +316,7 @@ class ContactService
         }
     }
 
-    public function sendLockShop(\booking\entities\shops\Shop $shop)
+    public function sendLockShop(\booking\entities\shops\BaseShop $shop)
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockShop', ['shop' => $shop])

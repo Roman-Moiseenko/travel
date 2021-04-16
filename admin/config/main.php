@@ -124,6 +124,13 @@ return [
                 'shop/<id:\d+>' => '/shop/shop/view',
                 'shop/product' => '/shop/product/view',
 
+                'shop-ad/products/<id:\d+>' => '/shop/product-ad/index',
+                'shop-ad/update/<id:\d+>' => '/shop/shop-ad/update',
+                'shop-ad/create' => '/shop/shop-ad/create',
+                'shop-ad/verify' => '/shop/shop-ad/verify',
+                'shop-ad/<id:\d+>' => '/shop/shop-ad/view',
+                'shop-ad/product' => '/shop/product-ad/view',
+
                 'cabinet/profile' => '/cabinet/profile/index',
                 'legal' => '/legal/index',
                 'cabinet/auth' => '/cabinet/auth/index',

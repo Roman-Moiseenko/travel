@@ -17,16 +17,22 @@ abstract class CompositeForm extends Model
     {
         $success = parent::load($data, $formName);
         foreach ($this->forms as $name => $form) {
+          //  scr::_p($name);
             if (is_array($form)) {
                 if (!empty($form)) {
+                 //   scr::_p($name);
+                 //   scr::_v($success);
                     $success = Model::loadMultiple($form, $data, $formName === null ? null : $name) && $success;
+                 //   scr::_v($success);
                 } else {
                     $success = true && $success;
                 }
             } else {
                 $success =  $form->load($data, $formName !== '' ? null : $name) && $success;
             }
+            //scr::_v($success);
         }
+       // scr::v($success);
         return $success;
     }
 

@@ -43,7 +43,7 @@ class  AuthController extends Controller
                     'login' => [
                         'actions' => ['login'],
                         'allow' => true,
-                        'roles' => ['?'],
+                       // 'roles' => ['?'],
                     ],
                 ],
             ],
@@ -72,7 +72,7 @@ class  AuthController extends Controller
             try {
                 $user = $this->authService->auth($form);
                 Yii::$app->user->login($user, $form->rememberMe ? 3600 * 24 * 30 : 0);
-                return $this->goHome();
+                return $this->redirect(['/']);
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }

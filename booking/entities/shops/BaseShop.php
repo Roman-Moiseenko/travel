@@ -41,10 +41,10 @@ use yii\db\ActiveRecord;
 
  ********************************* Внешние связи
  * @property BaseProduct[] $products
- * @property BaseReview[] $reviews
  * @property User $user
  * @property Legal $legal
  *********************************** Скрытые поля
+ * @property string $url
  */
 
 abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
@@ -65,22 +65,6 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
             $this->status = StatusHelper::STATUS_INACTIVE;
         }
     }
-
-   // abstract public static function create(): self;
-   /* public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
-    {
-        $shop = new static($user_id);
-        $shop->created_at = time();
-        $shop->user_id = $user_id;
-        $shop->legal_id = $legal_id;
-        $shop->name = $name;
-        $shop->name_en = $name_en;
-        $shop->description = $description;
-        $shop->description_en = $description_en;
-        $shop->type_id = $type_id;
-        $shop->status = StatusHelper::STATUS_INACTIVE;
-        return $shop;
-    }*/
 
     public function edit($legal_id, $name, $name_en, $description, $description_en, $type_id): void
     {
@@ -150,12 +134,6 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
     {
         return [
             TimestampBehavior::class,
-            [
-                'class' => SaveRelationsBehavior::class,
-                'relations' => [
-                    'reviews',
-                ],
-            ],
         ];
     }
 
@@ -183,62 +161,10 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
 
    }
 
-    //====== Review        ============================================
 
-    public function addReview(BaseReview $review): BaseReview
-    {
-        $reviews = $this->reviews;
-        $reviews[] = $review;
-        $this->updateReviews($reviews);
-        return $review;
-    }
-
-    public function editReview($id, $vote, $text): void
-    {
-
-        $reviews = $this->reviews;
-        foreach ($reviews as $review) {
-            if ($review->isIdEqualTo($id)) {
-                $review->edit($vote, $text);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function removeReview($id): void
-    {
-        $reviews = $this->reviews;
-        foreach ($reviews as $i => $review) {
-            if ($review->isIdEqualTo($id)) {
-                unset($reviews[$i]);
-                $this->updateReviews($reviews);
-                return;
-            }
-        }
-        throw new \DomainException('Отзыв не найден');
-    }
-
-    public function countReviews(): int
-    {
-        $reviews = $this->reviews;
-        return count($reviews);
-    }
-
-    private function updateReviews(array $reviews): void
-    {
-        $total = 0;
-        /* @var BaseReview $review */
-        foreach ($reviews as $review) {
-            $total += $review->getRating();
-        }
-        $this->reviews = $reviews;
-        $this->rating = $total / count($reviews);
-    }
     //====== Внешние связи        ============================================
 
-    abstract public function getReviews(): ActiveQuery;
+
     abstract public function getProducts(): ActiveQuery;
 
     public function getUser(): ActiveQuery

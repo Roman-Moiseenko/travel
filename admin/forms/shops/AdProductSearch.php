@@ -1,36 +1,40 @@
 <?php
 
+
 namespace admin\forms\shops;
 
-use booking\entities\shops\Shop;
-use booking\entities\shops\TypeShop;
-use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 
-class ShopSearch extends Shop
+use booking\entities\shops\products\AdProduct;
+use yii\data\ActiveDataProvider;
+
+
+class AdProductSearch extends AdProduct
 {
 
     /**
      * {@inheritdoc}
      */
+
     public function rules()
     {
         return [
-            [['type_id', 'status'], 'integer'],
+            [['category_id'], 'integer'],
             [['name'], 'safe'],
+            [['active'], 'boolean'],
         ];
     }
 
     /**
      * Creates data provider instance with search query applied
      *
+     * @param $shop_id
      * @param array $params
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($shop_id, $params)
     {
-        $query = Shop::find()->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
+        $query = AdProduct::find()->andWhere(['shop_id' => $shop_id]); //'mainPhoto',
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -51,12 +55,13 @@ class ShopSearch extends Shop
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type_id' => $this->type_id,
-            'status' => $this->status,
+            'category_id' => $this->category_id,
+            'active' => $this->active,
         ]);
         $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
+
 
 }

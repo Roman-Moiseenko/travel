@@ -9,6 +9,7 @@ use booking\entities\shops\products\BaseProduct;
 use booking\entities\shops\products\Photo;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\products\Size;
+use booking\forms\shops\CostModalForm;
 use booking\forms\shops\ProductForm;
 use booking\repositories\shops\ProductRepository;
 
@@ -122,6 +123,15 @@ class ProductService
     {
         $product = $this->products->get($id);
         $product->draft();
+        $this->products->save($product);
+    }
+
+    public function setCost(CostModalForm $form)
+    {
+        $product = $this->products->get($form->id);
+        $product->cost = $form->cost;
+        $product->quantity = $form->quantity;
+        $product->discount = $form->discount;
         $this->products->save($product);
     }
 }

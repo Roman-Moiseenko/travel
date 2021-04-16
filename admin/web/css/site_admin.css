@@ -475,3 +475,40 @@ div.required label:after {
     float: left;
     margin-left: 20px;
 }
+
+ul.pagination {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+ul.pagination li span {
+    /*color: black;*/
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px !important;
+    cursor: not-allowed;
+    color: #828282;
+}
+
+ul.pagination>li.active>a{
+    background-color: #2980a5;
+    color: white;
+    border-radius: 5px;
+}
+
+ul.pagination li:not(.active) a:hover {
+    background-color: #ddd;
+    color: #565656;
+}

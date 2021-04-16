@@ -3,6 +3,8 @@
 
 namespace booking\services\admin;
 
+use booking\entities\admin\Debiting;
+use booking\entities\admin\Deposit;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
@@ -43,6 +45,22 @@ class UserManageService
         $this->users = $users;
         $this->transaction = $transaction;
         $this->legals = $legals;
+    }
+
+    //************* Balance ***************
+
+    public function addDeposit($id, $amount, $payment_id): void
+    {
+        $user = $this->users->get($id);
+        $user->newDeposit(Deposit::create($amount, $payment_id));
+        $this->users->save($user);
+    }
+
+    public function addDebiting($id, $amount, $type, $link): void
+    {
+        $user = $this->users->get($id);
+        $user->newDebiting(Debiting::create($amount, $type, $link));
+        $this->users->save($user);
     }
 
     public function lock($id)
@@ -256,6 +274,15 @@ class UserManageService
         $user = $this->users->get($id);
         $user->setForumRole($role);
         $this->users->save($user);
+    }
+
+    public function ConfirmationToUpDeposit(string $id)
+    {
+
+            $deposit = Deposit::findOne(['payment_id' => $id]);
+            $deposit->setPay();
+            $deposit->save();
+
     }
 
     private function ExcangeName($name): string

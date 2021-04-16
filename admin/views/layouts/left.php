@@ -29,6 +29,7 @@ $test = 'Saint' == \Yii::$app->user->identity->username || 'saint' == \Yii::$app
                     $test ? ['label' => 'Мои Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'] : false,
                     $test ? ['label' => 'Мои Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'] : false,
                     ['label' => 'Мои организации', 'icon' => 'registered', 'url' => ['/legal'], 'active' => $this->context->id == 'legal'],
+                    $test ? ['label' => 'Мой баланс', 'icon' => 'ruble-sign', 'url' => ['/balance'], 'active' => $this->context->id == 'balance'] : false,
                     ['label' => 'Сотрудники', 'icon' => 'users', 'url' => ['/staff'], 'active' => $this->context->id == 'staff'],
                     ['label' => 'Форум', 'icon' => 'volume-up', 'url' => ['/forum'], 'active' => $this->context->id == 'forum'],
                 ]),

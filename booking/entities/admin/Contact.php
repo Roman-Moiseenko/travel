@@ -16,6 +16,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $name
  * @property integer $type
  * @property string $prefix
+ * @mixin ImageUploadBehavior
  */
 class Contact extends ActiveRecord
 {

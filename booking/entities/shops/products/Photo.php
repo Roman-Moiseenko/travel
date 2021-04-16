@@ -14,7 +14,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $sort
  * @property integer $product_id
  * @property string $alt
- * @property BaseProduct $main
+ * @property Product $main
  * @mixin ImageUploadBehavior
  */
 
@@ -31,7 +31,7 @@ class Photo extends BasePhoto
 
     public function getMain(): ActiveQuery
     {
-        return $this->hasOne(BaseProduct::class, ['id' => 'product_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
 
     }
 

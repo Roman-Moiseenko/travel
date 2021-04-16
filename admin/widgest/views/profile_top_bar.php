@@ -3,11 +3,13 @@
 /* @var $user \booking\entities\admin\User */
 /* @var $userImage string */
 /* @var $userName string */
+
+use booking\helpers\CurrencyHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 
-<li class="nav-item dropdown user-menu">
+<li class="nav-item dropdown user-menu hidden-for-large-down">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         <img src="<?= $userImage; ?>" class="user-image img-circle elevation-2" alt="User Image">
         <span class="d-none d-md-inline"><?= $userName; ?></span>
@@ -43,4 +45,7 @@ use yii\helpers\Url;
             <?= Html::a('Выйти', Url::to(['/logout']), ['data-method' => 'post', 'class' => 'btn btn-default btn-flat float-right']) ?>
         </li>
     </ul>
+</li>
+<li class="nav-item user-menu">
+    <a href="<?= Url::to(['/balance'])?>" class="nav-link"><?= CurrencyHelper::stat($user->Balance())?></a>
 </li>

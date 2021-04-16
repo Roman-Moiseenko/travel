@@ -42,6 +42,9 @@ class StatusActionWidget extends Widget
             case BookingHelper::BOOKING_TYPE_SHOP:
                 $link = '/shop';
                 break;
+            case BookingHelper::BOOKING_TYPE_SHOP_AD:
+                $link = '/shop-ad';
+                break;
             default:
                 throw new \DomainException('Неизвестный тип объекта ' . $this->object_type);
         }

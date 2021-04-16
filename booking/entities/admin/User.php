@@ -34,6 +34,8 @@ use yii\web\IdentityInterface;
  * @property Notice $notice
  * @property Preferences $preferences
  * @property ForumRead[] $forumsRead
+ * @property Deposit[] $deposit
+ * @property Debiting[] $debiting
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -70,6 +72,39 @@ class User extends ActiveRecord implements IdentityInterface
         $user->status = self::STATUS_INACTIVE;
         $user->generateEmailVerificationToken();
         return $user;
+    }
+
+    //********* Balance ***************
+
+    public function Balance(): float
+    {
+        $deposit = $this->deposit;
+        $debiting = $this->debiting;
+        $amount_deposit = 0;
+        $amount_debiting = 0;
+        foreach ($deposit as $item) {
+            $amount_deposit += $item->amount;
+        }
+
+        foreach ($debiting as $item) {
+            $amount_debiting += $item->amount;
+        }
+
+        return $amount_deposit - $amount_debiting;
+    }
+
+    public function newDeposit(Deposit $newDeposit): void
+    {
+        $deposit = $this->deposit;
+        $deposit[] = $newDeposit;
+        $this->deposit = $newDeposit;
+    }
+
+    public function newDebiting(Debiting $newDebiting): void
+    {
+        $debiting = $this->debiting;
+        $debiting[] = $newDebiting;
+        $this->debiting = $debiting;
     }
 
     public function updatePersonal(Personal $personal)
@@ -165,7 +200,6 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
@@ -205,7 +239,9 @@ class User extends ActiveRecord implements IdentityInterface
                     'notice',
                     'discounts',
                     'preferences',
-                    'forumsRead'
+                    'forumsRead',
+                    'deposit',
+                    'debiting',
                 ],
             ],
         ];
@@ -292,8 +328,9 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
-/** <=============== */
 
+
+//*********** Интерфейс User *************************
 
     /**
      * {@inheritdoc}
@@ -376,7 +413,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->verification_token = null;
     }
 
-    /** getXXX ==========> */
+    //******** Внешние связи **********************************
     public function getLegals(): ActiveQuery
     {
         return $this->hasMany(Legal::class, ['user_id' => 'id']);
@@ -422,9 +459,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Fun::class, ['user_id' => 'id'])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
     }
-    //
-
-
 
     public function getPreferences(): ActiveQuery
     {
@@ -436,7 +470,15 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(ForumRead::class, ['user_id' => 'id']);
     }
 
-    /** <========== getXXX */
+    public function getDeposit(): ActiveQuery
+    {
+        return $this->hasMany(Deposit::class, ['user_id' => 'id']);
+    }
+
+    public function getDebiting(): ActiveQuery
+    {
+        return $this->hasMany(Debiting::class, ['user_id' => 'id']);
+    }
 
     public function sendSMS($phone, $message)
     {

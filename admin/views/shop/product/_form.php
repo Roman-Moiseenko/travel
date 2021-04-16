@@ -16,45 +16,6 @@ use yii\helpers\Html;
 /* @var $model ProductForm */
 /* @var $product Product */
 
-$js = <<<JS
-$(document).ready(function() {
-   /* showOnCity($('#on-city').is(':checked'));
-    showOnPoint($('#on-point').is(':checked'));
-    
-    $('body').on('click', '#on-city', function() {
-        showOnCity($(this).is(':checked'));
-        if (!$(this).is(':checked')) {
-            $('#cost-city').val(null);
-            $('#min-amount-city').val(null);
-        }
-    });
-    $('body').on('click', '#on-point', function() {
-        showOnPoint($(this).is(':checked'));
-        if (!$(this).is(':checked')) {
-            $('#bookingaddressform-address').val(null);
-            $('#bookingaddressform-latitude').val(null);
-            $('#bookingaddressform-longitude').val(null);
-        }        
-    });
-    
-    function showOnCity(_x) {
-        if (_x) {
-            $('.span-on-city').show();
-        } else {
-            $('.span-on-city').hide();
-        }      
-    }
-    function showOnPoint(_x) {
-        if (_x) {
-            $('.span-on-point').show();
-        } else {
-            $('.span-on-point').hide();
-        }      
-    }*/
-});
-JS;
-$this->registerJs($js);
-
 
 ?>
 <?php $form = ActiveForm::begin([
