@@ -257,9 +257,9 @@ class AdShopService
         $this->shops->save($shop);
     }
 
-    public function addReview($tour_id, $user_id, ReviewForm $form)
+    public function addReview($shop_id, $user_id, ReviewForm $form)
     {
-        $shop = $this->shops->getAd($tour_id);
+        $shop = $this->shops->getAd($shop_id);
         $review = $shop->addReview(AdReviewShop::create($user_id, $form->vote, $form->text));
         $this->shops->save($shop);
         $this->contactService->sendNoticeReview($review);
@@ -278,6 +278,13 @@ class AdShopService
         $review = $this->reviews->get($review_id);
         $shop = $this->shops->getAd($review->shop_id);
         $shop->editReview($review_id, $form->vote, $form->text);
+        $this->shops->save($shop);
+    }
+
+    public function setActivePlace(int $id, int $count)
+    {
+        $shop = $this->shops->getAd($id);
+        $shop->setActivePlace($count);
         $this->shops->save($shop);
     }
 }

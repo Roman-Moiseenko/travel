@@ -32,6 +32,12 @@ class AdProduct extends BaseProduct
         return $product;
     }
 
+    public static function costActive()
+    {
+        //TODO Вынести в Office Ценообразование priceList->productAd
+        return 1;
+    }
+
     public function edit($name, $name_en, $description, $description_en,
                          $weight, $size, $article, $collection, $color,
                          $manufactured_id, $category_id, $cost, $discount

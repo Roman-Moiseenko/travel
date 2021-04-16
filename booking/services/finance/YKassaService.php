@@ -96,7 +96,7 @@ class YKassaService
                 ],
                 'confirmation' => [
                     'type' => 'redirect',
-                    'return_url' => \Yii::$app->params['adminHostInfo'] . '/deposit/',
+                    'return_url' => \Yii::$app->params['adminHostInfo'] . '/balance',
                     'locale' => 'ru_RU',
                 ],
                 'capture' => true,

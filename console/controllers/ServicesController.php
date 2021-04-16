@@ -44,6 +44,11 @@ class ServicesController extends Controller
         }
     }
 
+    public function actionPay()
+    {
+
+    }
+
     private function find($category, $quality, $max_width, $max_height): bool
     {
         if (!is_dir($category)) return false;
@@ -58,4 +63,6 @@ class ServicesController extends Controller
         }
         return true;
     }
+
+
 }

@@ -9,6 +9,7 @@ use booking\entities\booking\BasePhoto;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\Meta;
+use booking\entities\office\PriceInterface;
 use booking\entities\shops\products\AdProduct;
 use booking\helpers\SlugHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -28,16 +29,17 @@ use yii\db\ActiveQuery;
  * @property AdContactAssign[] $contactAssign
  * @property AdReviewShop[] $reviews
  * @property AdProduct[] $products
+ * @property AdProduct[] $activeProducts
  * @property string $work_mode_json
  *
  * @property integer $free_products
- * @property float $current_balance
+ * @property integer $active_products
  *
  * @property Meta $meta
  * @property string $meta_json
  * @property int $views [int]
  */
-class AdShop extends BaseShop
+class AdShop extends BaseShop implements PriceInterface
 {
     /** @var WorkMode[] $workModes */
     public $workModes = [];
@@ -281,6 +283,11 @@ class AdShop extends BaseShop
         return $this->hasMany(AdProduct::class, ['shop_id' => 'id']);
     }
 
+    public function getActiveProducts(): ActiveQuery
+    {
+        return $this->hasMany(AdProduct::class, ['shop_id' => 'id'])->andWhere([AdProduct::tableName() . '.active' => true]);
+    }
+
     public function getContactAssign(): ActiveQuery
     {
         return $this->hasMany(AdContactAssign::class, ['shop_id' => 'id']);
@@ -319,5 +326,20 @@ class AdShop extends BaseShop
             if ($contact->isFor($id)) return $contact;
         }
         return null;
+    }
+
+    public function activePlace(): int
+    {
+       return count($this->activeProducts);
+    }
+
+    public function setActivePlace($count): void
+    {
+        $this->active_products = $count;
+    }
+
+    public function countActivePlace(): int
+    {
+        return $this->active_products;
     }
 }

@@ -4,17 +4,17 @@
 namespace booking\services\shops;
 
 
+use booking\entities\admin\Debiting;
 use booking\entities\Meta;
+use booking\entities\shops\AdShop;
 use booking\entities\shops\products\AdPhoto;
 use booking\entities\shops\products\AdProduct;
-use booking\entities\shops\products\BaseProduct;
-use booking\entities\shops\products\Photo;
-use booking\entities\shops\products\Product;
 use booking\entities\shops\products\Size;
 use booking\forms\shops\AdProductForm;
 use booking\forms\shops\CostModalForm;
-use booking\forms\shops\ProductForm;
+use booking\repositories\office\PriceListRepository;
 use booking\repositories\shops\ProductRepository;
+use booking\services\admin\UserManageService;
 
 class AdProductService
 {
@@ -23,10 +23,30 @@ class AdProductService
      * @var ProductRepository
      */
     private $products;
+    /**
+     * @var AdShopService
+     */
+    private $serviceAd;
+    /**
+     * @var UserManageService
+     */
+    private $serviceUser;
+    /**
+     * @var PriceListRepository
+     */
+    private $priceList;
 
-    public function __construct(ProductRepository $products)
+    public function __construct(
+        ProductRepository $products,
+        AdShopService $serviceAd,
+        UserManageService $serviceUser,
+        PriceListRepository $priceList
+)
     {
         $this->products = $products;
+        $this->serviceAd = $serviceAd;
+        $this->serviceUser = $serviceUser;
+        $this->priceList = $priceList;
     }
 
     public function create($shop_id, AdProductForm $form): AdProduct
@@ -110,16 +130,28 @@ class AdProductService
     public function active($id)
     {
         $product = $this->products->getAd($id);
-        //TODO Проверки:
-        // $free_place = Кол-во оплаченных на текущий месяц + $shop->count_free_product_view
+        $shop = $product->shop;
+        //Кол-во оплаченных на текущий месяц
+        $free_place = $shop->free_products + $shop->countActivePlace();
+        $active = $shop->activePlace();
         // Кол-во активированных < или > $free_place
-        // Если нехватает, то проверка баланса
-        // Если баланс > 0, то:
-        //  добавляем новую запись в таблиц потрачено (shop_id, year, mounth, count = 1, date = time())
-        //  пересчитываем баланс
-        // Иначе исключение Нет Денег!!!!!
-
-        throw new \DomainException('Нельзя активировать');
+        if ($free_place > $active) {
+            $product->active();
+            $this->products->save($product);
+            return;
+        }
+        $balance = $shop->user->Balance(); //пересчитываем баланс
+        if ($balance <= 0) {  // исключение Нет Денег!!!!!
+            throw new \DomainException('Недостаточно денег на балансе');
+        }
+        //  добавляем новую запись в таблиц потрачено
+        $this->serviceUser->addDebiting(
+            $shop->user_id,
+            $this->priceList->getPrice(AdShop::class),
+            Debiting::DEBITING_SHOP_AP,
+            '/shop-ad/product?id=' . $product->id
+        );
+        $this->serviceAd->setActivePlace($shop->id, $shop->countActivePlace() + 1);
         $product->active();
         $this->products->save($product);
     }
