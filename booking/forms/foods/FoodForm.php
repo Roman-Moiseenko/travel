@@ -6,7 +6,7 @@ namespace booking\forms\foods;
 
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\foods\Food;
-use booking\forms\booking\funs\WorkModeForm;
+use booking\forms\WorkModeForm;
 use booking\forms\CompositeForm;
 use booking\forms\MetaForm;
 use yii\helpers\ArrayHelper;

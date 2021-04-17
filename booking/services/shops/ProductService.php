@@ -4,14 +4,18 @@
 namespace booking\services\shops;
 
 
+use booking\entities\admin\Debiting;
 use booking\entities\Meta;
 use booking\entities\shops\products\BaseProduct;
 use booking\entities\shops\products\Photo;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\products\Size;
+use booking\entities\shops\Shop;
 use booking\forms\shops\CostModalForm;
 use booking\forms\shops\ProductForm;
+use booking\repositories\office\PriceListRepository;
 use booking\repositories\shops\ProductRepository;
+use booking\services\admin\UserManageService;
 
 class ProductService
 {
@@ -20,10 +24,30 @@ class ProductService
      * @var ProductRepository
      */
     private $products;
+    /**
+     * @var UserManageService
+     */
+    private $serviceUser;
+    /**
+     * @var PriceListRepository
+     */
+    private $priceList;
+    /**
+     * @var ShopService
+     */
+    private $service;
 
-    public function __construct(ProductRepository $products)
+    public function __construct(
+        ProductRepository $products,
+        ShopService $service,
+        UserManageService $serviceUser,
+        PriceListRepository $priceList
+    )
     {
         $this->products = $products;
+        $this->serviceUser = $serviceUser;
+        $this->priceList = $priceList;
+        $this->service = $service;
     }
 
     public function create($shop_id, ProductForm $form): Product
@@ -53,7 +77,7 @@ class ProductService
         $product->shop_id = $shop_id;
 //        $this->products->save($product);
 //        $product->clearMaterial();
-        foreach ($form->photo->files as $file){
+        foreach ($form->photo->files as $file) {
             $product->addPhoto(Photo::create($file));
         }
 
@@ -94,7 +118,7 @@ class ProductService
 
         $product->clearMaterial();
         $this->products->save($product);
-        foreach ($form->photo->files as $file){
+        foreach ($form->photo->files as $file) {
             $product->addPhoto(Photo::create($file));
         }
 
@@ -115,8 +139,40 @@ class ProductService
     public function active($id)
     {
         $product = $this->products->get($id);
-        $product->active();
-        $this->products->save($product);
+        if (!$product->shop->isActive()) {
+            throw new \DomainException('Сначала активируйте магазин');
+        }
+        if ($product->isAd()) {
+            //TODO оплата и т.п.
+            $shop = $product->shop;
+            //Кол-во оплаченных на текущий месяц
+            $free_place = $shop->free_products + $shop->countActivePlace();
+            $active = $shop->activePlace();
+            // Кол-во активированных < или > $free_place
+            if ($free_place > $active) {
+                $product->active();
+                $this->products->save($product);
+                return;
+            }
+            $balance = $shop->user->Balance(); //пересчитываем баланс
+            if ($balance <= 0) {  // исключение Нет Денег!!!!!
+                throw new \DomainException('Недостаточно денег на балансе');
+            }
+            //  добавляем новую запись в таблиц потрачено
+            $this->serviceUser->addDebiting(
+                $shop->user_id,
+                $this->priceList->getPrice(Shop::class),
+                Debiting::DEBITING_SHOP,
+                $product->name,
+                '/shop/product?id=' . $product->id
+            );
+            $this->service->setActivePlace($shop->id, $shop->countActivePlace() + 1);
+            $product->active();
+            $this->products->save($product);
+        } else {
+            $product->active();
+            $this->products->save($product);
+        }
     }
 
     public function draft($id)

@@ -44,7 +44,6 @@ use yii\db\ActiveRecord;
  * @property User $user
  * @property Legal $legal
  *********************************** Скрытые поля
- * @property string $url
  */
 
 abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
@@ -86,44 +85,44 @@ abstract class BaseShop extends ActiveRecord implements ActivateObjectInterface
 
     //**************** Get ****************************
 
-    final public function getName()
+    public function getName()
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
     }
 
-    final public function getDescription()
+     public function getDescription()
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
 
     //**************** is ****************************
-    final public function isNew(): bool
+     public function isNew(): bool
     {
         if ($this->created_at == null) return false;
         return (time() - $this->created_at) / (3600 * 24) < BookingHelper::NEW_DAYS;
     }
 
-    final public function isActive(): bool
+     public function isActive(): bool
     {
         return $this->status === StatusHelper::STATUS_ACTIVE;
     }
 
-    final public function isVerify(): bool
+     public function isVerify(): bool
     {
         return $this->status === StatusHelper::STATUS_VERIFY;
     }
 
-    final public function isDraft(): bool
+     public function isDraft(): bool
     {
         return $this->status === StatusHelper::STATUS_DRAFT;
     }
 
-    final public function isInactive(): bool
+     public function isInactive(): bool
     {
         return $this->status === StatusHelper::STATUS_INACTIVE;
     }
 
-    final public function isLock()
+     public function isLock()
     {
         return $this->status === StatusHelper::STATUS_LOCK;
     }

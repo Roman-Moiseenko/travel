@@ -118,4 +118,9 @@ class AdProduct extends BaseProduct
     {
         return $this->hasOne(AdShop::class, ['id' => 'shop_id']);
     }
+
+    public function isAd(): bool
+    {
+        return true;
+    }
 }

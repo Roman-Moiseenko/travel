@@ -9,7 +9,7 @@ use booking\entities\Rbac;
 use booking\forms\booking\PhotosForm;
 use booking\forms\foods\ContactAssignForm;
 use booking\forms\foods\FoodForm;
-use booking\forms\foods\InfoAddressForm;
+use booking\forms\InfoAddressForm;
 use booking\services\foods\FoodService;
 use office\forms\info\foods\FoodSearch;
 use yii\filters\AccessControl;

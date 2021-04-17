@@ -8,7 +8,9 @@ use booking\entities\admin\Contact;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\shops\AdInfoAddress;
 use booking\entities\shops\AdShop;
-use booking\forms\booking\funs\WorkModeForm;
+use booking\entities\shops\InfoAddress;
+use booking\forms\InfoAddressForm;
+use booking\forms\WorkModeForm;
 use booking\forms\booking\PhotosForm;
 use booking\forms\CompositeForm;
 
@@ -19,7 +21,7 @@ use yii\base\Model;
  * @package booking\forms\shops
  * @property PhotosForm $photos
  * @property ContactAssignForm[] $contactAssign
- * @property AdInfoAddressForm[] $addresses
+ * @property InfoAddressForm[] $addresses
  * @property WorkModeForm[] $workModes
  */
 class ShopAdCreateForm extends CompositeForm
@@ -45,8 +47,8 @@ class ShopAdCreateForm extends CompositeForm
                 return new ContactAssignForm($contact, $shop->contactAssignById($contact->id));
             }, Contact::find()->all());
 
-            $address = array_map(function (AdInfoAddress $address) {
-                return new AdInfoAddressForm($address);
+            $address = array_map(function (InfoAddress $address) {
+                return new InfoAddressForm($address);
             }, $shop->addresses);
             $this->workModes = array_map(function (WorkMode $workMode) {
                 return new WorkModeForm($workMode);
@@ -61,7 +63,7 @@ class ShopAdCreateForm extends CompositeForm
         }
         $n = AdInfoAddress::MAX_ADDRESS - count($address); //добавляем пустые адреса до 99 штук
         for ($i = 0; $i < $n; $i++) {
-            $address[] = new AdInfoAddressForm();
+            $address[] = new InfoAddressForm();
         }
         $this->addresses = $address;
         $this->photos = new PhotosForm();
@@ -78,7 +80,7 @@ class ShopAdCreateForm extends CompositeForm
     }
     public function beforeValidate(): bool
     {
-        $this->addresses = array_filter(array_map(function (AdInfoAddressForm $item) {
+        $this->addresses = array_filter(array_map(function (InfoAddressForm $item) {
             return empty($item->address) ? false : $item;
         }, (array)$this->addresses));
         $this->contactAssign = array_filter(array_map(function (ContactAssignForm $item){

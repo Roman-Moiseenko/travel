@@ -53,6 +53,7 @@ class ShopController extends Controller
     {
         $this->layout = 'main-create';
         $form = new ShopCreateForm();
+        //scr::v($form->load(\Yii::$app->request->post()));
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $shop = $this->service->create($form);

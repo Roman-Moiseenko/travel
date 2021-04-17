@@ -148,7 +148,7 @@ class AdProductService
         $this->serviceUser->addDebiting(
             $shop->user_id,
             $this->priceList->getPrice(AdShop::class),
-            Debiting::DEBITING_SHOP_AP,
+            Debiting::DEBITING_SHOP,
             '/shop-ad/product?id=' . $product->id
         );
         $this->serviceAd->setActivePlace($shop->id, $shop->countActivePlace() + 1);

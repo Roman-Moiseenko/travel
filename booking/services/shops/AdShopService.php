@@ -8,10 +8,10 @@ use booking\entities\booking\funs\WorkMode;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\shops\AdInfoAddress;
-use booking\entities\shops\AdPhoto;
+use booking\entities\shops\Photo;
 use booking\entities\shops\AdReviewShop;
 use booking\entities\shops\AdShop;
-use booking\forms\booking\funs\WorkModeForm;
+use booking\forms\WorkModeForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\shops\ShopAdCreateForm;
 use booking\helpers\StatusHelper;
@@ -74,15 +74,13 @@ class AdShopService
                 $modeForm->break_end
             );
         }, $form->workModes));
-
         //Photo
         if ($form->photos->files != null)
             foreach ($form->photos->files as $file) {
-                $shop->addPhoto(AdPhoto::create($file));
+                $shop->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         //Contact
-        //scr::_v(count($form->contactAssign));
         foreach ($form->contactAssign as $assignForm) {
             $shop->addContact(
                 $assignForm->_contact->id,
@@ -134,7 +132,7 @@ class AdShopService
         //Photo
         if ($form->photos->files != null)
             foreach ($form->photos->files as $file) {
-                $shop->addPhoto(AdPhoto::create($file));
+                $shop->addPhoto(Photo::create($file));
                 ImageService::rotate($file->tempName);
             }
         //Contact

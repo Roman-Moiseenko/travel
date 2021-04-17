@@ -15,24 +15,27 @@ abstract class CompositeForm extends Model
     abstract protected function internalForms(): array;
     public function load($data, $formName = null)
     {
+        $test = false;
         $success = parent::load($data, $formName);
         foreach ($this->forms as $name => $form) {
-          //  scr::_p($name);
+            if ($test) scr::_p($name);
             if (is_array($form)) {
                 if (!empty($form)) {
-                 //   scr::_p($name);
-                 //   scr::_v($success);
+                    if ($test) scr::_p($name);
+                    if ($test) scr::_v($success);
                     $success = Model::loadMultiple($form, $data, $formName === null ? null : $name) && $success;
-                 //   scr::_v($success);
+                    if ($test) scr::_v($success);
                 } else {
                     $success = true && $success;
                 }
             } else {
+                if ($test) scr::_v($success);
                 $success =  $form->load($data, $formName !== '' ? null : $name) && $success;
+                if ($test) scr::_v($success);
             }
-            //scr::_v($success);
+            if ($test) scr::_v($success);
         }
-       // scr::v($success);
+        if ($test) scr::_v($success);
         return $success;
     }
 
@@ -41,13 +44,18 @@ abstract class CompositeForm extends Model
         $parentNames = $attributeNames !== null ? array_filter((array)$attributeNames, 'is_string') : null;
         $success = parent::validate($parentNames, $clearErrors);
         foreach ($this->forms as $name => $form) {
+            // scr::_p($name);
+
             if (is_array($form)) {
+     //           scr::_v($success);
                 $success = Model::validateMultiple($form) && $success;
+     //           scr::_v($success);
             } else {
                 $innerNames = $attributeNames !== null ? ArrayHelper::getValue($attributeNames, $name) : null;
                 $success = $form->validate($innerNames ?: null, $clearErrors) && $success;
             }
         }
+//        scr::v($success);
         return $success;
     }
     public function __get($name)

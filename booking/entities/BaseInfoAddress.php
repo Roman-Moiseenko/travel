@@ -1,25 +1,21 @@
 <?php
 
 
-namespace booking\entities\shops;
+namespace booking\entities;
 
 
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Class InfoAddress
- * @package booking\entities\shops
- * @property integer $shop_id
+ * Class BaseInfoAddress
+ * @package booking\entities
  * @property string $phone
  * @property string $city
  * @property string $address
  * @property string $latitude
  * @property string $longitude
- * @property AdShop $shop
  */
-
-class AdInfoAddress extends ActiveRecord
+abstract class BaseInfoAddress extends ActiveRecord
 {
     const MAX_ADDRESS = 99;
 
@@ -33,7 +29,7 @@ class AdInfoAddress extends ActiveRecord
         $info->longitude = $longitude;
         return $info;
     }
-/*
+
     public function edit(string $phone, string $city, string $address, string $latitude, string $longitude): void
     {
         $this->phone = $phone;
@@ -41,20 +37,5 @@ class AdInfoAddress extends ActiveRecord
         $this->address = $address;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-    }
-
-    public function isFor($id): bool
-    {
-        return $this->id == $id;
-    }
-*/
-    public static function tableName()
-    {
-        return '{{%shops_ad_info_address}}';
-    }
-
-    public function getShop(): ActiveQuery
-    {
-        return $this->hasOne(AdShop::class, ['id' => 'shop_id']);
     }
 }

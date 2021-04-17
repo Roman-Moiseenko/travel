@@ -1,10 +1,10 @@
 <?php
 
 
-namespace booking\forms\foods;
+namespace booking\forms;
 
 
-use booking\entities\foods\InfoAddress;
+use booking\entities\BaseInfoAddress;
 use yii\base\Model;
 
 class InfoAddressForm extends Model
@@ -15,7 +15,7 @@ class InfoAddressForm extends Model
     public $latitude;
     public $longitude;
 
-    public function __construct(InfoAddress $address = null, $config = [])
+    public function __construct(BaseInfoAddress $address = null, $config = [])
     {
         if ($address) {
             $this->phone = $address->phone;

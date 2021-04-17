@@ -146,18 +146,18 @@ function init() {
             s = s +
                 '                    <div class="row">\n' +
                 '                        <div class="col-7">\n' +
-                '                            <input name="AdInfoAddressForm[' + (i - 1) + '][address]" class="form-control" width="100%" value="' + getChangeAddress(array_coords[i][2]) + '" readonly>\n' +
+                '                            <input name="InfoAddressForm[' + (i - 1) + '][address]" class="form-control" width="100%" value="' + getChangeAddress(array_coords[i][2]) + '" readonly>\n' +
                 '                        </div>\n' +
                 '                        <div class="col-4">\n' +
-                '                            <input name="AdInfoAddressForm[' + (i - 1) + '][phone]" class="form-control input-phone" data-id="'+ i + '" width="100%" value="' + (array_coords[i][3]) + '">\n' +
+                '                            <input name="InfoAddressForm[' + (i - 1) + '][phone]" class="form-control input-phone" data-id="'+ i + '" width="100%" value="' + (array_coords[i][3]) + '">\n' +
                 '                        </div>\n' +
                 '                        <div class="col-1">\n' +
                 '                        ' + btn_remove + '\n' +
                 '                        </div>\n' +
                 '                        <div class="col-1">\n' +
-                '                            <input name="AdInfoAddressForm[' + (i - 1) + '][longitude]" class="form-control" width="100%" value="' + array_coords[i][1] + '" type="hidden">\n' +
-                '                            <input name="AdInfoAddressForm[' + (i - 1) + '][latitude]" class="form-control" width="100%" value="' + array_coords[i][0] + '" type="hidden">\n' +
-                '                            <input name="AdInfoAddressForm[' + (i - 1) + '][city]" class="form-control" width="100%" value="' + array_coords[i][4] + '" type="hidden">\n' +
+                '                            <input name="InfoAddressForm[' + (i - 1) + '][longitude]" class="form-control" width="100%" value="' + array_coords[i][1] + '" type="hidden">\n' +
+                '                            <input name="InfoAddressForm[' + (i - 1) + '][latitude]" class="form-control" width="100%" value="' + array_coords[i][0] + '" type="hidden">\n' +
+                '                            <input name="InfoAddressForm[' + (i - 1) + '][city]" class="form-control" width="100%" value="' + array_coords[i][4] + '" type="hidden">\n' +
                 '                        </div>\n' +
                 '                    </div>';
         }

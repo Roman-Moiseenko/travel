@@ -18,7 +18,7 @@ use booking\entities\Meta;
 use booking\forms\booking\funs\FunCommonForm;
 use booking\forms\booking\funs\FunFinanceForm;
 use booking\forms\booking\funs\FunParamsForm;
-use booking\forms\booking\funs\WorkModeForm;
+use booking\forms\WorkModeForm;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\MetaForm;

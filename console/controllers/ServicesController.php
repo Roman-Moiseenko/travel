@@ -4,7 +4,10 @@
 namespace console\controllers;
 
 
+use booking\entities\admin\Debiting;
 use booking\entities\PhotoResize;
+use booking\entities\shops\Shop;
+use booking\repositories\office\PriceListRepository;
 use booking\services\PhotoResizeService;
 use yii\console\Controller;
 
@@ -15,11 +18,21 @@ class ServicesController extends Controller
      * @var PhotoResizeService
      */
     private $servicePhotoResize;
+    /**
+     * @var PriceListRepository
+     */
+    private $priceList;
 
-    public function __construct($id, $module, PhotoResizeService $servicePhotoResize, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        PhotoResizeService $servicePhotoResize,
+        PriceListRepository $priceList,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->servicePhotoResize = $servicePhotoResize;
+        $this->priceList = $priceList;
     }
 
     public function actionResizePhoto()
@@ -46,7 +59,45 @@ class ServicesController extends Controller
 
     public function actionPay()
     {
+        $shops = Shop::find()->all();
+        foreach ($shops as $shop) {
+            if ($shop->isAd()) { //Витрина
+                echo $shop->id . PHP_EOL;
+                $user = $shop->user;
+                $how_count = $shop->activePlace() - $shop->free_products; //За сколько товаров надо заплатить (от активных отнимаем бесплатные)
+                echo $how_count . PHP_EOL;
+                if ($how_count > 0) {
+                    $how_pay = $how_count * $this->priceList->getPrice(Shop::class); // Сколько платить
+                    if ($user->Balance() >= $how_pay) {         //баланс больше стоимость
+                        $debiting = Debiting::create(
+                            $how_pay,
+                            Debiting::DEBITING_SHOP,
+                            'Ежемесячная оплата за ' . $how_count . ' товара',
+                            ''
+                        );
+                        $debiting->setUser($shop->user_id);
+                        $debiting->save();
+                        $shop->setActivePlace($how_count);
+                        $shop->save();
+                    } else { //Баланса не хватает, отправляем все товары в черновик
+                        //TODO отправить письмо юзеру
+                        foreach ($shop->activeProducts as $product) {
+                            $product->draft();
+                            $product->save();
+                        }
+                    }
+                } else {    //Платить не надо, тогда сбрасываем кол-во оплаченных ранее
+                    $shop->setActivePlace(0);
+                    $shop->save();
+                }
 
+            } else {
+                if ($shop->active_products != 0) {
+                    $shop->active_products = 0;
+                    $shop->save();
+                }
+            }
+        }
     }
 
     private function find($category, $quality, $max_width, $max_height): bool

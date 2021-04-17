@@ -5,7 +5,7 @@ namespace booking\forms\shops;
 
 
 use booking\entities\admin\Contact;
-use booking\entities\shops\AdContactAssign;
+use booking\entities\shops\ContactAssign;
 use yii\base\Model;
 
 class ContactAssignForm  extends Model
@@ -15,7 +15,7 @@ class ContactAssignForm  extends Model
     /** @var Contact $_contact */
     public $_contact;
 
-    public function __construct(Contact $contact, AdContactAssign $assign = null, $config = [])
+    public function __construct(Contact $contact, ContactAssign $assign = null, $config = [])
     {
         $this->_contact = $contact;
         if ($assign) {

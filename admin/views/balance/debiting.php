@@ -21,7 +21,7 @@ use yii\widgets\LinkPager;
         <td><?= date('d-M-Y H:i', $item->created_at) ?></td>
         <td><?= CurrencyHelper::stat($item->amount) ?></td>
         <td><?= $item->nameType() ?></td>
-        <td><?= empty($item->link) ? '' : '<a href="'. $item->link . '">'. $item->link . '</a>' ?></td>
+        <td><?= empty($item->link) ? $item->caption : '<a href="'. $item->link . '">'. $item->caption . '</a>' ?></td>
     </tr>
     <?php endforeach; ?>
 </table>

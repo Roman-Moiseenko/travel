@@ -4,6 +4,7 @@
 namespace admin\controllers;
 
 
+use admin\forms\shops\ShopSearch;
 use booking\repositories\shops\ShopRepository;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -39,11 +40,11 @@ class ShopsController extends Controller
 
     public function actionIndex()
     {
-        //$searchModel = new ShopSearch();
-        //$dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-        $dataProvider = $this->shops->searchModel();
+        $searchModel = new ShopSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+
         return $this->render('index', [
-          //  'searchModel' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

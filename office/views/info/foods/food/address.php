@@ -4,7 +4,7 @@
 use booking\entities\admin\Legal;
 use booking\entities\foods\Food;
 use booking\forms\admin\ContactAssignmentForm;
-use booking\forms\foods\InfoAddressForm;
+use booking\forms\InfoAddressForm;
 use booking\helpers\ContactHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

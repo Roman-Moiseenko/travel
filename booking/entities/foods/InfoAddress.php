@@ -4,6 +4,7 @@
 namespace booking\entities\foods;
 
 
+use booking\entities\BaseInfoAddress;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -20,10 +21,10 @@ use yii\db\ActiveRecord;
  * @property Food $food
  */
 
-class InfoAddress extends ActiveRecord
+class InfoAddress extends BaseInfoAddress
 {
 
-    public static function create(string $phone, string $city, string $address, string $latitude, string $longitude): self
+  /*  public static function create(string $phone, string $city, string $address, string $latitude, string $longitude): self
     {
         $info = new static();
         $info->phone = $phone;
@@ -41,7 +42,7 @@ class InfoAddress extends ActiveRecord
         $this->address = $address;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-    }
+    }*/
 
     public function isFor($id): bool
     {

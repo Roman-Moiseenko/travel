@@ -130,4 +130,8 @@ class Product extends BaseProduct
         return new ProductQuery(static::class);
     }
 
+    public function isAd(): bool
+    {
+        return $this->shop->isAd();
+    }
 }

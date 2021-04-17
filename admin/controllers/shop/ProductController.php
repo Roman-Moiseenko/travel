@@ -119,20 +119,33 @@ class ProductController extends Controller
 
     public function actionDelete($id)
     {
-        $this->service->remove($id);
+        try {
+            $this->service->remove($id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         return $this->redirect(\Yii::$app->request->referrer);
+
     }
 
     public function actionActive($id)
     {
-        $this->service->active($id);
+        try {
+            $this->service->active($id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
 
     public function actionDraft($id)
     {
-        $this->service->draft($id);
+        try {
+            $this->service->draft($id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         return $this->redirect(\Yii::$app->request->referrer);
     }
 

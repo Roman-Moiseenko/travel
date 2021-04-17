@@ -56,10 +56,10 @@ class UserManageService
         $this->users->save($user);
     }
 
-    public function addDebiting($id, $amount, $type, $link): void
+    public function addDebiting($id, $amount, $type, $caption, $link): void
     {
         $user = $this->users->get($id);
-        $user->newDebiting(Debiting::create($amount, $type, $link));
+        $user->newDebiting(Debiting::create($amount, $type, $caption, $link));
         $this->users->save($user);
     }
 

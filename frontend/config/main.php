@@ -167,6 +167,8 @@ return [
                 'food/map-foods' => 'food/map-foods',
                 'food/<id:\d+>' => 'food/view',
 
+                'shops' => 'shop/catalog/index',
+
                 'tickets' => 'tickets/tickets/index',
 
                 'legals/view' => 'legals/view',

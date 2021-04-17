@@ -23,8 +23,8 @@ use yii\db\ActiveQuery;
  * @property string $slug
  *
  * @property AdInfoAddress[] $addresses
- * @property AdPhoto $mainPhoto
- * @property AdPhoto[] $photos
+ * @property Photo $mainPhoto
+ * @property Photo[] $photos
  * @property Contact[] $contacts
  * @property AdContactAssign[] $contactAssign
  * @property AdReviewShop[] $reviews
@@ -45,6 +45,7 @@ class AdShop extends BaseShop implements PriceInterface
     public $workModes = [];
     /** @var Meta $meta */
     public $meta;
+
 
     public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id): self
     {
@@ -305,19 +306,18 @@ class AdShop extends BaseShop implements PriceInterface
 
     public function getPhotos():ActiveQuery
     {
-        return $this->hasMany(AdPhoto::class, ['shop_id' => 'id']);
+        return $this->hasMany(Photo::class, ['shop_id' => 'id']);
     }
 
     public function getMainPhoto(): ActiveQuery
     {
-        return $this->hasOne(AdPhoto::class, ['id' => 'main_photo_id']);
+        return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
     }
 
     public function getAddresses(): ActiveQuery
     {
         return $this->hasMany(AdInfoAddress::class, ['shop_id' => 'id']);
     }
-
 
     public function contactAssignById(int $id):? AdContactAssign
     {

@@ -8,6 +8,7 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\booking\funs\WorkMode;
 use booking\forms\booking\AgeLimitForm;
 use booking\forms\CompositeForm;
+use booking\forms\WorkModeForm;
 
 /**
  * Class FunParamsForm

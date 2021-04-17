@@ -11,7 +11,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model ShopAdCreateForm */
-/* @var $shop AdShop */
+/* @var $shop Shop */
 
 $js = <<<JS
 $(document).ready(function() {

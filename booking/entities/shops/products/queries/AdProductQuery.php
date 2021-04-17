@@ -12,6 +12,6 @@ class AdProductQuery extends ActiveQuery
     public function active($alias = null)
     {
         return $this
-            ->andWhere([($alias ? $alias . '.' : '') . 'status' => StatusHelper::STATUS_ACTIVE]);
+            ->andWhere([($alias ? $alias . '.' : '') . 'active' => true]);
     }
 }

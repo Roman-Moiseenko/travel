@@ -7,6 +7,7 @@ namespace booking\repositories\office;
 use booking\entities\office\PriceList;
 use booking\entities\shops\AdShop;
 use booking\entities\shops\products\AdProduct;
+use booking\entities\shops\Shop;
 
 class PriceListRepository
 {
@@ -33,7 +34,7 @@ class PriceListRepository
 
     public function getPrice(string $key): float
     {
-        if ($key == AdShop::class) return 1.0;
+        if ($key == Shop::class) return 1.0;
         if (!$price = PriceList::findOne(['key' => $key])) {
             throw new \DomainException('Прайс-лист не найден.');
         }

@@ -5,16 +5,21 @@ namespace booking\services\shops;
 
 
 use booking\entities\booking\BookingAddress;
+use booking\entities\booking\funs\WorkMode;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\shops\Delivery;
+use booking\entities\shops\InfoAddress;
+use booking\entities\shops\Photo;
 use booking\entities\shops\Shop;
+use booking\forms\WorkModeForm;
 use booking\forms\shops\ShopCreateForm;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\message\DialogRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\ContactService;
+use booking\services\ImageService;
 
 class ShopService
 {
@@ -51,22 +56,12 @@ class ShopService
             $form->name_en,
             $form->description,
             $form->description_en,
-            $form->type_id
+            $form->type_id,
+            $form->ad
         );
-        $shop->setDelivery(Delivery::create(
-            $form->delivery->onCity,
-            $form->delivery->costCity,
-            $form->delivery->minAmountCity,
-            $form->delivery->minAmountCompany,
-            $form->delivery->period,
-            $form->delivery->deliveryCompany,
-            $form->delivery->onPoint,
-            new BookingAddress(
-                $form->delivery->addressPoint->address,
-                $form->delivery->addressPoint->latitude,
-                $form->delivery->addressPoint->longitude
-            )
-        ));
+
+        $this->update($shop, $form);
+
         $this->shops->save($shop);
         return $shop;
     }
@@ -74,15 +69,66 @@ class ShopService
     public function edit(int $id, ShopCreateForm $form): void
     {
         $shop = $this->shops->get($id);
+        $shop->contactAssign = [];
+        $shop->addresses = [];
+        $this->shops->save($shop);
+
+        if ($shop->ad !== $form->ad) {
+            foreach ($shop->products as $product) {
+                $product->draft();
+                $product->save();
+            }
+        }
         $shop->edit(
             $form->legal_id,
             $form->name,
             $form->name_en,
             $form->description,
             $form->description_en,
-            $form->type_id
+            $form->type_id,
+            $form->ad
         );
-        //scr::v($form->delivery);
+
+        $this->update($shop, $form);
+
+        $this->shops->save($shop);
+    }
+
+    private function update(Shop $shop, ShopCreateForm $form)
+    {
+        $shop->setWorkMode(array_map(function (WorkModeForm $modeForm) {
+            return new WorkMode(
+                $modeForm->day_begin,
+                $modeForm->day_end,
+                $modeForm->break_begin,
+                $modeForm->break_end
+            );
+        }, $form->workModes));
+        //Photo
+        if ($form->photos->files != null)
+            foreach ($form->photos->files as $file) {
+                $shop->addPhoto(Photo::create($file));
+                ImageService::rotate($file->tempName);
+            }
+        //Contact
+        foreach ($form->contactAssign as $assignForm) {
+            $shop->addContact(
+                $assignForm->_contact->id,
+                $assignForm->value,
+                $assignForm->description
+            );
+        }
+        //Addresses
+        foreach ($form->addresses as $addressForm) {
+            $shop->addAddress(InfoAddress::create(
+                $addressForm->phone,
+                $addressForm->city,
+                $addressForm->address,
+                $addressForm->latitude,
+                $addressForm->longitude,
+                ));
+        }
+        //Delivery
         $shop->setDelivery(Delivery::create(
             $form->delivery->onCity,
             $form->delivery->costCity,
@@ -97,7 +143,6 @@ class ShopService
                 $form->delivery->addressPoint->longitude
             )
         ));
-        $this->shops->save($shop);
     }
 
     public function verify($id)
@@ -175,6 +220,13 @@ class ShopService
         if (!$shop->isLock())
             throw new \DomainException('Нельзя разблокировать');
         $shop->setStatus(StatusHelper::STATUS_INACTIVE);
+        $this->shops->save($shop);
+    }
+
+    public function setActivePlace(int $id, int $count)
+    {
+        $shop = $this->shops->get($id);
+        $shop->setActivePlace($count);
         $this->shops->save($shop);
     }
 

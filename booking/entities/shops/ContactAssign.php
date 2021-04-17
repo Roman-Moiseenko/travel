@@ -3,7 +3,6 @@
 
 namespace booking\entities\shops;
 
-
 use booking\entities\admin\Contact;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property Contact $contact
  */
 
-class AdContactAssign extends ActiveRecord
+class ContactAssign extends ActiveRecord
 {
 
     public static function create(int $contact_id, string $value, string $description): self
@@ -44,7 +43,7 @@ class AdContactAssign extends ActiveRecord
 
     public static function tableName()
     {
-        return '{{%shops_ad_contact_assign}}';
+        return '{{%shops_contact_assign}}';
     }
 
     public function getContact(): ActiveQuery

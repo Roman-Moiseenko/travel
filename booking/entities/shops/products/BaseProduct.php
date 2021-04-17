@@ -146,6 +146,7 @@ abstract class BaseProduct extends ActiveRecord
     {
         $this->views++;
     }
+    abstract public function isAd(): bool;
 
     public function behaviors()
     {
