@@ -13,23 +13,10 @@ $count = SysHelper::isMobile() ? 2 : 6;
 $script = <<<JS
 $(document).ready(function() {
         var swiper2 = new Swiper('.swiper2',{
-          //  el: '.swiper-container',
             initialSlide: 1,
             spaceBetween: 10,
             slidesPerView: $count,
-          //  loop: true,
             centeredSlides: true,
-           // slideToClickedSlide: true,
-          //  grabCursor: true,
-            /*autoplay: {
-                delay: 6000,
-                disableOnInteraction: false,
-            },*/
-
-          /*  mousewheel: {
-              enabled: true,
-            },*/
-
       pagination: {
         el: '.swiper-pagination2',
         clickable: true,

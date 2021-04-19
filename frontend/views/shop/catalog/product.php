@@ -1,6 +1,8 @@
 <?php
 
+use booking\entities\admin\Contact;
 use booking\entities\Lang;
+use booking\entities\shops\Delivery;
 use booking\entities\shops\products\Material;
 use booking\entities\shops\products\Product;
 use booking\forms\booking\ReviewForm;
@@ -158,18 +160,63 @@ MagnificPopupAsset::register($this);
 <!-- ДОСТАВКА И ОПЛАТА -->
 <div class="card my-3">
     <div class="card-body">
-
         <?php if ($product->isAd()): ?>
-            Магазин <?= ($product->shop->name); ?> не осуществляет онлайн-продажи через данную плошадку.<br>
-
-            Товар можно приобрести по адресу: <br>
-            - адреса, с телеф. <br>
-            - контакты<br>
+            <div class="py-2"
+                 style="font-size: 13px;"><?= Lang::t('Магазин') . ' ' . $product->shop->getName() . Lang::t(' не осуществляет онлайн-продажи через данную плошадку') ?></div>
+            <div>Товар можно приобрести по адресу:</div>
+            <?php foreach ($product->shop->addresses as $address) {
+                echo '<div class="pl-3"><i class="fas fa-map-marker-alt"></i>&#160;' . $address->address . '&#160;&#160;<i class="fas fa-phone-alt"></i>' . $address->phone . '</div>';
+            } ?>
+            <?php if (count($product->shop->contactAssign) > 0): ?>
+                <div class="pt-2"><?= Lang::t('Контакты:') ?></div>
+            <?php endif; ?>
+            <?php foreach ($product->shop->contactAssign as $contact): ?>
+                <div class="pl-3">
+                    <img src="<?= $contact->contact->getThumbFileUrl('photo', 'list') ?>"/>&#160;
+                    <?php if ($contact->contact->type == Contact::NO_LINK): ?>
+                        <?= Html::encode($contact->value) ?>
+                    <?php else: ?>
+                        <a href="<?= $contact->contact->prefix . $contact->value ?>"
+                           target="_blank" rel="nofollow"><?= Html::encode($contact->value) ?></a>
+                    <?php endif; ?>
+                    &#160;<?= Html::encode($contact->description) ?>
+                </div>
+            <?php endforeach; ?>
         <?php else: ?>
-            Доставка по России<br>
-            Доставка по Калининграду<br>
-            Самовывоз<br>
-            Защищенный платеж: продавец получит деньги после отправки заказа покупателю<br>
+            <div class="pt-3 pb-1" style="font-size: 13px;">
+                <?= Lang::t('Магазин') . ' ' . $product->shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
+                <?php foreach ($product->shop->delivery->deliveryCompany as $item): ?>
+                    <?= $item; ?>
+                <?php endforeach; ?>
+            </div>
+            <div class="pl-3">
+                <?= Lang::t('Минимальная сумма заказа для доставки в регионы: ') . CurrencyHelper::stat($product->shop->delivery->minAmountCompany) ?>
+            </div>
+            <div class="pl-3">
+                <?php if ($product->shop->delivery->period == 0): ?>
+                    <?= Lang::t('Отправка осуществляется в день заказа ') ?>
+                <?php else: ?>
+                    <?= Lang::t('Отправка товара производится ') . $product->shop->delivery->period . Lang::t(' раз в неделю') ?>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($product->shop->delivery->onCity): ?>
+                <div class="pt-3 pb-1" style="font-size: 13px;">
+                    <?= Lang::t('Имеется доставка по городу Калининград: ') ?>
+                </div>
+                <div class="pl-3">
+                    <?= Lang::t('Минимальная сумма заказа для доставки ') . CurrencyHelper::stat($product->shop->delivery->minAmountCity) ?>
+                    <br>
+                    <?= Lang::t('Стоимость доставки ') . CurrencyHelper::cost($product->shop->delivery->costCity) ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($product->shop->delivery->onPoint): ?>
+                <div class="pt-3 pb-1" style="font-size: 13px;">
+                    <?= Lang::t('Имеется возможность самостоятельно забрать заказ в Калининграде') ?>
+                </div>
+            <?php endif; ?>
+
+            <span class="mt-3 badge badge-success" style="font-size: 12px">Защищенный платеж</span> продавец получит деньги после отправки заказа покупателю
 
         <?php endif; ?>
     </div>
@@ -191,7 +238,7 @@ MagnificPopupAsset::register($this);
     <meta itemprop="name" content="<?= $product->getName() ?>">
     <meta itemprop="description" content="<?= $product->getDescription() ?>">
     <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-        <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file')?>" />
+        <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file') ?>"/>
     </div>
     <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
         <meta itemprop="priceCurrency" content="RUB">
