@@ -168,6 +168,9 @@ return [
                 'food/<id:\d+>' => 'food/view',
 
                 'shops' => 'shop/catalog/index',
+                'shop/catalog/<id:\d+>' => 'shop/catalog/category',
+                'shop/product/<id:\d+>' => 'shop/catalog/product',
+                'shop/<id:\d+>' => 'shop/catalog/shop',
 
                 'tickets' => 'tickets/tickets/index',
 

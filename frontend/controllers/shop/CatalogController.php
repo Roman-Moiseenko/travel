@@ -4,6 +4,7 @@
 namespace frontend\controllers\shop;
 
 
+use booking\forms\booking\ReviewForm;
 use booking\repositories\shops\CategoryRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
@@ -18,11 +19,8 @@ class CatalogController extends Controller
     /**
      * @var ProductService
      */
-    private $serviceShop;
-    /**
-     * @var AdProductService
-     */
-    private $serviceShopAd;
+    private $service;
+
     /**
      * @var ProductRepository
      */
@@ -39,8 +37,7 @@ class CatalogController extends Controller
     public function __construct(
         $id,
         $module,
-        ProductService $serviceShop,
-        AdProductService $serviceShopAd,
+        ProductService $service,
         ProductRepository $products,
         CategoryRepository $categories,
         ShopRepository $shops,
@@ -49,8 +46,7 @@ class CatalogController extends Controller
     {
         parent::__construct($id, $module, $config);
 
-        $this->serviceShop = $serviceShop;
-        $this->serviceShopAd = $serviceShopAd;
+        $this->service = $service;
         $this->products = $products;
         $this->categories = $categories;
         $this->shops = $shops;
@@ -59,15 +55,12 @@ class CatalogController extends Controller
     public function actionIndex()
     {
         $category = $this->categories->getRoot();
-       /* $search = \Yii::$app->request->queryParams['search'] ?? '';
-        if ($search != '') {
-            $form = new SearchForm();
-            $form->text = $search;
-            $dataProvider = $this->products->search($form);
+        $search = \Yii::$app->request->queryParams['search'] ?? null;
+        if (!empty($search)) {
+            $dataProvider = $this->products->search($search);
         } else {
             $dataProvider = $this->products->getAll();
-        }*/
-        $dataProvider = $this->products->getAll();
+        }
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -82,25 +75,27 @@ class CatalogController extends Controller
         }
         $dataProvider = $this->products->getAllByCategory($category);
 
-        if ($category->depth < 2) {
+       // if ($category->depth < 2) {
             return $this->render('category', [
                 'dataProvider' => $dataProvider,
                 'category' => $category,
             ]);
-        } else {
-            $this->layout = 'catalog_filter';
-            /*$form = new SearchForm();
-            $form->category = $id;
-            $form->setAttribute($id);
-            $form->load(\Yii::$app->request->queryParams);
-            $form->validate();*/
-            $dataProvider = $this->products->search($category->id);
-            return $this->render('category_filter', [
-                'dataProvider' => $dataProvider,
-                'category' => $category,
-               // 'searchForm' => $form,
-            ]);
-        }
+            /*} else {
+
+                $this->layout = 'catalog_filter';
+                $form = new SearchForm();
+                $form->category = $id;
+                $form->setAttribute($id);
+                $form->load(\Yii::$app->request->queryParams);
+                $form->validate();
+                $dataProvider = $this->products->search($category->id);
+                return $this->render('category_filter', [
+                    'dataProvider' => $dataProvider,
+                    'category' => $category,
+                   // 'searchForm' => $form,
+                ]);
+                */
+        //}
     }
 
     public function actionShop($id, $type)
@@ -139,9 +134,9 @@ class CatalogController extends Controller
             }*/
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($id, \Yii::$app->user->id, $reviewForm->vote, $reviewForm->text);
+                $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', 'Ваш отзыв был отправлен на модерацию. В ближащее время мы его опубликуем. Спасибо!');
-                return $this->redirect(['shop/catalog/product', 'id' => $id]);
+                return $this->redirect(['shop/product/' . $id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

@@ -472,7 +472,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
 
     public function getPhotos():ActiveQuery
     {
-        return $this->hasMany(Photo::class, ['shop_id' => 'id']);
+        return $this->hasMany(Photo::class, ['shop_id' => 'id'])->orderBy('sort');
     }
 
     public function getMainPhoto(): ActiveQuery

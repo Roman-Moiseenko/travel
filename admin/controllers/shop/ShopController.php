@@ -139,6 +139,30 @@ class ShopController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionDeletePhoto($id, $photo_id)
+    {
+        try {
+            $this->service->removePhoto($id, $photo_id);
+
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMovePhotoUp($id, $photo_id)
+    {
+        $this->service->movePhotoUp($id, $photo_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMovePhotoDown($id, $photo_id)
+    {
+        $this->service->movePhotoDown($id, $photo_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
     private function findModel($id): Shop
     {
         if (($model = Shop::findOne($id)) !== null) {

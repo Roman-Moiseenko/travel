@@ -16,7 +16,7 @@ use booking\forms\booking\ReviewForm;
 use booking\forms\shops\ShopAdCreateForm;
 use booking\helpers\StatusHelper;
 use booking\repositories\message\DialogRepository;
-use booking\repositories\shops\AdReviewRepository;
+use booking\repositories\shops\ReviewShopRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\ContactService;
 use booking\services\ImageService;
@@ -36,7 +36,7 @@ class AdShopService
      */
     private $dialogs;
     /**
-     * @var AdReviewRepository
+     * @var ReviewShopRepository
      */
     private $reviews;
 
@@ -44,7 +44,7 @@ class AdShopService
         ShopRepository $shops,
         ContactService $contactService,
         DialogRepository $dialogs,
-        AdReviewRepository $reviews
+        ReviewShopRepository $reviews
 
     )
     {

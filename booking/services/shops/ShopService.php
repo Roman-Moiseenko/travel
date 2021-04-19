@@ -230,4 +230,25 @@ class ShopService
         $this->shops->save($shop);
     }
 
+    public function movePhotoUp($id, $photoId): void
+    {
+        $shop = $this->shops->get($id);
+        $shop->movePhotoUp($photoId);
+        $this->shops->save($shop);
+    }
+
+    public function movePhotoDown($id, $photoId): void
+    {
+        $shop = $this->shops->get($id);
+        $shop->movePhotoDown($photoId);
+        $this->shops->save($shop);
+    }
+
+    public function removePhoto($id, $photoId): void
+    {
+        $shop = $this->shops->get($id);
+        $shop->removePhoto($photoId);
+        $this->shops->save($shop);
+    }
+
 }

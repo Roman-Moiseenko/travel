@@ -437,6 +437,15 @@ div.required label:after {
     color: #137b26;
 }
 
+.price-card.shop {
+   /* color: #f8a937;*/
+    font-size: 16px;
+}
+
+.price-card.product {
+    /* color: #f8a937;*/
+    font-size: 28px;
+}
 .category-card {
     color: #19355f;
 }

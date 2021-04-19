@@ -83,7 +83,6 @@ class ProductController extends Controller
         $form = new ProductForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-
                 $product = $this->service->create($shop->id, $form);
                 return $this->redirect(['/shop/product/view', 'id' => $product->id]);
             } catch (\DomainException $e) {
@@ -149,6 +148,38 @@ class ProductController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
+    public function actionDeletePhoto($id, $photo_id)
+    {
+        try {
+            $this->service->removePhoto($id, $photo_id);
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMovePhotoUp($id, $photo_id)
+    {
+        try {
+            $this->service->movePhotoUp($id, $photo_id);
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMovePhotoDown($id, $photo_id)
+    {
+        try {
+        $this->service->movePhotoDown($id, $photo_id);
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
 
     private function findModel($id): Product
     {

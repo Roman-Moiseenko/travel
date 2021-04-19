@@ -16,8 +16,6 @@ use yii\helpers\Url;
  * @property int $created_at
  * @property int $vote
  * @property string $text
- * @property string $username
- * @property string $email
  * @property integer $shop_id
  * @property Shop $shop
  */

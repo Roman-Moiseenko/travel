@@ -9,13 +9,17 @@ use booking\entities\Meta;
 use booking\entities\shops\products\BaseProduct;
 use booking\entities\shops\products\Photo;
 use booking\entities\shops\products\Product;
+use booking\entities\shops\products\ReviewProduct;
 use booking\entities\shops\products\Size;
 use booking\entities\shops\Shop;
+use booking\forms\booking\ReviewForm;
 use booking\forms\shops\CostModalForm;
 use booking\forms\shops\ProductForm;
 use booking\repositories\office\PriceListRepository;
 use booking\repositories\shops\ProductRepository;
+use booking\repositories\shops\ReviewProductRepository;
 use booking\services\admin\UserManageService;
+use booking\services\ContactService;
 
 class ProductService
 {
@@ -36,18 +40,30 @@ class ProductService
      * @var ShopService
      */
     private $service;
+    /**
+     * @var ContactService
+     */
+    private $contactService;
+    /**
+     * @var ReviewProductRepository
+     */
+    private $reviews;
 
     public function __construct(
         ProductRepository $products,
         ShopService $service,
         UserManageService $serviceUser,
-        PriceListRepository $priceList
+        PriceListRepository $priceList,
+        ContactService $contactService,
+        ReviewProductRepository $reviews
     )
     {
         $this->products = $products;
         $this->serviceUser = $serviceUser;
         $this->priceList = $priceList;
         $this->service = $service;
+        $this->contactService = $contactService;
+        $this->reviews = $reviews;
     }
 
     public function create($shop_id, ProductForm $form): Product
@@ -188,6 +204,51 @@ class ProductService
         $product->cost = $form->cost;
         $product->quantity = $form->quantity;
         $product->discount = $form->discount;
+        $this->products->save($product);
+    }
+
+    public function movePhotoUp($id, $photoId): void
+    {
+        $product = $this->products->get($id);
+        $product->movePhotoUp($photoId);
+        $this->products->save($product);
+    }
+
+    public function movePhotoDown($id, $photoId): void
+    {
+        $product = $this->products->get($id);
+        $product->movePhotoDown($photoId);
+        $this->products->save($product);
+    }
+
+    public function removePhoto($id, $photoId): void
+    {
+        $product = $this->products->get($id);
+        $product->removePhoto($photoId);
+        $this->products->save($product);
+    }
+
+    public function addReview($product_id, $user_id, ReviewForm $form)
+    {
+        $product = $this->products->get($product_id);
+        $review = $product->addReview(ReviewProduct::create($user_id, $form->vote, $form->text));
+        $this->products->save($product);
+        $this->contactService->sendNoticeReview($review);
+    }
+
+    public function removeReview($review_id)
+    {
+        $review = $this->reviews->get($review_id);
+        $product = $this->products->get($review->product_id);
+        $product->removeReview($review_id);
+        $this->products->save($product);
+    }
+
+    public function editReview($review_id, ReviewForm $form)
+    {
+        $review = $this->reviews->get($review_id);
+        $product = $this->products->get($review->product_id);
+        $product->editReview($review_id, $form->vote, $form->text);
         $this->products->save($product);
     }
 }

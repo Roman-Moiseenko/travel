@@ -6,10 +6,13 @@ namespace booking\repositories\shops;
 
 use booking\entities\shops\products\AdProduct;
 use booking\entities\shops\products\BaseProduct;
+use booking\entities\shops\products\Category;
 use booking\entities\shops\products\Product;
+use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 class ProductRepository
 {
@@ -21,14 +24,14 @@ class ProductRepository
         return $product;
     }
 
-    public function save(BaseProduct $product): void
+    public function save(Product $product): void
     {
         if (!$product->save()) {
             throw new \DomainException('Продукт не сохранен');
         }
     }
 
-    public function remove(BaseProduct $product)
+    public function remove(Product $product)
     {
         if (!$product->delete()) {
             throw new \DomainException('Ошибка удаления Продукта');
@@ -43,20 +46,33 @@ class ProductRepository
         return $product;
     }
 
-
     public function existsByCategory($id)
     {
-        //TODO переделать под объединение
         return Product::find()->andWhere(['category_id' => $id])->exists();
     }
 
+    public function search(array $search): DataProviderInterface
+    {
+        //TODO ЗАГЛУШКА
+        return $this->getAll();
+    }
 
     public function getAll(): DataProviderInterface
     {
         $query = Product::find()->active();
-        $query1 = AdProduct::find()->active();
-        $query->union($query1);
 
+
+        return $this->getProvider($query);
+    }
+
+    public function getAllByCategory(?Category $category)
+    {
+        $query = Product::find()->active()/*->NotEmpty('p')*/ ->with('mainPhoto', 'category');
+        $ids = ArrayHelper::merge([$category->id],
+            $category->getLeaves()->select('id')->column(),
+            $category->getChildren()->select('id')->column());
+        $query->andWhere(['category_id' => $ids]);
+        $query->groupBy('id');
         return $this->getProvider($query);
     }
 
@@ -66,27 +82,31 @@ class ProductRepository
                 'query' => $query,
                 'sort' => [
                     'defaultOrder' => ['id' => SORT_DESC],
-                    /*'attributes' => [
+                    'attributes' => [
                         'id' => [
                             'asc' => ['id' => SORT_ASC], 'desc' => ['id' => SORT_DESC],
                         ],
                         'name' => [
                             'asc' => ['name' => SORT_ASC], 'desc' => ['name' => SORT_DESC],
                         ],
-                        'price' => [
+                        'cost' => [
                             'asc' => ['cost' => SORT_ASC], 'desc' => ['cost' => SORT_DESC],
                         ],
                         'rating' => [
                             'asc' => ['rating' => SORT_ASC], 'desc' => ['rating' => SORT_DESC],
                         ],
 
-                    ],*/
+                    ],
                 ],
                 'pagination' => [
-                    'defaultPageSize' => 15,
-                    'pageSizeLimit' => [15, 100],
+                    'defaultPageSize' => 80,
+                    'pageSizeLimit' => [80, 200],
                 ],
             ]
         );
     }
+
+
+
+
 }

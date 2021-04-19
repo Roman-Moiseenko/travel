@@ -112,37 +112,37 @@ abstract class BaseProduct extends ActiveRecord
         //Во view при создании проверяетс тип магазина и заполняется $manufactured_id
     }*/
 
-    final public function active(): void
+    public function active(): void
     {
         $this->active = true;
     }
 
-    final public function draft(): void
+    public function draft(): void
     {
         $this->active = false;
     }
 
-    final public function isActive(): bool
+    public function isActive(): bool
     {
         return $this->active;
     }
 
-    final public function getName()
+    public function getName()
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->name_en)) ? $this->name : $this->name_en;
     }
 
-    final public function getDescription()
+    public function getDescription()
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
 
-    final public function setMeta(Meta $meta): void
+    public function setMeta(Meta $meta): void
     {
         $this->meta = $meta;
     }
 
-    final public function upViews()
+    public function upViews()
     {
         $this->views++;
     }

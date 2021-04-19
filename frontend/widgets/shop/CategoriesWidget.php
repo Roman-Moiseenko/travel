@@ -41,8 +41,7 @@ class CategoriesWidget extends Widget
             if ($this->showcount) {
                 $categories_id = array_merge([$category->id], $category->getLeaves()->select('id')->column());
                 $count = ' (' .
-                    (Product::find()->active()->andWhere(['category_id' => $categories_id])->count() +
-                    AdProduct::find()->active()->andWhere(['category_id' => $categories_id])->count()) .
+                    Product::find()->active()->andWhere(['category_id' => $categories_id])->count().
                     ')';
             }
             return Html::a(

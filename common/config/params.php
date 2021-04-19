@@ -45,6 +45,9 @@ return [
                 '/origin/stays/',
                 '/origin/certs/',
                 '/origin/foods/',
+                '/origin/shops/',
+                '/origin/products/',
+
             ],
         ],
         [
@@ -93,6 +96,12 @@ return [
             '/files/images/contacts/',
         ],
     ],
-    ]
+    ],
+    'prepay' => [
+        0 => 0,
+        20 => 20,
+        50 => 50,
+        100 => 100,
+    ],
 ];
 

@@ -142,7 +142,7 @@ use yii\helpers\Url;
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'shops/shops' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/shops'])) ?>">
                         <span class="badge badge-warning"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_SHOP) ?>
-                        &#160;<?= Lang::t('Shops') ?></span>
+                        &#160;<?= Lang::t('Shop') ?></span>
                     </a>
                 </li>
                 <?php endif; ?>

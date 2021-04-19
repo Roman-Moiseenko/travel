@@ -117,7 +117,7 @@ use yii\helpers\Html;
                     <?= $form->field($model, 'manufactured_id')->dropdownList(ManufacturedHelper::list(), ['prompt' => ''])->label('Тип производства') ?>
                 </div>
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'deadline')->textInput(['type' => 'number'])->label('Срок производства (дней)') ?>
+                    <?= $form->field($model, 'deadline')->textInput(['type' => 'number'])->label('Срок производства (дней)')->hint('Укажите срок производства, если Вы производите под заказ') ?>
                 </div>
             </div>
 
