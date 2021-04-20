@@ -94,7 +94,7 @@ div.required .control-label:before {
 
 #top .btn-link, #top-links li, #top-links a {
     color: #0f455a;
-    text-shadow: 0 1px 0 #32aad8;
+ /*   text-shadow: 0 1px 0 #32aad8;*/
     text-decoration: none;
 }
 
@@ -986,4 +986,79 @@ td.characteristic.value {
 
 .shop-widget-caption {
     font-size: 18px;
+}
+
+.dropdown-menu.cart-widget {
+    left: -300px !important;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    border-radius: 7px;
+}
+.list-cart {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    border-radius: 7px;
+}
+.list-cart-caption {
+    font-size: 14px;
+    color: #4a4a4e;
+    font-weight: 500;
+}
+
+.cart-items__product-block-amount{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 17px;
+    position: relative;
+}
+
+.count-buttons__button_minus {
+    border-radius: 8px 0 0 8px;
+    border-right: none !important;
+    color: #ddd;
+}
+
+.count-buttons__button_plus {
+    border-radius: 0 8px 8px 0;
+    border-left: none !important;
+}
+
+.count-buttons__button {
+    box-shadow: none;
+    background: #fff;
+    color: #ababab;
+    font-size: 18px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 38px;
+    text-align: center;
+    vertical-align: top;
+    width: calc(100% / 3);
+    line-height: 1.5;
+    outline: none;
+}
+.count-buttons__button:hover {
+    color: #787878;
+    border: 1px solid #939393;
+
+}
+.count-buttons__input {
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 38px;
+    text-align: center;
+    vertical-align: top;
+    width: calc(100% / 3);
+    border-left: none;
+    border-right: none;
+    font-size: 14px;
+    line-height: 33px;
+    color: #666;
+    -webkit-appearance: none;
+    border-radius: 0;
+
 }

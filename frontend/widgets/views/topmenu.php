@@ -4,6 +4,7 @@ use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\MessageHelper;
+use frontend\widgets\shop\CartWidget;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -51,6 +52,9 @@ use yii\helpers\Url;
                     </a>
                 </span>
             </li>
+
+            <?= CartWidget::widget()?>
+
             <li class="dropdown nav-item">
                 <?php if (Yii::$app->user->isGuest): ?>
                     <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>

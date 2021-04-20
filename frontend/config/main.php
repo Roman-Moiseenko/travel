@@ -19,6 +19,7 @@ return [
     'bootstrap' => [
         'log',
         'common\bootstrap\SetUp',
+        'frontend\bootstrap\SetUp',
     ],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -171,6 +172,12 @@ return [
                 'shop/catalog/<id:\d+>' => 'shop/catalog/category',
                 'shop/product/<id:\d+>' => 'shop/catalog/product',
                 'shop/<id:\d+>' => 'shop/catalog/shop',
+                'shop/cart/add' => 'shop/cart/add',
+                'shop/cart/sub' => 'shop/cart/sub',
+                'shop/cart/remove' => 'shop/cart/remove',
+                'shop/cart/quantity' => 'shop/cart/quantity',
+
+                'shop/cart' => 'shop/cart/index',
 
                 'tickets' => 'tickets/tickets/index',
 
