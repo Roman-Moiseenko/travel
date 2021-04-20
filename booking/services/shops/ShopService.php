@@ -11,12 +11,15 @@ use booking\entities\message\ThemeDialog;
 use booking\entities\shops\Delivery;
 use booking\entities\shops\InfoAddress;
 use booking\entities\shops\Photo;
+use booking\entities\shops\ReviewShop;
 use booking\entities\shops\Shop;
+use booking\forms\booking\ReviewForm;
 use booking\forms\WorkModeForm;
 use booking\forms\shops\ShopCreateForm;
 use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\message\DialogRepository;
+use booking\repositories\shops\ReviewShopRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\ContactService;
 use booking\services\ImageService;
@@ -35,16 +38,22 @@ class ShopService
      * @var DialogRepository
      */
     private $dialogs;
+    /**
+     * @var ReviewShopRepository
+     */
+    private $reviews;
 
     public function __construct(
         ShopRepository $shops,
         ContactService $contactService,
-        DialogRepository $dialogs
+        DialogRepository $dialogs,
+        ReviewShopRepository $reviews
     )
     {
         $this->shops = $shops;
         $this->contactService = $contactService;
         $this->dialogs = $dialogs;
+        $this->reviews = $reviews;
     }
 
     public function create(ShopCreateForm $form): Shop
@@ -73,7 +82,7 @@ class ShopService
         $shop->addresses = [];
         $this->shops->save($shop);
 
-        if ($shop->ad !== $form->ad) {
+        if ($shop->ad != $form->ad) {
             foreach ($shop->products as $product) {
                 $product->draft();
                 $product->save();
@@ -178,6 +187,11 @@ class ShopService
             throw new \DomainException('Нельзя отправить в черновики');
         $shop->setStatus(StatusHelper::STATUS_DRAFT);
         $this->shops->save($shop);
+        //Дезактивируем товары
+        foreach ($shop->products as $product) {
+            $product->draft();
+            $product->save();
+        }
     }
 
     public function activate(int $id)
@@ -235,6 +249,30 @@ class ShopService
     {
         $shop = $this->shops->get($id);
         $shop->removePhoto($photoId);
+        $this->shops->save($shop);
+    }
+
+    public function addReview($shop_id, $user_id, ReviewForm $form)
+    {
+        $product = $this->shops->get($shop_id);
+        $review = $product->addReview(ReviewShop::create($user_id, $form->vote, $form->text));
+        $this->shops->save($product);
+        $this->contactService->sendNoticeReview($review);
+    }
+
+    public function removeReview($review_id)
+    {
+        $review = $this->reviews->get($review_id);
+        $shop = $this->shops->get($review->shop_id);
+        $shop->removeReview($review_id);
+        $this->shops->save($shop);
+    }
+
+    public function editReview($review_id, ReviewForm $form)
+    {
+        $review = $this->reviews->get($review_id);
+        $shop = $this->shops->get($review->shop_id);
+        $shop->editReview($review_id, $form->vote, $form->text);
         $this->shops->save($shop);
     }
 

@@ -107,7 +107,8 @@ class ShopCreateForm extends CompositeForm
                 return empty($item->value) ? false : $item;
             }, (array)$this->contactAssign)
         );
-
+        if ($this->ad != true)
+            if (count($this->delivery->deliveryCompany) == 0) throw new \DomainException('Не выбрана хотя бы одна транспортная компания!');
         return parent::beforeValidate();
     }
 

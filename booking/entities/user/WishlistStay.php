@@ -62,7 +62,7 @@ class WishlistStay extends ActiveRecord implements WishlistItemInterface
         return BookingHelper::BOOKING_TYPE_STAY;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->stay_id;
     }

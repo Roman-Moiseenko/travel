@@ -174,7 +174,7 @@ $countReveiws = $food->countReviews();
                             </div>
                         </div>
                         <div class="collapse" id="collapse-map-3">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div class="row">
                                     <div id="map-food-view" style="width: 100%; height: 450px"></div>
                                 </div>

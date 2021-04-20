@@ -208,8 +208,7 @@ $countReveiws = $fun->countReviews();
                         <div class="col-9 align-self-center" id="address"><?= $fun->address->address ?></div>
                     </div>
                     <div class="collapse" id="collapse-map">
-                        <div class="card card-body">
-
+                        <div class="card card-body card-map">
                             <input type="hidden" id="latitude" value="<?= $fun->address->latitude ?>">
                             <input type="hidden" id="longitude" value="<?= $fun->address->longitude ?>">
                             <div class="row">

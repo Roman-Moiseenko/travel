@@ -29,6 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'contentOptions' => ['data-label' => 'ID'],
                     ],
                     [
+                        'attribute' => 'ad',
+                        'value' => function (Shop $model) {
+                            return $model->isAd() ? '<span class="badge badge-info">Витрина</span>' : '<span class="badge badge-warning">Онлайн</span>';
+                        },
+                        'format' => 'raw',
+                        'label' => 'Тип',
+                        'filter' => [false => 'Онлайн', true => 'Витрина'],
+                        'options' => ['width' => '120px',],
+                        'contentOptions' => ['data-label' => 'Тип'],
+                    ],
+                    [
                         'attribute' => 'name',
                         'value' => function (Shop $model) {
                             return Html::a($model->name, ['shops/view', 'id' => $model->id]);

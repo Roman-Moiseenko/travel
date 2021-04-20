@@ -63,7 +63,7 @@ class WishlistCar extends ActiveRecord implements WishlistItemInterface
         return BookingHelper::BOOKING_TYPE_CAR;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->car_id;
     }

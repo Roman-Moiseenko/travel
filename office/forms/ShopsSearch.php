@@ -22,6 +22,7 @@ class ShopsSearch extends Shop
         return [
             [['id', 'status'], 'integer'],
             [['name'], 'safe'],
+            ['ad', 'boolean'],
         ];
     }
 
@@ -43,6 +44,7 @@ class ShopsSearch extends Shop
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'ad' => $this->ad,
         ]);
         $query
             ->andFilterWhere(['like', 'name', $this->name]);

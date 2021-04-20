@@ -4,8 +4,10 @@ namespace booking\entities\user;
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
+use booking\entities\booking\WishlistItemInterface;
 use booking\entities\Lang;
 use booking\helpers\scr;
+use ReflectionClass;
 use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\base\NotSupportedException;
@@ -40,6 +42,7 @@ use yii\web\UploadedFile;
  * @property WishlistFun[] wishlistFuns
  * @property WishlistStay[] wishlistStays
  * @property WishlistFood[] wishlistFoods
+ * @property WishlistProduct[] wishlistProducts
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -190,6 +193,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'wishlistFuns',
                     'wishlistStays',
                     'wishlistFoods',
+                    'wishlistProducts',
                     'mailing',
                     ],
             ],
@@ -255,139 +259,43 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     //**** ИЗБРАННОЕ                 ******
-    ////*** Tour ****
-    public function addWishlistTour($tour_id)
+    //**************** Избранное (ч/з Рефлексию) ************************
+    public function addWishlist(WishlistItemInterface $wishlistItem)
     {
-        $wishlist = $this->wishlistTours;
+        try {
+            $class = (new ReflectionClass($wishlistItem))->getShortName();
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            throw new \DomainException('Ошибка добавления в избранное. Попробуйте позже, когда мы устраним проблему');
+        }
+        $class = lcfirst($class) . 's';
+        /** @var WishlistItemInterface[] $wishlist */
+        $wishlist = $this->$class;
         foreach ($wishlist as $item) {
-            if ($item->isFor($tour_id)) {
+            if ($item->isFor($wishlistItem->getId())) {
                 throw new \DomainException(Lang::t('Уже добавлено в избранное'));
             }
         }
-        $wishlist[] = WishlistTour::create($tour_id);
-        $this->wishlistTours = $wishlist;
+        $wishlist[] = $wishlistItem;
+        $this->$class = $wishlist;
     }
 
-    public function removeWishlistTour($id)
+    public function removeWishlist(WishlistItemInterface $wishlistItem)
     {
-        $wishlist = $this->wishlistTours;
+        try {
+            $class = (new ReflectionClass($wishlistItem))->getShortName();
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            throw new \DomainException('Ошибка добавления в избранное. Попробуйте позже, когда мы устраним проблему');
+        }
+        $class = lcfirst($class) . 's';
+        /** @var WishlistItemInterface[] $wishlist */
+        $wishlist = $this->$class;
         foreach ($wishlist as $i => &$item) {
-            if ($item->isFor($id)) {
+            if ($item->isFor($wishlistItem->getId())) {
                 $item->delete();
                 unset($wishlist[$i]);
-                $this->wishlistTours = $wishlist;
-                return;
-            }
-        }
-        throw new \DomainException(Lang::t('Избранное не найдено'));
-    }
-
-    ////*** Car  ****
-
-    public function addWishlistCar($car_id)
-    {
-        $wishlist = $this->wishlistCars;
-        foreach ($wishlist as $item) {
-            if ($item->isFor($car_id)) {
-                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
-            }
-        }
-        $wishlist[] = WishlistCar::create($car_id);
-        $this->wishlistCars = $wishlist;
-    }
-
-    public function removeWishlistCar($id)
-    {
-        $wishlist = $this->wishlistCars;
-        foreach ($wishlist as $i => &$item) {
-            if ($item->isFor($id)) {
-                $item->delete();
-                unset($wishlist[$i]);
-                $this->wishlistCars = $wishlist;
-                return;
-            }
-        }
-        throw new \DomainException(Lang::t('Избранное не найдено'));
-    }
-
-    ////*** Fun  ****
-
-    public function addWishlistFun($id)
-    {
-        $wishlist = $this->wishlistFuns;
-        foreach ($wishlist as $item) {
-            if ($item->isFor($id)) {
-                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
-            }
-        }
-        $wishlist[] = WishlistFun::create($id);
-        $this->wishlistFuns = $wishlist;
-    }
-
-    public function removeWishlistFun($id)
-    {
-        $wishlist = $this->wishlistFuns;
-        foreach ($wishlist as $i => &$item) {
-            if ($item->isFor($id)) {
-                $item->delete();
-                unset($wishlist[$i]);
-                $this->wishlistFuns = $wishlist;
-                return;
-            }
-        }
-        throw new \DomainException(Lang::t('Избранное не найдено'));
-    }
-
-    ////*** Stay ****
-
-    public function addWishlistStay($id)
-    {
-        $wishlist = $this->wishlistStays;
-        foreach ($wishlist as $item) {
-            if ($item->isFor($id)) {
-                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
-            }
-        }
-        $wishlist[] = WishlistStay::create($id);
-        $this->wishlistStays = $wishlist;
-    }
-
-    public function removeWishlistStay($id)
-    {
-        $wishlist = $this->wishlistStays;
-        foreach ($wishlist as $i => &$item) {
-            if ($item->isFor($id)) {
-                $item->delete();
-                unset($wishlist[$i]);
-                $this->wishlistStays = $wishlist;
-                return;
-            }
-        }
-        throw new \DomainException(Lang::t('Избранное не найдено'));
-    }
-
-    ////*** Food ****
-
-    public function addWishlistFood($id)
-    {
-        $wishlist = $this->wishlistFoods;
-        foreach ($wishlist as $item) {
-            if ($item->isFor($id)) {
-                throw new \DomainException(Lang::t('Уже добавлено в избранное'));
-            }
-        }
-        $wishlist[] = WishlistFood::create($id);
-        $this->wishlistFoods = $wishlist;
-    }
-
-    public function removeWishlistFood($id)
-    {
-        $wishlist = $this->wishlistFoods;
-        foreach ($wishlist as $i => &$item) {
-            if ($item->isFor($id)) {
-                $item->delete();
-                unset($wishlist[$i]);
-                $this->wishlistFoods = $wishlist;
+                $this->$class = $wishlist;
                 return;
             }
         }
@@ -428,6 +336,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getWishlistFoods(): ActiveQuery
     {
         return $this->hasMany(WishlistFood::class, ['user_id' => 'id']);
+    }
+
+    public function getWishlistProducts(): ActiveQuery
+    {
+        return $this->hasMany(WishlistProduct::class, ['user_id' => 'id']);
     }
 
     public function getNetworks(): ActiveQuery

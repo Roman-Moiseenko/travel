@@ -211,7 +211,7 @@ $countReveiws = $car->countReviews();
                         <div class="col-8" id="address"></div>
                     </div>
                     <div class="collapse" id="collapse-map">
-                        <div class="card card-body">
+                        <div class="card card-body card-map">
                             <div id="count-points" data-count="<?= count($car->address) ?>">
                                 <?php foreach ($car->address as $i => $address): ?>
                                     <input type="hidden" id="address-<?= ($i + 1) ?>" value="<?= $address->address ?>">

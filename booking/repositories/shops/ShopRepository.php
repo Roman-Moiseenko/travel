@@ -38,4 +38,11 @@ class ShopRepository
         }
     }
 
+    public function getForFrontend($id): Shop
+    {
+        if (!$result = Shop::find()->active()->andWhere(['id' => $id])->one()) {
+            throw new \DomainException('Магазин не найден');
+        }
+        return $result;
+    }
 }

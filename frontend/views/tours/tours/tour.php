@@ -207,7 +207,7 @@ $countReveiws = $tour->countReviews();
                              id="address"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map">
-                        <div class="card card-body">
+                        <div class="card card-body card-map">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address" class="form-control" width="100%"
@@ -242,7 +242,7 @@ $countReveiws = $tour->countReviews();
                              id="address-2"><?= $tour->params->endAddress->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-2">
-                        <div class="card card-body">
+                        <div class="card card-body card-map">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address-2" class="form-control" width="100%"
@@ -277,7 +277,7 @@ $countReveiws = $tour->countReviews();
                              id="address-3"><?= $tour->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
                     </div>
                     <div class="collapse" id="collapse-map-3">
-                        <div class="card card-body">
+                        <div class="card card-body card-map">
                             <div class="row">
                                 <div class="col-8">
                                     <input id="bookingaddressform-address-3" class="form-control" width="100%"

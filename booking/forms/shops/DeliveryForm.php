@@ -67,7 +67,6 @@ class DeliveryForm extends CompositeForm
     public function beforeValidate(): bool
     {
         $this->deliveryCompany = array_filter((array)$this->deliveryCompany);
-        if (count($this->deliveryCompany) == 0) throw new \DomainException('Не выбрана хотя бы одна транспортная компания!');
         return parent::beforeValidate();
     }
 

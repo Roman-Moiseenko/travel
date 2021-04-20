@@ -70,7 +70,19 @@ MagnificPopupAsset::register($this);
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
-                <h1 class="caption-product"><?= Html::encode($product->name) ?></h1> <!-- Заголовок товара-->
+                <div class="d-flex align-items-center">
+                    <div class="btn-group mr-2">
+                        <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
+                                title="<?= Lang::t('В избранное') ?>"
+                                href="<?= Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id]) ?>"
+                                data-method="post">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="mr-auto">
+                        <h1 class="caption-product"><?= Html::encode($product->name) ?></h1> <!-- Заголовок товара-->
+                    </div>
+                </div>
                 <ul class="list-unstyled">
                     <li>
                         <a href="<?= Url::to(['/shop/' . $product->shop_id]) ?>">
@@ -160,65 +172,9 @@ MagnificPopupAsset::register($this);
 <!-- ДОСТАВКА И ОПЛАТА -->
 <div class="card my-3">
     <div class="card-body">
-        <?php if ($product->isAd()): ?>
-            <div class="py-2"
-                 style="font-size: 13px;"><?= Lang::t('Магазин') . ' ' . $product->shop->getName() . Lang::t(' не осуществляет онлайн-продажи через данную плошадку') ?></div>
-            <div>Товар можно приобрести по адресу:</div>
-            <?php foreach ($product->shop->addresses as $address) {
-                echo '<div class="pl-3"><i class="fas fa-map-marker-alt"></i>&#160;' . $address->address . '&#160;&#160;<i class="fas fa-phone-alt"></i>' . $address->phone . '</div>';
-            } ?>
-            <?php if (count($product->shop->contactAssign) > 0): ?>
-                <div class="pt-2"><?= Lang::t('Контакты:') ?></div>
-            <?php endif; ?>
-            <?php foreach ($product->shop->contactAssign as $contact): ?>
-                <div class="pl-3">
-                    <img src="<?= $contact->contact->getThumbFileUrl('photo', 'list') ?>"/>&#160;
-                    <?php if ($contact->contact->type == Contact::NO_LINK): ?>
-                        <?= Html::encode($contact->value) ?>
-                    <?php else: ?>
-                        <a href="<?= $contact->contact->prefix . $contact->value ?>"
-                           target="_blank" rel="nofollow"><?= Html::encode($contact->value) ?></a>
-                    <?php endif; ?>
-                    &#160;<?= Html::encode($contact->description) ?>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="pt-3 pb-1" style="font-size: 13px;">
-                <?= Lang::t('Магазин') . ' ' . $product->shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
-                <?php foreach ($product->shop->delivery->companies as $company): ?>
-                    <div class="pl-3"><a class="" href="<?= $company->link?>" target="_blank" rel="noreferrer noopener nofollow"><?= $company->name; ?></a></div>
-                <?php endforeach; ?>
-            </div>
-            <div class="pl-3">
-                <?= Lang::t('Минимальная сумма заказа для доставки в регионы: ') . CurrencyHelper::stat($product->shop->delivery->minAmountCompany) ?>
-            </div>
-            <div class="pl-3">
-                <?php if ($product->shop->delivery->period == 0): ?>
-                    <?= Lang::t('Отправка осуществляется в день заказа ') ?>
-                <?php else: ?>
-                    <?= Lang::t('Отправка товара производится ') . $product->shop->delivery->period . Lang::t(' раз в неделю') ?>
-                <?php endif; ?>
-            </div>
-
-            <?php if ($product->shop->delivery->onCity): ?>
-                <div class="pt-3 pb-1" style="font-size: 13px;">
-                    <?= Lang::t('Имеется доставка по городу Калининград: ') ?>
-                </div>
-                <div class="pl-3">
-                    <?= Lang::t('Минимальная сумма заказа для доставки ') . CurrencyHelper::stat($product->shop->delivery->minAmountCity) ?>
-                    <br>
-                    <?= Lang::t('Стоимость доставки ') . CurrencyHelper::cost($product->shop->delivery->costCity) ?>
-                </div>
-            <?php endif; ?>
-            <?php if ($product->shop->delivery->onPoint): ?>
-                <div class="pt-3 pb-1" style="font-size: 13px;">
-                    <?= Lang::t('Имеется возможность самостоятельно забрать заказ в Калининграде') ?>
-                </div>
-            <?php endif; ?>
-
-            <span class="mt-3 badge badge-success" style="font-size: 12px">Защищенный платеж</span> продавец получит деньги после отправки заказа покупателю
-
-        <?php endif; ?>
+        <?= $this->render('_delivery', [
+            'shop' => $product->shop,
+        ])?>
     </div>
 </div>
 <!-- ОТЗЫВЫ -->

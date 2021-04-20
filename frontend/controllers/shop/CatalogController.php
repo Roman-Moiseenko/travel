@@ -10,6 +10,7 @@ use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\shops\AdProductService;
 use booking\services\shops\ProductService;
+use booking\services\shops\ShopService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -33,12 +34,17 @@ class CatalogController extends Controller
      * @var ShopRepository
      */
     private $shops;
+    /**
+     * @var ShopService
+     */
+    private $shopService;
 
     public function __construct(
         $id,
         $module,
         ProductService $service,
         ProductRepository $products,
+        ShopService $shopService,
         CategoryRepository $categories,
         ShopRepository $shops,
         //TagReadRepository $tags,
@@ -50,6 +56,7 @@ class CatalogController extends Controller
         $this->products = $products;
         $this->categories = $categories;
         $this->shops = $shops;
+        $this->shopService = $shopService;
     }
 
     public function actionIndex()
@@ -74,52 +81,63 @@ class CatalogController extends Controller
             throw new NotFoundHttpException('Категория не найдена');
         }
         $dataProvider = $this->products->getAllByCategory($category);
+        // if ($category->depth < 2) {
+        return $this->render('category', [
+            'dataProvider' => $dataProvider,
+            'category' => $category,
+        ]);
+        /*} else {
 
-       // if ($category->depth < 2) {
-            return $this->render('category', [
+            $this->layout = 'catalog_filter';
+            $form = new SearchForm();
+            $form->category = $id;
+            $form->setAttribute($id);
+            $form->load(\Yii::$app->request->queryParams);
+            $form->validate();
+            $dataProvider = $this->products->search($category->id);
+            return $this->render('category_filter', [
                 'dataProvider' => $dataProvider,
                 'category' => $category,
+               // 'searchForm' => $form,
             ]);
-            /*} else {
-
-                $this->layout = 'catalog_filter';
-                $form = new SearchForm();
-                $form->category = $id;
-                $form->setAttribute($id);
-                $form->load(\Yii::$app->request->queryParams);
-                $form->validate();
-                $dataProvider = $this->products->search($category->id);
-                return $this->render('category_filter', [
-                    'dataProvider' => $dataProvider,
-                    'category' => $category,
-                   // 'searchForm' => $form,
-                ]);
-                */
+            */
         //}
     }
 
-    public function actionShop($id, $type)
+    public function actionShop($id)
     {
-        if (!$shop = $this->shops->find($id, $type)) {
-            throw new NotFoundHttpException('Бренд не найден');
+        $this->layout = 'blank';
+        try {
+            $shop = $this->shops->getForFrontend($id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
         }
-        $dataProvider = $this->products->getAllByShop($shop);
+        $reviewForm = new ReviewForm();
+        if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
+            try {
+                $this->shopService->addReview($id, \Yii::$app->user->id, $reviewForm);
+                \Yii::$app->session->setFlash('success', 'Ваш отзыв был опубликован. Спасибо!');
+                return $this->redirect(['shop/' . $id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
         return $this->render('shop', [
-            'dataProvider' => $dataProvider,
             'shop' => $shop,
         ]);
     }
 
     public function actionMaterial($id)
     {
-       /* if (!$tag = $this->tags->find($id)) {
-            throw new NotFoundHttpException('Метка не найдена');
-        }
-        $dataProvider = $this->products->getAllByTag($tag);
-        return $this->render('material', [
-            'dataProvider' => $dataProvider,
-            'tag' => $tag,
-        ]);*/
+        /* if (!$tag = $this->tags->find($id)) {
+             throw new NotFoundHttpException('Метка не найдена');
+         }
+         $dataProvider = $this->products->getAllByTag($tag);
+         return $this->render('material', [
+             'dataProvider' => $dataProvider,
+             'tag' => $tag,
+         ]);*/
     }
 
     public function actionProduct($id)
@@ -133,60 +151,61 @@ class CatalogController extends Controller
             return $this->redirect(\Yii::$app->request->referrer);
         }
         // $addToCartForm = new AddToCartForm($product);
-    //    $reviewForm = new ReviewForm();
         /*    if ($addToCartForm->load(Yii::$app->request->post()) && $addToCartForm->validate()) {
             }*/
- /*       if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
+
+        $reviewForm = new ReviewForm();
+        if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
-                \Yii::$app->session->setFlash('success', 'Ваш отзыв был отправлен на модерацию. В ближащее время мы его опубликуем. Спасибо!');
+                \Yii::$app->session->setFlash('success', 'Ваш отзыв был опубликован. Спасибо!');
                 return $this->redirect(['shop/product/' . $id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
-        }*/
+        }
         return $this->render('product', [
             'product' => $product,
             //   'addToCartForm' => $addToCartForm,
         ]);
     }
 
- /*   public function actionSearch()
-    {
-        $form = new SearchForm();
+    /*   public function actionSearch()
+       {
+           $form = new SearchForm();
 
-        if (isset(\Yii::$app->request->queryParams['category'])) {
-            $id = \Yii::$app->request->queryParams['category'];
-            $form->category = $id;
-            $form->setAttribute($id);
-        }
+           if (isset(\Yii::$app->request->queryParams['category'])) {
+               $id = \Yii::$app->request->queryParams['category'];
+               $form->category = $id;
+               $form->setAttribute($id);
+           }
 
-        $form->load(\Yii::$app->request->queryParams);
-        $form->validate();
-        $dataProvider = $this->products->search($form);
+           $form->load(\Yii::$app->request->queryParams);
+           $form->validate();
+           $dataProvider = $this->products->search($form);
 
-        return $this->render('search', [
-            'dataProvider' => $dataProvider,
-            'searchForm' => $form,
-        ]);
-    }*/
+           return $this->render('search', [
+               'dataProvider' => $dataProvider,
+               'searchForm' => $form,
+           ]);
+       }*/
 
-/*
-    public function actionGetsearch()
-    {
-        $this->layout = '_blank';
-        if (\Yii::$app->request->isAjax) {
-            $form = new SearchForm();
-            $form->text = \Yii::$app->request->bodyParams['text'];
-            $form->brand = \Yii::$app->request->bodyParams['brand'];
-            if (isset(\Yii::$app->request->bodyParams['id'])) {
-                $id = \Yii::$app->request->bodyParams['id'];
-                $form->category = $id;
-                $form->setAttribute($id);
+    /*
+        public function actionGetsearch()
+        {
+            $this->layout = '_blank';
+            if (\Yii::$app->request->isAjax) {
+                $form = new SearchForm();
+                $form->text = \Yii::$app->request->bodyParams['text'];
+                $form->brand = \Yii::$app->request->bodyParams['brand'];
+                if (isset(\Yii::$app->request->bodyParams['id'])) {
+                    $id = \Yii::$app->request->bodyParams['id'];
+                    $form->category = $id;
+                    $form->setAttribute($id);
+                }
+                return $this->render('_search', [
+                    'searchForm' => $form,
+                ]);
             }
-            return $this->render('_search', [
-                'searchForm' => $form,
-            ]);
-        }
-    }*/
+        }*/
 }

@@ -7,6 +7,12 @@ namespace booking\services\user;
 use booking\entities\user\FullName;
 use booking\entities\user\User;
 use booking\entities\user\UserAddress;
+use booking\entities\user\WishlistCar;
+use booking\entities\user\WishlistFood;
+use booking\entities\user\WishlistFun;
+use booking\entities\user\WishlistProduct;
+use booking\entities\user\WishlistStay;
+use booking\entities\user\WishlistTour;
 use booking\forms\user\PersonalForm;
 use booking\forms\user\PreferencesForm;
 use booking\forms\user\UserCreateForm;
@@ -195,70 +201,84 @@ class UserManageService
     public function addWishlistTour($id, $tour_id)
     {
         $user = $this->users->get($id);
-        $user->addWishlistTour($tour_id);
+        $user->addWishlist(WishlistTour::create($tour_id));
         $this->users->save($user);
     }
 
     public function removeWishlistTour($id, $tour_id)
     {
         $user = $this->users->get($id);
-        $user->removeWishlistTour($tour_id);
+        $user->removeWishlist(WishlistTour::create($tour_id));
         $this->users->save($user);
     }
 
     public function addWishlistCar($id, $car_id)
     {
         $user = $this->users->get($id);
-        $user->addWishlistCar($car_id);
+        $user->addWishlist(WishlistCar::create($car_id));
         $this->users->save($user);
     }
 
     public function removeWishlistCar($id, $car_id)
     {
         $user = $this->users->get($id);
-        $user->removeWishlistCar($car_id);
+        $user->removeWishlist(WishlistCar::create($car_id));
         $this->users->save($user);
     }
 
     public function addWishlistFun($id, $fun_id)
     {
         $user = $this->users->get($id);
-        $user->addWishlistFun($fun_id);
+        $user->addWishlist(WishlistFun::create($fun_id));
         $this->users->save($user);
     }
 
     public function removeWishlistFun($id, $fun_id)
     {
         $user = $this->users->get($id);
-        $user->removeWishlistFun($fun_id);
+        $user->removeWishlist(WishlistFun::create($fun_id));
         $this->users->save($user);
     }
 
     public function addWishlistStay($id, $stay_id)
     {
         $user = $this->users->get($id);
-        $user->addWishlistStay($stay_id);
+        $user->addWishlist(WishlistStay::create($stay_id));
         $this->users->save($user);
     }
 
     public function removeWishlistStay($id, $stay_id)
     {
         $user = $this->users->get($id);
-        $user->removeWishlistStay($stay_id);
+        $user->removeWishlist(WishlistStay::create($stay_id));
         $this->users->save($user);
     }
 
     public function addWishlistFood($id, $food_id)
     {
         $user = $this->users->get($id);
-        $user->addWishlistFood($food_id);
+        $user->addWishlist(WishlistFood::create($food_id));
         $this->users->save($user);
     }
 
     public function removeWishlistFood($id, $food_id)
     {
         $user = $this->users->get($id);
-        $user->removeWishlistFood($food_id);
+        $user->removeWishlist(WishlistFood::create($food_id));
+        $this->users->save($user);
+    }
+
+    public function addWishlistProduct($id, $product_id)
+    {
+        $user = $this->users->get($id);
+        $user->addWishlist(WishlistProduct::create($product_id));
+        $this->users->save($user);
+    }
+
+    public function removeWishlistProduct($id, $product_id)
+    {
+        $user = $this->users->get($id);
+        $user->removeWishlist(WishlistProduct::create($product_id));
         $this->users->save($user);
     }
 }

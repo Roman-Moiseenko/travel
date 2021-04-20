@@ -67,10 +67,6 @@ class ActiveController extends Controller
         ]);
         $dataProviderShops = $searchModelShops->search(\Yii::$app->request->queryParams);
 
-        $searchModelShopsAd = new AdShopsSearch([
-            'verify' => true,
-        ]);
-        $dataProviderShopsAd = $searchModelShopsAd->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModelTours' => $searchModelTours,
@@ -88,8 +84,6 @@ class ActiveController extends Controller
             'searchModelShops' => $searchModelShops,
             'dataProviderShops' => $dataProviderShops,
 
-            'dataProviderShopsAd' => $dataProviderShopsAd,
-            'searchModelShopsAd' => $searchModelShopsAd,
         ]);
 
 

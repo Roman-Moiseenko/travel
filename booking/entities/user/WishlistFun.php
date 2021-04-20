@@ -62,7 +62,7 @@ class WishlistFun extends ActiveRecord implements WishlistItemInterface
         return BookingHelper::BOOKING_TYPE_FUNS;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->fun_id;
     }

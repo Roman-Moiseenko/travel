@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\entities\mailing\Mailing;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
+use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use booking\services\pdf\pdfServiceController;
 use booking\sms\sms;
@@ -316,7 +317,7 @@ class ContactService
         }
     }
 
-    public function sendLockShop(\booking\entities\shops\BaseShop $shop)
+    public function sendLockShop(Shop $shop)
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockShop', ['shop' => $shop])

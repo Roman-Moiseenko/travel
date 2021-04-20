@@ -65,7 +65,7 @@ class WishlistFood extends ActiveRecord implements WishlistItemInterface
         return BookingHelper::BOOKING_TYPE_FOOD;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->food_id;
     }
