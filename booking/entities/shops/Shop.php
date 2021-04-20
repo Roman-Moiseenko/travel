@@ -18,6 +18,7 @@ use booking\entities\Meta;
 use booking\entities\office\PriceInterface;
 use booking\entities\queries\ObjectActiveQuery;
 use booking\entities\shops\products\Product;
+use booking\forms\shops\DeliveryForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -39,13 +40,11 @@ use yii\helpers\Json;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $name
-
  * @property string $name_en
  * @property string $description
  * @property string $description_en
  * @property float $rating
  * @property integer $status
-
  ********************************* Внешние связи
  * @property Product[] $products
  * @property User $user
@@ -60,28 +59,25 @@ use yii\helpers\Json;
  * @property ContactAssign[] $contactAssign
  * @property ReviewShop[] $reviews
  * @property Product[] $activeProducts
+ * @property Delivery $delivery
  *
- *
-
  * @property integer $main_photo_id
-
  * @property integer $free_products
  * @property integer $active_products
-
  *
  *********************************** Скрытые поля
  * @property string $work_mode_json
  * @property string $delivery_json
  * @property string $meta_json
  */
-class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterface
+class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterface
 {
-    /** @var $delivery Delivery */
-    public $delivery;
     /** @var WorkMode[] $workModes */
     public $workModes = [];
     /** @var Meta $meta */
     public $meta;
+    /** @var $_delivery Delivery */
+    private $_delivery;
 
     public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id, $ad): Shop
     {
@@ -105,9 +101,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
         for ($i = 0; $i < 7; $i++) {
             $shop->workModes[] = new WorkMode();
         }
-        $shop->delivery = new Delivery();
-
-
+        //$shop->delivery = new Delivery();
         return $shop;
     }
 
@@ -122,9 +116,27 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
         $this->type_id = $type_id;
     }
 
-    public function setDelivery(Delivery $delivery): void
+    public function setDelivery(DeliveryForm $form): void
     {
-        $this->delivery = $delivery;
+        if ($this->ad) throw new \DomainException('Нельзя установить Доставку для Витрины');
+
+        $this->_delivery = Delivery::create(
+            $form->onCity,
+            $form->costCity,
+            $form->minAmountCity,
+            $form->minAmountCompany,
+            $form->period,
+            $form->onPoint,
+            new BookingAddress(
+                $form->addressPoint->address,
+                $form->addressPoint->latitude,
+                $form->addressPoint->longitude
+            )
+        );
+        foreach ($form->deliveryCompany as $item) {
+            $this->_delivery->addCompany($item);
+        }
+
     }
 
     public function setMeta(Meta $meta): void
@@ -215,15 +227,18 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
 
         ];
     }
+
     public function transactions(): array
     {
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
     }
+
     public function afterFind(): void
     {
         $delivery = Json::decode($this->getAttribute('delivery_json'));
+        /*
         $this->delivery = Delivery::create(
             $delivery['onCity'] ?? null,
             $delivery['costCity'] ?? null,
@@ -238,7 +253,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
                 $delivery['addressPoint']['longitude'] ?? null
             )
         );
-
+*/
         $workMode = [];
         $_w = json_decode($this->getAttribute('work_mode_json'), true);
         for ($i = 0; $i < 7; $i++) {
@@ -255,6 +270,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
 
     public function beforeSave($insert): bool
     {
+        /*
         $delivery = $this->delivery;
         $this->setAttribute('delivery_json', Json::encode([
             'onCity' => $delivery->onCity,
@@ -270,6 +286,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
                 'longitude' => $delivery->addressPoint->longitude,
             ],
         ]));
+        */
         $this->setAttribute('work_mode_json', json_encode($this->workModes));
 
         return parent::beforeSave($insert);
@@ -282,6 +299,8 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
         if (array_key_exists('mainPhoto', $related)) {
             $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
         }
+        //TODO Сохраняем Delivery
+        $this->saveDelivery();
     }
 
     //**** Адреса (InfoAddress) **********************************
@@ -470,7 +489,7 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
         return $this->hasMany(ReviewShop::class, ['shop_id' => 'id']);
     }
 
-    public function getPhotos():ActiveQuery
+    public function getPhotos(): ActiveQuery
     {
         return $this->hasMany(Photo::class, ['shop_id' => 'id'])->orderBy('sort');
     }
@@ -485,7 +504,13 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
         return $this->hasMany(InfoAddress::class, ['shop_id' => 'id']);
     }
 
-    public function contactAssignById(int $id):? ContactAssign
+    public function getDelivery(): ActiveQuery
+    {
+        return $this->hasOne(Delivery::class, ['shop_id' => 'id']);
+    }
+
+
+    public function contactAssignById(int $id): ?ContactAssign
     {
         $contacts = $this->contactAssign;
         foreach ($contacts as $contact) {
@@ -512,5 +537,43 @@ class Shop extends ActiveRecord  implements ActivateObjectInterface, PriceInterf
     public static function find(): ObjectActiveQuery
     {
         return new ObjectActiveQuery(static::class);
+    }
+
+    private function saveDelivery(): void
+    {
+        if (!$this->ad) {
+            if ($this->_delivery == null) {
+                if ($this->delivery == null) throw new \DomainException('Не определен параметр _delivery');
+            } else {
+                if ($this->delivery != null) {
+                    $delivery = $this->delivery;
+                    $delivery->edit(
+                        $this->_delivery->onCity,
+                        $this->_delivery->costCity,
+                        $this->_delivery->minAmountCity,
+                        $this->_delivery->minAmountCompany,
+                        $this->_delivery->period,
+                        $this->_delivery->onPoint,
+                        $this->_delivery->addressPoint
+                    );
+                    $delivery->clearCompany();
+                    $delivery->save();
+                    foreach ($this->_delivery->companiesAssign as $assign) {
+                        $delivery->addCompany($assign->delivery_company_id);
+                    }
+                    $delivery->save();
+                } else {
+                    $this->_delivery->shop_id = $this->id;
+                    $this->_delivery->save();
+                }
+
+            }
+        } else {
+            if ($this->delivery != null) {
+                $delivery = $this->delivery;
+                $delivery->delete();
+            }
+        }
+
     }
 }

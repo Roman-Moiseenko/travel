@@ -129,20 +129,7 @@ class ShopService
                 ));
         }
         //Delivery
-        $shop->setDelivery(Delivery::create(
-            $form->delivery->onCity,
-            $form->delivery->costCity,
-            $form->delivery->minAmountCity,
-            $form->delivery->minAmountCompany,
-            $form->delivery->period,
-            $form->delivery->deliveryCompany,
-            $form->delivery->onPoint,
-            new BookingAddress(
-                $form->delivery->addressPoint->address,
-                $form->delivery->addressPoint->latitude,
-                $form->delivery->addressPoint->longitude
-            )
-        ));
+        if (!$shop->isAd()) $shop->setDelivery($form->delivery);
     }
 
     public function verify($id)

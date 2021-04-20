@@ -125,14 +125,18 @@ class CatalogController extends Controller
     public function actionProduct($id)
     {
         $this->layout = 'blank';
-        if (!$product = $this->products->get($id)) {
-            throw new NotFoundHttpException('Товар не найден');
+        try {
+            $product = $this->products->getForFrontend($id);
+            $this->service->view($product->id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
         }
         // $addToCartForm = new AddToCartForm($product);
-        $reviewForm = new ReviewForm();
+    //    $reviewForm = new ReviewForm();
         /*    if ($addToCartForm->load(Yii::$app->request->post()) && $addToCartForm->validate()) {
             }*/
-        if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
+ /*       if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', 'Ваш отзыв был отправлен на модерацию. В ближащее время мы его опубликуем. Спасибо!');
@@ -140,11 +144,10 @@ class CatalogController extends Controller
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
-        }
+        }*/
         return $this->render('product', [
             'product' => $product,
             //   'addToCartForm' => $addToCartForm,
-            'reviewForm' => $reviewForm,
         ]);
     }
 

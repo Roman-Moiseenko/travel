@@ -185,8 +185,8 @@ MagnificPopupAsset::register($this);
         <?php else: ?>
             <div class="pt-3 pb-1" style="font-size: 13px;">
                 <?= Lang::t('Магазин') . ' ' . $product->shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
-                <?php foreach ($product->shop->delivery->deliveryCompany as $item): ?>
-                    <?= $item; ?>
+                <?php foreach ($product->shop->delivery->companies as $company): ?>
+                    <div class="pl-3"><a class="" href="<?= $company->link?>" target="_blank" rel="noreferrer noopener nofollow"><?= $company->name; ?></a></div>
                 <?php endforeach; ?>
             </div>
             <div class="pl-3">

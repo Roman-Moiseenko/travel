@@ -6,6 +6,8 @@ namespace booking\forms\shops;
 
 use booking\entities\booking\BookingAddress;
 use booking\entities\shops\Delivery;
+use booking\entities\shops\DeliveryCompany;
+use booking\entities\shops\DeliveryCompanyAssign;
 use booking\forms\booking\BookingAddressForm;
 use booking\forms\CompositeForm;
 use booking\helpers\scr;
@@ -39,7 +41,7 @@ class DeliveryForm extends CompositeForm
             $this->minAmountCity = $delivery->minAmountCity;
             $this->minAmountCompany = $delivery->minAmountCompany;
             $this->period = $delivery->period;
-            $this->deliveryCompany = $delivery->deliveryCompany;
+            $this->deliveryCompany = array_map(function (DeliveryCompanyAssign $assign) {return $assign->delivery_company_id; }, $delivery->companiesAssign);
             $this->onPoint = $delivery->onPoint;
             $this->addressPoint = new BookingAddressForm($delivery->addressPoint);
         } else {
@@ -65,6 +67,7 @@ class DeliveryForm extends CompositeForm
     public function beforeValidate(): bool
     {
         $this->deliveryCompany = array_filter((array)$this->deliveryCompany);
+        if (count($this->deliveryCompany) == 0) throw new \DomainException('Не выбрана хотя бы одна транспортная компания!');
         return parent::beforeValidate();
     }
 

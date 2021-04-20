@@ -3,6 +3,8 @@
 use admin\widgest\StatusActionWidget;
 use booking\entities\admin\Contact;
 use booking\entities\booking\tours\Tour;
+use booking\entities\shops\DeliveryCompany;
+use booking\entities\shops\DeliveryCompanyAssign;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
@@ -183,9 +185,8 @@ $this->params['breadcrumbs'][] = $shop->name;
                     ],
                     [
                         'value' => implode(', ',
-                            array_filter(array_map(function ($item){
-                                return DeliveryHelper::list()[$item];
-                            }, $shop->delivery->deliveryCompany))),
+                            array_filter(array_map(function (DeliveryCompany $company) {return $company->name;},
+                                $shop->delivery->companies))),
                         'label' => 'Транспортные Компании',
                     ],
                 ],

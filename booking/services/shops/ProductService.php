@@ -251,4 +251,11 @@ class ProductService
         $product->editReview($review_id, $form->vote, $form->text);
         $this->products->save($product);
     }
+
+    public function view($id)
+    {
+        $product = $this->products->get($id);
+        $product->upViews();
+        $this->products->save($product);
+    }
 }

@@ -72,15 +72,17 @@ class ShopController extends Controller
     {
         $shop = $this->findModel($id);
         $form = new ShopCreateForm($shop);
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            try {
+        try {
+            if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+
                 $this->service->edit($shop->id, $form);
                 return $this->redirect(['/shop/view', 'id' => $shop->id]);
-            } catch (\DomainException $e) {
-                \Yii::$app->errorHandler->logException($e);
-                \Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
         }
+
         return $this->render('update', [
             'model' => $form,
             'shop' => $shop

@@ -106,7 +106,13 @@ class ProductRepository
         );
     }
 
-
+    public function getForFrontend($id):? Product
+    {
+        if (!$product = Product::find()->active()->andWhere(['id' => $id])->one()) {
+            throw new \DomainException('Продукт не найден');
+        }
+        return $product;
+    }
 
 
 }

@@ -9,10 +9,10 @@ use yii\db\ActiveRecord;
 /**
  * Class DeliveryAssign
  * @package booking\entities\shops
- * @property integer $shop_id
+ * @property integer $delivery_id
  * @property integer $delivery_company_id
  */
-class DeliveryAssign extends ActiveRecord
+class DeliveryCompanyAssign extends ActiveRecord
 {
     public static function create($delivery_company_id): self
     {
