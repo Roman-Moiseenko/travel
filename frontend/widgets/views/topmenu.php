@@ -141,7 +141,6 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Где поесть') ?></span>
                         </a>
                     </li>
-                <?php if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->username == '+79118589719'): ?>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'shops/shops' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/shops'])) ?>">
@@ -149,7 +148,6 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Shop') ?></span>
                     </a>
                 </li>
-                <?php endif; ?>
                 <!--li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tickets/tickets' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/tickets'])) ?>">

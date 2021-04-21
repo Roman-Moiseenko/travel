@@ -17,10 +17,6 @@ $(document).ready(function() {
             spaceBetween: 10,
             slidesPerView: $count,
             centeredSlides: true,
-      pagination: {
-        el: '.swiper-pagination2',
-        clickable: true,
-      },
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',

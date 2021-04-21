@@ -1153,3 +1153,32 @@ ul.pagination li:not(.active) a:hover {
     padding-bottom: 0;
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
 }
+.button-booking-index-mobile {
+    border: white solid 2px;
+    width: 100%;
+    height: 50%;
+
+}
+
+.item-responsive {
+    position: relative; /* относительное позиционирование */
+    margin-bottom: 0.5rem;
+    border: white solid 2px;
+}
+.item-responsive:before {
+    display: block; /* отображать элемент как блок */
+    content: ""; /* содержимое псевдоэлемента */
+    width: 100%; /* ширина элемента */
+}
+
+.item-responsive>.content-item {
+    position: absolute; /* абсолютное положение элемент */
+    /* положение элемента */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.item-2-29by1 {
+    padding-top: 43.66%; /* (1:2)*100% */
+}
