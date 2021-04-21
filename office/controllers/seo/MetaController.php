@@ -17,12 +17,18 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\office\MetaRepository;
+use booking\repositories\shops\ProductRepository;
+use booking\repositories\shops\ShopRepository;
 use booking\services\booking\cars\CarService;
 use booking\services\booking\funs\FunService;
 use booking\services\booking\stays\StayService;
 use booking\services\booking\tours\TourService;
+use booking\services\shops\ProductService;
+use booking\services\shops\ShopService;
 use office\forms\seo\SeoCarsSearch;
 use office\forms\seo\SeoFunsSearch;
+use office\forms\seo\SeoProductsSearch;
+use office\forms\seo\SeoShopsSearch;
 use office\forms\seo\SeoStaysSearch;
 use office\forms\seo\SeoToursSearch;
 use yii\filters\AccessControl;
@@ -68,6 +74,22 @@ class MetaController extends Controller
      * @var MetaRepository
      */
     private $metas;
+    /**
+     * @var ShopService
+     */
+    private $shopService;
+    /**
+     * @var ShopRepository
+     */
+    private $shops;
+    /**
+     * @var ProductService
+     */
+    private $productService;
+    /**
+     * @var ProductRepository
+     */
+    private $products;
 
     public function __construct(
         $id,
@@ -80,6 +102,10 @@ class MetaController extends Controller
         FunRepository $funs,
         StayService $stayService,
         StayRepository $stays,
+        ShopService $shopService,
+        ShopRepository $shops,
+        ProductService $productService,
+        ProductRepository $products,
         MetaRepository $metas,
         $config = []
     )
@@ -94,6 +120,10 @@ class MetaController extends Controller
         $this->stayService = $stayService;
         $this->stays = $stays;
         $this->metas = $metas;
+        $this->shopService = $shopService;
+        $this->shops = $shops;
+        $this->productService = $productService;
+        $this->products = $products;
     }
 
     public function behaviors()
@@ -208,6 +238,44 @@ class MetaController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->stayService->setMeta($form->id, $form);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('stays', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionShops()
+    {
+        $searchModel = new SeoShopsSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $form = new MetaForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->shopService->setMeta($form->id, $form);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('shops', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionProducts()
+    {
+        $searchModel = new SeoProductsSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $form = new MetaForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->productService->setMeta($form->id, $form);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

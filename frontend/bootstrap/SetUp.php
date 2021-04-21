@@ -3,8 +3,7 @@
 namespace frontend\bootstrap;
 
 use booking\entities\shops\cart\Cart;
-use booking\entities\shops\cart\cost\calculator\DynamicCost;
-use booking\entities\cart\shops\cost\calculator\SimpleCost;
+use booking\entities\shops\cart\cost\calculator\SimpleCost;
 use booking\entities\shops\cart\storage\HybridStorage;
 use yii\base\Application;
 use yii\base\BootstrapInterface;

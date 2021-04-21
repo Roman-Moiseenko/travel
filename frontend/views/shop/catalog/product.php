@@ -66,6 +66,34 @@ MagnificPopupAsset::register($this);
                             'name' => $product->getName(),
                             'description' => $product->description,
                         ]);
+
+                        //TODO Заглушка, пока не придумаю решение по лучше
+                        if (count($product->photos) == 1) { //доб.2 и 3 фото
+                            echo GalleryWidget::widget([
+                                'photo' => $photo,
+                                'iterator' => 1,
+                                'count' => 3,
+                                'name' => $product->getName(),
+                                'description' => $product->description,
+                            ]);
+                            echo GalleryWidget::widget([
+                                'photo' => $photo,
+                                'iterator' => 2,
+                                'count' => 3,
+                                'name' => $product->getName(),
+                                'description' => $product->description,
+                            ]);
+                        }
+                        if (count($product->photos) == 2 && $i = 1) { //доб. 3 фото
+                            echo GalleryWidget::widget([
+                                'photo' => $photo,
+                                'iterator' => 2,
+                                'count' => 3,
+                                'name' => $product->getName(),
+                                'description' => $product->description,
+                            ]);
+                        }
+
                     } ?>
                 </div>
             </div>

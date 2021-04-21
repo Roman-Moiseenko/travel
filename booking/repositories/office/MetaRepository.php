@@ -8,6 +8,8 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
+use booking\entities\shops\products\Product;
+use booking\entities\shops\Shop;
 
 class MetaRepository
 {
@@ -50,6 +52,24 @@ class MetaRepository
                 'class' => get_class($model),
             ];
         }, Stay::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
-        return array_merge($tours, $funs, $cars, $stays);
+        $shops = array_map(function (Shop $model) {
+            return [
+                'id' => $model->id,
+                'name' => $model->name,
+                'description' => $model->description,
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
+                'class' => get_class($model),
+            ];
+        }, Shop::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
+        $products = array_map(function (Product $model) {
+            return [
+                'id' => $model->id,
+                'name' => $model->name,
+                'description' => $model->description,
+                'photo' => $model->mainPhoto ? $model->mainPhoto->getThumbFileUrl('file', 'admin') : '',
+                'class' => get_class($model),
+            ];
+        }, Product::find()->active()->andWhere(['meta_json' => '{"title":null,"description":null,"keywords":null}'])->all());
+        return array_merge($tours, $funs, $cars, $stays, $shops, $products);
     }
 }

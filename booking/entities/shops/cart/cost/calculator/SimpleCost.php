@@ -1,10 +1,9 @@
 <?php
 
 
-namespace booking\entities\cart\shops\cost\calculator;
+namespace booking\entities\shops\cart\cost\calculator;
 
 
-use booking\entities\shops\cart\cost\calculator\CalculatorInterface;
 use booking\entities\shops\cart\cost\Cost;
 
 class SimpleCost implements CalculatorInterface

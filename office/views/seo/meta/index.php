@@ -31,6 +31,8 @@ MagnificPopupAsset::register($this);
     <?= Html::a('Авто', ['cars'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('Отдых', ['funs'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('Жилье', ['stays'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('Магазины', ['shops'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('Товары', ['products'], ['class' => 'btn btn-info']) ?>
 </p>
     <div class="card">
         <div class="card-body">
