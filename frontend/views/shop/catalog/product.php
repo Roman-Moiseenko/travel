@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = ['label' => $product->category->name, 'url' => 
 $this->params['breadcrumbs'][] = $product->name;
 
 $this->params['active_category'] = $product->category;
+$this->params['canonical'] = Url::to(['/shop/catalog/product', 'id' => $tour->id], true);
+
 $mobile = SysHelper::isMobile();
 
 SwiperAsset::register($this);
