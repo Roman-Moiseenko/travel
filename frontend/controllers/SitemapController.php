@@ -11,6 +11,8 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
+use booking\entities\shops\products\Product;
+use booking\entities\shops\Shop;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
@@ -18,6 +20,8 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
+use booking\repositories\shops\ProductRepository;
+use booking\repositories\shops\ShopRepository;
 use booking\services\sitemap\IndexItem;
 use booking\services\sitemap\MapItem;
 use booking\services\sitemap\Sitemap;
@@ -77,6 +81,14 @@ class SitemapController extends Controller
      * @var FoodRepository
      */
     private $foods;
+    /**
+     * @var ShopRepository
+     */
+    private $shops;
+    /**
+     * @var ProductRepository
+     */
+    private $products;
 
     public function __construct(
         $id,
@@ -88,6 +100,8 @@ class SitemapController extends Controller
         StayRepository $stays,
         PostRepository $posts,
         FoodRepository $foods,
+        ShopRepository $shops,
+        ProductRepository $products,
         \booking\repositories\booking\tours\TypeRepository $tourTypes,
         \booking\repositories\booking\cars\TypeRepository $carTypes,
         \booking\repositories\booking\funs\TypeRepository $funTypes,
@@ -109,6 +123,8 @@ class SitemapController extends Controller
         $this->stays = $stays;
         $this->stayTypes = $stayTypes;
         $this->foods = $foods;
+        $this->shops = $shops;
+        $this->products = $products;
     }
 
     public function actionIndex(): Response
@@ -128,6 +144,8 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['posts'], true)),
                 new IndexItem(Url::to(['post-categories'], true)),
                 new IndexItem(Url::to(['foods'], true)),
+                new IndexItem(Url::to(['shops'], true)),
+                new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
             ]);
         });
@@ -151,7 +169,7 @@ class SitemapController extends Controller
                         MapItem::ALWAYS
                     );
                 }
-            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods']));
+            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods', '/shops', ]));
         });
     }
 
@@ -295,6 +313,32 @@ class SitemapController extends Controller
                     MapItem::WEEKLY
                 );
             }, $this->foods->getAllForSitemap()));
+        });
+    }
+
+    public function actionShops(): Response
+    {
+        return $this->renderSitemap('sitemap-shops', function () {
+            return $this->sitemap->generateMap(array_map(function (Shop $shop) {
+                return new MapItem(
+                    Url::to(['/shop/catalog/shop', 'id' => $shop->id], true),
+                    $shop->updated_at ?? $shop->created_at,
+                    MapItem::WEEKLY
+                );
+            }, $this->shops->getAllForSitemap()));
+        });
+    }
+
+    public function actionProducts(): Response
+    {
+        return $this->renderSitemap('sitemap-products', function () {
+            return $this->sitemap->generateMap(array_map(function (Product $product) {
+                return new MapItem(
+                    Url::to(['/shop/catalog/product', 'id' => $product->id], true),
+                    $product->updated_at ?? $product->created_at,
+                    MapItem::WEEKLY
+                );
+            }, $this->products->getAllForSitemap()));
         });
     }
 

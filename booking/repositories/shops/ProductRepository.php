@@ -5,10 +5,8 @@ namespace booking\repositories\shops;
 
 
 use booking\entities\shops\products\AdProduct;
-use booking\entities\shops\products\BaseProduct;
 use booking\entities\shops\products\Category;
 use booking\entities\shops\products\Product;
-use booking\helpers\scr;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
@@ -112,6 +110,11 @@ class ProductRepository
             throw new \DomainException('Продукт не найден');
         }
         return $product;
+    }
+
+    public function getAllForSitemap()
+    {
+        return Product::find()->active()->all();
     }
 
 

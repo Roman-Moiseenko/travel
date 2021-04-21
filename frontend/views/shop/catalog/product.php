@@ -32,8 +32,15 @@ use yii\widgets\ActiveForm;
 /* @var $reviewForm ReviewForm */
 
 
-$this->title = $this->title = $product->meta->title ? Lang::t($product->meta->title) : $product->getName();;
-$this->registerMetaTag(['name' => 'description', 'content' => $product->meta->description]);
+$this->title = ($product->meta->title == null) ? $product->getName() . ' - ' . Lang::t('купить в Калининграде') :  Lang::t($product->meta->title);
+
+$description = $product->meta->description;
+
+if (empty($description)) {
+    $description = $this->title . ' ' . Lang::t('низкая цена, адрес магазина, доставка по России') . ' ' . $product->category->name;
+}
+
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $product->meta->keywords]);
 $this->params['breadcrumbs'][] = ['label' => 'Каталог', 'url' => '/shops'];
 foreach ($product->category->parents as $parent) {

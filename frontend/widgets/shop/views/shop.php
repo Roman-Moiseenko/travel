@@ -13,7 +13,7 @@ $count = SysHelper::isMobile() ? 2 : 6;
 $script = <<<JS
 $(document).ready(function() {
         var swiper2 = new Swiper('.swiper2',{
-            initialSlide: 1,
+            initialSlide: 3,
             spaceBetween: 10,
             slidesPerView: $count,
             centeredSlides: true,

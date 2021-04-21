@@ -45,4 +45,9 @@ class ShopRepository
         }
         return $result;
     }
+
+    public function getAllForSitemap()
+    {
+        return Shop::find()->active()->andWhere(['ad' => true])->all();
+    }
 }

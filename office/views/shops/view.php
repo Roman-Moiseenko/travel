@@ -18,6 +18,7 @@ $this->title = 'Магазин: ' . $shop->name;
 $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['index']];
 
 \yii\web\YiiAsset::register($this);
+MagnificPopupAsset::register($this);
 ?>
     <div class="user-view">
 
@@ -36,6 +37,20 @@ $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['inde
             ?>
 
         </p>
+        <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
+            <div class="col">
+                <ul class="thumbnails">
+                    <?php foreach ($shop->photos as $i => $photo): ?>
+                        <li class="image-additional"><a class="thumbnail"
+                                                        href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">
+                                <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"
+                                     alt="<?= $shop->name; ?>"/>
+                            </a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-body">
                 <?= DetailView::widget([
@@ -127,3 +142,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['inde
             </table>
         </div>
     </div>
+<?php $js = <<<EOD
+    $(document).ready(function() {
+        $('.thumbnails').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+EOD;
+$this->registerJs($js); ?>
