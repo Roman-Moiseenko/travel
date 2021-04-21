@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Каталог', 'url' => '/shops'
 
 $this->params['breadcrumbs'][] = Lang::t('Магазины');
 $this->params['breadcrumbs'][] = $shop->getName();
-$this->params['canonical'] = Url::to(['/shop/catalog/shop', 'id' => $tour->id], true);
+$this->params['canonical'] = Url::to(['/shop/catalog/shop', 'id' => $shop->id], true);
 
 //$this->params['active_category'] = $product->category;
 $mobile = SysHelper::isMobile();
