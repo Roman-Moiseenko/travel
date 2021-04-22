@@ -103,75 +103,62 @@ OwlCarouselWidget::begin([
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span class="line-b-title"></span></h2>
 
         <div class="row">
-
             <div class="col-3">
-                <a href="<?= Url::to(['/tours']) ?>">
-                    <img data-src="<?=$url_img_booking . 'tour.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Экскурсии в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h3 class="card-title"
-                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Экскурсии') ?></h3>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                    'rating' => '5',
-                            ])?>
-                        </div>
-                    </div>
-                </a>
+                <?= $this->render('_button', [
+                    'url' => '/tours',
+                    'img_name' => 'tour.jpg',
+                    'img_alt' => 'Экскурсии в Калининграде',
+                    'caption' => 'Экскурсии',
+                ]) ?>
             </div>
             <div class="col-3">
-                <a href="<?= Url::to(['/stays']) ?>">
-                    <img data-src="<?=$url_img_booking . 'stay.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Бронирование жилья в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h3 class="card-title"
-                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Апартаменты') ?></h3>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ])?>
-                        </div>
-                    </div>
-                </a>
+                <?= $this->render('_button', [
+                    'url' => '/stays',
+                    'img_name' => 'stay.jpg',
+                    'img_alt' => 'Бронирование жилья в Калининграде',
+                    'caption' => 'Апартаменты',
+                ]) ?>
             </div>
-
             <div class="col-3">
-                <a href="<?= Url::to(['/funs']) ?>">
-                    <img data-src="<?=$url_img_booking . 'fun.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Развлечения и отдых в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h3 class="card-title"
-                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Развлечения') ?></h3>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ])?>
-                        </div>
-                    </div>
-                </a>
+                <?= $this->render('_button', [
+                    'url' => '/funs',
+                    'img_name' => 'fun.jpg',
+                    'img_alt' => 'Развлечения и отдых в Калининграде',
+                    'caption' => 'Развлечения',
+                ]) ?>
             </div>
-
             <div class="col-3">
-                <a href="<?= Url::to(['/cars']) ?>">
-                    <img data-src="<?=$url_img_booking . 'car.jpg'?>" class="img-responsive lazyload" width="100%" height="300px" alt="Прокат авто в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h3 class="card-title"
-                                style="color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Прокат авто') ?></h3>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ])?>
-                        </div>
-                    </div>
-                </a>
+                <?= $this->render('_button', [
+                    'url' => '/cars',
+                    'img_name' => 'car.jpg',
+                    'img_alt' => 'Прокат авто в Калининграде',
+                    'caption' => 'Прокат авто',
+                ]) ?>
             </div>
-
         </div>
+        <div class="row pt-4">
+            <div class="col-3">
+            </div>
+            <div class="col-3">
+                <?= $this->render('_button', [
+                    'url' => '/foods',
+                    'img_name' => 'food.jpg',
+                    'img_alt' => 'Где поесть в Калининграде',
+                    'caption' => 'Где поесть',
+                ]) ?>
+            </div>
+            <div class="col-3">
+                <?= $this->render('_button', [
+                    'url' => '/shops',
+                    'img_name' => 'shop.jpg',
+                    'img_alt' => 'Что купить в Калининграде',
+                    'caption' => 'Что купить',
+                ]) ?>
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+
     </div>
 </div>
 

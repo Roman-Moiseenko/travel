@@ -16,7 +16,6 @@ $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 
-$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 SwiperAsset::register($this);
 ?>
 <div class="mobile-landing m-0 p-0">
@@ -34,42 +33,36 @@ SwiperAsset::register($this);
                 'img_name' => 'tour_mobile.jpg',
                 'img_alt' => 'Экскурсии в Калининграде',
                 'caption' => 'Экскурсии',
-
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/stays',
                 'img_name' => 'stay_mobile.jpg',
                 'img_alt' => 'Бронирование жилья в Калининграде',
                 'caption' => 'Апартаменты',
-
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/funs',
                 'img_name' => 'fun_mobile.jpg',
                 'img_alt' => 'Развлечения и отдых в Калининграде',
                 'caption' => 'Развлечения',
-
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/cars',
                 'img_name' => 'car_mobile.jpg',
                 'img_alt' => 'Прокат авто в Калининграде',
                 'caption' => 'Прокат авто',
-
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/foods',
                 'img_name' => 'food_mobile.jpg',
                 'img_alt' => 'Где поесть в Калининграде',
                 'caption' => 'Где поесть',
-
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/shops',
                 'img_name' => 'shop_mobile.jpg',
                 'img_alt' => 'Что купить в Калининграде',
                 'caption' => 'Что купить',
-
             ]) ?>
         </div>
     </div>
