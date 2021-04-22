@@ -29,84 +29,48 @@ SwiperAsset::register($this);
     </div>
     <div class="landing-block-center">
         <div class="container">
+            <?= $this->render('_button_mobile', [
+                'url' => '/tours',
+                'img_name' => 'tour_mobile.jpg',
+                'img_alt' => 'Экскурсии в Калининграде',
+                'caption' => 'Экскурсии',
 
-                <div class="item-responsive item-2-29by1">
-                    <div class="content-item">
-                        <a href="<?= Url::to(['/tours']) ?>">
-                    <img data-src="<?= $url_img_booking . 'tour_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px" alt="Экскурсии в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h2 class="card-title"
-                                style="text-align: center !important; color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Экскурсии') ?></h2>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ]) ?>
-                        </div>
-                    </div>
-                </a>
-                    </div>
-                </div>
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/stays',
+                'img_name' => 'stay_mobile.jpg',
+                'img_alt' => 'Бронирование жилья в Калининграде',
+                'caption' => 'Апартаменты',
 
-            <div class="item-responsive item-2-29by1">
-                <div class="content-item">
-                <a href="<?= Url::to(['/stays']) ?>">
-                    <img data-src="<?= $url_img_booking . 'stay_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px" alt="Бронирование жилья в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h2 class="card-title"
-                                style="text-align: center !important; color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Апартаменты') ?></h2>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ]) ?>
-                        </div>
-                    </div>
-                </a>
-                </div>
-            </div>
-            <div class="item-responsive item-2-29by1"> <!-- col p-0 mb-2" style="border: white solid 2px -->
-                <div class="content-item">
-                <a href="<?= Url::to(['/funs']) ?>">
-                    <img data-src="<?= $url_img_booking . 'fun_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px" alt="Развлечения и отдых в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h2 class="card-title"
-                                style="text-align: center !important; color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Развлечения') ?></h2>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ]) ?>
-                        </div>
-                    </div>
-                </a>
-                </div>
-            </div>
-            <div class="item-responsive item-2-29by1">
-                <div class="content-item">
-                    <a href="<?= Url::to(['/cars']) ?>">
-                    <img data-src="<?= $url_img_booking . 'car_mobile.jpg' ?>" class="img-responsive lazyload" width="100%"
-                         height="300px" alt="Прокат авто в Калининграде">
-                    <div class="card-img-overlay d-flex flex-column">
-                        <div>
-                            <h2 class="card-title"
-                                style="text-align: center !important; color: white; text-shadow: black 2px 2px 1px"><?= Lang::t('Прокат авто') ?></h2>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <?= RatingWidget::widget([
-                                'rating' => '5',
-                            ]) ?>
-                        </div>
-                    </div>
-                </a>
-                </div>
-            </div>
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/funs',
+                'img_name' => 'fun_mobile.jpg',
+                'img_alt' => 'Развлечения и отдых в Калининграде',
+                'caption' => 'Развлечения',
+
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/cars',
+                'img_name' => 'car_mobile.jpg',
+                'img_alt' => 'Прокат авто в Калининграде',
+                'caption' => 'Прокат авто',
+
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/foods',
+                'img_name' => 'food_mobile.jpg',
+                'img_alt' => 'Где поесть в Калининграде',
+                'caption' => 'Где поесть',
+
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/shops',
+                'img_name' => 'shop_mobile.jpg',
+                'img_alt' => 'Что купить в Калининграде',
+                'caption' => 'Что купить',
+
+            ]) ?>
         </div>
     </div>
     <div class="landing-block-center">
