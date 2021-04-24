@@ -17,9 +17,9 @@ class DeliveryData
     public $on_hands;
     public $fullname;
     public $phone;
+    public $company;
 
-
-    public static function create($method, $address_index, $address_city, $address_street, $on_hands, $fullname, $phone): self
+    public static function create($method, $address_index, $address_city, $address_street, $on_hands, $fullname, $phone, $company): self
     {
         $delivery = new static();
         $delivery->method = $method;
@@ -29,6 +29,16 @@ class DeliveryData
         $delivery->on_hands = $on_hands;
         $delivery->fullname = $fullname;
         $delivery->phone = $phone;
+        $delivery->company = $company;
         return $delivery;
+    }
+
+    public static function _list(): array
+    {
+        return [
+            self::METHOD_POINT => 'Самовывоз',
+            self::METHOD_CITY => 'Доставка по городу',
+            self::METHOD_COMPANY => 'Доставка по России',
+        ];
     }
 }

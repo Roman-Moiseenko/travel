@@ -69,11 +69,6 @@ use yii\helpers\Html;
                     <?= $form->field($model, 'discount')->textInput(['type' => 'number'])->label('Скидка для онлайн (%)') ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->field($model, 'request_available')->checkbox([])->label('Требуется подтверждение продавца при продаже') ?>
-                </div>
-            </div>
         </div>
     </div>
     <div class="card card-secondary">

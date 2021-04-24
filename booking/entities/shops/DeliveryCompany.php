@@ -41,4 +41,5 @@ class DeliveryCompany extends ActiveRecord
     {
         return '{{%shops_delivery_company}}';
     }
+
 }

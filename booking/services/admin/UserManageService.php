@@ -278,11 +278,9 @@ class UserManageService
 
     public function ConfirmationToUpDeposit(string $id)
     {
-
-            $deposit = Deposit::findOne(['payment_id' => $id]);
-            $deposit->setPay();
-            $deposit->save();
-
+        $deposit = Deposit::findOne(['payment_id' => $id]);
+        $deposit->setPay();
+        $deposit->save();
     }
 
     private function ExcangeName($name): string

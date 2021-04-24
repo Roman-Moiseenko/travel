@@ -8,6 +8,7 @@ use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
+use booking\entities\PaymentInterface;
 use booking\helpers\BookingHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -34,7 +35,7 @@ use yii\db\ActiveRecord;
  * @property integer $give_user_id
  * @property User $user
  */
-abstract class BaseBooking extends ActiveRecord
+abstract class BaseBooking extends ActiveRecord implements PaymentInterface
 {
     public $payment;
 

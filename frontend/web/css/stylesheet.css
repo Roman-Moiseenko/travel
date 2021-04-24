@@ -1060,5 +1060,26 @@ td.characteristic.value {
     color: #666;
     -webkit-appearance: none;
     border-radius: 0;
+}
 
+.btn-tab-order {
+    border: 1px solid #ddd;
+    height: 38px;
+    margin: 0px;
+    padding: 12px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+}
+.btn-tab-order:hover {
+    color: #fff;
+    background-color: #d9d9d9;
+}
+.btn-tab-order.active {
+    color: #000;
+    background-color: #d1d1d1;
+}
+
+.btn-tab-order.active:hover {
+    color: #000;
+    cursor: default;
 }

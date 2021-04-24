@@ -10,7 +10,7 @@ $description = 'Рестораны Калининграда где недоро�
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'где поесть,ресторан,Калининград,кафе,кухня,пить кофе,деликатесы']);
-$this->params['canonical'] = Url::to(['/foods'], true);
+
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>

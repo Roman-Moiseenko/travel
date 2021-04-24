@@ -8,6 +8,7 @@ use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
 //use booking\entities\finance\Check54;
 use booking\entities\Lang;
+use booking\entities\shops\order\Order;
 use booking\helpers\BookingHelper;
 use YooKassa\Client;
 
@@ -38,8 +39,8 @@ class YKassaService
                     'payment_method_data' => $this->yandexkassa['payment_method_data'],
                     'receipt' => [
                         'customer' => [
-                            'full_name' => \Yii::$app->user->identity->username, //personal->fullname->getFullName(),
-                            'email' => \Yii::$app->user->identity->email,
+                            'full_name' => $booking->getUser()->personal->fullname->getFullname(), //personal->fullname->getFullName(),
+                            'email' => $booking->getUser()->email,
                         ],
                         'items' => [
                             [
@@ -49,7 +50,7 @@ class YKassaService
                                 'vat_code' => 1
                             ],
                         ],
-                        'email' => \Yii::$app->user->identity->email,
+                        'email' => $booking->getUser()->email,
                     ],
                     'confirmation' => [
                         'type' => 'redirect',
@@ -81,7 +82,7 @@ class YKassaService
                 'payment_method_data' => $this->yandexkassa['payment_method_data'],
                 'receipt' => [
                     'customer' => [
-                        'full_name' => $user->username,
+                        'full_name' => $user->personal->fullname->getFullname(),
                         'email' => $user->email,
                     ],
                     'items' => [
@@ -113,9 +114,46 @@ class YKassaService
 
     //Оплата клиентами товаров в корзине
 
-    public function invoiceShop()
+    public function invoiceShop(Order $order)
     {
         //TODO invoiceShop()
+        $payment = $this->client->createPayment(
+            [
+                'amount' => [
+                    'value' => $order->payment->full_cost,
+                    'currency' => 'RUB',
+                ],
+                'payment_method_data' => $this->yandexkassa['payment_method_data'],
+                'receipt' => [
+                    'customer' => [
+                        'full_name' => $order->user->personal->fullname->getFullname(),
+                        'email' => $order->user->email,
+                    ],
+                    'items' => [
+                        [
+                            'description' => 'Оплата товара по заказу #' . $order->number,
+                            'quantity' => 1,
+                            'amount' => ['value' => $order->payment->full_cost, 'currency' => 'RUB'],
+                            'vat_code' => 1
+                        ],
+                    ],
+                    'email' => $order->user->email,
+                ],
+                'confirmation' => [
+                    'type' => 'redirect',
+                    'return_url' => \Yii::$app->params['adminHostInfo'] . '/balance',
+                    'locale' => 'ru_RU',
+                ],
+                'capture' => true,
+                'description' => $order->user->personal->fullname->getFullname() . ' #' . $order->payment->full_cost,
+                'metadata' => [
+                    'class' => Shop::class,
+                    'id' => $order->user_id,
+                ],
+            ],
+            uniqid('', true)
+        );
+        return $payment;
     }
 
     public function check($payment_id)

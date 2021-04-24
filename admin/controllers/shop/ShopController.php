@@ -43,7 +43,12 @@ class ShopController extends Controller
 
     public function actionView($id)
     {
-        $shop = $this->findModel($id);
+        try {
+            $shop = $this->findModel($id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
         return $this->render('view', [
             'shop' => $shop,
         ]);
@@ -165,7 +170,7 @@ class ShopController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    private function findModel($id): Shop
+    private function findShop($id): Shop
     {
         if (($model = Shop::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
@@ -173,6 +178,17 @@ class ShopController extends Controller
             }
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new \DomainException('The requested page does not exist.');
+    }
+
+    private function findModel($id)
+    {
+        try {
+            $shop = $this->findShop($id);
+            return  $shop;
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 }

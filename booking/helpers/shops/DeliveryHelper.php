@@ -13,4 +13,10 @@ class DeliveryHelper
     {
         return ArrayHelper::map(DeliveryCompany::find()->all(), function (DeliveryCompany $company) {return $company->id;}, function (DeliveryCompany $company) {return $company->name;});
     }
+
+    public static function name($id): string
+    {
+        $company = DeliveryCompany::findOne($id);
+        return $company->name;
+    }
 }

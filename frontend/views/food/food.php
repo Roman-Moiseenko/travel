@@ -26,6 +26,7 @@ $this->registerMetaTag(['name' => 'og:description', 'content' => $food->meta->de
 $this->title = $food->meta->title ? Lang::t($food->meta->title) : $food->name;
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Где поесть'), 'url' => Url::to(['foods/index'])];
 $this->params['breadcrumbs'][] = $food->name;
+$this->params['canonical'] = Url::to(['/food/view', 'id' => $food->id], true);
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);

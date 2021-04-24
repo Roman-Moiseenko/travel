@@ -183,6 +183,8 @@ return [
 
                 'legals/view' => 'legals/view',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
+                'cabinet/orders' => 'cabinet/order/index',
+                'cabinet/order' => 'cabinet/order/view',
                 'cabinet/dialog' => 'cabinet/dialog/dialog',
                 'cabinet/petition' => 'cabinet/dialog/petition',
                 'conversation' => 'cabinet/dialog/conversation',

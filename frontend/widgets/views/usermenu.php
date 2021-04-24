@@ -19,7 +19,7 @@ use yii\helpers\Url; ?>
 <a class="<?= $class ?>" rel="nofollow"
    href="<?= Html::encode(Url::to(['/shop/cart'])) ?>"><?= Lang::t('Корзина') ?></a>
 <a class="<?= $class ?>" rel="nofollow"
-   href="<?= Html::encode(Url::to(['/shop/cart'])) ?>"><?= Lang::t('Мои заказы') ?></a>
+   href="<?= Html::encode(Url::to(['/cabinet/order/index'])) ?>"><?= Lang::t('Мои заказы') ?></a>
 <a class="<?= $class ?>" rel="nofollow"
    href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>"><?= Lang::t('Избранное') ?></a>
 <a class="<?= $class ?>" rel="nofollow"

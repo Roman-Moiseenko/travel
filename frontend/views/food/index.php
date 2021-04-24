@@ -10,7 +10,10 @@ use booking\forms\booking\tours\SearchTourForm;
 use booking\forms\foods\SearchFoodForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 $this->title = Lang::t('Где поесть в Калининграде - рестораны, кафе, доставка');
+$this->params['canonical'] = Url::to(['/foods'], true);
 ?>
 
 <div class="list-tours">

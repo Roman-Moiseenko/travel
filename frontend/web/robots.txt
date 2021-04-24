@@ -14,6 +14,9 @@ Disallow: /ru/conversation
 Disallow: /en/conversation
 Disallow: /ru/support
 Disallow: /en/support
+Disallow: /ru/shop/cart
+Disallow: /en/shop/cart
+
 
 Disallow: /admin
 Disallow: /office

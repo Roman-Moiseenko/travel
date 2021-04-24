@@ -101,7 +101,6 @@ OwlCarouselWidget::begin([
 <div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span class="line-b-title"></span></h2>
-
         <div class="row">
             <div class="col-3">
                 <?= $this->render('_button', [
@@ -138,8 +137,6 @@ OwlCarouselWidget::begin([
         </div>
         <div class="row pt-4">
             <div class="col-3">
-            </div>
-            <div class="col-3">
                 <?= $this->render('_button', [
                     'url' => '/foods',
                     'img_name' => 'food.jpg',
@@ -155,10 +152,9 @@ OwlCarouselWidget::begin([
                     'caption' => 'Что купить',
                 ]) ?>
             </div>
-            <div class="col-3">
-            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
         </div>
-
     </div>
 </div>
 

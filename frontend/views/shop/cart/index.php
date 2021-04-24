@@ -38,69 +38,87 @@ $mobil = SysHelper::isMobile();
     <div class="row">
         <div class="col-lg-8 col-md-7">
             <?php foreach ($cart->getItems() as $item): ?>
-                    <?= Html::beginForm(['quantity', 'id' => $item->getId()]); ?>
-                    <?php
-                    $product = $item->getProduct();
-                    $url = Url::to(['/shop/catalog/product', 'id' => $product->id]); ?>
-                    <div class="card list-cart">
-                        <div class="card-body">
-                            <div class="row justify-content-end">
-                                <div class="col-sm-6 align-self-center pl-4">
-                                    <div class="d-flex">
-                                        <?php if (!$mobil): ?>
+                <?= Html::beginForm(['quantity', 'id' => $item->getId()]); ?>
+                <?php
+                $product = $item->getProduct();
+                $url = Url::to(['/shop/catalog/product', 'id' => $product->id]); ?>
+                <div class="card list-cart">
+                    <div class="card-body">
+                        <div class="row justify-content-end">
+                            <div class="col-sm-6 align-self-center pl-4">
+                                <div class="d-flex">
+                                    <?php if (!$mobil): ?>
                                         <div style="min-width: 80px">
                                             <img src="<?= $product->mainPhoto->getThumbFileUrl('file', 'cabinet_list'); ?>"
                                                  alt="<?= Html::encode($product->getName()); ?>"
                                                  style="border-radius: 12px;" class="img-responsive"/>
                                         </div>
                                     <?php endif; ?>
-                                        <div class="">
-                                            <div class="col-12">
-                                                <a class="list-cart-caption" href="<?= $url ?>"><?= Html::encode($product->getName()) ?></a>
-                                            </div>
+                                    <div class="">
+                                        <div class="col-12">
+                                            <a class="list-cart-caption"
+                                               href="<?= $url ?>"><?= Html::encode($product->getName()) ?></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 align-self-center <?= $mobil ? 'pt-4' : 'pl-4'?>">
-                                    <div class="d-flex">
-                                        <div class="mr-auto align-self-center pl-4">
-                                            <div class="count-btn" style="display: flex; width: 91px">
-                                                <button title="minus" class="count-buttons__button count-buttons__button_minus"
-                                                   href="<?= ($item->getQuantity() == 1)
-                                                       ? Url::to(['remove', 'id' => $item->getId()])
-                                                       : Url::to(['sub', 'id' => $item->getProductId()]) ?>" data-method="post">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                                <input type="text" name="quantity" value="<?= $item->getQuantity() ?>"
-                                                       size="1" class="count-buttons__input only_int" onkeyup="this.form.submit()"/>
-                                                <button title="plus" class="count-buttons__button count-buttons__button_plus"
-                                                   href="<?= Url::to(['add', 'id' => $item->getProductId()]) ?>" data-method="post">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
+                            </div>
+                            <div class="col-sm-6 align-self-center <?= $mobil ? 'pt-4' : 'pl-4' ?>">
+                                <div class="d-flex">
+                                    <div class="mr-auto align-self-center pl-4">
+                                        <div class="count-btn" style="display: flex; width: 91px">
+                                            <button title="minus"
+                                                    class="count-buttons__button count-buttons__button_minus"
+                                                    href="<?= ($item->getQuantity() == 1)
+                                                        ? Url::to(['remove', 'id' => $item->getId()])
+                                                        : Url::to(['sub', 'id' => $item->getProductId()]) ?>"
+                                                    data-method="post">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                            <input type="text" name="quantity" value="<?= $item->getQuantity() ?>"
+                                                   size="1" class="count-buttons__input only_int"
+                                                   onkeyup="this.form.submit()"/>
+                                            <button title="plus"
+                                                    class="count-buttons__button count-buttons__button_plus"
+                                                    href="<?= Url::to(['add', 'id' => $item->getProductId()]) ?>"
+                                                    data-method="post">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
 
-                                            </div>
-                                        </div>
-                                        <div class="align-self-center pl-4">
-                                            <span style="font-size: 16px; color: #353535"><?= CurrencyHelper::stat($item->getCost()) ?></span>
                                         </div>
                                     </div>
-
+                                    <div class="align-self-center pl-4">
+                                        <span style="font-size: 16px; color: #353535"><?= CurrencyHelper::stat($item->getCost()) ?></span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                    <?= Html::endForm() ?>
-                <?php endforeach; ?>
+                </div>
+                <?= Html::endForm() ?>
+            <?php endforeach; ?>
         </div>
         <div class="col-lg-4 col-md-5">
             <div class="card list-cart">
                 <div class="card-body">
                     <?php $cost = $cart->getCost() ?>
-                        <div class="text-left p-3" style="font-size: 17px; color: #272727">
-                            <span>Итого: <?= $cart->getAmount() ?> товаров на <?= CurrencyHelper::stat($cost->getTotal()) ?></span>
-                        </div>
-                    <div class="pt-4 text-center"><a href="<?= Url::to('/shop/checkout/index') ?>"
-                                         class="btn-lg btn-primary form-control" style="height: 43px"><?= Lang::t('Оформить заказ') ?></a></div>
+                    <div class="text-left p-3" style="font-size: 17px; color: #272727">
+                        <span><?= Lang::t('Итого') . ': ' . $cart->getAmount() . ' ' . Lang::t('товаров на') . ' ' . CurrencyHelper::stat($cost->getTotal()) ?></span>
+                    </div>
+                    <div class="pt-4 text-center">
+                        <?= Html::a(
+                            Lang::t('Оформить заказ'),
+                            Url::to(['/cabinet/order/index']),
+                            [
+                                'class' => 'btn-lg btn-primary form-control',
+                                'style' => 'height: 43px',
+                                'data-method' => 'POST',
+                                'data-params' => [
+                                    'prepare' => true,
+                                ],
+                            ]
+                        ) ?>
+                    </div>
                 </div>
             </div>
 

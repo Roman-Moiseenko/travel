@@ -11,6 +11,7 @@ class CartItem
     /** @var Product */
     private $product;
     private $quantity;
+
     public function __construct($product, $quantity)
     {
         $this->product = $product;
@@ -30,6 +31,11 @@ class CartItem
     public function getProduct(): Product
     {
         return $this->product;
+    }
+
+    public function getShopId(): int
+    {
+        return $this->product->shop_id;
     }
 
     public function getQuantity()//: int

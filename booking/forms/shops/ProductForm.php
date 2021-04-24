@@ -36,7 +36,6 @@ class ProductForm extends CompositeForm
     public $quantity;
 
     public $deadline;
-    public $request_available;
 
     public $materials = [];
 
@@ -59,7 +58,6 @@ class ProductForm extends CompositeForm
             $this->quantity = $product->quantity;
 
             $this->deadline = $product->deadline;
-            $this->request_available = $product->request_available;
 
             $this->materials = ArrayHelper::getColumn($product->materialAssign, 'material_id');
         } else {
@@ -75,7 +73,6 @@ class ProductForm extends CompositeForm
         return [
             [['name', 'name_en', 'description', 'description_en', 'collection', 'article', 'color'], 'string'],
             [['weight', 'manufactured_id', 'category_id', 'cost', 'discount', 'deadline', 'quantity'], 'integer'],
-            [['request_available'], 'boolean'],
             [['manufactured_id', 'cost', 'name', 'description'], 'required', 'message' => 'Обязательное поле'],
             ['materials', 'each', 'rule' => ['integer']],
         ];

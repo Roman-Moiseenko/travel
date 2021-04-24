@@ -4,6 +4,7 @@ use admin\widgest\BookingTopBarWidget;
 use admin\widgest\MessageTopBarWidget;
 use admin\widgest\ProfileTopBarWidget;
 use admin\widgest\ReviewTopBarWidget;
+use admin\widgest\SellingTopBarWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -60,6 +61,9 @@ use yii\helpers\Url;
         <!-- Booking Dropdown Menu -->
         <span id="booking-widget">
             <?= BookingTopBarWidget::widget() ?>
+        </span>
+        <span id="booking-widget">
+            <?= SellingTopBarWidget::widget() ?>
         </span>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>

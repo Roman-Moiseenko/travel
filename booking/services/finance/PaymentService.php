@@ -6,6 +6,7 @@ namespace booking\services\finance;
 
 use booking\entities\booking\BaseBooking;
 use booking\entities\finance\Payment;
+use booking\entities\PaymentInterface;
 use booking\repositories\finance\PaymentRepository;
 
 class PaymentService
@@ -20,13 +21,13 @@ class PaymentService
         $this->payments = $payments;
     }
 
-    public function create(BaseBooking $booking): Payment
+    public function create(PaymentInterface $booking): Payment
     {
         $payment = Payment::create(
             $booking->getId(),
             $booking->getLegal()->id,
             get_class($booking),
-            $booking->getPaymentToProvider()
+            $booking->getPayment()->getProvider()
         );
         $this->payments->save($payment);
         return $payment;

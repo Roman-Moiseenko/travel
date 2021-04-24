@@ -9,8 +9,10 @@ use booking\entities\Lang;
 use booking\entities\mailing\Mailing;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
+use booking\entities\shops\order\Order;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\services\pdf\pdfServiceController;
 use booking\sms\sms;
 use yii\mail\MailerInterface;
@@ -166,50 +168,54 @@ class ContactService
         }
     }
 
-    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
+    public function sendOrder(Order $order)
     {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
-            ->setTo($tour->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($tour->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
+        $admin_email = $order->shop->legal->noticeEmail;
+        $user_email = $order->user->email;
+        if ($order->isNew()) {
+            $subject = 'Новый Заказ #' . $order->number;
+            $email = $admin_email;
         }
-    }
 
-    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
-            ->setTo($fun->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($fun->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
+        if ($order->isConfirmation()) {
+            $subject = 'Заказ подтвержден #' . $order->number;
+            $email = $user_email;
         }
-    }
 
-    public function noticeNewUser($user)
-    {
-        if ($this->loc) return;
-        if ($user instanceof User) {
-            $subject = 'Новый Провайдер';
+        if ($order->isCanceled()) {
+            $subject = 'Заказ отменен #' . $order->number;
+            $email = $user_email;
+        }
+
+        if ($order->isPaid()) {
+            $subject = 'Заказ оплачен #' . $order->number;
+            $email = $admin_email;
+        }
+
+        if ($order->isSent()) {
+            $subject = 'Заказ отправлен #' . $order->number;
+            $email = $user_email;
+        }
+
+        if ($order->isCompleted()) {
+            $subject = 'Заказ завершен #' . $order->number;
+            $email = $user_email;
+        }
+        if (isset($email) && isset($subject)) {
+            $send = $this->mailer->compose('noticeOrder', ['order' => $order])
+                ->setTo($email)
+                ->setFrom([\Yii::$app->params['supportEmail'] => 'Онлайн Заказ в Koenigs.RU'])
+                ->setSubject($subject)
+                ->send();
+            if (!$send) {
+                throw new \DomainException('Ошибка отправки');
+            }
         } else {
-            $subject = 'Новый Клиент';
-        }
-        $send = $this->mailer->compose('signupUser', ['user' => $user])
-            ->setTo(\Yii::$app->params['signupEmail'])
-            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый пользователь'])
-            ->setSubject($subject)
-            ->send();
-        if (!$send) {
-            throw new \DomainException('Ошибка отправки');
+            throw new \DomainException('Неверный статус Заказа для отправки');
         }
     }
 
+/// РАССЫЛКИ
     public function sendMailing(Mailing $mailing, array $emails)
     {
         if ($this->loc) return;
@@ -227,16 +233,22 @@ class ContactService
         return true;
     }
 
-    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
+/// УВЕДОМЛЕНИЯ ОФИСА
+    public function noticeNewUser($user)
     {
         if ($this->loc) return;
-        $send = $this->mailer->compose('lockCar', ['car' => $car])
-            ->setTo($car->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($car->name)
+        if ($user instanceof User) {
+            $subject = 'Новый Провайдер';
+        } else {
+            $subject = 'Новый Клиент';
+        }
+        $send = $this->mailer->compose('signupUser', ['user' => $user])
+            ->setTo(\Yii::$app->params['signupEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый пользователь'])
+            ->setSubject($subject)
             ->send();
         if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
+            throw new \DomainException('Ошибка отправки');
         }
     }
 
@@ -268,6 +280,73 @@ class ContactService
             ->send();
     }
 
+/// УВЕДОМЛЕНИЯ О БЛОКИРОВКЕ ОБЪЕКТОВ
+    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
+            ->setTo($tour->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($tour->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
+            ->setTo($fun->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($fun->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockCar', ['car' => $car])
+            ->setTo($car->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($car->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendLockStay(?\booking\entities\booking\stays\Stay $stay)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockStay', ['stay' => $stay])
+            ->setTo($stay->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($stay->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendLockShop(Shop $shop)
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockShop', ['shop' => $shop])
+            ->setTo($shop->legal->noticeEmail)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($shop->name)
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+/// ВНУТРЕННИЕ ФУНКЦИИ
     private function sendSMS($phone, $message, User $admin_user = null)
     {
         if (isset(\Yii::$app->params['notSMS']) and \Yii::$app->params['notSMS'] == true) return;
@@ -304,29 +383,6 @@ class ContactService
         }
     }
 
-    public function sendLockStay(?\booking\entities\booking\stays\Stay $stay)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockStay', ['stay' => $stay])
-            ->setTo($stay->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($stay->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
 
-    public function sendLockShop(Shop $shop)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockShop', ['shop' => $shop])
-            ->setTo($shop->legal->noticeEmail)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($shop->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
+
 }

@@ -181,11 +181,23 @@ class ProductController extends Controller
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    private function findModel($id): Product
+    private function findProduct($id): Product
     {
         if (($model = Product::findOne($id)) !== null) {
+            if ($model->shop->user_id != \Yii::$app->user->id)
+                throw new \DomainException('У вас нет прав для данного магазина');
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new \DomainException('The requested page does not exist.');
+    }
+    private function findModel($id)
+    {
+        try {
+            $product = $this->findProduct($id);
+            return  $product;
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
     }
 }

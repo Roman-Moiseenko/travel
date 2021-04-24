@@ -6,6 +6,7 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\admin\User;
 use booking\entities\Lang;
+use booking\entities\shops\order\Order;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
@@ -13,6 +14,7 @@ use booking\repositories\booking\BookingRepository;
 use booking\services\admin\UserManageService;
 use booking\services\finance\PayManageService;
 use booking\services\finance\YKassaService;
+use booking\services\shops\OrderService;
 use YandexCheckout\Client;
 use YandexCheckout\Common\Exceptions\ApiException;
 use YandexCheckout\Common\Exceptions\BadApiRequestException;
@@ -51,6 +53,10 @@ class YandexkassaController extends Controller
      * @var UserManageService
      */
     private $users;
+    /**
+     * @var OrderService
+     */
+    private $orderService;
 
     public function __construct(
         $id,
@@ -59,6 +65,7 @@ class YandexkassaController extends Controller
         BookingRepository $bookings,
         YKassaService $kassaService,
         UserManageService $users,
+        OrderService $orderService,
         $config = []
     )
     {
@@ -67,6 +74,7 @@ class YandexkassaController extends Controller
         $this->bookings = $bookings;
         $this->kassaService = $kassaService;
         $this->users = $users;
+        $this->orderService = $orderService;
     }
 
     public function actionInvoice($id)
@@ -111,6 +119,32 @@ class YandexkassaController extends Controller
         }
     }
 
+    public function actionInvoiceShop($id)
+    {
+        $order = Order::findOne($id);
+       /* $code = uniqid();
+        $this->orderService->toPay($id, $code);
+        $this->orderService->paidByPaymentId($code);
+        return $this->redirect(\Yii::$app->request->referrer);*/
+        try {
+            $payment = $this->kassaService->invoiceShop($order);
+            $this->orderService->toPay($id, $payment->id);
+            return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
+        } catch (BadApiRequestException $e) {
+        } catch (ForbiddenException $e) {
+        } catch (InternalServerError $e) {
+        } catch (NotFoundException $e) {
+        } catch (ResponseProcessingException $e) {
+        } catch (TooManyRequestsException $e) {
+        } catch (UnauthorizedException $e) {
+        } catch (ApiException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(\Yii::$app->params['adminHostInfo']);
+        }
+    }
+
+
     public function actionResult()
     {
         $source = file_get_contents('php://input');
@@ -132,6 +166,8 @@ class YandexkassaController extends Controller
             if ($metadata['class'] == Shop::class) {
                 try {
                 //TODO Работа с оплаченной корзиной и Провайдером
+                    $this->orderService->paidByPaymentId($payment->id);
+
                 } catch (\Throwable $e) {
                     \Yii::$app->errorHandler->logException($e);
                 }

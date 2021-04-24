@@ -6,6 +6,7 @@ namespace booking\services\shops;
 
 use booking\entities\admin\Debiting;
 use booking\entities\Meta;
+use booking\entities\shops\order\OrderItem;
 use booking\entities\shops\products\BaseProduct;
 use booking\entities\shops\products\Photo;
 use booking\entities\shops\products\Product;
@@ -87,7 +88,6 @@ class ProductService
             $form->cost,
             $form->discount,
             $form->deadline,
-            $form->request_available,
             $form->quantity
         );
         $product->shop_id = $shop_id;
@@ -128,7 +128,6 @@ class ProductService
             $form->cost,
             $form->discount,
             $form->deadline,
-            $form->request_available,
             $form->quantity
         );
 
@@ -148,7 +147,8 @@ class ProductService
     public function remove($id): void
     {
         $product = $this->products->get($id);
-        //TODO Сделать проверку на возможность удаления
+        $items = OrderItem::find()->andWhere(['product_id' => $id])->count();
+        if ($items > 0) throw new \DomainException('Нельзя удалить товар, находящийся в заказе! Отправьте его в черновик');
         $this->products->remove($product);
     }
 
@@ -256,6 +256,20 @@ class ProductService
     {
         $product = $this->products->get($id);
         $product->upViews();
+        $this->products->save($product);
+    }
+
+    public function checkout(int $id, $quantity)
+    {
+        $product = $this->products->get($id);
+        $product->checkout($quantity);
+        $this->products->save($product);
+    }
+
+    public function repair($id, $quantity)
+    {
+        $product = $this->products->get($id);
+        $product->repair($quantity);
         $this->products->save($product);
     }
 }

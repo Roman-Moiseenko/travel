@@ -9,6 +9,8 @@ use booking\entities\booking\funs\BookingFun;
 use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 
+use booking\entities\shops\order\Order;
+use booking\entities\shops\order\StatusHistory;
 use booking\helpers\BookingHelper;
 use booking\services\finance\PaymentService;
 use booking\services\TransactionManager;
@@ -48,7 +50,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($tours);
         foreach ($tours as $tour) {
             $tour->unload = true;
-            echo 'ID $tour = ' . $tour->id;
+            echo 'ID $tour = ' . $tour->id . '<b>';
             //$this->manager->wrapNotSession(function ($tour) {
                 $tour->save();
                 $this->service->create($tour);
@@ -65,7 +67,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($cars);
         foreach ($cars as $car) {
             $car->unload = true;
-            echo 'ID $car = ' . $car->id;
+            echo 'ID $car = ' . $car->id . '<b>';
             //$this->manager->wrapNotSession(function ($tour) {
             $car->save();
             $this->service->create($car);
@@ -87,7 +89,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($funs);
         foreach ($funs as $fun) {
             $fun->unload = true;
-            echo 'ID $fun = ' . $fun->id;
+            echo 'ID $fun = ' . $fun->id . '<b>';
             //$this->manager->wrapNotSession(function ($tour) {
             $fun->save();
             $this->service->create($fun);
@@ -103,7 +105,7 @@ class FinanceController extends Controller
         echo 'Нашлось ' . count($stays);
         foreach ($stays as $stay) {
             $stay->unload = true;
-            echo 'ID $stay = ' . $stay->id;
+            echo 'ID $stay = ' . $stay->id . '<b>';
             $stay->save();
             $this->service->create($stay);
             echo 'Транзакция сохранения выполнена';
@@ -111,6 +113,21 @@ class FinanceController extends Controller
         }
         echo 'КОНЕЦ';
         //TODO ** BOOKING_OBJECT **
+
+        $orders = Order::find()
+            ->andWhere(['current_status' => StatusHistory::ORDER_COMPLETED])
+            ->andWhere(['unload' => false])
+            ->all();
+        echo 'Нашлось ' . count($orders);
+        foreach ($orders as $order) {
+            $order->unload = true;
+            echo 'ID $order = ' . $order->id . '<b>';
+            $order->save();
+            $this->service->create($order);
+            echo 'Транзакция сохранения выполнена';
+
+        }
+        echo 'КОНЕЦ';
     }
 
 }

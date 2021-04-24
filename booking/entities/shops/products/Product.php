@@ -21,7 +21,6 @@ use yii\helpers\Json;
  * Class Product
  * @package booking\entities\shops\products
  * @property integer $deadline -- срок изготовления/отправки (не более)
- * @property boolean $request_available - предзапрос при покупке
  * @property integer $buys
  * @property integer $quantity
  *
@@ -69,7 +68,7 @@ class Product extends ActiveRecord
     public static function create($name, $name_en, $description, $description_en,
                                   $weight, $size, $article, $collection, $color,
                                   $manufactured_id, $category_id, $cost, $discount,
-                                  $deadline, $request_available, $quantity): self
+                                  $deadline, $quantity): self
     {
         $product = new static();
         $product->name = $name;
@@ -93,7 +92,6 @@ class Product extends ActiveRecord
 
         $product->views = 0;
         $product->deadline = $deadline;
-        $product->request_available = $request_available;
         $product->buys = 0;
         $product->quantity = $quantity;
         return $product;
@@ -102,7 +100,7 @@ class Product extends ActiveRecord
     public function edit($name, $name_en, $description, $description_en,
                          $weight, $size, $article, $collection, $color,
                          $manufactured_id, $category_id, $cost, $discount,
-                         $deadline, $request_available, $quantity): void
+                         $deadline, $quantity): void
     {
         $this->name = $name;
         $this->name_en = $name_en;
@@ -122,7 +120,6 @@ class Product extends ActiveRecord
         $this->quantity = $quantity;
 
         $this->deadline = $deadline;
-        $this->request_available = $request_available;
     }
 
     public function active(): void
@@ -399,5 +396,17 @@ class Product extends ActiveRecord
     public function isAd(): bool
     {
         return $this->shop->isAd();
+    }
+
+    public function checkout($quantity)
+    {
+        if ($quantity  > $this->quantity)
+            throw new \DomainException('Кол-во заказа превышает остатки на складе.');
+        $this->quantity -= $quantity;
+    }
+
+    public function repair($quantity)
+    {
+        $this->quantity += $quantity;
     }
 }

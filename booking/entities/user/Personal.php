@@ -30,7 +30,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
 
 class Personal extends ActiveRecord implements PersonalInterface
 {
-
+    /** @var $fullname FullName */
     public $fullname;
     public $address;
 

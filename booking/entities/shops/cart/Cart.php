@@ -43,6 +43,11 @@ class Cart
         //count($this->items);
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->getItems());
+    }
+
     public function getCost(): Cost
     {
         $this->loadItems();

@@ -10,6 +10,7 @@ use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\shops\Delivery;
 use booking\entities\shops\InfoAddress;
+use booking\entities\shops\order\Order;
 use booking\entities\shops\Photo;
 use booking\entities\shops\ReviewShop;
 use booking\entities\shops\Shop;
@@ -276,4 +277,11 @@ class ShopService
         $this->shops->save($shop);
     }
 
+    public function remove($id)
+    {
+        $shop = $this->shops->get($id);
+        $orders = Order::find()->andWhere(['shop_id' => $id])->count();
+        if ($orders > 0) throw new \DomainException('Нельзя удалить магазин, товары которого находятся в заказе! Отправьте его в черновик');
+        $this->shops->remove($shop);
+    }
 }

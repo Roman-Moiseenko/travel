@@ -131,11 +131,6 @@ MagnificPopupAsset::register($this);
                             'attribute' => 'deadline',
                             'label' => 'Срок изготовления',
                         ],
-                        [
-                            'attribute' => 'request_available',
-                            'value' => $product->request_available ? 'Требуется' : 'Не требуется',
-                            'label' => 'Подтверждение заказа',
-                        ],
                     ],
                 ]) ?>
             </div>

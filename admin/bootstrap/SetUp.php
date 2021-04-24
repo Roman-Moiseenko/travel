@@ -4,6 +4,9 @@
 namespace backend\bootstrap;
 
 
+use booking\entities\shops\cart\Cart;
+use booking\entities\shops\cart\cost\calculator\SimpleCost;
+use booking\entities\shops\cart\storage\HybridStorage;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use yii\base\Application;
@@ -23,7 +26,5 @@ class SetUp implements BootstrapInterface
         $container->set(CKEditor::class, [
             'editorOptions' => ElFinder::ckeditorOptions('elfinder'),
         ]);
-
-
     }
 }
