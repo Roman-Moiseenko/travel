@@ -232,6 +232,13 @@ class ShopService
         $this->shops->save($shop);
     }
 
+    public function setFreeProducts(int $id, int $count)
+    {
+        $shop = $this->shops->get($id);
+        $shop->setFreeProducts($count);
+        $this->shops->save($shop);
+    }
+
     public function movePhotoUp($id, $photoId): void
     {
         $shop = $this->shops->get($id);

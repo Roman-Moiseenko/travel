@@ -5,6 +5,7 @@ namespace office\controllers;
 
 
 use booking\entities\Rbac;
+use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
 use booking\services\shops\ShopService;
 use office\forms\ShopsSearch;
@@ -61,7 +62,6 @@ class ShopsController extends Controller
     public function actionView($id)
     {
         $shop = $this->find($id);
-
         return $this->render('view', [
             'shop' => $shop,
         ]);
@@ -92,5 +92,21 @@ class ShopsController extends Controller
         if (!$shop = Shop::findOne($id))
             throw new \DomainException('Магазин не найден');
         return $shop;
+    }
+
+    public function actionProduct($id)
+    {
+        $product = Product::findOne($id);
+        return $this->render('product', [
+            'product' => $product,
+        ]);
+    }
+
+    public function actionFree($id)
+    {
+        //$shop = $this->find($id);
+
+        $this->service->setFreeProducts($id, 1);
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

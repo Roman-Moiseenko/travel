@@ -92,7 +92,6 @@ MagnificPopupAsset::register($this);
 <!-- ТОВАРЫ -->
 <div class="card my-3">
     <div class="card-body">
-
         <span style="font-size: 16px"><?= Lang::t('Другие товары продавца ') . '(' . count($shop->activeProducts) . ')' ?></span>
         <?= ShopWidget::widget(['shop' => $shop,]) ?>
     </div>

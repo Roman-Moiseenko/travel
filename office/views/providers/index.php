@@ -2,6 +2,7 @@
 
 use booking\entities\admin\User;
 use booking\helpers\AdminUserHelper;
+use booking\helpers\CurrencyHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -58,6 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'label' => 'Статус',
                         'contentOptions' => ['data-label' => 'Статус'],
+                    ],
+                    [
+                        'value' => function (User $model) {
+                            return CurrencyHelper::stat($model->Balance());
+                        },
+                        'format' => 'raw',
+                        'label' => 'Баланс',
+                        'contentOptions' => ['data-label' => 'Баланс'],
                     ],
                     ['class' => 'yii\grid\ActionColumn',
                         'template' => '{delete}',

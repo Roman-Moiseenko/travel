@@ -529,6 +529,11 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         $this->active_products = $count;
     }
 
+    public function setFreeProducts($count): void
+    {
+        $this->free_products = $count;
+    }
+
     public function countActivePlace(): int
     {
         return $this->active_products;

@@ -2,6 +2,7 @@
 
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\ForumHelper;
 use office\forms\ProviderLegalSearch;
 use yii\grid\GridView;
@@ -82,6 +83,12 @@ $this->registerJs($js);
                         'attribute' => 'updated_at',
                         'format' => 'datetime',
                         'label' => 'Изменен'
+                    ],
+                    [
+                        'value' => CurrencyHelper::stat($model->Balance()),
+                        'format' => 'raw',
+                        'label' => 'Баланс',
+                        'contentOptions' => ['data-label' => 'Баланс'],
                     ],
                 ],
             ]) ?>

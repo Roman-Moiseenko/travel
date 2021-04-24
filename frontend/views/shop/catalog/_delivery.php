@@ -100,8 +100,6 @@ MapAsset::register($this);
             <?= Lang::t('Имеется возможность самостоятельно забрать заказ в Калининграде') ?>
         </div>
     <?php endif; ?>
-
     <span class="mt-3 badge badge-success" style="font-size: 12px">Защищенный платеж</span> продавец получит деньги после отправки заказа покупателю
-
 <?php endif; ?>
 
