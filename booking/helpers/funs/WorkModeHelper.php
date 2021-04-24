@@ -33,4 +33,23 @@ class WorkModeHelper
         }
         return $result;
     }
+
+
+    public static function openingHours(array $workMode): string
+    {
+        $_array = [];
+        /** @var $workMode WorkMode[] */
+        foreach ($workMode as $i => $item) {
+            if ($item->day_begin != '') $_array[] = self::WEEK[$i];
+        }
+        $result = implode(', ', $_array);
+
+        foreach ($workMode as $item) {
+            if ($item->day_begin != '') {
+                $result .= ' ' . $item->day_begin . '-' . $item->day_end;
+                break;
+            }
+        }
+        return $result;
+    }
 }

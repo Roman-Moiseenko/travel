@@ -117,8 +117,31 @@ MagnificPopupAsset::register($this);
     </div>
 </div>
 
+<?php if ($shop->isAd()): ?>
+    <div itemscope itemtype="https://schema.org/Store">
+        <meta itemprop="name" content="<?= $shop->getName()?>">
 
-Schema.org Магазина
+        <?php foreach ($shop->addresses as $i => $address):?>
+        <?php if ($i != 0):?>
+            <div itemprop="department" itemscope itemtype="https://schema.org/Pharmacy">
+                <meta itemprop="name" content="<?= $shop->getName()?>">
+            <?php endif; ?>
+                <meta itemprop="description" content="<?= $shop->getDescription() ?>">
+                <meta itemprop="openingHours" content="<?= WorkModeHelper::openingHours($shop->workModes)?>">
+                <meta itemprop="telephone" content="<?= $address->phone ?>">
+                <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <meta itemprop="streetAddress" content="<?= $address->address ?>">
+                    <meta itemprop="addressLocality" content="<?= $address->city ?>">
+                    <meta itemprop="addressRegion" content="Калининградская область">
+                    <meta itemprop="addressCountry"  content="Россия">
+                </address>
+                <?php if ($i != 0):?>
+            </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif;?>
+
 
 <?php $js = <<<EOD
     $(document).ready(function() {
