@@ -362,14 +362,12 @@ a.desc:after {
 
 @media screen and (max-width: 600px) {
     .big-red-paid-stamp {
-        right: 20px;
-    !important;
+        right: 20px !important;
         top: -10px;
     }
 
     .big-grey-paid-stamp {
-        right: 20px;
-    !important;
+        right: 20px !important;
         top: -10px;
     }
 }
@@ -1181,4 +1179,10 @@ ul.pagination li:not(.active) a:hover {
 }
 .item-2-29by1 {
     padding-top: 43.66%; /* (1:2)*100% */
+}
+.item-2-80by1 {
+    padding-top: 35.71%; /* (1:2)*100% */
+}
+.item-0-67by1 {
+    padding-top: 149.25%; /* (1:2)*100% */
 }

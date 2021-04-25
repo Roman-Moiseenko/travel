@@ -39,35 +39,62 @@ AppAsset::register($this);
     <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>">
 
     <?php $this->head() ?>
-    <script src="/js/lazysizes.min.js" async></script>
+    <script defer src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
-            };
-            m[i].l = 1 * new Date();
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-        ym(70580203, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true
+    <script defer type="text/javascript">
+        var fired = false;
+
+        window.addEventListener('scroll', () => {
+            if (fired === false) {
+                fired = true;
+
+                setTimeout(() => {
+                    console.log('Идет тестирование загрузки метрики');
+                    (function (m, e, t, r, i, k, a) {
+                        m[i] = m[i] || function () {
+                            (m[i].a = m[i].a || []).push(arguments)
+                        };
+                        m[i].l = 1 * new Date();
+                        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+                    })
+                    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+                    ym(70580203, "init", {
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag('js', new Date());
+                    gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
+
+                    //TODO Свипер загрузаить
+                }, 1000)
+            }
         });
     </script>
+        <script defer type="text/javascript">
+        window.onReadyState = (e, t) => {
+            const a = ["loading", "interactive", "complete"],
+                o = a.slice(a.indexOf(e)),
+                n = () => o.includes(document.readyState);
+            n() ? t() : document.addEventListener("readystatechange", (() => n() && t()))
+        };
+        window.onReadyState("complete",function(){
+
+            });
+    </script>
+
     <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <!-- <noscript></noscript>  /Yandex.Metrika counter -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async
+    <script defer
             src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
+    <script defer>
+
     </script>
 </head>
 <body>
@@ -99,7 +126,15 @@ AppAsset::register($this);
     giftofspeed3.type = 'text/css';
     let godefer3 = document.getElementsByTagName('link')[0];
     godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
+
+    let giftofspeed4 = document.createElement('link');
+    giftofspeed4.rel = 'stylesheet';
+    giftofspeed4.href = '/css/swiper.min.css';
+    giftofspeed4.type = 'text/css';
+    let godefer4 = document.getElementsByTagName('link')[0];
+    godefer4.parentNode.insertBefore(giftofspeed4, godefer4);
 </script>
+<script src="/js/swiper.js"></script>
 </body>
 </html>
 <?php $this->endPage() ?>

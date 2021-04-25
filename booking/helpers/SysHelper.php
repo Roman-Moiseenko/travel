@@ -65,4 +65,17 @@ class SysHelper
 
         return strtotime($_date);
     }
+
+    public static function lazyloaded(string $asRaw)
+    {
+        $step1 =  preg_replace_callback('/(<img.+\/>)/mx', function ($item) {
+
+            $res = preg_replace('/<img /', '<img loading="lazy"', $item[1]);
+        //    $res = preg_replace('/src/', 'data-src', $item[1]);
+//            $res = preg_replace('/class="img-responsive"/', 'class="img-responsive lazyloaded"', $res);
+            return $res;
+        }, $asRaw);
+
+        return $step1;
+    }
 }

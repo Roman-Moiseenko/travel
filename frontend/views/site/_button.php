@@ -13,7 +13,9 @@ use yii\helpers\Url;
 $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 
 ?>
-<a href="<?= Url::to([$url]) ?>">
+<div class="item-responsive item-0-67by1">
+    <div class="content-item">
+        <a href="<?= Url::to([$url]) ?>">
     <img data-src="<?=$url_img_booking . $img_name?>" class="img-responsive lazyload" width="100%" height="300px" alt="<?= $img_alt ?>">
     <div class="card-img-overlay d-flex flex-column">
         <div>
@@ -27,3 +29,5 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
         </div>
     </div>
 </a>
+    </div>
+</div>

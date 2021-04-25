@@ -14,13 +14,13 @@ use yii\web\JqueryAsset;
 $this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
 
 $description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело';
-$this->registerMetaTag(['name' =>'description', 'content' => $description]);
-$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 
-$this->registerMetaTag(['name' =>'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
-$this->registerLinkTag(['rel' => "preload",  'as' => "image", 'href' => $images[0]]);
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+$this->registerLinkTag(['rel' => "preload", 'as' => "image", 'href' => $images[0]]);
 JqueryAsset::register($this);
-SwiperAsset::register($this);
+//SwiperAsset::register($this);
 $script = <<<JS
 $(document).ready(function() {
 });
@@ -28,18 +28,19 @@ JS;
 $this->registerJs($script);
 $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 ?>
+
 <header class="landing-header">
-    <div class="container d-flex  justify-content-between"  style="align-items: center; display: flow-root">
+    <div class="container d-flex  justify-content-between" style="align-items: center; display: flow-root">
         <div class="" style="float: left">
             <div id="Oplao" data-cl="white" data-id="33141" data-wd="200px" data-hg="80px" data-l="ru" data-c="554234"
                  data-t="C" data-w="m/s" data-p="hPa" data-wg="widget_3" class="170 80"></div>
             <script type="text/javascript" id="weather_widget" charset="UTF-8"
                     src="../js/weather_widget.js"></script> <!-- https://oplao.com/js/weather_widget.js -->
-
         </div>
-        <div  style="align-items: center">
+        <div style="align-items: center">
             <a href="/" class="landing-logo">
-                <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/koenigs_ru.png' ?>" class="img-responsive" alt="Портал бронирования экскурсий">
+                <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/koenigs_ru.png' ?>"
+                     class="img-responsive" alt="Портал бронирования экскурсий">
             </a>
         </div>
         <div class="d-flex">
@@ -48,59 +49,73 @@ $url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing
                                 class="fab fa-vk"></i></span></a>
             </div>
             <div class="mr-4">
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow"><span class="landing-top-contact"><i
-                                class="fab fa-instagram"></i></span></a>
+                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow"><span
+                            class="landing-top-contact"><i class="fab fa-instagram"></i></span></a>
             </div>
             <div style="align-items: center" class="mr-4">
-                <span class="landing-top-contact"><i class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
+                <span class="landing-top-contact"><i
+                            class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
             </div>
             <div style="align-items: center">
                 <?php if (\Yii::$app->user->isGuest): ?>
-                    <span class="landing-top-contact"><a href="<?= Url::to(['/login']) ?>" title="<?= Lang::t('Войти') ?>" rel="nofollow"><i class="fas fa-sign-in-alt"></i></a></span>
+                    <span class="landing-top-contact"><a href="<?= Url::to(['/login']) ?>"
+                                                         title="<?= Lang::t('Войти') ?>" rel="nofollow"><i
+                                    class="fas fa-sign-in-alt"></i></a></span>
                 <?php else: ?>
-                    <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>" title="<?= Lang::t('Кабинет') ?>" rel="nofollow"><i class="fas fa-user"></i></a></span>
+                    <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>"
+                                                         title="<?= Lang::t('Кабинет') ?>" rel="nofollow"><i
+                                    class="fas fa-user"></i></a></span>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-
 </header>
 
-<?php
-
-OwlCarouselWidget::begin([
-    'container' => 'div',
-    'containerOptions' => [
-        'id' => 'container-id',
-        'class' => 'container-class'
-    ],
-    'pluginOptions' => [
-        'autoplay' => true,
-        'autoplayTimeout' => 5000,
-        'items' => 1,
-        'loop' => true,
-        'info' => true,
-    ]
-]);
-
-?>
-<?php foreach ($images as $i => $image): ?>
-    <div class="item-class">
-        <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
-        <div class="container">
-            <div class="carousel-caption">
-
-                <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
-                <?php if ($i == 0) { echo '<h1 class="landing-h2">';} else {echo '<p class="landing-h2">';} ?><span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span><?php if ($i == 0) { echo '</h1>';} else {echo '</p>';} ?>
+<div class="item-responsive item-2-80by1">
+    <div class="content-item">
+        <?php
+        OwlCarouselWidget::begin([
+            'container' => 'div',
+            'containerOptions' => [
+                'id' => 'container-id',
+                'class' => 'container-class'
+            ],
+            'pluginOptions' => [
+                'autoplay' => true,
+                'autoplayTimeout' => 5000,
+                'items' => 1,
+                'loop' => true,
+                'info' => true,
+            ]
+        ]);
+        ?>
+        <?php foreach ($images as $i => $image): ?>
+            <div class="item-class">
+                <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
+                        <?php if ($i == 0) {
+                            echo '<h1 class="landing-h2">';
+                        } else {
+                            echo '<p class="landing-h2">';
+                        } ?><span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span
+                                class="line-b"></span><?php if ($i == 0) {
+                            echo '</h1>';
+                        } else {
+                            echo '</p>';
+                        } ?>
+                    </div>
+                </div>
             </div>
-        </div>
+        <?php endforeach; ?>
+        <?php OwlCarouselWidget::end(); ?>
     </div>
-<?php endforeach; ?>
-<?php OwlCarouselWidget::end(); ?>
-
+</div>
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span class="line-b-title"></span></h2>
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span
+                    class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-3">
                 <?= $this->render('_button', [
@@ -157,21 +172,26 @@ OwlCarouselWidget::begin([
         </div>
     </div>
 </div>
-
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('О Калининградской области')?><span
+        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('О Калининградской области') ?><span
                     class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
-                Калининградская область — самый западный регион России и единственный не имеющий сухопутной границей с Россией.
+                Калининградская область — самый западный регион России и единственный не имеющий сухопутной границей с
+                Россией.
                 Добраться к нам быстрее и дешевле будет на самолете, для этого потребуется только паспорт гражданина РФ.<br>
-                История Калининградской области - это богатая история в которой оставили свой след племена Пруссии, рыцари Тевтонского ордена и советское прошлое.
+                История Калининградской области - это богатая история в которой оставили свой след племена Пруссии,
+                рыцари Тевтонского ордена и советское прошлое.
                 <br>
-                На территории региона расположено много историко-культурных и архитектурных памятников, такие как форты, замки, кирхи и многое другое.
-                Сегодня происходит восстановление многих памятников, а также создание новых архитектурных достопримечательностей, которые могут посетить туристы.
-                Также имеются природные и заповедные парки, открытые для посещения гостями, а в теплые летние можно искупаться в балтийском море и погреться на песчаных пляжах.
-                Или прогуляться по уютным улочкам приморских городов и посетить кафешки с домашней обстановкой. <br>А может Вам будет интересна история города или Вы хотели бы посетить необычные места,
+                На территории региона расположено много историко-культурных и архитектурных памятников, такие как форты,
+                замки, кирхи и многое другое.
+                Сегодня происходит восстановление многих памятников, а также создание новых архитектурных
+                достопримечательностей, которые могут посетить туристы.
+                Также имеются природные и заповедные парки, открытые для посещения гостями, а в теплые летние можно
+                искупаться в балтийском море и погреться на песчаных пляжах.
+                Или прогуляться по уютным улочкам приморских городов и посетить кафешки с домашней обстановкой. <br>А
+                может Вам будет интересна история города или Вы хотели бы посетить необычные места,
                 тогда можно совершить экскурсию с одним из наших гидов.<br>
             </div>
         </div>
@@ -180,31 +200,30 @@ OwlCarouselWidget::begin([
                 <?= BlogLandingWidget::widget(); ?>
             </div>
         </div>
-
     </div>
 </div>
-
 <!--div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span>Отзывы Партнеры Ссылки<span
                     class="line-b-title"></span></h2>
     </div>
 </div-->
-
 <div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для туристических компаний') ?><span
                     class="line-b-title"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
-                Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы можете разместить их на нашем сайте.
-                Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
-                <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="nofollow" target="_blank" >admin.koenigs.ru</a>.<br>
+                Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы можете
+                разместить их на нашем сайте.
+                Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование
+                апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
+                <br> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="nofollow"
+                                                           target="_blank">admin.koenigs.ru</a>.<br>
             </div>
         </div>
     </div>
 </div>
-
 <div class="landing-block-center">
     <div class="container">
         <!--h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span

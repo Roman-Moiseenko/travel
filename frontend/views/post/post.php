@@ -5,11 +5,13 @@
 
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
+use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapBlogAsset;
 use frontend\widgets\blog\CommentsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\JqueryAsset;
 
 $this->title = Lang::t($post->getSeoTitle());
 
@@ -27,6 +29,8 @@ $tagLinks = [];
 foreach ($post->tags as $tag) {
     $tagLinks[] = Html::a(Html::encode($tag->name), ['tag', 'slug' => $tag->slug]);
 }
+JqueryAsset::register($this);
+
 MagnificPopupAsset::register($this);
 MapBlogAsset::register($this);
 ?>
@@ -39,7 +43,10 @@ MapBlogAsset::register($this);
     <p><span class="glyphicon glyphicon-calendar"></span> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
 
     <?php if ($post->photo): ?>
-        <p><img itemprop="image" src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>" alt="<?= $post->getTitle()?>" class="img-responsive" /></p>
+        <p>
+            <img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>"
+                 alt="<?= $post->getTitle()?>" class="img-responsive" itemprop="image" loading="lazy"/>
+        </p>
     <?php endif; ?>
         <meta itemprop="datePublished" content="<?= date('Y-m-d', $post->public_at)?>">
         <meta itemprop="dateModified" content="<?= date('Y-m-d', $post->public_at)?>">
@@ -61,7 +68,7 @@ MapBlogAsset::register($this);
         <meta itemprop="author" content="ООО Кёнигс.РУ">
         <meta itemprop="description" content="<?= $post->getDescription() ?>">
         <div itemprop="articleBody">
-            <?= Yii::$app->formatter->asRaw($post->getContent()) ?>
+            <?= SysHelper::lazyloaded(Yii::$app->formatter->asRaw($post->getContent())) ?>
         </div>
     </div>
 </article>

@@ -10,6 +10,7 @@ use booking\forms\booking\ReviewForm;
 use booking\helpers\CurrencyHelper;
 
 use booking\helpers\ReviewHelper;
+use booking\helpers\shops\CategoryHelper;
 use booking\helpers\shops\ManufacturedHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -26,6 +27,7 @@ use frontend\widgets\shop\ShopWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\widgets\DetailView;
 
 /* @var $product Product */
 /* @var $this \yii\web\View */
@@ -43,11 +45,10 @@ MagnificPopupAsset::register($this);
 <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
     <div class="col">
         <ul class="thumbnails">
-            <?php foreach ($shop->photos as $i => $photo): ?>
+            <?php foreach ($product->photos as $i => $photo): ?>
                 <li class="image-additional"><a class="thumbnail"
                                                 href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>">
-                        <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"
-                             alt="<?= $shop->name; ?>"/>
+                        <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"/>
                     </a></li>
             <?php endforeach; ?>
         </ul>
@@ -56,36 +57,80 @@ MagnificPopupAsset::register($this);
 <!-- ОПИСАНИЕ -->
 <div class="card my-3">
     <div class="card-body">
-        <p>
-            <?= Yii::$app->formatter->asNtext($product->description) ?>
-        </p>
-        ХАРАКТЕРИСТИКИ
-        <table class="table w-50">
-            <?php if (!empty($product->collection)): ?>
-                <tr>
-                    <td class="characteristic key"><?= Lang::t('Коллекция: ') ?></td>
-                    <td class="characteristic value"><?= $product->collection ?></td>
-                </tr>
-            <?php endif; ?>
-            <?php if (!empty($product->color)): ?>
-                <tr>
-                    <td class="characteristic key"><?= Lang::t('Цвет: ') ?></td>
-                    <td class="characteristic value"><?= $product->color ?></td>
-                </tr>
-            <?php endif; ?>
-            <tr>
-                <td class="characteristic key"><?= Lang::t('Производство: ') ?></td>
-                <td class="characteristic value"><?= ManufacturedHelper::list()[$product->manufactured_id] ?></td>
-            </tr>
-            <tr>
-                <td class="characteristic key"><?= Lang::t('Размеры (ШхВхГ см): ') ?></td>
-                <td class="characteristic value"><?= $product->size->width . 'x' . $product->size->height . 'x' . $product->size->depth ?></td>
-            </tr>
-            <tr>
-                <td class="characteristic key"><?= Lang::t('Масса (г): ') ?></td>
-                <td class="characteristic value"><?= $product->weight ?></td>
-            </tr>
-        </table>
+        <?= DetailView::widget([
+            'model' => $product,
+            'attributes' => [
+                [
+                    'attribute' => 'category_id',
+                    'value' => CategoryHelper::name($product->category_id),
+                    'label' => 'Категория',
+                ],
+                [
+                    'attribute' => 'name',
+                    'label' => 'Наименование',
+                ],
+                [
+                    'attribute' => 'description',
+                    'label' => 'Описание',
+                ],
+                [
+                    'attribute' => 'cost',
+                    'label' => 'Цена (руб)',
+                ],
+                [
+                    'attribute' => 'discount',
+                    'label' => 'Скидка (%)',
+                ],
+                [
+                    'attribute' => 'name_en',
+                    'label' => 'Наименование (En)',
+                ],
+                [
+                    'attribute' => 'description_en',
+                    'label' => 'Описание (En)',
+                ],
+                [
+                    'attribute' => 'weight',
+                    'label' => 'Масса (г)',
+                ],
+                [
+                    'attribute' => 'weight',
+                    'value' => $product->size->width . 'x' . $product->size->height . 'x' . $product->size->depth,
+                    'label' => 'Размеры',
+                ],
+                [
+                    'attribute' => 'collection',
+                    'label' => 'Коллекция/серия',
+                ],
+                [
+                    'attribute' => 'article',
+                    'label' => 'Артикул',
+                ],
+                [
+                    'attribute' => 'color',
+                    'label' => 'Цвет',
+                ],
+                [
+                    'attribute' => 'manufactured_id',
+                    'value' => ManufacturedHelper::list()[$product->manufactured_id],
+                    'label' => 'Производство',
+                ],
+                [
+                    'attribute' => '',
+                    'value' => implode(',',
+                        array_map(function (Material $material) {
+                            return $material->name;
+                        }, $product->materials
+                        )),
+                    'label' => 'Материал',
+                ],
+                [
+                    'attribute' => 'deadline',
+                    'label' => 'Срок изготовления',
+                ],
+            ],
+        ]) ?>
+
     </div>
 </div>
 

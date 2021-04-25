@@ -19,6 +19,5 @@ $this->params['canonical'] = Url::to(['/tours'], true);
     <div id="content" class="col-sm-12">
         <?= $content ?>
     </div>
-
 </div>
 <?php $this->endContent() ?>
