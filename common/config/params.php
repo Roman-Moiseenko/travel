@@ -31,6 +31,9 @@ return [
         'INN-OFD' => '7704358518',
         'tax' => 'УСН доход - расход',
     ],
+    'daysOfCanceledOrders' => 5, //Через сколько дней удалять не оплаченые заказы (возвращается кол-во товаров)
+    'url_img_landing' => '/images/landing/', //Откуда грузить картинки для Заглавной страницы
+    //'url_img_landing' => \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/',
     //массив папок где надо сжать все фото
     'resize_categories' => [
         [
@@ -117,7 +120,5 @@ return [
         50 => 50,
         100 => 100,
     ],
-    'url_img_landing' => '/images/landing/',
-//    'url_img_landing' => \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/',
 ];
 

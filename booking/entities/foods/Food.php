@@ -302,12 +302,16 @@ class Food extends ActiveRecord
 
     private function updateReviews(array $reviews): void
     {
+        $this->reviews = $reviews;
+        if (count($reviews) == 0) {
+            $this->rating = 0;
+            return;
+        }
         $total = 0;
         /* @var ReviewFood $review */
         foreach ($reviews as $review) {
             $total += $review->getRating();
         }
-        $this->reviews = $reviews;
         $this->rating = $total / count($reviews);
     }
 

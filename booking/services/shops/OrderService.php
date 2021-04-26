@@ -157,12 +157,16 @@ class OrderService
         $this->contacts->sendOrder($order);
     }
 
-    public function canceled($id, $comment = null)
+    public function canceled($id, $comment = null, $console = false)
     {
         $order = $this->orders->get($id);
         $order->setStatus(StatusHistory::ORDER_CANCELED, $comment);
         $this->orders->save($order);
-        $this->contacts->sendOrder($order);
+        //* восстанавливаем кол-во товаров  */
+        foreach ($order->items as $item) {
+            $this->productService->repair($item->product_id, $item->quantity);
+        }
+        if (!$console) $this->contacts->sendOrder($order);
     }
 
     public function toPay($id, string $payment_id)

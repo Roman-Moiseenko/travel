@@ -116,4 +116,11 @@ class OrderRepository
         ])->all();
         return $orders;
     }
+
+    public function getNotPay($day)
+    {
+        return Order::find()
+            ->andWhere(['IN', 'current_status', [StatusHistory::ORDER_PREPARE, StatusHistory::ORDER_NEW, StatusHistory::ORDER_CONFIRMATION]])
+            ->andWhere(['<=', 'created_at', time() - $day * 3600 * 24])->all();
+    }
 }
