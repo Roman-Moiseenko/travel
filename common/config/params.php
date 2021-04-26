@@ -55,6 +55,13 @@ return [
             'quality' => 75,
             'items' => [
                 '/origin/posts/',
+            ],
+        ],
+        [
+            'width' => 950,
+            'height' => 650,
+            'quality' => 75,
+            'items' => [
                 '/images/blog/'
             ],
         ],
