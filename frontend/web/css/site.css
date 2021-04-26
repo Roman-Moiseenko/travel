@@ -81,6 +81,15 @@ footer h5 {
     color: #fff;
 }
 
+a {
+    color: var(--main-nav-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--main-dark2-color);
+}
+
 /*f7e59a*/
 .wrap {
     min-height: 100%;
@@ -282,7 +291,6 @@ a.desc:after {
 }
 
 .container-hr-food {
-    /*font-family: 'Comfortaa', sans-serif;*/
     position: relative;
     padding-top: 26px;
     padding-bottom: 10px;
@@ -1068,11 +1076,27 @@ div.required label:after {
 }
 
 
+
 .line-b {
     margin-left: 10px;
     width: 74px;
     height: 2px;
     background: #ffffff;
+}
+
+/* list group */
+.list-group a {
+    border: 1px solid #DDDDDD;
+    color: #888888;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.list-group a.active, .list-group a.active:hover, .list-group a:hover {
+    color: #fff;
+    background: var(--main-nav-color);
+    border: 1px solid #DDDDDD;
+    /*text-shadow: 0 1px 0 #FFF;*/
 }
 
 .landing-title-h2 {
@@ -1213,4 +1237,34 @@ ul.pagination li:not(.active) a:hover {
 }
 .item-0-67by1 {
     padding-top: 149.25%; /* (1:2)*100% */
+}
+
+/******* Рейтинг **/
+
+.rating .fa-stack {
+    font-size: 8px;
+}
+
+.rating .fa-star-o {
+    color: #999;
+    font-size: 15px;
+}
+
+.rating .fa-star {
+    color: #FC0;
+    font-size: 15px;
+}
+
+.rating .fa-star + .fa-star-o {
+    color: #E69500;
+}
+
+.rating .fa-star-half-o {
+    color: #FC0;
+    font-size: 15px;
+}
+
+.rating .fa-star-half-alt {
+    color: #FC0;
+    font-size: 15px;
 }

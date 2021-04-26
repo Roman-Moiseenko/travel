@@ -23,7 +23,7 @@ DatepickerAsset::register($this);
             <div class="col-5 pr-1">
                 <div class="input-group date pb-2" id="datepicker-car-from" data-lang="<?= Lang::current() ?>">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
                     </div>
                     <input type="text" id="datepicker_value" value="" class="form-control" readonly/>
                 </div>

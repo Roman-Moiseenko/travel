@@ -40,7 +40,7 @@ MapBlogAsset::register($this);
     <div itemscope="" itemtype="https://schema.org/Article">
         <span itemprop="name"><h1><?= Html::encode($post->getTitle()) ?></h1></span>
         <link itemprop="url" href="<?= Url::to(['/post/view', 'id' => $post->id], true)?>">
-    <p><span class="glyphicon glyphicon-calendar"></span> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
+    <p><i class="far fa-calendar-alt"></i> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
 
     <?php if ($post->photo): ?>
         <p>

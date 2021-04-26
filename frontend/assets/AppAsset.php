@@ -14,13 +14,15 @@ class AppAsset extends AssetBundle
     public $css = [
         //'//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap',
         'css/site.css',
+        'css/top.css',
         'css/stylesheet.css',
-        'css/glyphicon.css',
-        'css/swiper.min.css',
+        //'css/glyphicon.css',
+        'css/shop.css',
+//        'css/swiper.min.css',
 //        'css/multi_timer.css',
     ];
     public $js = [
-        'js/swiper.js',
+        //'js/swiper.js',
         'js/site.js',
     ];
     public $depends = [

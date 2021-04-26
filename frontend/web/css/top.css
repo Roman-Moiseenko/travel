@@ -1,0 +1,72 @@
+/* top */
+#top {
+    background-color: var(--main-nav-color);
+
+    padding: 1px 0px 1px 0;
+    margin: 0 0 10px 0;
+    min-height: 40px;
+    /*	z-index: 10;*/
+}
+
+#top .container {
+    padding: 0 20px;
+}
+
+#top #form-currency .currency-select,
+#top #form-language .language-select {
+    text-align: left;
+}
+
+#top #form-currency .currency-select:hover,
+#top #form-language .language-select:hover {
+    text-shadow: none;
+    color: #ffffff;
+    background-color: #229ac8;
+    background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+    background-repeat: repeat-x;
+}
+
+#top .btn-link, #top-links li, #top-links a {
+    color: #0f455a;
+    /*   text-shadow: 0 1px 0 #32aad8;*/
+    text-decoration: none;
+}
+
+#top .btn-link:hover, #top-links a:hover {
+    color: #ffffff;
+}
+
+#top-links .dropdown-menu a {
+    text-shadow: none;
+}
+
+#top-links .dropdown-menu a:hover {
+    color: #FFF;
+}
+
+#top .btn-link strong {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+#top-links {
+    padding-top: 6px;
+}
+
+#top-links a + a {
+    /*margin-left: 15px;*/
+}
+
+.dropdown-menu a:hover {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #229ac8;
+    background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+    background-repeat: repeat-x;
+}
+
+.dropdown-menu.cart-widget {
+    left: -300px !important;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    border-radius: 7px;
+}
