@@ -53,6 +53,34 @@ h6 {
     font-size: 10.2px;
 }
 
+footer {
+    margin-top: 30px;
+    padding-top: 30px;
+    background-color: #303030;
+    /*border-top: 1px solid #ddd;*/
+    color: #e2e2e2;
+}
+
+footer hr {
+    border-top: none;
+    border-bottom: 1px solid #666;
+}
+
+footer a {
+    color: #ccc;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer h5 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+}
+
 /*f7e59a*/
 .wrap {
     min-height: 100%;

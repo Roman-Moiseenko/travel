@@ -70,7 +70,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
         <div class="container">
             <div class="row pt-5">
                 <div class="col-12">
-                    <?= BlogLandingWidget::widget(); ?>
+                    <?= '';// BlogLandingWidget::widget(); ?>
                 </div>
             </div>
 

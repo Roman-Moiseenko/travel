@@ -5,6 +5,8 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use booking\helpers\SysHelper;
+use frontend\assets\AppAssetMobile;
 use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
@@ -14,7 +16,9 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
-AppAsset::register($this);
+$mobile = SysHelper::isMobile();
+if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);}
+//AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -125,15 +129,15 @@ AppAsset::register($this);
     giftofspeed3.type = 'text/css';
     let godefer3 = document.getElementsByTagName('link')[0];
     godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
-
+/*
     let giftofspeed4 = document.createElement('link');
     giftofspeed4.rel = 'stylesheet';
     giftofspeed4.href = '/css/swiper.min.css';
     giftofspeed4.type = 'text/css';
     let godefer4 = document.getElementsByTagName('link')[0];
-    godefer4.parentNode.insertBefore(giftofspeed4, godefer4);
+    godefer4.parentNode.insertBefore(giftofspeed4, godefer4); */
 </script>
-<script src="/js/swiper.js"></script>
+<!--script src="/js/swiper.js"></script-->
 </body>
 </html>
 <?php $this->endPage() ?>
