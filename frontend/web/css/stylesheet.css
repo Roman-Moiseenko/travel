@@ -277,51 +277,7 @@ div.required .control-label:before {
     background-image: linear-gradient(to bottom, #333333, #111111);
 }
 
-/* list group */
-.list-group a {
-    border: 1px solid #DDDDDD;
-    color: #888888;
-    padding: 8px 12px;
-    font-size: 13px;
-}
 
-.list-group a.active, .list-group a.active:hover, .list-group a:hover {
-    color: #fff;
-    background: var(--main-nav-color);
-    border: 1px solid #DDDDDD;
-    /*text-shadow: 0 1px 0 #FFF;*/
-}
-
-/* carousel */
-.carousel-caption {
-    color: #FFFFFF;
-    text-shadow: 0 1px 0 #000000;
-}
-
-
-h2.price {
-    margin: 0;
-}
-
-.price {
-    color: #444;
-}
-
-.price-new {
-    font-weight: 600;
-}
-
-.price-old {
-    color: #999;
-    text-decoration: line-through;
-    margin-left: 10px;
-}
-
-.price-tax {
-    color: #999;
-    font-size: 12px;
-    display: block;
-}
 
 .thumbnails {
     overflow: auto;
@@ -454,7 +410,6 @@ h2.price {
     margin-left: 0;
 }
 
-
 td.characteristic {
 
 }
@@ -469,12 +424,6 @@ td.characteristic.value {
 .shop-widget-caption {
     font-size: 18px;
 }
-
-
-
-
-
-
 
 .btn-tab-order {
     border: 1px solid #ddd;

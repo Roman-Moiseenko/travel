@@ -129,7 +129,6 @@ a.asc:after, a.desc:after {
     position: relative;
     top: 1px;
     display: inline-block;
-    font-family: 'Glyphicons Halflings';
     font-style: normal;
     font-weight: normal;
     line-height: 1;
@@ -158,15 +157,6 @@ a.desc:after {
 
 .sort-ordinal a.desc:after {
     content: "\e156";
-}
-
-.grid-view td {
-    white-space: nowrap;
-}
-
-.grid-view .filters input,
-.grid-view .filters select {
-    min-width: 50px;
 }
 
 .hint-block {
@@ -242,7 +232,7 @@ a.desc:after {
     background: white;
     border: #122b40 2px;
     margin: 10px -7px;
-    border: #8a8a8a solid 0px;
+    /*border: #8a8a8a solid 0px;*/
     /*font-size: 14px !important;*/
 }
 
@@ -337,6 +327,21 @@ a.desc:after {
     color: #731825;
 }
 
+/* list group */
+.list-group a {
+    border: 1px solid #DDDDDD;
+    color: #888888;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.list-group a.active, .list-group a.active:hover, .list-group a:hover {
+    color: #fff;
+    background: var(--main-nav-color);
+    border: 1px solid #DDDDDD;
+    /*text-shadow: 0 1px 0 #FFF;*/
+}
+
 .price-view {
     font-size: 14px;
     font-weight: 600;
@@ -421,10 +426,7 @@ a.desc:after {
 }
 
 .reassurance__list > li:before {
-    /* position: absolute;
-     display: block;*/
     content: '\2611';
-
     font-size: 16px;
     line-height: 20px;
     color: #008009;
@@ -472,12 +474,10 @@ div.required label:after {
 }
 
 .price-card.shop {
-   /* color: #f8a937;*/
     font-size: 16px;
 }
 
 .price-card.product {
-    /* color: #f8a937;*/
     font-size: 28px;
 }
 .category-card {
@@ -539,12 +539,8 @@ div.required label:after {
     padding: 8px 0;
     display: flex;
     flex-wrap: wrap;
-    /*padding: $breadcrumb-padding-y $breadcrumb-padding-x;*/
-    /*margin-bottom: $breadcrumb-margin-bottom;*/
     font-size: 12px;
     list-style: none;
-    /*background-color: $breadcrumb-bg;*/
-    /*@include border-radius($breadcrumb-border-radius);*/
 }
 
 .breadcrumb-site i {
@@ -571,16 +567,8 @@ div.required label:after {
     content: '>';
     display: block;
     position: absolute;
-    top: 0px;
+    top: 0;
     right: -5px;
-    /*  width: 26px;
-      height: 26px;
-      border-right: 1px solid #DDD;
-      border-bottom: 1px solid #DDD;
-      -webkit-transform: rotate(-45deg);
-      -moz-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      transform: rotate(-45deg);*/
 }
 .breadcrumb-site > div > li {
     text-shadow: 0 1px 0 #FFF;
@@ -597,16 +585,8 @@ div.required label:after {
     content: '>';
     display: block;
     position: absolute;
-    top: 0px;
+    top: 0;
     right: -5px;
-/*      width: 26px;
-      height: 26px;
-      border-right: 1px solid #DDD;
-      border-bottom: 1px solid #DDD;
-      -webkit-transform: rotate(-45deg);
-      -moz-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      transform: rotate(-45deg);*/
 }
 
 .img-responsive {
@@ -677,8 +657,8 @@ div.required label:after {
 
 .new-object-booking {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 
     border: 22px solid transparent;
     border-left: 22px solid #00a500;
@@ -695,13 +675,11 @@ div.required label:after {
     -o-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
-
 }
 
 .image-car-list {
     float: left;
 }
-
 
 .caption-car-list {
     min-height: 228px;
@@ -983,7 +961,6 @@ div.required label:after {
     }
 }
 
-
 #searchstayform-guest.form-control-xl {
     padding-left: 6px;
     padding-right: 3px;
@@ -1238,7 +1215,9 @@ ul.pagination li:not(.active) a:hover {
 .item-0-67by1 {
     padding-top: 149.25%; /* (1:2)*100% */
 }
-
+.item-1-1by1 {
+    padding-top: 100%; /* (1:2)*100% */
+}
 /******* Рейтинг **/
 
 .rating .fa-stack {
