@@ -36,7 +36,7 @@ class OrderController extends Controller
         echo 'Нашлось $stays ' . count($orders);
         foreach ($orders as $order) {
             $this->orderService->canceled($order->id, 'ООО Кёнигс.РУ: По истечению времени!', true);
-            echo 'ID = ' . $order->id . '<br>';
+            echo 'ID = ' . $order->id . PHP_EOL;
         }
         echo 'КОНЕЦ';
     }
