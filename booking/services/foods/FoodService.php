@@ -182,10 +182,17 @@ class FoodService
         $this->foods->save($food);
     }
 
-    public function addReview($tour_id, ReviewFoodForm $form)
+    public function addReview($food_id, ReviewFoodForm $form)
     {
-        $food = $this->foods->get($tour_id);
+        $food = $this->foods->get($food_id);
         $food->addReview(ReviewFood::create($form->vote, $form->text, $form->username, $form->email));
+        $this->foods->save($food);
+    }
+
+    public function removeReview($food_id, $review_id)
+    {
+        $food = $this->foods->get($food_id);
+        $food->removeReview($review_id);
         $this->foods->save($food);
     }
 

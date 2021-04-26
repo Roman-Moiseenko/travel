@@ -60,34 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'ntext',
                         'contentOptions' => ['data-label' => 'Отзыв'],
                     ],
-                   /* ['class' => ActionColumn::class,
+                    ['class' => ActionColumn::class,
                         'template' => '{delete}',
-                        'buttons' => [
-                            'delete' => function ($url, ReviewFood $model, $key) {
-                                if ($model->isActive()) {
-                                    $url = Url::to(['lock', 'id' => $model->id]);
-                                    $icon = Html::tag('i', '', ['class' => "fas fa-unlock", 'style' => 'color: #28a745']);
-                                    return Html::a($icon, $url, [
-                                        'title' => 'Заблокировать',
-                                        'aria-label' => 'Заблокировать',
-                                        'data-pjax' => 0,
-                                        'data-confirm' => 'Вы уверены, что хотите заблокировать Отзыв?',
-                                        'data-method' => 'post',
-                                    ]);
-                                } else {
-                                    $url = Url::to(['unlock', 'id' => $model->id]);
-                                    $icon = Html::tag('i', '', ['class' => "fas fa-lock", 'style' => 'color: #dc3545']);
-                                    return Html::a($icon, $url, [
-                                        'title' => 'Разблокировать',
-                                        'aria-label' => 'Разблокировать',
-                                        'data-pjax' => 0,
-                                        'data-confirm' => 'Вы уверены, что хотите разблокировать Отзыв?',
-                                        'data-method' => 'post',
-                                    ]);
-                                }
-                            },
-                        ],
-                    ],*/
+
+                    ],
                 ],
             ]); ?>
         </div>

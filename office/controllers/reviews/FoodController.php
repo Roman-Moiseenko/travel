@@ -8,6 +8,7 @@ use booking\entities\booking\stays\ReviewStay;
 use booking\entities\booking\tours\ReviewTour;
 use booking\entities\foods\ReviewFood;
 use booking\entities\Rbac;
+use booking\services\foods\FoodService;
 use office\forms\reviews\ReviewFoodSearch;
 use office\forms\reviews\ReviewStaySearch;
 use office\forms\reviews\ReviewTourSearch;
@@ -18,9 +19,15 @@ use yii\web\Controller;
 class FoodController extends Controller
 {
 
-    public function __construct($id, $module, $config = [])
+    /**
+     * @var FoodService
+     */
+    private $service;
+
+    public function __construct($id, $module, FoodService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
+        $this->service = $service;
     }
 
     public function behaviors()
@@ -56,19 +63,11 @@ class FoodController extends Controller
         ]);
     }
 
-    public function actionLock($id)
+    public function actionDelete($id)
     {
         $review = ReviewFood::findOne($id);
-        $review->draft();
-        $review->save();
+        $this->service->removeReview($review->food_id, $review->id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionUnlock($id)
-    {
-        $review = ReviewFood::findOne($id);
-        $review->activate();
-        $review->save();
-        return $this->redirect(\Yii::$app->request->referrer);
-    }
 }
