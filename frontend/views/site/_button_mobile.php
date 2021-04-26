@@ -9,8 +9,8 @@ use yii\helpers\Url;
 /* @var $img_alt string */
 /* @var $caption string */
 
-$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
-
+//$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
+$url_img_booking = \Yii::$app->params['url_img_landing'] . 'booking/'
 ?>
 <div class="item-responsive item-2-29by1">
     <div class="content-item">

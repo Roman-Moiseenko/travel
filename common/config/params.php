@@ -102,5 +102,7 @@ return [
         50 => 50,
         100 => 100,
     ],
+    'url_img_landing' => '/images/landing/',
+//    'url_img_landing' => \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/',
 ];
 

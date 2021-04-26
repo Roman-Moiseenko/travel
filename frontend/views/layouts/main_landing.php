@@ -43,7 +43,6 @@ AppAsset::register($this);
     <!-- Yandex.Metrika counter -->
     <script defer type="text/javascript">
         var fired = false;
-
         window.addEventListener('scroll', () => {
             if (fired === false) {
                 fired = true;

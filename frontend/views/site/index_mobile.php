@@ -16,7 +16,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 
-SwiperAsset::register($this);
+//SwiperAsset::register($this);
 ?>
 <div class="mobile-landing m-0 p-0">
     <div class="pt-2">
