@@ -22,11 +22,23 @@ class MarketController extends Controller
 
     public function actionTurbo(): Response
     {
-        $xml = \Yii::$app->cache->getOrSet('turbo', function () {
+        /*$xml = \Yii::$app->cache->getOrSet('turbo', function () {
             return $this->generator->generateTurbo();
-        }, 4 * 3600, new TagDependency(['tags' => ['categories', 'products']]));
-
+        }, 4 * 3600, new TagDependency(['tags' => ['categories', 'products']]));*/
+        $xml = $this->generator->generateTurbo();
         return \Yii::$app->response->sendContentAsFile($xml, 'turbo.xml', [
+            'mimeType' => 'application/xml',
+            'inline' => true,
+        ]);
+    }
+
+    public function actionRss(): Response
+    {
+        /*$xml = \Yii::$app->cache->getOrSet('turbo', function () {
+            return $this->generator->generateTurbo();
+        }, 4 * 3600, new TagDependency(['tags' => ['categories', 'products']]));*/
+        $xml = $this->generator->generateRss();
+        return \Yii::$app->response->sendContentAsFile($xml, 'rss.xml', [
             'mimeType' => 'application/xml',
             'inline' => true,
         ]);

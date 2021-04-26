@@ -74,6 +74,14 @@ return [
             ],
         ],
         [
+            'width' => 1024,
+            'height' => 1024,
+            'quality' => 75,
+            'items' => [
+                '/origin/orders/',
+            ],
+        ],
+        [
             'quality' => 50,
             'items' => [
                 '/cache/',

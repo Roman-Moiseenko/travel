@@ -163,6 +163,7 @@ $mobil = SysHelper::isMobile();
         <?php if ($order->isSent()): ?>
             <div class="form-group field-orderform-comment">
                 <label for="orderform-comment">Файл подтверждающий отправку (Фото накладной, чека с подписью клиента при самовывозе или доставки по городу)</label>
+                <label style="color: #7b190e">* Обязательное поле</label>
                 <?= FileInput::widget([
                         'id' => 'document',
                         'name' => 'document',

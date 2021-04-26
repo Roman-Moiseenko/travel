@@ -6,12 +6,14 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\funs\BookingFun;
+use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\helpers\BookingHelper;
 use booking\services\booking\cars\BookingCarService;
 use booking\services\booking\funs\BookingFunService;
+use booking\services\booking\stays\BookingStayService;
 use booking\services\booking\tours\BookingTourService;
 use booking\services\ContactService;
 use yii\filters\AccessControl;
@@ -37,6 +39,10 @@ class PayController extends Controller
      * @var BookingFunService
      */
     private $funService;
+    /**
+     * @var BookingStayService
+     */
+    private $stayService;
 
     public function __construct(
         $id,
@@ -44,6 +50,7 @@ class PayController extends Controller
         BookingTourService $tourService,
         BookingCarService $carService,
         BookingFunService $funService,
+        BookingStayService $stayService,
         ContactService $contact,
         $config = []
     )
@@ -53,6 +60,7 @@ class PayController extends Controller
         $this->contact = $contact;
         $this->carService = $carService;
         $this->funService = $funService;
+        $this->stayService = $stayService;
     }
 
     public function behaviors()
@@ -171,7 +179,35 @@ class PayController extends Controller
 
     public function actionStay($id)
     {
-        //
+        $booking = BookingStay::findOne($id);
+        if ($booking->isPaidLocally()) {
+            //генерируем код на почту (СМС), сохраняем гдето в базе, отправляем СМС
+            $this->stayService->noticeConfirmation($id);
+            $form = new ConfirmationForm();
+            //через форму ждем код
+            if ($form->load(\Yii::$app->request->post()) && $form->validate()){
+                try {
+                    if ($this->stayService->checkConfirmation($id, $form)) {
+                        //если совпал, то подтверждение
+                        $this->stayService->confirmation($id);
+                        \Yii::$app->session->setFlash('success', Lang::t('Ваше бронирование подтверждено'));
+                        return $this->redirect(['/cabinet/stay/view', 'id' => $id]);
+                    } else {
+                        \Yii::$app->session->setFlash('error', Lang::t('Неверный код подтверждения'));
+                    }
+                } catch (\DomainException $e) {
+                    \Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+            return $this->render('confirmation', [
+                'model' => $form,
+                'booking' => $booking,
+            ]);
+        }
+
+        if (!$booking->isPaidLocally()){
+            return $this->redirect(['cabinet/yandexkassa/invoice', 'id' => BookingHelper::number($booking)]);
+        }
     }
 
     public function actionConfirmation()

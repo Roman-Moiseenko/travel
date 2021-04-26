@@ -285,7 +285,7 @@ class ContactService
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockTour', ['tour' => $tour])
-            ->setTo($tour->legal->noticeEmail)
+            ->setTo($tour->user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
             ->setSubject($tour->name)
             ->send();
@@ -298,7 +298,7 @@ class ContactService
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockFun', ['fun' => $fun])
-            ->setTo($fun->legal->noticeEmail)
+            ->setTo($fun->user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
             ->setSubject($fun->name)
             ->send();
@@ -311,7 +311,7 @@ class ContactService
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockCar', ['car' => $car])
-            ->setTo($car->legal->noticeEmail)
+            ->setTo($car->user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
             ->setSubject($car->name)
             ->send();
@@ -324,7 +324,7 @@ class ContactService
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockStay', ['stay' => $stay])
-            ->setTo($stay->legal->noticeEmail)
+            ->setTo($stay->user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
             ->setSubject($stay->name)
             ->send();
@@ -337,7 +337,7 @@ class ContactService
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockShop', ['shop' => $shop])
-            ->setTo($shop->legal->noticeEmail)
+            ->setTo($shop->user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
             ->setSubject($shop->name)
             ->send();
@@ -356,6 +356,10 @@ class ContactService
 
     private function mailerBooking($_email, BaseBooking $booking, $template, $attach_pdf = false) //BookingItemInterface
     {
+        if (empty($_email)) {
+            \Yii::error(['Нет почты уведомления', 'ID=' . $booking->id . ' / ' . $booking->object_id]);
+            return;
+        }
         $message = $this->mailer->compose($template, ['booking' => $booking])
             ->setTo((string)$_email)//$email
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Уведомление о Бронировании')])

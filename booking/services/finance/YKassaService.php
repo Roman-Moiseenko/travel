@@ -6,9 +6,9 @@ namespace booking\services\finance;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
-//use booking\entities\finance\Check54;
 use booking\entities\Lang;
 use booking\entities\shops\order\Order;
+use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use YooKassa\Client;
 
@@ -30,48 +30,50 @@ class YKassaService
     //Оплата клиентами бронирования
     public function invoice(BaseBooking $booking)
     {
-            $payment = $this->client->createPayment(
-                [
-                    'amount' => [
-                        'value' => $booking->getPayment()->getPrepay(),
-                        'currency' => 'RUB',
-                    ],
-                    'payment_method_data' => $this->yandexkassa['payment_method_data'],
-                    'receipt' => [
-                        'customer' => [
-                            'full_name' => $booking->getUser()->personal->fullname->getFullname(), //personal->fullname->getFullName(),
-                            'email' => $booking->getUser()->email,
-                        ],
-                        'items' => [
-                            [
-                                'description' => $booking->getName(),
-                                'quantity' => 1,
-                                'amount' => ['value' => $booking->getPayment()->getPrepay(), 'currency' => 'RUB'],
-                                'vat_code' => 1
-                            ],
-                        ],
-                        'email' => $booking->getUser()->email,
-                    ],
-                    'confirmation' => [
-                        'type' => 'redirect',
-                        'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()->frontend,
-                        'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
-                    ],
-                    'capture' => true,
-                    'description' => $booking->getName() . ' #' . BookingHelper::number($booking),
-                    'metadata' => [
-                        'class' => get_class($booking),
-                        'id' => $booking->getId(),
-                    ],
+        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
+        $payment = $this->client->createPayment(
+            [
+                'amount' => [
+                    'value' => $booking->getPayment()->getPrepay(),
+                    'currency' => 'RUB',
                 ],
-                uniqid('', true)
-            );
-            return $payment;
+                'payment_method_data' => $this->yandexkassa['payment_method_data'],
+                'receipt' => [
+                    'customer' => [
+                        'full_name' => $booking->user->personal->fullname->getFullname(), //personal->fullname->getFullName(),
+                        'email' => $booking->user->email,
+                    ],
+                    'items' => [
+                        [
+                            'description' => $booking->getName(),
+                            'quantity' => 1,
+                            'amount' => ['value' => $booking->getPayment()->getPrepay(), 'currency' => 'RUB'],
+                            'vat_code' => 1
+                        ],
+                    ],
+                    'email' => $booking->user->email,
+                ],
+                'confirmation' => [
+                    'type' => 'redirect',
+                    'return_url' => \Yii::$app->params['frontendHostInfo'] . $booking->getLinks()->frontend,
+                    'locale' => Lang::current() == Lang::DEFAULT ? 'ru_RU' : 'en_US',
+                ],
+                'capture' => true,
+                'description' => $booking->getName() . ' #' . BookingHelper::number($booking),
+                'metadata' => [
+                    'class' => get_class($booking),
+                    'id' => $booking->getId(),
+                ],
+            ],
+            uniqid('', true)
+        );
+        return $payment;
     }
 
     //Пополнение баланса провйдерам
     public function invoiceAdmin(User $user, $amount)
     {
+        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
         //TODO Настройка параметров
         $payment = $this->client->createPayment(
             [
@@ -116,7 +118,8 @@ class YKassaService
 
     public function invoiceShop(Order $order)
     {
-        //TODO invoiceShop()
+        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
+
         $payment = $this->client->createPayment(
             [
                 'amount' => [
@@ -141,7 +144,7 @@ class YKassaService
                 ],
                 'confirmation' => [
                     'type' => 'redirect',
-                    'return_url' => \Yii::$app->params['adminHostInfo'] . '/balance',
+                    'return_url' => \Yii::$app->params['frontendHostInfo'] . '/cabinet/orders',
                     'locale' => 'ru_RU',
                 ],
                 'capture' => true,

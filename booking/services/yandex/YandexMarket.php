@@ -5,6 +5,8 @@ namespace booking\services\yandex;
 
 
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
+use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\tours\TourRepository;
@@ -26,18 +28,24 @@ class YandexMarket
      * @var FunRepository
      */
     private $funs;
+    /**
+     * @var PostRepository
+     */
+    private $post;
 
     public function __construct(
         Info $info,
         TourRepository $tours,
         CarRepository $cars,
-        FunRepository $funs
+        FunRepository $funs,
+        PostRepository $post
     )
     {
         $this->info = $info;
         $this->tours = $tours;
         $this->cars = $cars;
         $this->funs = $funs;
+        $this->post = $post;
     }
 
     public function generateTurbo(): string
@@ -171,6 +179,94 @@ class YandexMarket
 
         $writer->endDocument();
 
+        return ob_get_clean();
+    }
+
+    public function generateRss(): string
+    {
+        ob_start();
+
+        $writer = new \XMLWriter();
+        $writer->openURI('php://output');
+
+        $writer->startDocument('1.0', 'UTF-8');
+        /*$writer->startDTD('yml_catalog SYSTEM "shops.dtd"');
+        $writer->endDTD();*/
+
+        $writer->startElement('rss');
+        $writer->writeAttribute('xmlns:yandex', 'http://news.yandex.ru');
+        $writer->writeAttribute('xmlns:media', 'http://search.yahoo.com/mrss/');
+        $writer->writeAttribute('xmlns:turbo', 'http://turbo.yandex.ru');
+        $writer->writeAttribute('version', '2.0');
+
+        $writer->startElement('channel');
+        $writer->writeElement('title', Html::encode('Блог о Калининграде'));
+        $writer->writeElement('link', Url::to(['/post'], true));
+        $writer->writeElement('description', Html::encode('Обзорные статьи о Калининграде и области'));
+        $writer->writeElement('language', 'ru');
+        $writer->writeElement('turbo:analytics');
+        $writer->writeElement('turbo:adNetwork');
+
+        $post = $this->post->getAllForSitemap();
+        foreach ($post as $item) {
+            $writer->startElement('item');
+            $writer->writeAttribute('turbo', 'true');
+            $writer->writeElement('turbo:extendedHtml', 'true');
+            $writer->writeElement('link', Url::to(['/post/view', 'id' => $item->id], true));
+            $writer->writeElement('turbo:source');
+            $writer->writeElement('turbo:topic');
+            $writer->writeElement('pubDate', date('Y-m-d H:i', $item->public_at));
+            $writer->writeElement('author', 'ООО Кёнигс.РУ');
+            $writer->startElement('metrics');
+            $writer->startElement('yandex');
+
+            $writer->startElement('metrics');
+            $writer->writeAttribute('schema_identifier', '70580203');
+
+
+
+
+            $writer->startElement('breadcrumblist');
+
+            $writer->startElement('breadcrumb');
+            $writer->writeAttribute('url', Url::to(['/post'], true));
+            $writer->writeAttribute('text', 'Блог');
+            $writer->endElement();
+            $writer->startElement('breadcrumb');
+            $writer->writeAttribute('url', Url::to(['/post/category', 'slug' => $item->category->slug], true));
+            $writer->writeAttribute('text', $item->category->getName());
+            $writer->endElement();
+            $writer->startElement('breadcrumb');
+
+            $writer->writeAttribute('url', Url::to(['/post/view', 'id' => $item->id], true));
+            $writer->writeAttribute('text', $item->getTitle());
+            $writer->endElement();
+
+            $writer->endElement();
+            $writer->endElement();
+
+            $writer->endElement();
+
+            $writer->writeElement('yandex:related');
+
+            $writer->startElement('turbo:content');
+            $writer->text('<![CDATA[' . $item->content . ']]>');
+
+
+            $writer->endElement();
+
+            $writer->endElement();
+
+        }
+
+
+        $writer->endElement();
+        $writer->endElement();
+
+        $writer->fullEndElement();
+        $writer->fullEndElement();
+
+        $writer->endDocument();
         return ob_get_clean();
     }
 }

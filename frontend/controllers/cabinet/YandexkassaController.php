@@ -155,6 +155,16 @@ class YandexkassaController extends Controller
                 : new NotificationWaitingForCapture($requestBody);
             $payment = $notification->getObject();
             $metadata = $payment->getMetadata();
+
+            //TODO Таблица с записями оплаты
+            // user_id
+            // дата
+            // сумма,
+            // дата
+            // класс
+            // ID объекта
+            // статус => платеж создан/деньги поступили
+            // ищим по payment_id и ставим отметку, что деньги поступили
             if ($metadata['class'] == User::class) {
                 try {
                 $this->users->ConfirmationToUpDeposit($payment->id);

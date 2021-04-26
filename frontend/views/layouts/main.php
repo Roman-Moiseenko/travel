@@ -51,7 +51,6 @@ if (isset($this->params['tour'])) TourAsset::register($this);
         window.addEventListener('scroll', () => {
             if (fired === false) {
                 fired = true;
-
                 setTimeout(() => {
                     console.log('Идет тестирование загрузки метрики');
                     (function (m, e, t, r, i, k, a) {

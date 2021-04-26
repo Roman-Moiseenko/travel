@@ -115,6 +115,7 @@ return [
                 'site/login' => 'auth/auth/login',
 
                 ['pattern' => 'turbo', 'route' => 'market/turbo', 'suffix' => '.xml'],
+                ['pattern' => 'rss', 'route' => 'market/rss', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
                 ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
 
