@@ -45,6 +45,10 @@ use yii\helpers\Url;
                         ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/reviews/car'], 'active' => $this->context->id == 'reviews/car'],
                         ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/reviews/fun'], 'active' => $this->context->id == 'reviews/fun'],
                         ['label' => ' - Жилища', 'icon' => 'hotel', 'url' => ['/reviews/stay'], 'active' => $this->context->id == 'reviews/stay'],
+                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/reviews/shop'], 'active' => $this->context->id == 'reviews/shop'],
+                        ['label' => ' - Товары', 'icon' => 'box', 'url' => ['/reviews/product'], 'active' => $this->context->id == 'reviews/product'],
+                        ['label' => ' - Заведения', 'icon' => 'utensils', 'url' => ['/reviews/food'], 'active' => $this->context->id == 'reviews/food'],
+
                     ]],
                     ['label' => 'Диалоги', 'icon' => 'comments', 'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupport() . '</span>',
                         'items' => [

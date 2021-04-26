@@ -204,14 +204,16 @@ class YandexMarket
         $writer->writeElement('link', Url::to(['/post'], true));
         $writer->writeElement('description', Html::encode('Обзорные статьи о Калининграде и области'));
         $writer->writeElement('language', 'ru');
-        $writer->writeElement('turbo:analytics');
-        $writer->writeElement('turbo:adNetwork');
+//        $writer->writeElement('turbo:analytics');
+     //   $writer->writeElement('turbo:adNetwork');
 
         $post = $this->post->getAllForSitemap();
         foreach ($post as $item) {
             $writer->startElement('item');
             $writer->writeAttribute('turbo', 'true');
             $writer->writeElement('turbo:extendedHtml', 'true');
+            $writer->writeElement('title', Html::encode($item->getTitle()));
+
             $writer->writeElement('link', Url::to(['/post/view', 'id' => $item->id], true));
             $writer->writeElement('turbo:source');
             $writer->writeElement('turbo:topic');
@@ -219,15 +221,9 @@ class YandexMarket
             $writer->writeElement('author', 'ООО Кёнигс.РУ');
             $writer->startElement('metrics');
             $writer->startElement('yandex');
-
-            $writer->startElement('metrics');
             $writer->writeAttribute('schema_identifier', '70580203');
 
-
-
-
             $writer->startElement('breadcrumblist');
-
             $writer->startElement('breadcrumb');
             $writer->writeAttribute('url', Url::to(['/post'], true));
             $writer->writeAttribute('text', 'Блог');
@@ -237,20 +233,15 @@ class YandexMarket
             $writer->writeAttribute('text', $item->category->getName());
             $writer->endElement();
             $writer->startElement('breadcrumb');
-
             $writer->writeAttribute('url', Url::to(['/post/view', 'id' => $item->id], true));
             $writer->writeAttribute('text', $item->getTitle());
             $writer->endElement();
-
             $writer->endElement();
             $writer->endElement();
-
             $writer->endElement();
-
             $writer->writeElement('yandex:related');
-
             $writer->startElement('turbo:content');
-            $writer->text('<![CDATA[' . $item->content . ']]>');
+            $writer->text($item->content);
 
 
             $writer->endElement();

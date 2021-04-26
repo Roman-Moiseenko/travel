@@ -55,5 +55,8 @@ class ReviewFood extends ActiveRecord
         return $this->hasOne(Food::class, ['id' => 'food_id']);
     }
 
-
+    public function isActive(): bool
+    {
+        return true;
+    }
 }
