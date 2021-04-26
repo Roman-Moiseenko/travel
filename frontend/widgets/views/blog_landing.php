@@ -51,7 +51,11 @@ $this->registerJs($script);
         <?php foreach ($posts as $post): ?>
             <div class="swiper-slide text-center">
                 <div class="card text-white shadow-lg" style="border: 0 !important; ">
-                    <img data-src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img  lazyload" alt="<?= $post->getTitle()?>">
+                    <div class="item-responsive item-0-75by1">
+                        <div class="content-item">
+                            <img data-src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img  lazyload" alt="<?= $post->getTitle()?>">
+                        </div>
+                    </div>
                     <div class="card-img-overlay d-flex flex-column">
                         <div class="mt-auto">
                             <h4 class="card-title"

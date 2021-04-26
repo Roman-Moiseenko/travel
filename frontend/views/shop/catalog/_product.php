@@ -19,11 +19,15 @@ $url = Url::to(['/shop/product/' . $product->id]);
     <div class="product-thumb holder" style="border-radius: 5px">
         <?php if ($product->mainPhoto): ?>
             <div class="image">
+                <div class="item-responsive item-1-1by1">
+                    <div class="content-item">
                 <a href="<?=Html::encode($url)?>">
                     <img src="<?=Html::encode($product->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>"
                          alt="<?= $product->mainPhoto->getAlt()?>" class="img-responsive"
                     title="<?= $product->getDescription()?>"/>
                 </a>
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
         <div class="block-wishlist">

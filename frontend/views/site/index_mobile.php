@@ -20,8 +20,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
 ?>
 <div class="mobile-landing m-0 p-0">
     <div class="pt-2">
-        <p class="landing-h1"
-            style="font-size: 22px !important; text-align: center !important;"><?= Lang::t('Кёнигсберг') ?></p>
+        <p class="landing-h1-mobile"><?= Lang::t('Кёнигсберг') ?></p>
         <h1 class="landing-h2" style="font-size: 14px !important; width: 100% !important;">
             <span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span class="line-b"></span>
         </h1>

@@ -42,6 +42,18 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
 
     <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>">
 
+    <?php if ($mobile):?>
+        <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" type="text/css">
+    <link rel="preload" as="image" href="/images/landing/other/background.jpg">
+
+    <link rel="preload" as="image" href="/images/landing/booking/car_mobile.jpg">
+    <link rel="preload" as="image" href="/images/landing/booking/food_mobile.jpg">
+    <link rel="preload" as="image" href="/images/landing/booking/shop_mobile.jpg">
+    <link rel="preload" as="image" href="/images/landing/booking/fun_mobile.jpg">
+    <link rel="preload" as="image" href="/images/landing/booking/stay_mobile.jpg">
+    <link rel="preload" as="image" href="/images/landing/booking/tour_mobile.jpg">
+    <?php endif;?>
+
     <?php $this->head() ?>
     <script defer src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
@@ -74,8 +86,7 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
                     gtag('js', new Date());
                     gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
 
-                    //TODO Свипер загрузаить
-                }, 1000)
+                }, 2000)
             }
         });
     </script>
@@ -122,13 +133,13 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
     giftofspeed2.type = 'text/css';
     let godefer2 = document.getElementsByTagName('link')[0];
     godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
-
+/*
     let giftofspeed3 = document.createElement('link');
     giftofspeed3.rel = 'stylesheet';
     giftofspeed3.href = '/css/bootstrap/bootstrap.css';
     giftofspeed3.type = 'text/css';
     let godefer3 = document.getElementsByTagName('link')[0];
-    godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
+    godefer3.parentNode.insertBefore(giftofspeed3, godefer3);*/
 /*
     let giftofspeed4 = document.createElement('link');
     giftofspeed4.rel = 'stylesheet';
