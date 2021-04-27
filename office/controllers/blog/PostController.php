@@ -92,7 +92,7 @@ class PostController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $post = $this->service->create($form);
-                return $this->redirect(['view', 'id' => $post->id]);
+                if (\Yii::$app->request->post('close') == true) return $this->redirect(['view', 'id' => $post->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -117,7 +117,7 @@ class PostController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($id, $form);
-                return $this->redirect(['view', 'id' => $post->id]);
+                if (\Yii::$app->request->post('close') == true) return $this->redirect(['view', 'id' => $post->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

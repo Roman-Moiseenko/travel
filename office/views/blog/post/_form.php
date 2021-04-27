@@ -17,7 +17,13 @@ use yii\helpers\Html;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить и Выйти', ['class' => 'btn btn-success',
+            'data-method' => 'POST',
+            'data-params' => [
+                'close' => true,
+            ],
+        ]) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-info']) ?>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -45,9 +51,9 @@ use yii\helpers\Html;
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 5])->label('Описание') ?>
             <?= $form->field($model, 'content')->widget(CKEditor::class, [
-                    'editorOptions' => [
-                            'allowedContent' => true,
-                    ]
+                'editorOptions' => [
+                    'allowedContent' => true,
+                ]
             ])->label('Содержимое')/**/ ?>
         </div>
     </div>
@@ -84,7 +90,13 @@ use yii\helpers\Html;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить и Выйти', ['class' => 'btn btn-success',
+            'data-method' => 'POST',
+            'data-params' => [
+                'close' => true,
+            ],
+        ]) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
