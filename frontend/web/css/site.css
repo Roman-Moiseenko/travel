@@ -1265,3 +1265,11 @@ ul.pagination li:not(.active) a:hover {
     color: #FC0;
     font-size: 15px;
 }
+
+.attention {
+
+    color: #842221;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    letter-spacing: 1px;
+}

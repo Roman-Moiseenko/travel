@@ -383,11 +383,7 @@ div.required .control-label:before {
     color: black;
 }
 
-.attention {
-    font-size: 10px;
-    color: #843534;
-    padding-bottom: 10px;
-}
+
 
 .blog-posts-item {
     margin: 20px 0;

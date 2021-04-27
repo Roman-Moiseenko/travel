@@ -84,6 +84,9 @@ MapAsset::register($this);
             <?= Lang::t('Отправка товара производится ') . $shop->delivery->period . Lang::t(' раз в неделю') ?>
         <?php endif; ?>
     </div>
+    <div class="pl-3 attention">
+        <?= Lang::t('Внимание! Доставку Транспортной компанией Клиент оплачивает самостоятельно! Стоимость Вы можете расчитать на сайте ТК') ?>
+    </div>
 
     <?php if ($shop->delivery->onCity): ?>
         <div class="pt-3 pb-1" style="font-size: 13px;">
@@ -100,6 +103,6 @@ MapAsset::register($this);
             <?= Lang::t('Имеется возможность самостоятельно забрать заказ в Калининграде') ?>
         </div>
     <?php endif; ?>
-    <span class="mt-3 badge badge-success" style="font-size: 12px">Защищенный платеж</span> продавец получит деньги после отправки заказа покупателю
+    <span class="mt-3 badge badge-success" style="font-size: 12px"><?= Lang::t('Защищенный платеж') ?></span> - <?= Lang::t('продавец получит деньги после отправки заказа покупателю') ?>
 <?php endif; ?>
 
