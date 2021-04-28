@@ -139,7 +139,9 @@ class ShopService
                 ));
         }
         //Delivery
-        if (!$shop->isAd()) $shop->setDelivery($form->delivery);
+        //if (!$shop->isAd()) $shop->setDelivery($form->delivery);
+        //if (count($form->delivery->deliveryCompany) != 0)
+        $shop->setDelivery($form->delivery);
     }
 
     public function verify($id)

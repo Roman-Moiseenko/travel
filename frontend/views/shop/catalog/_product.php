@@ -1,17 +1,16 @@
 <?php
 
 use booking\entities\Lang;
-use booking\entities\shops\products\BaseProduct;
-
-/* @var $product BaseProduct */
-
-
-
+use booking\entities\shops\products\Product;
 use booking\helpers\CurrencyHelper;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
-use yii\helpers\StringHelper;
 use yii\helpers\Url;
+
+/* @var $product Product */
+
+
+
 $url = Url::to(['/shop/product/' . $product->id]);
 ?>
 
@@ -57,10 +56,10 @@ $url = Url::to(['/shop/product/' . $product->id]);
                         <div class="price-card shop"><?= CurrencyHelper::get($product->cost) ?></div>
                     </div>
                     <div class="ml-auto"> <!-- pull-right rating-->
-                        <?php if (!$product->isAd()): ?>
+                        <?php if ($product->saleOn()): ?>
                             <a title="В корзину" href="<?= Url::to(['/shop/cart/add', 'id' => $product->id]) ?>"><i class="fas fa-shopping-cart"></i> В корзину</a>
                         <?php else: ?>
-                            <a title="Где купить" href="<?= Url::to(['/shop/'. $product->id]) ?>"><i class="fas fa-map-marked-alt"></i> Где купить</a>
+                            <a title="Где купить" href="<?= Url::to(['/shop/'. $product->shop_id]) ?>"><i class="fas fa-map-marked-alt"></i> Где купить</a>
                         <?php endif; ?>
                     </div>
                 </div>

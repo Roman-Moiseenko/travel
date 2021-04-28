@@ -202,8 +202,8 @@ class ProductService
     {
         $product = $this->products->get($form->id);
         $product->cost = $form->cost;
-        $product->quantity = $form->quantity;
-        $product->discount = $form->discount;
+        $product->quantity = empty($form->quantity) ? 0 : $form->quantity;
+        $product->discount = empty($form->discount) ? 0 : $form->discount;
         $this->products->save($product);
     }
 

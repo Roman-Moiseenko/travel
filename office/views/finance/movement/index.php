@@ -16,7 +16,7 @@ use yii\helpers\Url;
 /* @var $searchModel MovementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Выплаты клиентам';
+$this->title = 'Платежи клиентов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="finance-list">
@@ -88,6 +88,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'label' => 'Дата платежа',
                                 'contentOptions' => ['data-label' => 'Дата платежа'],
                             ],
+                    [
+                        'attribute' => 'paid',
+                        'value' => function (Movement $model) {
+                            return $model->paid ? '<span class="badge badge-success">поступил</span>' : '<span class="badge badge-warning">в ожидании</span>';
+                        },
+                        'format' => 'raw',
+                        'label' => 'Платеж',
+                        'contentOptions' => ['data-label' => 'Дата платежа'],
+
+                    ],
                             [
                                 'attribute' => 'payment_id',
                                 'label' => 'ID платежа',

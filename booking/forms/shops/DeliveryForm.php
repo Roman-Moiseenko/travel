@@ -41,7 +41,7 @@ class DeliveryForm extends CompositeForm
             $this->minAmountCity = $delivery->minAmountCity;
             $this->minAmountCompany = $delivery->minAmountCompany;
             $this->period = $delivery->period;
-            $this->deliveryCompany = array_map(function (DeliveryCompanyAssign $assign) {return $assign->delivery_company_id; }, $delivery->companiesAssign);
+            $this->deliveryCompany = $delivery->arrayCompanies;
             $this->onPoint = $delivery->onPoint;
             $this->addressPoint = new BookingAddressForm($delivery->addressPoint);
         } else {

@@ -55,6 +55,7 @@ use yii\helpers\Json;
  * @property int $views [int]
  * @property int $updated_at [int]
  * @property string $rating [decimal(3,2)]
+ * @property bool $sale_on
  */
 class Product extends ActiveRecord
 {
@@ -68,7 +69,7 @@ class Product extends ActiveRecord
     public static function create($name, $name_en, $description, $description_en,
                                   $weight, $size, $article, $collection, $color,
                                   $manufactured_id, $category_id, $cost, $discount,
-                                  $deadline, $quantity): self
+                                  $deadline, $quantity/*, $sale_on*/): self
     {
         $product = new static();
         $product->name = $name;
@@ -85,7 +86,7 @@ class Product extends ActiveRecord
         $product->manufactured_id = $manufactured_id;
         $product->category_id = $category_id;
         $product->cost = $cost;
-        $product->discount = $discount;
+        $product->discount = $discount ?? 0;
 
         $product->active = false;
         $product->created_at = time();
@@ -93,7 +94,8 @@ class Product extends ActiveRecord
         $product->views = 0;
         $product->deadline = $deadline;
         $product->buys = 0;
-        $product->quantity = $quantity;
+        $product->quantity = $quantity ?? 0;
+        //$product->sale_on = $sale_on;
         return $product;
     }
 
@@ -116,8 +118,8 @@ class Product extends ActiveRecord
         $this->manufactured_id = $manufactured_id;
         $this->category_id = $category_id;
         $this->cost = $cost;
-        $this->discount = $discount;
-        $this->quantity = $quantity;
+        $this->discount = $discount ?? 0;
+        $this->quantity = $quantity ?? 0;
 
         $this->deadline = $deadline;
     }
@@ -396,6 +398,12 @@ class Product extends ActiveRecord
     public function isAd(): bool
     {
         return $this->shop->isAd();
+    }
+
+    public function saleOn(): bool
+    {
+        if (!$this->shop->isAd()) return true;
+        return $this->quantity > 0;
     }
 
     public function checkout($quantity)

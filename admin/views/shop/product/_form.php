@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\shops\products\Product;
+use booking\entities\shops\Shop;
 use booking\forms\shops\ProductForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\shops\CategoryHelper;
@@ -15,7 +16,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model ProductForm */
 /* @var $product Product */
-
+/* @var $shop Shop*/
 
 ?>
 <?php $form = ActiveForm::begin([
@@ -62,7 +63,9 @@ use yii\helpers\Html;
                     <?= $form->field($model, 'cost')->textInput(['type' => 'number'])->label('Стоимость') ?>
                 </div>
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'quantity')->textInput(['type' => 'number'])->label('Количество')
+                    <?php $remark = $shop->isAd() ? 'Укажите кол-во, если планируете также продавать онлайн' : 'Количество'?>
+
+                    <?= $form->field($model, 'quantity')->textInput(['type' => 'number'])->label($remark)
                         ->hint('Укажите кол-во товара в наличии, если товар постоянно поступает, укажите большое число, например 9999') ?>
                 </div>
                 <div class="col-sm-3">

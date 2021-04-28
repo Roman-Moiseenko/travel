@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <?= $this->render('_form', [
         'model' => $model,
         'product' => $product,
+        'shop' => $shop,
 
     ]) ?>
 

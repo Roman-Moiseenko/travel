@@ -4,6 +4,8 @@
 namespace booking\entities\shops\order;
 
 
+use booking\entities\shops\Shop;
+
 class DeliveryData
 {
     const METHOD_POINT = 1;
@@ -40,5 +42,19 @@ class DeliveryData
             self::METHOD_CITY => 'Доставка по городу',
             self::METHOD_COMPANY => 'Доставка по России',
         ];
+    }
+    public static function list(Shop $shop): array
+    {
+        $method = [];
+        if ($shop->delivery->onPoint) $method[self::METHOD_POINT] = 'Самовывоз';
+        if ($shop->delivery->onCity) $method[self::METHOD_CITY] = 'Доставка по городу';
+        if (!empty($shop->delivery->arrayCompanies)) $method[self::METHOD_COMPANY] = 'Доставка по России';
+        return $method;
+        /*
+        return [
+            self::METHOD_POINT => 'Самовывоз',
+            self::METHOD_CITY => 'Доставка по городу',
+            self::METHOD_COMPANY => 'Доставка по России',
+        ];*/
     }
 }

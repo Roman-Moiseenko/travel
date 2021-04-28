@@ -115,7 +115,7 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
     public function cancelPay()
     {
         $this->status = BookingHelper::BOOKING_STATUS_CANCEL_PAY;
-        //TODO Обнуление полей Payment ??
+
     }
 
     public function setStatus(int $status): void

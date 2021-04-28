@@ -8,13 +8,12 @@ use frontend\assets\MapAsset;
 use yii\helpers\Html;
 
 /* @var $shop Shop */
+/* @var $sale_on bool*/
 
 MapAsset::register($this);
 ?>
 
 <?php if ($shop->isAd()): ?>
-    <div class="py-2"
-         style="font-size: 13px;"><?= Lang::t('Магазин') . ' ' . $shop->getName() . Lang::t(' не осуществляет онлайн-продажи через данную плошадку') ?></div>
     <div>Товар можно приобрести по адресу:</div>
     <?php foreach ($shop->addresses as $address) {
         echo '<div class="pl-3"><i class="fas fa-map-marker-alt"></i>&#160;' . $address->address . '&#160;&#160;<i class="fas fa-phone-alt"></i>' . $address->phone . '</div>';
@@ -67,10 +66,12 @@ MapAsset::register($this);
             </div>
         </div>
     </div>
-<?php else: ?>
+<?php endif; ?>
+<?php if($sale_on): ?>
+<?php if (!empty($shop->delivery->arrayCompanies)): ?>
     <div class="pt-3 pb-1" style="font-size: 13px;">
         <?= Lang::t('Магазин') . ' ' . $shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
-        <?php foreach ($shop->delivery->companies as $company): ?>
+        <?php foreach ($shop->delivery->getCompanies() as $company): ?>
             <div class="pl-3"><a class="" href="<?= $company->link?>" target="_blank" rel="noreferrer noopener nofollow"><?= $company->name; ?></a></div>
         <?php endforeach; ?>
     </div>
@@ -87,7 +88,7 @@ MapAsset::register($this);
     <div class="pl-3 attention">
         <?= Lang::t('Внимание! Доставку Транспортной компанией Клиент оплачивает самостоятельно! Стоимость Вы можете расчитать на сайте ТК') ?>
     </div>
-
+    <?php endif; ?>
     <?php if ($shop->delivery->onCity): ?>
         <div class="pt-3 pb-1" style="font-size: 13px;">
             <?= Lang::t('Имеется доставка по городу Калининград: ') ?>

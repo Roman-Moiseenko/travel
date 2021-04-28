@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="card">
     <div class="card-body">
         <?= $form->field($model, 'method')
-            ->dropdownList(DeliveryData::_list(), ['prompt' => '-- выберите способ доставки --', 'id' => 'delivery-method', 'style' => 'max-width: 250px'])
+            ->dropdownList(DeliveryData::list($order->shop), ['prompt' => '-- выберите способ доставки --', 'id' => 'delivery-method', 'style' => 'max-width: 250px'])
             ->label('Способ доставки') ?>
         <div class="delivery-address">
             <span class="delivery-company">
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="delivery-company">
             <?= $form->field($model, 'company')
-                ->dropdownList(ArrayHelper::map($order->shop->delivery->companies,
+                ->dropdownList(ArrayHelper::map($order->shop->delivery->getCompanies(),
                     function(DeliveryCompany $company) {return $company->id;},
                     function(DeliveryCompany $company) {return $company->name;}), ['prompt' => '-- выберите ТК --', 'style' => 'max-width: 250px'])
                 ->label('Транспортная компания') ?>

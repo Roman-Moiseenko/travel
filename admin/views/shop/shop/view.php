@@ -158,7 +158,36 @@ $this->params['breadcrumbs'][] = $shop->name;
                 </table>
             </div>
         </div>
-    <?php else: ?>
+        <?php if (!empty($shop->delivery->arrayCompanies)):?>
+            <div class="card card-secondary">
+                <div class="card-header with-border">Доставка</div>
+                <div class="card-body">
+                    <?= DetailView::widget([
+                        'model' => $shop,
+                        'attributes' => [
+                            [
+                                'value' => CurrencyHelper::stat($shop->delivery->minAmountCompany),
+                                'format' => 'raw',
+                                'label' => 'Отправка ТК при заказе от',
+                            ],
+                            [
+                                'value' => $shop->delivery->period,
+                                'label' => 'Периодичность отправки в неделю',
+                            ],
+                            [
+                                'value' => implode(', ',
+                                    array_filter(array_map(function (DeliveryCompany $company) {return $company->name;},
+                                        $shop->delivery->getCompanies()))),
+                                'label' => 'Транспортные Компании',
+                            ],
+                        ],
+                    ]) ?>
+                </div>
+
+            </div>
+        <?php endif;?>
+
+<?php else: ?>
         <div class="card card-secondary">
         <div class="card-header with-border">Доставка</div>
         <div class="card-body">
@@ -186,7 +215,7 @@ $this->params['breadcrumbs'][] = $shop->name;
                     [
                         'value' => implode(', ',
                             array_filter(array_map(function (DeliveryCompany $company) {return $company->name;},
-                                $shop->delivery->companies))),
+                                $shop->delivery->getCompanies()))),
                         'label' => 'Транспортные Компании',
                     ],
                 ],

@@ -21,7 +21,9 @@ class CostModalForm extends Model
     public function rules()
     {
         return [
-            [['id', 'cost', 'quantity', 'discount'], 'integer'],
+            [['id', 'quantity', 'discount'], 'integer'],
+            ['cost', 'integer', 'min' => 1],
+            ['cost', 'required', 'message' => 'Обязательное поле'],
         ];
     }
 }

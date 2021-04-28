@@ -20,6 +20,7 @@ use booking\entities\queries\ObjectActiveQuery;
 use booking\entities\shops\products\Product;
 use booking\forms\shops\DeliveryForm;
 use booking\helpers\BookingHelper;
+use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -59,7 +60,6 @@ use yii\helpers\Json;
  * @property ContactAssign[] $contactAssign
  * @property ReviewShop[] $reviews
  * @property Product[] $activeProducts
- * @property Delivery $delivery
  *
  * @property integer $main_photo_id
  * @property integer $free_products
@@ -67,7 +67,6 @@ use yii\helpers\Json;
  *
  *********************************** Скрытые поля
  * @property string $work_mode_json
- * @property string $delivery_json
  * @property string $meta_json
  */
 class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterface
@@ -76,7 +75,8 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
     public $workModes = [];
     /** @var Meta $meta */
     public $meta;
-    /** @var $_delivery Delivery */
+    /** @var $delivery Delivery */
+    public $delivery;
     private $_delivery;
 
     public static function create($user_id, $legal_id, $name, $name_en, $description, $description_en, $type_id, $ad): Shop
@@ -101,7 +101,7 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         for ($i = 0; $i < 7; $i++) {
             $shop->workModes[] = new WorkMode();
         }
-        //$shop->delivery = new Delivery();
+        $shop->delivery = new Delivery();
         return $shop;
     }
 
@@ -118,14 +118,14 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
 
     public function setDelivery(DeliveryForm $form): void
     {
-        if ($this->ad) throw new \DomainException('Нельзя установить Доставку для Витрины');
-
-        $this->_delivery = Delivery::create(
+        //if ($this->ad) throw new \DomainException('Нельзя установить Доставку для Витрины');
+        $this->delivery = Delivery::create(
             $form->onCity,
             $form->costCity,
             $form->minAmountCity,
             $form->minAmountCompany,
             $form->period,
+            $form->deliveryCompany,
             $form->onPoint,
             new BookingAddress(
                 $form->addressPoint->address,
@@ -133,9 +133,9 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
                 $form->addressPoint->longitude
             )
         );
-        foreach ($form->deliveryCompany as $item) {
-            $this->_delivery->addCompany($item);
-        }
+     /*   foreach ($form->deliveryCompany as $item) {
+            $this->delivery->addCompany($item);
+        }*/
 
     }
 
@@ -237,23 +237,22 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
 
     public function afterFind(): void
     {
-        $delivery = Json::decode($this->getAttribute('delivery_json'));
-        /*
         $this->delivery = Delivery::create(
-            $delivery['onCity'] ?? null,
-            $delivery['costCity'] ?? null,
-            $delivery['minAmountCity'] ?? null,
-            $delivery['minAmountCompany'] ?? null,
-            $delivery['period'] ?? null,
-            $delivery['deliveryCompany'] ?? [],
-            $delivery['onPoint'] ?? null,
+            $this->getAttribute('delivery_on_city'),
+            $this->getAttribute('delivery_cost_city'),
+            $this->getAttribute('delivery_min_amount_city'),
+            $this->getAttribute('delivery_min_amount_company'),
+            $this->getAttribute('delivery_period'),
+            Json::decode($this->getAttribute('delivery_companies')),
+            $this->getAttribute('delivery_on_point'),
+
             new BookingAddress(
-                $delivery['addressPoint']['address'] ?? null,
-                $delivery['addressPoint']['latitude'] ?? null,
-                $delivery['addressPoint']['longitude'] ?? null
+                $this->getAttribute('delivery_address'),
+                $this->getAttribute('delivery_latitude'),
+                $this->getAttribute('delivery_longitude')
             )
         );
-*/
+
         $workMode = [];
         $_w = json_decode($this->getAttribute('work_mode_json'), true);
         for ($i = 0; $i < 7; $i++) {
@@ -270,23 +269,17 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
 
     public function beforeSave($insert): bool
     {
-        /*
-        $delivery = $this->delivery;
-        $this->setAttribute('delivery_json', Json::encode([
-            'onCity' => $delivery->onCity,
-            'costCity' => $delivery->costCity,
-            'minAmountCity' => $delivery->minAmountCity,
-            'minAmountCompany' => $delivery->minAmountCompany,
-            'period' => $delivery->period,
-            'deliveryCompany' => $delivery->deliveryCompany,
-            'onPoint' => $delivery->onPoint,
-            'addressPoint' => [
-                'address' => $delivery->addressPoint->address,
-                'latitude' => $delivery->addressPoint->latitude,
-                'longitude' => $delivery->addressPoint->longitude,
-            ],
-        ]));
-        */
+        $this->setAttribute('delivery_on_city', $this->delivery->onCity);
+        $this->setAttribute('delivery_cost_city', $this->delivery->costCity);
+        $this->setAttribute('delivery_min_amount_city', $this->delivery->minAmountCity);
+        $this->setAttribute('delivery_min_amount_company', $this->delivery->minAmountCompany);
+        $this->setAttribute('delivery_period', $this->delivery->period);
+        $this->setAttribute('delivery_companies', Json::encode($this->delivery->arrayCompanies));
+        $this->setAttribute('delivery_on_point', $this->delivery->onPoint);
+        $this->setAttribute('delivery_address', $this->delivery->addressPoint->address);
+        $this->setAttribute('delivery_latitude', $this->delivery->addressPoint->latitude);
+        $this->setAttribute('delivery_longitude', $this->delivery->addressPoint->longitude);
+
         $this->setAttribute('work_mode_json', json_encode($this->workModes));
 
         return parent::beforeSave($insert);
@@ -299,8 +292,6 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         if (array_key_exists('mainPhoto', $related)) {
             $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
         }
-        //TODO Сохраняем Delivery
-        $this->saveDelivery();
     }
 
     //**** Адреса (InfoAddress) **********************************
@@ -504,11 +495,6 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         return $this->hasMany(InfoAddress::class, ['shop_id' => 'id']);
     }
 
-    public function getDelivery(): ActiveQuery
-    {
-        return $this->hasOne(Delivery::class, ['shop_id' => 'id']);
-    }
-
 
     public function contactAssignById(int $id): ?ContactAssign
     {
@@ -544,41 +530,4 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         return new ObjectActiveQuery(static::class);
     }
 
-    private function saveDelivery(): void
-    {
-        if (!$this->ad) {
-            if ($this->_delivery == null) {
-                if ($this->delivery == null) throw new \DomainException('Не определен параметр _delivery');
-            } else {
-                if ($this->delivery != null) {
-                    $delivery = $this->delivery;
-                    $delivery->edit(
-                        $this->_delivery->onCity,
-                        $this->_delivery->costCity,
-                        $this->_delivery->minAmountCity,
-                        $this->_delivery->minAmountCompany,
-                        $this->_delivery->period,
-                        $this->_delivery->onPoint,
-                        $this->_delivery->addressPoint
-                    );
-                    $delivery->clearCompany();
-                    $delivery->save();
-                    foreach ($this->_delivery->companiesAssign as $assign) {
-                        $delivery->addCompany($assign->delivery_company_id);
-                    }
-                    $delivery->save();
-                } else {
-                    $this->_delivery->shop_id = $this->id;
-                    $this->_delivery->save();
-                }
-
-            }
-        } else {
-            if ($this->delivery != null) {
-                $delivery = $this->delivery;
-                $delivery->delete();
-            }
-        }
-
-    }
 }

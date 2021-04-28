@@ -142,7 +142,7 @@ MagnificPopupAsset::register($this);
                     <li> <?= $product->isAd() ? '' : Lang::t('На складе: ') . $product->quantity; ?></li>
                 </ul>
                 <div id="product" class="required">
-                    <?php if (!$product->isAd()): ?>
+                    <?php if ($product->saleOn()): ?>
                         <?= Html::beginForm(['/shop/cart/add', 'id' => $product->id]); ?>
                         <div class="form-group">
                             <?= Html::submitButton('В корзину', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
@@ -211,6 +211,7 @@ MagnificPopupAsset::register($this);
     <div class="card-body">
         <?= $this->render('_delivery', [
             'shop' => $product->shop,
+            'sale_on' => $product->saleOn(),
         ])?>
     </div>
 </div>

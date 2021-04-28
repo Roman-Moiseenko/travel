@@ -20,6 +20,7 @@ $(document).ready(function() {
     showOnPoint($('#on-point').is(':checked'));
     showAd($('#ad').is(':checked'));
     
+    
     $('body').on('click', '#on-city', function() {
         showOnCity($(this).is(':checked'));
         if (!$(this).is(':checked')) {
@@ -42,6 +43,7 @@ $(document).ready(function() {
             $('#min-amount-city').val(null);
         } */
     });
+ 
     $('body').on('change', '.work-mode-begin', function () {
         for (let i = 0; i < 7; i++){
             if ($('#workmodeform-' + i + '-day_begin').val() === '') $('#workmodeform-' + i + '-day_begin').val($(this).val());
@@ -81,11 +83,9 @@ $(document).ready(function() {
         if (_x) {
             $('.class-ad').show();
             $('.class-not-ad').hide();
-
         } else {
             $('.class-ad').hide();
             $('.class-not-ad').show();
-            
         }      
     }
 });
@@ -241,7 +241,8 @@ $this->registerJs($js);
                     </div>
                     <?php foreach ($model->contactAssign as $i => $assignForm): ?>
                         <div class="row">
-                            <div class="col-2"><img src="<?= $assignForm->_contact->getThumbFileUrl('photo', 'icon') ?>"></div>
+                            <div class="col-2"><img
+                                        src="<?= $assignForm->_contact->getThumbFileUrl('photo', 'icon') ?>"></div>
                             <div class="col-4"><?= $form->field($assignForm, '[' . $i . ']value')->textInput()->label(false) ?></div>
                             <div class="col-4"><?= $form->field($assignForm, '[' . $i . ']description')->textInput()->label(false) ?></div>
                         </div>
@@ -326,7 +327,7 @@ $this->registerJs($js);
         </div>
     </div>
 
-    <div class="card card-secondary class-not-ad">
+    <div class="card card-secondary">
         <div class="card-header with-border">Доставка</div>
         <div class="card-body">
             <div class="row">
@@ -340,7 +341,7 @@ $this->registerJs($js);
                     <?= $form->field($model->delivery, 'minAmountCity')->textInput(['type' => 'number', 'id' => 'min-amount-city'])->label('Мин.сумма заказа для доставки по городу') ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row class-not-ad">
                 <div class="col-md-3">
                     <?= $form->field($model->delivery, 'onPoint')->checkbox(['id' => 'on-point'])->label('Имеется точка выдачи в городе') ?>
                 </div>
@@ -362,7 +363,7 @@ $this->registerJs($js);
                     <?= $form->field($model->delivery, 'minAmountCompany')->textInput(['type' => 'number', 'min' => 0])->label('Мин.сумма заказа для отправки ТК') ?>
                 </div>
                 <div class="col-md-2">
-                    <?= $form->field($model->delivery, 'period')->dropdownList([0,1,2,3,7])->label('Сколько раз в неделю осуществляется доставка')->hint('0 - в день заказа, 7 - ежедневно') ?>
+                    <?= $form->field($model->delivery, 'period')->dropdownList([0, 1, 2, 3, 7])->label('Сколько раз в неделю осуществляется доставка')->hint('0 - в день заказа, 7 - ежедневно') ?>
                 </div>
                 <div class="col-md-3">
                     <?= $form->field($model->delivery, 'deliveryCompany')->checkboxList(DeliveryHelper::list())->label('Транспортные компании') ?>
