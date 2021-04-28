@@ -10,7 +10,7 @@ class Payment
 
     public $percent; //процент предоплаты 0, 20, 50, 100
     public $full_cost; // - полная стоимость бронирования
-    public $prepay; // - оплаченая часть бронирования
+    public $prepay; // - оплаченая часть бронирования, ч/з ЮКассу
     public $provider;// - выплата провайдеру
 
     public $id;// - ID платежа по ЮКассе

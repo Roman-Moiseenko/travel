@@ -26,7 +26,7 @@ $mobil = SysHelper::isMobile();
         <?= StatusHistory::toHtml($order->current_status) ?>
         </div>
         <div class="m-2" style="color: #0c525d">
-            <?= Lang::t('Заказ от ') . date('d-m-Y', $order->created_at) ?>
+            <?= Lang::t('Заказ #') . $order->number . ' ' . Lang::t('от') . ' ' . date('d-m-Y', $order->created_at) ?>
         </div>
         <div class="m-2">
             <i class="fas fa-store"></i> <?= $order->shop->getName() ?>

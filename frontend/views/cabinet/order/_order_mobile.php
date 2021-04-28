@@ -20,7 +20,7 @@ use yii\helpers\Url;
             <?= StatusHistory::toHtml($order->current_status) ?>
             </div>
             <div class="ml-auto my-2" style="color: #0c525d">
-                <?= Lang::t('Заказ от ') . date('d-m-Y', $order->created_at) ?>
+                <?= Lang::t('Заказ #') . $order->number . ' ' . Lang::t('от') . ' ' . date('d-m-Y', $order->created_at) ?>
             </div>
         </div>
         <div class="d-flex">

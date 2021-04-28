@@ -46,7 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 Информация о заказе <br>
 <?php $form = ActiveForm::begin([
-    'options' => ['enctype' => 'multipart/form-data']
+    'options' => ['enctype' => 'multipart/form-data'],
+    'enableClientValidation' => false,
+
 ]); ?>
 <div class="card">
     <div class="card-body">

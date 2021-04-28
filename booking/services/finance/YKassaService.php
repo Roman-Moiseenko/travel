@@ -30,7 +30,6 @@ class YKassaService
     //Оплата клиентами бронирования
     public function invoice(BaseBooking $booking)
     {
-        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
         $payment = $this->client->createPayment(
             [
                 'amount' => [
@@ -73,8 +72,6 @@ class YKassaService
     //Пополнение баланса провйдерам
     public function invoiceAdmin(User $user, $amount)
     {
-        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
-        //TODO Настройка параметров
         $payment = $this->client->createPayment(
             [
                 'amount' => [
@@ -118,8 +115,6 @@ class YKassaService
 
     public function invoiceShop(Order $order)
     {
-        //Делаем запись что клиент отправил на оплату Service (UserPaymentInterface)
-
         $payment = $this->client->createPayment(
             [
                 'amount' => [

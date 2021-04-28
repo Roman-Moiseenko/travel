@@ -129,6 +129,7 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
     public function setPaymentId(string $payment_id): void
     {
         $this->payment->id = $payment_id;
+        $this->payment->date = time();
         if (!$this->save()) {
             throw new \DomainException(Lang::t('Ошибка сохранения payment_id - ') . $payment_id);
         }
@@ -140,10 +141,6 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
         $this->give_at = time();
     }
 
-    private function setBonus($bonus)
-    {
-        $this->bonus = $bonus;
-    }
 
 //*************************** GET-s
 

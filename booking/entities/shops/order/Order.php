@@ -334,4 +334,14 @@ class Order extends ActiveRecord implements PaymentInterface
     {
         $this->document = $file;
     }
+
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    public function getName(): string
+    {
+        return $this->shop->getName();
+    }
 }

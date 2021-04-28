@@ -12,6 +12,7 @@ use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\repositories\booking\BookingRepository;
 use booking\services\admin\UserManageService;
+use booking\services\finance\MovementService;
 use booking\services\finance\PayManageService;
 use booking\services\finance\YKassaService;
 use booking\services\shops\OrderService;
@@ -27,16 +28,14 @@ use YandexCheckout\Common\Exceptions\UnauthorizedException;
 use YandexCheckout\Model\Notification\NotificationSucceeded;
 use YandexCheckout\Model\Notification\NotificationWaitingForCapture;
 use YandexCheckout\Model\NotificationEventType;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class YandexkassaController extends Controller
 {
     //private $yandexkassa = [];
     public $enableCsrfValidation = false;
-    /**
-     * @var Client
-     */
-    //private $client;
+
     /**
      * @var PayManageService
      */
@@ -57,6 +56,10 @@ class YandexkassaController extends Controller
      * @var OrderService
      */
     private $orderService;
+    /**
+     * @var MovementService
+     */
+    private $movementService;
 
     public function __construct(
         $id,
@@ -66,6 +69,7 @@ class YandexkassaController extends Controller
         YKassaService $kassaService,
         UserManageService $users,
         OrderService $orderService,
+        MovementService $movementService,
         $config = []
     )
     {
@@ -75,14 +79,27 @@ class YandexkassaController extends Controller
         $this->kassaService = $kassaService;
         $this->users = $users;
         $this->orderService = $orderService;
+        $this->movementService = $movementService;
     }
 
     public function actionInvoice($id)
     {
         $booking = BookingHelper::getByNumber($id);
+        /* test */
+        /*$code = uniqid();
+        $booking->setPaymentId($code);
+        $this->movementService->create($booking);
+
+        $booking = $this->bookings->getByPaymentId($code);
+        $this->service->payBooking($booking);
+
+        $this->movementService->paid($code);
+        return $this->redirect($booking->getLinks()->frontend);*/
+        /* end test */
         try {
             $payment = $this->kassaService->invoice($booking);
             $booking->setPaymentId($payment->id);
+            $this->movementService->create($booking);
             return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
         } catch (BadApiRequestException $e) {
         } catch (ForbiddenException $e) {
@@ -100,9 +117,8 @@ class YandexkassaController extends Controller
 
     public function actionInvoiceAdmin($id, $amount)
     {
-        $user = User::findOne($id);
         try {
-            $payment = $this->kassaService->invoiceAdmin($user, $amount);
+            $payment = $this->kassaService->invoiceAdmin(User::findOne($id), $amount);
             $this->users->addDeposit($id, $amount, $payment->id);
             return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
         } catch (BadApiRequestException $e) {
@@ -122,13 +138,18 @@ class YandexkassaController extends Controller
     public function actionInvoiceShop($id)
     {
         $order = Order::findOne($id);
-       /* $code = uniqid();
-        $this->orderService->toPay($id, $code);
-        $this->orderService->paidByPaymentId($code);
-        return $this->redirect(\Yii::$app->request->referrer);*/
+        /* test */
+        /* $code = uniqid();
+         $this->orderService->toPay($id, $code);
+         $this->movementService->create(Order::findOne($id));
+         $this->orderService->paidByPaymentId($code);
+         $this->movementService->paid($code);
+         return $this->redirect(Url::to(['/cabinet/orders']));*/
+        /* end test */
         try {
             $payment = $this->kassaService->invoiceShop($order);
             $this->orderService->toPay($id, $payment->id);
+            $this->movementService->create(Order::findOne($id));
             return $this->redirect($payment->getConfirmation()->getConfirmationUrl());
         } catch (BadApiRequestException $e) {
         } catch (ForbiddenException $e) {
@@ -140,10 +161,9 @@ class YandexkassaController extends Controller
         } catch (ApiException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->params['adminHostInfo']);
+            return $this->redirect(Url::to(['/cabinet/orders']));
         }
     }
-
 
     public function actionResult()
     {
@@ -156,28 +176,19 @@ class YandexkassaController extends Controller
             $payment = $notification->getObject();
             $metadata = $payment->getMetadata();
 
-            //TODO Таблица с записями оплаты
-            // user_id
-            // дата
-            // сумма,
-            // дата
-            // класс
-            // ID объекта
-            // статус => платеж создан/деньги поступили
-            // ищим по payment_id и ставим отметку, что деньги поступили
-            if ($metadata['class'] == User::class) {
+            $this->movementService->paid($payment->id);
+
+            if ($metadata['class'] == User::class) { //Пополнение баланса провайдерами
                 try {
-                $this->users->ConfirmationToUpDeposit($payment->id);
+                    $this->users->ConfirmationToUpDeposit($payment->id);
                 } catch (\Throwable $e) {
                     \Yii::$app->errorHandler->logException($e);
                 }
                 return;
             }
-            if ($metadata['class'] == Shop::class) {
+            if ($metadata['class'] == Shop::class) { //Покупка в магазине
                 try {
-                //TODO Работа с оплаченной корзиной и Провайдером
                     $this->orderService->paidByPaymentId($payment->id);
-
                 } catch (\Throwable $e) {
                     \Yii::$app->errorHandler->logException($e);
                 }
