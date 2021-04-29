@@ -62,12 +62,8 @@ class CatalogController extends Controller
     public function actionIndex()
     {
         $category = $this->categories->getRoot();
-        $search = \Yii::$app->request->queryParams['search'] ?? null;
-        if (!empty($search)) {
-            $dataProvider = $this->products->search($search);
-        } else {
-            $dataProvider = $this->products->getAll();
-        }
+        $dataProvider = $this->products->getAll();
+
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

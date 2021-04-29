@@ -35,6 +35,9 @@ class ProductCategoryService
                 $form->meta->keywords
             ));
         $category->appendTo($parent);
+        if ($form->photo) {
+            $category->setPhoto($form->photo);
+        }
         $this->categories->save($category);
         return $category;
     }
@@ -57,6 +60,9 @@ class ProductCategoryService
         if ($form->parentId !== $category->parent->id) {
             $parent = $this->categories->get($form->parentId);
             $category->appendTo($parent);
+        }
+        if ($form->photo) {
+            $category->setPhoto($form->photo);
         }
         $this->categories->save($category);
     }

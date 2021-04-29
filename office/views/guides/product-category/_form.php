@@ -2,6 +2,7 @@
 
 use booking\entities\shops\products\Category;
 use booking\forms\office\guides\ProductCategoryForm;
+use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -29,6 +30,26 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
     </div>
+    <div class="card card-default">
+        <div class="card-header with-border">Картинка</div>
+        <div class="card-body">
+            <?= $form->field($model, 'photo')->label(false)->widget(FileInput::class, [
+                'options' => [
+                    'accept' => 'image/*',
+                    'multiple' => false,
+                ],
+                'pluginOptions' => [
+                    'initialPreview' => [
+                        ($model->_category) ? $model->_category->getThumbFileUrl('photo', 'profile'): null, //$user->personal->getThumbFileUrl('photo', 'profile'),
+                    ],
+                    'initialPreviewAsData' => true,
+                    'overwriteInitial' => true,
+                    'showRemove' => false,
+                ],
+            ]) ?>
+        </div>
+    </div>
+
     <div class="card card-default">
         <div class="card-header with-border">Для SEO</div>
         <div class="card-body">

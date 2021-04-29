@@ -8,8 +8,11 @@ use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Meta;
 use booking\entities\queries\CategoryQuery;
 use booking\helpers\SlugHelper;
+use booking\services\WaterMarker;
 use paulzi\nestedsets\NestedSetsBehavior;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * @property integer $id
@@ -26,10 +29,11 @@ use yii\db\ActiveRecord;
  * @property Category[] $children
  * @property Category $prev
  * @property Category $next
+ * @property string $photo
  * @property string $meta_json [json]
  * @mixin NestedSetsBehavior
+ * @mixin ImageUploadBehavior
  */
-
 class Category extends ActiveRecord
 {
     public $meta;
@@ -72,13 +76,41 @@ class Category extends ActiveRecord
     {
         return $this->title ?: $this->name;
     }
+
+    public function setPhoto(UploadedFile $photo): void
+    {
+        $this->photo = $photo;
+    }
+
     public function behaviors()
     {
         return [
             MetaBehavior::class,
             NestedSetsBehavior::class,
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'photo',
+                'createThumbsOnRequest' => true,
+                'filePath' => '@staticRoot/origin/shop_category/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/shop_category/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/shop_category/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/shop_category/[[profile]]_[[id]].[[extension]]',
+                'thumbs' => [
+                    'admin' => ['width' => 100, 'height' => 70],
+                    'category' => ['width' => 100, 'height' => 100],
+                    /*'thumb' => ['width' => 640, 'height' => 480],
+                    'blog_list' => ['width' => 1000, 'height' => 150],
+                    'landing_list' => ['width' => 300, 'height' => 400],
+                    'widget_list' => ['width' => 228, 'height' => 228],
+                    'widget_top' => ['width' => 1000, 'height' => 150],
+                    'widget_mobile' => ['width' => 300, 'height' => 100],
+                    'widget_bottom' => ['width' => 300, 'height' => 150],*/
+                    //'origin' => ['processor' => [new WaterMarker(1024, 768, '@static/files/images/logo-mail.png'), 'process']],
+                ],
+            ],
         ];
     }
+
     public function transactions()
     {
         return [
@@ -90,4 +122,5 @@ class Category extends ActiveRecord
     {
         return new CategoryQuery(static::class);
     }
+
 }

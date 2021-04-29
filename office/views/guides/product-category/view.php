@@ -32,9 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     [
+                        'value' => '<img src="' . $category->getThumbFileUrl('photo', 'admin') . '">',
+                        'format' => 'raw',
+                        'label' => 'IMG'
+                    ],
+                    [
                         'attribute' => 'name',
                         'format' => 'text',
-                        'label' => 'Категоря'
+                        'label' => 'Категория'
                     ],
                     [
                         'attribute' => 'slug',

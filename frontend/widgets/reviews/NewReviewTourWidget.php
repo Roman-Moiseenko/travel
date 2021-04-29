@@ -15,6 +15,7 @@ class NewReviewTourWidget extends Widget
 
     public function run()
     {
+        $test = true;
         if (\Yii::$app->user->isGuest) {
             return '';
         }
@@ -22,6 +23,14 @@ class NewReviewTourWidget extends Widget
         $user_id = \Yii::$app->user->id;
         $reviews = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['tour_id' => $this->tour_id])->all();
         if (count($reviews) != 0) return '';
+        if ($test) {
+            $reviewForm = new ReviewForm();
+            return $this->render('new-review', [
+                'reviewForm' => $reviewForm,
+                'id' => $this->tour_id,
+                'action' => '/tour/view',
+            ]);
+        }
 
         /** @var BookingTour[] $bookings */
         $bookings = BookingTour::find()->andWhere(['user_id' => $user_id])->all();

@@ -1,13 +1,14 @@
 <?php
 
 use booking\entities\blog\post\Post;
+use booking\forms\blog\post\PostForm;
 use kartik\file\FileInput;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model Post */
+/* @var $model PostForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -75,7 +76,17 @@ use yii\helpers\Html;
             <?= $form->field($model, 'photo')->label(false)->widget(FileInput::class, [
                 'options' => [
                     'accept' => 'image/*',
-                ]
+                    'multiple' => false,
+
+                ],
+                'pluginOptions' => [
+                    'initialPreview' => [
+                        ($model->_post) ? $model->_post->getThumbFileUrl('photo', 'profile'): null, //$user->personal->getThumbFileUrl('photo', 'profile'),
+                    ],
+                    'initialPreviewAsData' => true,
+                    'overwriteInitial' => true,
+                    'showRemove' => false,
+                ],
             ]) ?>
         </div>
     </div>

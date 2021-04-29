@@ -29,6 +29,8 @@ class PostForm extends CompositeForm
     public $description_en;
     public $content_en;
 
+    public $_post;
+
     public function __construct(Post $post = null, $config = [])
     {
         if ($post) {
@@ -43,6 +45,8 @@ class PostForm extends CompositeForm
 
             $this->meta = new MetaForm($post->meta);
             $this->tags = new TagsForm($post);
+
+            $this->_post = $post;
         } else {
             $this->meta = new MetaForm();
             $this->tags = new TagsForm();

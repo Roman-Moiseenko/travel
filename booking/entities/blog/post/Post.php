@@ -296,6 +296,7 @@ class Post extends ActiveRecord
                     'widget_top' => ['width' => 1000, 'height' => 150],
                     'widget_mobile' => ['width' => 300, 'height' => 100],
                     'widget_bottom' => ['width' => 300, 'height' => 150],
+                    'profile' => ['width' => 400, 'height' => 400],
                     'origin' => ['processor' => [new WaterMarker(1024, 768, '@static/files/images/logo-mail.png'), 'process']],
                 ],
             ],

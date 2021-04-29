@@ -17,6 +17,7 @@ use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\entities\office\PriceInterface;
 use booking\entities\queries\ObjectActiveQuery;
+use booking\entities\shops\products\Category;
 use booking\entities\shops\products\Product;
 use booking\forms\shops\DeliveryForm;
 use booking\helpers\BookingHelper;
@@ -64,10 +65,22 @@ use yii\helpers\Json;
  * @property integer $main_photo_id
  * @property integer $free_products
  * @property integer $active_products
+ * @property CategoryAssign[] $categoriesAssign
+ * @property Category[] $categories
  *
  *********************************** Скрытые поля
  * @property string $work_mode_json
  * @property string $meta_json
+ * @property bool $delivery_on_city [tinyint(1)]
+ * @property int $delivery_cost_city [int]
+ * @property int $delivery_min_amount_city [int]
+ * @property int $delivery_min_amount_company [int]
+ * @property int $delivery_period [int]
+ * @property bool $delivery_on_point [tinyint(1)]
+ * @property string $delivery_address [varchar(255)]
+ * @property string $delivery_latitude [varchar(255)]
+ * @property string $delivery_longitude [varchar(255)]
+ * @property string $delivery_companies [json]
  */
 class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterface
 {
@@ -118,7 +131,6 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
 
     public function setDelivery(DeliveryForm $form): void
     {
-        //if ($this->ad) throw new \DomainException('Нельзя установить Доставку для Витрины');
         $this->delivery = Delivery::create(
             $form->onCity,
             $form->costCity,
@@ -133,10 +145,6 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
                 $form->addressPoint->longitude
             )
         );
-     /*   foreach ($form->deliveryCompany as $item) {
-            $this->delivery->addCompany($item);
-        }*/
-
     }
 
     public function setMeta(Meta $meta): void
@@ -222,6 +230,7 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
                     'contactAssign',
                     'addresses',
                     'reviews',
+                    'categoriesAssign',
                 ],
             ],
 
@@ -443,6 +452,38 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         $this->rating = $total / count($reviews);
     }
 
+//**** Категории (CategoryAssign) **********************************
+
+    public function assignCategory($id): void
+    {
+        $assigns = $this->categoriesAssign;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return;
+            }
+        }
+        $assigns[] = CategoryAssign::create($id);
+        $this->categoriesAssign = $assigns;
+    }
+
+    public function revokeCategory($id): void
+    {
+        $assigns = $this->categoriesAssign;
+        foreach ($assigns as $i => $assign) {
+            if ($assign->isFor($id)) {
+                unset($assigns[$i]);
+                $this->categoriesAssign = $assigns;
+                return;
+            }
+        }
+        throw new \DomainException('Assignment is not found.');
+    }
+
+    public function clearCategory(): void
+    {
+        $this->categoriesAssign = [];
+    }
+
     //****** Внешние связи ****************************
 
     public function getProducts(): ActiveQuery
@@ -495,6 +536,15 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         return $this->hasMany(InfoAddress::class, ['shop_id' => 'id']);
     }
 
+    public function getCategoriesAssign(): ActiveQuery
+    {
+        return $this->hasMany(CategoryAssign::class, ['shop_id' => 'id']);
+    }
+
+    public function getCategories(): ActiveQuery
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->via('categoriesAssign');
+    }
 
     public function contactAssignById(int $id): ?ContactAssign
     {

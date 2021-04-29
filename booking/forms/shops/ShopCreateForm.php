@@ -6,6 +6,7 @@ namespace booking\forms\shops;
 
 use booking\entities\admin\Contact;
 use booking\entities\booking\funs\WorkMode;
+use booking\entities\shops\CategoryAssign;
 use booking\entities\shops\InfoAddress;
 use booking\entities\shops\Shop;
 use booking\forms\WorkModeForm;
@@ -32,6 +33,7 @@ class ShopCreateForm extends CompositeForm
     public $description_en;
     public $legal_id;
     public $type_id;
+    public $categoriesAssign = [];
 
 
     public function __construct(Shop $shop = null, $config = [])
@@ -45,7 +47,9 @@ class ShopCreateForm extends CompositeForm
             $this->description_en = $shop->description_en;
             $this->type_id = $shop->type_id;
             $this->legal_id = $shop->legal_id;
-
+            $this->categoriesAssign = array_map(function (CategoryAssign $assign) {
+                return $assign->category_id;
+            }, $shop->categoriesAssign);
             $this->delivery = new DeliveryForm($shop->delivery);
 
             $this->contactAssign = array_map(function (Contact $contact) use ($shop) {
@@ -90,6 +94,7 @@ class ShopCreateForm extends CompositeForm
             [['name', 'description', 'type_id', 'legal_id'], 'required'],
             [['type_id', 'legal_id'], 'integer'],
             ['ad', 'boolean'],
+            ['categoriesAssign', 'each', 'rule' => ['integer']],
         ];
     }
 

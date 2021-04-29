@@ -8,7 +8,7 @@ use frontend\assets\MapAsset;
 use yii\helpers\Html;
 
 /* @var $shop Shop */
-/* @var $sale_on bool*/
+/* @var $sale_on bool */
 
 MapAsset::register($this);
 ?>
@@ -49,10 +49,10 @@ MapAsset::register($this);
                             <i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Показать на карте') ?>
                         </button>
                         <?php foreach ($shop->addresses as $i => $address): ?>
-                            <input type="hidden" id="address-<?=$i+1?>" value="<?= $address->address?>">
-                            <input type="hidden" id="phone-<?=$i+1?>" value="<?= $address->phone?>">
-                            <input type="hidden" id="latitude-<?=$i+1?>" value="<?= $address->latitude?>">
-                            <input type="hidden" id="longitude-<?=$i+1?>" value="<?= $address->longitude?>">
+                            <input type="hidden" id="address-<?= $i + 1 ?>" value="<?= $address->address ?>">
+                            <input type="hidden" id="phone-<?= $i + 1 ?>" value="<?= $address->phone ?>">
+                            <input type="hidden" id="latitude-<?= $i + 1 ?>" value="<?= $address->latitude ?>">
+                            <input type="hidden" id="longitude-<?= $i + 1 ?>" value="<?= $address->longitude ?>">
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -67,27 +67,28 @@ MapAsset::register($this);
         </div>
     </div>
 <?php endif; ?>
-<?php if($sale_on): ?>
-<?php if (!empty($shop->delivery->arrayCompanies)): ?>
-    <div class="pt-3 pb-1" style="font-size: 13px;">
-        <?= Lang::t('Магазин') . ' ' . $shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
-        <?php foreach ($shop->delivery->getCompanies() as $company): ?>
-            <div class="pl-3"><a class="" href="<?= $company->link?>" target="_blank" rel="noreferrer noopener nofollow"><?= $company->name; ?></a></div>
-        <?php endforeach; ?>
-    </div>
-    <div class="pl-3">
-        <?= Lang::t('Минимальная сумма заказа для доставки в регионы: ') . CurrencyHelper::stat($shop->delivery->minAmountCompany) ?>
-    </div>
-    <div class="pl-3">
-        <?php if ($shop->delivery->period == 0): ?>
-            <?= Lang::t('Отправка осуществляется в день заказа ') ?>
-        <?php else: ?>
-            <?= Lang::t('Отправка товара производится ') . $shop->delivery->period . Lang::t(' раз в неделю') ?>
-        <?php endif; ?>
-    </div>
-    <div class="pl-3 attention">
-        <?= Lang::t('Внимание! Доставку Транспортной компанией Клиент оплачивает самостоятельно! Стоимость Вы можете расчитать на сайте ТК') ?>
-    </div>
+<?php if ($sale_on): ?>
+    <?php if (!empty($shop->delivery->arrayCompanies)): ?>
+        <div class="pt-3 pb-1" style="font-size: 13px;">
+            <?= Lang::t('Магазин') . ' ' . $shop->getName() . Lang::t(' осуществляет доставку по России следующими ТК:') ?>
+            <?php foreach ($shop->delivery->getCompanies() as $company): ?>
+                <div class="pl-3"><a class="" href="<?= $company->link ?>" target="_blank"
+                                     rel="noreferrer noopener nofollow"><?= $company->name; ?></a></div>
+            <?php endforeach; ?>
+        </div>
+        <div class="pl-3">
+            <?= Lang::t('Минимальная сумма заказа для доставки в регионы: ') . CurrencyHelper::stat($shop->delivery->minAmountCompany) ?>
+        </div>
+        <div class="pl-3">
+            <?php if ($shop->delivery->period == 0): ?>
+                <?= Lang::t('Отправка осуществляется в день заказа ') ?>
+            <?php else: ?>
+                <?= Lang::t('Отправка товара производится ') . $shop->delivery->period . Lang::t(' раз в неделю') ?>
+            <?php endif; ?>
+        </div>
+        <div class="pl-3 attention">
+            <?= Lang::t('Внимание! Доставку Транспортной компанией Клиент оплачивает самостоятельно! Стоимость Вы можете расчитать на сайте ТК') ?>
+        </div>
     <?php endif; ?>
     <?php if ($shop->delivery->onCity): ?>
         <div class="pt-3 pb-1" style="font-size: 13px;">
@@ -104,6 +105,7 @@ MapAsset::register($this);
             <?= Lang::t('Имеется возможность самостоятельно забрать заказ в Калининграде') ?>
         </div>
     <?php endif; ?>
-    <span class="mt-3 badge badge-success" style="font-size: 12px"><?= Lang::t('Защищенный платеж') ?></span> - <?= Lang::t('продавец получит деньги после отправки заказа покупателю') ?>
+    <span class="mt-3 badge badge-success"
+          style="font-size: 12px"><?= Lang::t('Защищенный платеж') ?></span> - <?= Lang::t('продавец получит деньги после отправки заказа покупателю') ?>
 <?php endif; ?>
 

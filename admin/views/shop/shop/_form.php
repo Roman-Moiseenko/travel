@@ -4,7 +4,7 @@ use booking\entities\shops\Shop;
 use booking\forms\shops\ShopCreateForm;
 use booking\helpers\AdminUserHelper;
 use booking\helpers\funs\WorkModeHelper;
-use booking\helpers\shops\DeliveryHelper;
+use booking\helpers\shops\CategoryHelper;use booking\helpers\shops\DeliveryHelper;
 use booking\helpers\shops\ShopTypeHelper;
 use kartik\widgets\FileInput;
 use yii\bootstrap4\ActiveForm;
@@ -142,6 +142,11 @@ $this->registerJs($js);
                     </div>
                 </div>
 
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <?= $form->field($model, 'categoriesAssign')->checkboxList(CategoryHelper::firstLevel())->label('Категории товаров') ?>
+                </div>
             </div>
         </div>
     </div>

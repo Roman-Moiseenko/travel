@@ -5,6 +5,7 @@ use booking\entities\admin\Contact;
 use booking\entities\booking\tours\Tour;
 use booking\entities\shops\DeliveryCompany;
 use booking\entities\shops\DeliveryCompanyAssign;
+use booking\entities\shops\products\Category;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
@@ -74,6 +75,11 @@ $this->params['breadcrumbs'][] = $shop->name;
                     'attribute' => 'legal_id',
                     'value' => $shop->legal->name,
                     'label' => 'Организация',
+                ],
+                [
+                    'attribute' => 'type_id',
+                    'value' => implode(', ', array_map(function (Category $category) {return $category->name;}, $shop->categories)),
+                    'label' => 'Категория товара',
                 ],
             ],
         ]) ?>

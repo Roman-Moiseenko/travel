@@ -54,7 +54,7 @@ return [
         ],
         [
             'width' => 1280,
-            'height' => 1024,
+            'height' => 800,
             'quality' => 75,
             'items' => [
                 '/origin/posts/',

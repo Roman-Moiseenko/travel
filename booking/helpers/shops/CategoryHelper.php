@@ -26,4 +26,13 @@ class CategoryHelper
         $result = Category::findOne($id);
         return $result->name;
     }
+
+    public static function firstLevel(): array
+    {
+        return ArrayHelper::map(
+            Category::find()->andWhere(['depth' => 1])->orderBy('lft')->asArray()->all(),
+            'id',
+            'name'
+        );
+    }
 }

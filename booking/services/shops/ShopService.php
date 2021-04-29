@@ -71,6 +71,11 @@ class ShopService
         );
 
         $this->update($shop, $form);
+        //scr::p($form->categoriesAssign);
+        foreach ($form->categoriesAssign as $assign)
+        {
+            $shop->assignCategory($assign);
+        }
 
         $this->shops->save($shop);
         return $shop;
@@ -81,6 +86,7 @@ class ShopService
         $shop = $this->shops->get($id);
         $shop->contactAssign = [];
         $shop->addresses = [];
+        $shop->clearCategory();
         $this->shops->save($shop);
 
         if ($shop->ad != $form->ad) {
@@ -100,7 +106,10 @@ class ShopService
         );
 
         $this->update($shop, $form);
-
+        foreach ($form->categoriesAssign as $assign)
+        {
+            $shop->assignCategory($assign);
+        }
         $this->shops->save($shop);
     }
 

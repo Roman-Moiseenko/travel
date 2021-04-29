@@ -6,12 +6,11 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel  ProductCategorySearch*/
+/* @var $searchModel  ProductCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 
 ?>
@@ -25,6 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            [
+                'value' => function (Category $model) {
+                    return '<img src="' . $model->getThumbFileUrl('photo', 'admin') . '">';
+                },
+                'format' => 'raw',
+                'label' => 'IMG'
+            ],
             [
                 'attribute' => 'name',
                 'value' => function (Category $model) {
@@ -46,15 +52,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'text-align: center'],
             ],
             [
-                'attribute' =>'slug',
+                'attribute' => 'slug',
                 'label' => 'Ссылка'
             ],
             [
-                'attribute' =>'title',
+                'attribute' => 'title',
                 'label' => 'Заголовок'
             ],
             [
-                'attribute' =>'description',
+                'attribute' => 'description',
                 'format' => 'ntext',
                 'label' => 'Описание'
             ],

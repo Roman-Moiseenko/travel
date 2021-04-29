@@ -10,6 +10,7 @@ use booking\forms\CompositeForm;
 use booking\forms\MetaForm;
 use booking\validators\SlugValidator;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * Class ProductCategoryForm
@@ -24,8 +25,9 @@ class ProductCategoryForm extends CompositeForm
     public $title;
     public $description;
     public $parentId;
+    public $photo;
 
-    private $_category;
+    public $_category;
 
     public function __construct(Category $category = null, $config = [])
     {
@@ -53,8 +55,8 @@ class ProductCategoryForm extends CompositeForm
             [['name', 'slug', 'title'], 'string', 'max' => 255],
             [['description'], 'string'],
             ['slug', SlugValidator::class],
-            [['name', 'slug'], 'unique', 'targetClass' => Category::class, 'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null]
-
+            [['name', 'slug'], 'unique', 'targetClass' => Category::class, 'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null],
+            [['photo'], 'image'],
         ];
     }
     public function parentCategoriesList(): array
@@ -72,5 +74,15 @@ class ProductCategoryForm extends CompositeForm
         return [
             'meta'
         ];
+    }
+
+
+    public function beforeValidate(): bool
+    {
+        if (parent::beforeValidate()) {
+            $this->photo = UploadedFile::getInstance($this, 'photo');
+            return true;
+        }
+        return false;
     }
 }
