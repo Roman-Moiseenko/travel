@@ -71,8 +71,7 @@ class MapService
         if ($form->photo->files != null) {
             SysHelper::orientation($form->photo->files[0]->tempName);
         }
-        $point = $map->getPoint($point_id);
-        $point->save();
+        $point = Point::findOne($point_id);//$map->getPoint($point_id);
 
         $point->edit(
             $form->caption,
@@ -83,6 +82,7 @@ class MapService
                 $form->geo->longitude),
             $form->photo->files ? $form->photo->files[0] : null
         );
+        $point->save();
     }
 
     public function removePoint(int $map_id, $id)

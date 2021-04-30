@@ -26,7 +26,7 @@ $(document).ready(function () {
         myMapView.controls.remove('trafficControl');
         myMapView.controls.remove('geolocationControl');
         myMapView.controls.remove('fullscreenControl');
-        myMapView.setCenter([54.70685185623284, 20.509538208007516], zoom);
+        //myMapView.setCenter([54.70685185623284, 20.509538208007516], zoom);
 
         $.post('/post/widget-map', {slug: slug}, function (data) {
 
@@ -42,6 +42,8 @@ $(document).ready(function () {
             //return;
 
             let _result = JSON.parse(data);
+            myMapView.setCenter([_result[0].latitude, _result[0].longitude]);
+
             let obj = {};
             obj.type = "FeatureCollection";
             obj.features = [];
