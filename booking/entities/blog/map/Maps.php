@@ -4,6 +4,7 @@
 namespace booking\entities\blog\map;
 
 
+use booking\entities\booking\BookingAddress;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -42,16 +43,16 @@ class Maps extends ActiveRecord
         $this->points = $points;
     }
 
-    public function updatePoint($point_id, Point $point): void
+    public function updatePoint($point_id, $caption, $link, BookingAddress $geo, $photo): void
     {
         $points = $this->points;
         foreach ($points as $i => &$item) {
             if ($item->isFor($point_id)) {
                 $item->edit(
-                    $point->caption,
-                    $point->link,
-                    $point->geo,
-                    $point->photo
+                    $caption,
+                    $link,
+                    $geo,
+                    $photo
                     );
                 $this->points = $points;
                 return;

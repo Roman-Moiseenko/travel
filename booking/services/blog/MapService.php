@@ -60,7 +60,7 @@ class MapService
                 $form->geo->latitude,
                 $form->geo->longitude),
             $form->photo->files ? $form->photo->files[0] : null,
-        ));
+            ));
         $this->maps->save($map);
     }
 
@@ -71,20 +71,18 @@ class MapService
         if ($form->photo->files != null) {
             SysHelper::orientation($form->photo->files[0]->tempName);
         }
+        $point = $map->getPoint($point_id);
+        $point->save();
 
-        $map->updatePoint(
-            $point_id,
-            Point::create(
-                $form->caption,
-                $form->link,
-                new BookingAddress(
-                    $form->geo->address,
-                    $form->geo->latitude,
-                    $form->geo->longitude),
-                $form->photo->files ? $form->photo->files[0] : null,
-                )
-            );
-        $this->maps->save($map);
+        $point->edit(
+            $form->caption,
+            $form->link,
+            new BookingAddress(
+                $form->geo->address,
+                $form->geo->latitude,
+                $form->geo->longitude),
+            $form->photo->files ? $form->photo->files[0] : null
+        );
     }
 
     public function removePoint(int $map_id, $id)
