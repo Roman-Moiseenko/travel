@@ -17,7 +17,7 @@ use yii\helpers\Html;
     ]) ?>
     <div class="topbar-search-tours">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-lg-3 col-sm-6">
                 <label class="label-search"><?= Lang::t('Дата') ?>:</label>
                 <?= DatePicker::widget([
                     'model' => $model,
@@ -34,10 +34,10 @@ use yii\helpers\Html;
                     ],
                 ]) ?>
             </div>
-            <div class="col-sm-3">
+            <div class="col-lg-3 col-sm-6">
                 <?= $form->field($model, 'type')->dropDownList(Lang::a(TourTypeHelper::list()), ['prompt' => ''])->label(Lang::t('Категория') . ':', ['class' => 'label-search']); ?>
             </div>
-            <div class="col-sm-3">
+            <div class="col-lg-3 col-sm-6">
                 <label class="label-search"><?= Lang::t('Цена (от и до)') ?>:</label>
                 <div class="form-row">
                     <div class="col">
@@ -48,7 +48,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
             </div>
-            <div class="col col-sm-3">
+            <div class="col col-lg-3 col-sm-6">
                 <label class="label-search"><?= Lang::t('Тип') ?>:</label>
                 <div class="form-inline">
                     <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label(false); ?>
