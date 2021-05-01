@@ -25,13 +25,13 @@ $(document).ready(function () {
     $(function () {
         $("#datepicker-tour").datepicker({
             format: 'dd/mm/yyyy',
-            startDate: '+1d',
+            startDate: 'd',
             language: lang,
             autoclose: true,
         });
     });
     $('#datepicker-tour').datepicker({
-        startDate: '+1d',
+        startDate: 'd',
         language: lang,
         beforeShowDay: function (date) {
             if (full_array_tours === undefined) return {enabled: false};

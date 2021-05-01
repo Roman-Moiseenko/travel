@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle
         'css/shop.css',
 //        'css/swiper.min.css',
 //        'css/multi_timer.css',
-        'font-awesome/css/font-awesome.css'
+        //'font-awesome/css/font-awesome.css'
     ];
     public $js = [
         //'js/swiper.js',

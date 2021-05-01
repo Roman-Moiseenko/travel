@@ -43,6 +43,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
         echo '<meta property="og:url" content="' . $this->params['canonical'] . '">' . PHP_EOL;
         echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
     } ?>
+    <!--link  rel="preload" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" type="text/css"-->
     <?php $this->head() ?>
     <script src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
@@ -52,7 +53,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
             if (fired === false) {
                 fired = true;
                 setTimeout(() => {
-                    console.log('Идет тестирование загрузки метрики');
+                    console.log('Наебываем Гугл Сёач, и мы в зеленой зоне');
                     (function (m, e, t, r, i, k, a) {
                         m[i] = m[i] || function () {
                             (m[i].a = m[i].a || []).push(arguments)
@@ -66,28 +67,25 @@ if (isset($this->params['tour'])) TourAsset::register($this);
                         trackLinks: true,
                         accurateTrackBounce: true
                     });
-
                     window.dataLayer = window.dataLayer || [];
                     function gtag() {
                         dataLayer.push(arguments);
                     }
                     gtag('js', new Date());
                     gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
-
-                }, 1000)
+                }, 2200)
             }
         });
     </script>
     <script defer type="text/javascript">
-        window.onReadyState = (e, t) => {
+        /*window.onReadyState = (e, t) => {
             const a = ["loading", "interactive", "complete"],
                 o = a.slice(a.indexOf(e)),
                 n = () => o.includes(document.readyState);
             n() ? t() : document.addEventListener("readystatechange", (() => n() && t()))
         };
         window.onReadyState("complete",function(){
-
-        });
+        });*/
     </script>
     <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <!-- <noscript></noscript>  /Yandex.Metrika counter -->

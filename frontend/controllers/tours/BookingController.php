@@ -47,7 +47,7 @@ class BookingController  extends Controller
             if (isset($params['current_month'])) {
                 $month = date('m');
                 $year = date('Y');
-                $day = date('d') + 1;
+                $day = date('d');
             } else {
                 $month = $params['month'];
                 $year = $params['year'];

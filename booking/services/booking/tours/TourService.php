@@ -23,6 +23,7 @@ use booking\forms\booking\tours\TourParamsForm;
 use booking\forms\MetaForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\Filling;
+use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\ExtraRepository;
@@ -261,8 +262,8 @@ class TourService
         if ($tour->mainPhoto == null) {
             throw new \DomainException('Вы не добавили ни одной фотографии!');
         }
-
-        if ($tour->params->private == null) {
+        //scr::p($tour->params->private);
+        if ($tour->params->private === null) {
             throw new \DomainException('Необходимо заполнить параметры');
         }
 

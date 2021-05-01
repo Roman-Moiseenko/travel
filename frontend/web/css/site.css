@@ -534,6 +534,15 @@ div.required label:after {
     color: rgba(255, 255, 255, 1) !important;
 }
 
+.top-menu-a>.fas {
+    width: 25px;
+}
+
+.top-menu-a>.badge>.fas {
+    width: 20px;
+}
+
+
 .breadcrumb-site {
     margin: 0 0 20px 0;
     padding: 8px 0;
