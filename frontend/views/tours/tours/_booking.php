@@ -25,15 +25,21 @@ DatepickerAsset::register($this);
         </div>
         <div class="list-tours"></div>
         <p></p>
-        <div class="form-group">
-            <?= Html::submitButton(
+        <div class="d2-btn-box">
+            <button class="d2-btn d2-btn-block d2-btn-buy" type="submit" id="button-booking-tour" disabled>
+                <?= $tour->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести')?>
+                <div class="d2-btn-icon">
+                    <i class="far fa-credit-card"></i>
+                </div>
+            </button>
+            <?= '' /*Html::submitButton(
                 $tour->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести'),
                 [
-                    'class' => 'btn btn-lg btn-primary btn-block',
+                    'class' =>  'btn btn-lg btn-primary btn-block',
                     'disabled' => 'disabled',
                     'id' => 'button-booking-tour'
                 ]
-            ) ?>
+            ) */?>
         </div>
         <span style="color: #560005; ">* <?= Lang::t('При покупке экскурсии менее чем за 7 дней, предварительно уточните ее доступность') ?></span>
         <?= Html::endForm() ?>

@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
         'css/stylesheet.css',
         //'css/glyphicon.css',
         'css/shop.css',
+        'css/design2.css',
 //        'css/swiper.min.css',
 //        'css/multi_timer.css',
         //'font-awesome/css/font-awesome.css'
