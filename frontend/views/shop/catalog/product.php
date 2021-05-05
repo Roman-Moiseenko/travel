@@ -14,6 +14,8 @@ use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\assets\SwiperAsset;
+use frontend\widgets\design\BtnAddCart;
+use frontend\widgets\design\BtnShop;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\LegalWidget;
@@ -144,13 +146,11 @@ MagnificPopupAsset::register($this);
                 <div id="product" class="required">
                     <?php if ($product->saleOn()): ?>
                         <?= Html::beginForm(['/shop/cart/add', 'id' => $product->id]); ?>
-                        <div class="form-group">
-                            <?= Html::submitButton('В корзину', ['class' => 'btn btn-primary btn-lg btn-block']) ?>
-                        </div>
+                        <?= BtnAddCart::widget()?>
                         <?= Html::endForm() ?>
                     <?php else: ?>
                         <div class="form-group">
-                            <?= Html::a('Где купить', Url::to(['shop/' . $product->shop_id]), ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+                            <?= BtnShop::widget(['url' => Url::to(['shop/' . $product->shop_id])])?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -219,11 +219,7 @@ MagnificPopupAsset::register($this);
 <div class="card my-3">
     <div class="card-body">
         <?= ReviewsWidget::widget(['reviews' => $product->reviews]); ?>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <?= NewReviewProductWidget::widget(['product_id' => $product->id]); ?>
-        </div>
+        <?= NewReviewProductWidget::widget(['product_id' => $product->id]); ?>
     </div>
 </div>
 

@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\entities\shops\Shop;
 use booking\helpers\CurrencyHelper;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnGeo;
 use yii\helpers\Html;
 
 /* @var $shop Shop */
@@ -38,16 +39,12 @@ MapAsset::register($this);
                 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
             <span id="count-points" data-count="<?= count($shop->addresses) ?>"></span>
-            <div class="params-item-map">
-                <div class="row">
-                    <div class="col-4">
-
-                        <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                data-toggle="collapse"
-                                data-target="#collapse-map-3"
-                                aria-expanded="false" aria-controls="collapse-map-2">
-                            <i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Показать на карте') ?>
-                        </button>
+            <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <?= BtnGeo::widget([
+                                'caption' => 'Показать на карте',
+                            'target_id' => 'collapse-map-3'
+                        ]) ?>
                         <?php foreach ($shop->addresses as $i => $address): ?>
                             <input type="hidden" id="address-<?= $i + 1 ?>" value="<?= $address->address ?>">
                             <input type="hidden" id="phone-<?= $i + 1 ?>" value="<?= $address->phone ?>">
@@ -56,14 +53,13 @@ MapAsset::register($this);
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="pt-3 collapse" id="collapse-map-3">
+            <div class="pt-3 collapse" id="collapse-map-3">
                     <div class="card card-body card-map">
                         <div class="row">
                             <div id="map-food-view" style="width: 100%; height: 450px"></div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 <?php endif; ?>

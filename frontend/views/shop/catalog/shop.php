@@ -101,6 +101,7 @@ MagnificPopupAsset::register($this);
     <div class="card-body">
         <?= $this->render('_delivery', [
             'shop' => $shop,
+            'sale_on' => !$shop->isAd(),
         ])?>
     </div>
 </div>
@@ -108,11 +109,7 @@ MagnificPopupAsset::register($this);
 <div class="card my-3">
     <div class="card-body">
         <?= ReviewsWidget::widget(['reviews' => $shop->reviews]); ?>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <?= NewReviewShopWidget::widget(['shop_id' => $shop->id]); ?>
-        </div>
+        <?= NewReviewShopWidget::widget(['shop_id' => $shop->id]); ?>
     </div>
 </div>
 
