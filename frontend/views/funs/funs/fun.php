@@ -90,39 +90,17 @@ $countReveiws = $fun->countReviews();
 
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
+    <?php if (!$mobile): ?>
     <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <div class="row">
-            <div class="col">
-                <?php if ($fun->isActive()) {
-                    echo $this->render('_booking', [
-                        'fun' => $fun,
-                    ]);
-                } else {
-                    echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Мероприятие не активно.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
-                }
-                ?>
-                <div class="rating">
-                    <p>
-                        <?= RatingWidget::widget(['rating' => $fun->rating]); ?>
-                        <a href="#review">
-                            <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
-                        </a>
-                        &nbsp;
-                    </p>
-                    <hr>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <?= LegalWidget::widget(['legal' => $fun->legal]) ?>
-            </div>
-        </div>
+        <?= $this->render('_block_booking', [
+            'fun' => $fun,
+        ])?>
     </div>
+    <?php endif;?>
 </div>
 <!-- Стоимость -->
-<div class="row pt-4">
-    <div class="col params-tour">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
         <div class="container-hr">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
@@ -161,8 +139,8 @@ $countReveiws = $fun->countReviews();
     </div>
 </div>
 <!-- Параметры -->
-<div class="row pt-4">
-    <div class="col params-tour">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
         <div class="container-hr">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
@@ -184,8 +162,8 @@ $countReveiws = $fun->countReviews();
 </div>
 <!-- Характеристики -->
 <?php if ($fun->values): ?>
-    <div class="row pt-4">
-        <div class="col params-tour">
+    <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
             <div class="container-hr">
                 <hr/>
                 <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
@@ -200,8 +178,8 @@ $countReveiws = $fun->countReviews();
     </div>
 <?php endif; ?>
 <!-- Дополнения -->
-<div class="row pt-4">
-    <div class="col">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Дополнения') ?></div>
@@ -221,9 +199,19 @@ $countReveiws = $fun->countReviews();
         </table>
     </div>
 </div>
+<!-- КУПИТЬ БИЛЕТЫ -->
+<?php if ($mobile): ?>
+    <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+            <?= $this->render('_block_booking', [
+                'fun' => $fun,
+            ])?>
+        </div>
+    </div>
+<?php endif;?>
 <!-- Координаты -->
-<div class="row pt-4">
-    <div class="col">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
                 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
         <div class="container-hr">
@@ -232,13 +220,13 @@ $countReveiws = $fun->countReviews();
         </div>
         <div class="params-item-map">
             <div class="row pb-2">
-                <div class="col-3">
+                <div class="col-sm-6 col-md-4 col-lg-3">
                     <?= BtnGeo::widget([
                         'caption' => 'Адрес',
                         'target_id' => 'collapse-map',
                     ]) ?>
                 </div>
-                <div class="col-9 align-self-center" id="address"><?= $fun->address->address ?></div>
+                <div class="col-sm-6 col-md-8 col-lg-9 align-self-center" id="address"><?= $fun->address->address ?></div>
             </div>
             <div class="collapse" id="collapse-map">
                 <div class="card card-body card-map">
@@ -254,8 +242,8 @@ $countReveiws = $fun->countReviews();
     </div>
 </div>
 <!-- ОТЗЫВЫ -->
-<div class="row">
-    <div class="col">
+<div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Виджет подгрузки отзывов -->
         <div class="container-hr">
             <hr/>

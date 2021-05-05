@@ -86,196 +86,186 @@ $countReveiws = $car->countReviews();
 
             </div>
         </div>
-        <!-- Стоимость -->
-        <div class="row pt-4">
-            <div class="col params-tour">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
-                </div>
-                <span class="params-item">
+    </div>
+    <!-- КУПИТЬ БИЛЕТЫ -->
+    <?php if (!$mobile): ?>
+        <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
+            <?= $this->render('_block_booking', [
+                'car' => $car,
+            ])?>
+        </div>
+    <?php endif;?>
+</div>
+
+<!-- Стоимость -->
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
+        </div>
+        <span class="params-item">
                         <i class="fas fa-car"></i>&#160;&#160;<?= Lang::t('Цена в сутки') ?> <span
-                            class="price-view">
+                    class="price-view">
                             <?= CurrencyHelper::get($car->cost) ?>
                         </span>
                     </span>
-                <p></p>
+        <p></p>
 
-                <span class="params-item">
+        <span class="params-item">
                         <i class="fas fa-wallet"></i>&#160;&#160;<?= Lang::t('Залог') ?> <span
-                            class="price-view">
+                    class="price-view">
                             <?= CurrencyHelper::get($car->deposit) ?>
                         </span>
                     </span>
-                <p></p>
-                <?php if ($car->discount_of_days): ?>
-                    <span class="params-item">
+        <p></p>
+        <?php if ($car->discount_of_days): ?>
+            <span class="params-item">
                         <i class="fas fa-percent"></i>&#160;&#160;<?= Lang::t('Скидка при прокате более чем на 3 суток') . ' - ' ?> <span
-                                class="price-view">
+                        class="price-view">
                             <?= $car->discount_of_days . ' %' ?>
                         </span>
                     </span>
-                    <p></p>
-                <?php endif; ?>
-                <span class="params-item">
+            <p></p>
+        <?php endif; ?>
+        <span class="params-item">
                     <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Стоимость проката может меняться в зависимости от даты') ?>
                 </span>
-            </div>
+    </div>
+</div>
+<!-- Параметры -->
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
         </div>
-        <!-- Параметры -->
-        <div class="row pt-4">
-            <div class="col params-tour">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
-                </div>
-                <span class="params-item">
+        <span class="params-item">
                     <i class="fas fa-hourglass-start"></i>&#160;&#160;
                     <?= Lang::t('Минимальное бронирование ') . $car->params->min_rent . Lang::t(' д') ?>
                 </span>
-                <span class="params-item">
+        <span class="params-item">
                     <i class="fas fa-id-card"></i>&#160;&#160;
                     <?= Lang::t('Категория прав: ') . (($car->params->license == 'none') ? Lang::t('не требуются') : $car->params->license) ?>
                 </span>
-                <?php if ($car->params->experience != 0): ?>
-                    <span class="params-item">
+        <?php if ($car->params->experience != 0): ?>
+            <span class="params-item">
                     <i class="fas fa-walking"></i>&#160;&#160;
                     <?= Lang::t('Требуется стаж (лет): ') . $car->params->experience ?>
                     </span>
-                <?php endif; ?>
-                <span class="params-item">
+        <?php endif; ?>
+        <span class="params-item">
                     <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . BookingHelper::ageLimit($car->params->age) ?>
                 </span>
-                <span class="params-item">
+        <span class="params-item">
                     <i class="fas fa-ban"></i>&#160;&#160;<?= BookingHelper::cancellation($car->cancellation) ?>
                 </span>
 
+    </div>
+</div>
+<!-- Характеристики -->
+<?php if ($car->values): ?>
+    <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
             </div>
-        </div>
-        <!-- Характеристики -->
-        <?php if ($car->values): ?>
-            <div class="row pt-4">
-                <div class="col params-tour">
-                    <div class="container-hr">
-                        <hr/>
-                        <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
-                    </div>
-                    <?php foreach ($car->values as $value): ?>
-                        <span class="params-item">
+            <?php foreach ($car->values as $value): ?>
+                <span class="params-item">
                     <i class="fas fa-dot-circle"></i>&#160;&#160;
                     <?= Lang::t($value->characteristic->name) . ': ' . $value->value ?>
                 </span>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <!-- Дополнения -->
-        <div class="row pt-4">
-            <div class="col">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Дополнения') ?></div>
-                </div>
-                <table class="table table-bordered">
-                    <tbody>
-                    <?php foreach ($car->extra as $extra): ?>
-                        <?php if (!empty($extra->name)): ?>
-                            <tr>
-                                <th><?= Html::encode($extra->getName()) ?></th>
-                                <td><?= Html::encode($extra->getDescription()) ?></td>
-                                <td><?= CurrencyHelper::get($extra->cost) ?></td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- Координаты -->
-        <div class="row pt-4">
-            <div class="col">
-                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
-                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
-                </div>
-                <div class="params-item-map">
-                    <div class="row pb-2">
-                        <div class="col-4">
-                            <?= BtnGeo::widget([
-                                'caption' => 'Точки проката',
-                                'target_id' => 'collapse-map',
-                            ]) ?>
-                        </div>
-                        <div class="col-8" id="address"></div>
-                    </div>
-                    <div class="collapse" id="collapse-map">
-                        <div class="card card-body card-map">
-                            <div id="count-points" data-count="<?= count($car->address) ?>">
-                                <?php foreach ($car->address as $i => $address): ?>
-                                    <input type="hidden" id="address-<?= ($i + 1) ?>" value="<?= $address->address ?>">
-                                    <input type="hidden" id="latitude-<?= ($i + 1) ?>"
-                                           value="<?= $address->latitude ?>">
-                                    <input type="hidden" id="longitude-<?= ($i + 1) ?>"
-                                           value="<?= $address->longitude ?>">
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="row">
-                                <div id="map-car-view" style="width: 100%; height: 300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- ОТЗЫВЫ -->
-        <div class="row">
-            <div class="col">
-                <!-- Виджет подгрузки отзывов -->
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
-                </div>
-                <div id="review">
-                    <?= ReviewsWidget::widget(['reviews' => $car->reviews]); ?>
-                </div>
-                <?= NewReviewCarWidget::widget(['car_id' => $car->id]); ?>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-    <!-- КУПИТЬ БИЛЕТЫ -->
-    <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <div class="row">
-            <div class="col">
-                <?php if ($car->isActive()) {
-                    echo $this->render('_booking', [
-                        'car' => $car,
-                    ]);
-                } else {
-                    echo '<span class="badge badge-danger" style="font-size: 16px">' . Lang::t('Прокат не активен.') . '<p></p>' . Lang::t('Бронирование недоступно.') . '</span>';
-                }
-                ?>
-                <div class="rating">
-                    <p>
-                        <?= RatingWidget::widget(['rating' => $car->rating]); ?>
-                        <a href="#review">
-                            <?= $countReveiws ?> <?= Lang::t('отзывов') ?>
-                        </a>
-                        &nbsp;
-                    </p>
-                    <hr>
-                </div>
-            </div>
+<?php endif; ?>
+<!-- Дополнения -->
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Дополнения') ?></div>
         </div>
-        <div class="row">
-            <div class="col">
-                <?= LegalWidget::widget(['legal' => $car->legal]) ?>
-            </div>
-        </div>
+        <table class="table table-bordered">
+            <tbody>
+            <?php foreach ($car->extra as $extra): ?>
+                <?php if (!empty($extra->name)): ?>
+                    <tr>
+                        <th><?= Html::encode($extra->getName()) ?></th>
+                        <td><?= Html::encode($extra->getDescription()) ?></td>
+                        <td><?= CurrencyHelper::get($extra->cost) ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
+<!-- КУПИТЬ БИЛЕТЫ -->
+<?php if ($mobile): ?>
+    <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+            <?= $this->render('_block_booking', [
+                'car' => $car,
+            ])?>
+        </div>
+    </div>
+<?php endif;?>
+<!-- Координаты -->
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
+        </div>
+        <div class="params-item-map">
+            <div class="row pb-2">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <?= BtnGeo::widget([
+                        'caption' => 'Точки проката',
+                        'target_id' => 'collapse-map',
+                    ]) ?>
+                </div>
+                <div class="col-sm-6 col-md-8 col-lg-9" id="address"></div>
+            </div>
+            <div class="collapse" id="collapse-map">
+                <div class="card card-body card-map">
+                    <div id="count-points" data-count="<?= count($car->address) ?>">
+                        <?php foreach ($car->address as $i => $address): ?>
+                            <input type="hidden" id="address-<?= ($i + 1) ?>" value="<?= $address->address ?>">
+                            <input type="hidden" id="latitude-<?= ($i + 1) ?>"
+                                   value="<?= $address->latitude ?>">
+                            <input type="hidden" id="longitude-<?= ($i + 1) ?>"
+                                   value="<?= $address->longitude ?>">
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="row">
+                        <div id="map-car-view" style="width: 100%; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ОТЗЫВЫ -->
+<div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+        <!-- Виджет подгрузки отзывов -->
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
+        </div>
+        <div id="review">
+            <?= ReviewsWidget::widget(['reviews' => $car->reviews]); ?>
+        </div>
+        <?= NewReviewCarWidget::widget(['car_id' => $car->id]); ?>
+    </div>
+</div>
+
 <div itemtype="https://schema.org/Offer" itemscope>
     <meta itemprop="name" content="<?= $car->getName() ?>" />
     <meta itemprop="description" content="<?= Lang::t('Прокат авто') ?>" />

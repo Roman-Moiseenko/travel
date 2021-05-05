@@ -54,7 +54,6 @@ $countReveiws = $tour->countReviews();
     } ?>
 </div>
 <!-- ОПИСАНИЕ -->
-
 <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col-md-8 <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Заголовок тура-->
@@ -87,7 +86,6 @@ $countReveiws = $tour->countReviews();
                 ]) ?>
             </div>
         </div>
-
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <?php if (!$mobile): ?>
@@ -99,8 +97,8 @@ $countReveiws = $tour->countReviews();
     <?php endif;?>
 </div>
 <!-- Стоимость -->
-<div class="row <?= $mobile ? ' style="width: 100vw"' : '' ?> pt-4">
-    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
@@ -133,15 +131,14 @@ $countReveiws = $tour->countReviews();
                 </span>
             <p></p>
         <?php endif; ?>
-
         <span class="params-item">
                     <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени') ?>
                 </span>
     </div>
 </div>
 <!-- Параметры -->
-<div class="row <?= $mobile ? ' style="width: 100vw"' : '' ?> pt-4">
-    <div class="col <?= $mobile ? ' ml-2' : '' ?> params-tour">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
             <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
@@ -176,7 +173,7 @@ $countReveiws = $tour->countReviews();
     </div>
 </div>
 <!-- Дополнения -->
-<div class="row <?= $mobile ? ' style="width: 100vw"' : '' ?> pt-4">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
@@ -197,10 +194,9 @@ $countReveiws = $tour->countReviews();
         </table>
     </div>
 </div>
-
 <!-- КУПИТЬ БИЛЕТЫ -->
 <?php if ($mobile): ?>
-<div class="row <?= $mobile ? ' style="width: 100vw"' : '' ?> pt-4">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <?= $this->render('_block_booking', [
             'tour' => $tour,
@@ -209,7 +205,7 @@ $countReveiws = $tour->countReviews();
 </div>
 <?php endif;?>
 <!-- Координаты -->
-<div class="row <?= $mobile ? ' style="width: 100vw"' : '' ?> pt-4">
+<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
                 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
@@ -320,7 +316,7 @@ $countReveiws = $tour->countReviews();
 </div>
 <!-- ОТЗЫВЫ -->
 <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col">
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Виджет подгрузки отзывов -->
         <div class="container-hr">
             <hr/>
@@ -332,7 +328,6 @@ $countReveiws = $tour->countReviews();
         <?= NewReviewTourWidget::widget(['tour_id' => $tour->id]); ?>
     </div>
 </div>
-
 
 <div itemtype="https://schema.org/TouristTrip" itemscope>
     <meta itemprop="name" content="<?= Lang::t('Экскурсия ') . $tour->getName() ?>"/>

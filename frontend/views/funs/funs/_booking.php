@@ -12,9 +12,7 @@ DatepickerAsset::register($this);
 ?>
 
 <div class="card bg-booking-widget">
-
     <div class="card-body">
-
         <?= Html::beginForm(['funs/checkout/booking']); ?>
         <input type="hidden" id="number-fun" name="fun-id" value="<?= $fun->id ?>">
         <label for="datepicker-fun"><b><?= Lang::t('Выберите дату') ?></b></label>

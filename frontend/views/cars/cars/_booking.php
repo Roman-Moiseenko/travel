@@ -11,10 +11,8 @@ DatepickerAsset::register($this);
 ?>
 
 <div class="card bg-booking-widget">
-
     <div class="card-body">
         <input type="hidden" id="number-car" value="<?= $car->id ?>">
-
         <div class="row">
             <div class="col">
             <label for="datepicker-car-from"><b><?= Lang::t('Выберите') ?></b></label>
@@ -44,6 +42,5 @@ DatepickerAsset::register($this);
         <div id="rent-car"></div>
         <p></p>
         <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $car->isConfirmation(), 'btn_id' => 'button-booking-car']) ?>
-
     </div>
 </div>
