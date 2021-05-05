@@ -4,6 +4,7 @@ use booking\entities\Lang;
 use booking\forms\booking\cars\SearchCarForm;
 use booking\helpers\cars\CarTypeHelper;
 use booking\helpers\CityHelper;
+use frontend\widgets\design\BtnFind;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -80,7 +81,8 @@ use yii\helpers\Html;
 <?php endforeach; ?>
 <div class="row">
     <div class="col text-center">
-        <button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button>
+        <?= BtnFind::widget() ?>
+        <!--button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button-->
     </div>
 </div>
 

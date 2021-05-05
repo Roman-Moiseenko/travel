@@ -7,6 +7,7 @@ use frontend\widgets\BlogLandingWidget;
 use frontend\widgets\RatingWidget;
 use kv4nt\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Url;
+use yii\web\JqueryAsset;
 
 /* @var $this yii\web\View */
 /* @var $images array */
@@ -15,6 +16,7 @@ $description = 'Отдых в Калининграде обзорные экск
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+//JqueryAsset::register($this);
 
 //SwiperAsset::register($this);
 ?>
@@ -92,6 +94,13 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="landing-block-center pb-2">
+        <div class="container">
+            <?= $this->render('_seo_text', [
+                    'mobile' => true,
+            ]) ?>
         </div>
     </div>
 </div>

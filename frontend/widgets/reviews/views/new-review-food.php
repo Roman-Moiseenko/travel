@@ -6,14 +6,16 @@
 
 use booking\entities\Lang;
 use booking\forms\foods\ReviewFoodForm;
+use frontend\widgets\design\BtnReview;use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-        data-target="#collapse-review"
-        aria-expanded="false" aria-controls="collapse-review">
-    <?= Lang::t('Оставить отзыв') ?>
-</button>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <?= BtnReview::widget(['caption' => 'Оставить отзыв', 'target_id' => 'collapse-review'])?>
+    </div>
+</div>
+
 <div class="collapse pt-4" id="collapse-review">
     <?php $form = ActiveForm::begin([
        // 'action' => [$action, 'id' => $id],
@@ -39,14 +41,19 @@ use yii\helpers\Html; ?>
     <?= $form->field($reviewForm, 'username')->textInput([])->label(Lang::t('Ваше Имя')); ?>
         </div>
         <div class="col-md-3 col-sm-6">
-
-    <?= $form->field($reviewForm, 'email')->textInput([])->label(Lang::t('Ваш email'))->hint(Lang::t('Не публикуется')); ?>
+            <?= $form->field($reviewForm, 'email')->textInput([])->label(Lang::t('Ваш email'))->hint(Lang::t('Не публикуется')); ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
     <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Комментарий') . ':'); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary btn-lg']) ?>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+        <?= BtnSend::widget(['caption' => 'Отправить'])?>
+        </div>
+    </div>
+
     <?php ActiveForm::end() ?>
 </div>

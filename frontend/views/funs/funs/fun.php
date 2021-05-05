@@ -10,6 +10,7 @@ use booking\helpers\SysHelper;
 use frontend\assets\FunAsset;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnGeo;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
@@ -86,154 +87,7 @@ $countReveiws = $fun->countReviews();
 
             </div>
         </div>
-        <!-- Стоимость -->
-        <div class="row pt-4">
-            <div class="col params-tour">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
-                </div>
-                <span class="params-item">
-                    <?php if ($fun->baseCost->adult): ?>
-                        <i class="fas fa-user"></i>&#160;&#160;<?= Lang::t('Взрослый билет') ?> <span
-                                class="price-view">
-                            <?= CurrencyHelper::get($fun->baseCost->adult) ?>
-                        </span>
-                    <?php endif; ?>
-                </span>
-                <p></p>
-                <?php if ($fun->baseCost->child): ?>
-                    <span class="params-item">
-                    <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
-                    <span class="price-view">
-                        <?= CurrencyHelper::get($fun->baseCost->child) ?>
-                    </span>
-                </span>
-                    <p></p>
-                <?php endif; ?>
-                <?php if ($fun->baseCost->preference): ?>
-                    <span class="params-item">
-                    <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
-                                class="price-view">
-                    <?= CurrencyHelper::get($fun->baseCost->preference) ?>
-                    </span>
-                </span>
-                    <p></p>
-                <?php endif; ?>
 
-                <span class="params-item">
-                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Стоимость билета может меняться в зависимости от даты') ?>
-                </span>
-            </div>
-        </div>
-        <!-- Параметры -->
-        <div class="row pt-4">
-            <div class="col params-tour">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
-                </div>
-
-                <span class="params-item">
-                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . BookingHelper::ageLimit($fun->params->ageLimit) ?>
-                </span>
-                <span class="params-item">
-                    <i class="fas fa-ban"></i>&#160;&#160;<?= BookingHelper::cancellation($fun->cancellation) ?>
-                </span>
-                <!-- Режим работы -->
-                <span class="params-item">
-                    <i class="fas fa-hot-tub"></i>&#160;&#160; <?= Lang::t('Режим работы') ?><br><?= WorkModeHelper::weekMode($fun->params->workMode) ?>
-                </span>
-
-
-            </div>
-        </div>
-        <!-- Характеристики -->
-        <?php if ($fun->values): ?>
-            <div class="row pt-4">
-                <div class="col params-tour">
-                    <div class="container-hr">
-                        <hr/>
-                        <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
-                    </div>
-                    <?php foreach ($fun->values as $value): ?>
-                        <span class="params-item">
-                    <i class="fas fa-dot-circle"></i>&#160;&#160;
-                    <?= Lang::t($value->characteristic->name) . ': ' . $value->value ?>
-                </span>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <!-- Дополнения -->
-        <div class="row pt-4">
-            <div class="col">
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Дополнения') ?></div>
-                </div>
-                <table class="table table-bordered">
-                    <tbody>
-                    <?php foreach ($fun->extra as $extra): ?>
-                        <?php if (!empty($extra->name)): ?>
-                            <tr>
-                                <th><?= Html::encode($extra->getName()) ?></th>
-                                <td><?= Html::encode($extra->getDescription()) ?></td>
-                                <td><?= CurrencyHelper::get($extra->cost) ?></td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- Координаты -->
-        <div class="row pt-4">
-            <div class="col">
-                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
-                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
-                </div>
-                <div class="params-item-map">
-                    <div class="row">
-                        <div class="col-3">
-                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
-                                    data-target="#collapse-map"
-                                    aria-expanded="false" aria-controls="collapse-map">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </button>&#160;<?= Lang::t('Адрес') ?>:
-                        </div>
-                        <div class="col-9 align-self-center" id="address"><?= $fun->address->address ?></div>
-                    </div>
-                    <div class="collapse" id="collapse-map">
-                        <div class="card card-body card-map">
-                            <input type="hidden" id="latitude" value="<?= $fun->address->latitude ?>">
-                            <input type="hidden" id="longitude" value="<?= $fun->address->longitude ?>">
-                            <div class="row">
-                                <div id="map-fun-view" style="width: 100%; height: 300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- ОТЗЫВЫ -->
-        <div class="row">
-            <div class="col">
-                <!-- Виджет подгрузки отзывов -->
-                <div class="container-hr">
-                    <hr/>
-                    <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
-                </div>
-                <div id="review">
-                    <?= ReviewsWidget::widget(['reviews' => $fun->reviews]); ?>
-                </div>
-                <?= NewReviewFunWidget::widget(['fun_id' => $fun->id]); ?>
-            </div>
-        </div>
     </div>
     <!-- КУПИТЬ БИЛЕТЫ -->
     <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
@@ -266,6 +120,154 @@ $countReveiws = $fun->countReviews();
         </div>
     </div>
 </div>
+<!-- Стоимость -->
+<div class="row pt-4">
+    <div class="col params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
+        </div>
+        <span class="params-item">
+                    <?php if ($fun->baseCost->adult): ?>
+                        <i class="fas fa-user"></i>&#160;&#160;<?= Lang::t('Взрослый билет') ?> <span
+                                class="price-view">
+                            <?= CurrencyHelper::get($fun->baseCost->adult) ?>
+                        </span>
+                    <?php endif; ?>
+                </span>
+        <p></p>
+        <?php if ($fun->baseCost->child): ?>
+            <span class="params-item">
+                    <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
+                    <span class="price-view">
+                        <?= CurrencyHelper::get($fun->baseCost->child) ?>
+                    </span>
+                </span>
+            <p></p>
+        <?php endif; ?>
+        <?php if ($fun->baseCost->preference): ?>
+            <span class="params-item">
+                    <i class="fab fa-accessible-icon"></i>&#160;&#160;<?= Lang::t('Льготный билет') ?> <span
+                        class="price-view">
+                    <?= CurrencyHelper::get($fun->baseCost->preference) ?>
+                    </span>
+                </span>
+            <p></p>
+        <?php endif; ?>
+
+        <span class="params-item">
+                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Стоимость билета может меняться в зависимости от даты') ?>
+                </span>
+    </div>
+</div>
+<!-- Параметры -->
+<div class="row pt-4">
+    <div class="col params-tour">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
+        </div>
+
+        <span class="params-item">
+                    <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Ограничения по возрасту') . ' ' . BookingHelper::ageLimit($fun->params->ageLimit) ?>
+                </span>
+        <span class="params-item">
+                    <i class="fas fa-ban"></i>&#160;&#160;<?= BookingHelper::cancellation($fun->cancellation) ?>
+                </span>
+        <!-- Режим работы -->
+        <span class="params-item">
+                    <i class="fas fa-hot-tub"></i>&#160;&#160; <?= Lang::t('Режим работы') ?><br><?= WorkModeHelper::weekMode($fun->params->workMode) ?>
+                </span>
+
+
+    </div>
+</div>
+<!-- Характеристики -->
+<?php if ($fun->values): ?>
+    <div class="row pt-4">
+        <div class="col params-tour">
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Характеристики') ?></div>
+            </div>
+            <?php foreach ($fun->values as $value): ?>
+                <span class="params-item">
+                    <i class="fas fa-dot-circle"></i>&#160;&#160;
+                    <?= Lang::t($value->characteristic->name) . ': ' . $value->value ?>
+                </span>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+<!-- Дополнения -->
+<div class="row pt-4">
+    <div class="col">
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Дополнения') ?></div>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+            <?php foreach ($fun->extra as $extra): ?>
+                <?php if (!empty($extra->name)): ?>
+                    <tr>
+                        <th><?= Html::encode($extra->getName()) ?></th>
+                        <td><?= Html::encode($extra->getDescription()) ?></td>
+                        <td><?= CurrencyHelper::get($extra->cost) ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Координаты -->
+<div class="row pt-4">
+    <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
+        </div>
+        <div class="params-item-map">
+            <div class="row pb-2">
+                <div class="col-3">
+                    <?= BtnGeo::widget([
+                        'caption' => 'Адрес',
+                        'target_id' => 'collapse-map',
+                    ]) ?>
+                </div>
+                <div class="col-9 align-self-center" id="address"><?= $fun->address->address ?></div>
+            </div>
+            <div class="collapse" id="collapse-map">
+                <div class="card card-body card-map">
+                    <input type="hidden" id="latitude" value="<?= $fun->address->latitude ?>">
+                    <input type="hidden" id="longitude" value="<?= $fun->address->longitude ?>">
+                    <div class="row">
+                        <div id="map-fun-view" style="width: 100%; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ОТЗЫВЫ -->
+<div class="row">
+    <div class="col">
+        <!-- Виджет подгрузки отзывов -->
+        <div class="container-hr">
+            <hr/>
+            <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
+        </div>
+        <div id="review">
+            <?= ReviewsWidget::widget(['reviews' => $fun->reviews]); ?>
+        </div>
+        <?= NewReviewFunWidget::widget(['fun_id' => $fun->id]); ?>
+    </div>
+</div>
+
 <div itemtype="https://schema.org/TouristTrip" itemscope>
     <meta itemprop="name" content="<?= Lang::t('Мероприятие ') . $fun->getName() ?>" />
     <meta itemprop="description" content="<?= strip_tags($fun->getDescription()) ?>" />

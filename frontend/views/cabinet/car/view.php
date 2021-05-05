@@ -13,6 +13,9 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnCancel;
+use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnPay;
 use frontend\widgets\LegalWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -85,34 +88,35 @@ $car = $booking->car;
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 22px;"><span class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
+                        <td style="font-size: 22px; color: #333;"><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></td>
 
                     </tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' ('. $booking->getPayment()->percent . '%)' ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 26px;"><span class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?> </span></td>
+                        <td style="font-size: 22px; color: #333;"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?></td>
                     </tr>
                     </tbody>
                 </table>
                 <?php if ($booking->isNew()): ?>
                     <div class="d-flex pay-tour py-3">
                         <div>
-                            <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
+                            <?= BtnCancel::widget([
+                                    'url' => Url::to(['/cabinet/car/delete', 'id' => $booking->id]),
+                            ]) ?>
                         </div>
                         <div class="ml-auto">
-                            <a href="<?= Url::to(['/cabinet/pay/car', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
-                            </a>
+                            <?= BtnPay::widget([
+                                    'url' =>  Url::to(['/cabinet/pay/car', 'id' => $booking->id]),
+                                'paid_locality' => $booking->isPaidLocally(),
+                            ])?>
                         </div>
                     </div>
                     <div style="font-size: 12px">
                         <?= Lang::t('* При предоплате, оставшаяся часть оплачивается на месте') ?><br>
                         <?php if ($booking->isPaidLocally()): ?>
-                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
+                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте прокат на месте.') ?>
                         <?php else: ?>
                             <?= Lang::t('* Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>
@@ -147,8 +151,10 @@ $car = $booking->car;
                     </ul>
                     <?php if ($booking->car->isCancellation($booking->begin_at)): ?>
                         <div class="py-3">
-                            <a href="<?= Url::to(['/cabinet/car/cancelpay', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
+                            <?= BtnCancel::widget([
+                                'url' => Url::to(['/cabinet/car/cancelpay', 'id' => $booking->id]),
+                                'caption' => 'Отменить бронирование'
+                            ]) ?>
                         </div>
                         <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
                     <?php endif; ?>
@@ -175,8 +181,10 @@ $car = $booking->car;
                     </ul>
                     <?php if ($booking->begin_at > time()): ?>
                         <div class="pt-3">
-                            <a href="<?= Url::to(['/cabinet/car/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
+                            <?= BtnCancel::widget([
+                                'url' => Url::to(['/cabinet/car/delete', 'id' => $booking->id]),
+                                'caption' => 'Отменить бронирование'
+                            ]) ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -307,23 +315,24 @@ $car = $booking->car;
             <!-- Координаты -->
             <div class="row pt-4">
                 <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                     <div class="container-hr">
                         <hr/>
                         <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-4">
-                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                                        data-target="#collapse-map"
-                                        aria-expanded="false" aria-controls="collapse-map">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Точки проката') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Точки проката',
+                                    'target_id' => 'collapse-map',
+                                ]) ?>
                             </div>
                             <div class="col-8" id="address"></div>
                         </div>
                         <div class="collapse" id="collapse-map">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div id="count-points" data-count="<?= count($car->address)?>">
                                     <?php foreach ($car->address as $i => $address): ?>
                                         <input type="hidden" id="address-<?= ($i+1)?>" value="<?= $address->address?>">

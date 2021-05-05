@@ -13,6 +13,9 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\funs\WorkModeHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnCancel;
+use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnPay;
 use frontend\widgets\LegalWidget;
 
 use yii\helpers\Html;
@@ -22,8 +25,9 @@ $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
 $this->params['breadcrumbs'][] = $this->title;
 
-MapAsset::register($this);
 MagnificPopupAsset::register($this);
+MapAsset::register($this);
+
 $fun = $booking->fun;
 $cost_fun = $booking->getCostClass();
 ?>
@@ -100,33 +104,34 @@ $cost_fun = $booking->getCostClass();
                         <th class="py-3 my-2"><?= Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 22px;"><span class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
+                        <td style="font-size: 22px; color: #333;"><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></td>
                     </tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' ('. $booking->getPayment()->percent . '%)' ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 26px;"><span class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?> </span></td>
+                        <td style="font-size: 22px; color: #333;"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay())?></td>
                     </tr>
                     </tbody>
                 </table>
                 <?php if ($booking->isNew()): ?>
                     <div class="d-flex pay-tour py-3">
                         <div>
-                            <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
+                            <?= BtnCancel::widget([
+                                'url' => Url::to(['/cabinet/fun/delete', 'id' => $booking->id]),
+                            ]) ?>
                         </div>
                         <div class="ml-auto">
-                            <a href="<?= Url::to(['/cabinet/pay/fun', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
-                            </a>
+                            <?= BtnPay::widget([
+                                'url' =>  Url::to(['/cabinet/pay/fun', 'id' => $booking->id]),
+                                'paid_locality' => $booking->isPaidLocally(),
+                            ])?>
                         </div>
                     </div>
                     <div style="font-size: 12px">
                         <?= Lang::t('* При предоплате, оставшаяся часть оплачивается на месте') ?><br>
                         <?php if ($booking->isPaidLocally()): ?>
-                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте туры на месте.') ?>
+                            <?= Lang::t('* Подтверждение бронирования - бесплатно. Оплачивайте мероприятие на месте.') ?>
                         <?php else: ?>
                             <?= Lang::t('* Перед оплатой бронирования, ознакомьтесь с нашей') . ' ' . Html::a(Lang::t('Политикой возврата'), Url::to(['/refund'])) ?>
                         <?php endif; ?>
@@ -197,7 +202,7 @@ $cost_fun = $booking->getCostClass();
             </div>
         <?php endif; ?>
     </div>
-    <!-- Информация от развлечении -->
+    <!-- Информация о развлечении -->
     <div class="card shadow-sm my-2">
         <div class="card-body">
             <!-- Заголовок Развлечения-->
@@ -335,23 +340,24 @@ $cost_fun = $booking->getCostClass();
             <!-- Координаты -->
             <div class="row pt-4">
                 <div class="col">
+                <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
+                      data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                     <div class="container-hr">
                         <hr/>
                         <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-3">
-                                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-                                        data-target="#collapse-map"
-                                        aria-expanded="false" aria-controls="collapse-map">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Адрес') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Адрес',
+                                    'target_id' => 'collapse-map',
+                                ]) ?>
                             </div>
                             <div class="col-9 align-self-center" id="address"></div>
                         </div>
                         <div class="collapse" id="collapse-map">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
 
                                 <input type="hidden" id="latitude" value="<?= $fun->address->latitude ?>">
                                 <input type="hidden" id="longitude" value="<?= $fun->address->longitude ?>">
@@ -367,12 +373,12 @@ $cost_fun = $booking->getCostClass();
 
         </div>
     </div>
-    <!-- Информация от развлечении -->
+    <!-- Информация о развлечении -->
     <div class="card py-2 shadow-sm my-2">
         <div class="card-body">
             <h2><?= Lang::t('Безопасность') ?></h2>
             <span class="select-text">
-<?= Lang::t('Организатор мероприятия обеспечивает безопасность каждого участника. Организатор и/или сотрудник по безопасности имеет сертификат оказания первой помощи, а так же имеет при себе средства оказания первой медицинской помощи.') ?>
+        <?= Lang::t('Организатор мероприятия обеспечивает безопасность каждого участника. Организатор и/или сотрудник по безопасности имеет сертификат оказания первой помощи, а так же имеет при себе средства оказания первой медицинской помощи.') ?>
             <p>
                 <span class="select-row"><i
                             class="fas fa-phone-alt"></i> <?= Lang::t('Единый номер экстренных служб') ?>: <span

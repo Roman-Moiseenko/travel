@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\stays\StayHelper;
+use frontend\widgets\design\BtnFind;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 
@@ -136,7 +137,8 @@ $this->params['search']['children_age'] = $model->children_age;
         </div>
         <div class="row pt-4">
             <div class="col text-center">
-                <button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button>
+                <?= BtnFind::widget() ?>
+                <!--button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button-->
             </div>
         </div>
     </div>

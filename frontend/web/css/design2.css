@@ -1,48 +1,178 @@
 .d2-btn-box {
     display: flex;
     align-items: center;
+    align-self: center;
 }
 .d2-btn {
+    padding-left: 20px;
+    padding-right: 20px;
     border: 0;
     display: flex;
     align-items: center;
-    height: 50px;
+    align-self: center;
+    text-align: center;
+    height: 43px;
     font-size: 1.2rem;
-    justify-content: space-evenly;
-    border-radius: 15px;
+    justify-content: center;
+    border-radius: 10px;
    /* box-shadow: 0 10px 10px rgba(0, 0, 0, .2);*/
 }
 
-.d2-btn:hover, .d2-btn[disabled] {
-    background: rgba(0, 0, 0, .2);
+.d2-btn-sm {
+    height: 29px;
 }
+.d2-btn-lg {
+    height: 58px;
+}
+
 .d2-btn:disabled {
-    opacity: 50%;
+    background: #adadad !important;
+    color: #5f5f5f !important;
 }
 .d2-btn-block {
     width: 100%;
 }
+.d2-btn-caption {
+    margin-right: 10px;
+}
 .d2-btn-icon {
-    width: 35px;
-    height: 35px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     text-align: center;
-    line-height: 35px;
+    line-height: 28px;
     background: rgba(0, 0, 0, .3);
 }
-
+.d2-btn-sm>.d2-btn-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+.d2-btn-lg>.d2-btn-icon {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+}
 /*Цвета*/
-.d2-btn-buy {
-background: #1e486b;
+/** Основная кнопка. **/
+.d2-btn-main {
+    background: #229ac8;
     color: white;
 }
 
-.d2-btn-pay {
-    background: #0f400f;
+.d2-btn-main:hover {
+    background: #227aa5;
     color: white;
 }
+.d2-btn-main:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(35, 117, 160, 0.5);
+}
+/* Почта */
+.d2-btn-mail {
+    background: rgba(34, 154, 200, 0.33);
+    color: #227aa5;
+    border: 1px solid #229ac8;
+}
 
+.d2-btn-mail:hover {
+    background: #227aa5;
+    color: white;
+}
+.d2-btn-mail:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(35, 117, 160, 0.5);
+}
+/** Отменить **/
 .d2-btn-cancel {
-    background: #403d10;
+    background: #eeca6b;
+    color: black;
+}
+.d2-btn-cancel:hover {
+    background: #cba766;
     color: white;
+}
+.d2-btn-cancel:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(203, 167, 102, 0.5);
+}
+/* Координаты */
+.d2-btn-empty{
+    border: 1px solid #4f4f4f;
+    color: #4f4f4f;
+    background-color: #ffffff;
+}
+.d2-btn-empty:hover {
+    background: #4f4f4f;
+    color: white;
+}
+.d2-btn-empty:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.5);
+}
+/* badge */
+.d2-badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.d2-badge:empty {
+    display: none;
+}
+/* badge-цвета */
+.d2-badge-success{
+    color: white;
+    background-color: #168716;
+}
+.d2-badge-warning{
+    color: #323232;
+    background-color: #ffc107; /*#d78930;*/
+}
+.d2-badge-info{
+    color: white;
+    background-color: #206287;
+}
+.d2-badge-primary{
+    color: white;
+    background-color: #229ac8;
+}
+
+
+
+
+/************************************/
+/** Оплатить **/
+.d2-btn-pay {
+    background: #168716;
+    color: white;
+}
+.d2-btn-pay:hover {
+    background: #167316;
+    color: white;
+}
+.d2-btn-pay:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(22, 95, 22, 0.5);
+}
+
+/** Приобрести, проверить наличие **/
+.d2-btn-buy {
+    background: #206287;
+    color: white;
+}
+
+.d2-btn-buy:hover {
+    background: #1b5674;
+    color: white;
+}
+.d2-btn-buy:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(33, 117, 155, 0.5);
 }

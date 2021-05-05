@@ -65,6 +65,9 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
 
                 setTimeout(() => {
                     console.log('Идет тестирование загрузки метрики');
+                    if (document.getElementById('checkbox-1')) {
+                        document.getElementById('checkbox-1').checked = false;
+                    }
                     (function (m, e, t, r, i, k, a) {
                         m[i] = m[i] || function () {
                             (m[i].a = m[i].a || []).push(arguments)
@@ -86,7 +89,8 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
                     gtag('js', new Date());
                     gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
 
-                }, 2000)
+
+                }, 1000)
             }
         });
     </script>

@@ -7,6 +7,9 @@ use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnCancel;
+use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnPay;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -93,15 +96,14 @@ $stay = $booking->stay;
                         <th class="py-3 my-2"><?= Lang::t('Стоимость проживания') ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 22px;"><span
+                        <td style="font-size: 22px; color: #333;"><span
                                     class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
                     </tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' (' . $booking->getPayment()->percent . '%)' ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 26px;"><span
-                                    class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
+                        <td style="font-size: 22px; color: #333;"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?>
                         </td>
                     </tr>
                     </tbody>
@@ -109,14 +111,15 @@ $stay = $booking->stay;
                 <?php if ($booking->isNew()): ?>
                     <div class="d-flex pay-tour py-3">
                         <div>
-                            <a href="<?= Url::to(['/cabinet/stay/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
+                            <?= BtnCancel::widget([
+                                'url' => Url::to(['/cabinet/stay/delete', 'id' => $booking->id]),
+                            ]) ?>
                         </div>
                         <div class="ml-auto">
-                            <a href="<?= Url::to(['/cabinet/pay/stay', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
-                            </a>
+                            <?= BtnPay::widget([
+                                'url' =>  Url::to(['/cabinet/pay/stay', 'id' => $booking->id]),
+                                'paid_locality' => $booking->isPaidLocally(),
+                            ])?>
                         </div>
                     </div>
                     <div style="font-size: 12px">
@@ -208,19 +211,17 @@ $stay = $booking->stay;
                         <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-4">
-                                <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapse-map"
-                                        aria-expanded="false" aria-controls="collapse-map">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Место сбора') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Адрес',
+                                    'target_id' => 'collapse-map',
+                                ]) ?>
                             </div>
                             <div class="col-8"><?= $stay->address->address ?? ' ' ?></div>
                         </div>
                         <div class="collapse" id="collapse-map">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div class="row">
                                     <div class="col-8">
                                         <input id="bookingaddressform-address" class="form-control" width="100%"

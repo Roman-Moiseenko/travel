@@ -4,14 +4,18 @@
 /* @var $action string */
 
 use booking\entities\Lang;
+use frontend\widgets\design\BtnBooking;
+use frontend\widgets\design\BtnReview;
+use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<button class="btn btn-outline-secondary" type="button" data-toggle="collapse"
-        data-target="#collapse-review"
-        aria-expanded="false" aria-controls="collapse-review">
-    <?= Lang::t('Оставить отзыв') ?>
-</button>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <?= BtnReview::widget(['caption' => 'Оставить отзыв', 'target_id' => 'collapse-review'])?>
+    </div>
+</div>
+
 <div class="collapse pt-4" id="collapse-review">
     <?php $form = ActiveForm::begin(['action' => [$action, 'id' => $id]]) ?>
     <label>Ваша оценка:</label>
@@ -29,12 +33,15 @@ use yii\helpers\Html; ?>
             <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
         </div>
     </div>
-
-
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
     <?= $form->field($reviewForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Комментарий') . ':'); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary btn-lg']) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <?= BtnSend::widget(['caption' => 'Отправить'])?>
+        </div>
     </div>
     <?php ActiveForm::end() ?>
 </div>

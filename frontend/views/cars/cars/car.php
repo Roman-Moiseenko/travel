@@ -8,6 +8,7 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnGeo;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
@@ -200,13 +201,12 @@ $countReveiws = $car->countReviews();
                     <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                 </div>
                 <div class="params-item-map">
-                    <div class="row">
+                    <div class="row pb-2">
                         <div class="col-4">
-                            <button class="btn btn-outline-secondary loader_ymap" type="button" data-toggle="collapse"
-                                    data-target="#collapse-map"
-                                    aria-expanded="false" aria-controls="collapse-map">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </button>&#160;<?= Lang::t('Точки проката') ?>:
+                            <?= BtnGeo::widget([
+                                'caption' => 'Точки проката',
+                                'target_id' => 'collapse-map',
+                            ]) ?>
                         </div>
                         <div class="col-8" id="address"></div>
                     </div>

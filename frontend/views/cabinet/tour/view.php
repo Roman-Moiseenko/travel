@@ -14,6 +14,9 @@ use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\design\BtnCancel;
+use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnPay;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -101,15 +104,14 @@ $tour = $booking->calendar->tour;
                         <th class="py-3 my-2"><?= $tour->params->private ? Lang::t('Стоимость экскурсии') : Lang::t('Сумма платежа') ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 22px;"><span
+                        <td style="font-size: 22px; color: #333"><span
                                     class=""><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?> </span></td>
                     </tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' (' . $booking->getPayment()->percent . '%)' ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 26px;"><span
-                                    class="badge badge-info"><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
+                        <td style="font-size: 22px; color: #333"><span><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
                         </td>
                     </tr>
                     </tbody>
@@ -117,14 +119,15 @@ $tour = $booking->calendar->tour;
                 <?php if ($booking->isNew()): ?>
                     <div class="d-flex pay-tour py-3">
                         <div>
-                            <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить') ?></a>
+                            <?= BtnCancel::widget([
+                                'url' => Url::to(['/cabinet/tour/delete', 'id' => $booking->id]),
+                            ]) ?>
                         </div>
                         <div class="ml-auto">
-                            <a href="<?= Url::to(['/cabinet/pay/tour', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-primary">
-                                <?= Lang::t(($booking->isPaidLocally()) ? 'Подтвердить' : 'Оплатить') ?>
-                            </a>
+                            <?= BtnPay::widget([
+                                'url' =>  Url::to(['/cabinet/pay/stay', 'id' => $booking->id]),
+                                'paid_locality' => $booking->isPaidLocally(),
+                            ])?>
                         </div>
                     </div>
                     <div style="font-size: 12px">
@@ -291,19 +294,17 @@ $tour = $booking->calendar->tour;
                         <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-4">
-                                <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapse-map"
-                                        aria-expanded="false" aria-controls="collapse-map">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Место сбора') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Место сбора',
+                                    'target_id' => 'collapse-map',
+                                ]) ?>
                             </div>
                             <div class="col-8"><?= $tour->params->beginAddress->address ?? ' ' ?></div>
                         </div>
                         <div class="collapse" id="collapse-map">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div class="row">
                                     <div class="col-8">
                                         <input id="bookingaddressform-address" class="form-control" width="100%"
@@ -327,20 +328,17 @@ $tour = $booking->calendar->tour;
                         </div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-4">
-
-                                <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapse-map-2"
-                                        aria-expanded="false" aria-controls="collapse-map-2">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Место окончания') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Место окончания',
+                                    'target_id' => 'collapse-map-2',
+                                ]) ?>
                             </div>
                             <div class="col-8"><?= $tour->params->endAddress->address ?></div>
                         </div>
                         <div class="collapse" id="collapse-map-2">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div class="row">
                                     <div class="col-8">
                                         <input id="bookingaddressform-address-2" class="form-control" width="100%"
@@ -363,20 +361,17 @@ $tour = $booking->calendar->tour;
                         </div>
                     </div>
                     <div class="params-item-map">
-                        <div class="row">
+                        <div class="row pb-2">
                             <div class="col-4">
-
-                                <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapse-map-3"
-                                        aria-expanded="false" aria-controls="collapse-map-2">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>&#160;<?= Lang::t('Место проведение') ?>:
+                                <?= BtnGeo::widget([
+                                    'caption' => 'Место проведение',
+                                    'target_id' => 'collapse-map-3',
+                                ]) ?>
                             </div>
                             <div class="col-8"><?= $tour->address->address ?? ' ' ?></div>
                         </div>
                         <div class="collapse" id="collapse-map-3">
-                            <div class="card card-body">
+                            <div class="card card-body card-map">
                                 <div class="row">
                                     <div class="col-8">
                                         <input id="bookingaddressform-address-3" class="form-control" width="100%"

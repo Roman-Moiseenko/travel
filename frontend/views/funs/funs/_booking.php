@@ -4,6 +4,7 @@
 use booking\entities\booking\funs\Fun;
 use booking\entities\Lang;
 use frontend\assets\DatepickerAsset;
+use frontend\widgets\design\BtnBooking;
 use yii\helpers\Html;
 
 /* @var $fun Fun */
@@ -25,16 +26,6 @@ DatepickerAsset::register($this);
         </div>
         <div class="list-times"></div>
         <p></p>
-        <div class="form-group">
-            <?= Html::submitButton(
-                $fun->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести'),
-                [
-                    'class' => 'btn btn-lg btn-primary btn-block',
-                    'disabled' => 'disabled',
-                    'id' => 'button-booking-fun'
-                ]
-            ) ?>
-        </div>
-        <?= Html::endForm() ?>
+        <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $fun->isConfirmation(), 'btn_id' => 'button-booking-fun']) ?>
     </div>
 </div>

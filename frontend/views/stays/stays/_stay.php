@@ -6,6 +6,7 @@ use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\stays\StayHelper;
 use booking\helpers\SysHelper;
+use frontend\widgets\design\BtnStayCheck;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
@@ -125,9 +126,9 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                             </div>
                         </div>
                         <div class="ml-auto mt-1 mr-1">
-                            <a href="<?= Html::encode($url) ?>" class="btn btn-lg btn-primary"
-                               style="height: 58px; align-items: center; display: inline-flex;">Проверить наличие
-                                мест</a>
+                            <?= BtnStayCheck::widget(['url' => $url, 'caption' => 'Проверить наличие мест']) ?>
+
+
                         </div>
                     </div>
                 </div>

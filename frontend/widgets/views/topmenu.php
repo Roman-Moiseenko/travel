@@ -137,14 +137,14 @@ use yii\helpers\Url;
                     <li class="nav-item">
                         <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'food' ? 'active' : '' ?>"
                            href="<?= Html::encode(Url::to(['/foods'])) ?>">
-                        <span class="badge badge-success"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_FOOD) ?>
+                        <span class="d2-badge d2-badge-success"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_FOOD) ?>
                         &#160;<?= Lang::t('Где поесть') ?></span>
                         </a>
                     </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'shops/shops' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/shops'])) ?>">
-                        <span class="badge badge-warning"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_SHOP) ?>
+                        <span class="d2-badge d2-badge-warning"><?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_SHOP) ?>
                         &#160;<?= Lang::t('Shop') ?></span>
                     </a>
                 </li>

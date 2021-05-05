@@ -8,7 +8,7 @@ use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
-use frontend\widgets\GalleryWidget;
+use frontend\widgets\design\BtnGeo;use frontend\widgets\GalleryWidget;
 use frontend\widgets\reviews\NewReviewFoodWidget;
 use frontend\widgets\reviews\ReviewsFoodWidget;
 use yii\helpers\Html;
@@ -157,15 +157,9 @@ $countReveiws = $food->countReviews();
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
                     <span id="count-points" data-count="<?= count($food->addresses) ?>"></span>
                     <div class="params-item-map">
-                        <div class="row">
-                            <div class="col-4">
-
-                                <button class="btn btn-outline-secondary loader_ymap" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapse-map-3"
-                                        aria-expanded="false" aria-controls="collapse-map-2">
-                                    <i class="fas fa-map-marked-alt"></i>&#160;<?= Lang::t('Показать на карте') ?>
-                                </button>
+                        <div class="row pb-2">
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <?= BtnGeo::widget(['caption' => 'Показать на карте', 'target_id' => 'collapse-map-3']) ?>
                                 <?php foreach ($food->addresses as $i => $address): ?>
                                     <input type="hidden" id="address-<?=$i+1?>" value="<?= $address->address?>">
                                     <input type="hidden" id="phone-<?=$i+1?>" value="<?= $address->phone?>">

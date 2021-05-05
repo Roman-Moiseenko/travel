@@ -3,6 +3,7 @@
 use booking\entities\booking\cars\Car;
 use booking\entities\Lang;
 use frontend\assets\DatepickerAsset;
+use frontend\widgets\design\BtnBooking;
 use yii\helpers\Html;
 
 /* @var $car Car */
@@ -42,8 +43,7 @@ DatepickerAsset::register($this);
         </div>
         <div id="rent-car"></div>
         <p></p>
-        <div class="form-group">
-            <button class="btn btn-lg btn-primary btn-block" id="button-booking-car" disabled><?= $car->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Оплатить') ?></button>
-        </div>
+        <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $car->isConfirmation(), 'btn_id' => 'button-booking-car']) ?>
+
     </div>
 </div>

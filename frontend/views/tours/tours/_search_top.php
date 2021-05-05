@@ -2,8 +2,10 @@
 
 use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
+use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use booking\helpers\tours\TourTypeHelper;
+use frontend\widgets\design\BtnFind;
 use kartik\widgets\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -52,7 +54,25 @@ use yii\helpers\Html;
                 <label class="label-search"><?= Lang::t('Тип') ?>:</label>
                 <div class="form-inline">
                     <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label(false); ?>
-                    &#160;<?= Html::submitButton(Lang::t('Найти'), ['class' => 'btn btn-primary', 'style' => 'border: 0 !important;']) ?>
+                    &#160;<?= '' ;//Html::submitButton(Lang::t('Найти'), ['class' => 'btn btn-primary', 'style' => 'border: 0 !important;']) ?>
+                    <?php if (SysHelper::isMobile()): ?>
+                        <div class="d2-btn-box" style="margin-top: -12px">
+                            <button type="submit" class="d2-btn d2-btn d2-btn-block d2-btn-sm d2-btn-main" title="<?= Lang::t('Найти') ?>">
+                                <div class="d2-btn-caption"><?= Lang::t('Найти')?></div>
+                                <div class="d2-btn-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </button>
+                        </div>
+                    <?php else: ?>
+                    <div class="d2-btn-box">
+                        <button type="submit" class="d2-btn d2-btn d2-btn-sm d2-btn-main" title="<?= Lang::t('Найти') ?>">
+                            <div class="d2-btn-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

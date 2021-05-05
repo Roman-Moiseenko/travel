@@ -426,23 +426,30 @@ newerton\fancybox\FancyBox::widget([
                                 <span class="py-2 my-2" id="amount-booking" style="color: #122b40; font-size: 48px; font-weight: 800"></span>
                             </div>
                             <div class="form-group pt-2">
+                                <div class="d2-btn-box">
+                                    <button class="d2-btn d2-btn-lg d2-btn-block d2-btn-main new-booking" type="submit" id="new-booking">
+                                        <div class="d2-btn-caption"><?= Lang::t('Забронировать') ?></div>
+                                        <div class="d2-btn-icon">
+                                            <i class="fas fa-credit-card"></i>
+                                        </div>
+                                    </button>
+                                </div>
 
-
-                                <?= Html::submitButton(
+                                <?= '' /*Html::submitButton(
                                     Lang::t('Забронировать'),
                                     [
                                         'class' => 'btn btn-lg btn-primary form-control new-booking',
                                         'id' => 'new-booking',
                                         'style' => 'height: 60px; align-items: center; text-align: center; display: none;',
                                     ]
-                                ) ?>
+                                ) */?>
 
                             </div>
                             <div>
                                 <span class="new-booking" style="font-size: 24px; color: #0a0a0a; display: none;">
                                     <?= Lang::t('предоплата') ?> (<span id="amount-percent"></span>%):
                                 </span><br>
-                                <span class="py-2 my-2 badge badge-success" id="amount-prepay" style="font-size: 38px; font-weight: 800"></span>
+                                <span class="py-2 my-2 d2-badge d2-badge-success" id="amount-prepay" style="font-size: 38px; font-weight: 800"></span>
                             </div>
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
                             </div>
