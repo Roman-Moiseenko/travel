@@ -1294,3 +1294,9 @@ ul.pagination>li.active a:focus {
     padding-top: 10px;
     letter-spacing: 1px;
 }
+
+.amount-booking {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}

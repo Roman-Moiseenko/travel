@@ -419,7 +419,7 @@ newerton\fancybox\FancyBox::widget([
                 }?>
 
                             <div class="mb-auto" style="align-items: center; text-align: center; display: inline-flex;">
-                                <span class="py-2 my-2" id="amount-booking" style="color: #122b40; font-size: 48px; font-weight: 800"></span>
+                                <div class="py-2 my-2" id="amount-booking" style="color: #333; font-size: 38px; font-weight: 800"></div>
                             </div>
                             <div class="form-group pt-2">
                                 <div class="d2-btn-box">
@@ -432,10 +432,10 @@ newerton\fancybox\FancyBox::widget([
                                 </div>
                             </div>
                             <div>
-                                <span class="new-booking" style="font-size: 24px; color: #0a0a0a; display: none;">
+                                <span class="new-booking" style="font-size: 18px; color: #0a0a0a; display: none;">
                                     <?= Lang::t('предоплата') ?> (<span id="amount-percent"></span>%):
-                                </span><br>
-                                <span class="py-2 my-2 d2-badge d2-badge-success" id="amount-prepay" style="font-size: 38px; font-weight: 800"></span>
+                                </span>
+                                <div class="py-4 my-2" id="amount-prepay" style="font-size: 38px; font-weight: 800; color: #333"></div>
                             </div>
                             <div id="error-booking" style="color: #530000; font-weight: 600; font-size: 16px;">
                             </div>
