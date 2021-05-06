@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\entities\shops\products\Product;
 use booking\helpers\CurrencyHelper;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -30,12 +31,7 @@ $url = Url::to(['/shop/product/' . $product->id]);
             </div>
         <?php endif; ?>
         <div class="block-wishlist">
-            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                    title="<?= Lang::t('В избранное') ?>"
-                    href="<?= Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id]) ?>"
-                    data-method="post">
-                <i class="fa fa-heart"></i>
-            </button>
+            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id]) ]) ?>
         </div>
         <div>
             <div class="caption">

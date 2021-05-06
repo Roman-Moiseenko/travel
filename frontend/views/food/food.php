@@ -8,7 +8,9 @@ use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
-use frontend\widgets\design\BtnGeo;use frontend\widgets\GalleryWidget;
+use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnWish;
+use frontend\widgets\GalleryWidget;
 use frontend\widgets\reviews\NewReviewFoodWidget;
 use frontend\widgets\reviews\ReviewsFoodWidget;
 use yii\helpers\Html;
@@ -57,12 +59,7 @@ $countReveiws = $food->countReviews();
                             <h1><?= Html::encode($food->name) ?></h1>
                         </div>
                         <div class="btn-group">
-                            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                                    title="<?= Lang::t('В избранное') ?>"
-                                    href="<?= Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id]) ?>"
-                                    data-method="post">
-                                <i class="fa fa-heart"></i>
-                            </button>
+                            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id]) ]) ?>
                         </div>
                     </div>
                 </div>

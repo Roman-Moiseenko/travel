@@ -110,6 +110,26 @@
     outline: none;
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.5);
 }
+
+/** Избранное **/
+.d2-btn-wish {
+    padding: 7.5px 12px;
+    height: 32px;
+    border-radius: 22px !important;
+    border-width: 0 !important;
+    background: #df5c39 !important;
+    color: white !important;
+}
+
+.d2-btn-wish:hover {
+    background: #cb5a37 !important;
+    color: white !important;
+}
+.d2-btn-wish:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(203, 90, 55, 0.5);
+}
+
 /* badge */
 .d2-badge {
     display: inline-block;

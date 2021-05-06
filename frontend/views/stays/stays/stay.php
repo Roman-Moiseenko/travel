@@ -14,6 +14,7 @@ use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\assets\MapStayAsset;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewFunWidget;
@@ -246,12 +247,7 @@ newerton\fancybox\FancyBox::widget([
                             <h1><?= Html::encode($stay->getName()) ?></h1>
                         </div>
                         <div class="btn-group">
-                            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                                    title="<?= Lang::t('В избранное') ?>"
-                                    href="<?= Url::to(['/cabinet/wishlist/add-stay', 'id' => $stay->id]) ?>"
-                                    data-method="post">
-                                <i class="fa fa-heart"></i>
-                            </button>
+                            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-stay', 'id' => $stay->id]) ]) ?>
                         </div>
                     </div>
                 </div>

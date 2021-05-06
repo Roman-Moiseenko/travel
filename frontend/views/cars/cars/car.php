@@ -9,6 +9,7 @@ use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
@@ -63,12 +64,7 @@ $countReveiws = $car->countReviews();
                         <h1><?= Html::encode($car->getName()) ?></h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                                title="<?= Lang::t('В избранное') ?>"
-                                href="<?= Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ?>"
-                                data-method="post">
-                            <i class="fa fa-heart"></i>
-                        </button>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ]) ?>
                     </div>
                 </div>
             </div>

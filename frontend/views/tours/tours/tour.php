@@ -10,6 +10,7 @@ use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\design\BtnGeo;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewTourWidget;
@@ -64,12 +65,7 @@ $countReveiws = $tour->countReviews();
                         <h1><?= Html::encode($tour->getName()) ?></h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                                title="<?= Lang::t('В избранное') ?>"
-                                href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>"
-                                data-method="post">
-                            <i class="fa fa-heart"></i>
-                        </button>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ]) ?>
                     </div>
                 </div>
             </div>

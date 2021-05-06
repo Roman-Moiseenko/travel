@@ -3,6 +3,7 @@
 use booking\entities\booking\funs\Fun;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
@@ -26,12 +27,7 @@ use yii\helpers\Url;
             </div>
         <?php endif; ?>
         <div class="block-wishlist">
-            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                    title="<?= Lang::t('В избранное') ?>"
-                    href="<?= Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ?>"
-                    data-method="post">
-                <i class="fa fa-heart"></i>
-            </button>
+            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ]) ?>
         </div>
         <?php if ($fun->isNew()): ?>
             <div class="new-object-booking"><span class="new-text">new</span></div>

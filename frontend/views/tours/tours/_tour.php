@@ -4,6 +4,7 @@ use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SysHelper;
+use frontend\widgets\design\BtnWish;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
@@ -36,12 +37,7 @@ $mobile = SysHelper::isMobile();
             </div>
         <?php endif; ?>
         <div class="block-wishlist">
-            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                    title="<?= Lang::t('В избранное') ?>"
-                    href="<?= Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ?>"
-                    data-method="post">
-                <i class="fa fa-heart"></i>
-            </button>
+            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-tour', 'id' => $tour->id]) ]) ?>
         </div>
         <?php if ($tour->isNew()): ?>
             <div class="new-object-booking"><span class="new-text">new</span></div>

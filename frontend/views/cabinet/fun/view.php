@@ -208,18 +208,8 @@ $cost_fun = $booking->getCostClass();
             <!-- Заголовок Развлечения-->
             <div class="row pb-3">
                 <div class="col-12">
-                    <div class="d-flex align-items-center">
-                        <div class="mr-auto">
+                    <div class="align-items-center">
                             <h1><?= Html::encode($fun->getName()) ?></h1>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" data-toggle="tooltip" class="btn btn-info btn-wish"
-                                    title="<?= Lang::t('В избранное') ?>"
-                                    href="<?= Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ?>"
-                                    data-method="post">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
