@@ -3,6 +3,8 @@
 use booking\entities\booking\BaseBooking;
 use booking\forms\booking\ConfirmationForm;
 use booking\entities\Lang;
+use frontend\widgets\design\BtnBooking;
+use frontend\widgets\design\BtnConfirmation;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-4">
         <?= $form->field($model, 'confirmation')->textInput()->label(Lang::t('Код подтверждения брони')); ?>
         <div class="form-group">
-            <?= Html::submitButton(Lang::t('Подтвердить'), ['class' => 'btn-lg btn-primary']) ?>
+            <?= BtnConfirmation::widget([]) ?>
         </div>
     </div>
 </div>

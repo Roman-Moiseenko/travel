@@ -4,6 +4,7 @@ use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\user\PersonalForm;
 use booking\helpers\country\CountryHelper;
+use frontend\widgets\design\BtnSave;
 use kartik\widgets\DatePicker;
 use kartik\widgets\FileInput;
 use yii\bootstrap4\ActiveForm;
@@ -87,8 +88,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 Html::a(Lang::t('Политику конфиденциальности'), Url::to(['/policy']), ['target' => '_blank'])
             ); ?>
     </div>
+
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+        <?= BtnSave::widget() //Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

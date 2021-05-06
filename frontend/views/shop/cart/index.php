@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SysHelper;
+use frontend\widgets\design\BtnToOrder;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -106,7 +107,8 @@ $mobil = SysHelper::isMobile();
                         <span><?= Lang::t('Итого') . ': ' . $cart->getAmount() . ' ' . Lang::t('товаров на') . ' ' . CurrencyHelper::stat($cost->getTotal()) ?></span>
                     </div>
                     <div class="pt-4 text-center">
-                        <?= Html::a(
+
+                        <?= BtnToOrder::widget(['url' => Url::to(['/cabinet/order/index'])])/* Html::a(
                             Lang::t('Оформить заказ'),
                             Url::to(['/cabinet/order/index']),
                             [
@@ -117,7 +119,7 @@ $mobil = SysHelper::isMobile();
                                     'prepare' => true,
                                 ],
                             ]
-                        ) ?>
+                        ) */?>
                     </div>
                 </div>
             </div>

@@ -179,7 +179,7 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
         return $this->payment;
     }
 
-    public function getConfirmationCode(): string
+    public function getConfirmationCode():? string
     {
         return $this->payment->confirmation;
     }

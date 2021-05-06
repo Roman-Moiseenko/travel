@@ -7,6 +7,7 @@
 
 use booking\entities\Lang;
 use booking\forms\user\SignupForm;
+use frontend\widgets\design\BtnSignUp;
 use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -62,7 +63,7 @@ $this->title = Lang::t('Регистрация на портале турист�
                     </div>
 
                     <div class="form-group">
-                        <?= Html::submitButton(Lang::t('Зарегистрироваться'), ['class' => 'btn-lg btn-primary', 'name' => 'login-button']) ?>
+                        <?= BtnSignUp::widget() ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>

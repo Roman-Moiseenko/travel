@@ -6,6 +6,7 @@
 /* @var $model \booking\forms\auth\LoginForm */
 
 use booking\entities\Lang;
+use frontend\widgets\design\BtnLogin;
 use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -45,7 +46,7 @@ $this->title = Lang::t('Вход на сайт');
 
                         <?= $form->field($model, 'rememberMe')->checkbox()->label(Lang::t('Запомнить меня')) ?>
                         <div class="form-group">
-                            <?= Html::submitButton(Lang::t('Войти'), ['class' => 'btn-lg btn-primary form-control', 'name' => 'login-button', 'style' => 'height: 42px;']) ?>
+                            <?= BtnLogin::widget() ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     </div>

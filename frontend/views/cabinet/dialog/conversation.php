@@ -7,6 +7,7 @@ use booking\entities\message\ThemeDialog;
 use booking\forms\message\ConversationForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
+use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -46,7 +47,7 @@ if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
             </div>
         </div>
         <div class="input-group">
-            <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary']) ?>
+            <?= BtnSend::widget(['caption' => 'Отправить'])?>
         </div>
         <?php ActiveForm::end() ?>
     </div>

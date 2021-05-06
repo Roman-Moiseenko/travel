@@ -125,7 +125,7 @@ $tour = $booking->calendar->tour;
                         </div>
                         <div class="ml-auto">
                             <?= BtnPay::widget([
-                                'url' =>  Url::to(['/cabinet/pay/stay', 'id' => $booking->id]),
+                                'url' =>  Url::to(['/cabinet/pay/tour', 'id' => $booking->id]),
                                 'paid_locality' => $booking->isPaidLocally(),
                             ])?>
                         </div>

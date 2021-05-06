@@ -5,7 +5,9 @@ use booking\entities\booking\BaseBooking;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
-use booking\helpers\SysHelper;use yii\helpers\Html;
+use booking\helpers\SysHelper;
+use frontend\widgets\design\BtnHistory;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $bookings BaseBooking[] */
@@ -83,8 +85,7 @@ $mobil = SysHelper::isMobile();
 <?php if ($active): ?>
 <div class="d-flex justify-content-center pt-4">
     <div>
-        <a href="<?= Url::to(['/cabinet/booking/history']) ?>" class="btn-lg btn-primary"><?= Lang::t('Прошедшие бронирования') ?></a>
+        <?= BtnHistory::widget(['url' => Url::to(['/cabinet/booking/history'])]) ?>
     </div>
-
 </div>
 <?php endif; ?>

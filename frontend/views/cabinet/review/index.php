@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <a class="caption-list" href="<?= $review->getLinks()['update'] ?>"
                                    title="<?= Lang::t('Изменить') ?>" style="position: relative; z-index: 9999;"><i
-                                            class="fas fa-pencil-alt"></i></a>
+                                            class="fas fa-pen"></i></a>
                                 <a class="caption-list" href="<?= $review->getLinks()['remove'] ?>"
                                    title="<?= Lang::t('Удалить') ?>" style="position: relative; z-index: 9999;"><i
                                             class="far fa-trash-alt"></i></a>

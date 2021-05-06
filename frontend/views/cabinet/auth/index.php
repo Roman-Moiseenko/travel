@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\helpers\UserHelper;
+use frontend\widgets\design\BtnEdit;
 use Mpdf\Tag\Li;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
     </div>
     <div class="form-group">
-        <?= Html::a(Lang::t('Редактировать'), Url::to(['/cabinet/auth/update',]), ['class' => 'btn-lg btn-primary']) ?>
+        <?= BtnEdit::widget(['url' => Url::to(['/cabinet/auth/update',])]) ?>
     </div>
     <?php if (count($user->networks) > 0): ?>
         <h3><?= Lang::t('Привязка к социальным сетям') ?></h3>

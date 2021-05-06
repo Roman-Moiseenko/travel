@@ -4,6 +4,7 @@ use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\user\PreferencesForm;
 use booking\helpers\CurrencyHelper;
+use frontend\widgets\design\BtnSave;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
@@ -182,7 +183,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+        <?= BtnSave::widget() ?>
+
     </div>
 
     <?php ActiveForm::end(); ?>

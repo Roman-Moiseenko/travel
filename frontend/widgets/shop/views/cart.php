@@ -4,6 +4,7 @@ use booking\entities\shops\cart\Cart;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\SysHelper;
+use frontend\widgets\design\BtnToCart;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -51,11 +52,10 @@ $mobil = SysHelper::isMobile();
                 <?php endforeach; ?>
             </table>
             </div>
-            <div class="cart-footer px-2">
-
-                <p class="text-right">
-                    <a class="btn btn-primary" href="<?= Url::to(['/shop/cart/index']) ?>" style="color: white"><strong><i
-                                    class="fa fa-shopping-cart"></i> <?= Lang::t('Перейти в корзину') ?></strong></a>
+            <div class=" px-2 d-flex">
+                <div class="ml-auto">
+                    <?= BtnToCart::widget(['url' => Url::to(['/shop/cart/index'])]) ?>
+                </div>
             </div>
         </div>
     </li>

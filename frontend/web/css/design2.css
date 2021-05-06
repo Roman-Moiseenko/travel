@@ -56,13 +56,13 @@
 /*Цвета*/
 /** Основная кнопка. **/
 .d2-btn-main {
-    background: #229ac8;
-    color: white;
+    background: #229ac8 !important;
+    color: white !important;
 }
 
 .d2-btn-main:hover {
-    background: #227aa5;
-    color: white;
+    background: #227aa5 !important;
+    color: white !important;
 }
 .d2-btn-main:focus {
     outline: none;
@@ -71,13 +71,13 @@
 /* Почта */
 .d2-btn-mail {
     background: rgba(34, 154, 200, 0.33);
-    color: #227aa5;
+    color: #227aa5 !important;
     border: 1px solid #229ac8;
 }
 
 .d2-btn-mail:hover {
-    background: #227aa5;
-    color: white;
+    background: #227aa5 !important;
+    color: white !important;
 }
 .d2-btn-mail:focus {
     outline: none;
