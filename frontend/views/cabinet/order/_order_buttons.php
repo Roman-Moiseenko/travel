@@ -16,7 +16,7 @@ use yii\helpers\Url;
             <?= BtnCancel::widget(['url' => Url::to(['/cabinet/order/delete', 'id' => $order->id]), 'caption' => 'Удалить'])?>
         </div>
         <div class="ml-auto">
-            <?= BtnEdit::widget(['url' => Url::to(['/cabinet/order/new', 'id' => $order->id]), 'caption' => 'Оформить заказ']); //Html::a('Оформить заказ >', Url::to(['/cabinet/order/new', 'id' => $order->id]), ['class' => 'btn btn-primary']) ?>
+            <?= BtnEdit::widget(['url' => Url::to(['/cabinet/order/new', 'id' => $order->id]), 'caption' => 'Оформить заказ']) ?>
         </div>
     </div>
 <?php endif; ?>

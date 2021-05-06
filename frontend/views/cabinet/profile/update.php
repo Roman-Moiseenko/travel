@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="form-group">
-        <?= BtnSave::widget() //Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+        <?= BtnSave::widget() ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

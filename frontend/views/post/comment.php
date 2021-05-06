@@ -7,6 +7,7 @@
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
 use booking\forms\blog\CommentForm;
+use frontend\widgets\design\BtnSave;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -30,7 +31,7 @@ $this->params['active_category'] = $post->category;
 <?= $form->field($model, 'text')->textarea(['rows' => 5]) ?>
 
 <div class="form-group">
-    <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+    <?= BtnSave::widget([]) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

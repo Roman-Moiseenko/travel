@@ -6,6 +6,7 @@
 
 use booking\entities\Lang;
 use booking\forms\user\PasswordResetRequestForm;
+use frontend\widgets\design\BtnSend;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
                 <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label(false) ?>
                 <div class="form-group">
-                    <?= Html::submitButton(Lang::t('Отправить'), ['class' => 'btn-lg btn-primary']) ?>
+                    <?= BtnSend::widget(['caption' => 'Отправить']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
         </div>

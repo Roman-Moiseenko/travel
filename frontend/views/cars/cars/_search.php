@@ -82,7 +82,6 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col text-center">
         <?= BtnFind::widget() ?>
-        <!--button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button-->
     </div>
 </div>
 

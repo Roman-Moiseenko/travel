@@ -434,16 +434,6 @@ newerton\fancybox\FancyBox::widget([
                                         </div>
                                     </button>
                                 </div>
-
-                                <?= '' /*Html::submitButton(
-                                    Lang::t('Забронировать'),
-                                    [
-                                        'class' => 'btn btn-lg btn-primary form-control new-booking',
-                                        'id' => 'new-booking',
-                                        'style' => 'height: 60px; align-items: center; text-align: center; display: none;',
-                                    ]
-                                ) */?>
-
                             </div>
                             <div>
                                 <span class="new-booking" style="font-size: 24px; color: #0a0a0a; display: none;">

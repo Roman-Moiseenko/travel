@@ -127,8 +127,6 @@ $url_category = Url::to(['/stays', 'SearchStayForm' => $arr, 'categories' => $ar
                         </div>
                         <div class="ml-auto mt-1 mr-1">
                             <?= BtnStayCheck::widget(['url' => $url, 'caption' => 'Проверить наличие мест']) ?>
-
-
                         </div>
                     </div>
                 </div>

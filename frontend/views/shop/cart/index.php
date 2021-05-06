@@ -108,18 +108,7 @@ $mobil = SysHelper::isMobile();
                     </div>
                     <div class="pt-4 text-center">
 
-                        <?= BtnToOrder::widget(['url' => Url::to(['/cabinet/order/index'])])/* Html::a(
-                            Lang::t('Оформить заказ'),
-                            Url::to(['/cabinet/order/index']),
-                            [
-                                'class' => 'btn-lg btn-primary form-control',
-                                'style' => 'height: 43px',
-                                'data-method' => 'POST',
-                                'data-params' => [
-                                    'prepare' => true,
-                                ],
-                            ]
-                        ) */?>
+                        <?= BtnToOrder::widget(['url' => Url::to(['/cabinet/order/index'])]) ?>
                     </div>
                 </div>
             </div>

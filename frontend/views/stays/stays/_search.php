@@ -138,7 +138,6 @@ $this->params['search']['children_age'] = $model->children_age;
         <div class="row pt-4">
             <div class="col text-center">
                 <?= BtnFind::widget() ?>
-                <!--button class="btn-lg btn-primary" type="submit" style="width: 50%;"><?= Lang::t('Найти') ?></button-->
             </div>
         </div>
     </div>

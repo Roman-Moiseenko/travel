@@ -3,7 +3,6 @@
 
 /* @var $content string */
 
-use frontend\widgets\SearchToursWidget;
 use yii\helpers\Url;
 
 $description = 'Рестораны Калининграда где недорого и вкусно поесть кафе, пиццерии, кофейни, морепродукты, попить кофес круассанами, заказать пиво в пабе и баре, перекусить суши';

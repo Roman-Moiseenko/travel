@@ -3,7 +3,7 @@
 
 use booking\helpers\SysHelper;
 use frontend\widgets\BlogViewerWidget;
-use frontend\widgets\SearchToursWidget;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 

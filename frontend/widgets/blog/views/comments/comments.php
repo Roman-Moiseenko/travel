@@ -3,6 +3,7 @@
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
 use booking\forms\blog\CommentForm;
+use frontend\widgets\design\BtnSave;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 use yii\helpers\Html;
@@ -37,7 +38,7 @@ use yii\helpers\Html;
     <?= $form->field($commentForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Текст')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+        <?= BtnSave::widget() ?>
     </div>
 
     <?php ActiveForm::end(); ?>

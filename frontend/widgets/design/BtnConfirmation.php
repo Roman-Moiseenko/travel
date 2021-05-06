@@ -15,18 +15,3 @@ class BtnConfirmation extends Widget
         ]);
     }
 }
-
-/* 1 вариант
-<div class="form-group">
- *             <?= '' /*Html::submitButton(
-                $tour->isConfirmation() ? Lang::t('Забронировать') : Lang::t('Приобрести'),
-                [
-                    'class' =>  'btn btn-lg btn-primary btn-block',
-                    'disabled' => 'disabled',
-                    'id' => 'button-booking-tour'
-                ]<i class="far fa-calendar-plus"></i>
-            ) ?>
- </div>
-
- *
-*/

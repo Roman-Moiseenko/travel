@@ -54,7 +54,6 @@ use yii\helpers\Html;
                 <label class="label-search"><?= Lang::t('Тип') ?>:</label>
                 <div class="form-inline">
                     <?= $form->field($model, 'private')->dropDownList(TourHelper::listPrivate(), ['prompt' => ''])->label(false); ?>
-                    &#160;<?= '' ;//Html::submitButton(Lang::t('Найти'), ['class' => 'btn btn-primary', 'style' => 'border: 0 !important;']) ?>
                     <?php if (SysHelper::isMobile()): ?>
                         <div class="d2-btn-box" style="margin-top: -12px">
                             <button type="submit" class="d2-btn d2-btn d2-btn-block d2-btn-sm d2-btn-main" title="<?= Lang::t('Найти') ?>">

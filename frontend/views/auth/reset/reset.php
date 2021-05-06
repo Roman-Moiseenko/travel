@@ -6,6 +6,7 @@
 
 use booking\entities\Lang;
 use booking\forms\auth\ResetPasswordForm;
+use frontend\widgets\design\BtnSave;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -20,13 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-
                 <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
-
                 <div class="form-group">
-                    <?= Html::submitButton(Lang::t('Сохранить'), ['class' => 'btn-lg btn-primary']) ?>
+                    <?= BtnSave::widget() ?>
                 </div>
-
             <?php ActiveForm::end(); ?>
         </div>
     </div>

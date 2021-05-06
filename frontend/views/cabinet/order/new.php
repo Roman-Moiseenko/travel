@@ -6,6 +6,7 @@ use booking\entities\shops\order\DeliveryData;
 use booking\entities\shops\order\Order;
 use booking\forms\shops\OrderForm;
 use booking\helpers\shops\DeliveryHelper;
+use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -77,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'phone')->textInput(['style' => 'max-width: 200px'])->label('Телефон для связи') ?>
         <?= $form->field($model, 'comment')->textarea()->label('Комментарий к заказу') ?>
         <div class="form-group">
-            <?= Html::submitButton('Отправить в магазин >>', ['class' => 'btn btn-primary']) ?>
+            <?= BtnSend::widget(['caption' => 'Отправить в магазин']) ?>
         </div>
     </div>
 </div>

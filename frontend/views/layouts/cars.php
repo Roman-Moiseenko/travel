@@ -3,7 +3,6 @@
 
 /* @var $content string */
 
-use frontend\widgets\SearchToursWidget;
 use yii\helpers\Url;
 
 
