@@ -64,7 +64,7 @@ use yii\helpers\Html;
                             </button>
                         </div>
                     <?php else: ?>
-                    <div class="d2-btn-box">
+                    <div class="ml-1 d2-btn-box">
                         <button type="submit" class="d2-btn d2-btn d2-btn-sm d2-btn-main" title="<?= Lang::t('Найти') ?>">
                             <div class="d2-btn-icon">
                                 <i class="fas fa-search"></i>

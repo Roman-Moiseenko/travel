@@ -111,7 +111,9 @@ MagnificPopupAsset::register($this);
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="d-flex align-items-center">
+                    <div class="mr-2">
                     <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id]) ]) ?>
+                    </div>
                     <div class="mr-auto">
                         <h1 class="caption-product"><?= Html::encode($product->name) ?></h1> <!-- Заголовок товара-->
                     </div>
