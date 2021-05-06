@@ -78,6 +78,7 @@ $this->params['search']['children_age'] = $model->children_age;
                     <?= DatePicker::widget([
                         'id' => 'stay-range',
                         'model' => $model,
+                        'bsVersion' =>  '4.x',
                         'attribute' => 'date_from',
                         'attribute2' => 'date_to',
                         'type' => DatePicker::TYPE_RANGE,

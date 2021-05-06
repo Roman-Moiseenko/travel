@@ -23,6 +23,7 @@ use yii\helpers\Html;
                 <label class="label-search"><?= Lang::t('Дата') ?>:</label>
                 <?= DatePicker::widget([
                     'model' => $model,
+                    'bsVersion' =>  '4.x',
                     'attribute' => 'date_from',
                     'attribute2' => 'date_to',
                     'type' => DatePicker::TYPE_RANGE,

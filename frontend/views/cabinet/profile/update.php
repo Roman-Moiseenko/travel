@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-6" style="text-align: center">
             <?= $form->field($model->photo, 'files')->label(false)->widget(FileInput::class, [
                 'language' => Lang::current(),
+                'bsVersion' => '4.x',
                 'options' => [
                     'accept' => 'image/*',
                     'multiple' => false,
@@ -52,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model->fullname, 'secondname')->textInput()->label(Lang::t('Отчество')); ?>
             <?= $form->field($model, 'datebornform')->label(Lang::t('Дата рождения'))->widget(DatePicker::class, [
                 'type' => DatePicker::TYPE_INPUT,
+                'bsVersion' =>  '4.x',
                 'language' => 'ru',
 
                 'pluginOptions' => [

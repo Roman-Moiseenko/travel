@@ -24,6 +24,7 @@ use yii\helpers\Html;
         <?= DatePicker::widget([
             'id' => 'fun-range',
             'model' => $model,
+            'bsVersion' =>  '4.x',
             'attribute' => 'date_from',
             'attribute2' => 'date_to',
             'type' => DatePicker::TYPE_RANGE,
