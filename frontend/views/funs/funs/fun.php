@@ -64,9 +64,7 @@ $countReveiws = $fun->countReviews();
                     <div class="mr-auto">
                         <h1><?= Html::encode($fun->getName()) ?></h1>
                     </div>
-                    <div class="btn-group">
-                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ]) ?>
-                    </div>
+                    <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ]) ?>
                 </div>
             </div>
         </div>

@@ -63,9 +63,7 @@ $countReveiws = $car->countReviews();
                     <div class="mr-auto">
                         <h1><?= Html::encode($car->getName()) ?></h1>
                     </div>
-                    <div class="btn-group">
-                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ]) ?>
-                    </div>
+                    <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-car', 'id' => $car->id]) ]) ?>
                 </div>
             </div>
         </div>

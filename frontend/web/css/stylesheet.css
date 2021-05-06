@@ -173,7 +173,7 @@ div.required .control-label:before {
 .btn-group > .btn-lg {
     font-size: 15px;
 }
-
+/*
 .btn-default {
     color: #777;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -277,7 +277,7 @@ div.required .control-label:before {
     background-image: linear-gradient(to bottom, #333333, #111111);
 }
 
-
+*/
 
 .thumbnails {
     overflow: auto;

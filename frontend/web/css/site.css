@@ -1220,8 +1220,8 @@ ul.pagination>li.active a:focus {
 
 .item-responsive {
     position: relative; /* относительное позиционирование */
-    margin-bottom: 0.5rem;
-    border: white solid 2px;
+    /*margin-bottom: 0.5rem;
+    border: white solid 2px;*/
 }
 .item-responsive:before {
     display: block; /* отображать элемент как блок */
@@ -1252,7 +1252,7 @@ ul.pagination>li.active a:focus {
     padding-top: 149.25%; /* (1:2)*100% */
 }
 .item-1-1by1 {
-    padding-top: 100%; /* (1:2)*100% */
+    padding-top: 100%; /* (1:1)*100% */
 }
 .item-0-75by1 {
     padding-top: 133.33%; /* (1:2)*100% */

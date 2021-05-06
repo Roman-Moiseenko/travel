@@ -58,9 +58,7 @@ $countReveiws = $food->countReviews();
                         <div class="mr-auto">
                             <h1><?= Html::encode($food->name) ?></h1>
                         </div>
-                        <div class="btn-group">
-                            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id]) ]) ?>
-                        </div>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id]) ]) ?>
                     </div>
                 </div>
             </div>

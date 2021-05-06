@@ -246,9 +246,7 @@ newerton\fancybox\FancyBox::widget([
                         <div class="mr-auto">
                             <h1><?= Html::encode($stay->getName()) ?></h1>
                         </div>
-                        <div class="btn-group">
-                            <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-stay', 'id' => $stay->id]) ]) ?>
-                        </div>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-stay', 'id' => $stay->id]) ]) ?>
                     </div>
                 </div>
             </div>
