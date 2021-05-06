@@ -82,6 +82,11 @@ class BookingCar extends BaseBooking
         return $booking;
     }
 
+    public function isCancellation(): bool
+    {
+        return $this->car->isCancellation($this->begin_at);
+    }
+
     public function addDay($calendar_id)
     {
         $days = $this->days;

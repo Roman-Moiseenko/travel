@@ -14,7 +14,7 @@ body {
     /*background: #4f85a5;*/
     --main-light2-color: #3dc7ff;
     --main-light1-color: #34a0cf;
-    --main-nav-color: #2aabd2;
+    --main-nav-color: #229ac8;
     --main-dark1-color: #2980a5;
     --main-dark2-color: #226b8a;
     --seach-menu-color: #f8e173;
@@ -1182,7 +1182,7 @@ ul.pagination li span {
 }
 
 ul.pagination>li.active>a{
-    background-color: var(--main-dark1-color);
+    background-color: #229ac8;
     color: white;
     border-radius: 5px;
 }
@@ -1192,6 +1192,18 @@ ul.pagination li:not(.active) a:hover {
     color: #565656;
 }
 
+ul.pagination li:not(.active) a:focus {
+    box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.5);
+
+}
+
+ul.pagination>li.active a:hover {
+    background-color: #227aa5;
+}
+ul.pagination>li.active a:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(35, 117, 160, 0.5);
+}
 .card-map {
     border-radius: 0;
     border: 0;

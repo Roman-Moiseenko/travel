@@ -13,6 +13,7 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\cabinet\CheckBookingWidget;
 use frontend\widgets\design\BtnCancel;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnPay;
@@ -125,71 +126,11 @@ $car = $booking->car;
             </div>
         </div>
         <!-- Чеки и бронь -->
-        <?php if ($booking->isPay()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/car', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                            <li>
-                                <?= Lang::t('Распечатать чек об оплате')  ?>
-                                <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->payment_id]) ?>">
-                                <i class="fas fa-print"></i></a>
-                            </li>
-                    </ul>
-                    <?php if ($booking->car->isCancellation($booking->begin_at)): ?>
-                        <div class="py-3">
-                            <?= BtnCancel::widget([
-                                'url' => Url::to(['/cabinet/car/cancelpay', 'id' => $booking->id]),
-                                'caption' => 'Отменить бронирование'
-                            ]) ?>
-                        </div>
-                        <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <?php if ($booking->isConfirmation()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/car', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <?php if ($booking->begin_at > time()): ?>
-                        <div class="pt-3">
-                            <?= BtnCancel::widget([
-                                'url' => Url::to(['/cabinet/car/delete', 'id' => $booking->id]),
-                                'caption' => 'Отменить бронирование'
-                            ]) ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?= CheckBookingWidget::widget([
+            'action' => 'car',
+            'user' => $user,
+            'booking' => $booking,
+        ]) ?>
     </div>
     <!-- Информация об авто -->
     <div class="card shadow-sm my-2">

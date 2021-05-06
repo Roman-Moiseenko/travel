@@ -67,6 +67,11 @@ class BookingFun extends BaseBooking
         return $booking;
     }
 
+    public function isCancellation(): bool
+    {
+        return $this->fun->isCancellation($this->getDate());
+    }
+
     public function addDay($calendar_id)
     {
         $days = $this->days;

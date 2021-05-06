@@ -15,9 +15,16 @@ use yii\db\ActiveQuery;
 class BookingHotel extends BaseBooking
 {
 
+
     public static function create($idcalendar = null, Cost $cost = null): BaseBooking
     {
         // TODO: Implement create() method.
+    }
+
+
+    public function isCancellation(): bool
+    {
+        return $this->hotel->isCancellation($this->begin_at);
     }
 
     public function getAdmin(): User

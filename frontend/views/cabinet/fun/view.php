@@ -13,6 +13,7 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\funs\WorkModeHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\cabinet\CheckBookingWidget;
 use frontend\widgets\design\BtnCancel;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnPay;
@@ -140,67 +141,11 @@ $cost_fun = $booking->getCostClass();
             </div>
         </div>
         <!-- Чеки и бронь -->
-        <?php if ($booking->isPay()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/fun', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                            <li>
-                                <?= Lang::t('Распечатать чек об оплате')  ?>
-                                <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->payment_id]) ?>">
-                                <i class="fas fa-print"></i></a>
-                            </li>
-                    </ul>
-                    <?php if ($booking->fun->isCancellation($booking->getDate())): ?>
-                    <div class="py-3">
-                        <a href="<?= Url::to(['/cabinet/fun/cancelpay', 'id' => $booking->id]) ?>"
-                           class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
-                    </div>
-                        <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <?php if ($booking->isConfirmation()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/fun', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <?php if ($booking->getDate() > time()): ?>
-                    <div class="pt-3">
-                        <a href="<?= Url::to(['/cabinet/fun/delete', 'id' => $booking->id]) ?>"
-                           class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?= CheckBookingWidget::widget([
+            'action' => 'fun',
+            'user' => $user,
+            'booking' => $booking,
+        ]) ?>
     </div>
     <!-- Информация о развлечении -->
     <div class="card shadow-sm my-2">

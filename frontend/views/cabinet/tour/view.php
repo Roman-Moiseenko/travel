@@ -14,6 +14,7 @@ use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\cabinet\CheckBookingWidget;
 use frontend\widgets\design\BtnCancel;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnPay;
@@ -111,7 +112,8 @@ $tour = $booking->calendar->tour;
                         <th class="py-3 my-2"><?= Lang::t('Предоплата') . ' (' . $booking->getPayment()->percent . '%)' ?></th>
                         <td></td>
                         <td></td>
-                        <td style="font-size: 22px; color: #333"><span><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
+                        <td style="font-size: 22px; color: #333">
+                            <span><?= CurrencyHelper::stat($booking->getPayment()->getPrepay()) ?> </span>
                         </td>
                     </tr>
                     </tbody>
@@ -125,9 +127,9 @@ $tour = $booking->calendar->tour;
                         </div>
                         <div class="ml-auto">
                             <?= BtnPay::widget([
-                                'url' =>  Url::to(['/cabinet/pay/tour', 'id' => $booking->id]),
+                                'url' => Url::to(['/cabinet/pay/tour', 'id' => $booking->id]),
                                 'paid_locality' => $booking->isPaidLocally(),
-                            ])?>
+                            ]) ?>
                         </div>
                     </div>
                     <div style="font-size: 12px">
@@ -142,67 +144,11 @@ $tour = $booking->calendar->tour;
             </div>
         </div>
         <!-- Чеки и бронь -->
-        <?php if ($booking->isPay()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование оплачено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/tour', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                        <li>
-                            <?= Lang::t('Распечатать чек об оплате') ?>
-                            <a class="btn-sm btn-primary"
-                               href="<?= Url::to(['/cabinet/print/check', 'id' => $booking->payment_id]) //'/cabinet/print/check', 'id' => $booking->id ?>">
-                                <i class="fas fa-print"></i></a>
-                        </li>
-                    </ul>
-                    <?php if ($booking->calendar->tour->isCancellation($booking->calendar->tour_at)): ?>
-                        <div class="py-3">
-                            <a href="<?= Url::to(['/cabinet/tour/cancelpay', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?> *</a>
-                        </div>
-                        <label>* <?= Lang::t('В случае отмены платежа комиссия банка не возвращается') ?></label>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <?php if ($booking->isConfirmation()): ?>
-            <div class="card shadow-sm py-2 my-2">
-                <div class="card-body nowrap-parent">
-                    <h2 style="white-space: normal !important;"><?= Lang::t('Ваше бронирование подтверждено') ?>!</h2>
-                    <ul class="reassurance__list">
-                        <li style="white-space: normal !important;">
-                            <?= Lang::t('Подтверждение бронирования отправлено на ваш адрес') ?>
-                            <b><?= $user->email ?></b>
-                        </li>
-                        <li>
-                            <div class="nowrap-child">
-                                <?= Lang::t('Распечатать подтверждение') ?>
-                                <a class="btn-sm btn-primary "
-                                   href="<?= Url::to(['/cabinet/print/tour', 'id' => $booking->id]) ?>">
-                                    <i class="fas fa-print"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <?php if ($booking->calendar->tour_at > time()): ?>
-                        <div class="pt-3">
-                            <a href="<?= Url::to(['/cabinet/tour/delete', 'id' => $booking->id]) ?>"
-                               class="btn-lg btn-warning"><?= Lang::t('Отменить бронирование') ?></a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?= CheckBookingWidget::widget([
+            'action' => 'tour',
+            'user' => $user,
+            'booking' => $booking,
+        ]) ?>
     </div>
     <!-- Информация от туре -->
     <div class="card shadow-sm my-2">

@@ -91,6 +91,12 @@ class BookingStay extends BaseBooking
         return $booking;
     }
 
+    public function isCancellation(): bool
+    {
+        return $this->stay->isCancellation($this->begin_at);
+    }
+
+
     public function addService($service_id)
     {
         $services = $this->services;

@@ -18,6 +18,15 @@
    /* box-shadow: 0 10px 10px rgba(0, 0, 0, .2);*/
 }
 
+.d2-btn-micro {
+
+    width: 40px;
+    height: 40px;
+
+    justify-content: center;
+    border-radius: 10px;
+}
+
 .d2-btn-sm {
     height: 29px;
 }
@@ -168,6 +177,22 @@
 
 
 /************************************/
+
+.d2-btn-out-green {
+    color: #008009;
+    background: white;
+}
+.d2-btn-out-green:hover {
+    color: #005909;
+    background: white;
+}
+.d2-btn-out-green:focus {
+
+    /*outline: none;
+    box-shadow: 0 0 0 4px rgba(22, 95, 22, 0.5);*/
+}
+
+
 /** Оплатить **/
 .d2-btn-pay {
     background: #168716;

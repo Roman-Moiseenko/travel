@@ -67,6 +67,11 @@ class BookingTour extends BaseBooking
         return $booking;
     }
 
+    public function isCancellation(): bool
+    {
+        return $this->tour->isCancellation($this->calendar->tour_at);
+    }
+
     public static function tableName()
     {
         return '{{%booking_tours_calendar_booking}}';
@@ -175,4 +180,5 @@ class BookingTour extends BaseBooking
     {
         throw new \DomainException('Не используется!');
     }
+
 }

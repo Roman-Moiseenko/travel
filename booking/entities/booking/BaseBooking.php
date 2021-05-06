@@ -216,6 +216,8 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
         return $this->status == BookingHelper::BOOKING_STATUS_NEW;
     }
 
+    abstract public function isCancellation(): bool;
+
 //*************************** Внешние связи
 
     public function getUser(): ActiveQuery
