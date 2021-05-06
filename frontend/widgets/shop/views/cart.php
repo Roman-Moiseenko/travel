@@ -43,7 +43,7 @@ $mobil = SysHelper::isMobile();
                             <a href="<?= $url ?>"><?= Html::encode($product->name) ?></a>
                         </td>
                         <td class="text-right" width="80px"><?= $item->getQuantity() ?> <small><?= Lang::t('шт') ?></small></td>
-                        <td class="text-right" width="120px"><?= CurrencyHelper::stat($item->getPrice()) ?></td>
+                        <td class="text-right" width="120px"><?= CurrencyHelper::get($item->getPrice(), false) ?></td>
                         <td class="text-center" width="10px">
                             <a type="button" href="<?= Url::to(['/shop/cart/remove', 'id' => $item->getId()]) ?>"
                                     data-method="post" title="Remove" class=""><i class="fas fa-trash"></i></a>

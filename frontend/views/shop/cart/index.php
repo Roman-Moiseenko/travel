@@ -88,7 +88,7 @@ $mobil = SysHelper::isMobile();
                                         </div>
                                     </div>
                                     <div class="align-self-center pl-4">
-                                        <span style="font-size: 16px; color: #353535"><?= CurrencyHelper::stat($item->getCost()) ?></span>
+                                        <span style="font-size: 16px; color: #353535"><?= CurrencyHelper::get($item->getCost()) ?></span>
                                     </div>
                                 </div>
 
@@ -104,7 +104,7 @@ $mobil = SysHelper::isMobile();
                 <div class="card-body">
                     <?php $cost = $cart->getCost() ?>
                     <div class="text-left p-3" style="font-size: 17px; color: #272727">
-                        <span><?= Lang::t('Итого') . ': ' . $cart->getAmount() . ' ' . Lang::t('товаров на') . ' ' . CurrencyHelper::stat($cost->getTotal()) ?></span>
+                        <span><?= Lang::t('Итого') . ': ' . $cart->getAmount() . ' ' . Lang::t('товаров на') . ' ' . CurrencyHelper::get($cost->getTotal()) ?></span>
                     </div>
                     <div class="pt-4 text-center">
 

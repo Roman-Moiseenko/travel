@@ -135,7 +135,7 @@ MagnificPopupAsset::register($this);
                 </ul>
                 <ul class="list-unstyled">
                     <li>
-                        <span class="price-card product"><?= CurrencyHelper::get($product->cost); ?></span>
+                        <span class="price-card product"><?= CurrencyHelper::get($product->cost, false); ?></span>
                     </li>
                     <li> <?= $product->isAd() ? '' : Lang::t('На складе: ') . $product->quantity; ?></li>
                 </ul>

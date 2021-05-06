@@ -48,9 +48,9 @@ class CurrencyHelper
         return number_format($cost, 0, '.', ' ') . ' &#8381;';
     }
 
-    public static function get($cost)
+    public static function get($cost, $free = true)
     {
-        if (empty($cost)) {
+        if (empty($cost) && $free) {
             return '<span class="badge badge-pill badge-success">free</span>';
         }
 

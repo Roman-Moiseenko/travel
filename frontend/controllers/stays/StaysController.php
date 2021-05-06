@@ -121,8 +121,8 @@ class StaysController extends Controller
                 return json_encode(
                     [
                         'error' => $error,
-                        'cost' => CurrencyHelper::stat($cost),
-                        'prepay' => CurrencyHelper::stat($cost * $stay->prepay / 100),
+                        'cost' => CurrencyHelper::get($cost, false),
+                        'prepay' => CurrencyHelper::get($cost * $stay->prepay / 100, false),
                         'percent' => $stay->prepay,
                     ]);
 

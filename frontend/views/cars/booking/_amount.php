@@ -13,7 +13,7 @@ use booking\helpers\CurrencyHelper;
         <span style="font-size: 14px; font-weight: 600;">ИТОГО:</span>
     </div>
     <div class="col-6 px-1" data-amount="<?= 0 ?>">
-        <span class="amount-booking"><?= $full_cost == 0 ? '-' : CurrencyHelper::cost($full_cost) ?></span>
+        <span class="amount-booking"><?= $full_cost == 0 ? '-' : CurrencyHelper::get($full_cost, false) ?></span>
     </div>
 </div>
 <div class="row pb-2">
@@ -21,6 +21,6 @@ use booking\helpers\CurrencyHelper;
         <span style="font-size: 12px; font-weight: 600;">Предоплата (<?= $percent ?>%):</span>
     </div>
     <div class="col-6 px-1" data-amount="<?= 0 ?>">
-        <span class="amount-booking"><?= $prepay == 0 ? '-' : CurrencyHelper::cost($prepay) ?></span>
+        <span class="amount-booking"><?= $prepay == 0 ? '-' : CurrencyHelper::get($prepay, false) ?></span>
     </div>
 </div>

@@ -32,7 +32,7 @@ $mobil = SysHelper::isMobile();
             <i class="fas fa-store"></i> <?= $order->shop->getName() ?>
         </div>
         <div class="ml-auto mt-2" style="font-size: 14px; font-weight: 600;">
-        <?= CurrencyHelper::stat($order->payment->getFull()) ?>
+        <?= CurrencyHelper::get($order->payment->getFull()) ?>
         </div>
     </div>
     </a>
@@ -54,7 +54,7 @@ $mobil = SysHelper::isMobile();
                         <a href="<?= Url::to(['shop/catalog/product', 'id' => $item->product_id])?>"><?= $item->product->getName() ?></a>
                     </div>
                     <div class="align-self-center ml-auto">
-                        <?= $item->quantity . ' шт x ' . CurrencyHelper::stat($item->product_cost) ?>
+                        <?= $item->quantity . ' шт x ' . CurrencyHelper::get($item->product_cost) ?>
                     </div>
                 </div>
             <?php endforeach; ?>
