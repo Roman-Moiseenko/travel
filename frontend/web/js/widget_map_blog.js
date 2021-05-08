@@ -2,11 +2,24 @@ $(document).ready(function () {
     let myMapView;
 
     if (document.getElementById("widget-map-blog")) {
+        let _init = 0;
         let _api = $('#ymap-params').data('api');
         let _lang = $('#ymap-params').data('lang');
-        loadScript("https://api-maps.yandex.ru/2.1/?apikey=" + _api + "&lang=" + _lang, function () {
-            ymaps.load(init);
+
+        console.log('1');
+        $(document).scroll(function () {
+            if (_init === 1) return;
+            _init = 1;
+            setTimeout(() => {
+                console.log('2');
+                loadScript("https://api-maps.yandex.ru/2.1/?apikey=" + _api + "&lang=" + _lang, function () {
+                    console.log('3');
+                    ymaps.load(init);
+                });
+            }, 2000);
+
         });
+
     }
 
     function init() {
@@ -38,7 +51,7 @@ $(document).ready(function () {
             objectManager.objects.options.set('preset', 'islands#redDotIcon');
             objectManager.clusters.options.set('preset', 'islands#redClusterIcons');
             myMapView.geoObjects.add(objectManager);
-            console.log(data);
+            //console.log(data);
             //return;
 
             let _result = JSON.parse(data);

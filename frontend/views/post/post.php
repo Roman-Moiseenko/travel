@@ -43,10 +43,13 @@ MapBlogAsset::register($this);
     <p><i class="far fa-calendar-alt"></i> <?= date('d-m-y H:i:s',$post->public_at); ?></p>
 
     <?php if ($post->photo): ?>
-        <p>
-            <img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>"
-                 alt="<?= $post->getTitle()?>" class="img-responsive" itemprop="image" loading="lazy"/>
-        </p>
+        <div class="item-responsive item-post">
+            <div class="content-item">
+
+                <img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>"
+                 alt="<?= $post->getTitle()?>" class="img-responsive" itemprop="image" loading="lazy" />
+            </div>
+        </div>
     <?php endif; ?>
         <meta itemprop="datePublished" content="<?= date('Y-m-d', $post->public_at)?>">
         <meta itemprop="dateModified" content="<?= date('Y-m-d', $post->public_at)?>">

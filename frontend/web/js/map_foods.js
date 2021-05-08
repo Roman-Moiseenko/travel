@@ -44,11 +44,6 @@ $(document).ready(function () {
             myMapView.controls.remove('fullscreenControl');
             myMapView.setCenter([54.74639455404805, 20.537801017695948], 10);
 
-            //let panel = new ymaps.Panel();
-           /* myMapView.controls.add(panel, {
-                float: 'left'
-            });
-*/
             let _get = getUrlVars();
             $.post('/food/map-foods', {kitchen_id: _get.kitchen_id, category_id: _get.category_id, city: _get.city}, function (data) {
 
@@ -85,27 +80,7 @@ $(document).ready(function () {
                     objectManager.add(obj);
                 }
             });
-            //TODO
-            /*
-                     var marker = new ymaps.Placemark(
-                     //координаты
-                     {
-                        ...
-                      },
-                             {
-                        hasBalloon: false,
-                        href: 'http://google.ru/'
-                        ...
-                      }
-                             );
-                     marker.events.add('click', function (e) {
-                      location = e.get('target').options.get('href');
-                    });
 
-
-            */
-            //TODO !
-            //Пост запрос на массив объектов схожих по параметрам
         }
     }
 
@@ -130,61 +105,6 @@ $(document).ready(function () {
         script.src = url;
         document.getElementsByTagName("head")[0].appendChild(script);
     }
-
-   /* function loadPanel() {
-        ymaps.modules.define('Panel', [
-            'util.augment',
-            'collection.Item'
-        ], function (provide, augment, item) {
-            // Создаем собственный класс.
-            var Panel = function (options) {
-                Panel.superclass.constructor.call(this, options);
-            };
-            // И наследуем его от collection.Item.
-            augment(Panel, item, {
-                onAddToMap: function (map) {
-                    Panel.superclass.onAddToMap.call(this, map);
-                    this.getParent().getChildElement(this).then(this._onGetChildElement, this);
-                    // Добавим отступы на карту.
-                    // Отступы могут учитываться при установке текущей видимой области карты,
-                    // чтобы добиться наилучшего отображения данных на карте.
-                    map.margin.addArea({
-                        top: 0,
-                        left: '100px',
-                        width: '250px',
-                        height: '100%'
-                    })
-                },
-
-                onRemoveFromMap: function (oldMap) {
-                    if (this._$control) {
-                        this._$control.remove();
-                    }
-                    Panel.superclass.onRemoveFromMap.call(this, oldMap);
-                },
-
-                _onGetChildElement: function (parentDomContainer) {
-                    // Создаем HTML-элемент с текстом.
-                    // По-умолчанию HTML-элемент скрыт.
-                    this._$control = $('<div class="customControl-map-panel"><div class="content-map-panel"></div><div class="closeButton-map-panel"></div></div>').appendTo(parentDomContainer);
-                    this._$content = $('.content-map-panel');
-                    // При клике по крестику будем скрывать панель.
-                    $('.closeButton-map-panel').on('click', this._onClose);
-                },
-                _onClose: function () {
-                    $('.customControl-map-panel').css('display', 'none');
-                },
-                // Метод задания контента панели.
-                setContent: function (text) {
-                    // При задании контента будем показывать панель.
-                    this._$control.css('display', 'flex');
-                    this._$content.html(text);
-                }
-            });
-
-            provide(Panel);
-        });
-    }*/
 
     function getUrlVars()
     {

@@ -1240,7 +1240,9 @@ ul.pagination>li.active a:focus {
 .item-2-29by1 {
     padding-top: 43.66%; /* (1:2)*100% */
 }
-
+.item-post {
+    padding-top: 75.18%; /* (1:1.33)*100% */
+}
 .item-2-0by1 {
     padding-top: 50.00%; /* (1:2)*100% */
 }
