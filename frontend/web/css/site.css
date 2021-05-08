@@ -1213,10 +1213,11 @@ ul.pagination>li.active a:focus {
 }
 .button-booking-index-mobile {
     border: white solid 2px;
-    width: 100%;
-    height: 50%;
-
+    margin-bottom: 6px;
+/*    width: 100%;
+    height: 50%;*/
 }
+
 
 .item-responsive {
     position: relative; /* относительное позиционирование */
@@ -1238,7 +1239,7 @@ ul.pagination>li.active a:focus {
     bottom: 0;
 }
 .item-2-29by1 {
-    padding-top: 43.66%; /* (1:2)*100% */
+    padding-top: 43.5%; /* (1:2)*100% */
 }
 .item-post {
     padding-top: 75.18%; /* (1:1.33)*100% */

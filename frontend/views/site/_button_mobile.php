@@ -12,7 +12,7 @@ use yii\helpers\Url;
 //$url_img_booking = \Yii::$app->params['staticHostInfo'] . '/files/images/landing/booking/'; //перенести куда нить в параметры
 $url_img_booking = \Yii::$app->params['url_img_landing'] . 'booking/'
 ?>
-<div class="item-responsive item-2-29by1">
+<div class="item-responsive item-2-29by1 button-booking-index-mobile">
     <div class="content-item">
         <a href="<?= Url::to([$url]) ?>">
             <img data-src="<?= $url_img_booking . $img_name ?>" class="img-responsive lazyload" width="100%"
