@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 /* @var $reviewForm ReviewForm */
 
 
-$this->title = ($product->meta->title == null) ? $product->getName() . ' - ' . Lang::t('купить в Калининграде') :  Lang::t($product->meta->title);
+$this->title = ($product->meta->title == null) ? $product->getName() . ' - ' . Lang::t('купить в Калининграде') : Lang::t($product->meta->title);
 
 $description = $product->meta->description;
 
@@ -112,7 +112,7 @@ MagnificPopupAsset::register($this);
             <div class="col-lg-4 col-md-6">
                 <div class="d-flex align-items-center">
                     <div class="mr-2">
-                    <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id]) ]) ?>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-product', 'id' => $product->id])]) ?>
                     </div>
                     <div class="mr-auto">
                         <h1 class="caption-product"><?= Html::encode($product->name) ?></h1> <!-- Заголовок товара-->
@@ -142,11 +142,11 @@ MagnificPopupAsset::register($this);
                 <div id="product" class="required">
                     <?php if ($product->saleOn()): ?>
                         <?= Html::beginForm(['/shop/cart/add', 'id' => $product->id]); ?>
-                        <?= BtnAddCart::widget()?>
+                        <?= BtnAddCart::widget() ?>
                         <?= Html::endForm() ?>
                     <?php else: ?>
                         <div class="form-group">
-                            <?= BtnShop::widget(['url' => Url::to(['shop/' . $product->shop_id])])?>
+                            <?= BtnShop::widget(['url' => Url::to(['shop/' . $product->shop_id])]) ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -208,7 +208,7 @@ MagnificPopupAsset::register($this);
         <?= $this->render('_delivery', [
             'shop' => $product->shop,
             'sale_on' => $product->saleOn(),
-        ])?>
+        ]) ?>
     </div>
 </div>
 <!-- ОТЗЫВЫ -->
@@ -223,6 +223,7 @@ MagnificPopupAsset::register($this);
 <div itemtype="https://schema.org/Product" itemscope>
     <meta itemprop="name" content="<?= $product->getName() ?>">
     <meta itemprop="description" content="<?= $product->getDescription() ?>">
+    <meta itemprop="sku" content="<?= $product->id ?>">
     <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
         <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file') ?>"/>
     </div>
@@ -232,8 +233,10 @@ MagnificPopupAsset::register($this);
         <link itemprop="availability" href="https://schema.org/InStock"/>
     </div>
     <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-        <meta itemprop="ratingValue" content="<?= $product->rating ?>">
+        <meta itemprop="ratingValue" content="<?= $product->rating ?? 5 ?>">
         <meta itemprop="reviewCount" content="<?= count($product->reviews) + 1 ?>">
+        <meta itemprop="bestRating" content="5">
+        <meta itemprop="worstRating" content="0">
     </div>
 
     <?php foreach ($product->reviews as $review): ?>

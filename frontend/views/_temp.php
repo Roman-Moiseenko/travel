@@ -1,7 +1,11 @@
 <?php
 
 ?>
-
+<div class="row thumbnails">
+    <div class="col-sm-4"><a href="https://static.koenigs.ru/images/blog/19/id019-01.jpg"><img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/19/id019-01-mini.jpg" /> </a></div>
+    <div class="col-sm-4"><a href="https://static.koenigs.ru/images/blog/19/id019-02.jpg"><img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/19/id019-02-mini.jpg" /> </a></div>
+    <div class="col-sm-4"><a href="https://static.koenigs.ru/images/blog/19/id019-03.jpg"><img alt="" class="img-responsive" src="https://static.koenigs.ru/images/blog/19/id019-03-mini.jpg" /> </a></div>
+</div>
 <!--div class="row thumbnails">
     <div class="col-sm-4">
         <a href="https://static.koenigs.ru/images/blog/15/id015-02.jpg">
