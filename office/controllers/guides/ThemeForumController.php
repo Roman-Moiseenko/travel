@@ -4,10 +4,10 @@
 namespace office\controllers\guides;
 
 
-use booking\entities\forum\Category;
+use booking\entities\admin\forum\Category;
 use booking\entities\Rbac;
 use booking\forms\forum\CategoryForm;
-use booking\services\forum\CategoryService;
+use booking\services\admin\forum\CategoryService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace booking\repositories\forum;
+namespace booking\repositories\admin\forum;
 
 
-use booking\entities\forum\Category;
-use booking\entities\forum\Message;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Message;
+use booking\entities\admin\forum\Post;
 
 class CategoryRepository
 {

@@ -4,7 +4,7 @@
 namespace booking\forms\forum;
 
 
-use booking\entities\forum\Category;
+use booking\entities\admin\forum\Category;
 use yii\base\Model;
 
 class CategoryForm extends Model

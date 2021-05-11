@@ -23,5 +23,10 @@ return [
             'assignmentTable' => '{{%auth_assignments}}',
             'ruleTable' => '{{%auth_rules}}',
         ],
+     /*   'phpBB' => [
+            'class' => 'anart\forum\phpBB',
+            'path' => dirname(dirname(__DIR__)). '\forum',
+        ],*/
+
     ],
 ];

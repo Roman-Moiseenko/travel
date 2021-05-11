@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1d03c09e2c8ffd502f8fd5e05402f8e",
+    "content-hash": "50bf6acee5973487ed1b84acbf42eedd",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",
@@ -87,11 +87,41 @@
             "time": "2021-03-22T07:30:50+00:00"
         },
         {
+            "name": "anart/forum",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/greenpeas/yii2-integration-phpBB3.2.git",
+                "reference": "0b4d5ceeb0ea7228630349e3ee7e6f93904119b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/greenpeas/yii2-integration-phpBB3.2/zipball/0b4d5ceeb0ea7228630349e3ee7e6f93904119b3",
+                "reference": "0b4d5ceeb0ea7228630349e3ee7e6f93904119b3",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "anart\\forum\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Artyomov Anton",
+                    "email": "artyomov.anton@gmail.com"
+                }
+            ],
+            "description": "yii2-integration-phpBB3.2",
+            "time": "2017-03-07T09:17:34+00:00"
+        },
+        {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -112,12 +142,12 @@
             "version": "v1.9.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:eternicode/bootstrap-datepicker.git",
+                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
+                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "require": {
@@ -133,7 +163,7 @@
             "version": "v2.9.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:chartjs/Chart.js.git",
+                "url": "https://github.com/chartjs/Chart.js.git",
                 "reference": "9bd4cf82fda9f50a5fb50b72843e06ab88124278"
             },
             "dist": {
@@ -151,7 +181,7 @@
             "version": "5.15.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "fcec2d1b01ff069ac10500ac42e4478d20d21f4c"
             },
             "dist": {
@@ -166,7 +196,7 @@
             "version": "5.15.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "fcec2d1b01ff069ac10500ac42e4478d20d21f4c"
             },
             "dist": {
@@ -7877,7 +7907,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-mpdf": 20,
-        "kartik-v/yii2-widget-select2": 20
+        "kartik-v/yii2-widget-select2": 20,
+        "anart/forum": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

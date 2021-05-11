@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Post;
 use booking\forms\forum\MessageForm;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;

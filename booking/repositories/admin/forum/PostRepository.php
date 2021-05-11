@@ -1,11 +1,11 @@
 <?php
 
 
-namespace booking\repositories\forum;
+namespace booking\repositories\admin\forum;
 
 
-use booking\entities\forum\Message;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Message;
+use booking\entities\admin\forum\Post;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;

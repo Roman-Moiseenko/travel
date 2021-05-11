@@ -1,12 +1,12 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $categories Category[] */
+/* @var $categories \booking\entities\admin\forum\Category[] */
 
 $this->title = 'Темы Форума';
 $this->params['breadcrumbs'][] = $this->title;
 
 use booking\entities\booking\tours\Type;
-use booking\entities\forum\Category;
+use booking\entities\admin\forum\Category;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>

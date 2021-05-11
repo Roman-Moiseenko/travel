@@ -1,8 +1,8 @@
 <?php
 
 use booking\entities\admin\User;
-use booking\entities\forum\Category;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Post;
 use booking\helpers\ForumHelper;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;

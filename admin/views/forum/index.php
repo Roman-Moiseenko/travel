@@ -1,8 +1,8 @@
 <?php
 
-/* @var $categories Category[] */
+/* @var $categories \booking\entities\admin\forum\Category[] */
 
-use booking\entities\forum\Category;
+use booking\entities\admin\forum\Category;
 use booking\helpers\ForumHelper;
 use yii\helpers\Url;
 

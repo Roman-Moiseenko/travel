@@ -1,13 +1,13 @@
 <?php
 
 
-namespace booking\services\forum;
+namespace booking\services\admin\forum;
 
 
-use booking\entities\forum\Category;
-use booking\entities\forum\Message;
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Message;
 use booking\forms\forum\CategoryForm;
-use booking\repositories\forum\CategoryRepository;
+use booking\repositories\admin\forum\CategoryRepository;
 
 class CategoryService
 {

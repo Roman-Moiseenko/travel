@@ -1,10 +1,11 @@
 <?php
 
 
-namespace booking\entities\forum;
+namespace booking\entities\admin\forum;
 
 
 use booking\entities\admin\User;
+use booking\entities\admin\forum\Post;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

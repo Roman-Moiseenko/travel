@@ -1,15 +1,16 @@
 <?php
 
 
-namespace booking\services\forum;
+namespace booking\services\admin\forum;
 
 
 use booking\entities\admin\User;
-use booking\entities\forum\Message;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Message;
+use booking\entities\admin\forum\Post;
 use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
-use booking\repositories\forum\PostRepository;
+use booking\repositories\admin\forum\PostRepository;
+use booking\services\admin\forum\CategoryService;
 
 class PostService
 {

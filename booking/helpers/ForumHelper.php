@@ -5,8 +5,8 @@ namespace booking\helpers;
 
 
 use booking\entities\admin\User;
-use booking\entities\forum\Category;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Post;
 use yii\helpers\ArrayHelper;
 
 class ForumHelper

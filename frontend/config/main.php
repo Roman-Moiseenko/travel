@@ -40,16 +40,15 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'class' => 'frontend\urls\LangRequest',
-
+            //'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'https://' . $_SERVER['HTTP_HOST'] : '',
         ],
         'user' => [
+           // 'class' => 'anart\forum\PhpBBWebUser',
             'identityClass' => 'booking\entities\user\User',
             'enableAutoLogin' => true,
             'identityCookie' => [
                 'name' => '_identity-koenigs',
-                // 'httpOnly' => true,
                 'domain' => $params['cookieDomain'],
-                // 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
             ],
             'loginUrl' => ['auth/auth/login'],
         ],

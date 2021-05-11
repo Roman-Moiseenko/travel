@@ -1,9 +1,11 @@
 <?php
 
 
-namespace booking\entities\forum;
+namespace booking\entities\admin\forum;
 
 
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Message;
 use booking\entities\admin\User;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;

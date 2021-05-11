@@ -5,14 +5,14 @@ namespace admin\controllers;
 
 
 use booking\entities\admin\User;
-use booking\entities\forum\Category;
-use booking\entities\forum\Message;
-use booking\entities\forum\Post;
+use booking\entities\admin\forum\Category;
+use booking\entities\admin\forum\Message;
+use booking\entities\admin\forum\Post;
 use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
-use booking\repositories\forum\PostRepository;
-use booking\services\forum\CategoryService;
-use booking\services\forum\PostService;
+use booking\repositories\admin\forum\PostRepository;
+use booking\services\admin\forum\CategoryService;
+use booking\services\admin\forum\PostService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
