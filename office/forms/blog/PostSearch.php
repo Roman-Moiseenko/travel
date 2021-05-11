@@ -32,7 +32,6 @@ class PostSearch extends Post
     {
         return Model::scenarios();
     }
-
     /**
      * Creates data provider instance with search query applied
      *
