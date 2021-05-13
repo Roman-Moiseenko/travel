@@ -7,7 +7,7 @@
 ?>
 <div class="card">
     <div class="card-img-top">
-        <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/moving/' . $image ?>"  alt="Пакет документов для переезда">
+        <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/moving/' . $image ?>"  alt="Пакет документов для переезда" class="card-img-top">
     </div>
     <div class="card-body">
         <h4><?= $caption ?></h4>

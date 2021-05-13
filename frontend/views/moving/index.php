@@ -24,9 +24,9 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
                 </h1>
                 <div class="container">
                     <div class="card"
-                         style="background-color: rgba(109,201,212,0.8) !important;; border-radius: 20px">
+                         style="background-color: rgba(255,255,255,0.8) !important;; border-radius: 20px">
                         <div class="card-body m-4 p-2"
-                             style="text-align: justify; color: #444; text-shadow: 0 0 0">
+                             style="text-align: justify; color: #000; text-shadow: 0 0 0">
                             <h2 style="text-align: center !important;">Как переехать в Калининград</h2>
                             <div>
                                 Переехали полтора года назад. Изначально не планировали, просто после очередного
@@ -87,4 +87,13 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             ]) ?>
         </div>
     </div>
+
+
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_1'); ?>
 </div>
