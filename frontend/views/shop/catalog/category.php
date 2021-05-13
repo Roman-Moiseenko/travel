@@ -24,9 +24,6 @@ $this->params['breadcrumbs'][] = $category->name;
 $this->params['active_category'] = $category;
 
 $this->params['id_category'] = $category->id;
-
-
-
 ?>
 
     <h1><?=Html::encode(Lang::t($category->getHeadingTile()))?></h1>

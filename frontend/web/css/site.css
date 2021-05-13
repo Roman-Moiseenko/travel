@@ -1006,7 +1006,7 @@ div.required label:after {
     left: 50%;
     right: inherit;
     bottom: inherit;
-    transform: translate(-50%, -75%);
+    transform: translate(-50%, -50%);
     display: block;
     width: 100%;
     text-align: center;
@@ -1251,6 +1251,10 @@ ul.pagination>li.active a:focus {
 .item-2-80by1 {
     padding-top: 35.71%; /* (1:2)*100% */
 }
+.item-4by1 {
+    padding-top: 25%; /* (1:2)*100% */
+}
+
 .item-0-67by1 {
     padding-top: 149.25%; /* (1:2)*100% */
 }

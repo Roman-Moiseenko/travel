@@ -176,8 +176,10 @@ return [
                 'shop/cart/sub' => 'shop/cart/sub',
                 'shop/cart/remove' => 'shop/cart/remove',
                 'shop/cart/quantity' => 'shop/cart/quantity',
-
                 'shop/cart' => 'shop/cart/index',
+
+                'moving' => 'moving/index',
+                'moving/forum' => 'moving/forum',
 
                 'tickets' => 'tickets/tickets/index',
 
