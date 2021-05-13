@@ -12,50 +12,38 @@ $this->params['canonical'] = Url::to(['/moving'], true);
 
 $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landing.jpg';
 ?>
-<div class="item-responsive item-4by1">
+<div class="item-responsive item-moving">
     <div class="content-item">
         <div class="item-class">
             <img data-src="<?= $image ?>" class="lazyload" alt="Переезд на ПМЖ в Калининград" width="100%">
-            <div class="container">
-                <div class="carousel-caption">
-                    <div>
-                    <div class="row">
-                        <div class="col">
-                            <p> </p>
-                            <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
-                            <h1 class="landing-h2">
-                                <span class="line-t"></span><?= Lang::t('Переезд на ПМЖ в Калининград') ?><span
-                                        class="line-b"></span>
-                            </h1>
-                            <p></p>
-                        </div>
-                    </div>
-                       <div class="row">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-6">
-                            <div class="card"
-                                 style="background-color: rgba(255,255,255,0.8) !important;; border-radius: 20px">
-                                <div class="card-body m-4 p-2" style="text-align: justify; color: #444; text-shadow: 0 0 0">
-                                    <h2 style="text-align: center !important;">Как переехать в Калининград</h2>
-                                    <div>
-                                        Переехали полтора года назад. Изначально не планировали, просто после очередного
-                                        отпуска, который мы провели в Калининграде,
-                                        у нас возникла такая идея. Когда возвращались в Красноярск, в городе в очередной
-                                        раз был объявлен режим черного неба. Мы сели
-                                        в аэропорту в смог, ехали на такси до дома и серое-серое небо Красноярска было
-                                        потрясением для нас в тот момент. Был очень большой
-                                        контраст после чистого, ярко-голубого неба Калининграда. В крае такого неба не
-                                        бывает.
-                                        <br>
-                                        Первое время мысли о переезде звучали просто как шутка, но позднее это переросло
-                                        в идею, что куда-то действительно хочется уехать.
-                                        Вернее, ответ на вопрос: «Хотел ли ты переехать в Калининград?» стал
-                                        положительным.
-                                    </div>
-                                </div>
+            <div class="carousel-caption">
+                <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
+                <h1 class="landing-h2">
+                    <span class="line-t"></span><?= Lang::t('Переезд на ПМЖ в Калининград') ?><span
+                            class="line-b"></span>
+                </h1>
+                <div class="container">
+                    <div class="card"
+                         style="background-color: rgba(109,201,212,0.8) !important;; border-radius: 20px">
+                        <div class="card-body m-4 p-2"
+                             style="text-align: justify; color: #444; text-shadow: 0 0 0">
+                            <h2 style="text-align: center !important;">Как переехать в Калининград</h2>
+                            <div>
+                                Переехали полтора года назад. Изначально не планировали, просто после очередного
+                                отпуска, который мы провели в Калининграде,
+                                у нас возникла такая идея. Когда возвращались в Красноярск, в городе в очередной
+                                раз был объявлен режим черного неба. Мы сели
+                                в аэропорту в смог, ехали на такси до дома и серое-серое небо Красноярска было
+                                потрясением для нас в тот момент. Был очень большой
+                                контраст после чистого, ярко-голубого неба Калининграда. В крае такого неба не
+                                бывает.
+                                <br>
+                                Первое время мысли о переезде звучали просто как шутка, но позднее это переросло
+                                в идею, что куда-то действительно хочется уехать.
+                                Вернее, ответ на вопрос: «Хотел ли ты переехать в Калининград?» стал
+                                положительным.
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +52,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
 </div>
 
 
-<div class="container">
+<div class="container pt-4">
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <?= $this->render('_menu_block', [

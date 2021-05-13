@@ -79,7 +79,7 @@ AppAsset::register($this);
     <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
 
 </head>
-<body style="background-color: #b5e0ff;">
+<body style="background-color: #f2f6f9;">
 <?php $this->beginBody() ?>
 <?php if (isset($this->params['topmenu'])): ?>
     <nav id="top"><?= 'Какой-то виджет меню' ?></nav>

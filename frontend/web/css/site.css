@@ -1251,8 +1251,8 @@ ul.pagination>li.active a:focus {
 .item-2-80by1 {
     padding-top: 35.71%; /* (1:2)*100% */
 }
-.item-4by1 {
-    padding-top: 25%; /* (1:2)*100% */
+.item-moving {
+    padding-top: 23.25%; /* (1:2)*100% */
 }
 
 .item-0-67by1 {
