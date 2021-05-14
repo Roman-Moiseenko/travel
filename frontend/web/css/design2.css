@@ -19,10 +19,8 @@
 }
 
 .d2-btn-micro {
-
     width: 40px;
     height: 40px;
-
     justify-content: center;
     border-radius: 10px;
 }
@@ -65,13 +63,13 @@
 /*Цвета*/
 /** Основная кнопка. **/
 .d2-btn-main {
-    background: #229ac8 !important;
-    color: white !important;
+    background: #229ac8;
+    color: white;
 }
 
-.d2-btn-main:hover {
-    background: #227aa5 !important;
-    color: white !important;
+.d2-btn-main:hover:not(disabled) {
+    background: #227aa5;
+    color: white;
 }
 .d2-btn-main:focus {
     outline: none;
@@ -80,13 +78,13 @@
 /* Почта */
 .d2-btn-mail {
     background: rgba(34, 154, 200, 0.33);
-    color: #227aa5 !important;
+    color: #227aa5;
     border: 1px solid #229ac8;
 }
 
-.d2-btn-mail:hover {
-    background: #227aa5 !important;
-    color: white !important;
+.d2-btn-mail:hover:not(disabled) {
+    background: #227aa5;
+    color: white;
 }
 .d2-btn-mail:focus {
     outline: none;
@@ -97,7 +95,7 @@
     background: #eeca6b;
     color: black;
 }
-.d2-btn-cancel:hover {
+.d2-btn-cancel:hover:not(disabled) {
     background: #cba766;
     color: white;
 }
@@ -111,7 +109,7 @@
     color: #4f4f4f;
     background-color: #ffffff;
 }
-.d2-btn-empty:hover {
+.d2-btn-empty:hover:not(disabled) {
     background: #4f4f4f;
     color: white;
 }
@@ -198,7 +196,7 @@
     background: #168716;
     color: white;
 }
-.d2-btn-pay:hover {
+.d2-btn-pay:hover:not(disabled) {
     background: #167316;
     color: white;
 }
@@ -213,7 +211,7 @@
     color: white;
 }
 
-.d2-btn-buy:hover {
+.d2-btn-buy:hover:not(disabled) {
     background: #1b5674;
     color: white;
 }

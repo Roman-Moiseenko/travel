@@ -159,6 +159,11 @@ class Product extends ActiveRecord
         $this->views++;
     }
 
+    public function getBrand(): string
+    {
+        return $this->shop->getName();
+    }
+
     public static function tableName()
     {
         return '{{%shops_product}}';

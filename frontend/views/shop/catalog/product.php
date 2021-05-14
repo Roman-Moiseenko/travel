@@ -224,6 +224,8 @@ MagnificPopupAsset::register($this);
     <meta itemprop="name" content="<?= $product->getName() ?>">
     <meta itemprop="description" content="<?= $product->getDescription() ?>">
     <meta itemprop="sku" content="<?= $product->id ?>">
+    <meta itemprop="brand" content="<?=$product->getBrand() ?>">
+    <link itemprop="url" href="<?= Url::to(['product/view', 'id' => $product->id], true)?>">
     <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
         <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file') ?>"/>
     </div>
@@ -231,6 +233,7 @@ MagnificPopupAsset::register($this);
         <meta itemprop="priceCurrency" content="RUB">
         <meta itemprop="price" content="<?= $product->cost ?>">
         <link itemprop="availability" href="https://schema.org/InStock"/>
+        <meta itemprop="priceValidUntil" content="<?= ((int)(date('Y', time())) + 1) . '-01-01'?>">
     </div>
     <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
         <meta itemprop="ratingValue" content="<?= $product->rating ?? 5 ?>">
@@ -249,7 +252,6 @@ MagnificPopupAsset::register($this);
                 <meta itemprop="bestRating" content="5">
             </div>
             <meta itemprop="reviewBody" content="<?= $review->text ?>">
-
         </div>
     <?php endforeach; ?>
 </div>

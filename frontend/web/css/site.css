@@ -1307,3 +1307,7 @@ ul.pagination>li.active a:focus {
     font-weight: 600;
     color: #333;
 }
+
+.indent {
+    text-indent: 40px;
+}

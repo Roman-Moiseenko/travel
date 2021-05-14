@@ -201,15 +201,15 @@ class LegalController extends Controller
 
     public function actionCertRemove($id)
     {
-        $user = $this->findModel();
-        $legal_id = Cert::find()->andWhere(['id' => $id])->select('legal_id');
+        $cert = Cert::findOne($id);
         try {
-            $this->service->removeLegalCert($legal_id, $id);
+            $this->service->removeLegalCert($cert->legal_id, $id);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
+
     private function findModel()
     {
         return User::findOne(\Yii::$app->user->id);

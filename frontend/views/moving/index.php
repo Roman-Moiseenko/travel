@@ -17,7 +17,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
         <div class="item-class">
             <img data-src="<?= $image ?>" class="lazyload" alt="Переезд на ПМЖ в Калининград" width="100%">
             <div class="carousel-caption">
-                <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
+                <p class="landing-h1">Кёнигсберг</p>
                 <h1 class="landing-h2">
                     <span class="line-t"></span><?= Lang::t('Переезд на ПМЖ в Калининград') ?><span
                             class="line-b"></span>
