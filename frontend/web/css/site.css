@@ -1311,3 +1311,11 @@ ul.pagination>li.active a:focus {
 .indent {
     text-indent: 40px;
 }
+
+h2.faq-card {
+
+    margin-top: 3px;
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #666;
+}

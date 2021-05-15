@@ -83,7 +83,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
                         Текст Текст ТекстТекст Текст Текст Текст Текст ТекстТекст Текст Текст Текст Текст Текст
                         Текст Текст Текст Текст Текст Текст',
 
-                'link' => Url::to(['/moving/forum'])
+                'link' => Url::to(['/moving/faq'])
             ]) ?>
         </div>
     </div>

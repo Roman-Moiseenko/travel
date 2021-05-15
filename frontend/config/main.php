@@ -178,8 +178,8 @@ return [
                 'shop/cart/quantity' => 'shop/cart/quantity',
                 'shop/cart' => 'shop/cart/index',
 
-                'moving' => 'moving/index',
-                'moving/forum' => 'moving/forum',
+                'moving' => 'moving/moving/index',
+                'moving/faq' => 'moving/faq/index',
 
                 'tickets' => 'tickets/tickets/index',
 

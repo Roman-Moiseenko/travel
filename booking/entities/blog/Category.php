@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property string $description_en
  * @property integer $sort
  * @property Meta $meta
-
+ * @property string $meta_json [json]
  */
 class Category extends ActiveRecord
 {

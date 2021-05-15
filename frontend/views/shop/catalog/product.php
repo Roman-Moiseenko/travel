@@ -226,6 +226,7 @@ MagnificPopupAsset::register($this);
     <meta itemprop="sku" content="<?= $product->id ?>">
     <meta itemprop="brand" content="<?=$product->getBrand() ?>">
     <link itemprop="url" href="<?= Url::to(['product/view', 'id' => $product->id], true)?>">
+    <meta itemprop="gtin" content="">
     <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
         <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file') ?>"/>
     </div>

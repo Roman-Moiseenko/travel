@@ -10,7 +10,6 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\MovingMenuWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
@@ -82,25 +81,11 @@ AppAsset::register($this);
 </head>
 <body style="background-color: #f2f6f9;">
 <?php $this->beginBody() ?>
-
-    <nav id="top"><?= MovingMenuWidget::widget() ?></nav>
-
-<div id="common-home" class="container content-container">
-    <?= BreadcrumbsWidget::widget([
-        'options' => ['class' => 'breadcrumb-site'],
-        'homeLink' => [
-            'label' => Lang::t('Главная'),
-            'url' => Yii::$app->homeUrl,
-            'title' => Lang::t('На главную'),
-        ],
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= AlertWidget::widget() ?>
+<div id="common-home" class="content-container">
     <?= $content ?>
 </div>
 <!-- Main Footer -->
 <?= $this->render('footer') ?>
-
 <?php $this->endBody() ?>
 <script type="text/javascript">
     let giftofspeed1 = document.createElement('link');
