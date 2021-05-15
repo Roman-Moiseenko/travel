@@ -10,8 +10,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $faq FAQ */
-$url = '';
-//TODO СДелать письмо Вопрос
+$url = Url::to(['/moving/faq/category', 'id' => $faq->category_id], true);
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
