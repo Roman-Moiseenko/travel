@@ -18,6 +18,8 @@ Disallow: /ru/shop/cart
 Disallow: /en/shop/cart
 Disallow: /*?*map=
 Disallow: /ru/moving
+Disallow: /en/moving
+Disallow: /moving
 
 Disallow: /admin
 Disallow: /office

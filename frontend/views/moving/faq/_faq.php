@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $faq FAQ */
 
 
-$iModerator = \Yii::$app->user->identity->username == \Yii::$app->params['moving_moderator'];
+$iModerator = \Yii::$app->user->isGuest ? false : (\Yii::$app->user->identity->username == \Yii::$app->params['moving_moderator']);
 $Moderator = User::findByUsername(\Yii::$app->params['moving_moderator']);
 ?>
 

@@ -12,7 +12,7 @@ $this->registerMetaTag(['name' => 'description', 'content' => 'СЕО текст
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = 'Форум';
 
-$iModerator = \Yii::$app->user->identity->username == \Yii::$app->params['moving_moderator'];
+$iModerator = \Yii::$app->user->isGuest ? false : (\Yii::$app->user->identity->username == \Yii::$app->params['moving_moderator']);
 
 ?>
 
