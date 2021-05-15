@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\entities\mailing\Mailing;
 use booking\entities\message\Conversation;
 use booking\entities\message\Dialog;
+use booking\entities\moving\FAQ;
 use booking\entities\shops\order\Order;
 use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
@@ -387,6 +388,29 @@ class ContactService
         }
     }
 
+    public function sendNewQuestion(string $email, FAQ $faq)
+    {
+        $send = $this->mailer->compose('noticeQuestion', ['faq' => $faq])
+            ->setTo($email)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Переезд на ПМЖ')])
+            ->setSubject('Новый вопрос на Форуме ПМЖ')
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
+
+    public function sendNewAnswer(FAQ $faq)
+    {
+        $send = $this->mailer->compose('noticeAnswer', ['faq' => $faq])
+            ->setTo($faq->email)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Переезд на ПМЖ')])
+            ->setSubject('Ответ на Ваш вопрос')
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
 
 
 }

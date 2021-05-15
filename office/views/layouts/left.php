@@ -111,7 +111,7 @@ use yii\helpers\Url;
                         ['label' => 'IMG Alt', 'iconStyle' => 'far', 'icon' => 'images', 'url' => ['/seo/alt'], 'active' => $this->context->id == 'seo/alt'],
                         ['label' => 'Meta Теги', 'iconStyle' => 'fab', 'icon' => 'maxcdn', 'url' => ['/seo/meta'], 'active' => $this->context->id == 'seo/meta'],
                     ]],
-                    ['label' => 'На ПМЖ', 'iconStyle' => 'far', 'icon' => 'truck-moving', 'items' => [
+                    ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
                             ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
                     ]],
                 ],

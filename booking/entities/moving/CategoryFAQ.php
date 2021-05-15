@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $caption
  * @property string $description
  * @property FAQ[] $faqMessages
+ * @property FAQ[] $faqNotAnswer
  */
 class CategoryFAQ extends ActiveRecord
 {
@@ -53,6 +54,11 @@ class CategoryFAQ extends ActiveRecord
         return $this->hasMany(FAQ::class, ['category_id' => 'id']);
     }
 
+    public function getFaqNotAnswer(): ActiveQuery
+    {
+        return $this->hasMany(FAQ::class, ['category_id' => 'id'])->andWhere([FAQ::tableName() . '.complete' => false]);
+    }
+
     public function countFaq()
     {
         $count = count($this->faqMessages);
@@ -63,5 +69,10 @@ class CategoryFAQ extends ActiveRecord
                 $text = 'сообщений';
         }
         return $count . ' ' . $text;
+    }
+
+    public function countNotAnswer(): int
+    {
+        return count($this->faqNotAnswer);
     }
 }

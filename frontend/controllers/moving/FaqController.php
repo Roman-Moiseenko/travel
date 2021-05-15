@@ -3,8 +3,12 @@
 
 namespace frontend\controllers\moving;
 
-
+use booking\forms\moving\AnswerForm;
+use booking\forms\moving\QuestionForm;
 use booking\repositories\moving\CategoryFAQRepository;
+use booking\repositories\moving\FAQRepository;
+use booking\services\moving\FAQService;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class FaqController extends Controller
@@ -16,11 +20,28 @@ class FaqController extends Controller
      * @var CategoryFAQRepository
      */
     private $repository;
+    /**
+     * @var FAQRepository
+     */
+    private $FAQRepository;
+    /**
+     * @var FAQService
+     */
+    private $service;
 
-    public function __construct($id, $module, CategoryFAQRepository $repository, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        CategoryFAQRepository $repository,
+        FAQRepository $FAQRepository,
+        FAQService $service,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->repository = $repository;
+        $this->FAQRepository = $FAQRepository;
+        $this->service = $service;
     }
 
     public function actionIndex()
@@ -29,5 +50,44 @@ class FaqController extends Controller
         return $this->render('index', [
             'categories' => $categories,
         ]);
+    }
+
+    public function actionCategory($id)
+    {
+        $category = $this->repository->get($id);
+        $dataProvider = $this->FAQRepository->SearchModel($category->id);
+        $model_answer = new AnswerForm();
+        $form = new QuestionForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->question($category->id, $form);
+                return $this->redirect(Url::to(['moving/faq/category', 'id' => $category->id]));
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash($e->getMessage());
+            }
+        }
+        return $this->render('category', [
+            'category' => $category,
+            'dataProvider' => $dataProvider,
+            'model' => $form,
+            'model_answer' => $model_answer,
+        ]);
+
+
+    }
+
+    public function actionAnswer($id)
+    {
+        $question = $this->FAQRepository->get($id);
+
+        $form = new AnswerForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->answer($question->id, $form);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash($e->getMessage());
+            }
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

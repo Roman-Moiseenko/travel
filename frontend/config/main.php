@@ -180,6 +180,8 @@ return [
 
                 'moving' => 'moving/moving/index',
                 'moving/faq' => 'moving/faq/index',
+                'moving/faq/category/<id:\d+>' => 'moving/faq/category',
+                'moving/faq/answer/<id:\d+>' => 'moving/faq/answer',
 
                 'tickets' => 'tickets/tickets/index',
 
