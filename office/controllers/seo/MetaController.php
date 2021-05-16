@@ -280,7 +280,7 @@ class MetaController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-        return $this->render('stays', [
+        return $this->render('products', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'model' => $form,
