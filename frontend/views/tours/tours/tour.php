@@ -346,6 +346,7 @@ $countReveiws = $tour->countReviews();
                 <meta itemprop="addressLocality" content="<?= \Yii::$app->params['address']['addressLocality'] ?>">
             </div>
         </div>
+        <?php if ($tour->legal): ?>
         <div itemprop="offeredBy" itemtype="https://schema.org/Organization" itemscope>
             <meta itemprop="name" content="<?= $tour->legal->caption ?>"/>
             <meta itemprop="telephone" content="<?= \Yii::$app->params['supportPhone'] ?>">
@@ -356,6 +357,7 @@ $countReveiws = $tour->countReviews();
             </div>
             <link itemprop="url" href="<?= Url::to(['legals/view', 'id' => $tour->legal->id], true) ?>"/>
         </div>
+        <?php endif;?>
     </div>
 </div>
 <?php $js = <<<EOD

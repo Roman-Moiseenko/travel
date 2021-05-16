@@ -6,7 +6,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $categories CategoryFAQ[] */
 
-$this->title = 'Форум по переезду на ПМЖ в Калининград';
+$this->title = 'Переезд на ПМЖ в Калининград - вопросы и ответы';
 $this->registerMetaTag(['name' => 'description', 'content' => 'СЕО текст для форума по переезду на ПМЖ в Калининград']);
 
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
@@ -16,7 +16,7 @@ $iModerator = \Yii::$app->user->isGuest ? false : (\Yii::$app->user->identity->u
 
 ?>
 
-<h1>Форум по переезду в Калининград</h1>
+<h1>Переезд на ПМЖ в Калининград</h1>
 <div class="pt-4"></div>
 <div class="indent text-justify p-4">
     СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст .СЕО Текст
