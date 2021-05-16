@@ -8,6 +8,7 @@ use booking\entities\booking\BookingAddress;
 use booking\entities\booking\funs\WorkMode;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
+use booking\entities\Meta;
 use booking\entities\shops\Delivery;
 use booking\entities\shops\InfoAddress;
 use booking\entities\shops\order\Order;
@@ -15,6 +16,7 @@ use booking\entities\shops\Photo;
 use booking\entities\shops\ReviewShop;
 use booking\entities\shops\Shop;
 use booking\forms\booking\ReviewForm;
+use booking\forms\MetaForm;
 use booking\forms\WorkModeForm;
 use booking\forms\shops\ShopCreateForm;
 use booking\helpers\scr;
@@ -301,5 +303,12 @@ class ShopService
         $orders = Order::find()->andWhere(['shop_id' => $id])->count();
         if ($orders > 0) throw new \DomainException('Нельзя удалить магазин, товары которого находятся в заказе! Отправьте его в черновик');
         $this->shops->remove($shop);
+    }
+
+    public function setMeta($id, MetaForm $form)
+    {
+        $shop = $this->shops->get($id);
+        $shop->setMeta(new Meta($form->title, $form->description, $form->keywords));
+        $this->shops->save($shop);
     }
 }

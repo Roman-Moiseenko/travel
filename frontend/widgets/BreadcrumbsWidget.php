@@ -40,7 +40,7 @@ class BreadcrumbsWidget extends Widget
             }
             $links[] = $this->renderItem($link,  $i + 2);
         }
-        $result = '<div itemscope="" itemtype="http://schema.org/BreadcrumbList">';
+        $result = '<div itemscope="" itemtype="https://schema.org/BreadcrumbList">';
         $result .= Html::tag($this->tag, implode('', $links), $this->options);
         $result .= '</div>';
         echo $result;
@@ -53,7 +53,7 @@ class BreadcrumbsWidget extends Widget
         }
         if (isset($link['url'])) {
             $result = '
-                        <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <div itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                         <li>
                             <a itemprop="item" href="'. \Yii::$app->params['frontendHostInfo'] . $link['url'] .'">
                                 <span itemprop="name">'. $link['label'] . '</span>                                

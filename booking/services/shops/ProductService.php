@@ -14,6 +14,7 @@ use booking\entities\shops\products\ReviewProduct;
 use booking\entities\shops\products\Size;
 use booking\entities\shops\Shop;
 use booking\forms\booking\ReviewForm;
+use booking\forms\MetaForm;
 use booking\forms\shops\CostModalForm;
 use booking\forms\shops\ProductForm;
 use booking\repositories\office\PriceListRepository;
@@ -270,6 +271,13 @@ class ProductService
     {
         $product = $this->products->get($id);
         $product->repair($quantity);
+        $this->products->save($product);
+    }
+
+    public function setMeta($id, MetaForm $form)
+    {
+        $product = $this->products->get($id);
+        $product->setMeta(new Meta($form->title, $form->description, $form->keywords));
         $this->products->save($product);
     }
 }
