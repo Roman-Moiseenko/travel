@@ -10,7 +10,7 @@ use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnWish;
-use frontend\widgets\GalleryWidget;
+use frontend\widgets\featured\ForFoodsWidget;use frontend\widgets\GalleryWidget;
 use frontend\widgets\reviews\NewReviewFoodWidget;
 use frontend\widgets\reviews\ReviewsFoodWidget;
 use yii\helpers\Html;
@@ -58,7 +58,7 @@ $countReveiws = $food->countReviews();
                         <div class="mr-auto">
                             <h1><?= Html::encode($food->name) ?></h1>
                         </div>
-                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id]) ]) ?>
+                        <?= BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-food', 'id' => $food->id])]) ?>
                     </div>
                 </div>
             </div>
@@ -92,6 +92,12 @@ $countReveiws = $food->countReviews();
                     </div>
                 </div>
             </div>
+
+
+        </div>
+    </div>
+    <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col-sm-8 <?= $mobile ? ' ml-2' : '' ?>">
             <!-- Режим -->
             <div class="container-hr-food">
                 <hr/>
@@ -131,6 +137,13 @@ $countReveiws = $food->countReviews();
                     </div>
                 </div>
             </div>
+        </div>
+    <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
+        <?= ForFoodsWidget::widget() ?>
+    </div>
+    </div>
+    <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col-sm-12 <?= $mobile ? ' ml-2' : '' ?>">
             <!-- Адрес -->
             <div class="container-hr-food">
                 <hr/>
@@ -156,10 +169,11 @@ $countReveiws = $food->countReviews();
                             <div class="col-lg-3 col-md-4 col-sm-6">
                                 <?= BtnGeo::widget(['caption' => 'Показать на карте', 'target_id' => 'collapse-map-3']) ?>
                                 <?php foreach ($food->addresses as $i => $address): ?>
-                                    <input type="hidden" id="address-<?=$i+1?>" value="<?= $address->address?>">
-                                    <input type="hidden" id="phone-<?=$i+1?>" value="<?= $address->phone?>">
-                                    <input type="hidden" id="latitude-<?=$i+1?>" value="<?= $address->latitude?>">
-                                    <input type="hidden" id="longitude-<?=$i+1?>" value="<?= $address->longitude?>">
+                                    <input type="hidden" id="address-<?= $i + 1 ?>" value="<?= $address->address ?>">
+                                    <input type="hidden" id="phone-<?= $i + 1 ?>" value="<?= $address->phone ?>">
+                                    <input type="hidden" id="latitude-<?= $i + 1 ?>" value="<?= $address->latitude ?>">
+                                    <input type="hidden" id="longitude-<?= $i + 1 ?>"
+                                           value="<?= $address->longitude ?>">
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -202,24 +216,24 @@ $countReveiws = $food->countReviews();
             <meta itemprop="reviewCount" content="<?= count($food->reviews) + 1 ?>">
         </div>
         <?php foreach ($food->addresses as $address): ?>
-        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-            <meta itemprop="streetAddress" content="<?= $address->address ?>">
-            <meta itemprop="addressLocality" content="<?= $address->city ?>">
-            <meta itemprop="addressRegion" content="Калининградская область">
-        </div>
-        <meta itemprop="telephone" content="<?= $address->phone ?>">
+            <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                <meta itemprop="streetAddress" content="<?= $address->address ?>">
+                <meta itemprop="addressLocality" content="<?= $address->city ?>">
+                <meta itemprop="addressRegion" content="Калининградская область">
+            </div>
+            <meta itemprop="telephone" content="<?= $address->phone ?>">
         <?php endforeach; ?>
         <?php foreach ($food->contactAssign as $contact)
-             if ($contact->contact->type != Contact::NO_LINK)
+            if ($contact->contact->type != Contact::NO_LINK)
                 echo '<link itemprop="url" href="' . $contact->contact->prefix . $contact->value . '">' . PHP_EOL;
         ?>
 
-    <?php foreach ($food->workModes as $i => $workMode)
-        if ($workMode->day_begin != '')
-            echo '<meta itemprop="openingHours" content="' . WorkModeHelper::week($i) . ' ' . $workMode->day_begin . '-' . $workMode->day_end . '">';
-    ?>
+        <?php foreach ($food->workModes as $i => $workMode)
+            if ($workMode->day_begin != '')
+                echo '<meta itemprop="openingHours" content="' . WorkModeHelper::week($i) . ' ' . $workMode->day_begin . '-' . $workMode->day_end . '">';
+        ?>
         <?php foreach ($food->kitchens as $kitchen): ?>
-            <meta itemprop="servesCuisine" content="<?= $kitchen->name?>">
+            <meta itemprop="servesCuisine" content="<?= $kitchen->name ?>">
         <?php endforeach; ?>
 
     </div>
