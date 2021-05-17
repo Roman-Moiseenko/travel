@@ -16,28 +16,28 @@ use yii\helpers\Url; ?>
                         <a href="<?= Html::encode(Url::to(['/policy'])) ?>" rel="nofollow"><?= Lang::t('Политика конфиденциальности') ?></a>
                     </li>
                     <li><a href="<?= Html::encode(Url::to(['/offer'])) ?>" rel="nofollow"><?= Lang::t('Оферта') ?></a></li>
-                    <li><a href="<?= Html::encode(Url::to(['/post'])) ?>"><?= Lang::t('Блог') ?></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/post'])) ?>"><h3><?= Lang::t('Достопримечательности Калининграда') ?></h3></a></li>
                 </ul>
             </div>
             <?php //TODO Жилье ?>
             <div class="col-sm-3">
-                <label class="footer-title"><?= Lang::t('Жилье') ?></label>
+                <label class="footer-title"><?= Lang::t('Жилье в Калининграде') ?></label>
                 <ul class="list-unstyled">
                     <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
                     <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
-                    <li><a href="<?= Url::to(['/stays']) ?>"><?= Lang::t('Апартаменты/дома целиком') ?></a></li>
+                    <li><a href="<?= Url::to(['/stays']) ?>"><h3><?= Lang::t('Апартаменты/дома целиком') ?></h3></a></li>
                     <li><hr/></li>
-                    <li><a href="<?= Url::to(['/foods']) ?>"><?= Lang::t('Где поесть') ?></a></li>
-                    <li><a href="<?= Url::to(['/shops']) ?>"><?= Lang::t('Что привезти из Калининграда') ?></a></li>
+                    <li><a href="<?= Url::to(['/foods']) ?>"><h3><?= Lang::t('Где поесть в Калининграде') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/shops']) ?>"><h3><?= Lang::t('Что привезти из Калининграда') ?></h3></a></li>
                     <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
                 </ul>
             </div>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/cars']) ?>"><?= Lang::t('Прокат автотранспорта') ?></a></li>
-                    <li><a href="<?= Url::to(['/tours']) ?>"><?= Lang::t('Найти тур') ?></a></li>
-                    <li><a href="<?= Url::to(['/funs']) ?>"><?= Lang::t('Развлечения') ?></a></li>
+                    <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автотранспорта') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/tours']) ?>"><h3><?= Lang::t('Экскурсии в Калининграде') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/funs']) ?>"><h3><?= Lang::t('Развлечения и отдых') ?></h3></a></li>
                     <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление') ?></a></li>
                 </ul>
             </div>

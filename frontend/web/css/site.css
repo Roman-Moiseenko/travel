@@ -66,11 +66,19 @@ footer hr {
     border-bottom: 1px solid #666;
 }
 
-footer a {
+footer a,footer a h3 {
     color: #ccc;
 }
 
-footer a:hover {
+footer a h3 {
+    line-height: 20px;
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+
+
+footer a:hover, footer a h3:hover {
     color: #fff;
 }
 
