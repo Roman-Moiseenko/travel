@@ -7,7 +7,6 @@ use booking\helpers\SysHelper;
 use frontend\widgets\design\BtnWish;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
-use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $tour Tour */
@@ -57,7 +56,6 @@ $url = Url::to(['/tour/view', 'id' => $tour->id])
         </div>
         </p>
     </div>
-
     <a href="<?= Html::encode($url) ?>">
         <div class="mt-auto card-footer color-card-footer">
             <div class="d-flex">
@@ -72,4 +70,7 @@ $url = Url::to(['/tour/view', 'id' => $tour->id])
             </div>
         </div>
     </a>
+</div>
+<div style="text-align: center; padding-top: 8px">
+<a href="<?= Url::to(['/tours'])?>"><h3 style="font-size: 14px;"><?= Lang::t('Экскурсии в Калининграде')?></h3></a>
 </div>
