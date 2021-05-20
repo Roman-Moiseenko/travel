@@ -8,6 +8,7 @@ use yii\helpers\Url;
 
 $this->title = 'Переезд на ПМЖ в Калининград - вопросы и ответы';
 $this->registerMetaTag(['name' => 'description', 'content' => 'СЕО текст для форума по переезду на ПМЖ в Калининград']);
+$this->params['canonical'] = Url::to(['/moving/faq'], true);
 
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = 'Форум';

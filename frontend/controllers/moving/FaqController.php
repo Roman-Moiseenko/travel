@@ -14,7 +14,6 @@ use yii\web\Controller;
 class FaqController extends Controller
 {
 
-
     public $layout = 'main_moving';
     /**
      * @var CategoryFAQRepository

@@ -378,6 +378,7 @@ class ContactService
 
     private function mailerMessage($email, Dialog $dialog, $template, $user_name = '')
     {
+        if ($this->loc) return;
         $send = $this->mailer->compose($template, ['dialog' => $dialog, 'user_name' => $user_name])
             ->setTo($email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Новое сообщение')])
@@ -390,6 +391,7 @@ class ContactService
 
     public function sendNewQuestion(string $email, FAQ $faq)
     {
+        if ($this->loc) return;
         $send = $this->mailer->compose('noticeQuestion', ['faq' => $faq])
             ->setTo($email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Переезд на ПМЖ')])
@@ -402,6 +404,7 @@ class ContactService
 
     public function sendNewAnswer(FAQ $faq)
     {
+        if ($this->loc) return;
         $send = $this->mailer->compose('noticeAnswer', ['faq' => $faq])
             ->setTo($faq->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Переезд на ПМЖ')])

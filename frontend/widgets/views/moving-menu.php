@@ -111,6 +111,14 @@ use yii\helpers\Url;
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/faq' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">&#160;<?= Lang::t('Форум') ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/area' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving/area'])) ?>">&#160;<?= Lang::t('Участки') ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">&#160;<?= Lang::t('Бизнес') ?></a>
+                </li>
             </ul>
         </div>
     </nav>

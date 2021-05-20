@@ -87,7 +87,32 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             ]) ?>
         </div>
     </div>
+    <div class="row pt-3">
+        <div class="col-md-4 col-sm-6">
+            <?= $this->render('_menu_block', [
+                'image' => 'menu-area.jpg',
+                'caption' => 'Операции с землей',
+                'text' => 'Текст Текст Текст Текст Текст ТекстТекст Текст Текст Текст Текст ТекстТекст Текст Текст
+                        Текст Текст ТекстТекст Текст Текст Текст Текст ТекстТекст Текст Текст Текст Текст Текст
+                        Текст Текст Текст Текст Текст Текст',
+                'link' => Url::to(['/moving/ground'])
+            ]) ?>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <?= $this->render('_menu_block', [
+                'image' => 'menu-bussines.jpg',
+                'caption' => 'Приобретение готового бизнеса',
+                'text' => 'Текст Текст Текст Текст Текст ТекстТекст Текст Текст Текст Текст ТекстТекст Текст Текст
+                        Текст Текст ТекстТекст Текст Текст Текст Текст ТекстТекст Текст Текст Текст Текст Текст
+                        Текст Текст Текст Текст Текст Текст',
 
+                'link' => Url::to(['/moving/bussines'])
+            ]) ?>
+        </div>
+        <div class="col-md-4 col-sm-6">
+
+        </div>
+    </div>
 
     <?= $this->render('text_1'); ?>
     <?= $this->render('text_1'); ?>

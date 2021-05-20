@@ -25,6 +25,8 @@ $('.answer-btn').on('click', function() {
 JS;
 $this->registerJs($js);
 $this->title = $category->caption . ' вопросы-ответы';
+$this->params['canonical'] = Url::to(['/moving/faq/category', 'id' => $category->id], true);
+
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/moving/faq'])];
 $this->params['breadcrumbs'][] = $this->title = $category->caption;
