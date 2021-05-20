@@ -11,12 +11,14 @@ class QuestionForm extends Model
     public $username;
     public $email;
     public $question;
+    public $verifyCodeMy;
 
     public function rules()
     {
         return [
             [['username', 'email', 'question'], 'string'],
             [['username', 'question'], 'required', 'message' => 'Обязательное поле'],
+            ['verifyCodeMy', 'captcha'],
         ];
     }
 }

@@ -112,6 +112,7 @@ return [
                 'auth/network/auth' => 'auth/network/auth',
                 'fast/sign-up' => 'auth/fast/sign-up',
                 'site/login' => 'auth/auth/login',
+                'site/captcha' => 'site/captcha',
 
                 ['pattern' => 'turbo', 'route' => 'market/turbo', 'suffix' => '.xml'],
                 ['pattern' => 'rss', 'route' => 'market/rss', 'suffix' => '.xml'],

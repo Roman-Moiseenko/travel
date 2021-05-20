@@ -6,6 +6,7 @@ use booking\forms\moving\AnswerForm;
 use booking\forms\moving\QuestionForm;
 use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
+use yii\captcha\Captcha;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -66,6 +67,9 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
                 <?= $form->field($model, 'username')->textInput(['style' => 'width: 70%'])->label('Ваше имя:') ?>
                 <?= $form->field($model, 'email')->textInput(['style' => 'width: 70%'])->label('Ваша электронная почта:')->hint('Укажите, если хотите получить ответ на почту') ?>
                 <?= $form->field($model, 'question')->textarea(['rows' => 7])->label('Вопрос:') ?>
+                <?= $form->field($model, 'verifyCodeMy')->widget(Captcha::class, [
+                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                ])->label('Введите код с картинки') ?>
                 <div class="row">
                 <div class="col-lg-6 col-md-9">
                 <?= BtnSend::widget(['caption' => 'Отправить'])?>
