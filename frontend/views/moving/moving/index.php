@@ -101,12 +101,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
     </div>
 
     <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
-    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_2'); ?>
 
     <?=
     //TODO Добавить Комментарии
