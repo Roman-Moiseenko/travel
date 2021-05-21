@@ -2,6 +2,13 @@
 ?>
 
 <h2>Выбираем регион для переезда на ПМЖ</h2>
+<div class="item-responsive item-2-0by1">
+    <div class="content-item">
+<img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/moving/text_1.jpg' ?>"
+     alt="Выбираем регион для переезда на ПМЖ" title="Выбираем регион для переезда на ПМЖ"
+     width="100%" loading="lazy">
+    </div>
+</div>
 <p>
     Для этого в Вашем распоряжении:<br>
 <ol>
