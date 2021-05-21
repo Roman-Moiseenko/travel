@@ -7,6 +7,6 @@
     <div class="content-item">
         <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/moving/' . $image_file ?>"
              alt="<?= $alt ?>" title="<?= $alt ?>"
-             width="100%" loading="lazy">
+             width="50%" loading="lazy">
     </div>
 </div>
