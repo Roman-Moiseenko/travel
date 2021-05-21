@@ -6,7 +6,7 @@ namespace frontend\controllers\moving;
 
 use yii\web\Controller;
 
-class HousesController extends Controller
+class RealtyController extends Controller
 {
 
     public $layout = 'main_moving';

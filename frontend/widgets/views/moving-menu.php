@@ -100,7 +100,7 @@ use yii\helpers\Url;
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/houses' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/houses'])) ?>">&#160;<?= Lang::t('Недвижимость') ?>
+                       href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">&#160;<?= Lang::t('Недвижимость') ?>
                     </a>
                 </li>
                 <li class="nav-item">
