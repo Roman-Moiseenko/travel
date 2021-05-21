@@ -147,7 +147,29 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['shops'], true)),
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
+                new IndexItem(Url::to(['moving'], true)),
             ]);
+        });
+    }
+    public function actionMoving(): Response
+    {
+        return $this->renderSitemap('sitemap-moving', function () {
+            return $this->sitemap->generateMap(array_map(function ($item) {
+                if ($item == '') {
+                    return new MapItem(
+                        \Yii::$app->params['frontendHostInfo'],
+                        null,
+                        MapItem::ALWAYS
+                    );
+                }
+                else {
+                    return new MapItem(
+                        Url::to([$item], true),
+                        null,
+                        MapItem::ALWAYS
+                    );
+                }
+            }, ['/moving', ]));
         });
     }
 

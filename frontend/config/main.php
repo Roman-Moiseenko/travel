@@ -124,7 +124,6 @@ return [
 
                 //'main' => 'site/main',
 
-
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 
