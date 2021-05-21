@@ -19,7 +19,21 @@ Disallow: /en/shop/cart
 Disallow: /*?*map=
 Disallow: /ru/moving
 Disallow: /en/moving
-Disallow: /moving
+Disallow: /moving/faq
+Disallow: /moving/realty
+Disallow: /moving/area
+Disallow: /moving/docs
+Disallow: /moving/bussines
+Disallow: /ru/moving/faq
+Disallow: /ru/moving/realty
+Disallow: /ru/moving/area
+Disallow: /ru/moving/docs
+Disallow: /ru/moving/bussines
+Disallow: /en/moving/faq
+Disallow: /en/moving/realty
+Disallow: /en/moving/area
+Disallow: /en/moving/docs
+Disallow: /en/moving/bussines
 
 Disallow: /admin
 Disallow: /office
