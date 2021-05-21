@@ -1332,3 +1332,6 @@ h2.faq-card {
     text-indent: 20px;
     color: #333;
 }
+.text-block h2 {
+    padding-top: 20px;
+}
