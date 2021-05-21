@@ -1255,7 +1255,12 @@ ul.pagination>li.active a:focus {
 .item-2-0by1 {
     padding-top: 50.00%; /* (1:2)*100% */
 }
-
+.item-2-0by3 {
+    padding-top: 66.67%; /* (1:2)*100% */
+}
+.item-4-3by1 {
+    padding-top: 23.26%; /* (1:2)*100% */
+}
 .item-2-80by1 {
     padding-top: 35.71%; /* (1:2)*100% */
 }
@@ -1334,4 +1339,14 @@ h2.faq-card {
 }
 .text-block h2 {
     padding-top: 20px;
+}
+
+.landing-moving-h1 {
+    text-shadow: 1px 1px 2px black, 0 0 1em black;
+    line-height: 1.2;
+    font-weight: 400;
+    font-size: 52px !important;
+    color: #FFF !important;
+    margin-bottom: 17px;
+    font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
 }

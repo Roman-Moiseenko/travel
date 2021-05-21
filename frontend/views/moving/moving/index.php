@@ -6,7 +6,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Переезд на ПМЖ в Калининград - услуги, сервис, бизнес';
-$this->registerMetaTag(['name' => 'description', 'content' => 'СЕО текст для переезда на ПМЖ в Калининград']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Окажем помощь в организации переезда на ПМЖ в Калининград, 
+подберем недвижимость, земельный учатосток. Организуем строительство собственного дома на земельном участке в Калининграде. ']);
 
 $this->params['canonical'] = Url::to(['/moving'], true);
 
@@ -15,12 +16,17 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
 <div class="item-responsive item-moving">
     <div class="content-item">
         <div class="item-class">
-            <img data-src="<?= $image ?>" class="lazyload" alt="Переезд на ПМЖ в Калининград" width="100%">
+            <div class="item-responsive item-4-3by1">
+                <div class="content-item">
+            <img data-src="<?= $image ?>" loading="lazy" alt="Переезд на ПМЖ в Калининград" width="100%">
+                </div>
+            </div>
             <div class="carousel-caption">
-                <p class="landing-h1">Кёнигсберг</p>
-                <h1 class="landing-h2">
-                    <span class="line-t"></span><?= Lang::t('Переезд на ПМЖ в Калининград') ?><span
+                <h1 class="landing-moving-h1 py-2">Калининградская область<br>
+                <span class="landing-h2">
+                    <span class="line-t"></span><?= Lang::t('Переезд на ПМЖ') ?><span
                             class="line-b"></span>
+                </span>
                 </h1>
                 <div class="container">
                     <div class="card"
