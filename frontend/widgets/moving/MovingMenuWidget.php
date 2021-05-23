@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\widgets;
+namespace frontend\widgets\moving;
 
 use yii\base\Widget;
 

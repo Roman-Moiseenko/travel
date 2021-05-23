@@ -99,6 +99,11 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= isset($this->params['pages']) ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving/info'])) ?>">&#160;<?= Lang::t('Информация') ?>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/realty' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">&#160;<?= Lang::t('Недвижимость') ?>
                     </a>

@@ -10,7 +10,7 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\MovingMenuWidget;
+use frontend\widgets\moving\MovingMenuWidget;
 use frontend\widgets\TopmenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;

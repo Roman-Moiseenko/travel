@@ -1,10 +1,11 @@
 <?php
 
 
-namespace booking\forms;
+namespace booking\forms\moving;
 
-
-use booking\entities\Page;
+use booking\entities\moving\Page;
+use booking\forms\CompositeForm;
+use booking\forms\MetaForm;
 use booking\validators\SlugValidator;
 use yii\helpers\ArrayHelper;
 

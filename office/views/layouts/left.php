@@ -112,7 +112,8 @@ use yii\helpers\Url;
                         ['label' => 'Meta Теги', 'iconStyle' => 'fab', 'icon' => 'maxcdn', 'url' => ['/seo/meta'], 'active' => $this->context->id == 'seo/meta'],
                     ]],
                     ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
-                            ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
+                        ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
+                        ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
                     ]],
                 ],
             ]);

@@ -12,6 +12,7 @@ use booking\services\yandex\Info;
 use booking\services\yandex\YandexMarket;
 use frontend\urls\CarTypeUrlRule;
 use frontend\urls\FunTypeUrlRule;
+use frontend\urls\MovingPageUrlRule;
 use frontend\urls\PageUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
@@ -72,6 +73,11 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(PageUrlRule::class, [], [
             Instance::of(PageRepository::class),
+            Instance::of('cache'),
+        ]);
+
+        $container->setSingleton(MovingPageUrlRule::class, [], [
+            Instance::of(\booking\repositories\moving\PageRepository::class),
             Instance::of('cache'),
         ]);
 

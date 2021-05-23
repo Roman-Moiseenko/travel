@@ -1340,7 +1340,7 @@ h2.faq-card {
 .text-block h2 {
     padding-top: 20px;
 }
-
+/** MOVING **/
 .landing-moving-h1 {
     text-shadow: 1px 1px 2px black, 0 0 1em black;
     line-height: 1.2;
@@ -1349,4 +1349,18 @@ h2.faq-card {
     color: #FFF !important;
     margin-bottom: 17px;
     font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
+}
+.moving-menu-page {
+    border: 1px solid #333;
+    padding: 8px;
+    width: 200px;
+    border-radius: 6px;
+    background-color: #ddd;
+    text-align: center;
+    color: #333 !important;
+}
+.moving-menu-page:hover {
+    background-color: #666;
+    cursor: pointer;
+    color: #fff !important;
 }

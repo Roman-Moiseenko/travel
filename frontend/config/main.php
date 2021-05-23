@@ -183,10 +183,12 @@ return [
                 'moving/docs' => 'moving/docs/index',
                 'moving/realty' => 'moving/realty/index',
                 'moving/area' => 'moving/area/index',
+                'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
 
                 'moving/faq/category/<id:\d+>' => 'moving/faq/category',
                 'moving/faq/answer/<id:\d+>' => 'moving/faq/answer',
+                'moving/<slug:[\w\-]+>' => 'moving/moving/view',
 
                 'tickets' => 'tickets/tickets/index',
 
@@ -210,6 +212,7 @@ return [
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
                 '/<slug:[\w\-]+>' => 'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
+                ['class' => 'frontend\urls\MovingPageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
                 ['class' => 'frontend\urls\CarTypeUrlRule'],

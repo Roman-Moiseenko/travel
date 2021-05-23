@@ -6,9 +6,10 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Переезд на ПМЖ в Калининград - услуги, сервис, бизнес';
+$this->title = 'Переезд на ПМЖ в Калининград - услуги недвижимость бизнес';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Окажем помощь в организации переезда на ПМЖ в Калининград, 
-подберем недвижимость, земельный учатосток. Организуем строительство собственного дома на земельном участке в Калининграде. ']);
+подберем недвижимость, земельный учатосток. Организуем строительство собственного дома на земельном участке в Калининграде. 
+Консультации инвестиций в бизнес в Калининграде ']);
 
 $this->params['canonical'] = Url::to(['/moving'], true);
 $mobile = SysHelper::isMobile();
@@ -66,10 +67,10 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <?= $this->render('_menu_block', [
-                'image' => 'menu-docs.jpg',
-                'caption' => 'Документы для переезда',
-                'text' => 'Раздел находится в разработке',
-                'link' => Url::to(['/moving/docs'])
+                'image' => 'menu-info.jpg',
+                'caption' => 'Информация для переезжающих',
+                'text' => 'Блок содержит ряд статей с полезной информацией для переезжающих на ПМЖ в Калининград',
+                'link' => Url::to(['/moving/moving/view', 'slug' => 'info'])
             ]) ?>
         </div>
         <div class="col-md-4 col-sm-6">
@@ -110,6 +111,12 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             ]) ?>
         </div>
         <div class="col-md-4 col-sm-6">
+            <?= $this->render('_menu_block', [
+                'image' => 'menu-docs.jpg',
+                'caption' => 'Документы для переезда',
+                'text' => 'Раздел находится в разработке',
+                'link' => Url::to(['/moving/docs'])
+            ]) ?>
         </div>
     </div>
     <?= $this->render('text_1'); ?>
