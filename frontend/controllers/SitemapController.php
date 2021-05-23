@@ -11,6 +11,7 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
+use booking\entities\moving\Page;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
 use booking\repositories\blog\CategoryRepository;
@@ -20,6 +21,7 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
+use booking\repositories\moving\PageRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\sitemap\IndexItem;
@@ -89,6 +91,10 @@ class SitemapController extends Controller
      * @var ProductRepository
      */
     private $products;
+    /**
+     * @var PageRepository
+     */
+    private $moving;
 
     public function __construct(
         $id,
@@ -107,6 +113,7 @@ class SitemapController extends Controller
         \booking\repositories\booking\funs\TypeRepository $funTypes,
         \booking\repositories\booking\stays\TypeRepository $stayTypes,
         CategoryRepository $postType,
+        PageRepository $moving,
         $config = []
     )
     {
@@ -125,6 +132,7 @@ class SitemapController extends Controller
         $this->foods = $foods;
         $this->shops = $shops;
         $this->products = $products;
+        $this->moving = $moving;
     }
 
     public function actionIndex(): Response
@@ -148,28 +156,34 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
+                new IndexItem(Url::to(['moving-pages'], true)),
             ]);
         });
     }
+
     public function actionMoving(): Response
     {
         return $this->renderSitemap('sitemap-moving', function () {
             return $this->sitemap->generateMap(array_map(function ($item) {
-                if ($item == '') {
-                    return new MapItem(
-                        \Yii::$app->params['frontendHostInfo'],
-                        null,
-                        MapItem::ALWAYS
-                    );
-                }
-                else {
                     return new MapItem(
                         Url::to([$item], true),
                         null,
                         MapItem::ALWAYS
                     );
-                }
             }, ['/moving', ]));
+        });
+    }
+
+    public function actionMovingPages(): Response
+    {
+        return $this->renderSitemap('sitemap-moving-pages', function () {
+            return $this->sitemap->generateMap(array_map(function (Page $page) {
+                return new MapItem(
+                    Url::to(['/moving/moving/view', 'slug' => $page->slug], true),
+                    null,
+                    MapItem::DAILY
+                );
+            }, $this->moving->getAll()));
         });
     }
 
