@@ -168,7 +168,14 @@ $this->registerJs($script);
                     'caption' => 'Что купить',
                 ]) ?>
             </div>
-            <div class="col-3"></div>
+            <div class="col-3">
+                <?= $this->render('_button', [
+                    'url' => '/moving',
+                    'img_name' => 'moving.jpg',
+                    'img_alt' => 'На ПМЖ в Калининграде',
+                    'caption' => 'На ПМЖ',
+                ]) ?>
+            </div>
             <div class="col-3"></div>
         </div>
     </div>
