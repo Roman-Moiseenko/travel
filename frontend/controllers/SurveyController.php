@@ -30,6 +30,7 @@ class SurveyController extends Controller
 
         //Если нет, то возможность голосования
         $form = new SurveyUserForm($survey);
+        //scr::p(\Yii::$app->request->post());
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 //сохраняем

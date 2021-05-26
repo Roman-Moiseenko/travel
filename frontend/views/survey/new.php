@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $survey->caption;
     <div class="card m-3">
         <div class="card-header"><h2 style="font-size: 16px;"><?= $question->question ?></h2></div>
         <div class="card-body">
-            <?= $form->field($model, '['. $question->id .']questions')->radioList(
+            <?= $form->field($model, 'questions['. $question->id .']')->radioList(
                 ArrayHelper::map($question->variants, function (Variant $variant) {return $variant->id;}, function (Variant $variant) {return $variant->text;})
             )->label(false); ?>
         </div>

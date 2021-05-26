@@ -28,7 +28,7 @@ class SurveyUserForm extends Model
     {
         return [
             ['user', 'string'],
-            ['id', 'integer'],
+            ['survey_id', 'integer'],
             ['questions', 'each', 'rule' => ['integer']],
         ];
     }
