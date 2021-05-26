@@ -10,11 +10,13 @@ use yii\base\Widget;
 class BtnSend extends Widget
 {
     public $caption;
+    public $block = true;
 
     public function run()
     {
         return $this->render('btn-send',[
             'caption' => $this->caption,
+            'block' => $this->block,
         ]);
     }
 }

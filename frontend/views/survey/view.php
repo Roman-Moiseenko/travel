@@ -25,20 +25,18 @@ $this->params['breadcrumbs'][] = $survey->caption;
     'enableClientValidation' => false,
 ]); ?>
 <?php foreach ($survey->questions as $question): ?>
-    <div class="card">
-        <div class="card-header"><h2><?= $question->question ?></h2></div>
+    <div class="card m-3">
+        <div class="card-header"><h2 style="font-size: 16px;"><?= $question->question ?></h2></div>
         <div class="card-body">
             <?= $form->field($model, '['. $question->id .']questions')->radioList(
                 ArrayHelper::map($question->variants, function (Variant $variant) {return $variant->id;}, function (Variant $variant) {return $variant->text;})
-            ); ?>
+            )->label(false); ?>
         </div>
     </div>
 <?php endforeach; ?>
-<?= BtnSend::widget(['caption' => 'Отправить']) ?>
+<div class="row">
+    <?= BtnSend::widget(['caption' => 'Отправить', 'block' => false]) ?>
+</div>
+
 
 <?php ActiveForm::end(); ?>
-<div>
-    Опрос в разработке ... скоро сделаем
-
-
-</div>
