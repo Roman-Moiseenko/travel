@@ -12,16 +12,18 @@ use yii\db\ActiveRecord;
  * @property integer $created_at
  * @property integer $user_id
  * @property string $user_cookie
+ * @property integer $survey_id
  * @property integer $question_id
  * @property integer $variant_id
  */
 class Questionnaire extends ActiveRecord
 {
-    public static function create($user_id, $user_cookie, $question_id, $variant_id): self
+    public static function create($user_id, $user_cookie, $survey_id, $question_id, $variant_id): self
     {
         $questionnaire = new static();
         $questionnaire->user_id = $user_id;
         $questionnaire->user_cookie = $user_cookie;
+        $questionnaire->survey_id = $survey_id;
         $questionnaire->question_id = $question_id;
         $questionnaire->variant_id = $variant_id;
         return $questionnaire;
