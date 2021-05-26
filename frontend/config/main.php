@@ -177,6 +177,7 @@ return [
                 'shop/cart/remove' => 'shop/cart/remove',
                 'shop/cart/quantity' => 'shop/cart/quantity',
                 'shop/cart' => 'shop/cart/index',
+                'survey/<id:\d+>' => 'survey/view',
 
                 'moving' => 'moving/moving/index',
                 'moving/faq' => 'moving/faq/index',
