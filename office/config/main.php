@@ -28,8 +28,13 @@ return [
                 [
                     'class'=>'\mihaildev\elfinder\plugin\Sluggable',
                     'lowercase' => true,
+                    'replacement' => '_'
+                ],
+                [
+                    'class'=>'\mihaildev\elfinder\plugin\Sluggable',
+                    'lowercase' => true,
                     'replacement' => '-'
-                ]
+                ],
             ],
             'roots' => [
                 [
@@ -37,6 +42,12 @@ return [
                     'basePath'=> '@staticRoot',
                     'path' => 'images',
                     'name' => 'Global'
+                ],
+                [
+                    'baseUrl'=>'@static',
+                    'basePath'=> '@staticRoot',
+                    'path' => 'files',
+                    'name' => 'Inner'
                 ],
             ],
         ],

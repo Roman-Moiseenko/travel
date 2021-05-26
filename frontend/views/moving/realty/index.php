@@ -6,16 +6,17 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Недвижимость для переезжающих на ПМЖ в Калининград';
-$this->registerMetaTag(['name' => 'description', 'content' => 'СЕО текст для переезда на ПМЖ в Калининград']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Недвижимость для переезжающих на ПМЖ в Калининград, подбор домов, застройщиков']);
 
 $this->params['canonical'] = Url::to(['/moving/houses'], true);
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = 'Недвижимость';
 ?>
-<h1>Недвижимость в Калининграде</h1>
+<h1>Обзор рынка недвижимости Калининградской области</h1>
 <div class="pt-4"></div>
-<div class="indent text-justify p-4">
-    Раздел находится в разработке
+<div class="container params-moving pt-4 text-block">
+    <?= $this->render('text_1'); ?>
+    <?= $this->render('text_2'); ?>
+    <?= $this->render('text_3'); ?>
 </div>
 
-И Н Ф О Р М А Ц И Я

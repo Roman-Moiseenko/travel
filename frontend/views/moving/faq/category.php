@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
     <?= $category->description ?>
 </div>
 
-<div class="row row-cols-1">
+<div class="row row-cols-1 params-moving">
     <?php foreach ($dataProvider->getModels() as $faq): ?>
         <?= $this->render('_faq', [
             'faq' => $faq

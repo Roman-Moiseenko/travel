@@ -63,7 +63,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
     </div>
 <?php endif; ?>
 
-<div class="container pt-4 text-block">
+<div class="container params-moving pt-4 text-block">
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <?= $this->render('_menu_block', [
@@ -77,8 +77,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             <?= $this->render('_menu_block', [
                 'image' => 'menu-realty.jpg',
                 'caption' => 'Подбор недвижимости',
-                'text' => 'Раздел находится в разработке',
-
+                'text' => 'Обзор рынка недвижимости Калининградской области, подбор недвижимости в Калининграде',
                 'link' => Url::to(['/moving/realty'])
             ]) ?>
         </div>
@@ -86,8 +85,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             <?= $this->render('_menu_block', [
                 'image' => 'menu-forum.jpg',
                 'caption' => 'Форум. Отвечаем на вопросы',
-                'text' => 'Раздел находится в разработке',
-
+                'text' => 'Задайте вопрос по интересующей Вас теме по переезду в Калининград и наши специалисты Вам ответят',
                 'link' => Url::to(['/moving/faq'])
             ]) ?>
         </div>

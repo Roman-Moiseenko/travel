@@ -10,7 +10,7 @@
     Подбор жилья можете осуществлять разными способами. ФМА ПМЖ РФ предлагает обзор новостроек и вторичного рынка.
 </p>
 <p>
-    Новостройки <a href="http://zastroyschiki39.ru/" rel="nofollow">http://zastroyschiki39.ru/</a>
+    Новостройки <a href="https://zastroyschiki39.ru/" rel="nofollow">https://zastroyschiki39.ru/</a>
 </p>
 <p>
     Вторичный рынок – Сайт Авито / Домофонд / Циан

@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\entities\moving\Page;
+use booking\helpers\SysHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -26,16 +27,19 @@ foreach ($page->parents as $parent) {
     }
 }
 $this->params['breadcrumbs'][] = $page->title;
+$mobile = SysHelper::isMobile();
 ?>
 
 <div class="pb-3">
 <?php foreach ($categories as $category): ?>
+    <?php if ($mobile) echo '<div class="pb-4">'; ?>
     <a class="moving-menu-page" href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>"> <?= $category->title ?></a>
+<?php if ($mobile) echo '</div>'; ?>
 <?php endforeach; ?>
 </div>
-<article class="page-view">
+<article class="page-view params-moving">
     <h1><?= Lang::t(Html::encode($page->title)) ?></h1>
-    <?= $page->content; /*Yii::$app->formatter->asHtml($page->content, [
+    <?= SysHelper::lazyloaded($page->content); /*Yii::$app->formatter->asHtml($page->content, [
         'Attr.AllowedRel' => array('nofollow'),
         //'HTML.SafeObject' => true,
         'Output.FlashCompat' => true,

@@ -57,7 +57,6 @@ use yii\helpers\Url; ?>
                 </ul>
             </div>
         </div>
-
         <hr>
             <div class="float-right d-none d-sm-inline">
                 <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo'], ['rel' => 'nofollow']) ?>
@@ -69,10 +68,9 @@ use yii\helpers\Url; ?>
                 <a href="https://vk.com/koenigsru" target="_blank"  rel="nofollow">
                     <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru" title="Вконтакте koenigs.ru" width="20px" height="20px"/> koenigsru
                 </a>
-
                 <?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
                                                 target="_blank" rel="=nofollow"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
-                &copy; 2020 <?= Lang::t('Все права защищены') ?>
+                &copy; 2020-<?= date('Y', time())?> <?= Lang::t('Все права защищены') ?>
             </p>
         <div>
             <div>

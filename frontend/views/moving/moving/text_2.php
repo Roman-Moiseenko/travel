@@ -396,7 +396,7 @@
             <li>
                 наличие отметки таможни РФ в декларации при пересечении границы РФ о несопровождаемом багаже т.е.
                 контейнере.(обязательно заполните этот пункт- несопровождаемый багаж) Материалы с сайта:
-                <a href="http://migrant-ru.narod.ru/" rel="nofollow">http://migrant-ru.narod.ru/</a>
+                <a href="https://migrant-ru.narod.ru/" rel="nofollow">https://migrant-ru.narod.ru/</a>
             </li>
         </ul>
     </li>

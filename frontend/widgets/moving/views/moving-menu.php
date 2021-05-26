@@ -52,9 +52,7 @@ use yii\helpers\Url;
                     </a>
                 </span>
             </li>
-
             <?= CartWidget::widget()?>
-
             <li class="dropdown nav-item">
                 <?php if (Yii::$app->user->isGuest): ?>
                     <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
@@ -108,14 +106,12 @@ use yii\helpers\Url;
                        href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">&#160;<?= Lang::t('Недвижимость') ?>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/docs' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/docs'])) ?>">&#160;<?= Lang::t('Документы') ?></a>
-                </li>
+
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/faq' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">&#160;<?= Lang::t('Форум') ?></a>
                 </li>
+
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/area' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/area'])) ?>">&#160;<?= Lang::t('Участки') ?></a>
@@ -123,6 +119,10 @@ use yii\helpers\Url;
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">&#160;<?= Lang::t('Бизнес') ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/docs' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving/docs'])) ?>">&#160;<?= Lang::t('Документы') ?></a>
                 </li>
             </ul>
         </div>
