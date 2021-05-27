@@ -3,6 +3,8 @@
 
 namespace booking\entities\survey;
 
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -10,26 +12,48 @@ use yii\db\ActiveRecord;
  * @package booking\entities\survey
  * @property integer $id
  * @property integer $created_at
- * @property integer $user_id
  * @property string $user_cookie
  * @property integer $survey_id
- * @property integer $question_id
- * @property integer $variant_id
+ * @property Answer[] $answers
  */
+
 class Questionnaire extends ActiveRecord
 {
-    public static function create($user_id, $user_cookie, $survey_id, $question_id, $variant_id): self
+    public static function create($user_cookie, $survey_id): self
     {
         $questionnaire = new static();
-        $questionnaire->user_id = $user_id;
         $questionnaire->user_cookie = $user_cookie;
         $questionnaire->survey_id = $survey_id;
-        $questionnaire->question_id = $question_id;
-        $questionnaire->variant_id = $variant_id;
+        $questionnaire->created_at = time();
         return $questionnaire;
     }
+
+    public function addAnswer(Answer $answer)
+    {
+        $answers = $this->answers;
+        $answers[] = $answer;
+        $this->answers = $answers;
+    }
+
     public static function tableName()
     {
         return '{{%survey_questionnaire}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'answers',
+                ],
+            ],
+        ];
+    }
+
+    public function getAnswer(): ActiveQuery
+    {
+        return $this->hasMany(Answer::class, ['questionnaire_id' => 'id']);
     }
 }

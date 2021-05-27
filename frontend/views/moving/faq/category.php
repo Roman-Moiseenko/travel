@@ -71,10 +71,9 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
                     'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
                 ])->label('Введите код с картинки') ?>
                 <div class="row">
-                <div class="col-lg-6 col-md-9">
-                <?= BtnSend::widget(['caption' => 'Отправить'])?>
-                </div>
-
+                    <div class="col-lg-6 col-md-9">
+                        <?= BtnSend::widget(['caption' => 'Отправить']) ?>
+                    </div>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
@@ -93,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
                 </button>
             </div>
             <?php $form = ActiveForm::begin([
-                    'id' => 'send-answer',
+                'id' => 'send-answer',
                 'enableClientValidation' => false,
                 'action' => '/moving/faq/answer',
             ]); ?>

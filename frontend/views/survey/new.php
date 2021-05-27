@@ -2,7 +2,7 @@
 
 use booking\entities\survey\Survey;
 use booking\entities\survey\Variant;
-use booking\forms\survey\SurveyUserForm;
+use booking\forms\survey\QuestionnaireForm;
 use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -10,14 +10,14 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $survey Survey */
-/* @var $model SurveyUserForm */
+/* @var $model QuestionnaireForm */
 
 $this->title = $survey->meta->title;
 $this->registerMetaTag(['name' => 'description', 'content' => $survey->meta->description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $survey->meta->description]);
 
 $this->params['canonical'] = Url::to(['/moving/survey/view', 'id' => $survey->id], true);
-$this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
+//$this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = $survey->caption;
 ?>
 <h1><?= $survey->caption ?></h1>
