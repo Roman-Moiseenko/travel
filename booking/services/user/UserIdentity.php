@@ -18,7 +18,7 @@ class UserIdentity
         $this->timeout = $timeout;
     }
 
-    public function loadUser(): string
+    public function loadUser():? string
     {
         return \Yii::$app->request->cookies->get($this->key);
     }

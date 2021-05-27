@@ -52,7 +52,7 @@ class Questionnaire extends ActiveRecord
         ];
     }
 
-    public function getAnswer(): ActiveQuery
+    public function getAnswers(): ActiveQuery
     {
         return $this->hasMany(Answer::class, ['questionnaire_id' => 'id']);
     }

@@ -49,6 +49,7 @@ class SurveyController extends Controller
             return $this->render('view', [
                 'array_questionnaire' => $array,
                 'questionnaire' => $questionnaire,
+                'survey' => $survey,
             ]);
         } else { //Если нет, то возможность голосования
             $form = new QuestionnaireForm($survey);
