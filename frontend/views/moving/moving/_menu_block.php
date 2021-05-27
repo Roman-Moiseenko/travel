@@ -15,8 +15,8 @@
         </div>
     </div>
     <div class="card-body">
-        <h2 style="font-size: 15px;"><?= $caption ?></h2>
+        <h2 style="font-size: 17px;"><?= $caption ?></h2>
         <?= $text ?>
     </div>
-    <a href="<?= $link ?>" class="stretched-link">Читать далее ...</a>
+    <a href="<?= $link ?>" class="stretched-link ml-3 mb-2">Читать далее ...</a>
 </div>

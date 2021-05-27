@@ -44,6 +44,11 @@ class SurveyController extends Controller
                         ->andWhere(['a.question_id' => $question->id])
                         ->andWhere(['a.variant_id' => $variant->id])->count();
                     }
+                $array[$question->id]['sum'] = Questionnaire::find()->alias('q')
+                    ->andWhere(['q.survey_id' => $survey->id])
+                    ->joinWith('answers a')
+                    ->andWhere(['a.question_id' => $question->id])
+                    ->count();
             }
 
             return $this->render('view', [

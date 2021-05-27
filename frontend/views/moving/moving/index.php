@@ -109,12 +109,12 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
             ]) ?>
         </div>
         <div class="col-md-4 col-sm-6">
-            <?= $this->render('_menu_block', [
+            <?= '' /* $this->render('_menu_block', [
                 'image' => 'menu-docs.jpg',
                 'caption' => 'Документы для переезда',
                 'text' => 'Раздел находится в разработке',
                 'link' => Url::to(['/moving/docs'])
-            ]) ?>
+            ]) */?>
         </div>
     </div>
     <?= $this->render('text_1'); ?>

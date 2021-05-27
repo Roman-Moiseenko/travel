@@ -6,7 +6,6 @@ $(document).ready(function () {
         let _api = $('#ymap-params').data('api');
         let _lang = $('#ymap-params').data('lang');
 
-        console.log('1');
         $(document).scroll(function () {
             if (_init === 1) return;
             _init = 1;

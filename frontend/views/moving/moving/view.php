@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\entities\moving\Page;
 use booking\helpers\SysHelper;
+use frontend\assets\MovingAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -20,6 +21,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords
 $this->params['canonical'] = Url::to(['moving/moving/view', 'slug' => $page->slug], true);
 $this->params['pages'] = true;
 
+
 $this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
@@ -28,6 +30,8 @@ foreach ($page->parents as $parent) {
 }
 $this->params['breadcrumbs'][] = $page->title;
 $mobile = SysHelper::isMobile();
+MovingAsset::register($this);
+
 ?>
 
 <div class="pb-3">
