@@ -30,7 +30,7 @@ foreach ($page->parents as $parent) {
 }
 $this->params['breadcrumbs'][] = $page->title;
 $mobile = SysHelper::isMobile();
-MovingAsset::register($this);
+//MovingAsset::register($this);
 
 ?>
 

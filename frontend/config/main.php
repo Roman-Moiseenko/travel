@@ -189,8 +189,9 @@ return [
 
                 'moving/faq/category/<id:\d+>' => 'moving/faq/category',
                 'moving/faq/answer/<id:\d+>' => 'moving/faq/answer',
+                'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
-                'moving/close-link/get' => 'moving/close-link/get',
+
 
                 'tickets' => 'tickets/tickets/index',
 

@@ -7,6 +7,7 @@
 use booking\entities\Lang;
 use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
+use frontend\assets\MovingAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
@@ -17,7 +18,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
-
+MovingAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
