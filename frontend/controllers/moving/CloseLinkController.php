@@ -15,6 +15,8 @@ class CloseLinkController extends Controller
             if (\Yii::$app->user->isGuest) {
                 return '<a href="' . Url::to(['/login']) . '"></a>';
             }
+            $link = \Yii::$app->request->bodyParams['link'];
+            //получам ссылку с базы
             return 'ссылка';
         } else {
             return $this->goHome();

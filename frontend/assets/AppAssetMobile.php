@@ -12,12 +12,7 @@ class AppAssetMobile extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        //'//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap',
         'css/site.css',
-        //'css/stylesheet.css',
-       // 'css/glyphicon.css',
-//        'css/swiper.min.css',
-//        'css/multi_timer.css',
     ];
     public $js = [
        // 'js/site.js',

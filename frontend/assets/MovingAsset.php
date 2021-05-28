@@ -12,4 +12,7 @@ class MovingAsset extends AssetBundle
     public $js = [
         'js/close_link.js',
     ];
+    public $depends = [
+        'yii\web\JqueryAsset',
+    ];
 }
