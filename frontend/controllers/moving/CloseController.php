@@ -18,7 +18,7 @@ class CloseController extends Controller
             }
             $link = \Yii::$app->request->bodyParams['link'];
             //получам ссылку с базы
-            $url = CloseLink::findOne(['link' => $link]);
+            $url = CloseLink::find()->andWhere(['link' => $link])->one();
             if ($url) {
                 return '<a href="' . $url->url . '">' . $url->anchor . '</a>';
             }
