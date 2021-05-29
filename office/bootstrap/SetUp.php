@@ -21,7 +21,7 @@ class SetUp implements BootstrapInterface
         $container = \Yii::$container;
 
         $container->set(CKEditor::class, [
-            'editorOptions' => ElFinder::ckeditorOptions('elfinder'),
+            'editorOptions' => ElFinder::ckeditorOptions('elfinder', ['allowedContent' => true,]),
         ]);
 
 

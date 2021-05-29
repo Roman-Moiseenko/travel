@@ -51,11 +51,7 @@ use yii\helpers\Html;
         <div class="card-body">
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 5])->label('Описание') ?>
-            <?= $form->field($model, 'content')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'allowedContent' => true,
-                ]
-            ])->label('Содержимое')/**/ ?>
+            <?= $form->field($model, 'content')->widget(CKEditor::class)->label('Содержимое')/**/ ?>
         </div>
     </div>
     <div class="card card-default">
@@ -63,11 +59,7 @@ use yii\helpers\Html;
         <div class="card-body">
             <?= $form->field($model, 'title_en')->textInput(['maxlength' => true])->label('Заголовок (En)') ?>
             <?= $form->field($model, 'description_en')->textarea(['rows' => 5])->label('Описание (En)') ?>
-            <?= $form->field($model, 'content_en')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'allowedContent' => true,
-                ]
-            ])->label('Содержимое (En)')/**/ ?>
+            <?= $form->field($model, 'content_en')->widget(CKEditor::class)->label('Содержимое (En)')/**/ ?>
         </div>
     </div>
     <div class="card card-default">
@@ -109,7 +101,5 @@ use yii\helpers\Html;
         ]) ?>
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-info']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
