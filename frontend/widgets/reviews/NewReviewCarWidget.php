@@ -7,22 +7,30 @@ use booking\entities\booking\cars\BookingCar;
 use booking\entities\booking\cars\ReviewCar;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
+use booking\services\system\LoginService;
 use yii\base\Widget;
 
 class NewReviewCarWidget extends Widget
 {
     public $car_id = 0;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
+
+    public function __construct(LoginService $loginService, $config = [])
+    {
+        parent::__construct($config);
+        $this->loginService = $loginService;
+    }
 
     public function run()
     {
-        if (\Yii::$app->user->isGuest) {
-            return '';
-        }
+        if ($this->loginService->isGuest()) return '';
         //Проверяем есть ли отзыв
-        $user_id = \Yii::$app->user->id;
+        $user_id = $this->loginService->user()->id;
         $reviews = ReviewCar::find()->andWhere(['user_id' => $user_id])->andWhere(['car_id' => $this->car_id])->all();
         if (count($reviews) != 0) return '';
-
 
         /** @var BookingCar[] $bookings */
         $bookings = BookingCar::find()->andWhere(['user_id' => $user_id])->all();
@@ -31,7 +39,6 @@ class NewReviewCarWidget extends Widget
                 $booking->object_id == $this->car_id &&
                 ($booking->status == BookingHelper::BOOKING_STATUS_PAY || $booking->status == BookingHelper::BOOKING_STATUS_CONFIRMATION)) {
                 $reviewForm = new ReviewForm();
-                //scr::p(date('d-m-Y H:i:s', $booking->calendar->tour_at));
 
                 return $this->render('new-review', [
                     'reviewForm' => $reviewForm,

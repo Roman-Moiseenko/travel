@@ -11,6 +11,7 @@ use booking\repositories\shops\ShopRepository;
 use booking\services\shops\AdProductService;
 use booking\services\shops\ProductService;
 use booking\services\shops\ShopService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -38,6 +39,10 @@ class CatalogController extends Controller
      * @var ShopService
      */
     private $shopService;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -47,7 +52,7 @@ class CatalogController extends Controller
         ShopService $shopService,
         CategoryRepository $categories,
         ShopRepository $shops,
-        //TagReadRepository $tags,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -57,13 +62,13 @@ class CatalogController extends Controller
         $this->categories = $categories;
         $this->shops = $shops;
         $this->shopService = $shopService;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
     {
         $category = $this->categories->getRoot();
         $dataProvider = $this->products->getAll();
-
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -112,7 +117,7 @@ class CatalogController extends Controller
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->shopService->addReview($id, \Yii::$app->user->id, $reviewForm);
+                $this->shopService->addReview($id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', 'Ваш отзыв был опубликован. Спасибо!');
                 return $this->redirect(['shop/' . $id]);
             } catch (\DomainException $e) {
@@ -153,7 +158,7 @@ class CatalogController extends Controller
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', 'Ваш отзыв был опубликован. Спасибо!');
                 return $this->redirect(['shop/product/' . $id]);
             } catch (\DomainException $e) {

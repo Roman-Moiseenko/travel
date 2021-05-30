@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use booking\helpers\scr;
 use booking\helpers\SysHelper;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -13,8 +14,19 @@ use yii\filters\AccessControl;
 class SiteController extends Controller
 {
     /**
+     * @var LoginService
+     */
+    private $loginService;
+
+    /**
      * {@inheritdoc}
      */
+    public function __construct($id, $module, LoginService $loginService, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->loginService = $loginService;
+    }
+
     public function behaviors()
     {
         return [
@@ -85,6 +97,7 @@ class SiteController extends Controller
         \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24 * 7);
         return $this->render($mobile ? 'index_mobile' : 'index', [
             'images' => $images,
+            'user' => $this->loginService->user(),
         ]);
      // }
 

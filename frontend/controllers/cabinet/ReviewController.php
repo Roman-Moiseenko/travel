@@ -12,6 +12,7 @@ use booking\helpers\scr;
 use booking\repositories\booking\ReviewRepository;
 use booking\services\booking\cars\CarService;
 use booking\services\booking\tours\TourService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -30,6 +31,10 @@ class ReviewController extends Controller
      * @var CarService
      */
     private $cars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -37,12 +42,14 @@ class ReviewController extends Controller
         ReviewRepository $reviews,
         TourService $tours,
         CarService $cars,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->reviews = $reviews;
         $this->tours = $tours;
         $this->cars = $cars;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -62,7 +69,7 @@ class ReviewController extends Controller
 
     public function actionIndex()
     {
-        $reviews = $this->reviews->getByUser(\Yii::$app->user->id);
+        $reviews = $this->reviews->getByUser($this->loginService->user()->getId());
 
         return $this->render('index', [
            'reviews' => $reviews,

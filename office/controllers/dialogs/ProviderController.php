@@ -10,6 +10,7 @@ use booking\entities\Rbac;
 use booking\forms\message\ConversationForm;
 use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
+use booking\services\system\LoginService;
 use office\forms\DialogsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -26,12 +27,24 @@ class ProviderController extends Controller
      * @var DialogService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, DialogRepository $dialogs, DialogService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        DialogRepository $dialogs,
+        DialogService $service,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->dialogs = $dialogs;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -90,6 +103,7 @@ class ProviderController extends Controller
             'dialog' => $dialog,
             'model' => $form,
             'conversations' => $conversations,
+            'currentUser' => $this->loginService->currentClass(),
         ]);
     }
 }

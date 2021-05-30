@@ -13,6 +13,7 @@ use booking\forms\message\DialogForm;
 use booking\helpers\scr;
 use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -27,12 +28,23 @@ class DialogController extends Controller
      * @var DialogService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, DialogRepository $dialogs, DialogService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        DialogRepository $dialogs,
+        DialogService $service,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->dialogs = $dialogs;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -52,7 +64,7 @@ class DialogController extends Controller
 
     public function actionIndex()
     {
-        $dialogs = $this->dialogs->getByUser(\Yii::$app->user->id);
+        $dialogs = $this->dialogs->getByUser($this->loginService->user()->getId());
         return $this->render('index', [
             'dialogs' => $dialogs,
         ]);
@@ -70,7 +82,7 @@ class DialogController extends Controller
                 try {
                     $admin_id = substr($id, 0, strpos($id, '.'));
                     $dialog = $this->service->create(
-                        \Yii::$app->user->id,
+                        $this->loginService->user()->getId(),
                         Dialog::CLIENT_PROVIDER,
                         $id,
                         $form,
@@ -111,6 +123,7 @@ class DialogController extends Controller
             'dialog' => $dialog,
             'model' => $form,
             'conversations' => $conversations,
+            'currentUser' => $this->loginService->currentClass(),
         ]);
     }
 
@@ -120,7 +133,7 @@ class DialogController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $dialog = $this->service->create(
-                    \Yii::$app->user->id,
+                    $this->loginService->user()->getId(),
                     Dialog::CLIENT_SUPPORT,
                     null,
                     $form,

@@ -11,6 +11,7 @@ use booking\helpers\CurrencyHelper;
 use booking\helpers\scr;
 use booking\repositories\booking\stays\StayRepository;
 use booking\services\booking\stays\StayService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 
 class StaysController extends Controller
@@ -24,17 +25,23 @@ class StaysController extends Controller
      * @var StayService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
         $module,
         StayRepository $stays,
         StayService $service,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->stays = $stays;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -81,7 +88,7 @@ class StaysController extends Controller
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($stay->id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($stay->id, $this->loginService->user()->getId(), $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
                 return $this->redirect(['stay/view', 'id' => $stay->id]);
             } catch (\DomainException $e) {

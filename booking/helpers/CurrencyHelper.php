@@ -34,18 +34,18 @@ class CurrencyHelper
         return self::RUB;
     }
 
-    public static function cost($cost)
+    public static function cost($cost, $decimal = 0)
     {
         if (empty($cost)) {
             return 'free';
         }
-        return number_format($cost, 0, '.', ' ') . ' руб.';
+        return number_format($cost, $decimal, '.', ' ') . ' руб.';
     }
 
-    public static function stat($cost)
+    public static function stat($cost, $decimal = 0)
     {
         if (empty($cost)) $cost = 0;
-        return number_format($cost, 0, '.', ' ') . ' &#8381;';
+        return number_format($cost, $decimal, '.', ' ') . ' &#8381;';
     }
 
     public static function get($cost, $free = true)

@@ -13,6 +13,7 @@ use booking\forms\forum\PostForm;
 use booking\repositories\admin\forum\PostRepository;
 use booking\services\admin\forum\CategoryService;
 use booking\services\admin\forum\PostService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -32,6 +33,10 @@ class ForumController extends Controller
      * @var PostRepository
      */
     private $posts;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -39,12 +44,14 @@ class ForumController extends Controller
         CategoryService $categoryService,
         PostService $postService,
         PostRepository $posts,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->categoryService = $categoryService;
         $this->postService = $postService;
         $this->posts = $posts;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -75,7 +82,7 @@ class ForumController extends Controller
     {
         $category = Category::findOne($id);
         $posts = $this->posts->getAll($category->id);
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->loginService->admin();
         return $this->render('category', [
             'category' => $category,
             'dataProvider' => $posts,
@@ -88,7 +95,7 @@ class ForumController extends Controller
         $post = Post::findOne($id);
         $messages = $this->posts->getMessages($post->id);
         /**** ПЕРЕДЕЛАТЬ  !!!!!!! **/
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->loginService->admin();
         $user->readForum($id);
         $user->save();
         /** **************** **/
@@ -113,7 +120,7 @@ class ForumController extends Controller
     {
         /** $id - $category_id */
         $category = Category::findOne($id);
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->loginService->admin();
         $form = new PostForm($category->id);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -190,7 +197,7 @@ class ForumController extends Controller
 
     public function actionUpdateMessage($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->loginService->admin();
         $message = Message::findOne($id);
         $form = new MessageForm($message);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {

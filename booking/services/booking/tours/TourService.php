@@ -35,6 +35,7 @@ use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\DialogService;
 use booking\services\ImageService;
+use booking\services\system\LoginService;
 use booking\services\TransactionManager;
 
 class TourService
@@ -53,6 +54,10 @@ class TourService
      * @var CostCalendarRepository
      */
     private $calendars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         TourRepository $tours,
@@ -62,7 +67,8 @@ class TourService
         ContactService $contactService,
         ReviewTourRepository $reviews,
         DialogRepository $dialogs,
-        CostCalendarRepository $calendars
+        CostCalendarRepository $calendars,
+        LoginService $loginService
     )
     {
         $this->tours = $tours;
@@ -73,6 +79,7 @@ class TourService
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
         $this->calendars = $calendars;
+        $this->loginService = $loginService;
     }
 
     public function create(TourCommonForm $form): Tour
@@ -275,7 +282,7 @@ class TourService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );
@@ -294,7 +301,7 @@ class TourService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );

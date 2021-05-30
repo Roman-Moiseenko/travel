@@ -2,6 +2,7 @@
 
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
+use booking\entities\user\User;
 use booking\forms\blog\CommentForm;
 use frontend\widgets\design\BtnSave;
 use yii\bootstrap\ActiveForm;
@@ -13,6 +14,8 @@ use yii\helpers\Html;
 /* @var $items \frontend\widgets\blog\CommentView[] */
 /* @var $count integer */
 /* @var $commentForm CommentForm */
+/* @var $user User */
+
 ?>
 
 <div id="comments" class="inner-bottom-xs">
@@ -22,27 +25,27 @@ use yii\helpers\Html;
     <?php endforeach; ?>
 </div>
 
-<?php if (\Yii::$app->user->isGuest) :?>
+<?php if ($user) :?>
+    <div id="reply-block" class="leave-reply">
+        <?php $form = ActiveForm::begin([
+            'action' => ['comment', 'id' => $post->id],
+        ]); ?>
+
+        <?= Html::activeHiddenInput($commentForm, 'parentId') ?>
+        <?= $form->field($commentForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Текст')) ?>
+
+        <div class="form-group">
+            <?= BtnSave::widget() ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
+<?php else: ?>
     <div class="card">
         <div class="card-body">
             <?= Lang::t('Пожалуйста') . ', ' . Html::a(Lang::t('авторизуйтесь'), ['/auth/auth/login']) . ' ' . Lang::t('для написания комментария') ?>
         </div>
     </div>
-<?php else: ?>
-<div id="reply-block" class="leave-reply">
-    <?php $form = ActiveForm::begin([
-        'action' => ['comment', 'id' => $post->id],
-    ]); ?>
-
-    <?= Html::activeHiddenInput($commentForm, 'parentId') ?>
-    <?= $form->field($commentForm, 'text')->textarea(['rows' => 5])->label(Lang::t('Текст')) ?>
-
-    <div class="form-group">
-        <?= BtnSave::widget() ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-</div>
 <?php endif; ?>
 
 <?php $this->registerJs("

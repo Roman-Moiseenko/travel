@@ -5,6 +5,7 @@ namespace frontend\widgets\blog;
 use booking\entities\blog\post\Comment;
 use booking\entities\blog\post\Post;
 use booking\forms\blog\CommentForm;
+use booking\services\system\LoginService;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 
@@ -14,6 +15,16 @@ class CommentsWidget extends Widget
      * @var Post
      */
     public $post;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
+
+    public function __construct(LoginService $loginService, $config = [])
+    {
+        parent::__construct($config);
+        $this->loginService = $loginService;
+    }
 
     public function init(): void
     {
@@ -36,6 +47,7 @@ class CommentsWidget extends Widget
             'post' => $this->post,
             'items' => $items,
             'commentForm' => $form,
+            'user' => $this->loginService->user(),
         ]);
     }
 

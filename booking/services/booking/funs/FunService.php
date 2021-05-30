@@ -33,6 +33,7 @@ use booking\repositories\booking\funs\TypeRepository;
 use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\ImageService;
+use booking\services\system\LoginService;
 use booking\services\TransactionManager;
 
 class FunService
@@ -69,6 +70,10 @@ class FunService
      * @var CostCalendarRepository
      */
     private $calendars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         FunRepository $funs,
@@ -78,7 +83,8 @@ class FunService
         ContactService $contactService,
         ReviewFunRepository $reviews,
         DialogRepository $dialogs,
-        CostCalendarRepository $calendars
+        CostCalendarRepository $calendars,
+        LoginService $loginService
     )
     {
         $this->funs = $funs;
@@ -89,6 +95,7 @@ class FunService
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
         $this->calendars = $calendars;
+        $this->loginService = $loginService;
     }
 
     public function create(FunCommonForm $form): Fun
@@ -275,7 +282,7 @@ class FunService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );
@@ -294,7 +301,7 @@ class FunService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );

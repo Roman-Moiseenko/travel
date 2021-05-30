@@ -47,6 +47,7 @@ use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\DialogService;
 use booking\services\ImageService;
+use booking\services\system\LoginService;
 use booking\services\TransactionManager;
 
 class StayService
@@ -77,6 +78,10 @@ class StayService
      * @var DialogRepository
      */
     private $dialogs;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         StayRepository $stays,
@@ -84,7 +89,8 @@ class StayService
         TypeRepository $types,
         ContactService $contactService,
         ReviewStayRepository $reviews,
-        DialogRepository $dialogs
+        DialogRepository $dialogs,
+        LoginService $loginService
     )
     {
 
@@ -94,6 +100,7 @@ class StayService
         $this->contactService = $contactService;
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
+        $this->loginService = $loginService;
     }
 
     public function create(StayCommonForm $form): Stay
@@ -382,7 +389,7 @@ class StayService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );
@@ -401,7 +408,7 @@ class StayService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );

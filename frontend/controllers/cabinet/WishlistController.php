@@ -6,6 +6,7 @@ namespace frontend\controllers\cabinet;
 
 use booking\entities\Lang;
 use booking\repositories\booking\WishlistRepository;
+use booking\services\system\LoginService;
 use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -22,11 +23,22 @@ class WishlistController extends Controller
      */
     private $wishlist;
 
-    public function __construct($id, $module, UserManageService $service, WishlistRepository $wishlist, $config = [])
+    private $isGuest;
+    private $userId;
+
+    public function __construct(
+        $id,
+        $module,
+        UserManageService $service,
+        WishlistRepository $wishlist,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->wishlist = $wishlist;
+        $this->isGuest = $loginService->isGuest();
+        $this->userId = $loginService->user()->getId();
     }
 
     public function behaviors()
@@ -46,7 +58,7 @@ class WishlistController extends Controller
 
     public function actionIndex()
     {
-        $wishlist = $this->wishlist->getAll(\Yii::$app->user->id);
+        $wishlist = $this->wishlist->getAll($this->userId);
         return $this->render('index', [
             'wishlist' => $wishlist,
         ]);
@@ -54,18 +66,16 @@ class WishlistController extends Controller
 
     public function actionAddTour($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistTour($user_id, $id);
+                $this->service->addWishlistTour($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);
             }
-
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -73,8 +83,7 @@ class WishlistController extends Controller
     public function actionDelTour($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistTour($user_id, $id);
+            $this->service->removeWishlistTour($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -84,18 +93,16 @@ class WishlistController extends Controller
 
     public function actionAddCar($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistCar($user_id, $id);
+                $this->service->addWishlistCar($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);
             }
-
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -103,8 +110,7 @@ class WishlistController extends Controller
     public function actionDelCar($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistCar($user_id, $id);
+            $this->service->removeWishlistCar($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -114,18 +120,16 @@ class WishlistController extends Controller
 
     public function actionAddFun($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistFun($user_id, $id);
+                $this->service->addWishlistFun($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);
             }
-
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -133,8 +137,7 @@ class WishlistController extends Controller
     public function actionDelFun($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistFun($user_id, $id);
+            $this->service->removeWishlistFun($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -144,12 +147,11 @@ class WishlistController extends Controller
 
     public function actionAddStay($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistStay($user_id, $id);
+                $this->service->addWishlistStay($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -163,8 +165,7 @@ class WishlistController extends Controller
     public function actionDelStay($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistStay($user_id, $id);
+            $this->service->removeWishlistStay($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -174,18 +175,16 @@ class WishlistController extends Controller
 
     public function actionAddFood($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistFood($user_id, $id);
+                $this->service->addWishlistFood($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);
             }
-
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -193,8 +192,7 @@ class WishlistController extends Controller
     public function actionDelFood($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistFood($user_id, $id);
+            $this->service->removeWishlistFood($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -205,18 +203,16 @@ class WishlistController extends Controller
 
     public function actionAddProduct($id)
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             \Yii::$app->session->setFlash('error', Lang::t('Авторизуйтесь для добавления в избранное') . '.');
         } else {
             try {
-                $user_id = \Yii::$app->user->id;
-                $this->service->addWishlistProduct($user_id, $id);
+                $this->service->addWishlistProduct($this->userId, $id);
                 \Yii::$app->session->setFlash('success', Lang::t('Успешно добавлено в избранное'));
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->redirect(\Yii::$app->request->referrer);
             }
-
         }
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -224,8 +220,7 @@ class WishlistController extends Controller
     public function actionDelProduct($id)
     {
         try {
-            $user_id = \Yii::$app->user->id;
-            $this->service->removeWishlistProduct($user_id, $id);
+            $this->service->removeWishlistProduct($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());

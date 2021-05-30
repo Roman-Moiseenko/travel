@@ -12,6 +12,7 @@ use booking\helpers\scr;
 use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\funs\TypeRepository;
 use booking\services\booking\funs\FunService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -30,13 +31,25 @@ class FunsController extends Controller
      * @var FunService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, FunRepository $funs, TypeRepository $categories, FunService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        FunRepository $funs,
+        TypeRepository $categories,
+        FunService $service,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->funs = $funs;
         $this->categories = $categories;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -71,7 +84,7 @@ class FunsController extends Controller
         //scr::p(\Yii::$app->request->post());
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($fun->id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($fun->id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
                 return $this->redirect(['fun/view', 'id' => $fun->id]);
             } catch (\DomainException $e) {

@@ -7,6 +7,7 @@ namespace frontend\controllers\cabinet;
 use booking\entities\Lang;
 use booking\entities\user\User;
 use booking\forms\user\PersonalForm;
+use booking\services\system\LoginService;
 use booking\services\user\UserManageService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -19,12 +20,17 @@ class ProfileController extends Controller
      * @var UserManageService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -44,19 +50,18 @@ class ProfileController extends Controller
 
     public function actionIndex()
     {
-        $user = \Yii::$app->user->identity;
         return $this->render('index', [
-            'user' => $user,
+            'user' => $this->loginService->user(),
         ]);
     }
 
     public function actionUpdate()
     {
-        $user = \Yii::$app->user->identity;
+        $user = $this->loginService->user();
         $form = new PersonalForm($user->personal);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->setPersonal($user->id, $form);
+                $this->service->setPersonal($user->getId(), $form);
                 return $this->redirect(['/cabinet/profile']);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);

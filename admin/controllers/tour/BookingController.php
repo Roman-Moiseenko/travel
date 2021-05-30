@@ -13,6 +13,7 @@ use booking\repositories\booking\tours\BookingTourRepository;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\services\booking\tours\BookingTourService;
 use booking\services\booking\tours\TourService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -32,13 +33,26 @@ class BookingController extends Controller
      * @var CostCalendarRepository
      */
     private $tours;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, BookingTourService $service, BookingTourRepository $bookings, CostCalendarRepository $tours, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        BookingTourService $service,
+        BookingTourRepository $bookings,
+        CostCalendarRepository $tours,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->bookings = $bookings;
         $this->tours = $tours;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -61,7 +75,7 @@ class BookingController extends Controller
         $tour = $this->findModel($id);
         return $this->render('index', [
             'tour' => $tour,
-            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+            'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
         ]);
     }
 
@@ -73,6 +87,7 @@ class BookingController extends Controller
             $result = $this->tours->getActiveByTour($tour_id);
             return json_encode($result);
         }
+        return $this->goHome();
     }
 
     public function actionGetDay()
@@ -90,33 +105,10 @@ class BookingController extends Controller
 
             return $this->render('_booking-day-calendar', [
                 'calendars' => $calendars,
-                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+                'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
             ]);
-/*
-            $times = CostCalendar::find()->select('time_at')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->column();
-            $_bookings = [];
-            foreach ($times as $time) {
-                $bookings = BookingTour::find()
-                    ->andWhere(
-                        [
-                            'IN',
-                            'calendar_id',
-                            CostCalendar::find()->select('id')->andWhere(['tours_id' => $tour_id])->andWhere(['tour_at' => $date])->andWhere(['time_at' => $time])
-                        ]
-                    );
-                if (!\Yii::$app->user->identity->preferences->view_cancel) {
-                    $bookings = $bookings->andWhere(['<>', 'status', BookingHelper::BOOKING_STATUS_CANCEL])
-                        ->andWhere(['<>', 'status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
-                }
-                $bookings = $bookings->all();
-                $_bookings[$time] = $bookings;
-            }
-
-            return $this->render('_booking-day', [
-                'times' => $_bookings,
-                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
-            ]);*/
         }
+        return $this->goHome();
     }
 
     public function actionSetGiveTour()
@@ -136,6 +128,7 @@ class BookingController extends Controller
                 return '<span class="badge badge-danger">error!</span>';
             }
         }
+        return $this->goHome();
     }
 
     public function actionCancelProvider($id)
@@ -148,7 +141,7 @@ class BookingController extends Controller
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->loginService->admin()->getId()) {
                 throw new \DomainException('У вас нет прав для данного тура');
             }
             return $model;

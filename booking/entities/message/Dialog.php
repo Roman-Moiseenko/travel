@@ -79,7 +79,6 @@ class Dialog extends ActiveRecord
                 $last = $conversation->created_at;
                 $lastConversation = $conversation;
             }
-
         }
         return $lastConversation;
     }

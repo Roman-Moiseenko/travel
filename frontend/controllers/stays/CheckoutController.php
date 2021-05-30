@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\forms\booking\stays\search\SearchStayForm;
 use booking\helpers\scr;
 use booking\services\booking\stays\BookingStayService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 
 class CheckoutController extends Controller
@@ -18,11 +19,16 @@ class CheckoutController extends Controller
      * @var BookingStayService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, BookingStayService $service, $config = [])
+    public function __construct($id, $module, BookingStayService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionBooking()
@@ -30,7 +36,7 @@ class CheckoutController extends Controller
         $session = \Yii::$app->session;
         if ($session->get('link')) $session->remove('params'); //Небыло возврата по link
 
-        if (\Yii::$app->user->isGuest) {
+        if ($this->loginService->isGuest()) {
             //запоминаем ссесию
             $session->set('params', \Yii::$app->request->bodyParams); //параметры брони
             $session->set('link', '/stays/checkout/booking'); //куда вернуться после регистрации

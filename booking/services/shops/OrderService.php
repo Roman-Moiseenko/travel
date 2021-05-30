@@ -16,6 +16,7 @@ use booking\repositories\shops\OrderRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\user\UserRepository;
 use booking\services\ContactService;
+use booking\services\system\LoginService;
 use booking\services\TransactionManager;
 use booking\services\user\UserManageService;
 use yii\web\UploadedFile;
@@ -47,6 +48,10 @@ class OrderService
      * @var UserRepository
      */
     private $users;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         OrderRepository $orders,
@@ -54,7 +59,8 @@ class OrderService
         TransactionManager $transaction,
         ContactService $contacts,
         ProductService $productService,
-        UserRepository $users
+        UserRepository $users,
+        LoginService $loginService
     )
     {
         $this->orders = $orders;
@@ -63,12 +69,14 @@ class OrderService
         $this->transaction = $transaction;
         $this->contacts = $contacts;
         $this->users = $users;
+        $this->loginService = $loginService;
     }
 
     public function prepare(Cart $cart): bool
     {
         if ($cart->isEmpty()) return false;
-        $user = $this->users->getCurrent();
+        $user = $this->loginService->user();
+        if ($user == null) throw new \DomainException('Необходимо залогиниться на сайте!');
         $shops = [];
         //Разбивка по магазинам
         foreach ($cart->getItems() as $item) {
@@ -82,7 +90,7 @@ class OrderService
          */
         foreach ($shops as $shop_id => $items) {
             $order = Order::create(
-                \Yii::$app->user->id,
+                $this->loginService->user()->getId(),
                 $shop_id,
                 $items,
                 '',

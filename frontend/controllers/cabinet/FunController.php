@@ -10,6 +10,7 @@ use booking\forms\booking\ConfirmationForm;
 use booking\repositories\user\UserRepository;
 use booking\services\booking\funs\BookingFunService;
 use booking\services\finance\RefundService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,6 +30,10 @@ class FunController extends Controller
      * @var RefundService
      */
     private $refund;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -36,12 +41,14 @@ class FunController extends Controller
         UserRepository $users,
         BookingFunService $bookings,
         RefundService $refund,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->users = $users;
         $this->bookings = $bookings;
         $this->refund = $refund;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -62,7 +69,7 @@ class FunController extends Controller
     public function actionView($id)
     {
         $booking = $this->findModel($id);
-        $user = $this->users->get(\Yii::$app->user->id);
+        $user = $this->users->get($this->loginService->user()->getId());
         return $this->render('view', [
             'booking' => $booking,
             'user' => $user,
@@ -115,7 +122,7 @@ class FunController extends Controller
     private function findModel($id)
     {
         if (($model = BookingFun::findOne($id)) !== null) {
-            if ($model->user_id !== \Yii::$app->user->id) {
+            if ($model->user_id !== $this->loginService->user()->getId()) {
                 throw new \DomainException(Lang::t('У вас нет доступа к данному бронированию'));
             }
             return $model;

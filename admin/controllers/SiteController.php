@@ -6,6 +6,7 @@ namespace admin\controllers;
 use admin\forms\TourSearch;
 
 use booking\services\admin\UserManageService;
+use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -22,11 +23,16 @@ class SiteController extends Controller
      * @var UserManageService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     /**
@@ -82,7 +88,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main';
-        if (\Yii::$app->user->isGuest) {
+        if ($this->loginService->isGuest()) {
             return $this->redirect(Url::to(['/login']));
         }
 

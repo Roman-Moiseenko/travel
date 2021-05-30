@@ -10,6 +10,7 @@ use booking\entities\shops\order\Order;
 use booking\forms\shops\OrderForm;
 use booking\repositories\shops\OrderRepository;
 use booking\services\shops\OrderService;
+use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,20 +30,36 @@ class OrderController extends Controller
      * @var Cart
      */
     private $cart;
+    /**
+     * @var LoginService
+     */
+    //private $loginService;
+    private $isGuest;
+    private $userId;
 
-    public function __construct($id, $module, Cart $cart, OrderService $service, OrderRepository $orders, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        Cart $cart,
+        OrderService $service,
+        OrderRepository $orders,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->orders = $orders;
         $this->cart = $cart;
+        //$this->loginService = $loginService;
+        $this->isGuest = $loginService->isGuest();
+        $this->userId = $loginService->user()->getId();
     }
 
     public function actionIndex()
     {
         //*** надо залогиниться
         $session = \Yii::$app->session;
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             $session->set('link', '/cabinet/orders');
             if (\Yii::$app->request->isPost && \Yii::$app->request->post('prepare') == true) {
                 $session->set('prepare', true);
@@ -62,51 +79,51 @@ class OrderController extends Controller
         }
 
         return $this->render('index', [
-            'dataProvider' => $this->orders->getNew(\Yii::$app->user->id),
+            'dataProvider' => $this->orders->getNew($this->userId),
             'active' => 'new',
-            'counts' => $this->orders->getCountsArray(\Yii::$app->user->id),
+            'counts' => $this->orders->getCountsArray($this->userId),
         ]);
     }
 
     public function actionWork()
     {
         $session = \Yii::$app->session;
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             $session->set('link', '/cabinet/orders/work'); //куда вернуться после регистрации
             return $this->redirect(['/signup']);
         }
         return $this->render('index', [
-            'dataProvider' => $this->orders->getWork(\Yii::$app->user->id),
+            'dataProvider' => $this->orders->getWork($this->userId),
             'active' => 'work',
-            'counts' => $this->orders->getCountsArray(\Yii::$app->user->id),
+            'counts' => $this->orders->getCountsArray($this->userId),
         ]);
     }
 
     public function actionCompleted()
     {
         $session = \Yii::$app->session;
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             $session->set('link', '/cabinet/orders/work'); //куда вернуться после регистрации
             return $this->redirect(['/signup']);
         }
         return $this->render('index', [
-            'dataProvider' => $this->orders->getCompleted(\Yii::$app->user->id),
+            'dataProvider' => $this->orders->getCompleted($this->userId),
             'active' => 'completed',
-            'counts' => $this->orders->getCountsArray(\Yii::$app->user->id),
+            'counts' => $this->orders->getCountsArray($this->userId),
         ]);
     }
 
     public function actionCanceled()
     {
         $session = \Yii::$app->session;
-        if (\Yii::$app->user->isGuest) {
+        if ($this->isGuest) {
             $session->set('link', '/cabinet/orders/work'); //куда вернуться после регистрации
             return $this->redirect(['/signup']);
         }
         return $this->render('index', [
-            'dataProvider' => $this->orders->getCanceled(\Yii::$app->user->id),
+            'dataProvider' => $this->orders->getCanceled($this->userId),
             'active' => 'canceled',
-            'counts' => $this->orders->getCountsArray(\Yii::$app->user->id),
+            'counts' => $this->orders->getCountsArray($this->userId),
         ]);
     }
 
@@ -159,7 +176,7 @@ class OrderController extends Controller
     private function findModel($id)
     {
         if (($model = Order::findOne($id)) !== null) {
-            if ($model->user_id !== \Yii::$app->user->id) {
+            if ($model->user_id !== $this->userId) {
                 throw new \DomainException(Lang::t('У вас нет доступа к данному бронированию'));
             }
             return $model;

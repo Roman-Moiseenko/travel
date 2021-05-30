@@ -7,11 +7,13 @@ namespace frontend\controllers;
 use booking\entities\blog\map\Point;
 use booking\entities\Lang;
 use booking\forms\blog\CommentForm;
+use booking\helpers\scr;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\MapRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\blog\TagRepository;
 use booking\services\blog\CommentService;
+use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,6 +30,10 @@ class PostController extends Controller
      * @var MapRepository
      */
     private $maps;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -37,6 +43,7 @@ class PostController extends Controller
         CategoryRepository $categories,
         TagRepository $tags,
         MapRepository $maps,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -45,6 +52,7 @@ class PostController extends Controller
         $this->categories = $categories;
         $this->tags = $tags;
         $this->maps = $maps;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -116,14 +124,12 @@ class PostController extends Controller
     public function actionComment($id)
     {
         if (!$post = $this->posts->find($id)) {
-            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница не существует') . '.');
+            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница блога не существует') . '.');
         }
-
         $form = new CommentForm();
-
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                $comment = $this->service->create($post->id, \Yii::$app->user->id, $form);
+                $comment = $this->service->create($post->id, $this->loginService->user()->getId(), $form);
                 return $this->redirect(['post', 'id' => $post->id, '#' => 'comment_' . $comment->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);

@@ -15,6 +15,7 @@ use yii\helpers\Url;
 /* @var $dialog Dialog */
 /* @var $conversations Conversation[] */
 /* @var $model ConversationForm */
+/* @var $currentUser string */
 
 $this->title = Lang::t('Переписка') . '. ' . Lang::t($dialog->theme->caption);
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Сообщения'), 'url' => Url::to(['cabinet/dialog/index'])];;
@@ -53,7 +54,7 @@ if ($dialog->typeDialog == Dialog::CLIENT_PROVIDER) {
     <div class="card mt-2">
         <div class="card-body">
             <?php foreach ($conversations as $conversation): ?>
-                <?php if (get_class(\Yii::$app->user->identity) == $conversation->author) {
+                <?php if ($currentUser == $conversation->author) {
                     $classFlex = 'flex-row-reverse';
                     $classCard = 'bg-info text-white';
                     $caption = 'Мой ответ';

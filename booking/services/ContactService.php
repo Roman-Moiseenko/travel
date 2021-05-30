@@ -15,6 +15,7 @@ use booking\entities\shops\Shop;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use booking\services\pdf\pdfServiceController;
+use booking\services\system\LoginService;
 use booking\sms\sms;
 use yii\mail\MailerInterface;
 
@@ -29,15 +30,21 @@ class ContactService
      */
     private $pdf;
     private $loc;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         MailerInterface $mailer,
-        pdfServiceController $pdf
+        pdfServiceController $pdf,
+        LoginService $loginService
     )
     {
         $this->mailer = $mailer;
         $this->pdf = $pdf;
         $this->loc = \Yii::$app->params['local'] ?? false;
+        $this->loginService = $loginService;
     }
 
 /// УВЕДОМЛЕНИЕ ПРОВАЙДЕРУ ОБ ОТЗЫВЕ
@@ -268,7 +275,7 @@ class ContactService
         }
         //СМС
         if (\Yii::$app->params['SMSActivated'])
-            $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', User::findOne(\Yii::$app->user->id));
+            $this->sendSMS(\Yii::$app->params['SMSActivated'], 'New Activated!', $this->loginService->admin());
     }
 
     public function sendCancelProvider(\booking\entities\booking\tours\BookingTour $booking)

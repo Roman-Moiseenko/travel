@@ -11,6 +11,7 @@ use booking\helpers\BookingHelper;
 use booking\repositories\booking\cars\BookingCarRepository;
 use booking\repositories\booking\cars\CostCalendarRepository;
 use booking\services\booking\cars\CarService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -30,13 +31,26 @@ class BookingController  extends Controller
      * @var CostCalendarRepository
      */
     private $cars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, CarService $service, BookingCarRepository $bookings, CostCalendarRepository $cars, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        CarService $service,
+        BookingCarRepository $bookings,
+        CostCalendarRepository $cars,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->bookings = $bookings;
         $this->cars = $cars;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -59,7 +73,7 @@ class BookingController  extends Controller
         $car = $this->findModel($id);
         return $this->render('index', [
             'car' => $car,
-            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+            'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
         ]);
     }
 
@@ -84,7 +98,7 @@ class BookingController  extends Controller
                 $calendar = CostCalendar::find()->andWhere(['car_id' => $car_id])->andWhere(['car_at' => $date])->one();
                 return $this->render('_booking-day', [
                     'calendar' => $calendar,
-                    'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+                    'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
                 ]);
             } catch (\Throwable $e) {
                 return $e->getMessage();
@@ -114,7 +128,7 @@ class BookingController  extends Controller
     protected function findModel($id)
     {
         if (($model = Car::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->loginService->admin()->getId()) {
                 throw new \DomainException('У вас нет прав для данного авто');
             }
             return $model;

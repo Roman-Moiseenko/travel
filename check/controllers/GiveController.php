@@ -15,6 +15,7 @@ use booking\entities\check\User;
 use booking\helpers\scr;
 use booking\repositories\booking\BookingRepository;
 use booking\services\check\GiveOutService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -30,12 +31,23 @@ class GiveController extends Controller
      * @var BookingRepository
      */
     private $bookings;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, GiveOutService $service, BookingRepository $bookings, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        GiveOutService $service,
+        BookingRepository $bookings,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->bookings = $bookings;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -55,9 +67,7 @@ class GiveController extends Controller
 
     public function actionIndex()
     {
-        $user = User::findOne(\Yii::$app->user->id);
-
-
+        $user = $this->loginService->check();
         return $this->render('index', [
            'objects' => $user->objects,
         ]);
@@ -90,7 +100,7 @@ class GiveController extends Controller
     {
         try {
             $params = \Yii::$app->request->queryParams;
-            $this->service->giveOut(\Yii::$app->user->id, $params['type'], $params['id']);
+            $this->service->giveOut($this->loginService->check()->getId(), $params['type'], $params['id']);
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());

@@ -9,9 +9,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $faq FAQ */
+/* @var $iModerator bool */
 
-
-$iModerator = \Yii::$app->user->isGuest ? false : (\Yii::$app->user->identity->username == \Yii::$app->params['moving_moderator']);
 $Moderator = User::findByUsername(\Yii::$app->params['moving_moderator']);
 ?>
 

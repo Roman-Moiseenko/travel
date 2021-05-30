@@ -13,6 +13,7 @@ use booking\forms\admin\ContactAssignmentForm;
 use booking\forms\admin\UserLegalForm;
 use booking\helpers\scr;
 use booking\services\admin\UserManageService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -20,11 +21,22 @@ class LegalController extends Controller
 {
     public $layout = 'main';
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        UserManageService $service,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -151,11 +163,11 @@ class LegalController extends Controller
     {
         $user = $this->findModel();
         $legal_id = ContactAssignment::find()->andWhere(['id' => $id])->select('legal_id');
-            try {
-                $this->service->removeLegalContact($legal_id, $id);
-            } catch (\DomainException $e) {
-                \Yii::$app->session->setFlash('error', $e->getMessage());
-            }
+        try {
+            $this->service->removeLegalContact($legal_id, $id);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
@@ -178,6 +190,7 @@ class LegalController extends Controller
             'model' => $form,
         ]);
     }
+
     public function actionCertUpdate($id)
     {
         $user = $this->findModel();
@@ -212,6 +225,6 @@ class LegalController extends Controller
 
     private function findModel()
     {
-        return User::findOne(\Yii::$app->user->id);
+        return $this->loginService->admin();
     }
 }

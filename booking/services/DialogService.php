@@ -11,6 +11,7 @@ use booking\forms\message\ConversationForm;
 use booking\forms\message\DialogForm;
 use booking\helpers\BookingHelper;
 use booking\repositories\message\DialogRepository;
+use booking\services\system\LoginService;
 
 class DialogService
 {
@@ -26,12 +27,22 @@ class DialogService
      * @var ContactService
      */
     private $contact;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct(DialogRepository $dialogs, TransactionManager $transaction, ContactService $contact)
+    public function __construct(
+        DialogRepository $dialogs,
+        TransactionManager $transaction,
+        ContactService $contact,
+        LoginService $loginService
+    )
     {
         $this->dialogs = $dialogs;
         $this->transaction = $transaction;
         $this->contact = $contact;
+        $this->loginService = $loginService;
     }
 
     public function create($user_id, $typeDialog, $optional, DialogForm $form, $provider_id = null): Dialog
@@ -75,11 +86,11 @@ class DialogService
 
         }
         if ($typeDialog == Dialog::CLIENT_SUPPORT) {
-            $user = \Yii::$app->user->id;
+            $user = $this->loginService->user()->getId();
             $provider_id = null;
         } else {
             $user = null;
-            $provider_id = \Yii::$app->user->id;
+            $provider_id = $this->loginService->admin()->getId();
         }
         if ($theme_id == ThemeDialog::PETITION_PROVIDER) {
             $text = Lang::t('Жалоба на диалог' . ' ID=' . $id);

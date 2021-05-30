@@ -95,10 +95,4 @@ class UserRepository
         return $result->asArray()->column();
     }
 
-    public function getCurrent()
-    {
-        if (\Yii::$app->user->isGuest) throw new \DomainException('Необходимо залогиниться на сайте!');
-        return $this->get(\Yii::$app->user->id);
-    }
-
 }

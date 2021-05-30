@@ -30,6 +30,7 @@ use booking\repositories\booking\cars\TypeRepository;
 use booking\repositories\message\DialogRepository;
 use booking\services\ContactService;
 use booking\services\ImageService;
+use booking\services\system\LoginService;
 use booking\services\TransactionManager;
 
 class CarService
@@ -68,6 +69,10 @@ class CarService
      * @var CostCalendarRepository
      */
     private $calendars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         CarRepository $cars,
@@ -77,7 +82,8 @@ class CarService
         ContactService $contactService,
         ReviewCarRepository $reviews,
         DialogRepository $dialogs,
-        CostCalendarRepository $calendars
+        CostCalendarRepository $calendars,
+        LoginService $loginService
     )
     {
         $this->cars = $cars;
@@ -88,6 +94,7 @@ class CarService
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
         $this->calendars = $calendars;
+        $this->loginService = $loginService;
     }
 
     public function create(CarCommonForm $form): Car
@@ -264,7 +271,7 @@ class CarService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );
@@ -283,7 +290,7 @@ class CarService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );

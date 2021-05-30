@@ -12,6 +12,7 @@ use booking\helpers\scr;
 use booking\repositories\booking\cars\CarRepository;
 use booking\repositories\booking\cars\TypeRepository;
 use booking\services\booking\cars\CarService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -30,14 +31,25 @@ class CarsController extends Controller
      * @var CarService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, CarRepository $cars, TypeRepository $categories, CarService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        CarRepository $cars,
+        TypeRepository $categories,
+        CarService $service,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
-
         $this->cars = $cars;
         $this->categories = $categories;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -71,7 +83,7 @@ class CarsController extends Controller
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($car->id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($car->id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
                 return $this->redirect(['car/view', 'id' => $car->id]);
             } catch (\DomainException $e) {

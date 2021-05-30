@@ -8,6 +8,7 @@ use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
+use booking\services\system\LoginService;
 use booking\services\yandex\Info;
 use booking\services\yandex\YandexMarket;
 use frontend\urls\CarTypeUrlRule;
@@ -55,7 +56,9 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(ContactService::class, function () use ($app) {
             return new ContactService(
-                $app->mailer, new pdfServiceController('pdf_controller', new Module('pdf_module'))
+                $app->mailer,
+                new pdfServiceController('pdf_controller', new Module('pdf_module')),
+                new LoginService()
             );
         });
         $container->setSingleton(RoleManager::class, function () use ($app) {

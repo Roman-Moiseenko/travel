@@ -14,6 +14,7 @@ use booking\forms\message\DialogForm;
 use booking\helpers\BookingHelper;
 use booking\repositories\message\DialogRepository;
 use booking\services\DialogService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -23,12 +24,24 @@ class DialogController extends Controller
     public $layout = 'main-cabinet';
     private $service;
     private $dialogs;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, DialogRepository $dialogs, DialogService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        DialogRepository $dialogs,
+        DialogService $service,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->dialogs = $dialogs;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -130,6 +143,7 @@ class DialogController extends Controller
             'dialog' => $dialog,
             'model' => $form,
             'conversations' => $conversations,
+            'currentUser' => $this->loginService->currentClass(),
         ]);
     }
 

@@ -8,6 +8,7 @@ use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\helpers\scr;
 use booking\services\booking\tours\BookingTourService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 
 class CheckoutController extends Controller
@@ -17,11 +18,16 @@ class CheckoutController extends Controller
      * @var BookingTourService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, BookingTourService $service, $config = [])
+    public function __construct($id, $module, BookingTourService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionBooking()
@@ -29,7 +35,7 @@ class CheckoutController extends Controller
         $session = \Yii::$app->session;
         if ($session->get('link')) $session->remove('params'); //Небыло возврата по link
 
-        if (\Yii::$app->user->isGuest) {
+        if ($this->loginService->isGuest()) {
             //запоминаем ссесию
             $session->set('params', \Yii::$app->request->bodyParams); //параметры брони
             $session->set('link', '/tours/checkout/booking'); //куда вернуться после регистрации

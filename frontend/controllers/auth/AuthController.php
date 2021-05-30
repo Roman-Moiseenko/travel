@@ -4,6 +4,7 @@
 namespace frontend\controllers\auth;
 
 use booking\forms\auth\LoginForm;
+use booking\services\system\LoginService;
 use booking\services\user\AuthService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -17,11 +18,16 @@ class   AuthController extends Controller
      */
 
     private  $authService;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, AuthService $authService, $config = [])
+    public function __construct($id, $module, AuthService $authService, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->authService = $authService;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -60,7 +66,7 @@ class   AuthController extends Controller
      */
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!$this->loginService->isGuest()) {
             return $this->goHome();
         }
 

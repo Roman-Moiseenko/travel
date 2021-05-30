@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\Lang;
+use booking\entities\user\User;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use booking\helpers\MessageHelper;
@@ -8,6 +9,8 @@ use frontend\widgets\shop\CartWidget;
 use frontend\widgets\UserMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+/* @var $user User */
 
 ?>
 <div class="container">
@@ -56,27 +59,26 @@ use yii\helpers\Url;
             <?= CartWidget::widget()?>
 
             <li class="dropdown nav-item">
-                <?php if (Yii::$app->user->isGuest): ?>
-                    <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/login'])) ?>" rel="nofollow"><?= Lang::t('Войти') ?></a>
-                    <a class="dropdown-item"
-                       href="<?= Html::encode(Url::to(['/signup'])) ?>" rel="nofollow"><?= Lang::t('Регистрация') ?></a>
-                </div>
-                <?php else: ?>
-                <?php $user = \Yii::$app->user->identity; ?>
-                <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow">
-                    <i class="fa fa-user"></i>
-                    <span class="hidden-xs hidden-sm hidden-md">
+                <?php if ($user): ?>
+                    <a href="" title="<?= Lang::t('Мой личный кабинет') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow">
+                        <i class="fa fa-user"></i>
+                        <span class="hidden-xs hidden-sm hidden-md">
                         <?=  $user->personal->fullname->isEmpty() ? $user->username : $user->personal->fullname->firstname?>
                     </span> <span class="caret"></span>
-                </a>
+                    </a>
                     <div class="dropdown-menu">
                         <?= UserMenuWidget::widget([
                             'type' => UserMenuWidget::TOP_USERMENU,
                             'class_list' => 'dropdown-item',
                         ]) ?>
+                    </div>
+                <?php else: ?>
+                    <a href="" title="<?= Lang::t('Войти') ?>" class="dropdown-toggle nav-link" data-toggle="dropdown" rel="nofollow"><i class="fas fa-sign-in-alt"></i> <?= Lang::t('Войти') ?></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/login'])) ?>" rel="nofollow"><?= Lang::t('Войти') ?></a>
+                        <a class="dropdown-item"
+                           href="<?= Html::encode(Url::to(['/signup'])) ?>" rel="nofollow"><?= Lang::t('Регистрация') ?></a>
                     </div>
                 <?php endif; ?>
             </li>
@@ -118,7 +120,7 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Жилье') ?>
                     </a>
                 </li>
-                <?php if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->username == '+79118589719'): ?>
+                <?php if ($user && $user->username == '+79118589719'): ?>
                     <li class="nav-item">
                         <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'hotels/hotels' ? 'active' : '' ?>"
                            href="<?= Html::encode(Url::to(['/hotels'])) ?>">

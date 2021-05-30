@@ -7,13 +7,14 @@ namespace admin\controllers;
 use booking\forms\admin\ToUpBalanceForm;
 use booking\repositories\admin\UserRepository;
 use booking\services\finance\YKassaService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
 
 class BalanceController extends Controller
 {
-    public $layout ='main';
+    public $layout = 'main';
     /**
      * @var UserRepository
      */
@@ -22,12 +23,21 @@ class BalanceController extends Controller
      * @var YKassaService
      */
     private $kassa;
+    private $userId;
 
-    public function __construct($id, $module, UserRepository $users, YKassaService $kassa, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        UserRepository $users,
+        YKassaService $kassa,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->users = $users;
         $this->kassa = $kassa;
+        $this->userId = $loginService->admin()->getId();
     }
 
     public function behaviors()
@@ -47,27 +57,23 @@ class BalanceController extends Controller
 
     public function actionIndex()
     {
-        $user_id = \Yii::$app->user->id;
-
-        $dataProviderDeposit = $this->users->searchDeposit($user_id);
-        $dataProviderDebiting = $this->users->searchDebiting($user_id);
+        $dataProviderDeposit = $this->users->searchDeposit($this->userId);
+        $dataProviderDebiting = $this->users->searchDebiting($this->userId);
 
         return $this->render('index', [
             'dataProviderDeposit' => $dataProviderDeposit,
             'dataProviderDebiting' => $dataProviderDebiting,
-            'user' => $this->users->get($user_id),
+            'user' => $this->users->get($this->userId),
         ]);
     }
 
     public function actionUp()
     {
-        $user_id = \Yii::$app->user->id;
-
         $form = new ToUpBalanceForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 return $this->redirect(\Yii::$app->params['frontendHostInfo'] .
-                    '/cabinet/yandexkassa/invoice-admin?id=' . $user_id . '&amount=' . $form->amount);
+                    '/cabinet/yandexkassa/invoice-admin?id=' . $this->userId . '&amount=' . $form->amount);
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());

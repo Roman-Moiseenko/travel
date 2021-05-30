@@ -12,8 +12,7 @@ class AdminUserHelper
 {
     public static function listLegals(): array
     {
-        $id = \Yii::$app->user->id;
-        return ArrayHelper::map(Legal::find()->andWhere(['user_id' => $id])->asArray()->all(),
+        return ArrayHelper::map(Legal::find()->andWhere(['user_id' => \Yii::$app->user->id])->asArray()->all(),
             'id',
             function (array $legal) {
             return $legal['name'];

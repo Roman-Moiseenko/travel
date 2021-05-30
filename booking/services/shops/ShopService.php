@@ -26,6 +26,7 @@ use booking\repositories\shops\ReviewShopRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\ContactService;
 use booking\services\ImageService;
+use booking\services\system\LoginService;
 
 class ShopService
 {
@@ -45,24 +46,30 @@ class ShopService
      * @var ReviewShopRepository
      */
     private $reviews;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         ShopRepository $shops,
         ContactService $contactService,
         DialogRepository $dialogs,
-        ReviewShopRepository $reviews
+        ReviewShopRepository $reviews,
+        LoginService $loginService
     )
     {
         $this->shops = $shops;
         $this->contactService = $contactService;
         $this->dialogs = $dialogs;
         $this->reviews = $reviews;
+        $this->loginService = $loginService;
     }
 
     public function create(ShopCreateForm $form): Shop
     {
         $shop = Shop::create(
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             $form->legal_id,
             $form->name,
             $form->name_en,
@@ -165,7 +172,7 @@ class ShopService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );
@@ -184,7 +191,7 @@ class ShopService
         $dialog = Dialog::create(
             null,
             Dialog::PROVIDER_SUPPORT,
-            \Yii::$app->user->id,
+            $this->loginService->admin()->getId(),
             ThemeDialog::ACTIVATED,
             ''
         );

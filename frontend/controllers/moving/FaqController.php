@@ -8,6 +8,7 @@ use booking\forms\moving\QuestionForm;
 use booking\repositories\moving\CategoryFAQRepository;
 use booking\repositories\moving\FAQRepository;
 use booking\services\moving\FAQService;
+use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -27,6 +28,10 @@ class FaqController extends Controller
      * @var FAQService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -34,6 +39,7 @@ class FaqController extends Controller
         CategoryFAQRepository $repository,
         FAQRepository $FAQRepository,
         FAQService $service,
+        LoginService $loginService,
         $config = []
     )
     {
@@ -41,6 +47,7 @@ class FaqController extends Controller
         $this->repository = $repository;
         $this->FAQRepository = $FAQRepository;
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -48,6 +55,7 @@ class FaqController extends Controller
         $categories = $this->repository->getAll();
         return $this->render('index', [
             'categories' => $categories,
+            'user' => $this->loginService->user(),
         ]);
     }
 
@@ -70,6 +78,7 @@ class FaqController extends Controller
             'dataProvider' => $dataProvider,
             'model' => $form,
             'model_answer' => $model_answer,
+            'user' => $this->loginService->user(),
         ]);
 
 

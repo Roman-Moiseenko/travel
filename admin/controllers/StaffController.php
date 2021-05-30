@@ -16,6 +16,7 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\check\UserManageService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -43,11 +44,16 @@ class StaffController extends Controller
      * @var StayRepository
      */
     private $stays;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
         $module,
         UserManageService $service,
+        LoginService $loginService,
         TourRepository $tours,
         CarRepository $cars,
         FunRepository $funs,
@@ -61,6 +67,7 @@ class StaffController extends Controller
         $this->cars = $cars;
         $this->funs = $funs;
         $this->stays = $stays;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -94,7 +101,7 @@ class StaffController extends Controller
         $form = new UserForm();
         if ($form->load(\Yii::$app->request->post()) &&  $form->validate()) {
             try {
-                $user = $this->service->create(\Yii::$app->user->id, $form);
+                $user = $this->service->create($this->loginService->admin()->getId(), $form);
                 return $this->redirect(Url::to(['staff/view', 'id' => $user->id]));
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
@@ -110,7 +117,7 @@ class StaffController extends Controller
     {
         $user = \booking\entities\check\User::findOne($id);
         $objects = [];
-        $admin_id = \Yii::$app->user->id;
+        $admin_id = $this->loginService->admin()->getId();
         $tours = $this->tours->getByAdminList($admin_id);
         $cars = $this->cars->getByAdminList($admin_id);
         $funs = $this->funs->getByAdminList($admin_id);

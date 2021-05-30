@@ -7,20 +7,29 @@ use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\ReviewTour;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
+use booking\services\system\LoginService;
 use yii\base\Widget;
 
 class NewReviewTourWidget extends Widget
 {
     public $tour_id = 0;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
+
+    public function __construct(LoginService $loginService, $config = [])
+    {
+        parent::__construct($config);
+        $this->loginService = $loginService;
+    }
 
     public function run()
     {
-        $test = true;
-        if (\Yii::$app->user->isGuest) {
-            return '';
-        }
+        $test = false;
+        if ($this->loginService->isGuest()) return '';
         //Проверяем есть ли отзыв
-        $user_id = \Yii::$app->user->id;
+        $user_id = $this->loginService->user()->id;
         $reviews = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['tour_id' => $this->tour_id])->all();
         if (count($reviews) != 0) return '';
         if ($test) {

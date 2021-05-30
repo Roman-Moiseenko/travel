@@ -12,6 +12,7 @@ use booking\helpers\BookingHelper;
 use booking\repositories\booking\stays\BookingStayRepository;
 use booking\repositories\booking\stays\CostCalendarRepository;
 use booking\services\booking\stays\BookingStayService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,13 +32,26 @@ class BookingController extends Controller
      * @var CostCalendarRepository
      */
     private $stays;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, BookingStayService $service, BookingStayRepository $bookings, CostCalendarRepository $stays, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        BookingStayService $service,
+        BookingStayRepository $bookings,
+        CostCalendarRepository $stays,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->bookings = $bookings;
         $this->stays = $stays;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -60,7 +74,7 @@ class BookingController extends Controller
         $stay = $this->findModel($id);
         return $this->render('index', [
             'stay' => $stay,
-            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+            'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
         ]);
     }
 
@@ -92,7 +106,7 @@ class BookingController extends Controller
                     ->one();
 
                 return $this->render('_booking-day', [
-                    'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+                    'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
                     'calendar' => $calendar,
                 ]);
             } catch (\Throwable $e) {
@@ -130,7 +144,7 @@ class BookingController extends Controller
     protected function findModel($id)
     {
         if (($model = Stay::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->loginService->admin()->getId()) {
                 throw new \DomainException('У вас нет прав для данного жилья');
             }
             return $model;

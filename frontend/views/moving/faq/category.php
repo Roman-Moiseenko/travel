@@ -2,8 +2,10 @@
 
 use booking\entities\Lang;
 use booking\entities\moving\CategoryFAQ;
+use booking\entities\user\User;
 use booking\forms\moving\AnswerForm;
 use booking\forms\moving\QuestionForm;
+use booking\helpers\scr;
 use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
@@ -17,6 +19,7 @@ use yii\widgets\LinkPager;
 /* @var $model QuestionForm */
 /* @var $model_answer AnswerForm */
 /* @var $dataProvider DataProviderInterface */
+/* @var $user User */
 
 $js = <<<JS
 $('.answer-btn').on('click', function() {
@@ -31,6 +34,9 @@ $this->params['canonical'] = Url::to(['/moving/faq/category', 'id' => $category-
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/moving/faq'])];
 $this->params['breadcrumbs'][] = $this->title = $category->caption;
+
+if ($user && $user->username == \Yii::$app->params['moving_moderator']) {$iModerator = true;}
+else {$iModerator = false;}
 ?>
 
 <h1><?= $category->caption ?></h1>
@@ -41,7 +47,8 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
 <div class="row row-cols-1 params-moving">
     <?php foreach ($dataProvider->getModels() as $faq): ?>
         <?= $this->render('_faq', [
-            'faq' => $faq
+            'faq' => $faq,
+            'iModerator' => $iModerator,
         ]) ?>
     <?php endforeach; ?>
 </div>
@@ -55,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
     <div class="col-sm-6 text-right"><?= Lang::t('Показано') . ' ' . $dataProvider->getCount() . ' ' . Lang::t('из') . ' ' . $dataProvider->getTotalCount() ?></div>
 </div>
 
+<?php if (!$iModerator): ?>
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
@@ -80,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title = $category->caption;
         </div>
     </div>
 </div>
-
+<?php endif; ?>
 <div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="translateModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

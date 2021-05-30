@@ -11,6 +11,7 @@ use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
 use booking\repositories\admin\forum\PostRepository;
 use booking\services\admin\forum\CategoryService;
+use booking\services\system\LoginService;
 
 class PostService
 {
@@ -22,16 +23,28 @@ class PostService
      * @var CategoryService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
+    /** @var $admin User */
+    private $admin;
 
-    public function __construct(PostRepository $posts, CategoryService $service)
+    public function __construct(
+        PostRepository $posts,
+        CategoryService $service,
+        LoginService $loginService
+    )
     {
         $this->posts = $posts;
         $this->service = $service;
+        $this->loginService = $loginService;
+        $this->admin = $loginService->admin();
     }
 
     public function create(PostForm $form): Post
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumLock()) throw new \DomainException('У вас нет доступа для данного действия');
         $post = Post::create($form->category_id, $user->id, $form->caption);
         $message = Message::create($user->id, $form->message->text);
@@ -43,7 +56,7 @@ class PostService
 
     public function lock($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumUpdate()) {
             $post = $this->posts->get($id);
             $post->lock();
@@ -55,7 +68,7 @@ class PostService
 
     public function fix($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumUpdate()) {
             $post = $this->posts->get($id);
             $post->fixed();
@@ -67,7 +80,7 @@ class PostService
 
     public function unFix($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumUpdate()) {
             $post = $this->posts->get($id);
             $post->unFixed();
@@ -79,7 +92,7 @@ class PostService
 
     public function unLock($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumUpdate()) {
             $post = $this->posts->get($id);
             $post->unLock();
@@ -91,7 +104,7 @@ class PostService
 
     public function addMessage($post_id, MessageForm $form)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumLock()) throw new \DomainException('У вас нет доступа для данного действия');
         $post = $this->posts->get($post_id);
         $message = $post->addMessage(Message::create($user->id, $form->text));
@@ -101,7 +114,7 @@ class PostService
 
     public function editMessage($post_id, $message_id, MessageForm $form)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumLock()) throw new \DomainException('У вас нет доступа для данного действия');
         $post = $this->posts->get($post_id);
         if (!$post->isAuthor($message_id, $user->id)) throw new \DomainException('У вас нет прав изменять данное сообщение');
@@ -112,7 +125,7 @@ class PostService
 
     public function removeMessage($post_id, $message_id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumLock()) throw new \DomainException('У вас нет доступа для данного действия');
         $post = $this->posts->get($post_id);
         if (!$post->isAuthor($message_id, $user->id)) throw new \DomainException('У вас нет прав изменять данное сообщение');
@@ -123,7 +136,7 @@ class PostService
 
     public function removePost($id)
     {
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->admin;
         if ($user->preferences->isForumAdmin()) {
             $post = $this->posts->get($id);
             $this->posts->remove($post);

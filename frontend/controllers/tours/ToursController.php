@@ -12,6 +12,7 @@ use booking\helpers\scr;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\tours\TypeRepository;
 use booking\services\booking\tours\TourService;
+use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -25,13 +26,25 @@ class ToursController extends Controller
      * @var TypeRepository
      */
     private $categories;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, TourRepository $tours, TypeRepository $categories, TourService $service, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        TourRepository $tours,
+        TypeRepository $categories,
+        TourService $service,
+        LoginService $loginService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->tours = $tours;
         $this->service = $service;
         $this->categories = $categories;
+        $this->loginService = $loginService;
     }
 
     public function actionIndex()
@@ -61,10 +74,9 @@ class ToursController extends Controller
             return $this->goHome();
         }
         $reviewForm = new ReviewForm();
-        //scr::p($reviewForm);
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($tour->id, \Yii::$app->user->id, $reviewForm);
+                $this->service->addReview($tour->id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
                 return $this->redirect(['tour/view', 'id' => $tour->id]);
             } catch (\DomainException $e) {

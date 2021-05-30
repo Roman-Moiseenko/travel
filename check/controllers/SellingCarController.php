@@ -9,6 +9,7 @@ use booking\entities\check\BookingObject;
 use booking\repositories\booking\cars\CostCalendarRepository;
 use booking\repositories\booking\cars\SellingCarRepository;
 use booking\services\booking\cars\SellingCarService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,6 +29,10 @@ class SellingCarController extends Controller
      * @var SellingCarRepository
      */
     private $sellingCars;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
     public function __construct(
         $id,
@@ -35,6 +40,7 @@ class SellingCarController extends Controller
         SellingCarService $service,
         CostCalendarRepository $calendars,
         SellingCarRepository $sellingCars,
+        LoginService $loginService,
         $config = []
     )
     {
@@ -42,6 +48,7 @@ class SellingCarController extends Controller
         $this->service = $service;
         $this->calendars = $calendars;
         $this->sellingCars = $sellingCars;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -72,7 +79,7 @@ class SellingCarController extends Controller
     public function findModel($id)
     {
         if (($model = Car::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->loginService->check()->getId()) {
                 throw new \DomainException('У вас нет прав для данного авто');
             }
             return $model;

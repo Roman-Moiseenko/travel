@@ -8,6 +8,7 @@ use booking\entities\admin\User;
 use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\UserEditForm;
 use booking\services\admin\UserManageService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -15,11 +16,16 @@ class AuthController extends Controller
 {
     public $layout = 'main-cabinet';
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -85,6 +91,6 @@ class AuthController extends Controller
 
     private function findModel()
     {
-        return User::findOne(\Yii::$app->user->id);
+        return $this->loginService->admin();
     }
 }

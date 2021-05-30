@@ -12,6 +12,7 @@ use booking\helpers\BookingHelper;
 use booking\repositories\booking\funs\BookingFunRepository;
 use booking\repositories\booking\funs\CostCalendarRepository;
 use booking\services\booking\funs\FunService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,14 +32,27 @@ class BookingController extends Controller
      * @var CostCalendarRepository
      */
     private $funs;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
 
-    public function __construct($id, $module, FunService $service, BookingFunRepository $bookings, CostCalendarRepository $funs, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        FunService $service,
+        BookingFunRepository $bookings,
+        CostCalendarRepository $funs,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->bookings = $bookings;
         $this->funs = $funs;
+        $this->loginService = $loginService;
     }
 
     public function behaviors()
@@ -61,7 +75,7 @@ class BookingController extends Controller
         $fun = $this->findModel($id);
         return $this->render('index', [
             'fun' => $fun,
-            'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+            'view_cancel' => $this->loginService->admin()->preferences->view_cancel,
         ]);
     }
 
@@ -90,7 +104,7 @@ class BookingController extends Controller
                     ->andWhere(['f.object_id' => $fun_id])
                     ->andWhere(['c.fun_at' => $date])
                     ->andWhere(['c.time_at' => $time]);
-                if (!\Yii::$app->user->identity->preferences->view_cancel) {
+                if (!$this->loginService->admin()->preferences->view_cancel) {
                     $bookings = $bookings->andWhere(['<>', 'f.status', BookingHelper::BOOKING_STATUS_CANCEL])
                         ->andWhere(['<>', 'f.status', BookingHelper::BOOKING_STATUS_CANCEL_PAY]);
                 }
@@ -100,7 +114,7 @@ class BookingController extends Controller
             //return count($bookings);
             return $this->render('_booking-day', [
                 'times' => $_bookings,
-                'view_cancel' => \Yii::$app->user->identity->preferences->view_cancel,
+                'view_cancel' =>$this->loginService->admin()->preferences->view_cancel,
             ]);
         }
     }
@@ -128,7 +142,7 @@ class BookingController extends Controller
     protected function findModel($id)
     {
         if (($model = Fun::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->loginService->admin()->getId()) {
                 throw new \DomainException('У вас нет прав для данного Развлечения');
             }
             return $model;

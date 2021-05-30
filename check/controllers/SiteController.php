@@ -6,6 +6,7 @@ namespace check\controllers;
 use booking\entities\check\User;
 use booking\helpers\scr;
 use booking\services\check\UserManageService;
+use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -22,11 +23,16 @@ class SiteController extends Controller
      * @var UserManageService
      */
     private $service;
+    /**
+     * @var LoginService
+     */
+    private $loginService;
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->loginService = $loginService;
     }
 
     /**
@@ -82,10 +88,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main';
-        if (\Yii::$app->user->isGuest) {
+        if ($this->loginService->isGuest()) {
             return $this->redirect(Url::to(['/login']));
         }
-        $user = User::findOne(\Yii::$app->user->id);
+        $user = $this->loginService->check();
         if (count($user->objects) == 1) {
             return $this->redirect(['give/view', 'id' => $user->objects[0]->id]);
         }

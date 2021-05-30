@@ -34,7 +34,8 @@ class PriceListRepository
 
     public function getPrice(string $key): float
     {
-        if ($key == Shop::class) return 1.0;
+        //if ($key == Shop::class) return 1.0;
+        //TODO Протестировать !!!!
         if (!$price = PriceList::findOne(['key' => $key])) {
             throw new \DomainException('Прайс-лист не найден.');
         }
