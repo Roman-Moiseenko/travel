@@ -118,16 +118,12 @@ use yii\helpers\Url;
                 </li>
 
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/area' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/area'])) ?>">&#160;<?= Lang::t('Участки') ?></a>
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/land' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving/land'])) ?>">&#160;<?= Lang::t('Участки') ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">&#160;<?= Lang::t('Бизнес') ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/docs' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/docs'])) ?>">&#160;<?= Lang::t('Документы') ?></a>
                 </li>
             </ul>
         </div>

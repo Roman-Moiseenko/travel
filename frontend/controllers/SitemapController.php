@@ -170,7 +170,7 @@ class SitemapController extends Controller
                         null,
                         MapItem::ALWAYS
                     );
-            }, ['/moving', '/moving/faq', '/moving/realty']));
+            }, ['/moving', '/moving/faq', '/moving/realty', '/moving/land']));
         });
     }
 

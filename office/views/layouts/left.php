@@ -43,7 +43,7 @@ use yii\helpers\Url;
                         ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
                     ]],
                     ['label' => 'В.Музеи', 'icon' => 'dungeon', 'url' => ['/vmuseum/vmuseum'], 'active' => $this->context->id == 'vmuseum/vmuseum'],
-                    ['label' => 'Земельные участки', 'icon' => '', 'url' => ['/land'], 'active' => $this->context->id == 'land'],
+                    ['label' => 'Земельные участки', 'icon' => 'map', 'url' => ['/land'], 'active' => $this->context->id == 'land'],
 
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
                         ['label' => ' - Туры', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
