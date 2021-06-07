@@ -5,7 +5,7 @@ namespace booking\forms\shops;
 
 
 use booking\entities\admin\Contact;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\shops\CategoryAssign;
 use booking\entities\shops\InfoAddress;
 use booking\entities\shops\Shop;

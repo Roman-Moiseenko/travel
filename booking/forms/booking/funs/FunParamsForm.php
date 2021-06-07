@@ -5,7 +5,7 @@ namespace booking\forms\booking\funs;
 
 use booking\entities\booking\funs\Characteristic;
 use booking\entities\booking\funs\Fun;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\forms\booking\AgeLimitForm;
 use booking\forms\CompositeForm;
 use booking\forms\WorkModeForm;

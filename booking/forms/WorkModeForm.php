@@ -4,7 +4,7 @@
 namespace booking\forms;
 
 
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use phpDocumentor\Reflection\Types\False_;
 use yii\base\Model;
 

@@ -1,5 +1,6 @@
 <?php
 
+use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
 
 /* @var $full_cost float */
@@ -18,7 +19,7 @@ use booking\helpers\CurrencyHelper;
 </div>
 <div class="row pb-2">
     <div class="col-6 pr-1">
-        <span style="font-size: 12px; font-weight: 600;">Предоплата (<?= $percent ?>%):</span>
+        <span style="font-size: 12px; font-weight: 600;"><?= Lang::t('Предоплата') . '(' . $percent . '%):' ?></span>
     </div>
     <div class="col-6 px-1" data-amount="<?= 0 ?>">
         <span class="amount-booking"><?= $prepay == 0 ? '-' : CurrencyHelper::get($prepay, false) ?></span>

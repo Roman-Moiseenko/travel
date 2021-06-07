@@ -9,7 +9,7 @@ use booking\entities\admin\Contact;
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
 use booking\entities\booking\BaseReview;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\foods\Photo;
 use booking\entities\Lang;
 use booking\entities\queries\ObjectActiveQuery;

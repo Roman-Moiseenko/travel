@@ -8,7 +8,7 @@ use yii\helpers\Url;
 $this->title = 'Недвижимость для переезжающих на ПМЖ в Калининград';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Недвижимость для переезжающих на ПМЖ в Калининград, подбор домов, застройщиков']);
 
-$this->params['canonical'] = Url::to(['/moving/houses'], true);
+$this->params['canonical'] = Url::to(['/moving/realty'], true);
 $this->params['breadcrumbs'][] = ['label' => 'На ПМЖ', 'url' => Url::to(['/moving'])];
 $this->params['breadcrumbs'][] = 'Недвижимость';
 ?>

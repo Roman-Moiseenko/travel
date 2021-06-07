@@ -29,7 +29,7 @@ DatepickerAsset::register($this);
                     <div class="list-tours"></div>
                     <p></p>
                     <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $tour->isConfirmation(), 'btn_id' => 'button-booking-tour']) ?>
-                    <div class="pt-3" style="color: #560005; ">* <?= Lang::t('При покупке экскурсии менее чем за 7 дней, предварительно уточните ее доступность') ?></div>
+                    <div class="pt-3" style="color: #560005; ">* <?= Lang::t('При покупке экскурсии менее чем за 3 дня, предварительно, уточните ее доступность по тел.') . '+7-911-471-0701' ?></div>
                     <?= Html::endForm() ?>
                 </div>
             </div>

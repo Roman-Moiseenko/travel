@@ -96,7 +96,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
                 'image' => 'menu-area.jpg',
                 'caption' => 'Операции с землей',
                 'text' => 'Раздел находится в разработке',
-                'link' => Url::to(['/moving/ground'])
+                'link' => Url::to(['/moving/land'])
             ]) ?>
         </div>
         <div class="col-md-4 col-sm-6">

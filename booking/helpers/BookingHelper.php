@@ -39,6 +39,7 @@ class BookingHelper
     const BOOKING_TYPE_FOOD = 106;
     const BOOKING_TYPE_SHOP = 107;
     const BOOKING_TYPE_PRODUCT = 108;
+    const BOOKING_TYPE_VMUSEUM = 109;
 
     const LIST_BOOKING_TYPE = [
         self::BOOKING_TYPE_TOUR => BookingTour::class,
@@ -86,6 +87,7 @@ class BookingHelper
     //Бронирование оплачивается у Провайдера или на Сайте
     const BOOKING_CONFIRMATION = 101; //При оплате -> Подтверждение
     const BOOKING_PAYMENT = 102; //При оплате -> Онлайн-оплата
+
 
     public static function list(): array
     {
@@ -151,6 +153,7 @@ class BookingHelper
         //******* Не бронируемые типы  ****/
         if ($type == self::BOOKING_TYPE_FOOD) return '<i class="fas fa-utensils"></i>';
         if ($type == self::BOOKING_TYPE_SHOP) return '<i class="fas fa-store"></i>';
+        if ($type == self::BOOKING_TYPE_VMUSEUM) return '<i class="fas fa-dungeon"></i>';
 
         throw new \DomainException('Не известный тип');
     }

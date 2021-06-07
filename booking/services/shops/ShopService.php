@@ -5,7 +5,7 @@ namespace booking\services\shops;
 
 
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\Meta;

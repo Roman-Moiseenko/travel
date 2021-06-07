@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\entities\booking\funs;
+namespace booking\entities;
 
 
 class WorkMode

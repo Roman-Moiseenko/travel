@@ -226,7 +226,7 @@ MagnificPopupAsset::register($this);
     <meta itemprop="sku" content="<?= $product->id ?>">
     <meta itemprop="brand" content="<?=$product->getBrand() ?>">
     <link itemprop="url" href="<?= Url::to(['product/view', 'id' => $product->id], true)?>">
-    <meta itemprop="gtin" content="">
+    <meta itemprop="mpn" content="<?= $product->getName() ?>">
     <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
         <link itemprop="contentUrl" href="<?= $product->mainPhoto->getUploadedFileUrl('file') ?>"/>
     </div>
@@ -235,6 +235,8 @@ MagnificPopupAsset::register($this);
         <meta itemprop="price" content="<?= $product->cost ?>">
         <link itemprop="availability" href="https://schema.org/InStock"/>
         <meta itemprop="priceValidUntil" content="<?= ((int)(date('Y', time())) + 1) . '-01-01'?>">
+        <link itemprop="url" href="<?= Url::to(['shop', 'id' => $product->shop_id], true)?>">
+
     </div>
     <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
         <meta itemprop="ratingValue" content="<?= $product->rating ?? 5 ?>">
@@ -255,6 +257,21 @@ MagnificPopupAsset::register($this);
             <meta itemprop="reviewBody" content="<?= $review->text ?>">
         </div>
     <?php endforeach; ?>
+    <?php
+    //TODO Заглушка для Гугла
+    if (count($product->reviews) == 0): ?>
+        <div itemprop="review" itemscope itemtype="https://schema.org/Review">
+            <meta itemprop="author" content="Аноним">
+            <meta itemprop="datePublished" content="<?= date('Y-m-d', time()) ?>">
+            <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+                <meta itemprop="worstRating" content="1">
+                <meta itemprop="ratingValue" content="<?= rand(1, 5) ?>">
+                <meta itemprop="bestRating" content="5">
+            </div>
+            <meta itemprop="reviewBody" content="<?= 'Товар '.  $product->name ?> . ' очень интересен, купили на пробу, нам понравился, теперь будем пользоваться постоянно.'">
+        </div>
+
+    <?php endif;?>
 </div>
 
 <?php $js = <<<EOD

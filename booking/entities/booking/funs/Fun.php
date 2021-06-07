@@ -16,6 +16,7 @@ use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\entities\queries\ObjectActiveQuery;
+use booking\entities\WorkMode;
 use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;

@@ -4,7 +4,7 @@
 namespace booking\helpers\funs;
 
 
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\Lang;
 
 class WorkModeHelper

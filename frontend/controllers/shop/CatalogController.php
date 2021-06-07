@@ -12,6 +12,7 @@ use booking\services\shops\AdProductService;
 use booking\services\shops\ProductService;
 use booking\services\shops\ShopService;
 use booking\services\system\LoginService;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -112,7 +113,7 @@ class CatalogController extends Controller
             $shop = $this->shops->getForFrontend($id);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
+            return $this->redirect(Url::to(['/about']));//$this->redirect(\Yii::$app->request->referrer);
         }
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {

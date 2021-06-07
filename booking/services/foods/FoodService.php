@@ -4,7 +4,7 @@
 namespace booking\services\foods;
 
 
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\foods\Food;
 use booking\entities\foods\InfoAddress;
 use booking\entities\foods\Photo;

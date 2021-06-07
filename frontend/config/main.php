@@ -183,7 +183,8 @@ return [
                 'moving/faq' => 'moving/faq/index',
                 'moving/docs' => 'moving/docs/index',
                 'moving/realty' => 'moving/realty/index',
-                'moving/area' => 'moving/area/index',
+                'moving/land' => 'moving/land/index',
+                'moving/land/get-lands' => 'moving/land/get-lands',
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
 

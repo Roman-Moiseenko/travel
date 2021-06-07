@@ -10,9 +10,7 @@ $(document).ready(function () {
             if (_init === 1) return;
             _init = 1;
             setTimeout(() => {
-                console.log('2');
                 loadScript("https://api-maps.yandex.ru/2.1/?apikey=" + _api + "&lang=" + _lang, function () {
-                    console.log('3');
                     ymaps.load(init);
                 });
             }, 2000);
@@ -80,9 +78,7 @@ $(document).ready(function () {
     }
 
     function loadScript(url, callback) {
-
         let script = document.createElement("script");
-
         if (script.readyState) {  //IE
             script.onreadystatechange = function () {
                 if (script.readyState == "loaded" ||
@@ -96,7 +92,6 @@ $(document).ready(function () {
                 callback();
             };
         }
-
         script.src = url;
         document.getElementsByTagName("head")[0].appendChild(script);
     }

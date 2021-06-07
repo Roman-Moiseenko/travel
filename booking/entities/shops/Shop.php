@@ -12,7 +12,7 @@ use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\BasePhoto;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\entities\office\PriceInterface;
@@ -129,6 +129,13 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
         $this->type_id = $type_id;
     }
 
+    public function isAd(): bool
+    {
+        return $this->ad;
+    }
+
+    //**************** Set ****************************
+
     public function setDelivery(DeliveryForm $form): void
     {
         $this->delivery = Delivery::create(
@@ -156,13 +163,6 @@ class Shop extends ActiveRecord implements ActivateObjectInterface, PriceInterfa
     {
         $this->workModes = $workModes;
     }
-
-    public function isAd(): bool
-    {
-        return $this->ad;
-    }
-
-    //**************** Set ****************************
 
     public function setStatus($status)
     {

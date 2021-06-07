@@ -10,7 +10,7 @@ use booking\entities\booking\funs\FunParams;
 use booking\entities\booking\funs\Photo;
 use booking\entities\booking\funs\ReviewFun;
 use booking\entities\booking\funs\Times;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\booking\tours\Cost;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;

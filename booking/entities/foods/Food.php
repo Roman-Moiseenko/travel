@@ -7,7 +7,7 @@ namespace booking\entities\foods;
 use booking\entities\admin\Contact;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\BasePhoto;
-use booking\entities\booking\funs\WorkMode;
+use booking\entities\WorkMode;
 use booking\entities\foods\queries\FoodQueries;
 use booking\entities\Meta;
 use booking\helpers\BookingHelper;
