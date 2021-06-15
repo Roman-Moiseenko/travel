@@ -2,6 +2,7 @@
 
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
+use booking\helpers\ReviewHelper;
 use frontend\assets\DatepickerAsset;
 use frontend\widgets\design\BtnBooking;
 use frontend\widgets\LegalWidget;
@@ -41,7 +42,7 @@ DatepickerAsset::register($this);
             <p>
                 <?= RatingWidget::widget(['rating' => $tour->rating]); ?>
                 <a href="#review">
-                    <?= $tour->countReviews() ?> <?= Lang::t('отзывов') ?>
+                    <?= ReviewHelper::text($tour->reviews) ?>
                 </a>
             </p>
             <hr>

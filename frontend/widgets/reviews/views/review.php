@@ -7,7 +7,7 @@ use frontend\widgets\RatingWidget;
 /* @var $reviews BaseReview[] */
 ?>
 <?php foreach ($reviews as $review): ?>
-    <div class="card pt-2" style="border-radius: 20px">
+    <div class="card mt-2" style="border-radius: 20px">
         <div class="card-body">
             <div class="d-flex">
                 <div>

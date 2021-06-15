@@ -33,7 +33,7 @@ abstract class BaseReview extends ActiveRecord
         $review->vote = $vote;
         $review->text = $text;
         $review->status = self::STATUS_ACTIVE;
-        $review->created_at = time();
+        $review->created_at = time() - 3600 * 24 * 0;
         return $review;
     }
 

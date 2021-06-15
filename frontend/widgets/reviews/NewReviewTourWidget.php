@@ -26,13 +26,13 @@ class NewReviewTourWidget extends Widget
 
     public function run()
     {
-        $test = true;
+        //$test =  ?? false;
         if ($this->loginService->isGuest()) return '';
         //Проверяем есть ли отзыв
         $user_id = $this->loginService->user()->id;
         $reviews = ReviewTour::find()->andWhere(['user_id' => $user_id])->andWhere(['tour_id' => $this->tour_id])->all();
         if (count($reviews) != 0) return '';
-        if ($test) {
+        if (isset(\Yii::$app->params['bot_review']) && \Yii::$app->params['bot_review']) {
             $reviewForm = new ReviewForm();
             return $this->render('new-review', [
                 'reviewForm' => $reviewForm,

@@ -21,6 +21,6 @@ class ReviewHelper
                 break;
             default: $text = Lang::t('отзывов');
         }
-        return $count . ' ' . $text;
+        return $count . ' ' . mb_strtolower($text);
     }
 }
