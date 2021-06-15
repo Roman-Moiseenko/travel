@@ -1,33 +1,29 @@
 <?php
-/* @var $array array */
-$script = <<<JS
-$(document).ready(function() {
-    var i = 0;
-    var arr_reviews = $array;
-    var count = arr_reviews.length;
-    var tick = false;
-    $('#review-load').html(arr_reviews[i]);
-    $('#review-load-next').hide();
-    setInterval(function(){
-            i++;
-            if (i === count) {i=0;}
-            if (tick === false) {
-                $('#review-load-next').html(arr_reviews[i]);
-                $('#review-load').slideUp(500);
-                $('#review-load-next').slideDown(500);               
-                tick = true;
-                $('#rl').html(arr_reviews[i]);
-            } else {
-                $('#review-load').html(arr_reviews[i]);
-                $('#review-load-next').slideUp(500); 
-                $('#review-load').slideDown(500);                 
-                tick = false
-                }
-        }, 5000);
-});
-JS;
-$this->registerJs($script)
-?>
-    <div id="review-load"></div>
-    <div id="review-load-next"></div>
 
+use booking\entities\booking\BaseReview;
+use frontend\widgets\RatingWidget;
+
+/* @var $array array */
+/* @var $reviews BaseReview[] */
+?>
+<?php foreach ($reviews as $review): ?>
+    <div class="card pt-2" style="border-radius: 20px">
+        <div class="card-body">
+            <div class="d-flex">
+                <div>
+                    <?= RatingWidget::widget(['rating' => $review->vote]) ?>
+                </div>
+                <div class="select-text">
+                    <?= $review->user->personal->fullname->getFullname() ?>
+                </div>
+                <div class="ml-auto">
+                    <?= date('d-m-Y', $review->created_at) ?>
+                </div>
+            </div>
+            <hr/>
+            <div class="p-3">
+                <?= $review->text ?>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>

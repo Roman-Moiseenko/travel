@@ -29,7 +29,7 @@ $tour = $current->tour
     <?php if (count($tour->capacities)): ?>
         <table width="100%">
             <tr>
-                <td><?= Lang::t('Количество гостей') ?>:</td>
+                <td><?= Lang::t('Количество') ?>:</td>
                 <td>
                     <select class="form-control services" id="capacity-id" name="capacity-id">
                         <option value=""><?= Lang::t('до') . ' ' . $tour->params->groupMax . ' ' . Lang::t('человек') ?></option>

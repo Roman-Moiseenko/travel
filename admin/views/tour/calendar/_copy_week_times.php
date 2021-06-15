@@ -34,6 +34,9 @@
                 <label class="container pl-1" style="display: contents;">
                     <input type="checkbox" id="data-week-7"><span>&nbsp;Вс</span>
                 </label>
+                <label class="container pl-1" style="display: contents;">
+                    <input type="checkbox" id="data-week-0"><span>&nbsp;Все</span>
+                </label>
             </div>
         </div>
         <div class="row p-2">

@@ -145,6 +145,12 @@ $(document).ready(function () {
             });
     });
 
+    $(document).on('change', '#data-week-0', function () {
+            for (let i = 1; i <= 7; i++) {
+                $('#data-week-' + i).prop('checked', $('#data-week-0').is(':checked'));
+        }
+    });
+
 });
 
 

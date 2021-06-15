@@ -26,7 +26,7 @@ class NewReviewTourWidget extends Widget
 
     public function run()
     {
-        $test = false;
+        $test = true;
         if ($this->loginService->isGuest()) return '';
         //Проверяем есть ли отзыв
         $user_id = $this->loginService->user()->id;
