@@ -16,6 +16,8 @@ use booking\entities\booking\stays\BookingStay;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Tour;
+use booking\entities\booking\trips\BookingTrip;
+use booking\entities\booking\trips\Trip;
 use booking\entities\Lang;
 
 class BookingHelper
@@ -34,6 +36,7 @@ class BookingHelper
     const BOOKING_TYPE_TICKET = 4;
     const BOOKING_TYPE_FUNS = 5;
     const BOOKING_TYPE_HOTEL = 6;
+    const BOOKING_TYPE_TRIP = 7;
 
     //******* Не бронируемые типы  ****/
     const BOOKING_TYPE_FOOD = 106;
@@ -48,7 +51,7 @@ class BookingHelper
         self::BOOKING_TYPE_TICKET => null,
         self::BOOKING_TYPE_FUNS => BookingFun::class,
         self::BOOKING_TYPE_HOTEL => BookingHotel::class,
-
+        self::BOOKING_TYPE_TRIP => BookingTrip::class,
     ];
 //TODO Заглушки Stays
     const LIST_TYPE = [
@@ -58,7 +61,7 @@ class BookingHelper
         self::BOOKING_TYPE_TICKET => null,
         self::BOOKING_TYPE_FUNS => Fun::class,
         self::BOOKING_TYPE_HOTEL => Hotel::class,
-
+        self::BOOKING_TYPE_TRIP => Trip::class,
     ];
 
     const TYPE_OF_LIST = [
@@ -68,17 +71,17 @@ class BookingHelper
         //null => self::BOOKING_TYPE_TICKET,
         Fun::class => self::BOOKING_TYPE_FUNS,
         Hotel::class => self::BOOKING_TYPE_HOTEL,
-
+        Trip::class => self::BOOKING_TYPE_TRIP,
     ];
 
     const STRING_TYPE = [
-        self::BOOKING_TYPE_TOUR => 'Туры и экскурсии',
+        self::BOOKING_TYPE_TOUR => 'Экскурсии',
         self::BOOKING_TYPE_STAY => 'Апартаменты и дома',
         self::BOOKING_TYPE_CAR => 'Прокат авто',
         self::BOOKING_TYPE_TICKET => 'Билеты на концерты',
         self::BOOKING_TYPE_FUNS => 'Развлечения и мероприятия',
         self::BOOKING_TYPE_HOTEL => 'Отели и базы отдыха',
-
+        self::BOOKING_TYPE_TRIP => 'Туры',
     ];
 
 
@@ -148,6 +151,7 @@ class BookingHelper
         if ($type == self::BOOKING_TYPE_CAR) return '<i class="fas fa-car"></i>';
         if ($type == self::BOOKING_TYPE_TICKET) return '<i class="fas fa-ticket-alt"></i>';
         if ($type == self::BOOKING_TYPE_FUNS) return '<i class="fas fa-hot-tub"></i>';
+        if ($type == self::BOOKING_TYPE_TRIP) return '<i class="fas fa-suitcase"></i>';
 
 
         //******* Не бронируемые типы  ****/
@@ -215,12 +219,6 @@ class BookingHelper
                 return Lang::t('по') . ' ' . $datetime2;
                 break;
         }
-    }
-
-    public static function merchant(BaseBooking $booking) //BookingItemInterface
-    {
-        return $booking->getPayment()->getPrepay();
-        //TODO Удалить и заменить в Кассе
     }
 
     public static function cancellation($cancellation): string

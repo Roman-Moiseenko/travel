@@ -31,7 +31,7 @@ use yii\helpers\Url;
                 'items' => [
                     ['label' => 'Мое Жилье', 'icon' => 'hotel', 'url' => ['/stays/default'], 'active' => $this->context->id == 'stays/default'],
                     ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars/default'], 'active' => $this->context->id == 'cars/default'],
-                    ['label' => 'Мои Туры', 'icon' => 'umbrella-beach', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
+                    ['label' => 'Мои Экскурсии', 'icon' => 'umbrella-beach', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
                     ['label' => 'Отзывы', 'icon' => 'umbrella-beach', 'url' => ['/reviews/default'], 'active' => $this->context->id == 'reviews/default'],
                     ['label' => 'Бронирования', 'icon' => '', 'url' => ['/tours/default'], 'active' => $this->context->id == 'tours/default'],
                     [

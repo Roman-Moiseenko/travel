@@ -12,7 +12,7 @@ use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Изменить доп.услугу ' . $extra->name;
 $this->params['id'] = $fun->id;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/funs']];
+$this->params['breadcrumbs'][] = ['label' => 'Развлечения', 'url' => ['/funs']];
 $this->params['breadcrumbs'][] = ['label' => $fun->name, 'url' => ['/fun/common', 'id' => $fun->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Дополнительные услуги', 'url' => ['/fun/extra', 'id' => $fun->id]];
 $this->params['breadcrumbs'][] = 'Изменить';

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название тура') ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название развлечения') ?>
                 </div>
             </div>
             <div class="row">
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
-                    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label('Название тура (En)') ?>
+                    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label('Название развлечения (En)') ?>
                 </div>
             </div>
             <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)')->widget(CKEditor::class) ?>

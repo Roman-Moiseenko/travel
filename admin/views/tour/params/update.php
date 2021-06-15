@@ -47,9 +47,9 @@ JS;
 
 $this->registerJs($js);
 
-$this->title = 'Редактировать Тур ' . $tour->name;
+$this->title = 'Редактировать Экскурсию ' . $tour->name;
 $this->params['id'] = $tour->id;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Параметры', 'url' => ['/tour/params', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Редактировать';
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
             <div class="col-md-3">
                 <?= $form->field($model, 'duration')->
                 textInput(['maxlength' => true])->
-                label('Длительность тура (0 д 0 ч 00 мин)')->hint('Примеры: 4 ч; 2 ч 30 мин; 55 мин; 2 д. Заполните согласно примеров, это необходимо для автоматического перевода на En') ?>
+                label('Длительность экскурсии (0 д 0 ч 00 мин)')->hint('Примеры: 4 ч; 2 ч 30 мин; 55 мин; 2 д. Заполните согласно примеров, это необходимо для автоматического перевода на En') ?>
             </div>
         </div>
         <div class="row">

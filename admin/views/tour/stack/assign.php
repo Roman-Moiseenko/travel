@@ -30,8 +30,8 @@ $(document).ready(function() {
 JS;
 $this->registerJs($js);
 $this->title = 'Экскурсии';
-$this->params['breadcrumbs'][] = ['label' => 'Мои Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = ['label' => 'Стек туров', 'url' => ['/tour/stack']];
+$this->params['breadcrumbs'][] = ['label' => 'Мои Экскурсии', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Стек Экскурсий', 'url' => ['/tour/stack']];
 $this->params['breadcrumbs'][] = ['label' => $stack->name, 'url' => ['/tour/stack/view', 'id' => $stack->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

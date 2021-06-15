@@ -12,7 +12,7 @@ use booking\forms\admin\ChartForm;
 
 $this->title = 'Отчеты по ' . $tour->name;
 $this->params['id'] = $tour->id;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Отчеты';
 ?>

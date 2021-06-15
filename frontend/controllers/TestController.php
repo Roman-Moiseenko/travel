@@ -21,7 +21,7 @@ class TestController extends Controller
 
 // For getting information about account you don't need to auth:
 
-        try {
+        /*try {
             $instagram = \InstagramScraper\Instagram::withCredentials(new \GuzzleHttp\Client(), 'koenigs.ru', 'Foolprof03', null);
             $instagram->login();
 
@@ -29,9 +29,9 @@ class TestController extends Controller
         } catch (\Throwable $e) {
             $account = null;
             \Yii::$app->session->setFlash('error', $e->getMessage());
-        }
+        }*/
         return $this->render('index', [
-            'account' => $account,
+           // 'account' => $account,
         ]);
     }
 }

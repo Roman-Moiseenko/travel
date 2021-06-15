@@ -18,8 +18,8 @@ use yii\widgets\DetailView;
 /* @var $tour Tour */
 
 
-$this->title = 'Тур: ' . $tour->name;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['index']];
+$this->title = 'Экскурсия: ' . $tour->name;
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['index']];
 
 \yii\web\YiiAsset::register($this);
 MagnificPopupAsset::register($this);

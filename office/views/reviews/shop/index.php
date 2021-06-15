@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewShop $model) {
                             return Html::a($model->shop->name, ['/shops/view', 'id' => $model->shop_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Магазин',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
-                        'contentOptions' => ['data-label' => 'Тур'],
+                        'contentOptions' => ['data-label' => 'Магазин'],
                     ],
                     [
                         'attribute' => 'user_id',

@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewCar $model) {
                             return Html::a($model->car->name, ['/cars/view', 'id' => $model->car_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Экскурсия',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
-                        'contentOptions' => ['data-label' => 'Тур'],
+                        'contentOptions' => ['data-label' => 'Экскурсия'],
                     ],
                     [
                         'attribute' => 'user_id',

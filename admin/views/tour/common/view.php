@@ -16,7 +16,7 @@ use yii\widgets\DetailView;
 
 $this->title = $tour->name;
 $this->params['id'] = $tour->id;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

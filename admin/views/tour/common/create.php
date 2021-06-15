@@ -9,8 +9,8 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model TourCommonForm */
 
-$this->title = 'Создать Тур';
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->title = 'Создать Экскурсию';
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tour-create">

@@ -14,15 +14,15 @@ use yii\helpers\Url;
 /* @var $searchModel admin\forms\TourSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Стек туров';
-$this->params['breadcrumbs'][] = ['label' => 'Мои Туры', 'url' => ['/tours']];
+$this->title = 'Стек Экскурсий';
+$this->params['breadcrumbs'][] = ['label' => 'Мои Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
     <p>
         <?= Html::a('Создать стек', Url::to('/tour/stack/create'), ['class' => 'btn btn-success']) ?>
     </p>
-    <p>Стек туров предназначен если у Вас количество экскурсий превыщает количества гидов. <br>При заполнении стека, в любой из дней,
+    <p>Стек экскурсий предназначен если у Вас количество экскурсий превыщает количества гидов. <br>При заполнении стека, в любой из дней,
         разные группы клиентов могут заказать любую экскурсию из стека, но не более чем количество гидов. Что предотвратит овербукинг.</p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

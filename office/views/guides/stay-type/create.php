@@ -10,7 +10,7 @@ use yii\bootstrap4\ActiveForm;
 
 
 $this->title = 'Создать категорию жилья';
-$this->params['breadcrumbs'][] = ['label' => 'Категории туров', 'url' => ['/guides/stay-type']];
+$this->params['breadcrumbs'][] = ['label' => 'Категории экскурсий', 'url' => ['/guides/stay-type']];
 $this->params['breadcrumbs'][] = 'Создать';
 ?>
 <div class="tour-type-create">

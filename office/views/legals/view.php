@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => 
     </div>
     <?php if ($legal->tours): ?>
     <div class="card card-dark">
-        <div class="card-header">Туры</div>
+        <div class="card-header">Экскурсии</div>
         <div class="card-body">
             <table class="table table-striped">
                 <thead>

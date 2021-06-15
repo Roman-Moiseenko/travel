@@ -37,7 +37,7 @@ JS;
 $this->registerJs($js);
 $this->title = 'Общие параметры и ценообразование';
 
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card card-secondary">

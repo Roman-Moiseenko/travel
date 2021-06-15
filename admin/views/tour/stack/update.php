@@ -8,8 +8,8 @@ use booking\forms\booking\tours\StackTourForm;
 /* @var  $stack Stack */
 
 $this->title = 'Изменить ' . $stack->name;
-$this->params['breadcrumbs'][] = ['label' => 'Мои Туры', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = ['label' => 'Стек туров', 'url' => ['/tour/stack']];
+$this->params['breadcrumbs'][] = ['label' => 'Мои Экскурсии', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Стек Экскурсий', 'url' => ['/tour/stack']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

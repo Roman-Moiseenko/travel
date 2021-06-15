@@ -11,7 +11,7 @@ use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Создать доп.услугу';
 $this->params['id'] = $tour->id;
-$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/tours']];
+$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
 $this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Дополнительные услуги', 'url' => ['/tour/extra', 'id' => $tour->id]];
 $this->params['breadcrumbs'][] = 'Создать';

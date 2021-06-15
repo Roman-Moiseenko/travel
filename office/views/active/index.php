@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="providers-list">
     <div class="card card-info">
-        <div class="card-header">Туры</div>
+        <div class="card-header">Экскурсии</div>
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProviderTours,

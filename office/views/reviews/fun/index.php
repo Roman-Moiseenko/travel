@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewFun $model) {
                             return Html::a($model->fun->name, ['/funs/view', 'id' => $model->fun_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Развлечение',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
                         'contentOptions' => ['data-label' => 'Развлечение'],

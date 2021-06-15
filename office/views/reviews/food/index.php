@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewFood $model) {
                             return Html::a($model->food->name, ['/info/foods/food/view', 'id' => $model->food_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Заведение',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
-                        'contentOptions' => ['data-label' => 'Тур'],
+                        'contentOptions' => ['data-label' => 'Заведение'],
                     ],
                     [
                         'attribute' => 'username',

@@ -10,8 +10,8 @@ use yii\bootstrap4\ActiveForm;
 /* @var  $model TourTypeForm */
 
 
-$this->title = 'Редактировать категорию тура';
-$this->params['breadcrumbs'][] = ['label' => 'Категории туров', 'url' => ['/guides/tour-type']];
+$this->title = 'Редактировать категорию экскурсии';
+$this->params['breadcrumbs'][] = ['label' => 'Категории экскурсий', 'url' => ['/guides/tour-type']];
 $this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="tour-type-create">

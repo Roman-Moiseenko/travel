@@ -13,14 +13,14 @@ use yii\helpers\Url;
 /* @var $searchModel admin\forms\TourSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Мои туры';
+$this->title = 'Мои Экскурсии';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
     <p>
-        <?= Html::a('Создать Тур', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать Экскурсию', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
 
-        <?= Html::a('Стек Туров', Url::to('tour/stack'), ['class' => 'btn btn-info']) ?>&#160;&#160;
+        <?= Html::a('Стек Экскурсий', Url::to('tour/stack'), ['class' => 'btn btn-info']) ?>&#160;&#160;
         <?= Html::a('Общие параметры и ценообразование', Url::to('tour/general'), ['class' => 'btn btn-warning']) ?>
     </p>
 

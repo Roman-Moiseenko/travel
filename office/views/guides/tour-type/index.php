@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $types Type[] */
 
-$this->title = 'Категории туров';
+$this->title = 'Категории экскурсий';
 $this->params['breadcrumbs'][] = $this->title;
 
 use booking\entities\booking\tours\Type;

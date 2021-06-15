@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $searchModel office\forms\ToursSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Туры';
+$this->title = 'Экскурсии';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="providers-list">

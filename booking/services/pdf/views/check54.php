@@ -44,8 +44,8 @@ $kkt = \Yii::$app->params['kkt'];
         </tr>
         <tr>
             <td style="font-size: 10px">1.</td>
-            <td align="center" style="font-size: 10px"><?= $booking->getName() . '   1x' . number_format(BookingHelper::merchant($booking), 2, ',', '') . '₽' ?></td>
-            <td style="font-size: 10px"><?= number_format(BookingHelper::merchant($booking), 2, ',', '') . '₽' ?></td>
+            <td align="center" style="font-size: 10px"><?= $booking->getName() . '   1x' . number_format($booking->getPayment()->getPrepay(), 2, ',', '') . '₽' ?></td>
+            <td style="font-size: 10px"><?= number_format($booking->getPayment()->getPrepay(), 2, ',', '') . '₽' ?></td>
         </tr>
 
     </table>
@@ -54,15 +54,15 @@ $kkt = \Yii::$app->params['kkt'];
     <table>
         <tr>
             <th align="left" style="font-size: 16px" width="50%">ИТОГО</th>
-            <th align="right" style="font-size: 16px"><?= number_format(BookingHelper::merchant($booking), 2, ',', '') . '₽' ?></th>
+            <th align="right" style="font-size: 16px"><?= number_format($booking->getPayment()->getPrepay(), 2, ',', '') . '₽' ?></th>
         </tr>
         <tr>
             <td align="left" style="font-size: 12px">Без НДС</th>
-            <td align="right" style="font-size: 12px"><?= number_format(BookingHelper::merchant($booking), 2, ',', '') . '₽' ?></td>
+            <td align="right" style="font-size: 12px"><?= number_format($booking->getPayment()->getPrepay(), 2, ',', '') . '₽' ?></td>
         </tr>
         <tr>
             <td align="left" style="font-size: 12px">Безналичными</th>
-            <td align="right" style="font-size: 12px"><?= number_format(BookingHelper::merchant($booking), 2, ',', '') . '₽' ?></td>
+            <td align="right" style="font-size: 12px"><?= number_format($booking->getPayment()->getPrepay(), 2, ',', '') . '₽' ?></td>
         </tr>
         <tr>
             <td style="font-size: 12px">Налогообложение</td>

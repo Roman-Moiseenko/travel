@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel office\forms\reviews\ReviewTourSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Отзывы на Туры';
+$this->title = 'Отзывы на экскурсии';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewTour $model) {
                             return Html::a($model->tour->name, ['/tours/view', 'id' => $model->tour_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Экскурсия',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
-                        'contentOptions' => ['data-label' => 'Тур'],
+                        'contentOptions' => ['data-label' => 'Экскурсия'],
                     ],
                     [
                         'attribute' => 'user_id',

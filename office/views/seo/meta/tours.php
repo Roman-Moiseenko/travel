@@ -32,7 +32,7 @@ $('#metaModal').on('show.bs.modal', function (event) {
 })
 JS;
 $this->registerJs($js);
-$this->title = 'Туры';
+$this->title = 'Экскурсии';
 $this->params['breadcrumbs'][] = ['label' => 'Мета Теги', 'url' => ['/seo/meta']];
 $this->params['breadcrumbs'][] = $this->title;
 

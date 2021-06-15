@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 MagnificPopupAsset::register($this);
 ?>
 <p>
-    <?= Html::a('Туры', ['tours'], ['class' => 'btn btn-info']) ?>
+    <?= Html::a('Экскурсии', ['tours'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('Авто', ['cars'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('Отдых', ['funs'], ['class' => 'btn btn-info']) ?>
     <?= Html::a('Жилье', ['stays'], ['class' => 'btn btn-info']) ?>

@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (ReviewStay $model) {
                             return Html::a($model->stay->name, ['/stays/view', 'id' => $model->stay_id]);
                         },
-                        'label' => 'Тур',
+                        'label' => 'Апартаменты',
                         'format' => 'raw',
                         'options' => ['width' => '20%'],
-                        'contentOptions' => ['data-label' => 'Тур'],
+                        'contentOptions' => ['data-label' => 'Апартаменты'],
                     ],
                     [
                         'attribute' => 'user_id',
