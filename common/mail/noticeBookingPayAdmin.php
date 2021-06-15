@@ -38,6 +38,8 @@ $url = \Yii::$app->params['adminHostInfo'];
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= $booking->getInfoNotice() ?>
+
                 <?= 'Сумма оплаты составила' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
                 <?= '' ?>
             </td>

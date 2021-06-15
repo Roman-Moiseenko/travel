@@ -130,6 +130,31 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('change', '.services', function () {
+        let calendar_id = $('#booking-tour-time').val();
+        let time_count = $('#time-count').val();
+        let capacity_id = $('#capacity-id').val();
+        let transfer_id = $('#transfer-id').val();
+        console.log(time_count);
+        console.log(capacity_id);
+        console.log(transfer_id);
+
+        $.post('/tours/booking/get-amount', {
+            calendar_id: calendar_id,
+            count_adult: 1,
+            count_child: 0,
+            count_preference: 0,
+            time_count: time_count,
+            capacity_id: capacity_id,
+            transfer_id: transfer_id
+        }, function (data) {
+            console.log('3333333');
+            console.log(data);
+
+            $('#tour-amount').html(data);
+        });
+    });
+
     $(document).on('input', '.count-tickets', function (data) {
         let _count_ = $(this).val();
         let vl = _count_.replace(/[^\d+]/g, ''); //str.replace(/[^a-zA-Z ]/g, "")

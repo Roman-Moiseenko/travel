@@ -10,6 +10,10 @@ use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
 use booking\entities\booking\AgeLimit;
+use booking\entities\booking\tours\services\Capacity;
+use booking\entities\booking\tours\services\CapacityAssignment;
+use booking\entities\booking\tours\services\Transfer;
+use booking\entities\booking\tours\services\TransferAssignment;
 use booking\entities\Meta;
 use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\SlugHelper;
@@ -39,6 +43,8 @@ use yii\db\ActiveQuery;
  * @property integer $filling
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
+ * @property integer $extra_time_cost
+ * @property integer $extra_time_max
  * @property Meta $meta
  *
  * ====== Финансы
@@ -63,6 +69,10 @@ use yii\db\ActiveQuery;
  * @property Photo[] $photos
  * @property TypeAssignment[] $typeAssignments
  * @property CostCalendar[] $actualCalendar
+ * @property CapacityAssignment[] $capacityAssignments
+ * @property Capacity[] $capacities
+ * @property TransferAssignment[] $transferAssignments
+ * @property Transfer[] $transfers
 
  * @property string $adr_address [varchar(255)]
  * @property string $adr_latitude [varchar(255)]
@@ -90,7 +100,6 @@ use yii\db\ActiveQuery;
  */
 class Tour extends BaseObjectOfBooking
 {
-
     /** @var $address BookingAddress */
     public $address;
     public $params;
@@ -127,6 +136,17 @@ class Tour extends BaseObjectOfBooking
         $this->description_en = $description_en;
     }
 
+    public function setExtraTime($cost, $max): void
+    {
+        if (empty($cost) || empty($max)) {
+            $this->extra_time_cost = null;
+            $this->extra_time_max = null;
+        } else {
+            $this->extra_time_cost = $cost;
+            $this->extra_time_max = $max;
+        }
+    }
+
     public function setParams(TourParams $params)
     {
         $this->params = $params;
@@ -152,6 +172,8 @@ class Tour extends BaseObjectOfBooking
                     'typeAssignments',
                     'extraAssignments',
                     'actualCalendar',
+                    'capacityAssignments',
+                    'transferAssignments',
                 ],
             ],
         ];
@@ -232,6 +254,114 @@ class Tour extends BaseObjectOfBooking
         return parent::beforeSave($insert);
     }
 
+//**** Трансфер (AssignTransfer) **********************************
+
+    public function assignTransfer($id): void
+    {
+        $assigns = $this->transferAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return;
+            }
+        }
+        $assigns[] = TransferAssignment::create($id);
+        $this->transferAssignments = $assigns;
+    }
+
+    public function isTransfer($id): bool
+    {
+        $assigns = $this->transferAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function Transfer($id): Transfer
+    {
+        $transfers = $this->transfers;
+        foreach ($transfers as $transfer) {
+            if ($transfer->isFor($id)) {
+                return $transfer;
+            }
+        }
+        throw new \DomainException('Не найден Transfer '. $id);
+    }
+
+    public function revokeTransfer($id): void
+    {
+        $assigns = $this->transferAssignments;
+        foreach ($assigns as $i => $assign) {
+            if ($assign->isFor($id)) {
+                unset($assigns[$i]);
+                $this->transferAssignments = $assigns;
+                return;
+            }
+        }
+        throw new \DomainException('Assignment is not found.');
+    }
+
+    public function clearTransfer(): void
+    {
+        $this->transferAssignments = [];
+    }
+
+//**** Вместимость (AssignCapacity) **********************************
+
+    public function assignCapacity($id): void
+    {
+        $assigns = $this->capacityAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return;
+            }
+        }
+        $assigns[] = CapacityAssignment::create($id);
+        $this->capacityAssignments = $assigns;
+    }
+
+    public function isCapacity($id): bool
+    {
+        $assigns = $this->capacityAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function Capacity($id): Capacity
+    {
+        $capacities = $this->capacities;
+        foreach ($capacities as $capacity) {
+            if ($capacity->isFor($id)) {
+                return $capacity;
+            }
+        }
+        throw new \DomainException('Не найден Capacity '. $id);
+    }
+
+    public function revokeCapacity($id): void
+    {
+        $assigns = $this->capacityAssignments;
+        foreach ($assigns as $i => $assign) {
+            if ($assign->isFor($id)) {
+                unset($assigns[$i]);
+                $this->capacityAssignments = $assigns;
+                return;
+            }
+        }
+        throw new \DomainException('Assignment is not found.');
+    }
+
+    public function clearCapacity(): void
+    {
+        $this->capacityAssignments = [];
+    }
+
 //**** Дополнения (AssignExtra) **********************************
 
     public function assignExtra($id): void
@@ -308,6 +438,25 @@ class Tour extends BaseObjectOfBooking
     }
 
 //**** Внешние связи **********************************
+    public function getTransferAssignments(): ActiveQuery
+    {
+        return $this->hasMany(TransferAssignment::class, ['tour_id' => 'id']);
+    }
+
+    public function getTransfers(): ActiveQuery
+    {
+        return $this->hasMany(Transfer::class, ['id' => 'transfer_id'])->via('transferAssignments');
+    }
+
+    public function getCapacityAssignments(): ActiveQuery
+    {
+        return $this->hasMany(CapacityAssignment::class, ['tour_id' => 'id']);
+    }
+
+    public function getCapacities(): ActiveQuery
+    {
+        return $this->hasMany(Capacity::class, ['id' => 'capacity_id'])->via('capacityAssignments')->orderBy(['count' => SORT_ASC]);
+    }
 
     public function getPhotos(): ActiveQuery
     {

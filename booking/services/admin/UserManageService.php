@@ -8,6 +8,8 @@ use booking\entities\admin\Deposit;
 use booking\entities\admin\User;
 use booking\entities\admin\Legal;
 use booking\entities\booking\BookingAddress;
+use booking\entities\booking\tours\services\Capacity;
+use booking\entities\booking\tours\services\Transfer;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
 use booking\forms\admin\CertForm;
@@ -17,6 +19,8 @@ use booking\forms\admin\PasswordEditForm;
 use booking\forms\admin\PersonalForm;
 use booking\forms\admin\UserEditForm;
 use booking\forms\admin\UserLegalForm;
+use booking\forms\booking\tours\CapacityForm;
+use booking\forms\booking\tours\TransferForm;
 use booking\helpers\scr;
 use booking\helpers\SysHelper;
 use booking\repositories\admin\UserLegalRepository;
@@ -30,7 +34,6 @@ class UserManageService
      * @var UserRepository
      */
     private $users;
-
     /**
      * @var TransactionManager
      */
@@ -46,6 +49,46 @@ class UserManageService
         $this->transaction = $transaction;
         $this->legals = $legals;
     }
+
+    //********* Transfer **************
+
+    public function addTransfer($id, TransferForm $form): void
+    {
+        $user = $this->users->get($id);
+        $user->addTransfer(Transfer::create($form->from_id, $form->to_id,$form->cost));
+        $this->users->save($user);
+    }
+
+    public function removeTransfer($user_id, $transfer_id): void
+    {
+        $user = $this->users->get($user_id);
+        $user->removeTransfer($transfer_id);
+        $this->users->save($user);
+    }
+
+    public function costTransfer($user_id, $transfer_id, $cost): void
+    {
+        $user = $this->users->get($user_id);
+        $user->costTransfer($transfer_id, $cost);
+        $this->users->save($user);
+    }
+
+    //********* Capacity **************
+
+    public function addCapacity($id, CapacityForm $form): void
+    {
+        $user = $this->users->get($id);
+        $user->addCapacity(Capacity::create($form->count, $form->percent));
+        $this->users->save($user);
+    }
+
+    public function removeCapacity($user_id, $capacity_id): void
+    {
+        $user = $this->users->get($user_id);
+        $user->removeCapacity($capacity_id);
+        $this->users->save($user);
+    }
+
 
     //************* Balance ***************
 
@@ -93,23 +136,7 @@ class UserManageService
             $personal->position = $form->position,
             $form->agreement
         );
-
         $user->updatePersonal($personal);
-        $this->users->save($user);
-    }
-
-    /** Не используется */
-    public function setNotice($id, NoticeForm $form)
-    {
-        $user = $this->users->get($id);
-        $notice = $user->notice;
-        $notice->review = $form->review;
-        $notice->bookingNew = $form->bookingNew;
-        $notice->bookingPay = $form->bookingPay;
-        $notice->bookingCancel = $form->bookingCancel;
-        $notice->bookingCancelPay = $form->bookingCancelPay;
-        $notice->messageNew = $form->messageNew;
-        $user->updateNotice($notice);
         $this->users->save($user);
     }
 
@@ -146,7 +173,6 @@ class UserManageService
     public function editLegal($user_id, $legal_id, UserLegalForm $form)
     {
         $user = $this->users->get($user_id);
-        //throw new \DomainException('test');
         $legal = $user->getLegal($legal_id);
         $legal->edit(
             $form->name,

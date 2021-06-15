@@ -228,4 +228,9 @@ class BookingStay extends BaseBooking
     {
         return $this->hasMany(BookingStayServices::class, ['booking_id' => 'id']);
     }
+
+    public function getInfoNotice(): string
+    {
+        return  '';
+    }
 }

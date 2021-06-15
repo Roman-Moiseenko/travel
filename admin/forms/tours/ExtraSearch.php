@@ -6,10 +6,22 @@ namespace admin\forms\tours;
 
 use booking\entities\booking\tours\Extra;
 use booking\entities\booking\tours\Tour;
+use booking\services\system\LoginService;
 use yii\data\ActiveDataProvider;
 
 class ExtraSearch extends Extra
 {
+    /**
+     * @var LoginService
+     */
+    private $user_id;
+
+    public function __construct($user_id, $config = [])
+    {
+        parent::__construct($config);
+        $this->user_id = $user_id;
+    }
+
     public function rules()
     {
         return [
@@ -18,7 +30,7 @@ class ExtraSearch extends Extra
 
     public function search($params): ActiveDataProvider
     {
-        $query = Extra::find()->andWhere(['user_id' => \Yii::$app->user->id]); //'mainPhoto',
+        $query = Extra::find()->andWhere(['user_id' => $this->user_id]); //'mainPhoto',
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

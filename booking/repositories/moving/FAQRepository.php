@@ -26,8 +26,8 @@ class FAQRepository
                 'defaultOrder' => ['created_at' => SORT_DESC],
             ],
             'pagination' => [
-                'defaultPageSize' => 10,
-                'pageSizeLimit' => [10, 10],
+                'defaultPageSize' => 9999,
+                'pageSizeLimit' => [999, 999],
             ],
         ]);
     }

@@ -28,6 +28,7 @@ class DialogController extends Controller
      * @var LoginService
      */
     private $loginService;
+    private $user_id;
 
     public function __construct(
         $id,
@@ -41,6 +42,7 @@ class DialogController extends Controller
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->dialogs = $dialogs;
+        $this->user_id = $loginService->admin() ? $loginService->admin()->getId() : null;
         $this->loginService = $loginService;
     }
 
@@ -61,7 +63,7 @@ class DialogController extends Controller
 
     public function actionIndex()
     {
-        $dialogs = $this->dialogs->getByAdmin(\Yii::$app->user->id);
+        $dialogs = $this->dialogs->getByAdmin($this->user_id);
         return $this->render('index', [
             'dialogs' => $dialogs,
         ]);
@@ -82,7 +84,7 @@ class DialogController extends Controller
                         Dialog::CLIENT_PROVIDER,
                         $id,
                         $form,
-                        \Yii::$app->user->id
+                        $this->user_id
                     );
                     $this->redirect(['/cabinet/dialog/conversation', 'id' => $dialog->id]);
                 } catch (\DomainException $e) {
@@ -107,7 +109,7 @@ class DialogController extends Controller
                     Dialog::PROVIDER_SUPPORT,
                     null,
                     $form,
-                    \Yii::$app->user->id
+                    $this->user_id
                 );
                 $this->redirect(['/cabinet/dialog/conversation', 'id' => $dialog->id]);
             } catch (\DomainException $e) {
@@ -170,7 +172,7 @@ class DialogController extends Controller
                         Dialog::CLIENT_PROVIDER,
                         BookingHelper::number($booking),
                         $form,
-                        \Yii::$app->user->id
+                        $this->user_id
                     );
                 }
                 \Yii::$app->session->setFlash('success', 'Сообщение было отправлено ' . count($calendar->bookings) .' клиентам');
@@ -197,7 +199,7 @@ class DialogController extends Controller
                         Dialog::CLIENT_PROVIDER,
                         BookingHelper::number($booking),
                         $form,
-                        \Yii::$app->user->id
+                        $this->user_id
                     );
                 }
                 \Yii::$app->session->setFlash('success', 'Сообщение было отправлено ' . count($calendar->bookings) .' клиентам');

@@ -217,6 +217,15 @@ class TourService
                 $form->groupMax
             )
         );
+        if ($tour->isPrivate()) {
+            $tour->setCost(
+                new Cost(
+                    $tour->baseCost->adult,
+                    null,
+                    null
+                )
+            );
+        }
         $this->tours->save($tour);
     }
 
@@ -257,6 +266,14 @@ class TourService
         );
         $tour->setPrepay($form->prepay);
         $tour->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+        $tour->setExtraTime($form->extra_time_cost, $form->extra_time_max);
+        $tour->clearCapacity();
+        $tour->clearTransfer();
+        $this->tours->save($tour);
+        foreach ($form->capacities as $capacity_id)
+            $tour->assignCapacity($capacity_id);
+        foreach ($form->transfers as $transfer_id)
+            $tour->assignTransfer($transfer_id);
         $this->tours->save($tour);
     }
 
@@ -421,6 +438,28 @@ class TourService
             Filling::CALENDAR => ['/tour/calendar/index', 'id' => $tour->id],
         ];
         return $redirect[$tour->filling];
+    }
+
+    public function setExtraTime(int $user_id, \booking\forms\booking\tours\ExtraTimeForm $form): int
+    {
+        $tours = $this->tours->getByUser($user_id);
+        /** @var Tour $tour */
+        foreach ($tours as $tour) {
+            $tour->setExtraTime($form->extra_time_cost, $form->extra_time_max);
+            $this->tours->save($tour);
+        }
+        return count($tours);
+    }
+
+    public function setCapacity($user_id, $id)
+    {
+        $tours = $this->tours->getByUser($user_id);
+        /** @var Tour $tour */
+        foreach ($tours as $tour) {
+            $tour->assignCapacity($id);
+            $this->tours->save($tour);
+        }
+        return count($tours);
     }
 
 }

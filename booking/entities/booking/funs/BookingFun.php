@@ -216,4 +216,9 @@ class BookingFun extends BaseBooking
     {
         return $this->fun->prepay;
     }
+
+    public function getInfoNotice(): string
+    {
+        return  '';
+    }
 }

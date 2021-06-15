@@ -1,8 +1,12 @@
 <?php
 
 use booking\entities\admin\Legal;
+use booking\entities\booking\tours\services\Capacity;
+use booking\entities\booking\tours\services\CapacityAssignment;
+use booking\entities\booking\tours\services\Transfer;
 use booking\entities\booking\tours\Tour;
 use booking\helpers\BookingHelper;
+use booking\helpers\CurrencyHelper;
 use booking\helpers\tours\TourHelper;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
@@ -31,6 +35,28 @@ $this->params['breadcrumbs'][] = 'Цены';
                         [
                             'attribute' => 'adult',
                             'label' => 'Цена за экскурсию',
+                        ],
+                        [
+                            'attribute' => 'extra_time_cost',
+                            'label' => 'Цена за дополнительный час экскурсии',
+                            'value' => $tour->extra_time_cost ?? '-',
+                        ],
+                        [
+                            'attribute' => 'extra_time_max',
+                            'label' => 'Максимальное кол-во дополнительных часов экскурсии',
+                            'value' => $tour->extra_time_max ?? '-',
+                        ],
+                        [
+                            'label' => 'Наценка (в %%) за увеличенное количество ',
+                            'value' => implode(', ', array_map(function (Capacity $capacity) {
+                                return $capacity->count . ' чел. - ' . $capacity->percent . '%';
+                            }, $tour->capacities)),
+                        ],
+                        [
+                            'label' => 'Трансфер ',
+                            'value' => implode(', ', array_map(function (Transfer $transfer) {
+                                return $transfer->from->name . ' - ' . $transfer->to->name . ' ' . CurrencyHelper::cost($transfer->cost);
+                            }, $tour->transfers)),
                         ],
                     ],
                 ]);

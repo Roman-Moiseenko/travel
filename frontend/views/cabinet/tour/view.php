@@ -37,7 +37,7 @@ $tour = $booking->calendar->tour;
                     <a class="thumbnail"
                        href="<?= $tour->mainPhoto->getThumbFileUrl('file', 'catalog_origin'); ?>">
                         <img src="<?= $tour->mainPhoto->getThumbFileUrl('file', 'cabinet_list'); ?>"
-                             alt="<?= Html::encode($tour->getName()); ?>"/></a>
+                             alt="<?= Html::encode($tour->getName()); ?>" style="border-radius: 25%"/></a>
                 </li>
             </ul>
         </div>
@@ -79,7 +79,7 @@ $tour = $booking->calendar->tour;
                         <th><?= Lang::t('Время начало') ?>:</th>
                         <td colspan="3"><?= $booking->calendar->time_at ?></td>
                     </tr>
-                    <?php if (!$tour->params->private): ?>
+                    <?php if (!$tour->isPrivate()): ?>
                         <?php if ($booking->count->adult !== 0): ?>
                             <tr>
                                 <th><?= Lang::t('Взрослый билет') ?></th>
@@ -100,6 +100,26 @@ $tour = $booking->calendar->tour;
                         <?php endif; ?>
                     <?php endif; ?>
 
+                    <?php if ($tour->isPrivate()): ?>
+                        <?php if ($booking->private_services->time_count):?>
+                            <tr>
+                                <th><?= Lang::t('Дополнительное время') ?>:</th>
+                                <td colspan="3"><?= $booking->private_services->time_count . ' ' . Lang::t('ч') ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($booking->private_services->capacity_count):?>
+                            <tr>
+                                <th><?= Lang::t('Количество человек') ?>:</th>
+                                <td colspan="3"><?= Lang::t('до') . ' ' . $booking->private_services->capacity_count ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($booking->private_services->transfer_path):?>
+                            <tr>
+                                <th><?= Lang::t('Трансфер') ?>:</th>
+                                <td colspan="3"><?= $booking->private_services->transfer_path ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <tr></tr>
                     <tr class="price-view py-2 my-2">
                         <th class="py-3 my-2"><?= $tour->params->private ? Lang::t('Стоимость экскурсии') : Lang::t('Сумма платежа') ?></th>

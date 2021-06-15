@@ -107,6 +107,11 @@ use yii\helpers\Url;
                               ['label' => '- Типы кухни', 'icon' => 'book', 'url' => ['/info/foods/kitchen'], 'active' => $this->context->id == 'info/foods/kitchen'],
                               ['label' => '- Типы заведений', 'icon' => 'book', 'url' => ['/info/foods/category'], 'active' => $this->context->id == 'info/foods/category'],
                           ]],
+                        ['label' => 'События (Новости)', 'iconStyle' => 'far', 'icon' => 'newspaper', 'items' => [/*
+                            ['label' => '- Провайдеры', 'iconStyle' => 'fas', 'icon' => 'users-cog', 'url' => ['/info/events/providers'], 'active' => $this->context->id == 'info/events/provider'],
+                            ['label' => '- Пользователи', 'icon' => 'users', 'url' => ['/info/events/users'], 'active' => $this->context->id == 'info/events/users'],*/
+                        ]],
+
                     ]],
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],

@@ -123,7 +123,7 @@ return [
                 'humans.txt' => 'humans.txt',
 
                 //'main' => 'site/main',
-
+                'test' => 'test/index',
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 

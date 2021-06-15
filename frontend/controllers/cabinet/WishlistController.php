@@ -38,7 +38,7 @@ class WishlistController extends Controller
         $this->service = $service;
         $this->wishlist = $wishlist;
         $this->isGuest = $loginService->isGuest();
-        $this->userId = $loginService->user()->getId();
+        $this->userId = $loginService->user() ? $loginService->user()->getId() : null;
     }
 
     public function behaviors()
@@ -58,6 +58,7 @@ class WishlistController extends Controller
 
     public function actionIndex()
     {
+        if ($this->isGuest) return $this->goHome();
         $wishlist = $this->wishlist->getAll($this->userId);
         return $this->render('index', [
             'wishlist' => $wishlist,
@@ -82,6 +83,7 @@ class WishlistController extends Controller
 
     public function actionDelTour($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistTour($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
@@ -109,6 +111,7 @@ class WishlistController extends Controller
 
     public function actionDelCar($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistCar($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
@@ -136,6 +139,7 @@ class WishlistController extends Controller
 
     public function actionDelFun($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistFun($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
@@ -164,6 +168,7 @@ class WishlistController extends Controller
 
     public function actionDelStay($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistStay($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
@@ -191,6 +196,7 @@ class WishlistController extends Controller
 
     public function actionDelFood($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistFood($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));
@@ -219,6 +225,7 @@ class WishlistController extends Controller
 
     public function actionDelProduct($id)
     {
+        if ($this->isGuest) return $this->goHome();
         try {
             $this->service->removeWishlistProduct($this->userId, $id);
             \Yii::$app->session->setFlash('success', Lang::t('Успешное удаление из избранного'));

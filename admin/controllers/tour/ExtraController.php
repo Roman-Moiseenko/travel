@@ -13,6 +13,7 @@ use booking\helpers\Filling;
 use booking\repositories\booking\tours\ExtraRepository;
 use booking\services\booking\tours\ExtraService;
 use booking\services\booking\tours\TourService;
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,13 +30,23 @@ class ExtraController extends Controller
      * @var ExtraService
      */
     private $extraService;
+    private $user_id;
 
-    public function __construct($id, $module, TourService $service, ExtraRepository $extra, ExtraService $extraService, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        TourService $service,
+        ExtraRepository $extra,
+        ExtraService $extraService,
+        LoginService $loginService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->extra = $extra;
         $this->extraService = $extraService;
+        $this->user_id = $loginService->admin() ? $loginService->admin()->getId() : null;
     }
 
     public function behaviors()
@@ -62,7 +73,7 @@ class ExtraController extends Controller
             } else {
                 return $this->redirect($this->service->redirect_filling($tour));
             }
-        $searchModel = new ExtraSearch();
+        $searchModel = new ExtraSearch($this->user_id);
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('view', [
@@ -139,7 +150,7 @@ class ExtraController extends Controller
     protected function findModel($id)
     {
         if (($model = Tour::findOne($id)) !== null) {
-            if ($model->user_id != \Yii::$app->user->id) {
+            if ($model->user_id != $this->user_id) {
                 throw new \DomainException('У вас нет прав для данного тура');
             }
             return $model;

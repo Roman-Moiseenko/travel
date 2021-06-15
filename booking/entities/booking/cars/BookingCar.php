@@ -226,4 +226,9 @@ class BookingCar extends BaseBooking
     {
         return $this->car->prepay;
     }
+
+    public function getInfoNotice(): string
+    {
+        return  '';
+    }
 }

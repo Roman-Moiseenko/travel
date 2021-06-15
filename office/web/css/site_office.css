@@ -199,3 +199,10 @@ table.table-adaptive {
         border-bottom: 0;
     }
 }
+
+ul.nav-treeview > li > a > i {
+    margin-left: 10px !important;
+}
+ul.nav-treeview > li > ul > li > a > i {
+    margin-left: 20px !important;
+}

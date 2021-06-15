@@ -39,6 +39,7 @@ $confirmation = $booking->isPaidLocally();
                     <?= $booking->getName() ?>
                 </a>
                 <?= 'на дату' ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= $booking->getInfoNotice() ?>
                 <?= 'Сумма к оплате' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
                 <?= 'Сумма бронирования' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></b><br>
 

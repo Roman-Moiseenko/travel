@@ -10,6 +10,7 @@ use booking\helpers\scr;
 use booking\services\admin\UserManageService;
 use booking\services\booking\tours\TourService;
 
+use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -17,11 +18,14 @@ class ProfileController extends Controller
 {
     public $layout = 'main-cabinet';
     private $service;
+    private $user_id;
 
-    public function __construct($id, $module, UserManageService $service, $config = [])
+    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->user_id = $loginService->admin() ? $loginService->admin()->getId() : null;
+
     }
 
     public function behaviors()
@@ -70,6 +74,6 @@ class ProfileController extends Controller
 
     private function findModel()
     {
-        return User::findOne(\Yii::$app->user->id);
+        return User::findOne($this->user_id);
     }
 }

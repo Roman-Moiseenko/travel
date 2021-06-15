@@ -7,6 +7,8 @@ namespace booking\entities\booking\tours;
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
 use booking\entities\booking\LinkBooking;
+use booking\entities\booking\tours\services\BookingServices;
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\scr;
 use yii\db\ActiveQuery;
@@ -24,7 +26,7 @@ use yii\helpers\Url;
  * @property integer $pincode
  * @property boolean $unload
  *
-* Выдача билета
+ * Выдача билета
  * @property bool $give_out
  * @property integer $give_at
  * @property integer $give_user_id
@@ -44,19 +46,20 @@ use yii\helpers\Url;
  * @property int $payment_percent [int]
  * @property string $payment_confirmation [varchar(255)]
  */
-
 // unload - выгружен или нет для отчета в finance
 class BookingTour extends BaseBooking
 {
     /** @var $count Cost */
     public $count;
+    /** @var $service BookingServices */
+    public $private_services;
 
-    public static function create(CostCalendar $calendar, Cost $count): self
+    public static function create(CostCalendar $calendar, Cost $count, BookingServices $services = null): self
     {
         $booking = new static();
         $booking->calendar_id = $calendar->id;
         $booking->count = $count;
-
+        $booking->private_services = $services;
         $booking->initiate(
             $calendar->tours_id,
             $calendar->tour->legal_id,
@@ -84,6 +87,15 @@ class BookingTour extends BaseBooking
             $this->getAttribute('count_child'),
             $this->getAttribute('count_preference'),
         );
+
+        $this->private_services = new BookingServices(
+            $this->getAttribute('time_cost'),
+            $this->getAttribute('time_count'),
+            $this->getAttribute('capacity_count'),
+            $this->getAttribute('capacity_percent'),
+            $this->getAttribute('transfer_path'),
+            $this->getAttribute('transfer_cost')
+        );
         parent::afterFind();
     }
 
@@ -92,6 +104,14 @@ class BookingTour extends BaseBooking
         $this->setAttribute('count_adult', $this->count->adult);
         $this->setAttribute('count_child', $this->count->child);
         $this->setAttribute('count_preference', $this->count->preference);
+        if ($this->private_services) {
+            $this->setAttribute('time_cost', $this->private_services->time_cost);
+            $this->setAttribute('time_count', $this->private_services->time_count);
+            $this->setAttribute('capacity_count', $this->private_services->capacity_count);
+            $this->setAttribute('capacity_percent', $this->private_services->capacity_percent);
+            $this->setAttribute('transfer_path', $this->private_services->transfer_path);
+            $this->setAttribute('transfer_cost', $this->private_services->transfer_cost);
+        }
         return parent::beforeSave($insert);
     }
 
@@ -129,6 +149,7 @@ class BookingTour extends BaseBooking
     {
         return $this->tour->main_photo_id ? $this->tour->mainPhoto->getThumbFileUrl('file', $photo) : '';
     }
+
     public function getType(): string
     {
         return BookingHelper::BOOKING_TYPE_TOUR;
@@ -161,6 +182,15 @@ class BookingTour extends BaseBooking
 
     protected function getFullCostFrom(): float
     {
+        //TODO Сервис услуги рассчитываются только для индивидуальных экскурсий
+        if ($this->tour->isPrivate()) {
+            $base_cost = $this->calendar->cost->adult;
+            $extra_time = ($this->private_services->time_cost ?? 0) * ($this->private_services->time_count ?? 0);
+            $amount = $base_cost + $extra_time;
+            $amount += (int)($amount * ($this->private_services->capacity_percent ?? 0) / 100);
+            $amount += $this->private_services->transfer_cost ?? 0;
+            return $amount;
+        }
         return ($this->count->adult * $this->calendar->cost->adult ?? 0) +
             ($this->count->child * $this->calendar->cost->child ?? 0) +
             ($this->count->preference * $this->calendar->cost->preference ?? 0);
@@ -181,4 +211,18 @@ class BookingTour extends BaseBooking
         throw new \DomainException('Не используется!');
     }
 
+    public function getInfoNotice(): string
+    {
+        if ($this->tour->isPrivate()) {
+            $text = '';
+            if ($this->private_services->time_count)
+                $text .= Lang::t('Дополнительное время') . ': <b>' . $this->private_services->time_count . ' ' . Lang::t('ч') . '</b><br>';
+            if ($this->private_services->capacity_count)
+                $text .= Lang::t('Количество человек') . ': <b>' . Lang::t('до') . ' ' . $this->private_services->capacity_count . '</b><br>';
+            if ($this->private_services->transfer_path)
+                $text .= Lang::t('Трансфер') . ': <b>' . $this->private_services->transfer_path . '</b><br>';
+            return $text;
+        }
+        return '';
+    }
 }

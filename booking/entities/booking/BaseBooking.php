@@ -67,6 +67,8 @@ abstract class BaseBooking extends ActiveRecord implements PaymentInterface
 
     abstract protected function getPrepayFrom(): int;
 
+    abstract public function getInfoNotice(): string;
+
 //*************************** SET-s
 
     protected function initiate($object_id, $legal_id, $user_id, $prepay_percent)

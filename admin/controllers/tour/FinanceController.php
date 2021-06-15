@@ -11,6 +11,7 @@ use booking\helpers\scr;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\services\booking\tours\TourService;
+use booking\services\system\LoginService;
 use Codeception\PHPUnit\ResultPrinter\HTML;
 use DateTime;
 use yii\filters\AccessControl;
@@ -26,17 +27,20 @@ class FinanceController extends Controller
      * @var TourRepository
      */
     private $tours;
+    private $user_id;
 
     public function __construct(
         $id,
         $module,
         TourService $service,
         TourRepository $tours,
+        LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->tours = $tours;
+        $this->user_id = $loginService->admin()->getId();
     }
 
 
@@ -70,7 +74,6 @@ class FinanceController extends Controller
         $form = new TourFinanceForm($tour);
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
-                //scr::p([$form->check_booking, \Yii::$app->request->post()]);
                 $this->service->setFinance($tour->id, $form);
                 if ($tour->filling) {
                     \Yii::$app->session->setFlash('success', 'Тур успешно создан! Заполните календарь и отправьте на модерацию с раздела Описание');
@@ -86,6 +89,7 @@ class FinanceController extends Controller
         return $this->render('update', [
             'tour' => $tour,
             'model' => $form,
+            'user_id' => $this->user_id,
         ]);
     }
 

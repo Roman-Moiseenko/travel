@@ -25,16 +25,12 @@ return [
             'class' => 'mihaildev\elfinder\Controller',
             'access' => ['@'],
             'plugin' => [
-                [
+                /*[
                     'class'=>'\mihaildev\elfinder\plugin\Sluggable',
                     'lowercase' => true,
-                    'replacement' => '_'
-                ],
-                [
-                    'class'=>'\mihaildev\elfinder\plugin\Sluggable',
-                    'lowercase' => true,
-                    'replacement' => '-'
-                ],
+                    //'replacement' => ['_', '-'],
+                ],*/
+
             ],
             'roots' => [
                 [

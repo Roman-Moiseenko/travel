@@ -99,14 +99,56 @@ $countReveiws = $tour->countReviews();
         </div>
         <span class="params-item">
                     <?php if ($tour->baseCost->adult): ?>
-                        <i class="fas fa-user"></i>&#160;&#160;<?= $tour->params->private ? Lang::t('Цена за экскурсию') : Lang::t('Взрослый билет') ?>
-                        <span
-                                class="price-view">
+                        <i class="fas fa-user"></i>&#160;&#160;
+                        <?= $tour->params->private
+                        ? (Lang::t('Цена за экскурсию') . ' (' . Lang::t('до') . ' ' . $tour->params->groupMax . ' ' .Lang::t('человек)'))
+                        : Lang::t('Взрослый билет') ?>
+                        <span class="price-view">
                             <?= CurrencyHelper::get($tour->baseCost->adult) ?>
                         </span>
                     <?php endif; ?>
                 </span>
         <p></p>
+        <?php if ($tour->isPrivate()):?>
+            <?php foreach($tour->capacities as $capacity):?>
+                <span class="params-item">
+                        <i class="fas fa-user-plus"></i>&#160;&#160;<?= (Lang::t('Цена за экскурсию') . ' (' . Lang::t('до') . ' ' . $capacity->count . ' ' .Lang::t('человек)')) ?>
+                        <span class="price-view">
+                            <?= '+' . $capacity->percent . '%' ?>
+                        </span>
+                </span>
+                <p></p>
+            <?php endforeach; ?>
+            <?php if (count($tour->transfers) > 0):?>
+                <span class="params-item">
+                        <i class="fas fa-car-alt"></i>&#160;&#160;<?= Lang::t('Услуга предоставления трансфера (туда-обратно)') ?>:
+                </span>
+                <br>
+                <?php foreach($tour->transfers as $transfer):?>
+                    <span class="params-item">
+                        <span class="pl-5"><?= $transfer->from->getName() . '-' . $transfer->to->getName() . ' - '?>
+                            <span class="price-view">
+                                <?= CurrencyHelper::get($transfer->cost) ?>
+                            </span>
+                        </span>
+                    </span>
+                    <br>
+                <?php endforeach; ?>
+                <p></p>
+            <?php endif; ?>
+
+
+            <?php if (!empty($tour->extra_time_cost)):?>
+                <span class="params-item">
+                        <i class="fas fa-user-clock"></i>&#160;&#160;<?= Lang::t('Дополнительный час экскурсии') ?>
+                        <span
+                                class="price-view">
+                            <?= CurrencyHelper::get($tour->extra_time_cost) ?>
+                        </span>
+                </span>
+                <p></p>
+            <?php endif; ?>
+        <?php endif; ?>
         <?php if ($tour->baseCost->child): ?>
             <span class="params-item">
                     <i class="fas fa-child"></i>&#160;&#160;<?= Lang::t('Детский билет') ?>
@@ -125,6 +167,7 @@ $countReveiws = $tour->countReviews();
                 </span>
             <p></p>
         <?php endif; ?>
+
         <span class="params-item">
                     <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени') ?>
                 </span>

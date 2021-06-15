@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Создать Тур', Url::to('tour/common/create'), ['class' => 'btn btn-success']) ?>
 
-        <?= Html::a('Стек Туров', Url::to('tour/stack'), ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Стек Туров', Url::to('tour/stack'), ['class' => 'btn btn-info']) ?>&#160;&#160;
+        <?= Html::a('Общие параметры и ценообразование', Url::to('tour/general'), ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= GridView::widget([

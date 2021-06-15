@@ -4,6 +4,8 @@ namespace booking\entities\admin;
 use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
+use booking\entities\booking\tours\services\Capacity;
+use booking\entities\booking\tours\services\Transfer;
 use booking\entities\booking\tours\Tour;
 use booking\entities\user\FullName;
 use booking\entities\user\UserAddress;
@@ -36,6 +38,8 @@ use yii\web\IdentityInterface;
  * @property ForumRead[] $forumsRead
  * @property Deposit[] $deposit
  * @property Debiting[] $debiting
+ * @property Capacity[] $tourCapacities
+ * @property Transfer[] $tourTransfers
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -74,6 +78,62 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
+    //********* Transfer **************
+    public function addTransfer(Transfer $transfer): void
+    {
+        $transfers = $this->tourTransfers;
+        $transfers[] = $transfer;
+        $this->tourTransfers = $transfers;
+    }
+
+    public function removeTransfer($id): void
+    {
+        $transfers = $this->tourTransfers;
+        foreach ($transfers as $i => $transfer) {
+            if ($transfer->isFor($id)) {
+                unset($transfers[$i]);
+                $this->tourTransfers = $transfers;
+                return;
+            }
+        }
+        throw new \DomainException('Неверный id Трансфера ' . $id);
+    }
+    public function costTransfer($id, $cost): void
+    {
+        $transfers = $this->tourTransfers;
+        foreach ($transfers as $i => &$transfer) {
+            if ($transfer->isFor($id)) {
+                $transfer->setCost($cost);
+                $this->tourTransfers = $transfers;
+                return;
+            }
+        }
+        throw new \DomainException('Неверный id Трансфера ' . $id);
+    }
+
+    //********* Capacity **************
+
+    public function addCapacity(Capacity $capacity): void
+    {
+        $capacities = $this->tourCapacities;
+        $capacities[] = $capacity;
+        $this->tourCapacities = $capacities;
+    }
+
+    public function removeCapacity($id): void
+    {
+        $capacities = $this->tourCapacities;
+        foreach ($capacities as $i => $capacity) {
+            if ($capacity->isFor($id)) {
+                unset($capacities[$i]);
+                $this->tourCapacities = $capacities;
+                return;
+            }
+        }
+        throw new \DomainException('Неверный id Вместительности ' . $id);
+    }
+
+
     //********* Balance ***************
 
     public function Balance(): float
@@ -85,11 +145,9 @@ class User extends ActiveRecord implements IdentityInterface
         foreach ($deposit as $item) {
             $amount_deposit += $item->amount;
         }
-
         foreach ($debiting as $item) {
             $amount_debiting += $item->amount;
         }
-
         return $amount_deposit - $amount_debiting;
     }
 
@@ -237,16 +295,16 @@ class User extends ActiveRecord implements IdentityInterface
                     'personal',
                     'legals',
                     'notice',
-                    'discounts',
                     'preferences',
                     'forumsRead',
                     'deposit',
                     'debiting',
+                    'tourCapacities',
+                    'tourTransfers',
                 ],
             ],
         ];
     }
-
 
     public function transactions()
     {
@@ -490,5 +548,15 @@ class User extends ActiveRecord implements IdentityInterface
         $preferences = $this->preferences;
         $preferences->forum_role = $role;
         $this->preferences = $preferences;
+    }
+
+    public function getTourCapacities(): ActiveQuery
+    {
+        return $this->hasMany(Capacity::class, ['user_id' => 'id'])->orderBy(['count' => SORT_ASC]);
+    }
+
+    public function getTourTransfers(): ActiveQuery
+    {
+        return $this->hasMany(Transfer::class, ['user_id' => 'id']);//->orderBy(['count' => SORT_ASC]);
     }
 }

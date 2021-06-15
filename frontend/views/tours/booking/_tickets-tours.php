@@ -6,11 +6,56 @@ use booking\entities\booking\tours\CostCalendar;
 use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
-$private = $current->tour->params->private;
+$private = $current->tour->isPrivate();
+$tour = $current->tour
 ?>
     <input type="hidden" value="" />
-<?php if ($private): ?>
+<?php if ($tour->isPrivate()): ?>
     <input id="count-adult" name="count-adult" type="hidden" value="1" />
+    <?php if ($tour->extra_time_cost): ?>
+    <table width="100%">
+        <tr>
+            <td><?= Lang::t('Дополнительное время') ?>:</td>
+            <td>
+                <select class="form-control services" id="time-count" name="time-count">
+                    <?php for ($i = 0; $i <= $tour->extra_time_max; $i++):?>
+                    <option value="<?= $i ?>"><?= $i . ' ' . Lang::t('ч') ?></option>
+                    <?php endfor; ?>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <?php endif; ?>
+    <?php if (count($tour->capacities)): ?>
+        <table width="100%">
+            <tr>
+                <td><?= Lang::t('Количество гостей') ?>:</td>
+                <td>
+                    <select class="form-control services" id="capacity-id" name="capacity-id">
+                        <option value=""><?= Lang::t('до') . ' ' . $tour->params->groupMax . ' ' . Lang::t('человек') ?></option>
+                        <?php foreach ($tour->capacities as $capacity):?>
+                            <option value="<?= $capacity->id ?>"><?= Lang::t('до') . ' ' . $capacity->count . ' ' . Lang::t('человек') ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    <?php endif; ?>
+    <?php if (count($tour->transfers)): ?>
+        <table width="100%">
+            <tr>
+                <td><?= Lang::t('Трансфер') ?>:</td>
+                <td>
+                    <select class="form-control services" id="transfer-id" name="transfer-id">
+                        <option value=""><?= Lang::t('Не требуется') ?></option>
+                        <?php foreach ($tour->transfers as $transfer):?>
+                            <option value="<?= $transfer->id ?>"><?= $transfer->from->getName() . '-' . $transfer->to->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    <?php endif; ?>
 <?php else: ?>
     <label for="booking-tour-time"><b><?= Lang::t('Укажите кол-во билетов') ?>:</b></label>
     <table>

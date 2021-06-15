@@ -5,6 +5,7 @@ namespace frontend\controllers\tours;
 
 
 use booking\entities\booking\cars\CostCalendar;
+use booking\entities\booking\tours\services\BookingServices;
 use booking\helpers\CurrencyHelper;
 use booking\repositories\booking\tours\CostCalendarRepository;
 use booking\repositories\booking\tours\TourRepository;
@@ -113,8 +114,26 @@ class BookingController  extends Controller
             $count_adult = $params['count_adult'];
             $count_child = $params['count_child'];
             $count_preference = $params['count_preference'];
+            $time_count = $params['time_count'] ?? null;
+            $capacity_id = $params['capacity_id'] ?? null;
+            $transfer_id = $params['transfer_id'] ?? null;
             $calendar = $this->calendar->get($calendar_id);
             $result = $count_adult * $calendar->cost->adult + $count_child * $calendar->cost->child + $count_preference * $calendar->cost->preference;
+            //$tour = $calendar->tour;
+            //return $time_count;
+            if ($time_count || $capacity_id || $transfer_id) {
+                $tour = $calendar->tour;
+                $result += ($tour->extra_time_cost ?? 0) * ($time_count ?? 0);
+                if ($capacity_id) {
+                    $capacity = $tour->Capacity($capacity_id);
+                    $result += (int)($result * $capacity->percent / 100);
+                }
+                if ($transfer_id) {
+                    $transfer = $tour->Transfer($transfer_id);
+                    $result += $transfer->cost;
+                }
+
+            }
             return $this->render('_amount', [
                 'full_cost' => $result,
                 'prepay' => $result * $calendar->tour->prepay / 100,

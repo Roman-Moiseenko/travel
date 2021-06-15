@@ -96,4 +96,9 @@ class BookingHotel extends BaseBooking
     {
         // TODO: Implement getPrepayFrom() method.
     }
+
+    public function getInfoNotice(): string
+    {
+        return  '';
+    }
 }

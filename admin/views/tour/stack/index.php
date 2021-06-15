@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Создать стек', Url::to('/tour/stack/create'), ['class' => 'btn btn-success']) ?>
     </p>
-
+    <p>Стек туров предназначен если у Вас количество экскурсий превыщает количества гидов. <br>При заполнении стека, в любой из дней,
+        разные группы клиентов могут заказать любую экскурсию из стека, но не более чем количество гидов. Что предотвратит овербукинг.</p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

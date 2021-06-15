@@ -6,6 +6,7 @@ namespace booking\services\booking\tours;
 
 use booking\entities\booking\tours\BookingTour;
 use booking\entities\booking\tours\Cost;
+use booking\entities\booking\tours\services\BookingServices;
 use booking\entities\Lang;
 use booking\forms\booking\ConfirmationForm;
 use booking\repositories\booking\tours\BookingTourRepository;
@@ -44,10 +45,40 @@ class BookingTourService extends BookingService
         $this->stackService = $stackService;
     }
 
-    public function create($calendar_id, Cost $count): BookingTour
+    public function create($calendar_id, Cost $count, $time_count, $capacity_id, $transfer_id): BookingTour
     {
         $calendar = $this->calendar->get($calendar_id);
-        $booking = BookingTour::create($calendar, $count);
+        if ($time_count || $capacity_id || $transfer_id) {
+            $tour = $calendar->tour;
+            if ($capacity_id) {
+                $capacity = $tour->Capacity($capacity_id);
+                $capacity_count = $capacity->count;
+                $capacity_percent = $capacity->percent;
+            } else {
+                $capacity_count = null;
+                $capacity_percent = null;
+            }
+            if ($transfer_id) {
+                $transfer = $tour->Transfer($transfer_id);
+                $transfer_path = $transfer->from->getName() . '-' . $transfer->to->getName();
+                $transfer_cost = $transfer->cost;
+            } else {
+                $transfer_path = null;
+                $transfer_cost = null;
+            }
+            $services = new BookingServices(
+                $tour->extra_time_cost,
+                $time_count,
+                $capacity_count,
+                $capacity_percent,
+                $transfer_path,
+                $transfer_cost
+            );
+        } else {
+            $services = null;
+        }
+
+        $booking = BookingTour::create($calendar, $count, $services);
 
         if ($booking->calendar->free() < $count->count() ||  //кол-во свободных меньше покупаемого
             !$this->stackService->_empty($booking->calendar->tours_id, $booking->calendar->tour_at)) {  //Стек не пуст

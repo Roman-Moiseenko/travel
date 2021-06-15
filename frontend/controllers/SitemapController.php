@@ -11,6 +11,8 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
+use booking\entities\moving\CategoryFAQ;
+use booking\entities\moving\FAQ;
 use booking\entities\moving\Page;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
@@ -21,6 +23,8 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
+use booking\repositories\moving\CategoryFAQRepository;
+use booking\repositories\moving\FAQRepository;
 use booking\repositories\moving\PageRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
@@ -95,6 +99,11 @@ class SitemapController extends Controller
      * @var PageRepository
      */
     private $moving;
+    /**
+     * @var CategoryFAQRepository
+     */
+    private $categoryFAQ;
+
 
     public function __construct(
         $id,
@@ -114,6 +123,7 @@ class SitemapController extends Controller
         \booking\repositories\booking\stays\TypeRepository $stayTypes,
         CategoryRepository $postType,
         PageRepository $moving,
+        CategoryFAQRepository $categoryFAQ,
         $config = []
     )
     {
@@ -133,6 +143,8 @@ class SitemapController extends Controller
         $this->shops = $shops;
         $this->products = $products;
         $this->moving = $moving;
+
+        $this->categoryFAQ = $categoryFAQ;
     }
 
     public function actionIndex(): Response
@@ -157,7 +169,21 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
+                new IndexItem(Url::to(['faq-category'], true)),
             ]);
+        });
+    }
+
+    public function actionFaqCategory(): Response
+    {
+        return $this->renderSitemap('sitemap-faq-category', function () {
+            return $this->sitemap->generateMap(array_map(function (CategoryFAQ $categoryFAQ) {
+                return new MapItem(
+                    Url::to(['/moving/faq/category', 'id' => $categoryFAQ->id], true),
+                    null,
+                    MapItem::DAILY
+                );
+            }, $this->categoryFAQ->getAll()));
         });
     }
 

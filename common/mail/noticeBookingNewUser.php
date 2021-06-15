@@ -43,6 +43,7 @@ $lang = $user->preferences->lang;
                     <?= $booking->getName() ?>
                 </a>
                 <?= Lang::t('на дату', $lang) ?> <b><?= date('d-m-Y', $booking->getDate()) . ' ' . BookingHelper::fieldAddToString($booking) ?></b>.<br>
+                <?= $booking->getInfoNotice() ?>
                 <?= Lang::t('Предоплата', $lang) . '(' . $booking->getPayment()->percent . '%)' ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getPrepay()) ?></b><br>
                 <?= Lang::t('Сумма бронирования', $lang) ?>: <b><?= CurrencyHelper::get($booking->getPayment()->getFull()) ?></b><br>
                 <?= $confirmation ? Lang::t('Необходимо подтвердить бронирование в течение суток. В противном случае, Ваше бронирование будет отменено автоматически', $lang). '.' : Lang::t('Оплату необходимо произвести в течение суток. В противном случае, Ваше бронирование будет отменено автоматически'). '.' ?>

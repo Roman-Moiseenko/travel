@@ -65,6 +65,26 @@ $legal = $booking->getLegal();
                     <td><b><?= Lang::t('Время') ?>:</b></td>
                     <td><?= $booking->getAdd() ?></td>
                 </tr>
+                <?php if ($booking->calendar->tour->isPrivate()): ?>
+                    <?php if ($booking->private_services->time_count):?>
+                        <tr>
+                            <th><?= Lang::t('Дополнительное время') ?>:</th>
+                            <td><?= $booking->private_services->time_count . ' ' . Lang::t('ч') ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($booking->private_services->capacity_count):?>
+                        <tr>
+                            <th><?= Lang::t('Количество человек') ?>:</th>
+                            <td><?= Lang::t('до') . ' ' . $booking->private_services->capacity_count ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($booking->private_services->transfer_path):?>
+                        <tr>
+                            <th><?= Lang::t('Трансфер') ?>:</th>
+                            <td><?= $booking->private_services->transfer_path ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endif; ?>
                 </tbody>
             </table>
         </div>
