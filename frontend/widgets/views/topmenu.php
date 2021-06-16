@@ -104,7 +104,7 @@ use yii\helpers\Url;
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'tours/tours' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/tours'])) ?>">
                         <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_TOUR) ?>
-                        &#160;<?= Lang::t('Туры') ?>
+                        &#160;<?= Lang::t('Экскурсии') ?>
                     </a>
                 </li>
                 <li class="nav-item">

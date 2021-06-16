@@ -16,6 +16,8 @@ $description = 'Отдых в Калининграде обзорные экск
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+/* @var $region string */
+
 //JqueryAsset::register($this);
 
 //SwiperAsset::register($this);
@@ -71,6 +73,11 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                 'img_alt' => 'На ПМЖ в Калининграде',
                 'caption' => 'На ПМЖ',
             ]) ?>
+        </div>
+    </div>
+    <div class="landing-block-center">
+        <div class="container">
+            <script src="//tp.media/content?currency=rub&promo_id=4041&shmarker=iddqd&campaign_id=100&trs=133807&searchUrl=www.aviasales.ru%2Fsearch&locale=ru&powered_by=true&one_way=false&only_direct=true&period=year&range=7%2C14&primary=%230C73FE&color_background=%23FFFFFF&achieve=%2345AD35&dark=%23000000&light=%23fffff&destination=<?= $region ?>" charset="utf-8"></script>
         </div>
     </div>
     <div class="landing-block-center">

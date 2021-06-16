@@ -13,6 +13,7 @@ use yii\web\JqueryAsset;
 /* @var $this yii\web\View */
 /* @var $images array */
 /* @var $user User */
+/* @var $region string */
 $this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
 
 $description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело';
@@ -215,6 +216,11 @@ $this->registerJs($script);
                 <?= BlogLandingWidget::widget(); ?>
             </div>
         </div>
+    </div>
+</div>
+<div class="landing-block-center">
+    <div class="container">
+        <script src="//tp.media/content?currency=rub&promo_id=4041&shmarker=iddqd&campaign_id=100&trs=133807&searchUrl=www.aviasales.ru%2Fsearch&locale=ru&powered_by=true&one_way=false&only_direct=true&period=year&range=7%2C14&primary=%230C73FE&color_background=%23FFFFFF&achieve=%2345AD35&dark=%23000000&light=%23fffff&destination=<?= $region ?>" charset="utf-8"></script>
     </div>
 </div>
 <!--div class="landing-block-center">

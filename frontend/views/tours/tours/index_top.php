@@ -8,11 +8,11 @@
 use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
 use yii\data\DataProviderInterface;
-$this->title = Lang::t('Туры и экскурсии по Калининграду обзорная, замки, форты');
+$this->title = Lang::t('Экскурсии по Калининграду обзорная, замки, форты');
 ?>
 
 <div class="list-tours">
-    <h1><?= Lang::t('Туры и экскурсии по Калининграду и области') ?></h1>
+    <h1><?= Lang::t('Экскурсии по Калининграду и области') ?></h1>
     <?= $this->render('_search_top', ['model' => $model]) ?>
     <?= $this->render('_list', ['dataProvider' => $dataProvider]) ?>
 </div>
