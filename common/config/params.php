@@ -7,6 +7,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration' => 3600 * 24 * 30,
     'paginationTour' => 24,
+    'paginationTrip' => 16,
     'paginationCar' => 16,
     'paginationFun' => 24,
     'paginationStay' => 24,

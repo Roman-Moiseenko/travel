@@ -106,10 +106,10 @@ class Tour extends BaseObjectOfBooking
     /** @var $baseCost Cost */
     public $baseCost;
 
-    public static function create($name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug): self
+    public static function create($user_id, $name, $type_id, $description, BookingAddress $address, $name_en, $description_en, $slug): self
     {
         $tour = new static();
-        $tour->user_id = \Yii::$app->user->id;
+        $tour->user_id = $user_id;
         $tour->created_at = time();
         $tour->status = StatusHelper::STATUS_INACTIVE;
         $tour->name = $name;
@@ -505,10 +505,9 @@ class Tour extends BaseObjectOfBooking
         return $this->hasMany(CostCalendar::class, ['tours_id' => 'id'])->orderBy(['tour_at' => SORT_ASC]);
     }
 
-
-    public static function find(): ObjectActiveQuery
+    public function linkAdmin(): string
     {
-        return new ObjectActiveQuery(static::class);
+        return '/tour/common?id=' . $this->id;
     }
 
 }

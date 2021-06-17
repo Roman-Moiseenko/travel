@@ -24,6 +24,9 @@ class StatusActionWidget extends Widget
             case BookingHelper::BOOKING_TYPE_TOUR:
                 $link = '/tour/common';
                 break;
+            case BookingHelper::BOOKING_TYPE_TRIP:
+                $link = '/trip/common';
+                break;
             case BookingHelper::BOOKING_TYPE_STAY:
                 $link = '/stay/common';
                 break;

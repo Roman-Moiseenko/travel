@@ -142,7 +142,7 @@ class BookingController extends Controller
     {
         if (($model = Tour::findOne($id)) !== null) {
             if ($model->user_id != $this->loginService->admin()->getId()) {
-                throw new \DomainException('У вас нет прав для данного тура');
+                throw new \DomainException('У вас нет прав для данной экскурсии');
             }
             return $model;
         }

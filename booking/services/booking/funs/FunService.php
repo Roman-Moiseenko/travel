@@ -338,7 +338,7 @@ class FunService
         $fun = $this->funs->get($id);
         $fun->setStatus(StatusHelper::STATUS_LOCK);
         $this->funs->save($fun);
-        $this->contactService->sendLockFun($fun);
+        $this->contactService->sendLock($fun);
     }
 
     public function unlock(int $id)

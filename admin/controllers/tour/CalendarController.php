@@ -62,7 +62,7 @@ class CalendarController extends Controller
         $tour = $this->findModel($id);
         if ($tour->filling) $this->service->next_filling($tour);
         if ($tour->user_id != \Yii::$app->user->id) {
-            throw new \DomainException('У вас нет прав для данного тура');
+            throw new \DomainException('У вас нет прав для данной экскурсии');
         }
         return $this->render('index', [
             'tour' => $tour,
@@ -191,7 +191,7 @@ class CalendarController extends Controller
             $tours = $this->findModel($params['tour_id']);
             $result = $tours->removeCostCalendar($params['calendar_id']);
             $this->tours->save($tours);
-            if ($result == false) $errors['del-day'] = 'Нельзя удалить тур с бронированием';
+            if ($result == false) $errors['del-day'] = 'Нельзя удалить экскурсию с бронированием';
             return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['tour_id'], $errors);
         }
         return $this->goHome();

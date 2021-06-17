@@ -10,6 +10,7 @@ use booking\entities\admin\User;
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Lang;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\BookingHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -148,6 +149,8 @@ abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjec
     {
         return (Lang::current() == Lang::DEFAULT || empty($this->description_en)) ? $this->description : $this->description_en;
     }
+
+    abstract public function linkAdmin(): string; //Ссылка относительная на объект в админке
 
 //====== Внешние связи ============================================
     abstract public function getActualCalendar(): ActiveQuery;
@@ -381,5 +384,11 @@ abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjec
             }
         }
         return false;
+    }
+
+    //*******************************//
+    public static function find(): ObjectActiveQuery
+    {
+        return new ObjectActiveQuery(static::class);
     }
 }

@@ -29,6 +29,7 @@ class BookingHelper
     const BOOKING_STATUS_EXECUTE = 5;
     const BOOKING_STATUS_CONFIRMATION = 6;
     const BOOKING_STATUS_SELLING = 7; //Прямая продажа
+    const BOOKING_STATUS_RESERVATION = 8; //Зарезервирован
 
     const BOOKING_TYPE_TOUR = 1;
     const BOOKING_TYPE_STAY = 2;
@@ -101,6 +102,7 @@ class BookingHelper
             self::BOOKING_STATUS_CANCEL_PAY => Lang::t('Отменен после оплаты'),
             self::BOOKING_STATUS_EXECUTE => Lang::t('Исполнен'),
             self::BOOKING_STATUS_CONFIRMATION => Lang::t('Подтвержден'),
+            self::BOOKING_STATUS_RESERVATION => Lang::t('Зарезервирован'),
         ];
     }
 
@@ -116,6 +118,7 @@ class BookingHelper
     {
         switch ($booking->getStatus()) {
             case self::BOOKING_STATUS_NEW:
+            case self::BOOKING_STATUS_RESERVATION:
                 $class = 'badge badge-warning';
                 break;
             case self::BOOKING_STATUS_PAY:
@@ -189,7 +192,6 @@ class BookingHelper
         if (empty($number)) return null;
         try {
             $point = strpos($number, '.');
-            //$user_id = substr($number, 0, $point);
             if ($point == 0) {
                 $temp = $number;
             } else {

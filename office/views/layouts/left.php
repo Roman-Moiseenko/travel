@@ -36,6 +36,7 @@ use yii\helpers\Url;
                     ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
                     ['label' => 'Объекты', 'icon' => 'object-group', 'items' => [
                         ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
+                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
                         ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
                         ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
                         ['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
@@ -47,6 +48,7 @@ use yii\helpers\Url;
 
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
                         ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
+                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/reviews/trip'], 'active' => $this->context->id == 'reviews/trip'],
                         ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/reviews/car'], 'active' => $this->context->id == 'reviews/car'],
                         ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/reviews/fun'], 'active' => $this->context->id == 'reviews/fun'],
                         ['label' => ' - Жилища', 'icon' => 'hotel', 'url' => ['/reviews/stay'], 'active' => $this->context->id == 'reviews/stay'],
@@ -66,6 +68,7 @@ use yii\helpers\Url;
                         ]],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
                         ['label' => '- Экскурсии (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
+                        ['label' => '- Туры (категории)', 'icon' => 'suitcase', 'url' => ['/guides/trip-type'], 'active' => $this->context->id == 'guides/trip-type'],
                         ['label' => '- Авто (категории)', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
                         ['label' => '- Развлечения (категории)', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
                         ['label' => '- Жилье', 'icon' => 'house-user', 'items' => [

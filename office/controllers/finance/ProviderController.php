@@ -11,6 +11,7 @@ use booking\helpers\scr;
 use booking\services\finance\PaymentService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class ProviderController extends Controller
@@ -88,6 +89,6 @@ class ProviderController extends Controller
             $this->service->pay($payment->id);
         }
 
-        return $this->redirect(\Yii::$app->request->referrer);
+        return $this->redirect(Url::to(['/finance/provider']));
     }
 }

@@ -76,7 +76,7 @@ class FinanceController extends Controller
             try {
                 $this->service->setFinance($tour->id, $form);
                 if ($tour->filling) {
-                    \Yii::$app->session->setFlash('success', 'Тур успешно создан! Заполните календарь и отправьте на модерацию с раздела Описание');
+                    \Yii::$app->session->setFlash('success', 'Экскурсия успешно создана! Заполните календарь и отправьте на модерацию с раздела Описание');
                     return $this->redirect($this->service->next_filling($tour));
                 } else {
                     return $this->redirect(['/tour/finance', 'id' => $tour->id]);
@@ -97,7 +97,7 @@ class FinanceController extends Controller
     {
         if (($model = Tour::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
-                throw new \DomainException('У вас нет прав для данного тура');
+                throw new \DomainException('У вас нет прав для данной экскурсии');
             }
             return $model;
         }

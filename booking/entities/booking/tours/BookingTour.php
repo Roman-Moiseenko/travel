@@ -213,8 +213,9 @@ class BookingTour extends BaseBooking
 
     public function getInfoNotice(): string
     {
-        if ($this->tour->isPrivate()) {
+        if ($this->tour->isPrivate() && $this->isServices()) {
             $text = '';
+            //if ($this->private_services == null) return '';
             if ($this->private_services->time_count)
                 $text .= Lang::t('Дополнительное время') . ': <b>' . $this->private_services->time_count . ' ' . Lang::t('ч') . '</b><br>';
             if ($this->private_services->capacity_count)
@@ -224,5 +225,10 @@ class BookingTour extends BaseBooking
             return $text;
         }
         return '';
+    }
+
+    public function isServices(): bool
+    {
+        return $this->private_services == null ? false : true;
     }
 }

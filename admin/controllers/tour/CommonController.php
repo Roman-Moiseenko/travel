@@ -102,7 +102,7 @@ class CommonController extends Controller
         $tour = $this->findModel($id);
         try {
             $this->service->verify($tour->id);
-            \Yii::$app->session->setFlash('success', 'Ваш тур успешно отправлен на Модерацию. Мы постараемся проверить Вашу информацию в кратчайшие сроки. Дождитесь, пожалуйста, результата. ');
+            \Yii::$app->session->setFlash('success', 'Ваша экскурсия успешно отправлена на Модерацию. Мы постараемся проверить Вашу информацию в кратчайшие сроки. Дождитесь, пожалуйста, результата. ');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -115,7 +115,7 @@ class CommonController extends Controller
         $tour = $this->findModel($id);
         try {
             $this->service->cancel($tour->id);
-            \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию тура');
+            \Yii::$app->session->setFlash('success', 'Вы успешно отменили модерацию экскурсии');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -128,7 +128,7 @@ class CommonController extends Controller
         $tour = $this->findModel($id);
         try {
             $this->service->draft($tour->id);
-            \Yii::$app->session->setFlash('success', 'Тур снят с публикации.');
+            \Yii::$app->session->setFlash('success', 'Экскурсия снята с публикации');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -141,7 +141,7 @@ class CommonController extends Controller
         $tour = $this->findModel($id);
         try {
             $this->service->activate($tour->id);
-            \Yii::$app->session->setFlash('success', 'Тур опубликован.');
+            \Yii::$app->session->setFlash('success', 'Экскурсия опубликован.');
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -166,7 +166,7 @@ class CommonController extends Controller
     {
         if (($model = Tour::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
-                throw new \DomainException('У вас нет прав для данного тура');
+                throw new \DomainException('У вас нет прав для данной экскурсии');
             }
             return $model;
         }

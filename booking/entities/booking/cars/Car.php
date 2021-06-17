@@ -6,24 +6,17 @@ namespace booking\entities\booking\cars;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
-use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\cars\queries\CarQueries;
 use booking\entities\booking\City;
-use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\entities\queries\ObjectActiveQuery;
-use booking\helpers\BookingHelper;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
 
 /**
  * Class Car
@@ -203,12 +196,6 @@ class Car extends BaseObjectOfBooking
         ];
         return array_merge($relations, parent::behaviors());
 
-    }
-
-
-    public static function find(): ObjectActiveQuery
-    {
-        return new ObjectActiveQuery(static::class);
     }
 
     public function afterFind(): void
@@ -450,4 +437,8 @@ class Car extends BaseObjectOfBooking
         return $this->hasMany(City::class, ['id' => 'city_id'])->via('assignmentCities');
     }
 
+    public function linkAdmin(): string
+    {
+        return '/car/common?id=' . $this->id;
+    }
 }

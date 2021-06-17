@@ -6,34 +6,24 @@ namespace booking\entities\booking\stays;
 
 use booking\entities\admin\Legal;
 use booking\entities\admin\User;
-use booking\entities\behaviors\MetaBehavior;
 use booking\entities\booking\BaseObjectOfBooking;
-use booking\entities\booking\hotels\rooms\Rooms;
 use booking\entities\booking\stays\bedroom\AssignRoom;
 use booking\entities\booking\stays\comfort\AssignComfort;
 use booking\entities\booking\stays\comfort\Comfort;
-use booking\entities\booking\stays\comfort\ComfortCategory;
 use booking\entities\booking\stays\comfort_room\AssignComfortRoom;
 use booking\entities\booking\stays\comfort_room\ComfortRoom;
 use booking\entities\booking\stays\duty\AssignDuty;
 use booking\entities\booking\stays\nearby\Nearby;
-use booking\entities\booking\stays\nearby\NearbyCategory;
-use booking\entities\booking\stays\queries\StayQueries;
 use booking\entities\booking\stays\rules\Rules;
 use booking\entities\booking\BookingAddress;
 use booking\entities\Lang;
 use booking\entities\Meta;
 use booking\entities\queries\ObjectActiveQuery;
-use booking\helpers\BookingHelper;
-use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
 use booking\helpers\SysHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\helpers\Json;
 use yii\web\UploadedFile;
 
 /**
@@ -622,9 +612,9 @@ class Stay extends BaseObjectOfBooking
 
     /** <========== getXXX */
 
-    public static function find(): ObjectActiveQuery
+    public function linkAdmin(): string
     {
-        return new ObjectActiveQuery(static::class);
+        return '/stay/common?id=' . $this->id;
     }
 
     public function costBySearchParams(array $params)

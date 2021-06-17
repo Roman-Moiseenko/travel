@@ -4,6 +4,7 @@ namespace booking\services;
 
 use booking\entities\admin\User;
 use booking\entities\booking\BaseBooking;
+use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
 use booking\entities\Lang;
 use booking\entities\mailing\Mailing;
@@ -290,59 +291,8 @@ class ContactService
     }
 
 /// УВЕДОМЛЕНИЯ О БЛОКИРОВКЕ ОБЪЕКТОВ
-    public function sendLockTour(?\booking\entities\booking\tours\Tour $tour)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockTour', ['tour' => $tour])
-            ->setTo($tour->user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($tour->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
 
-    public function sendLockFun(?\booking\entities\booking\funs\Fun $fun)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockFun', ['fun' => $fun])
-            ->setTo($fun->user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($fun->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function sendLockCar(?\booking\entities\booking\cars\Car $car)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockCar', ['car' => $car])
-            ->setTo($car->user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($car->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function sendLockStay(?\booking\entities\booking\stays\Stay $stay)
-    {
-        if ($this->loc) return;
-        $send = $this->mailer->compose('lockStay', ['stay' => $stay])
-            ->setTo($stay->user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
-            ->setSubject($stay->name)
-            ->send();
-        if (!$send) {
-            throw new \DomainException(Lang::t('Ошибка отправки'));
-        }
-    }
-
-    public function sendLockShop(Shop $shop)
+    public function sendLockShop(Shop $shop) //Не бронируемый тип
     {
         if ($this->loc) return;
         $send = $this->mailer->compose('lockShop', ['shop' => $shop])
@@ -355,6 +305,18 @@ class ContactService
         }
     }
 
+    public function sendLock(BaseObjectOfBooking $object) //Бронируемый тип
+    {
+        if ($this->loc) return;
+        $send = $this->mailer->compose('lockObject', ['object' => $object])
+            ->setTo($object->user->email)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Блокировка')])
+            ->setSubject($object->getName())
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+    }
 /// ВНУТРЕННИЕ ФУНКЦИИ
     private function sendSMS($phone, $message, User $admin_user = null)
     {
@@ -422,6 +384,7 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
+
 
 
 }

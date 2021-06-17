@@ -48,11 +48,11 @@ class ReportController extends Controller
     {
         if (($model = Tour::findOne($id)) !== null) {
             if ($model->user_id != \Yii::$app->user->id) {
-                throw new \DomainException('У вас нет прав для данного тура');
+                throw new \DomainException('У вас нет прав для данной экскурсии');
             }
             return $model;
         }
-        throw new NotFoundHttpException('Тур не найден ID=' . $id);
+        throw new NotFoundHttpException('Экскурсия не найден ID=' . $id);
     }
 
 }

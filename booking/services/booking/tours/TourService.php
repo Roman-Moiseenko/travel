@@ -85,6 +85,7 @@ class TourService
     public function create(TourCommonForm $form): Tour
     {
         $tour = Tour::create(
+            $this->loginService->admin()->getId(),
             $form->name,
             $form->types->main,
             $form->description,
@@ -355,7 +356,7 @@ class TourService
         $tour = $this->tours->get($id);
         $tour->setStatus(StatusHelper::STATUS_LOCK);
         $this->tours->save($tour);
-        $this->contactService->sendLockTour($tour);
+        $this->contactService->sendLock($tour);
     }
 
     public function unlock(int $id)

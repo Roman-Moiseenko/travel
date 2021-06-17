@@ -11,7 +11,6 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
 use booking\entities\booking\BookingAddress;
-use booking\entities\booking\funs\queries\FunQueries;
 use booking\entities\booking\tours\Cost;
 use booking\entities\Lang;
 use booking\entities\Meta;
@@ -471,10 +470,6 @@ class Fun extends BaseObjectOfBooking
         return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
     }
 
-    public function getLegal(): ActiveQuery
-    {
-        return $this->hasOne(Legal::class, ['id' => 'legal_id']);
-    }
 
     public function getActualCalendar(): ActiveQuery
     {
@@ -496,15 +491,8 @@ class Fun extends BaseObjectOfBooking
         return $this->hasMany(Value::class, ['fun_id' => 'id']);
     }
 
-    public function getUser(): ActiveQuery
+    public function linkAdmin(): string
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return '/fun/common?id=' . $this->id;
     }
-    /** <========== getXXX */
-
-    public static function find(): ObjectActiveQuery
-    {
-        return new ObjectActiveQuery(static::class);
-    }
-
 }

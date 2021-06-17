@@ -53,7 +53,6 @@ use booking\services\TransactionManager;
 class StayService
 {
 
-
     /**
      * @var StayRepository
      */
@@ -445,7 +444,7 @@ class StayService
         $stay = $this->stays->get($id);
         $stay->setStatus(StatusHelper::STATUS_LOCK);
         $this->stays->save($stay);
-        $this->contactService->sendLockStay($stay);
+        $this->contactService->sendLock($stay);
     }
 
     public function unlock(int $id)

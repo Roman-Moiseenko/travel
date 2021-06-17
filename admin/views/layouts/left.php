@@ -23,6 +23,7 @@ $test = 'Saint' == \Yii::$app->user->identity->username || 'saint' == \Yii::$app
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => array_filter([
                     ['label' => 'Мои Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
+                    ['label' => 'Мои Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
                     ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
                     ['label' => 'Мои Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
                     ['label' => 'Мое Жилье', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],

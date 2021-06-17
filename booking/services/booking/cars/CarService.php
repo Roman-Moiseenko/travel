@@ -327,7 +327,7 @@ class CarService
         $car = $this->cars->get($id);
         $car->setStatus(StatusHelper::STATUS_LOCK);
         $this->cars->save($car);
-        $this->contactService->sendLockCar($car);
+        $this->contactService->sendLock($car);
     }
 
     public function unlock(int $id)
