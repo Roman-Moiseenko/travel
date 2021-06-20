@@ -357,7 +357,7 @@ $countReveiws = $tour->countReviews();
         <!-- Виджет подгрузки отзывов -->
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><?= Lang::t('Отзывы') . ' (' . $countReveiws . ')' ?></div>
+            <div class="text-left-hr"><h3 style="font-size: 21px!important; color: #666; font-family: 'Comfortaa', sans-serif;"><?= Lang::t('Отзывы') ?></h3></div>
         </div>
         <div id="review">
             <?= ReviewsWidget::widget(['reviews' => $tour->reviews]); ?>

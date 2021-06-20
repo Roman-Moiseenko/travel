@@ -222,7 +222,16 @@ $this->registerJs($script);
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Авиабилеты в Калининград') ?><span
                     class="line-b-title"></span></h2>
-        <script src="//tp.media/content?currency=rub&promo_id=4041&shmarker=iddqd&campaign_id=100&trs=133807&searchUrl=www.aviasales.ru%2Fsearch&locale=ru&powered_by=true&one_way=false&only_direct=true&period=year&range=7%2C14&primary=%230C73FE&color_background=%23FFFFFF&achieve=%2345AD35&dark=%23000000&light=%23fffff&destination=<?= $region ?>" charset="utf-8"></script>
+        <div class="row">
+            <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2;">
+                <p class="indent">
+                    Гости Калининградской области прилетают в аэропорт Храброво, носящий имя Елизоветы Петровны, который находится в 18 км от Калининграда.
+                    Стоимость самых дешевых билетов из Москвы варьируется от 1499 руб в низкий сезон, и в высокий сезон от 5000 руб.
+                    Количество авиакомпаний осуществляющих перевозки пассажиров в Калининград не менее 15.
+                    Вы можете <a href="<?= Url::to(['/avia'])?>">приобрести авиабилет в Калининград</a> на любую из них.
+                    </p>
+            </div>
+        </div>
     </div>
 </div>
 <!--div class="landing-block-center">

@@ -113,6 +113,7 @@ return [
                 'fast/sign-up' => 'auth/fast/sign-up',
                 'site/login' => 'auth/auth/login',
                 'site/captcha' => 'site/captcha',
+                'avia' => 'site/avia',
 
                 ['pattern' => 'turbo', 'route' => 'market/turbo', 'suffix' => '.xml'],
                 ['pattern' => 'rss', 'route' => 'market/rss', 'suffix' => '.xml'],

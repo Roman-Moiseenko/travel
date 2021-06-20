@@ -1133,11 +1133,12 @@ div.required label:after {
 
 }
 .mobile-landing {
-    display: block;
+   /* display: block;
     background: url(https://static.koenigs.ru/files/images/landing/other/background.jpg) no-repeat;
     min-height: 100vh;
     background-position: center;
-    background-size: cover;
+    background-size: cover;*/
+    background-color: #a7a7a7;
 }
 .container-mobile {
     margin-bottom: -30px;

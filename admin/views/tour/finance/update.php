@@ -39,6 +39,7 @@ $disabled = $mode_confirmation ? ['disabled' => true] : [];
     <div class="card card-secondary">
         <div class="card-header with-border">Базовая стоимость</div>
         <div class="card-body">
+            <label>При изменении цены, не забудьте поменять в <a href="<?= Url::to(['/tour/calendar', 'id' => $tour->id])?>">Календаре</a> на будущие даты</label>
             <?php if ($tour->params->private): ?>
             <div class="row">
                 <div class="col-md-6">
