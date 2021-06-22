@@ -128,6 +128,7 @@ class TripService
         $trip->addVideo(Video::create(
             $form->caption,
             $form->url,
+            $form->caption_en,
             $form->type_hosting
         ));
         $this->trips->save($trip);
@@ -141,6 +142,7 @@ class TripService
             Video::create(
                 $form->caption,
                 $form->url,
+                $form->caption_en,
                 $form->type_hosting
             )
         );
@@ -418,8 +420,9 @@ class TripService
         if ($trip->filling == null) return null;
         $next = [
             Filling::COMMON => Filling::PHOTOS,
-            Filling::PHOTOS => null,
-            //Filling::PHOTOS => Filling::PARAMS,
+            Filling::PHOTOS => Filling::VIDEOS,
+            Filling::VIDEOS => null,
+            //Filling::VIDEOS => Filling::PARAMS,
             Filling::PARAMS => Filling::EXTRA,
             Filling::EXTRA => Filling::FINANCE,
             Filling::FINANCE => Filling::CALENDAR,
@@ -436,6 +439,7 @@ class TripService
         $redirect = [
             Filling::COMMON => ['/trip/common/create', 'id' => $trip->id],
             Filling::PHOTOS => ['/trip/photos/index', 'id' => $trip->id],
+            Filling::VIDEOS => ['/trip/videos/index', 'id' => $trip->id],
             Filling::PARAMS => ['/trip/params/update', 'id' => $trip->id],
             Filling::EXTRA => ['/trip/extra/index', 'id' => $trip->id],
             Filling::FINANCE => ['/trip/finance/update', 'id' => $trip->id],

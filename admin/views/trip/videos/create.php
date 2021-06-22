@@ -13,6 +13,7 @@ $this->title = 'Добавить Видео';
 $this->params['id'] = $trip->id;
 $this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/trips']];
 $this->params['breadcrumbs'][] = ['label' => $trip->name, 'url' => ['/trip/common', 'id' => $trip->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Видеообзоры', 'url' => ['/trip/videos', 'id' => $trip->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trip-create">

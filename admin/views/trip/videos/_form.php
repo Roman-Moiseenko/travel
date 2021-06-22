@@ -13,8 +13,11 @@ use booking\forms\booking\VideosForm;
     <div class="card-header with-border">Основные</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <?= $form->field($model, 'caption')->textInput(['maxlength' => true])->label('Заголовок Видео') ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'caption_en')->textInput(['maxlength' => true])->label('Заголовок Видео (En)') ?>
             </div>
         </div>
         <div class="row">

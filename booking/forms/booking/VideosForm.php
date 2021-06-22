@@ -10,6 +10,7 @@ use yii\base\Model;
 class VideosForm extends Model
 {
     public $caption;
+    public $caption_en;
     public $url;
     public $type_hosting;
 
@@ -17,6 +18,7 @@ class VideosForm extends Model
     {
         if ($video) {
             $this->caption = $video->caption;
+            $this->caption_en = $video->caption_en;
             $this->url = $video->url;
             $this->type_hosting = $video->type_hosting;
         }
@@ -25,7 +27,7 @@ class VideosForm extends Model
     public function rules()
     {
         return [
-            [['url', 'caption'], 'string'],
+            [['url', 'caption', 'caption_en'], 'string'],
             [['type_hosting'], 'integer'],
             [['url', 'caption', 'type_hosting'], 'required', 'message' => 'Обязательное поле'],
         ];
