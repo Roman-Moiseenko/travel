@@ -725,4 +725,9 @@ class Stay extends BaseObjectOfBooking
         }
         return true;
     }
+
+    public function getVideos(): ActiveQuery
+    {
+        // TODO: Implement getVideos() method.
+    }
 }

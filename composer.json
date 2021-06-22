@@ -62,7 +62,9 @@
     "kv4nt/yii2-owl-carousel2": "1.0.2",
     "anart/forum": "dev-master",
     "raiym/instagram-php-scraper": "^0.11.1",
-    "guzzlehttp/guzzle": "^7.3"
+    "guzzlehttp/guzzle": "^7.3",
+    "ext-curl": "*",
+    "lesha724/yii2-youtube-widget": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

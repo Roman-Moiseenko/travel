@@ -7,12 +7,14 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\trips\Photo;
 use booking\entities\booking\trips\ReviewTrip;
 use booking\entities\booking\trips\Trip;
+use booking\entities\booking\trips\Video;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
 use booking\entities\Meta;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\trips\TripCommonForm;
+use booking\forms\booking\VideosForm;
 use booking\forms\MetaForm;
 use booking\helpers\Filling;
 use booking\helpers\StatusHelper;
@@ -118,6 +120,55 @@ class TripService
         });
     }
 
+//***** Video
+
+    public function addVideo($id, VideosForm $form)
+    {
+        $trip = $this->trips->get($id);
+        $trip->addVideo(Video::create(
+            $form->caption,
+            $form->url,
+            $form->type_hosting
+        ));
+        $this->trips->save($trip);
+    }
+
+    public function editVideo($id, $video_id, VideosForm $form)
+    {
+        $trip = $this->trips->get($id);
+        $trip->editVideo(
+            $video_id,
+            Video::create(
+                $form->caption,
+                $form->url,
+                $form->type_hosting
+            )
+        );
+        $this->trips->save($trip);
+    }
+
+    public function moveVideoUp($id, $video_id): void
+    {
+        $trip = $this->trips->get($id);
+        $trip->moveVideoUp($video_id);
+        $this->trips->save($trip);
+    }
+
+    public function moveVideoDown($id, $video_id): void
+    {
+        $trip = $this->trips->get($id);
+        $trip->moveVideoDown($video_id);
+        $this->trips->save($trip);
+    }
+
+    public function removeVideo($id, $video_id): void
+    {
+        $trip = $this->trips->get($id);
+        $trip->removeVideo($video_id);
+        $this->trips->save($trip);
+    }
+
+//**** Photo
     public function addPhotos($id, PhotosForm $form)
     {
         $trip = $this->trips->get($id);
@@ -175,69 +226,70 @@ class TripService
         $trip->editReview($review_id, $form->vote, $form->text);
         $this->trips->save($trip);
     }
-/*
-    public function setParams($id, TripParamsForm $form): void
-    {
-        $trip = $this->trips->get($id);
-        $trip->setParams(
-            new TripParams(
-                $form->duration,
-                new BookingAddress(
-                    $form->beginAddress->address,
-                    $form->beginAddress->latitude,
-                    $form->beginAddress->longitude
-                ),
-                new BookingAddress(
-                    $form->endAddress->address,
-                    $form->endAddress->latitude,
-                    $form->endAddress->longitude
-                ),
-                new AgeLimit(
-                    $form->ageLimit->on,
-                    $form->ageLimit->ageMin,
-                    $form->ageLimit->ageMax
-                ),
-                $form->private,
-                $form->groupMin,
-                $form->groupMax
-            )
-        );
-        if ($trip->isPrivate()) {
-            $trip->setCost(
-                new Cost(
-                    $trip->baseCost->adult,
-                    null,
-                    null
+
+    /*
+        public function setParams($id, TripParamsForm $form): void
+        {
+            $trip = $this->trips->get($id);
+            $trip->setParams(
+                new TripParams(
+                    $form->duration,
+                    new BookingAddress(
+                        $form->beginAddress->address,
+                        $form->beginAddress->latitude,
+                        $form->beginAddress->longitude
+                    ),
+                    new BookingAddress(
+                        $form->endAddress->address,
+                        $form->endAddress->latitude,
+                        $form->endAddress->longitude
+                    ),
+                    new AgeLimit(
+                        $form->ageLimit->on,
+                        $form->ageLimit->ageMin,
+                        $form->ageLimit->ageMax
+                    ),
+                    $form->private,
+                    $form->groupMin,
+                    $form->groupMax
                 )
             );
+            if ($trip->isPrivate()) {
+                $trip->setCost(
+                    new Cost(
+                        $trip->baseCost->adult,
+                        null,
+                        null
+                    )
+                );
+            }
+            $this->trips->save($trip);
         }
-        $this->trips->save($trip);
-    }
 
-    public function setFinance($id, TripFinanceForm $form): void
-    {
-        $trip = $this->trips->get($id);
-        $trip->setLegal($form->legal_id);
-        $trip->setCost(
-            new Cost(
-                $form->baseCost->adult,
-                $form->baseCost->child,
-                $form->baseCost->preference
-            )
-        );
-        $trip->setPrepay($form->prepay);
-        $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
-        $trip->setExtraTime($form->extra_time_cost, $form->extra_time_max);
-        $trip->clearCapacity();
-        $trip->clearTransfer();
-        $this->trips->save($trip);
-        foreach ($form->capacities as $capacity_id)
-            $trip->assignCapacity($capacity_id);
-        foreach ($form->transfers as $transfer_id)
-            $trip->assignTransfer($transfer_id);
-        $this->trips->save($trip);
-    }
-*/
+        public function setFinance($id, TripFinanceForm $form): void
+        {
+            $trip = $this->trips->get($id);
+            $trip->setLegal($form->legal_id);
+            $trip->setCost(
+                new Cost(
+                    $form->baseCost->adult,
+                    $form->baseCost->child,
+                    $form->baseCost->preference
+                )
+            );
+            $trip->setPrepay($form->prepay);
+            $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+            $trip->setExtraTime($form->extra_time_cost, $form->extra_time_max);
+            $trip->clearCapacity();
+            $trip->clearTransfer();
+            $this->trips->save($trip);
+            foreach ($form->capacities as $capacity_id)
+                $trip->assignCapacity($capacity_id);
+            foreach ($form->transfers as $transfer_id)
+                $trip->assignTransfer($transfer_id);
+            $this->trips->save($trip);
+        }
+    */
     public function verify($id)
     {
         $trip = $this->trips->get($id);
@@ -324,26 +376,27 @@ class TripService
     {
         //TODO !!!!! отправка жалобы на заблокированный объект
     }
-/*
-    public function addCostCalendar(int $id, int $trip_at, $time_at, $tickets, $cost_adult, $cost_child, $cost_preference)
-    {
 
-        $trip = $this->trips->get($id);
+    /*
+        public function addCostCalendar(int $id, int $trip_at, $time_at, $tickets, $cost_adult, $cost_child, $cost_preference)
+        {
+
+            $trip = $this->trips->get($id);
 
 
-        if ($this->calendars->isset($trip->id, $trip_at, $time_at)) {
-            return 'Данное время (' . $time_at . ') уже занято ';
-        }
-        $trip->addCostCalendar(
-            CostCalendar::create(
-                $trip_at,
-                $time_at,
-                new Cost($cost_adult, $cost_child, $cost_preference),
-                $tickets
-            )
-        );
-        $this->trips->save($trip);
-    }*/
+            if ($this->calendars->isset($trip->id, $trip_at, $time_at)) {
+                return 'Данное время (' . $time_at . ') уже занято ';
+            }
+            $trip->addCostCalendar(
+                CostCalendar::create(
+                    $trip_at,
+                    $time_at,
+                    new Cost($cost_adult, $cost_child, $cost_preference),
+                    $tickets
+                )
+            );
+            $this->trips->save($trip);
+        }*/
 
     public function upViews(Trip $trip)
     {

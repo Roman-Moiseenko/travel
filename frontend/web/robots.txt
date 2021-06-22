@@ -1,5 +1,7 @@
 User-agent: *
 
+Disallow: /test
+
 Disallow: /ru/cabinet
 Disallow: /en/cabinet
 Disallow: /ru/login

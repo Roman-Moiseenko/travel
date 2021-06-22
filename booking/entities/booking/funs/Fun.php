@@ -495,4 +495,9 @@ class Fun extends BaseObjectOfBooking
     {
         return '/fun/common?id=' . $this->id;
     }
+
+    public function getVideos(): ActiveQuery
+    {
+        // TODO: Implement getVideos() method.
+    }
 }

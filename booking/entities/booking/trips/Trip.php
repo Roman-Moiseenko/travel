@@ -37,6 +37,7 @@ use yii\db\ActiveQuery;
  * @property Type[] $types
  * @property Photo $mainPhoto
  * @property Photo[] $photos
+ * @property Video[] $videos
 
  */
 class Trip extends BaseObjectOfBooking
@@ -158,5 +159,11 @@ class Trip extends BaseObjectOfBooking
     public function linkAdmin(): string
     {
         return '/trip/common?id=' . $this->id;
+    }
+
+    public function getVideos(): ActiveQuery
+    {
+        return $this->hasMany(Video::class, ['trip_id' => 'id'])->orderBy(['sort' => SORT_ASC]);
+
     }
 }

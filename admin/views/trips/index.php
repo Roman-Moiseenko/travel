@@ -17,8 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="category-index">
     <p>
         <?= Html::a('Создать Тур', Url::to('trip/common/create'), ['class' => 'btn btn-success']) ?>
-
     </p>
+    <label>Внимание! Для размещения на сайте туров Вы должны быть, либо зарегистрированным туроператором, если размещаете свои туры, либо турагентом, заключившим договор с туроператорам(и)</label>
+    <label style="color: red">Раздел находится в разработке</label>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

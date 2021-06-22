@@ -19,4 +19,5 @@ class Filling
     const COMFORT_ROOM = 11;
     const FINANCE = 12;
     const CALENDAR = 13;
+    const VIDEOS = 14;
 }

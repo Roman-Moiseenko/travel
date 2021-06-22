@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f550cbe7fabf1b3b46c48b83bceb641",
+    "content-hash": "661f147c1147d8499a29391c7384031f",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",
@@ -121,7 +121,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -142,12 +142,12 @@
             "version": "v1.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
+                "url": "git@github.com:eternicode/bootstrap-datepicker.git",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
+                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/fb8776d65825068b9f914ab37d6fd847c951f488",
                 "reference": "fb8776d65825068b9f914ab37d6fd847c951f488"
             },
             "require": {
@@ -2772,6 +2772,47 @@
                 "yii2"
             ],
             "time": "2019-06-22T13:36:08+00:00"
+        },
+        {
+            "name": "lesha724/yii2-youtube-widget",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lesha724/yii2-youtube-widget.git",
+                "reference": "a731e80deab7eb8f1ffa06e3f134153f1b7d0144"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lesha724/yii2-youtube-widget/zipball/a731e80deab7eb8f1ffa06e3f134153f1b7d0144",
+                "reference": "a731e80deab7eb8f1ffa06e3f134153f1b7d0144",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "lesha724\\youtubewidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lesha724",
+                    "email": "neff.alexey@gmail.com"
+                }
+            ],
+            "description": "yii2-youtube-widget",
+            "keywords": [
+                "extension",
+                "yii2",
+                "youtube"
+            ],
+            "time": "2017-03-03T13:18:40+00:00"
         },
         {
             "name": "masterexploder/phpthumb",
@@ -8198,7 +8239,8 @@
         "ext-simplexml": "*",
         "ext-gd": "*",
         "ext-exif": "*",
-        "ext-xmlwriter": "*"
+        "ext-xmlwriter": "*",
+        "ext-curl": "*"
     },
     "platform-dev": []
 }

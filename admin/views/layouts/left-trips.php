@@ -27,7 +27,7 @@ use yii\helpers\Url;
                 'items' => [
                     ['label' => 'Описание', 'icon' => 'align-justify', 'url' => ['/trip/common', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/common'],
                     ['label' => 'Фотографии', 'icon' => 'camera-retro', 'url' => ['/trip/photos', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/photos'],
-                    ['label' => 'Видообзоры', 'icon' => 'video', 'url' => ['/trip/video', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/video'],
+                    ['label' => 'Видообзоры', 'icon' => 'video', 'url' => ['/trip/videos', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/videos'],
                     ['label' => 'Параметры', 'iconStyle' => 'fab', 'icon' => 'wpforms', 'url' => ['/trip/params', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/params'],
                     ['label' => 'Проживание', 'icon' => 'laptop-house', 'url' => ['/trip/', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/'],
                     ['label' => 'Мероприятия', 'icon' => 'directions', 'url' => ['/trip/', 'id' => $this->params['id']], 'active' => $this->context->id == 'trip/'],

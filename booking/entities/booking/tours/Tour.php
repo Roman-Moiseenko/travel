@@ -510,4 +510,8 @@ class Tour extends BaseObjectOfBooking
         return '/tour/common?id=' . $this->id;
     }
 
+    public function getVideos(): ActiveQuery
+    {
+        // TODO: Implement getVideos() method.
+    }
 }

@@ -49,6 +49,7 @@ use yii\db\ActiveRecord;
  * @property Legal $legal
  * @property User $user
  * @property BasePhoto[] $photos
+ * @property BaseVideo[] $videos
  * @property BaseReview[] $reviews
  * @property BaseCalendar[] $actualCalendar
  *
@@ -161,6 +162,8 @@ abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjec
 
     abstract public function getPhotos(): ActiveQuery;
 
+    abstract public function getVideos(): ActiveQuery;
+
     public function getLegal(): ActiveQuery
     {
         return $this->hasOne(Legal::class, ['id' => 'legal_id']);
@@ -179,6 +182,7 @@ abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjec
                 'relations' => [
                     'photos',
                     'reviews',
+                    'videos',
                 ],
             ],
             MetaBehavior::class,
@@ -202,15 +206,89 @@ abstract class BaseObjectOfBooking extends ActiveRecord implements ActivateObjec
         }
     }
 
+//====== Video         ============================================
+
+    public function addVideo(BaseVideo $video): void
+    {
+        $videos = $this->videos;
+        $videos[] = $video;
+        $this->updateVideos($videos);
+        $this->updated_at = time();
+    }
+
+    public function editVideo($id, BaseVideo $_video): void
+    {
+        $videos = $this->videos;
+        foreach ($videos as $i => $video) {
+            if ($video->isIdEqualTo($id)) {
+                $videos[$i] = $_video;
+                $this->updateVideos($videos);
+                return;
+            }
+        }
+        throw new \DomainException('Видео не найдено.');
+    }
+
+    public function removeVideo($id): void
+    {
+        $videos = $this->videos;
+        foreach ($videos as $i => $video) {
+            if ($video->isIdEqualTo($id)) {
+                unset($videos[$i]);
+                $this->updateVideos($videos);
+                return;
+            }
+        }
+        throw new \DomainException('Видео не найдено.');
+    }
+
+    public function removeVideos(): void
+    {
+        $this->updateVideos([]);
+    }
+
+    public function moveVideoUp($id): void
+    {
+        $videos = $this->videos;
+        foreach ($videos as $i => $video) {
+            if ($video->isIdEqualTo($id)) {
+                if ($prev = $videos[$i - 1] ?? null) {
+                    $videos[$i - 1] = $video;
+                    $videos[$i] = $prev;
+                    $this->updateVideos($videos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Видео не найдено.');
+    }
+
+    public function moveVideoDown($id): void
+    {
+        $videos = $this->videos;
+        foreach ($videos as $i => $video) {
+            if ($video->isIdEqualTo($id)) {
+                if ($next = $videos[$i + 1] ?? null) {
+                    $videos[$i] = $next;
+                    $videos[$i + 1] = $video;
+                    $this->updateVideos($videos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Видео не найдено.');
+    }
+
+    protected function updateVideos(array $videos): void
+    {
+        foreach ($videos as $i => $video) {
+            $video->setSort($i);
+        }
+        $this->videos = $videos;
+        //$this->populateRelation('mainPhoto', reset($photos));
+    }
 
 //====== Photo         ============================================
-
-    public function addPhotoClass(BasePhoto $photo): void
-    {
-        $photos = $this->photos;
-        $photos[] = $photo;
-        $this->updatePhotos($photos);
-    }
 
     public function addPhoto(BasePhoto $photo): void
     {
