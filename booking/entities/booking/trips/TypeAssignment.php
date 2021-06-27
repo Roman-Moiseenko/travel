@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
 /**
  * Class AssignExtra
  * @package booking\entities\booking\trips
- * @property integer $tours_id
  * @property integer $type_id
+ * @property int $trip_id [int]
  */
 class TypeAssignment extends ActiveRecord
 {

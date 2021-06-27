@@ -104,3 +104,8 @@ $this->params['breadcrumbs'][] = 'Видео';
         </div>
     </div>
 </div>
+
+<?php if ($trip->filling) {
+    echo Html::a('Далее >>', Url::to(['filling', 'id' => $trip->id]), ['class' => 'btn btn-primary']);
+}
+?>

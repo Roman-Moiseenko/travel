@@ -5,6 +5,7 @@ namespace booking\entities\booking\trips;
 
 use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
+use booking\entities\booking\trips\placement\Placement;
 use booking\entities\Meta;
 use booking\helpers\SlugHelper;
 use booking\helpers\StatusHelper;
@@ -32,16 +33,22 @@ use yii\db\ActiveQuery;
  * @property integer $views  Кол-во просмотров
  * @property integer $public_at Дата публикации
  * @property integer $cost_base
-
  * @property TypeAssignment[] $typeAssignments
  * @property Type[] $types
+ * @property Type $type
  * @property Photo $mainPhoto
  * @property Photo[] $photos
  * @property Video[] $videos
-
+ * @property PlacementAssignment[] $placementAssignments
+ * @property Placement[] $placements
+ * @property int $params_duration [int]
+ * @property int $params_transfer [int]
+ * @property int $params_capacity [int]
  */
 class Trip extends BaseObjectOfBooking
 {
+    /** @var $params TripParams */
+    public $params;
 
     public static function create($user_id, $name, $name_en, $description, $description_en, $type_id, $slug): self
     {
@@ -72,10 +79,29 @@ class Trip extends BaseObjectOfBooking
         $this->description_en = $description_en;
     }
 
+    public function setParams(TripParams $params): void
+    {
+        $this->params = $params;
+    }
+
+    public function setCost($cost): void
+    {
+        $this->cost_base = $cost;
+    }
+
+    public function isPlacementAssign($id): bool
+    {
+        foreach ($this->placementAssignments as $assignment) {
+            if ($assignment->isFor($id)) return true;
+        }
+        return false;
+    }
+
     public static function tableName()
     {
         return '{{%booking_trips}}';
     }
+
     public function behaviors()
     {
         $relations =
@@ -84,12 +110,66 @@ class Trip extends BaseObjectOfBooking
                     'class' => SaveRelationsBehavior::class,
                     'relations' => [
                         'typeAssignments',
+                        'placementAssignments',
                         //'actualCalendar',
                     ],
                 ],
             ];
         return array_merge($relations, parent::behaviors());
     }
+
+    public function afterFind(): void
+    {
+        $this->params = new TripParams(
+            $this->getAttribute('params_duration') ?? null,
+            $this->getAttribute('params_transfer') ?? null,
+            $this->getAttribute('params_capacity') ?? null
+        );
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert): bool
+    {
+        if ($this->params) {
+            $this->setAttribute('params_duration', $this->params->duration);
+            $this->setAttribute('params_transfer', $this->params->transfer);
+            $this->setAttribute('params_capacity', $this->params->capacity);
+        }
+        return parent::beforeSave($insert);
+    }
+
+    //**** Категории дополнительные (AssignType) **********************************
+
+    public function assignPlacement($id): void
+    {
+        $assigns = $this->placementAssignments;
+        foreach ($assigns as $assign) {
+            if ($assign->isFor($id)) {
+                return;
+            }
+        }
+        $assigns[] = PlacementAssignment::create($id);
+        $this->placementAssignments = $assigns;
+    }
+
+    public function revokePlacement($id): void
+    {
+        $assigns = $this->placementAssignments;
+        foreach ($assigns as $i => $assign) {
+            if ($assign->isFor($id)) {
+                unset($assigns[$i]);
+                $this->placementAssignments = $assigns;
+                return;
+            }
+        }
+        throw new \DomainException('Assignment is not found.');
+    }
+
+    public function clearPlacement(): void
+    {
+        $this->placementAssignments = [];
+    }
+
     //**** Категории дополнительные (AssignType) **********************************
 
     public function assignType($id): void
@@ -151,9 +231,24 @@ class Trip extends BaseObjectOfBooking
         return $this->hasMany(TypeAssignment::class, ['trip_id' => 'id']);//->orderBy('sort');
     }
 
+    public function getType(): ActiveQuery
+    {
+        return $this->hasOne(Type::class, ['id' => 'type_id']);
+    }
+
     public function getTypes(): ActiveQuery
     {
         return $this->hasMany(Type::class, ['id' => 'type_id'])->via('typeAssignments');
+    }
+
+    public function getPlacementAssignments(): ActiveQuery
+    {
+        return $this->hasMany(PlacementAssignment::class, ['trip_id' => 'id']);//->orderBy('sort');
+    }
+
+    public function getPlacements(): ActiveQuery
+    {
+        return $this->hasMany(Placement::class, ['id' => 'placement_id'])->via('placementAssignments');
     }
 
     public function linkAdmin(): string

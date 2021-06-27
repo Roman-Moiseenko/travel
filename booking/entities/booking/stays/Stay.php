@@ -61,9 +61,6 @@ use yii\web\UploadedFile;
  * @property integer $to_center
  * @property integer $min_rent
  *
-
- *
-
  * @property integer $cost_base
  * @property integer $guest_base
  * @property integer $cost_add

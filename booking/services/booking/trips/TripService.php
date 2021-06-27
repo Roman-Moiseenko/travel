@@ -7,6 +7,7 @@ use booking\entities\booking\AgeLimit;
 use booking\entities\booking\trips\Photo;
 use booking\entities\booking\trips\ReviewTrip;
 use booking\entities\booking\trips\Trip;
+use booking\entities\booking\trips\TripParams;
 use booking\entities\booking\trips\Video;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
@@ -14,6 +15,8 @@ use booking\entities\Meta;
 use booking\forms\booking\PhotosForm;
 use booking\forms\booking\ReviewForm;
 use booking\forms\booking\trips\TripCommonForm;
+use booking\forms\booking\trips\TripFinanceForm;
+use booking\forms\booking\trips\TripParamsForm;
 use booking\forms\booking\VideosForm;
 use booking\forms\MetaForm;
 use booking\helpers\Filling;
@@ -118,6 +121,16 @@ class TripService
             }
             $this->trips->save($trip);
         });
+    }
+
+    public function setFinance(int $id, TripFinanceForm $form)
+    {
+        $trip = $this->trips->get($id);
+        $trip->setLegal($form->legal_id);
+        $trip->setCost($form->cost_base);
+        $trip->setPrepay($form->prepay);
+        $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+        $this->trips->save($trip);
     }
 
 //***** Video
@@ -229,69 +242,44 @@ class TripService
         $this->trips->save($trip);
     }
 
+    public function setParams($id, TripParamsForm $form): void
+    {
+        $trip = $this->trips->get($id);
+        $trip->setParams(
+            new TripParams(
+                $form->duration,
+                $form->transfer,
+                $form->capacity,
+            )
+        );
+        $this->trips->save($trip);
+    }
+
     /*
-        public function setParams($id, TripParamsForm $form): void
-        {
-            $trip = $this->trips->get($id);
-            $trip->setParams(
-                new TripParams(
-                    $form->duration,
-                    new BookingAddress(
-                        $form->beginAddress->address,
-                        $form->beginAddress->latitude,
-                        $form->beginAddress->longitude
-                    ),
-                    new BookingAddress(
-                        $form->endAddress->address,
-                        $form->endAddress->latitude,
-                        $form->endAddress->longitude
-                    ),
-                    new AgeLimit(
-                        $form->ageLimit->on,
-                        $form->ageLimit->ageMin,
-                        $form->ageLimit->ageMax
-                    ),
-                    $form->private,
-                    $form->groupMin,
-                    $form->groupMax
-                )
-            );
-            if ($trip->isPrivate()) {
+            public function setFinance($id, TripFinanceForm $form): void
+            {
+                $trip = $this->trips->get($id);
+                $trip->setLegal($form->legal_id);
                 $trip->setCost(
                     new Cost(
-                        $trip->baseCost->adult,
-                        null,
-                        null
+                        $form->baseCost->adult,
+                        $form->baseCost->child,
+                        $form->baseCost->preference
                     )
                 );
+                $trip->setPrepay($form->prepay);
+                $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+                $trip->setExtraTime($form->extra_time_cost, $form->extra_time_max);
+                $trip->clearCapacity();
+                $trip->clearTransfer();
+                $this->trips->save($trip);
+                foreach ($form->capacities as $capacity_id)
+                    $trip->assignCapacity($capacity_id);
+                foreach ($form->transfers as $transfer_id)
+                    $trip->assignTransfer($transfer_id);
+                $this->trips->save($trip);
             }
-            $this->trips->save($trip);
-        }
-
-        public function setFinance($id, TripFinanceForm $form): void
-        {
-            $trip = $this->trips->get($id);
-            $trip->setLegal($form->legal_id);
-            $trip->setCost(
-                new Cost(
-                    $form->baseCost->adult,
-                    $form->baseCost->child,
-                    $form->baseCost->preference
-                )
-            );
-            $trip->setPrepay($form->prepay);
-            $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
-            $trip->setExtraTime($form->extra_time_cost, $form->extra_time_max);
-            $trip->clearCapacity();
-            $trip->clearTransfer();
-            $this->trips->save($trip);
-            foreach ($form->capacities as $capacity_id)
-                $trip->assignCapacity($capacity_id);
-            foreach ($form->transfers as $transfer_id)
-                $trip->assignTransfer($transfer_id);
-            $this->trips->save($trip);
-        }
-    */
+        */
     public function verify($id)
     {
         $trip = $this->trips->get($id);
@@ -421,10 +409,10 @@ class TripService
         $next = [
             Filling::COMMON => Filling::PHOTOS,
             Filling::PHOTOS => Filling::VIDEOS,
-            Filling::VIDEOS => null,
-            //Filling::VIDEOS => Filling::PARAMS,
-            Filling::PARAMS => Filling::EXTRA,
-            Filling::EXTRA => Filling::FINANCE,
+            Filling::VIDEOS => Filling::PARAMS,
+            Filling::PARAMS => Filling::PLACEMENT,
+            Filling::PLACEMENT => Filling::ACTIVITY,
+            Filling::ACTIVITY => Filling::FINANCE,
             Filling::FINANCE => Filling::CALENDAR,
             Filling::CALENDAR => null,
         ];
@@ -441,11 +429,13 @@ class TripService
             Filling::PHOTOS => ['/trip/photos/index', 'id' => $trip->id],
             Filling::VIDEOS => ['/trip/videos/index', 'id' => $trip->id],
             Filling::PARAMS => ['/trip/params/update', 'id' => $trip->id],
-            Filling::EXTRA => ['/trip/extra/index', 'id' => $trip->id],
+            Filling::PLACEMENT => ['/trip/placement/index', 'id' => $trip->id],
+            Filling::ACTIVITY => ['/trip/activity/index', 'id' => $trip->id],
             Filling::FINANCE => ['/trip/finance/update', 'id' => $trip->id],
             Filling::CALENDAR => ['/trip/calendar/index', 'id' => $trip->id],
         ];
         return $redirect[$trip->filling];
     }
+
 
 }

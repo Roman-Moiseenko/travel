@@ -20,4 +20,6 @@ class Filling
     const FINANCE = 12;
     const CALENDAR = 13;
     const VIDEOS = 14;
+    const PLACEMENT = 15;
+    const ACTIVITY = 16;
 }

@@ -1,0 +1,25 @@
+<?php
+
+use booking\entities\booking\trips\Trip;
+use booking\forms\booking\trips\PlacementForm;
+
+/* @var $this \yii\web\View */
+/* @var $model PlacementForm */
+/* @var $trip Trip */
+
+$this->title = 'Создать место проживания';
+$this->params['id'] = $trip->id;
+$this->params['breadcrumbs'][] = ['label' => 'Туры', 'url' => ['/trips']];
+$this->params['breadcrumbs'][] = ['label' => $trip->name, 'url' => ['/trip/common', 'id' => $trip->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Проживание', 'url' => ['/trip/placement/index', 'id' => $trip->id]];
+$this->params['breadcrumbs'][] = 'Создать место проживания';
+
+?>
+
+<div class="tour-create">
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ])?>
+
+</div>

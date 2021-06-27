@@ -68,7 +68,11 @@ use yii\helpers\Url;
                         ]],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
                         ['label' => '- Экскурсии (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
-                        ['label' => '- Туры (категории)', 'icon' => 'suitcase', 'url' => ['/guides/trip-type'], 'active' => $this->context->id == 'guides/trip-type'],
+                        ['label' => '- Туры', 'icon' => 'suitcase', 'items' => [
+                            ['label' => '-- категории', 'icon' => false, 'url' => ['/guides/trip-type'], 'active' => $this->context->id == 'guides/trip-type'],
+                            ['label' => '-- проживание', 'icon' => false, 'url' => ['/guides/placement-type'], 'active' => $this->context->id == 'guides/placement-type'],
+                            ['label' => '-- питание', 'icon' => false, 'url' => ['/guides/meal-type'], 'active' => $this->context->id == 'guides/meal-type'],
+                        ]],
                         ['label' => '- Авто (категории)', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
                         ['label' => '- Развлечения (категории)', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
                         ['label' => '- Жилье', 'icon' => 'house-user', 'items' => [

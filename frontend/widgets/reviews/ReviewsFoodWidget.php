@@ -13,7 +13,7 @@ class ReviewsFoodWidget extends Widget
     {
 
         if (count($this->reviews) == 0) return;
-        $array = [];
+        /*$array = [];
         foreach ($this->reviews as $review) {
             $vote = RatingWidget::widget(['rating' => $review->vote]);
             $fullname = $review->username;
@@ -40,9 +40,9 @@ class ReviewsFoodWidget extends Widget
                         </div>
                     </div>
 HTML;
-        }
-        return $this->render('review', [
-            'array' => json_encode($array)
+        }*/
+        return $this->render('review_food', [
+            'reviews' => $this->reviews,
         ]);
     }
 }

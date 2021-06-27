@@ -43,7 +43,7 @@ class CostCalendar extends BaseCalendar
 
     public function isEmpty(): bool
     {
-        return true;
+        //return true;
         $onDays = BookingStayOnDay::find()->andWhere(['calendar_id' => $this->id])->count();
         return $onDays == 0;
     }

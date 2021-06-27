@@ -54,7 +54,12 @@ class VideosController extends Controller
     public function actionIndex($id)
     {
         $trip = $this->findModel($id);
-        if ($trip->filling) return $this->redirect($this->service->redirect_filling($trip));
+        if ($trip->filling)
+            if ($trip->filling == Filling::VIDEOS) {
+                $this->layout = 'main-create';
+            } else {
+                return $this->redirect($this->service->redirect_filling($trip));
+            }
         return $this->render('view', [
             'trip' => $trip,
         ]);
@@ -73,11 +78,8 @@ class VideosController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->addVideo($trip->id, $form);
-                if ($trip->filling) {
-                    return $this->redirect($this->service->next_filling($trip));
-                } else {
-                    return $this->redirect(['/trip/videos/index', 'id' => $id]);
-                }
+                return $this->redirect(['/trip/videos/index', 'id' => $id]);
+
             } catch (\DomainException $e) {
                 \Yii::$app->errorHandler->logException($e);
                 \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -131,6 +133,12 @@ class VideosController extends Controller
     {
         $this->service->moveVideoDown($id, $video_id);
         return $this->redirect(['/trip/videos/index', 'id' => $id]);
+    }
+
+    public function actionFilling($id)
+    {
+        $trip = $this->findModel($id);
+        if ($trip->filling && $trip->filling == Filling::VIDEOS) return $this->redirect($this->service->next_filling($trip));
     }
 
     protected function findModel($id)

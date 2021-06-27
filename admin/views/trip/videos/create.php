@@ -28,12 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ])?>
 
     <div class="form-group p-2">
-        <?php if ($trip->filling) {
-            echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
-        } else {
-            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
-        }
-        ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 
