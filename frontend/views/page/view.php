@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $page \booking\entities\Page */
@@ -17,6 +18,8 @@ foreach ($page->parents as $parent) {
         $this->params['breadcrumbs'][] = ['label' => $parent->title, 'url' => ['view', 'id' => $parent->id]];
     }
 }
+$this->params['canonical'] = Url::to(['/' . $page->slug], true);
+
 $this->params['breadcrumbs'][] = $page->title;
 ?>
 <article class="page-view">

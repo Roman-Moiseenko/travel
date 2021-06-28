@@ -14,13 +14,16 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = Lang::t('Регистрация на портале туристических услуг');
-//$this->params['breadcrumbs'][] = $this->title;
+$description = 'Регистрация на сайте для туристов и гостей Калининграда. После регистрации Вы сможете оплачивать туристические услуги';
+$this->params['canonical'] = Url::to(['/signup'], true);
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 ?>
 <div class="site-signup">
     <div class="row pt-4">
         <div class="col-sm-2 col-md-3 col-lg-4"></div>
         <div class="col-sm-8 col-md-6 col-lg-4">
-            <h3><?= Lang::t('Регистрация'); ?></h3>
+            <h1 style="font-size: 1.7rem !important;"><?= Lang::t('Регистрация') ?></h1>
             <div class="card">
                 <div class="card-body">
                     <?php $form = ActiveForm::begin([

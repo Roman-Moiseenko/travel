@@ -97,7 +97,7 @@ use yii\helpers\Url;
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="top-menu-a mt-1 nav-link"
-                       href="<?= Html::encode(Url::to(['/moving'])) ?>" title="<?= Lang::t('На главную') ?>">
+                       href="<?= Html::encode(Url::to(['/'])) ?>" title="<?= Lang::t('На главную') ?>">
                         <i class="fas fa-bars"></i>&#160;
                     </a>
                 </li>
@@ -113,13 +113,11 @@ use yii\helpers\Url;
                         <i class="far fa-building"></i>&#160;<?= Lang::t('Недвижимость') ?>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/faq' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">
                         <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
                 </li>
-
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/land' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
