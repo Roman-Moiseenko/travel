@@ -194,6 +194,11 @@ return [
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
 
+                'lands' => 'land/land/index',
+                'land/investment' => 'land/investment/index',
+                'land/map' => 'land/map/index',
+                'land/add' => 'land/add/index',
+
 
                 'tickets' => 'tickets/tickets/index',
 

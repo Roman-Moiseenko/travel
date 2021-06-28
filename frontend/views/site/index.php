@@ -171,7 +171,7 @@ $this->registerJs($script);
                     'url' => '/shops',
                     'img_name' => 'shop.jpg',
                     'img_alt' => 'Что купить в Калининграде',
-                    'caption' => 'Что купить',
+                    'caption' => 'Сувениры',
                 ]) ?>
             </div>
             <div class="col-3">
@@ -182,7 +182,14 @@ $this->registerJs($script);
                     'caption' => 'На ПМЖ',
                 ]) ?>
             </div>
-            <div class="col-3"></div>
+            <div class="col-3">
+                <?= $this->render('_button', [
+                    'url' => '/lands',
+                    'img_name' => 'land.jpg',
+                    'img_alt' => 'Купить-продать землю в Калининграде',
+                    'caption' => 'Земельные участки<br>Калининград',
+                ]) ?>
+            </div>
         </div>
     </div>
 </div>

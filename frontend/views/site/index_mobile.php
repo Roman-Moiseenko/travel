@@ -67,13 +67,19 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                 'url' => '/shops',
                 'img_name' => 'shop_mobile.jpg',
                 'img_alt' => 'Что купить в Калининграде',
-                'caption' => 'Что купить',
+                'caption' => 'Сувениры',
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/moving',
                 'img_name' => 'moving_mobile.jpg',
                 'img_alt' => 'На ПМЖ в Калининграде',
                 'caption' => 'На ПМЖ',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/lands',
+                'img_name' => 'land_mobile.jpg',
+                'img_alt' => 'Купить-продать землю в Калининграде',
+                'caption' => 'Земельные участки<br>Калининград',
             ]) ?>
         </div>
     </div>
