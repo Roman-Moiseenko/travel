@@ -1,11 +1,13 @@
 <?php
-?>
+
+use frontend\widgets\templates\ImageH2Widget; ?>
 
 <h2>Как выбрать куда переезжать, где лучше жить в России</h2>
-<?= $this->render('_image_h2', [
+<?= ImageH2Widget::widget([
+    'directory' => 'moving',
     'image_file' => 'text_3.jpg',
     'alt' => 'Как выбрать куда переезжать, где лучше жить в России',
-]) ?>
+]); ?>
 
 <b>Общие рекомендации</b>
 <p>

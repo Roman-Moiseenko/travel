@@ -1,10 +1,13 @@
 <?php
-?>
+
+use frontend\widgets\templates\ImageH2Widget;
+use frontend\widgets\templates\ImageH3Widget; ?>
 <h2>Как выбрать и купить недвижимость для переезда на ПМЖ</h2>
-<?= $this->render('_image_h2', [
+<?= ImageH2Widget::widget([
+    'directory' => 'moving',
     'image_file' => 'text_4.jpg',
     'alt' => 'Как выбрать и купить недвижимость для переезда на ПМЖ',
-]) ?>
+]); ?>
 
 <p>
     Если с регионом определились, приступайте к вариантам недвижимости, работы, медобслуживания и обучения.
@@ -25,10 +28,11 @@
     простом выборе.
 </p>
 <h3>Советы при покупке недвижимости туристу</h3>
-<?= $this->render('_image_h3', [
+<?= ImageH3Widget::widget([
+    'directory' => 'moving',
     'image_file' => 'text_4_01.jpg',
     'alt' => 'Советы при покупке недвижимости туристу',
-]) ?>
+]); ?>
 <p>
     При выборе своего будущего жилья важно учесть все основные аспекты:
 </p>

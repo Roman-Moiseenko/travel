@@ -1,14 +1,15 @@
 <?php
 /* @var $this yii\web\View */
 
-use frontend\widgets\moving\ImageForHeaderWidget; ?>
+use frontend\widgets\moving\ImageForHeaderWidget;
+use frontend\widgets\templates\ImageH2Widget; ?>
 
 <h2>Рынок жилья</h2>
-<?= ImageForHeaderWidget::widget([
+<?= ImageH2Widget::widget([
+    'directory' => 'moving/realty',
+    'image_file' => 'realty_1.jpg',
     'alt' => 'Рынок жилья в Калининграде',
-    'header' => 'h2',
-    'image' => '/realty/realty_1.jpg'
-]) ?>
+]); ?>
 <p>
     Цены на недвижимость в Калининграде и регионе резко поползли вверх с весны 2020 года после введения программы
     льготной ипотеки под 6,5% и ограничения на отдых за границей. Ежемесячно в Калининградскую область приезжало до 65

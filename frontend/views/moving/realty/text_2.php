@@ -1,14 +1,15 @@
 <?php
 /* @var $this yii\web\View */
 
-use frontend\widgets\moving\ImageForHeaderWidget; ?>
+use frontend\widgets\moving\ImageForHeaderWidget;
+use frontend\widgets\templates\ImageH2Widget; ?>
 
 <h2>Стоимость земельных участков под строительство</h2>
-<?= ImageForHeaderWidget::widget([
+<?= ImageH2Widget::widget([
+    'directory' => 'moving/realty',
+    'image_file' => 'realty_2.jpg',
     'alt' => 'Стоимость земельных участков под строительство',
-    'header' => 'h2',
-    'image' => '/realty/realty_2.jpg'
-]) ?>
+]); ?>
 <p>
     Много земли без инфраструктуры, и она не особо пользуется спросом. Но земельные участки в центре (например, в районе
     Рыбной деревни уходят по 30 млн.руб. за 2 Га. Плюс обременение до 100 млн. руб. На таких участках с обременениями

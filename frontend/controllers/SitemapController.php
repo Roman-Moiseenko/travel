@@ -168,6 +168,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
+                new IndexItem(Url::to(['lands'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 new IndexItem(Url::to(['faq-category'], true)),
             ]);
@@ -184,6 +185,19 @@ class SitemapController extends Controller
                     MapItem::DAILY
                 );
             }, $this->categoryFAQ->getAll()));
+        });
+    }
+
+    public function actionLands(): Response
+    {
+        return $this->renderSitemap('sitemap-lands', function () {
+            return $this->sitemap->generateMap(array_map(function ($item) {
+                return new MapItem(
+                    Url::to([$item], true),
+                    null,
+                    MapItem::ALWAYS
+                );
+            }, ['/lands', '/lands/investment', '/lands/map']));
         });
     }
 
