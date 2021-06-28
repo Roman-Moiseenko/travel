@@ -13,6 +13,11 @@ use yii\widgets\LinkPager;
 /* @var $category Category */
 $this->title = Lang::t('Что привезти с Калининграда');
 $this->params['breadcrumbs'][] = Lang::t('Каталог');
+
+$description = 'Что привезти из Калининграда сувениры из янтаря, ручная работа на память марципан картины, янтарная косметика, балтийский песок';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
+$this->params['canonical'] = Url::to(['/shops'], true);
 ?>
 <h1><?= Lang::t('Сувениры и подарки с Калининграда')?></h1>
 <hr>

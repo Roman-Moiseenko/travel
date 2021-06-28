@@ -22,6 +22,7 @@ foreach ($category->parents as $parent) {
 }
 $this->params['breadcrumbs'][] = $category->name;
 $this->params['active_category'] = $category;
+$this->params['canonical'] = Url::to(['/shop/catalog/'. $category->id], true);
 
 $this->params['id_category'] = $category->id;
 ?>
