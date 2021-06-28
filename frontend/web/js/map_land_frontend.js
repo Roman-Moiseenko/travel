@@ -6,8 +6,10 @@ $(document).ready(function () {
         let _init = 0;
         let _api = $('#ymap-params').data('api');
         let _lang = $('#ymap-params').data('lang');
-
-        $(document).ready(function () {
+        loadScript("https://api-maps.yandex.ru/2.1/?apikey=" + _api + "&lang=" + _lang, function () {
+            ymaps.load(init);
+        });
+       /* $(document).ready(function () {
             if (_init === 1) return;
             _init = 1;
             setTimeout(() => {
@@ -15,7 +17,7 @@ $(document).ready(function () {
                     ymaps.load(init);
                 });
             }, 1000);
-        });
+        });*/
     }
 
     function init() {
@@ -38,7 +40,7 @@ $(document).ready(function () {
             function loadLands() {
                 //Удаляем все нарисованные объекты
                 mapLand.geoObjects.removeAll();
-                $.post('/moving/land/get-lands', {}, function (data) {
+                $.post('/land/map/get-lands', {}, function (data) {
                     let collection = new ymaps.GeoObjectCollection(null, {});
                     let _result = JSON.parse(data);
                     for (let i = 0; i < _result.length; i++) {

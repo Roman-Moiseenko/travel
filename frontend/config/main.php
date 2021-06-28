@@ -185,7 +185,7 @@ return [
                 'moving/docs' => 'moving/docs/index',
                 'moving/realty' => 'moving/realty/index',
                 'moving/land' => 'moving/land/index',
-                'moving/land/get-lands' => 'moving/land/get-lands',
+                'land/map/get-lands' => 'land/map/get-lands',
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
 
