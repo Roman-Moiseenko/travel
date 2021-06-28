@@ -11,8 +11,8 @@ use yii\web\JqueryAsset;
 
 /* @var $this yii\web\View */
 /* @var $images array */
-$this->title = Lang::t('На отдых в Калининград - Кёнигсберг');
-$description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело';
+$this->title = Lang::t('Калининград для туристов и гостей, живи и отдыхай с нами');
+$description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело, переезд на ПМЖ, купить участок земли';
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
