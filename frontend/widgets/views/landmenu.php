@@ -123,9 +123,9 @@ use yii\helpers\Url;
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'land/add' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/land/add'])) ?>">
-                        <i class="far fa-question-circle"></i>
-                        &#160;<?= Lang::t('3й раздел') ?>
+                       href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
+                        <i class="fas fa-layer-group"></i>
+                        &#160;<?= Lang::t('Участки') ?>
                     </a>
                 </li>
                 <?php if ($user && $user->username == '+79118589719'): ?>

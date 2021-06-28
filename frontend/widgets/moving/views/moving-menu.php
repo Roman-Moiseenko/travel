@@ -103,27 +103,32 @@ use yii\helpers\Url;
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= isset($this->params['pages']) ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/info'])) ?>">&#160;<?= Lang::t('Информация') ?>
+                       href="<?= Html::encode(Url::to(['/moving/info'])) ?>">
+                        <i class="fas fa-info-circle"></i>&#160;<?= Lang::t('Информация') ?>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/realty' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">&#160;<?= Lang::t('Недвижимость') ?>
+                       href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">
+                        <i class="far fa-building"></i>&#160;<?= Lang::t('Недвижимость') ?>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/faq' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">&#160;<?= Lang::t('Форум') ?></a>
+                       href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">
+                        <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
                 </li>
 
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/land' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/land'])) ?>">&#160;<?= Lang::t('Участки') ?></a>
+                       href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
+                        <i class="fas fa-layer-group"></i>&#160;<?= Lang::t('Участки') ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">&#160;<?= Lang::t('Бизнес') ?></a>
+                       href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">
+                        <i class="fas fa-business-time"></i>&#160;<?= Lang::t('Бизнес') ?></a>
                 </li>
             </ul>
         </div>
