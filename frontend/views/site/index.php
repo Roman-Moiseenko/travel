@@ -97,14 +97,18 @@ $this->registerJs($script);
                 <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
                 <div class="container">
                     <div class="carousel-caption">
-                        <p class="landing-h1"><?= Lang::t('Кёнигсберг') ?></p>
+
                         <?php if ($i == 0) {
-                            echo '<h1 class="landing-h2">';
-                        } else {
+                            echo '<h1><p class="landing-h1">' . Lang::t('Калининград') . '</p>';
                             echo '<p class="landing-h2">';
-                        } ?><span class="line-t"></span><?= Lang::t('На отдых в Калининградскую область') ?><span
-                                class="line-b"></span><?php if ($i == 0) {
-                            echo '</h1>';
+                        } else {
+                            echo '<p class="landing-h1">' . Lang::t('Калининград') . '</p>';
+                            echo '<p class="landing-h2">';
+                        } ?>
+                        <span class="line-t"></span><?= Lang::t('для туристов и гостей') ?><span
+                                class="line-b"></span>
+                        <?php if ($i == 0) {
+                            echo '</p></h1>';
                         } else {
                             echo '</p>';
                         } ?>

@@ -24,7 +24,7 @@ class m210626_182650_create_booking_trips_placement_room_comfort_assign_table ex
         $this->createIndex('{{%idx-booking_trips_placement_room_comfort_assign-comfort_id}}', '{{%booking_trips_placement_room_comfort_assign}}', 'comfort_id');
 
         $this->addForeignKey('{{%fk-booking_trips_placement_room_comfort_assign-room_id}}', '{{%booking_trips_placement_room_comfort_assign}}', 'room_id', '{{%booking_trips_placement_room}}', 'id', 'CASCADE', 'RESTRICT');
-        $this->addForeignKey('{{%fk-booking_trips_placement_room_comfort_assign-comfort_id}}', '{{%booking_trips_placement_room_comfort_assign}}', 'comfort_id', '{{%booking_stays_comfort}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('{{%fk-booking_trips_placement_room_comfort_assign-comfort_id}}', '{{%booking_trips_placement_room_comfort_assign}}', 'comfort_id', '{{%booking_stays_comfort_room}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
 

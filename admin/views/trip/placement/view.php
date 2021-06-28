@@ -117,7 +117,10 @@ $this->params['breadcrumbs'][] = $placement->name;
         <div class="card-body">
             <?php foreach ($placement->rooms as $room): ?>
             <div class="card card-info">
-                <div class="card-header"><?= $room->name ?></div>
+                <div class="card-header">
+                    <?= $room->name ?>
+                    <?= Html::a('Редактировать', Url::to(['trip/placement/rooms', 'id' => $trip->id, 'placement_id' => $placement->id, 'room_id' => $room->id]), ['class' => 'btn btn-primary ml-2']) ?>
+                </div>
                 <div class="card-body">
                     <div class="row" xmlns:fb="http://www.w3.org/1999/xhtml">
                         <div class="col">
