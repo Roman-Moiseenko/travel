@@ -13,6 +13,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = Lang::t('Где поесть в Калининграде - рестораны, кафе, доставка');
+$description = 'Рестораны Калининграда где недорого и вкусно поесть кафе, пиццерии, кофейни, морепродукты, попить кофес круассанами, заказать пиво в пабе и баре, перекусить суши';
+$this->registerMetaTag(['name' =>'description', 'content' => $description]);
+$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->params['canonical'] = Url::to(['/foods'], true);
 ?>
 

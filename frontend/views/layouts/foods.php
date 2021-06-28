@@ -1,16 +1,11 @@
 <?php
-/* @var $this \yii\web\View */
 
+/* @var $this \yii\web\View */
 /* @var $content string */
 
 use yii\helpers\Url;
 
-$description = 'Рестораны Калининграда где недорого и вкусно поесть кафе, пиццерии, кофейни, морепродукты, попить кофес круассанами, заказать пиво в пабе и баре, перекусить суши';
-$this->registerMetaTag(['name' =>'description', 'content' => $description]);
-$this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'где поесть,ресторан,Калининград,кафе,кухня,пить кофе,деликатесы']);
-
-
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
 <div class="row">

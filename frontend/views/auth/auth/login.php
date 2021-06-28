@@ -19,8 +19,6 @@ $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 ?>
 <div class="site-login">
-
-
     <div class="row pt-4">
         <div class="col-sm-2 col-md-3 col-lg-4"></div>
         <div class="col-sm-8 col-md-6 col-lg-4">
