@@ -65,8 +65,7 @@ $mobile = SysHelper::isMobile();
                                         </span>
                     </div>
                     <div class="ml-auto">
-
-                        <?php if ($post->isActive() && $user->id == $message->user_id && !$user->preferences->isForumLock()): ?>
+                        <?php if ($user && $post->isActive() && $user->id == $message->user_id && !$user->preferences->isForumLock()): ?>
                             <a class="btn btn-default"
                                href="<?= Url::to(['forum/update-message', 'id' => $message->id]) ?>"><i
                                         class="fas fa-pen"></i></a>
@@ -102,7 +101,8 @@ $mobile = SysHelper::isMobile();
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <?php if ($post->isActive()): ?> <!-- Если тема не заблокирована-->
+            <?php if ($user): ?> <!-- Если авторизован-->
+                <?php if ($post->isActive()): ?> <!-- Если тема не заблокирована-->
                 <?php if ($user->preferences->isForumLock()): ?><!-- Если пользователь не заблокирован-->
                     <span>Вы не можете оставить сообщение, обратитесь к Модератору</span>
                 <?php else: ?>
@@ -126,6 +126,9 @@ $mobile = SysHelper::isMobile();
                 <?php endif; ?>
             <?php else: ?>
                 <span>Данная тема закрыта, и добавлять сообщения невозможно</span>
+            <?php endif; ?>
+            <?php else: ?>
+            <span><a href="<?= Url::to(['/login'])?>">Авторизуйтесь на сайте</a>, чтоб оставлять сообщения</span>
             <?php endif; ?>
         </div>
     </div>

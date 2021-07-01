@@ -95,8 +95,10 @@ class ForumController extends Controller
         $messages = $this->posts->getMessages($post->id);
         /**** ПЕРЕДЕЛАТЬ  !!!!!!! **/
         $user = $this->loginService->user();
-        $user->readForum($id);
-        $user->save();
+        if ($user) {
+            $user->readForum($id);
+            $user->save();
+        }
         /** **************** **/
         $form = new MessageForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {

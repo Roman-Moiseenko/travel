@@ -39,9 +39,10 @@ class UserForumHelper
 
     public static function isReadPost($post_id): bool
     {
+        if (\Yii::$app->user->isGuest) return false;
         $user = User::findOne(\Yii::$app->user->id);
         $post = Post::findOne($post_id);
-        return $user->isReadForum($post_id, $post->update_at);
+        return $user->isReadForum($post_id, $post->update_at ?? $post->created_at);
     }
 
     public static function status($forum_role)
@@ -76,24 +77,24 @@ class UserForumHelper
         $text = preg_replace('~\[s\](.+?)\[/s\]~m', '<s>$1</s>', $text);*/
 
         //Картинки и ссылки
-        $text = preg_replace('~\[img\](.+?)\[/img\]~m', '<a href="$1" rel="nofollow" target="_blank"><img src="$1" style="max-width: 100px; max-height: 100px"/></a>', $text);
-        $text = preg_replace('~\[url=(.+?)\](.+?)\[/url\]~m', '<a href="$1" rel="nofollow" target="_blank">$2</a>', $text);
-        $text = preg_replace('~\[quote\](.+?)\[/quote\]~m', '<blockquote>$1</blockquote>', $text);
+        $text = preg_replace('~\[img\](.+?)\[/img\]~s', '<a href="$1" rel="nofollow" target="_blank"><img src="$1" style="max-width: 100px; max-height: 100px"/></a>', $text);
+        $text = preg_replace('~\[url=(.+?)\](.+?)\[/url\]~s', '<a href="$1" rel="nofollow" target="_blank">$2</a>', $text);
+
         //шрифт и цвет
 
-        $text = preg_replace('~\[size=(.+?)\](.+?)\[/size\]~mxi', '<span style="font-size: $1%">$2</span>', $text);
-        $text = preg_replace('~\[color=(.+?)\](.+?)\[/color\]~mxi', '<span style="color: $1">$2</span>', $text);
+        $text = preg_replace('~\[size=(.+?)\](.+?)\[/size\]~s', '<span style="font-size: $1%">$2</span>', $text);
+        $text = preg_replace('~\[color=(.+?)\](.+?)\[/color\]~s', '<span style="color: $1">$2</span>', $text);
         //Список
 
-        $text = preg_replace('~\[\*\](.+?)\[\/\*\]~m', '<li>$1</li>', $text);
-        $text = preg_replace('~\[list\](.+?)\[\/list\]~m', '<ul>$1</ul>', $text);
-        $text = preg_replace('~\[list=1\](.+?)\[\/list\]~m', '<ol>$1</ol>', $text);
+        $text = preg_replace('~\[\*\](.+?)\[\/\*\]~s', '<li>$1</li>', $text);
+        $text = preg_replace('~\[list\](.+?)\[\/list\]~s', '<ul>$1</ul>', $text);
+        $text = preg_replace('~\[list=1\](.+?)\[\/list\]~s', '<ol>$1</ol>', $text);
 
         //Выравнивание
-        $text = preg_replace('~\[left\](.+?)\[/left\]~m', '<div style="width: 100%; text-align: left">$1</div>', $text);
-        $text = preg_replace('~\[center\](.+?)\[/center\]~m', '<div style="width: 100%; text-align: center">$1</div>', $text);
-        $text = preg_replace('~\[right\](.+?)\[/right\]~m', '<div style="width: 100%; text-align: right">$1</div>', $text);
-
+        $text = preg_replace('~\[left\](.+?)\[/left\]~s', '<div style="width: 100%; text-align: left">$1</div>', $text);
+        $text = preg_replace('~\[center\](.+?)\[/center\]~s', '<div style="width: 100%; text-align: center">$1</div>', $text);
+        $text = preg_replace('~\[right\](.+?)\[/right\]~s', '<div style="width: 100%; text-align: right">$1</div>', $text);
+        $text = preg_replace('~\[quote\](.+?)\[/quote\]~s', '<blockquote>$1</blockquote>', $text);
         return $text;
 
     }

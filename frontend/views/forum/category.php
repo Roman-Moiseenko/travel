@@ -27,6 +27,7 @@ $mobile = SysHelper::isMobile();
 <div class="card">
     <div class="card-body">
         <p>
+            <?php if ($user): ?>
             <?php if ($user->preferences->isForumLock()): ?>
                 <span>Вы не можете создавать новые темы, обратитесь к Модератору</span>
             <?php else: ?>
@@ -35,11 +36,12 @@ $mobile = SysHelper::isMobile();
                     'caption' => 'Новая тема',
                 ]) ?>
             <?php endif; ?>
+            <?php endif; ?>
         </p>
         <table class="table table-striped">
             <thead>
             <tr>
-                <?php if ($user->preferences->isForumUpdate()): ?>
+                <?php if ($user && $user->preferences->isForumUpdate()): ?>
                 <th class="col_admin"></th>
                 <?php endif; ?>
 
@@ -52,7 +54,7 @@ $mobile = SysHelper::isMobile();
             <tbody>
             <?php foreach ($dataProvider->getModels() as $post): ?>
                 <tr class="row_link">
-                    <?php if ($user->preferences->isForumUpdate()): ?>
+                    <?php if ($user && $user->preferences->isForumUpdate()): ?>
                         <td class="col_admin">
                             <?php if ($post->isFix()): ?>
                                 <a href="<?= Url::to(['forum/unfix-post', 'id' => $post->id]) ?>"><i
