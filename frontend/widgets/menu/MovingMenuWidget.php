@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\widgets;
+namespace frontend\widgets\menu;
 
 use booking\services\system\LoginService;
 use yii\base\Widget;
 
-class LandmenuWidget extends Widget
+class MovingMenuWidget extends Widget
 {
     /**
      * @var LoginService
@@ -20,8 +20,8 @@ class LandmenuWidget extends Widget
 
     public function run()
     {
-        return $this->render('landmenu', [
-            'user' => $this->loginService->user()
+        return $this->render('moving_menu', [
+            'user' => $this->loginService->user(),
         ]);
     }
 }

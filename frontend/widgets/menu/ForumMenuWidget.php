@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\widgets\moving;
+namespace frontend\widgets\menu;
 
 use booking\services\system\LoginService;
 use yii\base\Widget;
 
-class MovingMenuWidget extends Widget
+class ForumMenuWidget extends Widget
 {
     /**
      * @var LoginService
@@ -20,7 +20,7 @@ class MovingMenuWidget extends Widget
 
     public function run()
     {
-        return $this->render('moving-menu', [
+        return $this->render('forum_menu', [
             'user' => $this->loginService->user(),
         ]);
     }

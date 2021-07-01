@@ -45,7 +45,6 @@ MapBlogAsset::register($this);
     <?php if ($post->photo): ?>
         <div class="item-responsive item-post">
             <div class="content-item">
-
                 <img src="<?= Html::encode($post->getThumbFileUrl('photo', 'origin')) ?>"
                  alt="<?= $post->getTitle()?>" class="img-responsive" itemprop="image" loading="lazy" />
             </div>

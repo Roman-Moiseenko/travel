@@ -10,8 +10,9 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\LandmenuWidget;
-use frontend\widgets\TopmenuWidget;
+use frontend\widgets\menu\LandMenuWidget;
+use frontend\widgets\menu\BookingMenuWidget;
+use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
@@ -93,7 +94,10 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<nav id="top"><?= LandmenuWidget::widget() ?></nav>
+<nav id="top">
+    <?= TopUserMenuWidget::widget() ?>
+    <?= LandMenuWidget::widget() ?>
+</nav>
 <div id="common-home" class="container content-container">
     <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],

@@ -12,6 +12,7 @@ use yii\helpers\Url; ?>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О сайте') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/contacts'])) ?>" rel="nofollow"><?= Lang::t('Контакты') ?></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/forum'])) ?>"><?= Lang::t('Форум') ?></a></li>
                     <li>
                         <a href="<?= Html::encode(Url::to(['/policy'])) ?>" rel="nofollow"><?= Lang::t('Политика конфиденциальности') ?></a>
                     </li>

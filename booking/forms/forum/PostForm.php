@@ -4,6 +4,7 @@
 namespace booking\forms\forum;
 
 
+use booking\forms\forum\MessageForm;
 use booking\forms\CompositeForm;
 use yii\base\Model;
 

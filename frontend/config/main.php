@@ -123,7 +123,7 @@ return [
                 'apple-touch-icon.png' => 'apple-touch-icon.png',
                 'humans.txt' => 'humans.txt',
 
-                //'main' => 'site/main',
+
                 'test' => 'test/index',
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
@@ -199,6 +199,17 @@ return [
                 'land/map' => 'land/map/index',
                 'land/add' => 'land/add/index',
 
+                'forum' => 'forum/index',
+                'forum/category' => 'forum/category',
+                'forum/post/<id:\d+>' => 'forum/post',
+                'forum/create-post' => 'forum/create-post',
+                'forum/remove-post' => 'forum/remove-post',
+                'forum/fix-post' => 'forum/fix-post',
+                'forum/unfix-post' => 'forum/unfix-post',
+                'forum/lock-post' => 'forum/lock-post',
+                'forum/unlock-post' => 'forum/unlock-post',
+                'forum/update-message' => 'forum/update-message',
+                'forum/remove-message' => 'forum/remove-message',
 
                 'tickets' => 'tickets/tickets/index',
 

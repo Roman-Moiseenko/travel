@@ -5,7 +5,7 @@
 
 use booking\entities\Lang;
 use frontend\widgets\AlertWidget;
-use frontend\widgets\TopmenuWidget;
+use frontend\widgets\menu\BookingMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;

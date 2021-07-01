@@ -11,7 +11,7 @@ use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
-use frontend\widgets\TopmenuWidget;
+use frontend\widgets\menu\BookingMenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;

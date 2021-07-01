@@ -67,14 +67,14 @@ use yii\helpers\Url;
                             ['label' => 'Клиент - Провайдер', 'icon' => 'comments', 'url' => ['/dialogs/other'], 'active' => $this->context->id == 'dialogs/other'],
                         ]],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
-                        ['label' => '- Экскурсии (категории)', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
+                        ['label' => '- Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
                         ['label' => '- Туры', 'icon' => 'suitcase', 'items' => [
                             ['label' => '-- категории', 'icon' => false, 'url' => ['/guides/trip-type'], 'active' => $this->context->id == 'guides/trip-type'],
                             ['label' => '-- проживание', 'icon' => false, 'url' => ['/guides/placement-type'], 'active' => $this->context->id == 'guides/placement-type'],
                             ['label' => '-- питание', 'icon' => false, 'url' => ['/guides/meal-type'], 'active' => $this->context->id == 'guides/meal-type'],
                         ]],
-                        ['label' => '- Авто (категории)', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
-                        ['label' => '- Развлечения (категории)', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
+                        ['label' => '- Авто', 'icon' => 'car', 'url' => ['/guides/car-type'], 'active' => $this->context->id == 'guides/car-type'],
+                        ['label' => '- Развлечения', 'icon' => 'hot-tub', 'url' => ['/guides/fun-type'], 'active' => $this->context->id == 'guides/fun-type'],
                         ['label' => '- Жилье', 'icon' => 'house-user', 'items' => [
                             ['label' => '-- категории', 'icon' => false, 'url' => ['/guides/stay-type'], 'active' => $this->context->id == 'guides/stay-type'],
                             ['label' => '-- общие удобства', 'icon' => false, 'url' => ['/guides/stay-comfort'], 'active' => $this->context->id == 'guides/stay-comfort'],
@@ -87,12 +87,17 @@ use yii\helpers\Url;
                         ['label' => '- Города ', 'icon' => 'city', 'url' => ['/guides/city'], 'active' => $this->context->id == 'guides/city'],
                         ['label' => '- Контакты (соцсети)', 'icon' => 'share-alt-square', 'url' => ['/guides/contact-legal'], 'active' => $this->context->id == 'guides/contact-legal'],
                         ['label' => '- Темы диалогов', 'icon' => 'comment-alt', 'url' => ['/guides/theme-dialog'], 'active' => $this->context->id == 'guides/theme-dialog'],
-                        ['label' => '- Темы форума', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
+                        ['label' => '- Темы форума (admin)', 'iconStyle' => 'fab', 'icon' => 'speaker-deck', 'url' => ['/guides/theme-forum'], 'active' => $this->context->id == 'guides/theme-forum'],
                         ['label' => '- Магазин', 'icon' => 'store', 'items' => [
                             ['label' => '-- тип магазина', 'icon' => false, 'url' => ['/guides/shop-type'], 'active' => $this->context->id == 'guides/shop-type'],
                             ['label' => '-- категория товара', 'icon' => false, 'url' => ['/guides/product-category'], 'active' => $this->context->id == 'guides/product-category'],
                             ['label' => '-- материал', 'icon' => false, 'url' => ['/guides/material'], 'active' => $this->context->id == 'guides/material'],
                             ['label' => '-- ТК', 'icon' => false, 'url' => ['/guides/delivery'], 'active' => $this->context->id == 'guides/delivery'],
+
+                        ]],
+                        ['label' => '- Форум Users', 'icon' => 'question-circle', 'items' => [
+                            ['label' => '-- разделы', 'icon' => false, 'url' => ['/guides/forum-section'], 'active' => $this->context->id == 'guides/forum-section'],
+                            ['label' => '-- категории', 'icon' => false, 'url' => ['/guides/forum-category'], 'active' => $this->context->id == 'guides/forum-category'],
 
                         ]],
                     ]],

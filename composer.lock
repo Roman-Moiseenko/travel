@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "661f147c1147d8499a29391c7384031f",
+    "content-hash": "41b9ad54126f96f0af355b1160cee3c6",
     "packages": [
         {
             "name": "alexeevdv/yii2-sms",
@@ -121,7 +121,7 @@
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -228,11 +228,26 @@
             ]
         },
         {
+            "name": "bower-asset/jqjquery-wysibb",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:wbb/WysiBB.git",
+                "reference": "4e3fc3fd968a2345a6b9841f4d470541782fd2d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wbb/WysiBB/zipball/4e3fc3fd968a2345a6b9841f4d470541782fd2d5",
+                "reference": "4e3fc3fd968a2345a6b9841f4d470541782fd2d5"
+            },
+            "type": "bower-asset"
+        },
+        {
             "name": "bower-asset/jquery",
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -1191,6 +1206,55 @@
                 "image processing"
             ],
             "time": "2020-11-03T22:35:03+00:00"
+        },
+        {
+            "name": "kalyabin/yii2-wysibb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/kalyabin/yii2-wysibb.git",
+                "reference": "master"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kalyabin/yii2-wysibb/zipball/master",
+                "reference": "master",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jqjquery-wysibb": "*",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.*"
+            },
+            "require-dev": {
+                "bower-asset/jqjquery-wysibb": "*"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "kalyabin\\wysibb\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Max Kalyabin",
+                    "email": "maksim@kalyabin.ru",
+                    "homepage": "http://github.com/kalyabin/"
+                }
+            ],
+            "description": "Implements WysiBB to your Yii2 application",
+            "keywords": [
+                "framework",
+                "widget",
+                "wysibb",
+                "wysiwyg",
+                "yii2"
+            ],
+            "time": "2016-03-12T19:11:57+00:00"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -8229,7 +8293,8 @@
     "stability-flags": {
         "kartik-v/yii2-mpdf": 20,
         "kartik-v/yii2-widget-select2": 20,
-        "anart/forum": 20
+        "anart/forum": 20,
+        "kalyabin/yii2-wysibb": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

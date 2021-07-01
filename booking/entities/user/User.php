@@ -1,4 +1,5 @@
 <?php
+
 namespace booking\entities\user;
 
 use booking\entities\booking\cars\BookingCar;
@@ -28,7 +29,7 @@ use yii\web\UploadedFile;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
- ___________________________________________property string $phone
+ * ___________________________________________property string $phone
  * @property integer $created_at
  * @property integer $updated_at
  * @property Network[] $networks
@@ -43,6 +44,7 @@ use yii\web\UploadedFile;
  * @property WishlistStay[] wishlistStays
  * @property WishlistFood[] wishlistFoods
  * @property WishlistProduct[] wishlistProducts
+ * @property ForumRead[] $forumsRead
  * property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -166,6 +168,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->setPassword($password);
         $this->password_reset_token = null;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -195,7 +198,8 @@ class User extends ActiveRecord implements IdentityInterface
                     'wishlistFoods',
                     'wishlistProducts',
                     'mailing',
-                    ],
+                    'forumsRead',
+                ],
             ],
         ];
     }
@@ -205,6 +209,32 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
+    }
+
+    //********** ForumRead ********************
+    public function readForum($post_id)
+    {
+        $forums = $this->forumsRead;
+        foreach ($forums as &$forum) {
+            if ($forum->isFor($post_id)) {
+                $forum->edit();
+                $this->forumsRead = $forums;
+                return;
+            }
+        }
+        $forums[] = ForumRead::create($post_id);
+        $this->forumsRead = $forums;
+    }
+
+    public function isReadForum($post_id, $post_update_at): bool
+    {
+        $forums = $this->forumsRead;
+        foreach ($forums as $forum) {
+            if ($forum->isFor($post_id) && $forum->last_at >= $post_update_at) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Tours ===================> */
@@ -239,7 +269,7 @@ class User extends ActiveRecord implements IdentityInterface
             if ($booking->isFor($id)) {
                 $booking->pay();
                 $this->bookingTours = $bookings;
-                return;                
+                return;
             }
         }
         throw new \DomainException(Lang::t('Бронирование не найдено'));
@@ -360,8 +390,15 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getMailing(): ActiveQuery
     {
-        return $this->hasOne(UserMailing::class,  ['user_id' => 'id']);
+        return $this->hasOne(UserMailing::class, ['user_id' => 'id']);
     }
+
+    public function getForumsRead(): ActiveQuery
+    {
+        return $this->hasMany(ForumRead::class, ['user_id' => 'id']);
+    }
+
+
     /** <=============== getXX*/
 
     /** Repository ===================> */
@@ -408,7 +445,8 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
             'status' => self::STATUS_INACTIVE
@@ -420,7 +458,7 @@ class User extends ActiveRecord implements IdentityInterface
         if (empty($token)) {
             return false;
         }
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -469,15 +507,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
     public function removeVerificationToken()
     {
         $this->verification_token = null;
     }
 
 
-
     /** <=============== Identity*/
-
 
 
 }

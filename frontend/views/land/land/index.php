@@ -6,7 +6,7 @@ use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
-$this->title = 'Агентство Инвестиции в Калининградскую землю';
+$this->title = 'Агентство Инвестиции в Калининградскую землю, деликатная купля-продажа участков для строительства дома и коммерческих зданий в области';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки']);
 
 $this->params['canonical'] = Url::to(['/lands'], true);
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = 'Агентство';
         Участок должен быть не менее 0.5Га, с возможностью размещения здания (пятно застройки от 1300 кв. м) и
         количеством машиномест не менее 70.
     </p>
-    <p><i class="fas fa-phone"></i> 8-911-455-2-91</p>
+    <p><i class="fas fa-phone"></i> 8-911-455-72-91</p>
     <p><i class="far fa-envelope"></i> <a href="mailto:yclaster@yandex.ru">yclaster@yandex.ru</a>
     </p>
 </div>

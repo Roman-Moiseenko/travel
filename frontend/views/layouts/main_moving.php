@@ -5,16 +5,12 @@
 /* @var $content string */
 
 use booking\entities\Lang;
-use frontend\assets\CarAsset;
-use frontend\assets\FunAsset;
 use frontend\assets\MovingAsset;
-use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\moving\MovingMenuWidget;
-use frontend\widgets\TopmenuWidget;
+use frontend\widgets\menu\MovingMenuWidget;
+use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
@@ -84,7 +80,10 @@ MovingAsset::register($this);
 <body style="background-color: #f2f6f9;">
 <?php $this->beginBody() ?>
 
-    <nav id="top"><?= MovingMenuWidget::widget() ?></nav>
+    <nav id="top">
+        <?= TopUserMenuWidget::widget() ?>
+        <?= MovingMenuWidget::widget() ?>
+    </nav>
 
 <div id="common-home" class="container content-container">
     <?= BreadcrumbsWidget::widget([

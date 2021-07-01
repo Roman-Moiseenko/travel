@@ -4,7 +4,7 @@
 namespace booking\forms\forum;
 
 
-use booking\entities\admin\forum\Message;
+use booking\entities\forum\Message;
 use yii\base\Model;
 
 class MessageForm extends Model

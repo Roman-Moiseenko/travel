@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\widgets;
+namespace frontend\widgets\menu;
 
 use booking\services\system\LoginService;
 use yii\base\Widget;
 
-class TopmenuWidget extends Widget
+class TopUserMenuWidget extends Widget
 {
     /**
      * @var LoginService
@@ -20,7 +20,7 @@ class TopmenuWidget extends Widget
 
     public function run()
     {
-        return $this->render('topmenu', [
+        return $this->render('top_user_menu', [
             'user' => $this->loginService->user()
         ]);
     }

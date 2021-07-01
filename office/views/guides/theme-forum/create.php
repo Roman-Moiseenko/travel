@@ -1,6 +1,6 @@
 <?php
 
-use booking\forms\forum\CategoryForm;
+use booking\forms\admin\forum\CategoryForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 

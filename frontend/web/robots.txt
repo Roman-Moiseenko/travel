@@ -1,7 +1,10 @@
 User-agent: *
 
 Disallow: /test
-
+Disallow: /ru/forum/create-post
+Disallow: /ru/forum/update-message
+Disallow: /en/forum/create-post
+Disallow: /en/forum/update-message
 Disallow: /ru/cabinet
 Disallow: /en/cabinet
 Disallow: /ru/login
@@ -20,6 +23,8 @@ Disallow: /ru/shop/cart
 Disallow: /en/shop/cart
 Disallow: /*?*map=
 
+Disallow: /forum/create-post
+Disallow: /forum/update-message
 Disallow: /admin
 Disallow: /office
 Disallow: /static

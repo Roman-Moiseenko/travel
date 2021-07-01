@@ -6,7 +6,7 @@ namespace booking\services\admin\forum;
 
 use booking\entities\admin\forum\Category;
 use booking\entities\admin\forum\Message;
-use booking\forms\forum\CategoryForm;
+use booking\forms\admin\forum\CategoryForm;
 use booking\repositories\admin\forum\CategoryRepository;
 
 class CategoryService

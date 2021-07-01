@@ -6,7 +6,7 @@ use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
-$this->title = 'Инвестиции в Калининградскую землю, все для инвестора';
+$this->title = 'Инвестиции в Калининградскую землю, стоимость земельных участков, купить землю, строительство, проектирование, риэлторская компания';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
 
 $this->params['canonical'] = Url::to(['/land/investment'], true);

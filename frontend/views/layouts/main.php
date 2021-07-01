@@ -10,7 +10,8 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\TopmenuWidget;
+use frontend\widgets\menu\BookingMenuWidget;
+use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
@@ -95,7 +96,10 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<nav id="top"><?= TopmenuWidget::widget() ?></nav>
+<nav id="top">
+    <?= TopUserMenuWidget::widget() ?>
+    <?= BookingMenuWidget::widget() ?>
+</nav>
 <div id="common-home" class="container content-container">
     <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],

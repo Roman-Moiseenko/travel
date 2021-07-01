@@ -2,7 +2,7 @@
 
 use booking\entities\admin\User;
 use booking\entities\admin\forum\Post;
-use booking\forms\forum\MessageForm;
+use booking\forms\admin\forum\MessageForm;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;

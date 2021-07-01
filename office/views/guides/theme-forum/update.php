@@ -2,7 +2,7 @@
 
 use booking\entities\booking\tours\Tour;
 use booking\entities\booking\tours\Type;
-use booking\forms\forum\CategoryForm;
+use booking\forms\admin\forum\CategoryForm;
 use booking\forms\office\guides\TourTypeForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;

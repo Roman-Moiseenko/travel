@@ -6,7 +6,7 @@ namespace office\controllers\guides;
 
 use booking\entities\admin\forum\Category;
 use booking\entities\Rbac;
-use booking\forms\forum\CategoryForm;
+use booking\forms\admin\forum\CategoryForm;
 use booking\services\admin\forum\CategoryService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

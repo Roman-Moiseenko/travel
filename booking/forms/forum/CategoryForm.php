@@ -4,17 +4,19 @@
 namespace booking\forms\forum;
 
 
-use booking\entities\admin\forum\Category;
+use booking\entities\forum\Category;
 use yii\base\Model;
 
 class CategoryForm extends Model
 {
+    public $section_id;
     public $name;
     public $description;
 
     public function __construct(Category $category = null, $config = [])
     {
         if ($category) {
+            $this->section_id = $category->section_id;
             $this->name = $category->name;
             $this->description = $category->description;
         }
@@ -25,7 +27,8 @@ class CategoryForm extends Model
     {
         return [
             [['name', 'description'], 'string'],
-            ['name', 'required', 'message' => 'Обязательное поле'],
+            [['name', 'section_id'], 'required', 'message' => 'Обязательное поле'],
+            ['section_id', 'integer'],
         ];
     }
 }
