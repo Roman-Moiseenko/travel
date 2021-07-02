@@ -177,6 +177,13 @@ class UserManageService
         $this->users->save($user);
     }
 
+    public function setForumRole(int $id, int $role)
+    {
+        $user = $this->users->get($id);
+        $user->setForumRole($role);
+        $this->users->save($user);
+    }
+
     private function ExcangeName($name): string
     {
         $name = mb_strtolower($name);

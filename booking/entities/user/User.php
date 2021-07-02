@@ -513,6 +513,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->verification_token = null;
     }
 
+    public function setForumRole(int $role)
+    {
+        $preferences = $this->preferences;
+        $preferences->forum_role = $role;
+        $this->preferences = $preferences;
+    }
+
 
     /** <=============== Identity*/
 

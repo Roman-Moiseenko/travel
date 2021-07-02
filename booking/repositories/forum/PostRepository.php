@@ -107,4 +107,9 @@ class PostRepository
         return $data->getPagination()->getPageCount();
     }
 
+    public function getAllForSitemap()
+    {
+        return Post::find()->orderBy(['created_at' => SORT_DESC])->all();
+    }
+
 }

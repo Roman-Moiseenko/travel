@@ -11,6 +11,7 @@ use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
+use booking\entities\forum\Section;
 use booking\entities\moving\CategoryFAQ;
 use booking\entities\moving\FAQ;
 use booking\entities\moving\Page;
@@ -23,6 +24,7 @@ use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
+use booking\repositories\forum\SectionRepository;
 use booking\repositories\moving\CategoryFAQRepository;
 use booking\repositories\moving\FAQRepository;
 use booking\repositories\moving\PageRepository;
@@ -103,6 +105,18 @@ class SitemapController extends Controller
      * @var CategoryFAQRepository
      */
     private $categoryFAQ;
+    /**
+     * @var \booking\entities\forum\Category
+     */
+    private $categoryForum;
+    /**
+     * @var SectionRepository
+     */
+    private $sections;
+    /**
+     * @var \booking\repositories\forum\PostRepository
+     */
+    private $postForum;
 
 
     public function __construct(
@@ -124,6 +138,9 @@ class SitemapController extends Controller
         CategoryRepository $postType,
         PageRepository $moving,
         CategoryFAQRepository $categoryFAQ,
+        \booking\repositories\forum\CategoryRepository $categoryForum,
+        \booking\repositories\forum\PostRepository $postForum,
+        SectionRepository $sections,
         $config = []
     )
     {
@@ -145,6 +162,9 @@ class SitemapController extends Controller
         $this->moving = $moving;
 
         $this->categoryFAQ = $categoryFAQ;
+        $this->categoryForum = $categoryForum;
+        $this->sections = $sections;
+        $this->postForum = $postForum;
     }
 
     public function actionIndex(): Response
@@ -171,7 +191,49 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['lands'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 new IndexItem(Url::to(['faq-category'], true)),
+                new IndexItem(Url::to(['forum'], true)),
+                new IndexItem(Url::to(['forum-category'], true)),
+                new IndexItem(Url::to(['forum-theme'], true)),
             ]);
+        });
+    }
+
+    public function actionForum(): Response
+    {
+        return $this->renderSitemap('sitemap-forum', function () {
+            return $this->sitemap->generateMap(array_map(function (Section $section) {
+                return new MapItem(
+                    Url::to(['/forum/view', 'slug' => $section->slug], true),
+                    null,
+                    MapItem::DAILY
+                );
+            }, $this->sections->getAll()));
+        });
+    }
+
+    public function actionForumCategory(): Response
+    {
+        return $this->renderSitemap('sitemap-forum-category', function () {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\forum\Category $category) {
+                return new MapItem(
+                    Url::to(['/forum/category', 'id' => $category->id], true),
+                    $category->update_at ?? $category->created_at,
+                    MapItem::DAILY
+                );
+            }, $this->categoryForum->getAll()));
+        });
+    }
+
+    public function actionForumTheme(): Response
+    {
+        return $this->renderSitemap('sitemap-forum-theme', function () {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\forum\Post $post) {
+                return new MapItem(
+                    Url::to(['/forum/post', 'id' => $post->id], true),
+                    $post->update_at ?? $post->created_at,
+                    MapItem::ALWAYS
+                );
+            }, $this->postForum->getAllForSitemap()));
         });
     }
 

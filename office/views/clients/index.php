@@ -1,6 +1,8 @@
 <?php
 
+use booking\helpers\UserForumHelper;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel office\forms\ClientsSearch */
@@ -26,8 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'value' => function (\booking\entities\user\User $model) {
-                            return $model->personal->fullname->getFullname();
+                            return '<a href="'. Url::to(['view', 'id' => $model->id]) . '">' .
+                                $model->personal->fullname->getFullname() .
+                                '</a> ' .
+                                UserForumHelper::status($model->preferences->forum_role);
                         },
+                        'format' => 'raw',
                         'label' => 'ФИО',
                         'contentOptions' => ['data-label' => 'ФИО'],
                     ],
