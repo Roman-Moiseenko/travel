@@ -15,7 +15,7 @@ use yii\helpers\Url; ?>
     </td>
     <td class="col_stat">
         <div><?= $category->countPost() . ' <i class="fas fa-folder-open"></i>' ?></div>
-        <div><?= $category->count . ' <i class="fas fa-envelope-open-text"></i>' ?></div>
+        <div><?= $category->countMessage() . ' <i class="fas fa-envelope-open-text"></i>' ?></div>
     </td>
     <td class="col_post">
         <?php if ($category->lastMessage): ?>

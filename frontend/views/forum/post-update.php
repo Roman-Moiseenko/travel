@@ -18,6 +18,7 @@ use yii\helpers\Url;
 
 $this->title = 'Редактировать сообщение';
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
+$this->params['breadcrumbs'][] = ['label' => $post->category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $post->category->section->slug])];
 $this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => Url::to(['/forum/category', 'id' => $post->category_id])];
 $this->params['breadcrumbs'][] = ['label' => $post->caption, 'url' => Url::to(['/forum/post', 'id' => $post->id])];
 $this->params['breadcrumbs'][] = $this->title;

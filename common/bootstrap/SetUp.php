@@ -4,6 +4,7 @@ namespace common\bootstrap;
 
 use booking\entities\Lang;
 use booking\repositories\booking\tours\TourRepository;
+use booking\repositories\forum\SectionRepository;
 use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
@@ -12,6 +13,7 @@ use booking\services\system\LoginService;
 use booking\services\yandex\Info;
 use booking\services\yandex\YandexMarket;
 use frontend\urls\CarTypeUrlRule;
+use frontend\urls\ForumUrlRule;
 use frontend\urls\FunTypeUrlRule;
 use frontend\urls\MovingPageUrlRule;
 use frontend\urls\PageUrlRule;
@@ -101,6 +103,10 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(TourUrlRule::class, [], [
             Instance::of(TourRepository::class),
+            Instance::of('cache'),
+        ]);
+        $container->setSingleton(ForumUrlRule::class, [], [
+            Instance::of(SectionRepository::class),
             Instance::of('cache'),
         ]);
         if (!\Yii::$app->request->cookies->get('lang')) {

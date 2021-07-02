@@ -9,6 +9,7 @@ use booking\entities\forum\Message;
 use booking\entities\forum\Post;
 use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
+use booking\helpers\scr;
 use booking\helpers\SysHelper;
 use booking\repositories\forum\PostRepository;
 use booking\repositories\forum\SectionRepository;
@@ -74,13 +75,25 @@ class ForumController extends Controller
     }
 
 
+    public function actionView($slug)
+    {
+        $section = $this->sections->findBySlug($slug);
+        $posts = $this->posts->getBySection($section->id);
+        $user = $this->loginService->user();
+        return $this->render('section', [
+            'section' => $section,
+            'dataProvider' => $posts,
+            'user' => $user,
+        ]);
+    }
+
     public function actionCategory($id)
     {
         $mobile = SysHelper::isMobile();
         $category = Category::findOne($id);
         $posts = $this->posts->getAll($category->id);
         $user = $this->loginService->user();
-        return $this->render($mobile ? 'category_mobile' : 'category', [
+        return $this->render('category', [
             'category' => $category,
             'dataProvider' => $posts,
             'user' => $user,
@@ -104,9 +117,7 @@ class ForumController extends Controller
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $message = $this->postService->addMessage($post->id, $form);
-                $pages = $this->posts->getMessages($post->id)->getCount();
-
-                return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $pages, '#' => $message->id]);
+                return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $this->posts->getPage($post->id), '#' => $message->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }

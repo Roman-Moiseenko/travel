@@ -21,7 +21,8 @@ $mobile = SysHelper::isMobile();
     <h1 <?= $mobile ? 'style="font-size: 22px"' :''?>>Форум для туристов и гостей Калининграда</h1>
     <?php foreach ($sections as $section): ?>
     <div class="card list-cart mt-4">
-        <div class="card-header"><h2 style="font-size: 16px;"><?= $section->caption ?></h2></div>
+        <a class="" href="<?= Url::to(['/forum/view', 'slug' => $section->slug])?>">
+            <h2 style="margin-bottom: 0"><div class="card-header forum-section"><?= $section->caption ?></div></h2></a>
         <div class="card" style="border: 0 !important; border-radius: 7px !important;">
             <table class="table-forum">
                 <tbody>

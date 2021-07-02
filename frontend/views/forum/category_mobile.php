@@ -19,6 +19,7 @@ use yii\widgets\LinkPager;
 
 $this->title = $category->name . ' На форуме Калининград для туристов и гостей - найди ответ на вопрос';
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
+$this->params['breadcrumbs'][] = ['label' => $category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $category->section->slug])];
 $this->params['breadcrumbs'][] = $category->name;
 $mobile = SysHelper::isMobile();
 
@@ -36,7 +37,7 @@ $mobile = SysHelper::isMobile();
     <?php endif; ?>
     <?php endif; ?>
 </p>
-<table class="table-forum table-striped">
+<table class="table table-borderless table-striped">
     <tbody>
     <?php foreach ($dataProvider->getModels() as $post): ?>
         <tr class="row_link">
@@ -75,7 +76,7 @@ $mobile = SysHelper::isMobile();
                     <h2 class="row_post"><?= $post->caption ?></h2>
                 </div>
                 <div>
-                    Ответы: <?= $post->count . ' <i class="fas fa-envelope-open-text"></i>' ?>
+                    Ответы: <?= $post->count() . ' <i class="fas fa-envelope-open-text"></i>' ?>
                 </div>
                 Последнее сообщение: <span
                         class="row_description"><?= $post->lastMessage->userName(true) . ' от ' . date('Y-m-d H:i', $post->lastMessage->lastDate()) ?></span>

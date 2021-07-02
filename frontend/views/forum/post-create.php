@@ -18,6 +18,7 @@ use yii\helpers\Url;
 
 $this->title = 'Новая тема';
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
+$this->params['breadcrumbs'][] = ['label' => $category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $category->section->slug])];
 $this->params['breadcrumbs'][] = ['label' => $category->name, 'url' => Url::to(['/forum/category', 'id' => $category->id])];
 $this->params['breadcrumbs'][] = $this->title;
 $mobile = SysHelper::isMobile();

@@ -1468,3 +1468,15 @@ h2.faq-card {
 .forum-main-style {
     font-size: 14px;
 }
+
+.forum-section {
+    font-size: 20px;
+
+    background-color: #e8f5f7;
+    color: #0b252d;
+}
+.forum-section:hover {
+    color: white;
+    background-color: var(--main-nav-color);
+}
+.forum-section

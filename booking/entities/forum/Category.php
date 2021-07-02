@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property integer $sort
  * @property Post[] $posts
  * @property Message $lastMessage
+ * @property Section $section
  *
  */
 class Category extends ActiveRecord
@@ -109,8 +110,18 @@ class Category extends ActiveRecord
         return count($this->posts);
     }
 
+    public function countMessage(): int
+    {
+        return $this->count - $this->countPost();
+    }
+
     public function getLastMessage()
     {
         return Message::findOne($this->last_id);
+    }
+
+    public function getSection(): ActiveQuery
+    {
+        return $this->hasOne(Section::class, ['id' => 'section_id']);
     }
 }

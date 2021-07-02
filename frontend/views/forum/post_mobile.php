@@ -24,6 +24,7 @@ use yii\widgets\LinkPager;
 
 $this->title = $post->caption . ' Форум для туристов и гостей Калининграда';
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
+$this->params['breadcrumbs'][] = ['label' => $post->category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $post->category->section->slug])];
 $this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => Url::to(['/forum/category', 'id' => $post->category->id])];
 $this->params['breadcrumbs'][] = $post->caption;
 $mobile = SysHelper::isMobile();

@@ -27,6 +27,7 @@ $description = '';
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
+$this->params['breadcrumbs'][] = ['label' => $post->category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $post->category->section->slug])];
 $this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => Url::to(['/forum/category', 'id' => $post->category->id])];
 $this->params['breadcrumbs'][] = $post->caption;
 $this->params['canonical'] = Url::to(['/forum/post', 'id' => $post->id], true);
@@ -34,8 +35,24 @@ $mobile = SysHelper::isMobile();
 
 ?>
 <h1><?= $post->caption ?></h1>
+
 <div class="forum-main-style">
+
+
     <?php foreach ($dataProvider->getModels() as $i => $message): ?>
+    <?php if ($i ==0): ?>
+            <div class="row py-2">
+                <div class="col-sm-6 text-left">
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProvider->getPagination(),
+                    ]) ?>
+                </div>
+                <?php if ($dataProvider->getPagination()->getPageCount() > 1 ):?>
+                <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
+                <?php endif; ?>
+            </div>
+    <?php endif; ?>
+
         <div class="card mt-3 <?= ($i % 2 == 0) ? 'bg2' : 'bg1' ?>" style="border: 0 !important; border-radius: 12px">
             <a id="<?= $message->id ?>"></a>
             <div class="card-body">
@@ -108,7 +125,9 @@ $mobile = SysHelper::isMobile();
                 'pagination' => $dataProvider->getPagination(),
             ]) ?>
         </div>
-        <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
+        <?php if ($dataProvider->getPagination()->getPageCount() > 1 ):?>
+            <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
+        <?php endif; ?>
     </div>
 
     <div class="card bg2">

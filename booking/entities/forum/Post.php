@@ -114,6 +114,11 @@ class Post extends ActiveRecord
         return $this->fix;
     }
 
+    public function count(): int
+    {
+        return $this->count - 1;
+    }
+
     public static function tableName()
     {
         return '{{%user_forum_posts}}';

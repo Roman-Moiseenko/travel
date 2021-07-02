@@ -200,7 +200,7 @@ return [
                 'land/add' => 'land/add/index',
 
                 'forum' => 'forum/index',
-                'forum/category' => 'forum/category',
+                'forum/category/<id:\d+>' => 'forum/category',
                 'forum/post/<id:\d+>' => 'forum/post',
                 'forum/create-post' => 'forum/create-post',
                 'forum/remove-post' => 'forum/remove-post',
@@ -210,6 +210,7 @@ return [
                 'forum/unlock-post' => 'forum/unlock-post',
                 'forum/update-message' => 'forum/update-message',
                 'forum/remove-message' => 'forum/remove-message',
+                'forum/<slug:[\w\-]+>' => 'forum/view',
 
                 'tickets' => 'tickets/tickets/index',
 
@@ -237,6 +238,7 @@ return [
                 ['class' => 'frontend\urls\MovingPageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
+                ['class' => 'frontend\urls\ForumUrlRule'],
                 ['class' => 'frontend\urls\CarTypeUrlRule'],
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
