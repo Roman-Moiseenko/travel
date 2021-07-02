@@ -20,6 +20,12 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/moving' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/moving'])) ?>">
+                        <i class="fas fa-info-circle"></i>&#160;<?= Lang::t('На ПМЖ') ?>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="top-menu-a nav-link <?= isset($this->params['pages']) ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/info'])) ?>">
                         <i class="fas fa-info-circle"></i>&#160;<?= Lang::t('Информация') ?>

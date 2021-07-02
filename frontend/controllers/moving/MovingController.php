@@ -25,6 +25,8 @@ class MovingController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = 'main_moving';
+
         return $this->render('index', []);
     }
 
