@@ -24,19 +24,13 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
         </div>
     </div>
 <div class="py-3 mt-3">
-    <?php foreach ($categories as $category): ?>
-        <?php if ($mobile) echo '<div class="pb-4">'; ?>
-            <button type="button" data-toggle="tooltip" data-method="get" class="moving-menu-page" href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>"> <?= $category->title ?></button>
-        <?php if ($mobile) echo '</div>'; ?>
-    <?php endforeach; ?>
-    <p class="pt-4">
+
     <?php foreach ($categories as $category): ?>
         <?php if ($mobile) echo '<div class="pb-4">'; ?>
         <a class="moving-menu-page" href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>"> <?= $category->title ?></a>
         <?php if ($mobile) echo '</div>'; ?>
     <?php endforeach; ?>
 
-    </p>
 </div>
 <div class="container params-moving pt-4 text-block">
 
