@@ -181,7 +181,6 @@ return [
                 'survey/<id:\d+>' => 'survey/view',
 
                 'moving' => 'moving/moving/index',
-                'moving/faq' => 'moving/faq/index',
                 'moving/docs' => 'moving/docs/index',
                 'moving/realty' => 'moving/realty/index',
                 'moving/land' => 'moving/land/index',
@@ -189,8 +188,11 @@ return [
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
 
+                /*
+                'moving/faq' => 'moving/faq/index',
                 'moving/faq/category/<id:\d+>' => 'moving/faq/category',
                 'moving/faq/answer/<id:\d+>' => 'moving/faq/answer',
+                */
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
 

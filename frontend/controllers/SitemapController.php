@@ -190,7 +190,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['lands'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
-                new IndexItem(Url::to(['faq-category'], true)),
+                //new IndexItem(Url::to(['faq-category'], true)),
                 new IndexItem(Url::to(['forum'], true)),
                 new IndexItem(Url::to(['forum-category'], true)),
                 new IndexItem(Url::to(['forum-theme'], true)),
@@ -236,7 +236,7 @@ class SitemapController extends Controller
             }, $this->postForum->getAllForSitemap()));
         });
     }
-
+/*
     public function actionFaqCategory(): Response
     {
         return $this->renderSitemap('sitemap-faq-category', function () {
@@ -248,7 +248,7 @@ class SitemapController extends Controller
                 );
             }, $this->categoryFAQ->getAll()));
         });
-    }
+    }*/
 
     public function actionLands(): Response
     {
@@ -272,7 +272,7 @@ class SitemapController extends Controller
                         null,
                         MapItem::ALWAYS
                     );
-            }, ['/moving', '/moving/faq', '/moving/realty', '/moving/land']));
+            }, ['/moving'/*, '/moving/faq'*/, '/moving/realty', '/moving/land']));
         });
     }
 
