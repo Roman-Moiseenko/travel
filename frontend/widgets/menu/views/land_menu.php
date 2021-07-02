@@ -49,7 +49,11 @@ use yii\helpers\Url;
                         &#160;<?= Lang::t('Участки') ?>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link"
+                       href="<?= Html::encode(Url::to(['/forum/zemlya-nedvizhimost-stroitelstvo'])) ?>">
+                        <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
+                </li>
             </ul>
         </div>
     </nav>

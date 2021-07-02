@@ -43,7 +43,7 @@ use yii\helpers\Url; ?>
         <div>
             Ответы: <?= $post->count() . ' <i class="fas fa-envelope-open-text"></i>' ?>
         </div>
-        Последнее сообщение: <span
-            class="row_description"><?= $post->lastMessage->userName(true) . ' от ' . date('Y-m-d H:i', $post->lastMessage->lastDate()) ?></span>
+        Последнее сообщение: <span class="row_last_message"><?= $post->lastMessage->userName(true) . ' от ' . $post->lastMessage->date() ?></span>
+
     </td>
 </tr>

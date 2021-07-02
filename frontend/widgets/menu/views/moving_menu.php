@@ -32,11 +32,6 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/faq' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/faq'])) ?>">
-                        <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
-                </li>
-                <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/land' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
                         <i class="fas fa-layer-group"></i>&#160;<?= Lang::t('Участки') ?></a>
@@ -45,6 +40,11 @@ use yii\helpers\Url;
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">
                         <i class="fas fa-business-time"></i>&#160;<?= Lang::t('Бизнес') ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="top-menu-a nav-link"
+                       href="<?= Html::encode(Url::to(['/forum/pereezd-na-pmzh'])) ?>">
+                        <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
                 </li>
             </ul>
         </div>

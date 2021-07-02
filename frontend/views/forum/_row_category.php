@@ -19,8 +19,8 @@ use yii\helpers\Url; ?>
     </td>
     <td class="col_post">
         <?php if ($category->lastMessage): ?>
-            <div class="row_post"><?= $category->lastMessage->post->caption ?></div>
-            <span class="row_description"><?= $category->lastMessage->userName(true) . ' от ' . date('Y-m-d H:i', $category->lastMessage->created_at) ?></span>
+            <div class="row_last_post"><?= $category->lastMessage->caption() ?></div>
+            <span class="row_last_message"><?= $category->lastMessage->userName(true) . ' от ' . $category->lastMessage->date() ?></span>
         <?php endif;  ?>
     </td>
 </tr>

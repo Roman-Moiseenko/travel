@@ -30,7 +30,7 @@ class Message extends ActiveRecord
         $message->user_id = $user_id;
         $message->text = $text;
         $message->created_at = time();
-       // $message->sort = $sort;
+        // $message->sort = $sort;
         return $message;
     }
 
@@ -76,5 +76,19 @@ class Message extends ActiveRecord
         return $short
             ? $this->user->personal->fullname->getShortname()
             : $this->user->personal->fullname->getFullname();
+    }
+
+    public function date(): string
+    {
+        $arr = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+        $month = date('m', $this->created_at);
+        return date('d', $this->created_at) . ', ' .
+            $arr[(int)date('m', $this->created_at) - 1] . ' ' .
+            date('Y H:i', $this->created_at);
+    }
+
+    public function caption(): string
+    {
+        return $this->post->caption;
     }
 }

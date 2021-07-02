@@ -86,7 +86,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
                 'image' => 'menu-forum.jpg',
                 'caption' => 'Форум. Отвечаем на вопросы',
                 'text' => 'Задайте вопрос по интересующей Вас теме по переезду в Калининград и наши специалисты Вам ответят',
-                'link' => Url::to(['/moving/faq'])
+                'link' => Url::to(['/forum/pereezd-na-pmzh'])
             ]) ?>
         </div>
     </div>

@@ -21,7 +21,7 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link active" href="#">
+                    <a class="top-menu-a nav-link active" href="<?= Html::encode(Url::to(['/forum'])) ?>">
                     <span style="font-size: 22px; color: white">Форум</span>
                         </a>
                 </li>

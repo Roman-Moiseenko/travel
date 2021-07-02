@@ -4,7 +4,6 @@ use booking\entities\user\User;
 use booking\entities\forum\Category;
 use booking\entities\forum\Post;
 use booking\helpers\SysHelper;
-use booking\helpers\UserForumHelper;
 use frontend\widgets\design\BtnEdit;
 use yii\data\DataProviderInterface;
 use yii\helpers\Url;
@@ -34,6 +33,8 @@ $mobile = SysHelper::isMobile();
                 'caption' => 'Новая тема',
             ]) ?>
         <?php endif; ?>
+    <?php else: ?>
+        <a href="<?= Url::to(['/login'])?>">Авторизуйтесь</a>, чтоб оставлять сообщения
     <?php endif; ?>
 </p>
 <table class="table table-borderless table-striped">

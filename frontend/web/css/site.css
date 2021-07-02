@@ -1450,8 +1450,17 @@ h2.faq-card {
     font-weight: 600;
     /* color: #343a40;*/
 }
+.row_last_post {
+    font-size: 14px;
+    font-weight: 600;
+    /* color: #343a40;*/
+}
 .row_description {
     font-size: 13px;
+    color: #474747;
+}
+.row_last_message {
+    font-size: 11px;
     color: #474747;
 }
 .bg1 {

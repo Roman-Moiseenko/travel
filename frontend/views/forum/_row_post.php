@@ -49,6 +49,6 @@ use yii\helpers\Url;
     </td>
     <td class="col_post"
         onclick="window.location.href='<?= Url::to(['forum/post', 'id' => $post->id]) ?>'; return false">
-        <span class="row_description"><?= $post->lastMessage->userName(true) . ' от ' . date('Y-m-d H:i', $post->lastMessage->lastDate()) ?></span>
+        <span class="row_last_message"><?= $post->lastMessage->userName(true) . ' от ' . $post->lastMessage->date() ?></span>
     </td>
 </tr>
