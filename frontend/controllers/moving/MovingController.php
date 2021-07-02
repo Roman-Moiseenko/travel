@@ -26,9 +26,10 @@ class MovingController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main_moving';
-
-        return $this->render('index', []);
+        $categories = $this->pages->findRoot();
+        return $this->render('index', ['categories' => $categories]);
     }
+
 
 
     public function actionView($slug)

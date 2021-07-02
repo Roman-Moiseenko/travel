@@ -43,4 +43,10 @@ class PageRepository
     {
         return Page::find()->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
     }
+
+    public function findRoot()
+    {
+        return Page::find()->andWhere(['depth' => 1])->all();
+
+    }
 }
