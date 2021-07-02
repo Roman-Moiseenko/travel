@@ -16,6 +16,8 @@ use yii\web\View;
 $this->title = $section->caption . ' На форуме Калининград для туристов и гостей - найди ответ на вопрос';
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
 $this->params['breadcrumbs'][] = $section->caption;
+$this->params['canonical'] = Url::to(['/forum/view', 'slug' =>  $section->slug], true);
+
 $mobile = SysHelper::isMobile();
 ?>
 

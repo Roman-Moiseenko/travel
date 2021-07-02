@@ -19,6 +19,8 @@ $this->title = $category->name . ' На форуме Калининград дл
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
 $this->params['breadcrumbs'][] = ['label' => $category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $category->section->slug])];
 $this->params['breadcrumbs'][] = $category->name;
+$this->params['canonical'] = Url::to(['/forum/category', 'id' => $category->id], true);
+
 $mobile = SysHelper::isMobile();
 
 ?>

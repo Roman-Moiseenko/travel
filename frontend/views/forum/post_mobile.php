@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/f
 $this->params['breadcrumbs'][] = ['label' => $post->category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $post->category->section->slug])];
 $this->params['breadcrumbs'][] = ['label' => $post->category->name, 'url' => Url::to(['/forum/category', 'id' => $post->category->id])];
 $this->params['breadcrumbs'][] = $post->caption;
+$this->params['canonical'] = Url::to(['/forum/post', 'id' => $post->id], true);
 $mobile = SysHelper::isMobile();
 
 ?>
