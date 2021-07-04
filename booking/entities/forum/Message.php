@@ -29,7 +29,7 @@ class Message extends ActiveRecord
         //$message->post_id = $post_id;
         $message->user_id = $user_id;
         $message->text = $text;
-        $message->created_at = time();
+        $message->created_at = time();// - 3600 * 24 * 111 + 2129;
         // $message->sort = $sort;
         return $message;
     }
@@ -81,7 +81,6 @@ class Message extends ActiveRecord
     public function date(): string
     {
         $arr = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-        $month = date('m', $this->created_at);
         return date('d', $this->created_at) . ', ' .
             $arr[(int)date('m', $this->created_at) - 1] . ' ' .
             date('Y H:i', $this->created_at);

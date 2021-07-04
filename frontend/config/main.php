@@ -199,7 +199,6 @@ return [
                 'lands' => 'land/land/index',
                 'land/investment' => 'land/investment/index',
                 'land/map' => 'land/map/index',
-                'land/add' => 'land/add/index',
 
                 'forum' => 'forum/index',
                 'forum/category/<id:\d+>' => 'forum/category',

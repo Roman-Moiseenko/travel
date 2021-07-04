@@ -17,7 +17,7 @@ class PostRepository
     public function get($id): Post
     {
         if (!$post = Post::findOne($id)) {
-            throw new \DomainException('Пост не найден.');
+            throw new \DomainException('Данная тема была удалена или не существовала.');
         }
         return $post;
     }
@@ -53,7 +53,6 @@ class PostRepository
 
     public function getBySection($section_id): DataProviderInterface
     {
-
         $query = Post::find()->andWhere([
             'IN',
             'category_id',
@@ -93,7 +92,6 @@ class PostRepository
         ]);
     }
 
-
     public function getPageByMessage($message_id): int
     {
         $message = Message::findOne($message_id);
@@ -111,5 +109,4 @@ class PostRepository
     {
         return Post::find()->orderBy(['created_at' => SORT_DESC])->all();
     }
-
 }

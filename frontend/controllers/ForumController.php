@@ -103,24 +103,29 @@ class ForumController extends Controller
     public function actionPost($id)
     {
         $mobile = SysHelper::isMobile();
-
-        $post = Post::findOne($id);
-        $messages = $this->posts->getMessages($post->id);
-        /**** ПЕРЕДЕЛАТЬ  !!!!!!! **/
-        $user = $this->loginService->user();
-        if ($user) {
-            $user->readForum($id);
-            $user->save();
-        }
-        /** **************** **/
-        $form = new MessageForm();
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $message = $this->postService->addMessage($post->id, $form);
-                return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $this->posts->getPage($post->id), '#' => $message->id]);
-            } catch (\DomainException $e) {
-                \Yii::$app->session->setFlash('error', $e->getMessage());
+        try {
+            $post = $this->posts->get($id);
+            $messages = $this->posts->getMessages($post->id);
+            /**** ПЕРЕДЕЛАТЬ  !!!!!!! **/
+            $user = $this->loginService->user();
+            if ($user) {
+                $user->readForum($id);
+                $user->save();
             }
+            /** **************** **/
+            $form = new MessageForm();
+            if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+                try {
+                    $message = $this->postService->addMessage($post->id, $form);
+                    return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $this->posts->getPage($post->id), '#' => $message->id]);
+                } catch (\DomainException $e) {
+                    \Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+        }
+        catch (\Throwable $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(['/about']);
         }
         return $this->render($mobile ? 'post_mobile' : 'post', [
             'post' => $post,
