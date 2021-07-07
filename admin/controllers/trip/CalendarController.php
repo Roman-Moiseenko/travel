@@ -106,16 +106,12 @@ class CalendarController extends Controller
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
             try {
-                //$trip = $this->findModel($params['trip_id']);
                 $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
                 $cost_base = $params['cost_base'];
                 $quantity = $params['quantity'];
                 $cost_params = $params['params'];
                 $cost_list = $params['cost_list'];
 
-                //$this->service->clearCostCalendar($stay->id, $stay_at); //Очищаем тек.день
-                //print_r($cost_params);
-                //print_r($cost_list);
                 $this->service->addCostCalendar($params['trip_id'], $trip_at, $cost_base, $quantity, $cost_params, $cost_list);
                 return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['trip_id']);
             } catch (\Throwable $e) {
@@ -157,9 +153,10 @@ class CalendarController extends Controller
             $errors = null;
             $params = \Yii::$app->request->bodyParams;
             try {
-                $trip = $this->findModel($params['trip_id']);
-                $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
-                $this->service->clearCostCalendar($trip->id, $trip_at);
+                $trip_id = $params['trip_id'];
+                $calendar_id = $params['calendar_id'];
+               // $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
+                $this->service->clearCostCalendar($trip_id, $calendar_id);
                 return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['trip_id']);
             } catch (\DomainException $e) {
                 return $e->getMessage();

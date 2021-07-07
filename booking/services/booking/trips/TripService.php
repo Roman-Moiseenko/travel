@@ -399,7 +399,6 @@ class TripService
             $cost_base,
             $quantity
         );
-        //print_r($params);
         foreach ($params as $param) {
             $calendar->addParams(new CostParams($param['params'], $param['cost']));
         }
@@ -411,31 +410,17 @@ class TripService
         $this->trips->save($trip);
     }
 
+    public function clearCostCalendar($trip_id, $calendar_id)
+    {
+        $trip = $this->trips->get($trip_id);
+        $trip->removeCostCalendar($calendar_id);
+        $this->trips->save($trip);
+    }
+
     public function support(int $id, $type)
     {
         //TODO !!!!! отправка жалобы на заблокированный объект
     }
-
-    /*
-        public function addCostCalendar(int $id, int $trip_at, $time_at, $tickets, $cost_adult, $cost_child, $cost_preference)
-        {
-
-            $trip = $this->trips->get($id);
-
-
-            if ($this->calendars->isset($trip->id, $trip_at, $time_at)) {
-                return 'Данное время (' . $time_at . ') уже занято ';
-            }
-            $trip->addCostCalendar(
-                CostCalendar::create(
-                    $trip_at,
-                    $time_at,
-                    new Cost($cost_adult, $cost_child, $cost_preference),
-                    $tickets
-                )
-            );
-            $this->trips->save($trip);
-        }*/
 
     public function upViews(Trip $trip)
     {

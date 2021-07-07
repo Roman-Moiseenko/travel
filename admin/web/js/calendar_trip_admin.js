@@ -112,17 +112,17 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.del-day', function () {
-        var d = $('#data-day').attr('data-d');
-        var m = $('#data-day').attr('data-m');
-        var y = $('#data-day').attr('data-y');
-        var calendar_id = $(this).attr('data-id');
+        let d = $('#data-day').attr('data-d');
+        let m = $('#data-day').attr('data-m');
+        let y = $('#data-day').attr('data-y');
+        let calendar_id = $(this).attr('data-id');
         $.post('/trip/calendar/delday',
             {
                 year: y, month: m, day: d, trip_id: trip_id,
                 calendar_id: calendar_id
             },
             function (data) {
-                var dateInfo = JSON.parse(data);
+                let dateInfo = JSON.parse(data);
                 $('.list-trips').html(dateInfo._list);
                 $('.new-trip').html(dateInfo.new_trip);
                 full_array_trips = dateInfo.full_array_trips;
@@ -131,9 +131,9 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#trip-data-week-copy', function () {
-        var d = $('#data-day').attr('data-d');
-        var m = $('#data-day').attr('data-m');
-        var y = $('#data-day').attr('data-y');
+        let d = $('#data-day').attr('data-d');
+        let m = $('#data-day').attr('data-m');
+        let y = $('#data-day').attr('data-y');
         let week = [];
         week[0] = $('#end-day').val();
         for (let i = 1; i <= 7; i++) {
