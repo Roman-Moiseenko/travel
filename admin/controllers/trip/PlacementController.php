@@ -99,6 +99,15 @@ class PlacementController extends Controller
             'placements' => $placements,
         ]);
     }
+    public function actionAssign($id, $placement_id, $set)
+    {
+        if ($set == 1) {
+            $this->serviceTrip->assignPlacement($id, $placement_id);
+        } else {
+            $this->serviceTrip->revokePlacement($id, $placement_id);
+        }
+        //return $this->redirect(\Yii::$app->request->referrer);
+    }
 
     public function actionCreate($id) //trip_id
     {
@@ -282,6 +291,30 @@ class PlacementController extends Controller
     public function actionMovePhotoDown($id, $photo_id)
     {
         $this->servicePlacement->movePhotoDown($id, $photo_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionRoomDeletePhoto($id, $photo_id)
+    {
+        try {
+            $this->serviceRoom->removePhoto($id, $photo_id);
+
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionRoomMovePhotoUp($id, $photo_id)
+    {
+        $this->serviceRoom->movePhotoUp($id, $photo_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionRoomMovePhotoDown($id, $photo_id)
+    {
+        $this->serviceRoom->movePhotoDown($id, $photo_id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
 

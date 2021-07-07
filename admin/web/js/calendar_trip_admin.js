@@ -1,7 +1,7 @@
 $(document).ready(function () {
     /** ver 16.11.2020 */
-    let tour_id = $('#number-tour').val(); //Текущий тур
-    let full_array_tours; //Массив туров по дням
+    let trip_id = $('#number-trip').val(); //Текущий тур
+    let full_array_trips; //Массив туров по дням
 
 //Переводим
     if ($.fn.datepicker === undefined) return false;
@@ -23,28 +23,28 @@ $(document).ready(function () {
     };
     //Устанавливаем datepicker
     $(function () {
-        $("#datepicker-tour").datepicker({
+        $("#datepicker-trip").datepicker({
             format: "dd/mm/yyyy",
             startDate: '+1d',
             language: "ru",
         });
     });
-    $('#datepicker-tour').datepicker({
+    $('#datepicker-trip').datepicker({
         startDate: '+1d',
         format: 'dd/mm/yyyy',
         language: 'ru',
         beforeShowDay: function (date) {
-            let dateSel = $("#datepicker-tour").datepicker("getDate"); //Выбранная ячейка
-            if (full_array_tours === undefined) return {enabled: true};
-            var tours = full_array_tours[date.getFullYear()]; //Массив по текущему году
-            if (tours === undefined) return {enabled: true};
-            tours = tours[date.getMonth() + 1];
-            if (tours === undefined) return {enabled: true}; //Массив по текущему месяцу
-            tours = tours[date.getDate()];
-            if (tours === undefined) return {enabled: true}; //Объект по текущему дню
+            let dateSel = $("#datepicker-trip").datepicker("getDate"); //Выбранная ячейка
+            if (full_array_trips === undefined) return {enabled: true};
+            let trips = full_array_trips[date.getFullYear()]; //Массив по текущему году
+            if (trips === undefined) return {enabled: true};
+            trips = trips[date.getMonth() + 1];
+            if (trips === undefined) return {enabled: true}; //Массив по текущему месяцу
+            trips = trips[date.getDate()];
+            if (trips === undefined) return {enabled: true}; //Объект по текущему дню
 
-            var content = date.getDate() + '<div style="font-size: small;">' + tours.count + ' экскурсий' + '</div>' +
-                '<div style="font-size: small;">' + tours.tickets + ' билетов' + '</div>';
+            var content = date.getDate() + '<div style="font-size: small;">Старт тура </div>' +
+                '<div style="font-size: small;">' + trips.quantity + ' мест' + '</div>';
             if (dateSel !== null && dateSel.getDate() === date.getDate() && date.getMonth() === dateSel.getMonth()) { //Совпала с текущим днем
                 return {enabled: true, classes: 'calendar-day-select', tooltip: '', content: content};
             }
@@ -52,57 +52,63 @@ $(document).ready(function () {
         }
     });
     //Событие при выборе даты
-    $('#datepicker-tour').datepicker().on('changeDate', function (e) {
+    $('#datepicker-trip').datepicker().on('changeDate', function (e) {
         //получаем сведения о тек.дне
         if (e.date === undefined) return;
-        $.post('/tour/calendar/getday',
-            {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), tour_id: tour_id},
+        $.post('/trip/calendar/getday',
+            {year: e.date.getFullYear(), month: e.date.getMonth() + 1, day: e.date.getDate(), trip_id: trip_id},
             function (data) {
+           // console.log(data);
                 let dateInfo = JSON.parse(data);
-                $('.list-tours').html(dateInfo._list);
+                $('.list-trips').html(dateInfo._list);
                 $('.copy-week-times').html(dateInfo.copy_week_times);
-                $('.new-tours').html(dateInfo._new);
-                $('#datepicker-tour').datepicker('hide');
+                $('.new-trip').html(dateInfo.new_trip);
+                $('#datepicker-trip').datepicker('hide');
             });
     });
 
     //Загружаем Массив туров по дням за текущий день
-    if (document.getElementById('datepicker-tour')) {
-        $.post('/tour/calendar/getcalendar', {tour_id: tour_id, current_month: true}, function (data) {
-            full_array_tours = JSON.parse(data);
-            $('#datepicker-tour').datepicker('update');
+    if (document.getElementById('datepicker-trip')) {
+        $.post('/trip/calendar/getcalendar', {trip_id: trip_id, current_month: true}, function (data) {
+            full_array_trips = JSON.parse(data);
+            $('#datepicker-trip').datepicker('update');
         });
     }
 
-    $(document).on('click', '#send-new-tour', function () {
+    $(document).on('click', '#send-new-trip', function () {
         var d = $('#data-day').attr('data-d');
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
-        var _time = $('#_time').val();
-        var _tickets = $('#_tickets').val();
-        var _adult = $('#_adult').val();
-        var _child = $('#_child').val();
-        var _preference = $('#_preference').val();
-        if (_child === undefined) {
-            _child = null;
-        }
-        if (_preference === undefined) {
-            _preference = null;
-        }
 
-        $.post('/tour/calendar/setday',
+        var quantity= $('#quantity').val();
+        var cost_base = $('#cost_base').val();
+
+        let params = new Array();
+        let cost_list = new Array();
+        $('.cost-params').each(function(i){
+            params.push({params: $(this).data('params'), cost: $(this).val()});
+        });
+        $('.cost-list').each(function(i){
+            cost_list.push({class: $(this).data('class'), id: $(this).data('id'), cost: $(this).val()});
+        });
+
+        //console.log(params);
+        //console.log(cost_list);
+        $.post('/trip/calendar/setday',
             {
-                year: y, month: m, day: d, tour_id: tour_id,
-                _time: _time, _tickets: _tickets, _adult: _adult, _child: _child, _preference: _preference
+                year: y, month: m, day: d, trip_id: trip_id,
+                quantity: quantity, cost_base: cost_base, params: params, cost_list: cost_list
             },
             function (data) {
+                //console.log(data);
                 var dateInfo = JSON.parse(data);
-                $('.list-tours').html(dateInfo._list);
-                $('.new-tours').html(dateInfo._new);
-                full_array_tours = dateInfo.full_array_tours;
-                $('#datepicker-tour').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
+                $('.list-trips').html(dateInfo._list);
+                $('.new-trip').html(dateInfo.new_trip);
+                full_array_trips = dateInfo.full_array_trips;
+                $('#datepicker-trip').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
                 $('.copy-week-times').html(dateInfo.copy_week_times);
             });
+
     });
 
     $(document).on('click', '.del-day', function () {
@@ -110,21 +116,21 @@ $(document).ready(function () {
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
         var calendar_id = $(this).attr('data-id');
-        $.post('/tour/calendar/delday',
+        $.post('/trip/calendar/delday',
             {
-                year: y, month: m, day: d, tour_id: tour_id,
+                year: y, month: m, day: d, trip_id: trip_id,
                 calendar_id: calendar_id
             },
             function (data) {
                 var dateInfo = JSON.parse(data);
-                $('.list-tours').html(dateInfo._list);
-                $('.new-tours').html(dateInfo._new);
-                full_array_tours = dateInfo.full_array_tours;
-                $('#datepicker-tour').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
+                $('.list-trips').html(dateInfo._list);
+                $('.new-trip').html(dateInfo.new_trip);
+                full_array_trips = dateInfo.full_array_trips;
+                $('#datepicker-trip').datepicker('update'); //, new Date(y + '/' + m + '/' + d)
             });
     });
 
-    $(document).on('click', '#tour-data-week-copy', function () {
+    $(document).on('click', '#trip-data-week-copy', function () {
         var d = $('#data-day').attr('data-d');
         var m = $('#data-day').attr('data-m');
         var y = $('#data-day').attr('data-y');
@@ -133,11 +139,11 @@ $(document).ready(function () {
         for (let i = 1; i <= 7; i++) {
             week[i] = $('#data-week-' + i).is(':checked');
         }
-        $.post('/tour/calendar/copyweek', {year: y, month: m, day: d, tour_id: tour_id, json: JSON.stringify(week)},
+        $.post('/trip/calendar/copyweek', {year: y, month: m, day: d, trip_id: trip_id, json: JSON.stringify(week)},
             function (data) {
                 //console.log(data);
-                full_array_tours = JSON.parse(data);
-                $('#datepicker-tour').datepicker('update');
+                full_array_trips = JSON.parse(data);
+                $('#datepicker-trip').datepicker('update');
                 //Очищаем чекбоксы
                 for (let i = 1; i <= 7; i++) {
                     $('#data-week-' + i).prop('checked', false);

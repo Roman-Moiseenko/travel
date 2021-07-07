@@ -6,10 +6,8 @@ namespace frontend\controllers;
 
 use booking\entities\forum\Category;
 use booking\entities\forum\Message;
-use booking\entities\forum\Post;
 use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
-use booking\helpers\scr;
 use booking\helpers\SysHelper;
 use booking\repositories\forum\PostRepository;
 use booking\repositories\forum\SectionRepository;
@@ -73,7 +71,6 @@ class ForumController extends Controller
             'sections' => $sections,
         ]);
     }
-
 
     public function actionView($slug)
     {
@@ -214,7 +211,6 @@ class ForumController extends Controller
             return $this->redirect(\Yii::$app->request->referrer);
         }
     }
-
 
     public function actionUpdateMessage($id)
     {

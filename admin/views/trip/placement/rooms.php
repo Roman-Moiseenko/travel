@@ -83,16 +83,16 @@ $categories = ComfortRoomCategory::find()->all();
                     <?php foreach ($room->photos as $photo): ?>
                         <div class="col-md-2 col-xs-3" style="text-align: center">
                             <div class="btn-group">
-                                <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-photo-up', 'id' => $placement->id, 'photo_id' => $photo->id], [
+                                <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['room-move-photo-up', 'id' => $room->id, 'photo_id' => $photo->id], [
                                     'class' => 'btn btn-default',
                                     'data-method' => 'post',
                                 ]); ?>
-                                <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo', 'id' => $placement->id, 'photo_id' => $photo->id], [
+                                <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['room-delete-photo', 'id' => $room->id, 'photo_id' => $photo->id], [
                                     'class' => 'btn btn-default',
                                     'data-method' => 'post',
                                     'data-confirm' => 'Remove photo?',
                                 ]); ?>
-                                <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-photo-down', 'id' => $placement->id, 'photo_id' => $photo->id], [
+                                <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['room-move-photo-down', 'id' => $room->id, 'photo_id' => $photo->id], [
                                     'class' => 'btn btn-default',
                                     'data-method' => 'post',
                                 ]); ?>

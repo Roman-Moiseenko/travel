@@ -16,28 +16,63 @@ use yii\db\ActiveQuery;
  * @property integer $id
  * @property $trip_id
  * @property $trip_at
- *
  * @property integer $quantity
- * @property integer $cost
- *
+ * @property integer $cost_base
+ * @property string $cost_list_json
  * @property Trip $trip
  */
 class CostCalendar extends BaseCalendar
 {
+    /** @var $cost_list CostList[] */
+    public $cost_list = [];
+    /** @var $params CostParams[] */
+    public $params = [];
 
-    public static function create($trip_at, $cost, $quantity): self
+    public static function create($trip_at, $cost_base, $quantity): self
     {
         $calendar = new static();
         $calendar->trip_at = $trip_at;
-        $calendar->cost = $cost;
+        $calendar->cost_base = $cost_base;
         $calendar->quantity = $quantity;
 
         return $calendar;
     }
 
+    public function addCost(CostList $costList): void
+    {
+        $this->cost_list[] = $costList;
+    }
+
+    public function addParams(CostParams $param): void
+    {
+        $this->params[] = $param;
+    }
+
     public static function tableName()
     {
         return '{{%booking_trips_calendar_cost}}';
+    }
+
+    public function afterFind()
+    {
+        $_json = json_decode($this->getAttribute('cost_list_json'), true);
+        foreach ($_json as $item) {
+            $this->cost_list[] = new CostList($item['class'], $item['id'], $item['cost']);
+        }
+
+        $_json = json_decode($this->getAttribute('params_json'), true);
+        foreach ($_json as $item) {
+            $this->params[] = new CostParams($item['params'], $item['cost']);
+        }
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->setAttribute('cost_list_json', json_encode($this->cost_list));
+        $this->setAttribute('params_json', json_encode($this->params));
+        return parent::beforeSave($insert);
+
     }
 
     public function isEmpty(): bool

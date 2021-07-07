@@ -83,7 +83,7 @@ class CalendarController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
-            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['stay_id']));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($params['trip_id']));
         }
         return 'Error!';
     }
@@ -93,7 +93,7 @@ class CalendarController extends Controller
         if (\Yii::$app->request->isAjax) {
             try {
                 $params = \Yii::$app->request->bodyParams;
-                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['stay_id']);
+                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['trip_id']);
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
@@ -106,16 +106,18 @@ class CalendarController extends Controller
         if (\Yii::$app->request->isAjax) {
             $params = \Yii::$app->request->bodyParams;
             try {
-
-                $stay = $this->findModel($params['stay_id']);
-                $stay_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
+                //$trip = $this->findModel($params['trip_id']);
+                $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
                 $cost_base = $params['cost_base'];
-                $guest_base = $params['guest_base'];
-                $cost_add = $params['cost_add'];
+                $quantity = $params['quantity'];
+                $cost_params = $params['params'];
+                $cost_list = $params['cost_list'];
 
-                $this->service->clearCostCalendar($stay->id, $stay_at); //Очищаем тек.день
-                $this->service->addCostCalendar($stay->id, $stay_at, $cost_base, $guest_base, $cost_add);
-                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['stay_id']);
+                //$this->service->clearCostCalendar($stay->id, $stay_at); //Очищаем тек.день
+                //print_r($cost_params);
+                //print_r($cost_list);
+                $this->service->addCostCalendar($params['trip_id'], $trip_at, $cost_base, $quantity, $cost_params, $cost_list);
+                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['trip_id']);
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
@@ -132,20 +134,20 @@ class CalendarController extends Controller
             $day = $params['day'];
             try {
 
-                $stay = $this->findModel($params['stay_id']);
-                $stay_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
+                $trip = $this->findModel($params['trip_id']);
+                $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
                 $array_days = $this->getWeekDays(json_decode($params['json'], true), strtotime($day . '-' . $month . '-' . $year . ' 00:00:00'));
 
-                foreach ($array_days as $stay_at_new) {
-                    $this->service->clearCostCalendar($stay->id, $stay_at_new);
-                    $this->service->copyCostCalendar($stay->id, $stay_at_new, $stay_at);
+                foreach ($array_days as $trip_at_new) {
+                    $this->service->clearCostCalendar($trip->id, $trip_at_new);
+                    $this->service->copyCostCalendar($trip->id, $trip_at_new, $trip_at);
                 }
 
             } catch (\Throwable $e) {
                 return $e->getMessage();
             }
 
-            return json_encode($this->calendar->getCalendarForDatePickerBackend($stay->id));
+            return json_encode($this->calendar->getCalendarForDatePickerBackend($trip->id));
         }
     }
 
@@ -155,10 +157,10 @@ class CalendarController extends Controller
             $errors = null;
             $params = \Yii::$app->request->bodyParams;
             try {
-                $stay = $this->findModel($params['stay_id']);
-                $stay_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
-                $this->service->clearCostCalendar($stay->id, $stay_at);
-                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['stay_id']);
+                $trip = $this->findModel($params['trip_id']);
+                $trip_at = strtotime($params['day'] . '-' . $params['month'] . '-' . $params['year'] . ' 00:00:00');
+                $this->service->clearCostCalendar($trip->id, $trip_at);
+                return $this->getInfoDay($params['year'], $params['month'], $params['day'], $params['trip_id']);
             } catch (\DomainException $e) {
                 return $e->getMessage();
             }
@@ -167,25 +169,29 @@ class CalendarController extends Controller
 
     private function getInfoDay($Y, $M, $D, $id, $errors = [])
     {
-        $this->layout = 'main_ajax';
-        //Получаем данные
-        $stay = $this->findModel($id);
-        //Получаем данные по календарю
-        $calendar = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'), false);
-        // $button_times = $this->render('_button_times', ['clear' => count($calendars) != 0]);
-        $copy_week_times = ($calendar == null) ? '' : $this->render('_copy_week_times');
-        $_list = $this->render('_list_stays', [
-            'D' => $D, 'M' => $M, 'Y' => $Y,
-            'costCalendar' => $calendar,
-            'errors' => $errors,
-            'clear' => !empty($calendar),
-            'stay' => $stay,
-        ]);
-        return json_encode([
-            '_list' => $_list,
-            'copy_week_times' => $copy_week_times,
-            'full_array_stays' => $this->calendar->getCalendarForDatePickerBackend($id)
-        ]);
+        try {
+            $this->layout = 'main_ajax';
+            //Получаем данные
+            $trip = $this->findModel($id);
+            //Получаем данные по календарю
+            $calendar = $this->calendar->getDay($id, strtotime($D . '-' . $M . '-' . $Y . ' 00:00:00'));
+            // $button_times = $this->render('_button_times', ['clear' => count($calendars) != 0]);
+            $copy_week_times = ($calendar == null) ? '' : $this->render('_copy_week_times');
+            $new_trip = ($calendar == null) ? $this->render('_new_trip', ['errors' => $errors, 'trip' => $trip]) : '';
+            $_list = $this->render('_list_trips', [
+                'D' => $D, 'M' => $M, 'Y' => $Y,
+                'costCalendar' => $calendar,
+                'errors' => $errors,
+            ]);
+            return json_encode([
+                '_list' => $_list,
+                'copy_week_times' => $copy_week_times,
+                'full_array_trips' => $this->calendar->getCalendarForDatePickerBackend($id),
+                'new_trip' => $new_trip,
+            ]);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
     }
 
     private function getWeekDays($weeks, $begin)

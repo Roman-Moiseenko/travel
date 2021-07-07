@@ -159,7 +159,7 @@ class Activity extends ActiveRecord
 
     public function getPhotos(): ActiveQuery
     {
-        return $this->hasMany(Photo::class, ['room_id' => 'id'])->orderBy('sort');
+        return $this->hasMany(Photo::class, ['activity_id' => 'id'])->orderBy('sort');
     }
 
     public function getMainPhoto(): ActiveQuery

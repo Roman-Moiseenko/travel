@@ -20,7 +20,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
 class Photo extends BasePhoto
 {
     protected $catalog = 'activities';
-    protected $name_id = '$activity_id';
+    protected $name_id = 'activity_id';
 
     public static function tableName(): string
     {

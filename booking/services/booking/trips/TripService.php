@@ -4,6 +4,9 @@ namespace booking\services\booking\trips;
 
 
 use booking\entities\booking\AgeLimit;
+use booking\entities\booking\trips\CostCalendar;
+use booking\entities\booking\trips\CostList;
+use booking\entities\booking\trips\CostParams;
 use booking\entities\booking\trips\Photo;
 use booking\entities\booking\trips\ReviewTrip;
 use booking\entities\booking\trips\Trip;
@@ -21,6 +24,7 @@ use booking\forms\booking\VideosForm;
 use booking\forms\MetaForm;
 use booking\helpers\Filling;
 use booking\helpers\StatusHelper;
+use booking\repositories\booking\trips\CostCalendarRepository;
 use booking\repositories\booking\trips\ReviewTripRepository;
 use booking\repositories\booking\trips\TripRepository;
 use booking\repositories\booking\trips\TypeRepository;
@@ -61,6 +65,10 @@ class TripService
      * @var LoginService
      */
     private $loginService;
+    /**
+     * @var CostCalendarRepository
+     */
+    private $calendars;
 
     public function __construct(
         TripRepository $trips,
@@ -69,6 +77,7 @@ class TripService
         ContactService $contactService,
         ReviewTripRepository $reviews,
         DialogRepository $dialogs,
+        CostCalendarRepository $calendars,
         LoginService $loginService
     )
     {
@@ -79,6 +88,7 @@ class TripService
         $this->reviews = $reviews;
         $this->dialogs = $dialogs;
         $this->loginService = $loginService;
+        $this->calendars = $calendars;
     }
 
     public function create(TripCommonForm $form): Trip
@@ -130,6 +140,21 @@ class TripService
         $trip->setCost($form->cost_base);
         $trip->setPrepay($form->prepay);
         $trip->setCancellation(($form->cancellation == '') ? null : $form->cancellation);
+        $this->trips->save($trip);
+    }
+
+//***** AssignPlacement
+    public function assignPlacement($id, $placement_id)
+    {
+        $trip = $this->trips->get($id);
+        $trip->assignPlacement($placement_id);
+        $this->trips->save($trip);
+    }
+
+    public function revokePlacement($id, $placement_id)
+    {
+        $trip = $this->trips->get($id);
+        $trip->revokePlacement($placement_id);
         $this->trips->save($trip);
     }
 
@@ -362,6 +387,30 @@ class TripService
         $this->trips->save($trip);
     }
 
+    public function addCostCalendar($trip_id, $trip_at, $cost_base, $quantity, array $params, array $cost_list)
+    {
+        $trip = $this->trips->get($trip_id);
+        if ($this->calendars->isset($trip->id, $trip_at)) {
+            return 'На данный день (' . date('d-m-Y', $trip_at) . ') уже внесен этот тур ';
+        }
+
+        $calendar = CostCalendar::create(
+            $trip_at,
+            $cost_base,
+            $quantity
+        );
+        //print_r($params);
+        foreach ($params as $param) {
+            $calendar->addParams(new CostParams($param['params'], $param['cost']));
+        }
+        foreach ($cost_list as $item) {
+            $calendar->addCost(new CostList($item['class'], $item['id'], $item['cost']));
+        }
+
+        $trip->addCostCalendar($calendar);
+        $this->trips->save($trip);
+    }
+
     public function support(int $id, $type)
     {
         //TODO !!!!! отправка жалобы на заблокированный объект
@@ -436,6 +485,8 @@ class TripService
         ];
         return $redirect[$trip->filling];
     }
+
+
 
 
 }

@@ -5,6 +5,7 @@ namespace booking\entities\booking\trips;
 
 use booking\entities\booking\BaseObjectOfBooking;
 use booking\entities\booking\BaseReview;
+use booking\entities\booking\trips\activity\Activity;
 use booking\entities\booking\trips\placement\Placement;
 use booking\entities\Meta;
 use booking\helpers\SlugHelper;
@@ -44,6 +45,7 @@ use yii\db\ActiveQuery;
  * @property int $params_duration [int]
  * @property int $params_transfer [int]
  * @property int $params_capacity [int]
+ * @property Activity[] $activities
  */
 class Trip extends BaseObjectOfBooking
 {
@@ -111,7 +113,7 @@ class Trip extends BaseObjectOfBooking
                     'relations' => [
                         'typeAssignments',
                         'placementAssignments',
-                        //'actualCalendar',
+                        'actualCalendar',
                     ],
                 ],
             ];
@@ -205,7 +207,7 @@ class Trip extends BaseObjectOfBooking
     //******  Внешние связи **************************
     public function getActualCalendar(): ActiveQuery
     {
-        // TODO: Implement getActualCalendar() method.
+        return $this->hasMany(CostCalendar::class, ['trip_id' => 'id'])->orderBy(['trip_at' => SORT_ASC]);
     }
 
 
@@ -251,6 +253,12 @@ class Trip extends BaseObjectOfBooking
         return $this->hasMany(Placement::class, ['id' => 'placement_id'])->via('placementAssignments');
     }
 
+    public function getActivities(): ActiveQuery
+    {
+        return $this->hasMany(Activity::class, ['trip_id' => 'id']);
+    }
+
+
     public function linkAdmin(): string
     {
         return '/trip/common?id=' . $this->id;
@@ -260,5 +268,16 @@ class Trip extends BaseObjectOfBooking
     {
         return $this->hasMany(Video::class, ['trip_id' => 'id'])->orderBy(['sort' => SORT_ASC]);
 
+    }
+
+    //************************
+
+    public function activityDayTimeSort(): array
+    {
+        $result = [];
+        foreach ($this->activities as $activity) {
+            $result[$activity->day][$activity->time][] = $activity;
+        }
+        return $result;
     }
 }

@@ -76,6 +76,31 @@ $this->params['breadcrumbs'][] = $placement->name;
             ]) ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-secondary">
+                <div class="card-header with-border">Расположение</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <input id="bookingaddressform-address" class="form-control" width="100%" value="<?= $placement->address->address?>" disabled>
+                        </div>
+                        <div class="col-2">
+                            <input id="bookingaddressform-latitude" class="form-control" width="100%" value="<?= $placement->address->latitude?>" disabled>
+                        </div>
+                        <div class="col-2">
+                            <input id="bookingaddressform-longitude" class="form-control" width="100%" value="<?= $placement->address->longitude?>" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="map-view" style="width: 100%; height: 400px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card card-secondary">
         <div class="card-header with-border">Удобства в Объекте проживания</div>
         <div class="card-body">
