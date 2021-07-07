@@ -13,7 +13,7 @@ use yii\helpers\Url; ?>
             <?= $category->description ?>
         </div>
         <div>
-            Темы: <?= $category->countPost() . ' <i class="fas fa-folder-open"></i>' ?> Посты: <?= $category->countMessage() . ' <i class="fas fa-envelope-open-text"></i>' ?>
+            Темы: <?= $category->countPost() . ' <i class="fas fa-folder-open"></i>' ?> Ответы: <?= $category->countMessage() . ' <i class="fas fa-envelope-open-text"></i>' ?>
         </div>
     </td>
 </tr>

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = 'Календарь';
                                 <td class="p-2" valign="top">
                                     <!-- ПОВТОР -->
                                     <div class="list-trips"></div>
-                                    <div class="copy-week-times pt-1"></div>
+                                    <!--div class="copy-week-times pt-1"></div-->
                                     <div class="new-trip pt-1">
                                 </td>
                             </tr>
