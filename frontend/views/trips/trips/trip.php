@@ -274,7 +274,7 @@ $countReveiws = $trip->countReviews();
     </div>
 </div>
 <!-- КУПИТЬ БИЛЕТЫ -->
-<?php if (true): ?>
+<?php if ($mobile): ?>
     <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col <?= $mobile ? ' ml-2' : '' ?>">
             <?= $this->render('_block_booking', [

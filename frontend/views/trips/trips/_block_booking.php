@@ -35,7 +35,6 @@ DatepickerAsset::register($this);
                         'caption' => 'Забронировать',
                         'confirmation' => $trip->isConfirmation(),
                         'btn_id' => 'button-booking-trip',
-                        'block' => !SysHelper::isMobile(),
                     ]) ?>
 
                     <?= Html::endForm() ?>
