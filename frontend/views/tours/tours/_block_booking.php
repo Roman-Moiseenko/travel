@@ -35,7 +35,7 @@ DatepickerAsset::register($this);
                 </div>
             </div>
         <?php else: ?>
-            <span class="badge badge-danger" style="font-size: 16px"><?= Lang::t('Тур не активен.') ?><p></p><?= Lang::t('Бронирование недоступно.') ?></span>
+            <span class="badge badge-danger" style="font-size: 16px"><?= Lang::t('Экскурсия не активна!') ?><p></p><?= Lang::t('Бронирование недоступно!') ?></span>
 
         <?php endif; ?>
         <div class="rating">

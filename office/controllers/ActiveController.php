@@ -11,6 +11,7 @@ use office\forms\FunsSearch;
 use office\forms\ShopsSearch;
 use office\forms\StaysSearch;
 use office\forms\ToursSearch;
+use office\forms\TripsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -45,6 +46,10 @@ class ActiveController extends Controller
         ]);
         $dataProviderTours = $searchModelTours->search(\Yii::$app->request->queryParams);
 
+        $searchModelTrips = new TripsSearch([
+            'verify' => true,
+        ]);
+        $dataProviderTrips = $searchModelTrips->search(\Yii::$app->request->queryParams);
         //TODO HotelSearch
 
         $searchModelStays = new StaysSearch([
@@ -71,6 +76,9 @@ class ActiveController extends Controller
         return $this->render('index', [
             'searchModelTours' => $searchModelTours,
             'dataProviderTours' => $dataProviderTours,
+
+            'searchModelTrips' => $searchModelTrips,
+            'dataProviderTrips' => $dataProviderTrips,
 
             'searchModelStays' => $searchModelStays,
             'dataProviderStays' => $dataProviderStays,

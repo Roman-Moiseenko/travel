@@ -73,7 +73,7 @@ class CarsController extends Controller
 
     public function actionCar($id)
     {
-        $this->layout = 'cars_blank';
+        $this->layout = 'booking_blank';
 
         $car = $this->findModel($id);
         if ($car->isLock()) {

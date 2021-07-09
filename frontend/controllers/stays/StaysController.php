@@ -63,7 +63,7 @@ class StaysController extends Controller
 
     public function actionStay($id)
     {
-        $this->layout = 'stays_blank';
+        $this->layout = 'booking_blank';
         $form = new SearchStayForm();
         $stay = $this->stays->get($id);
         $params = \Yii::$app->request->queryParams;

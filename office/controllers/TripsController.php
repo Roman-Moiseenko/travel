@@ -5,22 +5,25 @@ namespace office\controllers;
 
 
 use booking\entities\booking\tours\Tour;
+use booking\entities\booking\trips\Trip;
 use booking\entities\Rbac;
 use booking\services\booking\tours\TourService;
+use booking\services\booking\trips\TripService;
 use office\forms\ToursSearch;
+use office\forms\TripsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class ToursController extends Controller
+class TripsController extends Controller
 {
 
     /**
-     * @var TourService
+     * @var TripService
      */
     private $service;
 
-    public function __construct($id, $module, TourService $service, $config = [])
+    public function __construct($id, $module, TripService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -49,7 +52,7 @@ class ToursController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new ToursSearch();
+        $searchModel = new TripsSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -63,34 +66,34 @@ class ToursController extends Controller
         $tour = $this->find($id);
 
         return $this->render('view', [
-            'tour' => $tour,
+            'trip' => $trip,
         ]);
     }
 
     public function actionActive($id)
     {
-        $tour = $this->find($id);
-        $this->service->activate($tour->id);
+        $trip = $this->find($id);
+        $this->service->activate($trip->id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionLock($id)
     {
-        $tour = $this->find($id);
-        $this->service->lock($tour->id);
+        $trip = $this->find($id);
+        $this->service->lock($trip->id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionUnlock($id)
     {
-        $tour = $this->find($id);
-        $this->service->unlock($tour->id);
+        $trip = $this->find($id);
+        $this->service->unlock($trip->id);
         return $this->redirect(\Yii::$app->request->referrer);
     }
     public function find($id)
     {
-        if (!$tour = Tour::findOne($id))
-            throw new \DomainException('Экскурсия не найдена');
-        return $tour;
+        if (!$trip = Trip::findOne($id))
+            throw new \DomainException('Тур не найден');
+        return $trip;
     }
 }

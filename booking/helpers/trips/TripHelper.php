@@ -6,6 +6,8 @@ namespace booking\helpers\trips;
 
 use booking\entities\booking\trips\BookingTrip;
 use booking\entities\booking\trips\ReviewTrip;
+use booking\entities\land\Land;
+use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 
 class TripHelper
@@ -40,5 +42,10 @@ class TripHelper
     {
         return 0;
         //return ReviewTrip::find()->andWhere(['trip_id' => $trip_id])->count();
+    }
+
+    public static function duration($duration)
+    {
+        return $duration . ' ' . Lang::t('дней') . '/' . ($duration + 1) . ' ' . Lang::t('ночей');
     }
 }

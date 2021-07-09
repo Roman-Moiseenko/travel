@@ -8,6 +8,7 @@ use booking\entities\booking\cars\Car;
 use booking\entities\booking\funs\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
+use booking\entities\booking\trips\Trip;
 use booking\entities\shops\AdShop;
 use booking\entities\shops\Shop;
 use booking\helpers\StatusHelper;
@@ -26,6 +27,7 @@ class ActiveTopWidget extends Widget
         $count = 0;
         $objects = [];
         $tours = Tour::find()->verify()->all();
+        $trips = Trip::find()->verify()->all();
         $cars = Car::find()->verify()->all();
         $funs = Fun::find()->verify()->all();
         $stays = Stay::find()->verify()->all();
@@ -36,6 +38,13 @@ class ActiveTopWidget extends Widget
                 'link' => Url::to(['tours/view', 'id' => $tour->id]),
                 'created_at' => date('d-m-Y', $tour->created_at),
                 ];
+        }
+        foreach ($trips as $trip) {
+            $objects[] = ['name' => $trip->name,
+                'photo' => $trip->mainPhoto ? $trip->mainPhoto->getThumbFileUrl('file', 'top_widget_list') : '',
+                'link' => Url::to(['trips/view', 'id' => $trip->id]),
+                'created_at' => date('d-m-Y', $trip->created_at),
+            ];
         }
         foreach ($cars as $car) {
             $objects[] = ['name' => $car->name,

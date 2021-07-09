@@ -1,92 +1,98 @@
 <?php
 
 
-namespace frontend\controllers\tours;
+namespace frontend\controllers\trips;
 
-use booking\entities\booking\tours\Tour;
+
+use booking\entities\booking\trips\Trip;
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
-use booking\forms\booking\tours\SearchTourForm;
-use booking\helpers\scr;
-
-use booking\repositories\booking\tours\TourRepository;
-use booking\repositories\booking\tours\TypeRepository;
-use booking\services\booking\tours\TourService;
+use booking\forms\booking\trips\SearchTripForm;
+use booking\repositories\booking\trips\TripRepository;
+use booking\repositories\booking\trips\TypeRepository;
+use booking\services\booking\trips\TripService;
 use booking\services\system\LoginService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 
-class ToursController extends Controller
+class TripsController extends Controller
 {
-    public $layout = 'tours';
-    private $tours;
-    private $service;
+    public $layout = 'trips';
+
+    /**
+     * @var LoginService
+     */
+    private $loginService;
+    /**
+     * @var TripRepository
+     */
+    private $trips;
     /**
      * @var TypeRepository
      */
     private $categories;
     /**
-     * @var LoginService
+     * @var TripService
      */
-    private $loginService;
+    private $service;
 
     public function __construct(
         $id,
         $module,
-        TourRepository $tours,
+        TripRepository $trips,
         TypeRepository $categories,
-        TourService $service,
+        TripService $service,
         LoginService $loginService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->tours = $tours;
-        $this->service = $service;
-        $this->categories = $categories;
         $this->loginService = $loginService;
+        $this->trips = $trips;
+        $this->categories = $categories;
+        $this->service = $service;
     }
 
     public function actionIndex()
     {
-        $form = new SearchTourForm([]);
-        if (isset(\Yii::$app->request->queryParams['SearchTourForm'])) {
+        $form = new SearchTripForm([]);
+        if (isset(\Yii::$app->request->queryParams['SearchTripForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();
-            $dataProvider = $this->tours->search($form);
+            $dataProvider = $this->trips->search($form);
         } else {
-            $dataProvider = $this->tours->search();
+            $dataProvider = $this->trips->search();
         }
         \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 1);
-        return $this->render('index_top', [
+        return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionTour($slug)
+    public function actionTrip($slug)
     {
         $this->layout = 'booking_blank';
 
-        $tour = $this->tours->findBySlug($slug);
-        if ($tour->isLock()) {
-            \Yii::$app->session->setFlash('warning', Lang::t('Экскурсия заблокирована! Доступ к ней ограничен.'));
+        $trip = $this->trips->findBySlug($slug);
+        if ($trip->isLock()) {
+            \Yii::$app->session->setFlash('warning', Lang::t('Тур заблокирован! Доступ к нему ограничен.'));
             return $this->goHome();
         }
         $reviewForm = new ReviewForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
-                $this->service->addReview($tour->id, $this->loginService->user()->id, $reviewForm);
+                $this->service->addReview($trip->id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
-                return $this->redirect(['tour/view', 'id' => $tour->id]);
+                return $this->redirect(['trip/view', 'id' => $trip->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-        $this->service->upViews($tour);//Перед показом увеличиваем счетчик
+        $this->service->upViews($trip);//Перед показом увеличиваем счетчик
         \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 1);
-        return $this->render('tour', [
-            'tour' => $tour,
+        return $this->render('trip', [
+            'trip' => $trip,
             'reviewForm' => $reviewForm,
         ]);
     }
@@ -96,16 +102,16 @@ class ToursController extends Controller
         if (!$category = $this->categories->findBySlug($slug)) {
             throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
         }
-        $form = new SearchTourForm(['type' => $category->id]);
-        if (isset(\Yii::$app->request->queryParams['SearchTourForm'])) {
+        $form = new SearchTripForm(['type' => $category->id]);
+        if (isset(\Yii::$app->request->queryParams['SearchTripForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();
-            $dataProvider = $this->tours->search($form);
+            $dataProvider = $this->trips->search($form);
         } else {
-            $dataProvider = $this->tours->search($form);
+            $dataProvider = $this->trips->search($form);
         }
         //return $this->redirect();
-        return $this->render('index_top', [
+        return $this->render('index', [
             'model' => $form,
             'dataProvider' => $dataProvider,
         ]);
@@ -113,7 +119,7 @@ class ToursController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Tour::findOne($id)) !== null) {
+        if (($model = Trip::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

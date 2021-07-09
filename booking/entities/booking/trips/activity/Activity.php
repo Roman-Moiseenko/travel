@@ -7,6 +7,7 @@ namespace booking\entities\booking\trips\activity;
 use booking\entities\behaviors\BookingAddressBehavior;
 use booking\entities\booking\BasePhoto;
 use booking\entities\booking\BookingAddress;
+use booking\entities\Lang;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -80,6 +81,11 @@ class Activity extends ActiveRecord
                 ],
             ],
         ];
+    }
+
+    public function getCaption(): string
+    {
+        return Lang::current() == Lang::DEFAULT ? $this->caption : $this->caption_en;
     }
 
     public function transactions()

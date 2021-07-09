@@ -29,7 +29,7 @@ class Message extends ActiveRecord
         //$message->post_id = $post_id;
         $message->user_id = $user_id;
         $message->text = $text;
-        $message->created_at = time();// - 3600 * 24 * 111 + 2129;
+        $message->created_at = time(); // - 3600 * 24 * 93;
         // $message->sort = $sort;
         return $message;
     }

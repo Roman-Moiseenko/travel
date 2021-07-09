@@ -73,7 +73,7 @@ class FunsController extends Controller
 
     public function actionFun($id)
     {
-        $this->layout = 'funs_blank';
+        $this->layout = 'booking_blank';
 
         $fun = $this->findModel($id);
         if ($fun->isLock()) {

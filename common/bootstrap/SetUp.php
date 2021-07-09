@@ -4,6 +4,7 @@ namespace common\bootstrap;
 
 use booking\entities\Lang;
 use booking\repositories\booking\tours\TourRepository;
+use booking\repositories\booking\trips\TripRepository;
 use booking\repositories\forum\SectionRepository;
 use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
@@ -19,6 +20,8 @@ use frontend\urls\MovingPageUrlRule;
 use frontend\urls\PageUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
+use frontend\urls\TripTypeUrlRule;
+use frontend\urls\TripUrlRule;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
@@ -91,6 +94,11 @@ class SetUp implements BootstrapInterface
             Instance::of('cache'),
         ]);
 
+        $container->setSingleton(TripTypeUrlRule::class, [], [
+            Instance::of(\booking\repositories\booking\trips\TypeRepository::class),
+            Instance::of('cache'),
+        ]);
+
         $container->setSingleton(CarTypeUrlRule::class, [], [
             Instance::of(\booking\repositories\booking\cars\TypeRepository::class),
             Instance::of('cache'),
@@ -103,6 +111,11 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(TourUrlRule::class, [], [
             Instance::of(TourRepository::class),
+            Instance::of('cache'),
+        ]);
+
+        $container->setSingleton(TripUrlRule::class, [], [
+            Instance::of(TripRepository::class),
             Instance::of('cache'),
         ]);
         $container->setSingleton(ForumUrlRule::class, [], [

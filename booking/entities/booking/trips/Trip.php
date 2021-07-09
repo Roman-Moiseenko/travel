@@ -99,6 +99,12 @@ class Trip extends BaseObjectOfBooking
         return false;
     }
 
+    public function minAmount(): int
+    {
+        $amount = 0;
+        return $amount;
+    }
+
     public static function tableName()
     {
         return '{{%booking_trips}}';
@@ -279,5 +285,10 @@ class Trip extends BaseObjectOfBooking
             $result[$activity->day][$activity->time][] = $activity;
         }
         return $result;
+    }
+
+    public function getAddressesActivities()
+    {
+        return [];
     }
 }

@@ -6,6 +6,7 @@ namespace booking\repositories\booking\trips;
 use booking\entities\booking\trips\Trip;
 use booking\entities\booking\trips\Type;
 use booking\entities\Lang;
+use booking\forms\booking\trips\SearchTripForm;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
@@ -46,14 +47,14 @@ class TripRepository
         $query = Trip::find()->alias('t')->active('t');
         return $this->getProvider($query);
     }
-/*
+
     public function search(SearchTripForm $form = null): DataProviderInterface
     {
         $query = Trip::find()->alias('t')->active('t')->with('type', 'mainPhoto');
 
         return $this->getProvider($query);
     }
-*/
+
     public function getAllByType(Type $type): DataProviderInterface
     {
         $query = Trip::find()->alias('t')->active('t')->with('mainPhoto');

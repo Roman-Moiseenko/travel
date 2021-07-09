@@ -157,6 +157,17 @@ return [
                 'tour/<slug:[\w\-]+>' => 'tours/tours/tour',
                 'tours/<slug:[\w\-]+>' => 'tours/tours/category',
 
+                'trips' => 'trips/trips/index',
+                'trips/booking/getcalendar' => 'trips/booking/getcalendar',
+                'trips/booking/gettickets' => 'trips/booking/gettickets',
+                'trips/booking/getlisttours' => 'trips/booking/getlisttours',
+                'trips/booking/getday' => 'trips/booking/getday',
+                'trips/booking/get-amount' => 'trips/booking/get-amount',
+                'trips/checkout/booking' => 'trips/checkout/booking',
+
+                'trip/<slug:[\w\-]+>' => 'trips/trips/trip',
+                'trips/<slug:[\w\-]+>' => 'trips/trips/category',
+
                 'stays' => 'stays/stays/index',
                 'stays/stays/get-booking' => 'stays/stays/get-booking',
                 'stays/stays/get-error' => 'stays/stays/get-error',
@@ -242,6 +253,8 @@ return [
                 ['class' => 'frontend\urls\ForumUrlRule'],
                 ['class' => 'frontend\urls\CarTypeUrlRule'],
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
+                ['class' => 'frontend\urls\TripUrlRule'],
+                ['class' => 'frontend\urls\TripTypeUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',
