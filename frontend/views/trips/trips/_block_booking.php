@@ -4,6 +4,7 @@
 use booking\entities\booking\trips\Trip;
 use booking\entities\Lang;
 use booking\helpers\ReviewHelper;
+use booking\helpers\SysHelper;
 use frontend\assets\DatepickerAsset;
 use frontend\widgets\design\BtnBooking;
 use frontend\widgets\LegalWidget;
@@ -30,13 +31,19 @@ DatepickerAsset::register($this);
                     </div>
 
                     <p></p>
-                    <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $trip->isConfirmation(), 'btn_id' => 'button-booking-trip']) ?>
+                    <?= BtnBooking::widget([
+                        'caption' => 'Забронировать',
+                        'confirmation' => $trip->isConfirmation(),
+                        'btn_id' => 'button-booking-trip',
+                        'block' => !SysHelper::isMobile(),
+                    ]) ?>
 
                     <?= Html::endForm() ?>
                 </div>
             </div>
         <?php else: ?>
-            <span class="badge badge-danger" style="font-size: 16px"><?= Lang::t('Тур не активен!') ?><p></p><?= Lang::t('Бронирование недоступно!') ?></span>
+            <span class="badge badge-danger"
+                  style="font-size: 16px"><?= Lang::t('Тур не активен!') ?><p></p><?= Lang::t('Бронирование недоступно!') ?></span>
 
         <?php endif; ?>
         <div class="rating">
