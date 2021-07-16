@@ -21,6 +21,7 @@ class PageForm extends CompositeForm
     public $content;
     public $slug;
     public $parentId;
+    public $icon;
 
     public $_page;
 
@@ -32,6 +33,7 @@ class PageForm extends CompositeForm
             $this->slug = $page->slug;
             $this->meta = new MetaForm($page->meta);
             $this->parentId = $page->parent ? $page->parent->id : null;
+            $this->icon = $page->icon;
             $this->_page = $page;
         }
         else {
@@ -46,7 +48,7 @@ class PageForm extends CompositeForm
             [['title'], 'required'],
             [['parentId'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 255],
-            [['content'], 'string'],
+            [['content', 'icon'], 'string'],
             ['slug', SlugValidator::class],
             [['slug'], 'unique', 'targetClass' => Page::class, 'filter' => $this->_page ? ['<>', 'id', $this->_page->id] : null]
         ];

@@ -12,7 +12,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = Lang::t('Вход на сайт');
+$this->title = Lang::t('Вход на сайт - Калининград для гостей и туристов');
 $description = 'Вход на сайт для туристов и гостей Калининграда. После входа, Вы сможете оплачивать туристические услуги';
 $this->params['canonical'] = Url::to(['/login'], true);
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);

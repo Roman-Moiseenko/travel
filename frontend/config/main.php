@@ -198,6 +198,7 @@ return [
                 'land/map/get-lands' => 'land/map/get-lands',
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
+                'moving/build' => 'moving/build/index',
 
                 /*
                 'moving/faq' => 'moving/faq/index',

@@ -19,28 +19,15 @@ use yii\helpers\Url;
                         <i class="fas fa-bars"></i>&#160;
                     </a>
                 </li>
+
+                <?php foreach ($categories as $category):?>
                 <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/moving' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving'])) ?>">
-                        <i class="fas fa-info-circle"></i>&#160;<?= Lang::t('На ПМЖ') ?>
+                    <a class="top-menu-a nav-link <?= $this->params['slug'] == $category->slug ? 'active' : '' ?>"
+                       href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>">
+                        <?= $category->icon ?>&#160;<?= Lang::t($category->title) ?>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/realty' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/realty'])) ?>">
-                        <i class="far fa-building"></i>&#160;<?= Lang::t('Недвижимость') ?>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/land' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
-                        <i class="fas fa-layer-group"></i>&#160;<?= Lang::t('Участки') ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'moving/bussines' ? 'active' : '' ?>"
-                       href="<?= Html::encode(Url::to(['/moving/bussines'])) ?>">
-                        <i class="fas fa-business-time"></i>&#160;<?= Lang::t('Бизнес') ?></a>
-                </li>
+                <?php endforeach; ?>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link"
                        href="<?= Html::encode(Url::to(['/forum/pereezd-na-pmzh'])) ?>">

@@ -34,8 +34,9 @@ class PageManageService
                 $form->meta->title,
                 $form->meta->description,
                 $form->meta->keywords
-            )
-        );
+            ),
+            $form->icon
+            );
         $page->appendTo($parent);
         $this->pages->save($page);
         return $page;
@@ -53,7 +54,8 @@ class PageManageService
                 $form->meta->title,
                 $form->meta->description,
                 $form->meta->keywords
-            )
+            ),
+            $form->icon
         );
         if ($form->parentId !== $page->parent->id) {
             $parent = $this->pages->get($form->parentId);

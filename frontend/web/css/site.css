@@ -1357,6 +1357,7 @@ h2.faq-card {
     border: 1px solid #333;
     padding: 8px;
     width: 200px;
+    height: 60px;
     border-radius: 6px;
     background-color: #ddd;
     text-align: center;

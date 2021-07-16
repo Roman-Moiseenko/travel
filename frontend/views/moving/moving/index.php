@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
 $this->title = 'Переезд на ПМЖ в Калининград - услуги недвижимость бизнес форум вопросов ответов информация для переезжающих отзывы рекомендации советы';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Окажем помощь в организации переезда на ПМЖ в Калининград, 
-подберем недвижимость, земельный учатосток. Организуем строительство собственного дома на земельном участке в Калининграде. 
+подберем недвижимость, земельный участок. Организуем строительство собственного дома на земельном участке в Калининграде. 
 Консультации инвестиций в бизнес в Калининграде ']);
 
 $this->params['canonical'] = Url::to(['/moving'], true);
@@ -17,6 +17,15 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
 ?>
 
     <h1 class="py-4">Калининградская область. Переезд на ПМЖ</h1>
+<div class="d-flex flex-wrap">
+<?php foreach ($categories as $category): ?>
+    <?php if ($mobile) echo '<div class="pb-4">'; ?>
+    <a href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>">
+        <div class="flex-fill moving-menu-page m-1 align-self-center"> <?= $category->title ?></div>
+    </a>
+    <?php if ($mobile) echo '</div>'; ?>
+<?php endforeach; ?>
+</div>
     <div class="card mt-4" style="background-color: rgba(255,255,255,0.8) !important; border-radius: 20px">
         <div class="card-body m-4 p-2" style="text-align: justify; color: #000; text-shadow: 0 0 0">
             <h2 style="text-align: center !important;">Как переехать в Калининград</h2>
@@ -25,11 +34,7 @@ $image = \Yii::$app->params['staticHostInfo'] . '/files/images/moving/main_landi
     </div>
 <div class="py-3 mt-3">
 
-    <?php foreach ($categories as $category): ?>
-        <?php if ($mobile) echo '<div class="pb-4">'; ?>
-        <a class="moving-menu-page" href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>"> <?= $category->title ?></a>
-        <?php if ($mobile) echo '</div>'; ?>
-    <?php endforeach; ?>
+
 
 </div>
 <div class="container params-moving pt-4 text-block">

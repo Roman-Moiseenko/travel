@@ -69,6 +69,7 @@ class UserForumHelper
         $text = strip_tags($text);
 
         $text = str_replace(PHP_EOL, '<br>', $text);
+       // $text = str_replace('&nbsp;', ' ', $text);
         $text = preg_replace('/\[(\/?)(b|i|u|s)\s*\]/', "<$1$2>", $text);
        /*
         $text = preg_replace('~\[b\](.+?)\[/b\]~mxi', '<b>$1</b>', $text);
@@ -96,6 +97,5 @@ class UserForumHelper
         $text = preg_replace('~\[right\](.+?)\[/right\]~s', '<div style="width: 100%; text-align: right">$1</div>', $text);
         $text = preg_replace('~\[quote\](.+?)\[/quote\]~s', '<blockquote>$1</blockquote>', $text);
         return $text;
-
     }
 }

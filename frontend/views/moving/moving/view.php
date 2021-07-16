@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $page Page */
 /* @var $categories Page[] */
-
+/* @var $main_page bool */
 
 $this->title = Lang::t($page->getSeoTitle());
 
@@ -20,9 +20,8 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords
 
 $this->params['canonical'] = Url::to(['moving/moving/view', 'slug' => $page->slug], true);
 $this->params['pages'] = true;
-
-
-$this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
+$this->params['slug'] = $page->slug;
+if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
         $this->params['breadcrumbs'][] = ['label' => $parent->title, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
@@ -30,19 +29,16 @@ foreach ($page->parents as $parent) {
 }
 $this->params['breadcrumbs'][] = $page->title;
 $mobile = SysHelper::isMobile();
-//MovingAsset::register($this);
-
 ?>
 
-<div class="pb-3">
-<?php foreach ($categories as $category): ?>
-    <?php if ($mobile) echo '<div class="pb-4">'; ?>
-    <a class="moving-menu-page" href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>"> <?= $category->title ?></a>
-<?php if ($mobile) echo '</div>'; ?>
-<?php endforeach; ?>
+<div class="d-flex flex-wrap">
+    <?php foreach ($categories as $category): ?>
+        <a href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>">
+            <div class="flex-fill moving-menu-page m-1 align-self-center"> <?= $category->title ?></div>
+        </a>
+    <?php endforeach; ?>
 </div>
 <article class="page-view params-moving">
-    <h1><?= Lang::t(Html::encode($page->title)) ?></h1>
     <?= SysHelper::lazyloaded($page->content); /*Yii::$app->formatter->asHtml($page->content, [
         'Attr.AllowedRel' => array('nofollow'),
         //'HTML.SafeObject' => true,

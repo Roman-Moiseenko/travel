@@ -10,7 +10,8 @@ use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnWish;
-use frontend\widgets\featured\ForFoodsWidget;use frontend\widgets\GalleryWidget;
+use frontend\widgets\featured\ForFoodsWidget;
+use frontend\widgets\GalleryWidget;
 use frontend\widgets\reviews\NewReviewFoodWidget;
 use frontend\widgets\reviews\ReviewsFoodWidget;
 use yii\helpers\Html;
@@ -35,7 +36,6 @@ MapAsset::register($this);
 $mobile = SysHelper::isMobile();
 $countReveiws = $food->countReviews();
 ?>
-
     <!-- ФОТО  -->
     <div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"
          xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
@@ -138,9 +138,9 @@ $countReveiws = $food->countReviews();
                 </div>
             </div>
         </div>
-    <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <?= ForFoodsWidget::widget() ?>
-    </div>
+        <div class="col-sm-4 <?= $mobile ? ' ml-2' : '' ?>">
+            <?= ForFoodsWidget::widget() ?>
+        </div>
     </div>
     <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col-sm-12 <?= $mobile ? ' ml-2' : '' ?>">

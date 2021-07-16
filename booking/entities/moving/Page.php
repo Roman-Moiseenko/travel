@@ -27,13 +27,15 @@ use yii\db\ActiveRecord;
  * @property Page[] $children
  * @property Page $prev
  * @property Page $next
+ * @property string $meta_json [json]
+ * @property string $icon
  * @mixin NestedSetsBehavior
  */
 class Page extends ActiveRecord
 {
     public $meta;
 
-    public static function create($title, $slug, $content, Meta $meta): self
+    public static function create($title, $slug, $content, Meta $meta, $icon): self
     {
         $page = new static();
         $page->title = $title;
@@ -41,10 +43,11 @@ class Page extends ActiveRecord
         $page->slug = $slug;
         $page->content = $content;
         $page->meta = $meta;
+        $page->icon = $icon;
         return $page;
     }
 
-    public function edit($title, $slug, $content, Meta $meta)
+    public function edit($title, $slug, $content, Meta $meta, $icon)
     {
         $this->title = $title;
         if (empty($slug)) {
@@ -53,6 +56,7 @@ class Page extends ActiveRecord
         $this->slug = $slug;
         $this->content = $content;
         $this->meta = $meta;
+        $this->icon = $icon;
     }
 
     public static function tableName()

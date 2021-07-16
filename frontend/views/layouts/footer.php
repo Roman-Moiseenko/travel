@@ -40,6 +40,7 @@ use yii\helpers\Url; ?>
                     <li><a href="<?= Url::to(['/tours']) ?>"><h3><?= Lang::t('Экскурсии в Калининграде') ?></h3></a></li>
                     <li><a href="<?= Url::to(['/funs']) ?>"><h3><?= Lang::t('Развлечения и отдых') ?></h3></a></li>
                     <li><a href="<?= Url::to(['/moving']) ?>"><h3><?= Lang::t('Переезд на ПМЖ в Калининград') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/lands']) ?>"><h3><?= Lang::t('Земля и Недвижимость') ?></h3></a></li>
                     <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление') ?></a></li>
                 </ul>
             </div>

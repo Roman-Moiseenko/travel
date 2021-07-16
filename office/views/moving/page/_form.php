@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
         <div class="card-header with-border">Общие</div>
         <div class="card-body">
             <?= $form->field($model, 'parentId')->dropDownList($model->parentsList())->label('Родительская страница')?>
+            <?= $form->field($model, 'icon')->textInput(['maxlength' => true])->label('Иконка') ?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
             <?= $form->field($model, 'slug')
                 ->textInput(['maxlength' => true])

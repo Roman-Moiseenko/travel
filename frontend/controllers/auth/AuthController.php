@@ -102,7 +102,8 @@ class   AuthController extends Controller
     public function actionLogout()
     {
         \Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect(\Yii::$app->request->referrer);
+        //return $this->goHome();
     }
 
 }
