@@ -4,6 +4,7 @@
 namespace booking\services\moving;
 
 
+use booking\entities\forum\Message;
 use booking\forms\forum\MessageForm;
 use booking\forms\moving\ItemPostForm;
 use booking\forms\user\SignupForm;
@@ -11,6 +12,7 @@ use booking\forms\user\UserCreateForm;
 use booking\repositories\forum\PostRepository;
 use booking\repositories\moving\ItemRepository;
 use booking\repositories\user\UserRepository;
+use booking\services\forum\CategoryService;
 use booking\services\forum\PostService;
 use booking\services\user\SignupService;
 use booking\services\user\UserManageService;
@@ -43,23 +45,27 @@ class ItemPostService
      * @var SignupService
      */
     private $signupService;
+    /**
+     * @var CategoryService
+     */
+    private $categoryService;
 
     public function __construct(
         UserManageService $userService,
         SignupService $signupService,
-        PostService $postService,
         ItemRepository $items,
         PostRepository $posts,
-        UserRepository $users
+        UserRepository $users,
+        CategoryService $categoryService
     )
     {
 
         $this->userService = $userService;
-        $this->postService = $postService;
         $this->items = $items;
         $this->posts = $posts;
         $this->users = $users;
         $this->signupService = $signupService;
+        $this->categoryService = $categoryService;
     }
 
     public function addPost($item_id, ItemPostForm $form)
@@ -82,6 +88,14 @@ class ItemPostService
         $user = $this->signupService->signup($form_user);
         $form_message = new MessageForm();
         $form_message->text = $form->message;
-        $this->postService->addMessageOffice($item->post_id, $user->id, $date, $form_message);
+        $this->addMessageOffice($item->post_id, $user->id, $date, $form_message);
+    }
+
+    public function addMessageOffice($post_id, $user_id, $date, MessageForm $form): void
+    {
+        $post = $this->posts->get($post_id);
+        $message = $post->addMessage(Message::createOfTime($user_id, $form->text, $date));
+        $this->posts->save($post);
+        $this->categoryService->updated($post->category_id, $message);
     }
 }
