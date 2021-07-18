@@ -1,17 +1,18 @@
 <?php
 
 use booking\entities\moving\Item;
+use booking\entities\moving\Page;
 use kartik\widgets\FileInput;
 use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $item Item */
+/* @var $page Page */
 ?>
 
 <div class="item-form">
     <?php $form = ActiveForm::begin(); ?>
-
     <div class="card card-secondary">
         <div class="card-header with-border">Общие</div>
         <div class="card-body">
@@ -20,7 +21,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
                 </div>
                 <div class="col-3">
-                <?= $form->field($model, 'page_id')->textInput(['maxlength' => true])->label('ID поста на форуме') ?>
+                <?= $form->field($model, 'post_id')->textInput(['maxlength' => true])->label('ID поста на форуме') ?>
                 </div>
             </div>
             <?= $form->field($model, 'text')->widget(CKEditor::class)->label('Текст') ?>

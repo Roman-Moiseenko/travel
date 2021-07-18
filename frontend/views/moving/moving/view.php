@@ -147,6 +147,11 @@ newerton\fancybox\FancyBox::widget([
     <div class="pt-3 pb-2">
         <?= SysHelper::lazyloaded($item->text); ?>
     </div>
+    <?php if ($item->post_id): ?>
+    <div>
+        <a href="<?= Url::to(['/forum/post', 'id' => $item->post_id]) ?>" rel="nofollow" target="_blank">Прочитать отзывы на форуме</a>
+    </div>
+    <?php endif; ?>
     <?php endforeach; ?>
 </article>
 

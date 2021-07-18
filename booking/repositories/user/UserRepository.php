@@ -95,4 +95,9 @@ class UserRepository
         return $result->asArray()->column();
     }
 
+    public function getMask(array $array)
+    {
+        return User::find()->andWhere($array)->all();
+    }
+
 }

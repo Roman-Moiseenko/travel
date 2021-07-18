@@ -113,6 +113,14 @@ class PostService
         return $message;
     }
 
+    public function addMessageOffice($post_id, $user_id, $date, MessageForm $form): void
+    {
+        $post = $this->posts->get($post_id);
+        $message = $post->addMessage(Message::createOfTime($user_id, $form->text, $date));
+        $this->posts->save($post);
+        $this->service->updated($post->category_id, $message);
+    }
+
     public function editMessage($post_id, $message_id, MessageForm $form)
     {
         $user = $this->user;

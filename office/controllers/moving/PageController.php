@@ -6,7 +6,9 @@ namespace office\controllers\moving;
 use booking\entities\moving\Page;
 use booking\entities\Rbac;
 use booking\forms\moving\ItemForm;
+use booking\forms\moving\ItemPostForm;
 use booking\forms\moving\PageForm;
+use booking\services\moving\ItemPostService;
 use booking\services\moving\PageManageService;
 use office\forms\moving\PageSearch;
 use yii\filters\AccessControl;
@@ -21,11 +23,16 @@ class PageController extends Controller
      * @var PageManageService
      */
     private $service;
+    /**
+     * @var ItemPostService
+     */
+    private $postService;
 
-    public function __construct($id, $module, PageManageService $service, $config = [])
+    public function __construct($id, $module, PageManageService $service, ItemPostService $postService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->postService = $postService;
     }
 
     public function behaviors()
@@ -218,6 +225,26 @@ class PageController extends Controller
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionItemPost($id, $item_id)
+    {
+        $page = $this->findModel($id);
+        $form = new ItemPostForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->postService->addPost($item_id, $form);
+                //return $this->redirect(['item', 'id' => $page->id, 'item_id' => $item->id]);
+
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('items-post', [
+            'page' => $page,
+            'model' => $form,
+        ]);
     }
 
     protected function findModel($id)

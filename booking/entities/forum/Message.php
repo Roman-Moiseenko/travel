@@ -30,7 +30,15 @@ class Message extends ActiveRecord
         $message->user_id = $user_id;
         $message->text = $text;
         $message->created_at = time();// - 3600 * 24 * 77 + 60 * 60 * 2;
-        // $message->sort = $sort;
+        // $message->sort = $sort; createOfTime
+        return $message;
+    }
+    public static function createOfTime($user_id, $text, $time): self
+    {
+        $message = new static();
+        $message->user_id = $user_id;
+        $message->text = $text;
+        $message->created_at = $time;
         return $message;
     }
 
