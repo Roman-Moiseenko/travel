@@ -15,7 +15,14 @@ use yii\widgets\ActiveForm;
     <div class="card card-secondary">
         <div class="card-header with-border">Общие</div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-6">
             <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Заголовок') ?>
+                </div>
+                <div class="col-3">
+                <?= $form->field($model, 'page_id')->textInput(['maxlength' => true])->label('ID поста на форуме') ?>
+                </div>
+            </div>
             <?= $form->field($model, 'text')->widget(CKEditor::class)->label('Текст') ?>
         </div>
     </div>

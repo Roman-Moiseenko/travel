@@ -33,6 +33,7 @@ use yii\db\ActiveRecord;
  * @property string $meta_json [json]
  * @property string $icon
  * @property Item[] $items
+ * @property string $name [varchar(255)]
  * @mixin NestedSetsBehavior
  */
 class Page extends ActiveRecord

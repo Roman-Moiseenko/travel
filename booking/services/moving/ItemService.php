@@ -7,6 +7,7 @@ namespace booking\services\moving;
 use booking\entities\Meta;
 use booking\entities\moving\Item;
 use booking\entities\moving\Page;
+use booking\forms\moving\ItemForm;
 use booking\forms\moving\PageForm;
 use booking\repositories\moving\ItemRepository;
 use booking\repositories\moving\PageRepository;

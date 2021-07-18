@@ -2,6 +2,7 @@
 
 use booking\entities\moving\Item;
 use booking\entities\moving\Page;
+use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -15,7 +16,10 @@ $this->params['breadcrumbs'][] = ['label' => $page->title, 'url' => ['moving/pag
 $this->params['breadcrumbs'][] = ['label' => 'Список', 'url' => ['moving/page/items', 'id' => $page->id]];
 $this->params['breadcrumbs'][] = $item->title;
 ?>
+<p>
+    <?= Html::a('Редактировать', ['item-update', 'id' => $page->id, 'item_id' => $item->id], ['class' => 'btn btn-success']) ?>
 
+</p>
 <div class="card card-secondary">
     <div class="card-header with-border">Основные</div>
     <div class="card-body">

@@ -46,7 +46,7 @@ class PageManageService
                 $form->meta->keywords
             ),
             $form->icon
-            );
+        );
         $page->appendTo($parent);
         $this->pages->save($page);
         return $page;
@@ -73,6 +73,7 @@ class PageManageService
         }
         $this->pages->save($page);
     }
+
     public function moveUp($id): void
     {
         $page = $this->pages->get($id);
@@ -142,7 +143,8 @@ class PageManageService
         $item = $page->addItem(Item::create(
             $form->title,
             $form->text,
-            new BookingAddress($form->address->address, $form->address->latitude, $form->address->longitude)
+            new BookingAddress($form->address->address, $form->address->latitude, $form->address->longitude),
+            $form->post_id
         ));
         $sort = $this->items->getMaxSort($page->id);
         $item->setSort($sort + 1);
@@ -158,7 +160,12 @@ class PageManageService
     {
         $page = $this->pages->get($id);
         $item = $page->getItem($item_id);
-        $item->edit($form->title, $form->text, new BookingAddress($form->address->address, $form->address->latitude, $form->address->longitude));
+        $item->edit(
+            $form->title,
+            $form->text,
+            new BookingAddress($form->address->address, $form->address->latitude, $form->address->longitude),
+            $form->post_id
+        );
         if ($form->photos->files) {
             foreach ($form->photos->files as $photo) {
                 $item->addPhoto(Photo::create($photo));

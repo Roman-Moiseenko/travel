@@ -105,7 +105,7 @@ newerton\fancybox\FancyBox::widget([
 
     <?php foreach ($page->items as $i => $item): ?>
         <h2 class="pt-4 pb-1" id="i-<?= $item->id ?>"><?= $item->title ?></h2>
-        <div>
+        <div class="pb-3">
             <ul class="thumbnails">
                 <?php foreach ($item->photos as $i => $photo): ?>
                     <?php if ($i == 0): ?>
@@ -144,8 +144,9 @@ newerton\fancybox\FancyBox::widget([
             </a>
 
         <?php endif ?>
+    <div class="pt-3 pb-2">
         <?= SysHelper::lazyloaded($item->text); ?>
-
+    </div>
     <?php endforeach; ?>
 </article>
 

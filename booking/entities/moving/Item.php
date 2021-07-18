@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $text
  * @property integer $rating
  * @property integer $sort
+ * @property integer $post_id
  * @property Photo $mainPhoto
  * @property Photo[] $photos
  * @property string $address_address [varchar(255)]
@@ -32,20 +33,22 @@ class Item extends ActiveRecord
     /** @var $address BookingAddress */
     public $address;
 
-    public static function create($title, $text, BookingAddress $address): self
+    public static function create($title, $text, BookingAddress $address, $post_id): self
     {
         $item = new static();
         $item->title = $title;
         $item->text = $text;
         $item->address = $address;
+        $item->post_id = $post_id;
         return $item;
     }
 
-    public function edit($title, $text, BookingAddress $address): void
+    public function edit($title, $text, BookingAddress $address, $post_id): void
     {
         $this->title = $title;
         $this->text = $text;
         $this->address = $address;
+        $this->post_id = $post_id;
     }
 
     public function setSort($sort): void

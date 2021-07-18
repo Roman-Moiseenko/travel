@@ -19,12 +19,14 @@ class ItemForm extends CompositeForm
 {
     public $title;
     public $text;
+    public $post_id;
 
     public function __construct(Item $item = null, $config = [])
     {
         if ($item) {
             $this->title = $item->title;
             $this->text = $item->text;
+            $this->post_id = $item->post_id;
             $this->address = new BookingAddressForm($item->address);
         } else {
             $this->address = new BookingAddressForm();
@@ -38,6 +40,7 @@ class ItemForm extends CompositeForm
     {
         return [
             [['text', 'title'], 'string'],
+            ['post_id', 'integer'],
         ];
     }
 
