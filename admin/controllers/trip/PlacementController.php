@@ -99,6 +99,7 @@ class PlacementController extends Controller
             'placements' => $placements,
         ]);
     }
+
     public function actionAssign($id, $placement_id, $set)
     {
         if ($set == 1) {

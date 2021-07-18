@@ -52,7 +52,7 @@ class TypeTourService
     public function moveDown($id)
     {
         $types = $this->toursType->getAll();
-        $maxSort = $this->toursType->getMaxSort();
+        //$maxSort = $this->toursType->getMaxSort();
         foreach ($types as $i => $type) {
             if ($type->isFor($id) && $i != count($types) - 1) {
                 $t1 = $type;

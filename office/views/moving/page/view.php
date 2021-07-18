@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Список Элементов', ['items', 'id' => $page->id], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <div class="card">
@@ -40,6 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'text',
                         'label' => 'Ссылка'
                     ],
+                    [
+
+                        'value' => count($page->items),
+                        'label' => 'Количество Элементов списочных данных'
+                    ],
                 ],
             ]) ?>
         </div>
@@ -53,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'HTML.SafeObject' => true,
                 'Output.FlashCompat' => true,
                 'HTML.SafeIframe' => true,
-                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
             ]) ?>
         </div>
     </div>

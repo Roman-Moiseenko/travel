@@ -5,6 +5,7 @@ namespace office\controllers\moving;
 
 use booking\entities\moving\Page;
 use booking\entities\Rbac;
+use booking\forms\moving\ItemForm;
 use booking\forms\moving\PageForm;
 use booking\services\moving\PageManageService;
 use office\forms\moving\PageSearch;
@@ -127,6 +128,96 @@ class PageController extends Controller
             \Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['index']);
+    }
+
+    /* ***************************************************  */
+
+    public function actionItems($id)
+    {
+        $page = $this->findModel($id);
+        return $this->render('items', [
+            'page' => $page,
+        ]);
+    }
+
+    public function actionItemCreate($id)
+    {
+        $page = $this->findModel($id);
+        $form = new ItemForm();
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $item = $this->service->addItem($id, $form);
+                return $this->redirect(['item', 'id' => $page->id, 'item_id' => $item->id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('items-create', [
+            'page' => $page,
+            'model' => $form,
+        ]);
+    }
+
+    public function actionItemUpdate($id, $item_id)
+    {
+        $page = $this->findModel($id);
+        $item = $page->getItem($item_id);
+        $form = new ItemForm($item);
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->updateItem($id, $item_id, $form);
+                return $this->redirect(['item', 'id' => $page->id, 'item_id' => $item->id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->errorHandler->logException($e);
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('items-update', [
+            'page' => $page,
+            'model' => $form,
+            'item' => $item,
+        ]);
+    }
+
+    public function actionItem($id, $item_id)
+    {
+        $page = $this->findModel($id);
+        $item = $page->getItem($item_id);
+        return $this->render('item-view', [
+            'page' => $page,
+            'item' => $item,
+        ]);
+    }
+
+    public function actionItemMoveDown($id, $item_id)
+    {
+        $this->service->itemMoveDown($id, $item_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionItemMoveUp($id, $item_id)
+    {
+        $this->service->itemMoveUp($id, $item_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionItemDelete($id, $item_id)
+    {
+        $this->service->itemDelete($id, $item_id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionDeletePhoto($id, $item_id, $photo_id)
+    {
+        try {
+            $this->service->removePhoto($id, $item_id, $photo_id);
+
+        } catch (\DomainException $e) {
+            \Yii::$app->errorHandler->logException($e);
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     protected function findModel($id)

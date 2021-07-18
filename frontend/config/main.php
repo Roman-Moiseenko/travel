@@ -196,15 +196,11 @@ return [
                 'moving/realty' => 'moving/realty/index',
                 'moving/land' => 'moving/land/index',
                 'land/map/get-lands' => 'land/map/get-lands',
+                'moving/moving/get-items' => 'moving/moving/get-items',
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
                 'moving/build' => 'moving/build/index',
 
-                /*
-                'moving/faq' => 'moving/faq/index',
-                'moving/faq/category/<id:\d+>' => 'moving/faq/category',
-                'moving/faq/answer/<id:\d+>' => 'moving/faq/answer',
-                */
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
 

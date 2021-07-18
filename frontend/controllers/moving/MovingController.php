@@ -29,9 +29,8 @@ class MovingController extends Controller
         $this->layout = 'main_moving';
         $categories = $this->pages->findRoot();
         return $this->redirect(Url::to(['/moving/moving/view', 'slug' => $categories[0]->slug]));
-        return $this->render('index', ['categories' => $categories]);
+        //return $this->render('index', ['categories' => $categories]);
     }
-
 
 
     public function actionView($slug)
@@ -39,7 +38,8 @@ class MovingController extends Controller
         //  scr::p($slug);
         $this->layout = 'main_moving';
         if (!$page = $this->pages->findBySlug($slug)) {
-            throw new NotFoundHttpException(Lang::t('Страница не найдена'));
+            \Yii::$app->session->setFlash('error', 'Страница не найдена');
+            return $this->render(Url::to(['/about']));
         }
         $root = $this->pages->findRoot();
         //TODO Получаем список под папок
@@ -49,5 +49,21 @@ class MovingController extends Controller
             'categories' => $categories,
             'main_page' => $root[0]->slug == $slug
         ]);
+    }
+
+    public function actionGetItems()
+    {
+        if (\Yii::$app->request->isAjax) {
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                $page_id = $params['page_id'];
+                $item_id = $params['item_id'];
+                $items = $this->pages->getItemsMap($page_id, $item_id);
+                return json_encode($items);
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
+        }
+        return $this->goHome();
     }
 }

@@ -57,9 +57,8 @@ use yii\helpers\Html;
         <?= $form->field($model, 'description_en')->textarea(['rows' => 6])->label('Описание (En)')->widget(CKEditor::class) ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-secondary">
+
+<div class="card card-secondary">
             <div class="card-header with-border">Расположение</div>
             <div class="card-body">
                 <div class="row">
@@ -79,8 +78,7 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 
 <div class="row">
     <div class="col-md-6">

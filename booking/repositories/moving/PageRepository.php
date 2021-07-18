@@ -4,6 +4,7 @@
 namespace booking\repositories\moving;
 
 
+use booking\entities\moving\Item;
 use booking\entities\moving\Page;
 
 class PageRepository
@@ -48,5 +49,24 @@ class PageRepository
     {
         return Page::find()->andWhere(['depth' => 1])->all();
 
+    }
+
+    public function getItemsMap($page_id, $item_id): array
+    {
+        $result = [];
+        $items = Item::find()->andWhere(['page_id' => $page_id])->all();
+        foreach ($items as $item) {
+            if (!$item->isFor($item_id)){
+                $result[] = [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'photo' => $item->mainPhoto ? $item->mainPhoto->getThumbFileUrl('file', 'map') : '',
+                    'address' => $item->address->address,
+                    'latitude' => $item->address->latitude,
+                    'longitude' => $item->address->longitude
+                ];
+            }
+        }
+        return $result;
     }
 }
