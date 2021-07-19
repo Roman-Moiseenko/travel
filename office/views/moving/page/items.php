@@ -15,9 +15,8 @@ $this->params['breadcrumbs'][] = 'Список Элементов';
 
 ?>
 <p>
-<?= Html::a('Создать Элемент', ['item-create', 'id' => $page->id], ['class' => 'btn btn-warning']) ?>
+    <?= Html::a('Создать Элемент', ['item-create', 'id' => $page->id], ['class' => 'btn btn-warning']) ?>
 </p>
-
 <div class="card">
     <div class="card-body">
         <table>
@@ -26,39 +25,38 @@ $this->params['breadcrumbs'][] = 'Список Элементов';
                 <td></td>
             </tr>
             </thead>
-        <?php foreach ($page->items as $item): ?>
-        <tr>
-            <td>
-                <span style="font-size: 26px"><?= $item->title ?></span>
-
-                    <?=
-                    Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['item-move-up', 'id' => $page->id, 'item_id' => $item->id],
-                        ['data-method' => 'post',]) .
-                    Html::a('<span class="glyphicon glyphicon-arrow-down"></span>', ['item-move-down', 'id' => $page->id, 'item_id' => $item->id],
-                        ['data-method' => 'post',]);
-                    ?>
-                <?=
-                Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['item-update', 'id' => $page->id, 'item_id' => $item->id],
-                    ['data-method' => 'post',]) .
-                Html::a('<span class="glyphicon glyphicon-trash"></span>', ['item-delete', 'id' => $page->id, 'item_id' => $item->id],
-                    ['data-method' => 'post',]);
-                ?>
-                <ul class="thumbnails">
-                    <?php foreach ($item->photos as $i => $photo): ?>
-                        <li class="image-additional"><a class="thumbnail"
-                                                        href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>"
-                                                        target="_blank">
-                                <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"
-                                     alt="<?= $item->title; ?>"/>
-                            </a></li>
-                    <?php endforeach; ?>
-                </ul>
-                <div>
-                    <?= $item->text ?>
-                </div>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+            <?php foreach ($page->items as $item): ?>
+                <tr>
+                    <td>
+                        <span style="font-size: 26px"><?= $item->title ?></span>
+                        <?=
+                        Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['item-move-up', 'id' => $page->id, 'item_id' => $item->id],
+                            ['data-method' => 'post',]) .
+                        Html::a('<span class="glyphicon glyphicon-arrow-down"></span>', ['item-move-down', 'id' => $page->id, 'item_id' => $item->id],
+                            ['data-method' => 'post',]) .
+                        Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['item-update', 'id' => $page->id, 'item_id' => $item->id],
+                            ['data-method' => 'post',]) .
+                        Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['item', 'id' => $page->id, 'item_id' => $item->id],
+                            ['data-method' => 'post',]) .
+                        Html::a('<span class="glyphicon glyphicon-trash"></span>', ['item-delete', 'id' => $page->id, 'item_id' => $item->id],
+                            ['data-method' => 'post',]);
+                        ?>
+                        <ul class="thumbnails">
+                            <?php foreach ($item->photos as $i => $photo): ?>
+                                <li class="image-additional"><a class="thumbnail"
+                                                                href="<?= $photo->getThumbFileUrl('file', 'catalog_origin') ?>"
+                                                                target="_blank">
+                                        <img src="<?= $photo->getThumbFileUrl('file', 'cabinet_list'); ?>"
+                                             alt="<?= $item->title; ?>"/>
+                                    </a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <div>
+                            <?= $item->text ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </table>
     </div>
 </div>

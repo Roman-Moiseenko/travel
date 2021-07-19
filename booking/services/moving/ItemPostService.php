@@ -72,20 +72,20 @@ class ItemPostService
     {
         $item = $this->items->get($item_id);
         $post = $this->posts->get($item->post_id);
-        $date = $post->update_at ?? $post->created_at + (3600 * 12 * rand(1, 3));
+        $date = ($post->update_at ?? $post->created_at) + (3600 * 12 * rand(1, 3) + rand(120, 3400));
         //Создаем Пользователя
         $list = $this->users->getMask(['LIKE', 'email', self::EMAIL_BASE]); //найти последний email и phone ищем по телефону
         $number = str_pad(count($list) + 1, 7, '0', STR_PAD_LEFT);
-        $form_user = new SignupForm();
 
+        $form_user = new SignupForm();
         $form_user->email = $number . self::EMAIL_BASE;
         $form_user->username = self::PHONE_BASE . $number;
         $form_user->password = 'Foolprof77';
-        $form_user->agreement = true;
-        $form_user->policy = true;
+        $form_user->firstname = $form->firstname;
+        $form_user->surname = $form->surname;
 
+        $user = $this->userService->create($form_user, $date);
 
-        $user = $this->signupService->signup($form_user);
         $form_message = new MessageForm();
         $form_message->text = $form->message;
         $this->addMessageOffice($item->post_id, $user->id, $date, $form_message);

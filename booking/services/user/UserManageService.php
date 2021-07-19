@@ -4,7 +4,9 @@
 namespace booking\services\user;
 
 
+use booking\entities\Lang;
 use booking\entities\user\FullName;
+use booking\entities\user\Personal;
 use booking\entities\user\User;
 use booking\entities\user\UserAddress;
 use booking\entities\user\WishlistCar;
@@ -15,6 +17,7 @@ use booking\entities\user\WishlistStay;
 use booking\entities\user\WishlistTour;
 use booking\forms\user\PersonalForm;
 use booking\forms\user\PreferencesForm;
+use booking\forms\user\SignupForm;
 use booking\forms\user\UserCreateForm;
 use booking\forms\user\UserEditForm;
 use booking\repositories\booking\tours\BookingTourRepository;
@@ -56,26 +59,42 @@ class UserManageService
         $this->bookingTours = $bookingTours;
     }
 
-    //Не используется
-    public function create(UserCreateForm $form): User
+
+    public function create(SignupForm $form, $date = null): User
     {
         $user = User::create(
             $form->username,
             $form->email,
             $form->password
         );
-
-       $this->transaction->wrap(function () use($user, $form) {
+        $user->status = User::STATUS_ACTIVE;
+        $user->updatePersonal(Personal::create(
+            $form->username,
+            null,
+            new UserAddress(),
+            new FullName(
+                $form->surname,
+                $form->firstname,
+                $form->secondname
+            ),
+            true,
+            ));
+        if ($date) {
+            $user->created_at = $date;
+            $user->updated_at = $date;
+        }
+        $this->transaction->wrap(function () use ($user, $form) {
             $this->users->save($user);
         });
         return $user;
     }
 
+
     public function update($id, UserEditForm $form): User
     {
         $user = $this->users->get($id);
         $user->edit($form->username, $form->email);
-        $this->transaction->wrap(function () use($user, $form) {
+        $this->transaction->wrap(function () use ($user, $form) {
             if (!empty($form->password)) $user->setPassword($form->password);
             $this->users->save($user);
         });
@@ -151,25 +170,25 @@ class UserManageService
         $this->users->save($user);
     }
 
-/*
-    public function setContact($id, ContactDataForm $form)
-    {
-        $user = $this->users->get($id);
-        $user->editPhone($form->phone);
+    /*
+        public function setContact($id, ContactDataForm $form)
+        {
+            $user = $this->users->get($id);
+            $user->editPhone($form->phone);
 
 
-        $user->editFullName(
-            new FullName(
-                $this->ExcangeName($form->surname),
-                $this->ExcangeName($form->firstname),
-                $this->ExcangeName($form->secondname)
-            )
-        );
-        $this->users->save($user);
-        return $user;
-    }
+            $user->editFullName(
+                new FullName(
+                    $this->ExcangeName($form->surname),
+                    $this->ExcangeName($form->firstname),
+                    $this->ExcangeName($form->secondname)
+                )
+            );
+            $this->users->save($user);
+            return $user;
+        }
 
-*/
+    */
     public function setCurrency(int $id, $currency)
     {
         $user = $this->users->get($id);

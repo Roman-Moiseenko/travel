@@ -74,6 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (!empty($personal->phone)) $this->username = $personal->phone;
         $this->personal = $personal;
+        if ($this->created_at > time() - 60) $this->updated_at = time();
     }
 
     public function updatePreferences(Preferences $preferences)
@@ -183,7 +184,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            //TimestampBehavior::class,
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [

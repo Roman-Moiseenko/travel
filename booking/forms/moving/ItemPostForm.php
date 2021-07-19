@@ -19,5 +19,12 @@ class ItemPostForm extends Model
         ];
     }
 
+    public function clear()
+    {
+        $this->firstname = '';
+        $this->surname = '';
+        $this->message = '';
+    }
+
 
 }

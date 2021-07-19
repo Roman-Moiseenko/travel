@@ -230,10 +230,12 @@ class PageController extends Controller
     public function actionItemPost($id, $item_id)
     {
         $page = $this->findModel($id);
+        $item = $page->getItem($item_id);
         $form = new ItemPostForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->postService->addPost($item_id, $form);
+                $form->clear();
                 //return $this->redirect(['item', 'id' => $page->id, 'item_id' => $item->id]);
 
             } catch (\DomainException $e) {
@@ -244,6 +246,7 @@ class PageController extends Controller
         return $this->render('items-post', [
             'page' => $page,
             'model' => $form,
+            'item' => $item,
         ]);
     }
 
