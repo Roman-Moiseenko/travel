@@ -14,10 +14,13 @@ use paulzi\nestedsets\NestedSetsBehavior;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * @property integer $id
  * @property string $title
+ * @property string $photo
  * @property string $slug
  * @property string $content
  * @property integer $lft
@@ -35,15 +38,17 @@ use yii\db\ActiveRecord;
  * @property Item[] $items
  * @property string $name [varchar(255)]
  * @mixin NestedSetsBehavior
+ * @mixin ImageUploadBehavior
  */
 class Page extends ActiveRecord
 {
     public $meta;
 
-    public static function create($title, $slug, $content, Meta $meta, $icon): self
+    public static function create($name, $title, $slug, $content, Meta $meta, $icon): self
     {
         $page = new static();
         $page->title = $title;
+        $page->name = $name;
         if (empty($slug)) $slug = SlugHelper::slug($title);
         $page->slug = $slug;
         $page->content = $content;
@@ -52,8 +57,9 @@ class Page extends ActiveRecord
         return $page;
     }
 
-    public function edit($title, $slug, $content, Meta $meta, $icon)
+    public function edit($name, $title, $slug, $content, Meta $meta, $icon)
     {
+        $this->name = $name;
         $this->title = $title;
         if (empty($slug)) {
             $slug = SlugHelper::slug($title);
@@ -63,7 +69,10 @@ class Page extends ActiveRecord
         $this->meta = $meta;
         $this->icon = $icon;
     }
-
+    public function setPhoto(UploadedFile $file)
+    {
+        $this->photo = $file;
+    }
     public static function tableName()
     {
         return '{{%moving_pages}}';
@@ -83,6 +92,21 @@ class Page extends ActiveRecord
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
                     'items',
+                ],
+            ],
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'photo',
+                'createThumbsOnRequest' => true,
+                'filePath' => '@staticRoot/origin/moving/pages/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/moving/pages/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/moving/pages/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/moving/pages/[[profile]]_[[id]].[[extension]]',
+                'thumbs' => [
+                    'admin' => ['width' => 100, 'height' => 100],
+                    'cart_list' => ['width' => 140, 'height' => 250],
+                    'cart_list_2' => ['width' => 140, 'height' => 140],
+
                 ],
             ],
         ];

@@ -14,5 +14,6 @@ $this->params['breadcrumbs'][] = 'Изменить';
 <div class="page-update">
     <?= $this->render('_form', [
         'model' => $model,
+        'page' => $page,
     ]) ?>
 </div>

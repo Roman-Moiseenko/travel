@@ -25,12 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'columns' => [
                 [
-                    'attribute' => 'title',
+                    'attribute' => 'name',
                     'value' => function (Page $model) {
                         $indent = ($model->depth > 1 ? str_repeat('&nbsp;&nbsp;', $model->depth - 1) . ' ' : '');
-                        return $indent . Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
+                        return $indent . Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
                     },
                     'format' => 'raw',
+                    'label' => 'Название',
+                    'contentOptions' => ['data-label' => 'Название'],
+                ],
+                [
+                    'attribute' => 'title',
                     'label' => 'Заголовок',
                     'contentOptions' => ['data-label' => 'Заголовок'],
                 ],

@@ -24,7 +24,7 @@ use yii\helpers\Url;
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= $this->params['slug'] == $category->slug ? 'active' : '' ?>"
                        href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>">
-                        <?= $category->icon ?>&#160;<?= Lang::t($category->title) ?>
+                        <?= $category->icon ?>&#160;<?= Lang::t($category->name) ?>
                     </a>
                 </li>
                 <?php endforeach; ?>

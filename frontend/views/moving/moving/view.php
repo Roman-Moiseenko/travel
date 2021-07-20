@@ -47,7 +47,7 @@ foreach ($page->parents as $parent) {
         $this->params['breadcrumbs'][] = ['label' => $parent->title, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
     }
 }
-$this->params['breadcrumbs'][] = $page->title;
+$this->params['breadcrumbs'][] = $page->name;
 $mobile = SysHelper::isMobile();
 ?>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
@@ -96,6 +96,7 @@ newerton\fancybox\FancyBox::widget([
     <?php endforeach; ?>
 </div>
 <article class="page-view params-moving">
+    <h1><?= $page->title ?></h1>
     <?= SysHelper::lazyloaded($page->content); ?>
     <ul>
         <?php foreach ($page->items as $i => $item): ?>

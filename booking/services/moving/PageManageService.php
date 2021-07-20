@@ -37,6 +37,7 @@ class PageManageService
     {
         $parent = $this->pages->get($form->parentId);
         $page = Page::create(
+            $form->name,
             $form->title,
             $form->slug,
             $form->content,
@@ -47,6 +48,9 @@ class PageManageService
             ),
             $form->icon
         );
+        if ($form->photo->files) {
+            $page->setPhoto($form->photo->files[0]);
+        }
         $page->appendTo($parent);
         $this->pages->save($page);
         return $page;
@@ -57,6 +61,7 @@ class PageManageService
         $page = $this->pages->get($id);
         $this->assertIsNotRoot($page);
         $page->edit(
+            $form->name,
             $form->title,
             $form->slug,
             $form->content,
@@ -70,6 +75,9 @@ class PageManageService
         if ($form->parentId !== $page->parent->id) {
             $parent = $this->pages->get($form->parentId);
             $page->appendTo($parent);
+        }
+        if ($form->photo->files) {
+            $page->setPhoto($form->photo->files[0]);
         }
         $this->pages->save($page);
     }

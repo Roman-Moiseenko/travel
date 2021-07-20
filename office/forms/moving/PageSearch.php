@@ -46,6 +46,10 @@ class PageSearch extends Page
             'sort' => [
                 'defaultOrder' => ['lft' => SORT_ASC],
             ],
+            'pagination' => [
+                'defaultPageSize' => 600,
+                'pageSizeLimit' => [600, 600],
+            ],
         ]);
 
         $this->load($params);

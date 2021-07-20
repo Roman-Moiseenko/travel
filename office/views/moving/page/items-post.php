@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = 'Добавить пост';
                 <?= $form->field($model, 'surname')->textInput(['maxlength' => true])->label('Фамилия') ?>
             </div>
         </div>
-        <?= $form->field($model, 'message')->widget(CKEditor::class)->label('Сообщение') ?>
+        <?= $form->field($model, 'message')->textarea(['row' => 10])->label('Сообщение') ?>
     </div>
 </div>
 
