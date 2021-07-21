@@ -1489,7 +1489,6 @@ h2.faq-card {
 
 .forum-section {
     font-size: 20px;
-
     background-color: #e8f5f7;
     color: #0b252d;
 }
@@ -1497,6 +1496,10 @@ h2.faq-card {
     color: white;
     background-color: var(--main-nav-color);
 }
-.moving-button-text {
-    text-align: justify; text-indent: 40px; font-size: 16px; line-height: 2.5rem; padding-top: 12px
+.moving-button-text p {
+    text-align: justify; text-indent: 40px; font-size: 16px; line-height: 2.5rem;
+}
+
+.word-break-table table {
+    word-break: break-all;
 }

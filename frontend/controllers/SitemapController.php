@@ -236,19 +236,6 @@ class SitemapController extends Controller
             }, $this->postForum->getAllForSitemap()));
         });
     }
-/*
-    public function actionFaqCategory(): Response
-    {
-        return $this->renderSitemap('sitemap-faq-category', function () {
-            return $this->sitemap->generateMap(array_map(function (CategoryFAQ $categoryFAQ) {
-                return new MapItem(
-                    Url::to(['/moving/faq/category', 'id' => $categoryFAQ->id], true),
-                    null,
-                    MapItem::DAILY
-                );
-            }, $this->categoryFAQ->getAll()));
-        });
-    }*/
 
     public function actionLands(): Response
     {
@@ -272,7 +259,7 @@ class SitemapController extends Controller
                         null,
                         MapItem::ALWAYS
                     );
-            }, ['/moving'/*, '/moving/faq'*/, '/moving/realty', '/moving/land']));
+            }, ['/moving', '/moving/index']));
         });
     }
 

@@ -109,8 +109,8 @@ class Page extends ActiveRecord
                     'admin' => ['width' => 100, 'height' => 100],
                     'cart_list' => ['width' => 140, 'height' => 250],
                     'cart_list_2' => ['width' => 140, 'height' => 140],
-                    'button_image' => ['width' => 200, 'height' => 300],
-                    //'button_image_mobile' => ['width' => 200, 'height' => 200],
+                    'button_image' => ['width' => 400, 'height' => 600],
+                    'button_image_mobile' => ['width' => 300, 'height' => 300],
                 ],
             ],
         ];

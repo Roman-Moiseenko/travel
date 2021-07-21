@@ -11,10 +11,8 @@ use yii\web\View;
 
 ?>
 <h2><?= $category->title ?></h2>
-<div class="moving-button-text">
-
+<div class="moving-button-text pt-3">
     <?= $category->description ?>
-
 </div>
 <p style="font-size: 16px; line-height: 2.5rem; padding-top: 12px">
     <a href="<?= Url::to(['/moving/moving/view', 'slug' => $category->slug])?>"><i class="fab fa-readme"></i>&#160;<?= $category->name ?></a>
