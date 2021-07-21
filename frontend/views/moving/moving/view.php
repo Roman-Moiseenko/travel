@@ -7,6 +7,7 @@ use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapPageItemAsset;
 use frontend\assets\MapStayAsset;
 use frontend\assets\MovingAsset;
+use frontend\widgets\moving\MenuPagesWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -149,37 +150,7 @@ newerton\fancybox\FancyBox::widget([
         <?php endif; ?>
     <?php endforeach; ?>
 </article>
-    <?php foreach ($categories as $i => $category): ?>
-        <div class="row py-4">
-        <?php if (($i % 2) == 0): ?>
-        <div class="col-sm-4">
-            <?= $this->render('_button_image', [
-                    'category' => $category,
-            ]) ?>
-        </div>
-        <div class="col-sm-8">
-
-            <?= $this->render('_button_description', [
-                'category' => $category,
-            ]) ?>
-        </div>
-        <?php else: ?>
-            <div class="col-sm-8">
-                <?= $this->render('_button_description', [
-                    'category' => $category,
-                ]) ?>
-            </div>
-            <div class="col-sm-4">
-                <?= $this->render('_button_image', [
-                    'category' => $category,
-                ]) ?>
-
-            </div>
-        <?php endif; ?>
-    </div>
-    <?php endforeach; ?>
-
-
+<?= MenuPagesWidget::widget(['pages' => $categories]) ?>
 
 
 
