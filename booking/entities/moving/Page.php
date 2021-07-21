@@ -23,6 +23,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $photo
  * @property string $slug
  * @property string $content
+ * @property string $description
  * @property integer $lft
  * @property integer $rgt
  * @property integer $depth
@@ -44,7 +45,7 @@ class Page extends ActiveRecord
 {
     public $meta;
 
-    public static function create($name, $title, $slug, $content, Meta $meta, $icon): self
+    public static function create($name, $title, $slug, $content, Meta $meta, $icon, $description): self
     {
         $page = new static();
         $page->title = $title;
@@ -52,12 +53,13 @@ class Page extends ActiveRecord
         if (empty($slug)) $slug = SlugHelper::slug($title);
         $page->slug = $slug;
         $page->content = $content;
+        $page->description = $description;
         $page->meta = $meta;
         $page->icon = $icon;
         return $page;
     }
 
-    public function edit($name, $title, $slug, $content, Meta $meta, $icon)
+    public function edit($name, $title, $slug, $content, Meta $meta, $icon, $description)
     {
         $this->name = $name;
         $this->title = $title;
@@ -66,6 +68,7 @@ class Page extends ActiveRecord
         }
         $this->slug = $slug;
         $this->content = $content;
+        $this->description = $description;
         $this->meta = $meta;
         $this->icon = $icon;
     }
@@ -106,7 +109,7 @@ class Page extends ActiveRecord
                     'admin' => ['width' => 100, 'height' => 100],
                     'cart_list' => ['width' => 140, 'height' => 250],
                     'cart_list_2' => ['width' => 140, 'height' => 140],
-
+                    'button_image' => ['width' => 200, 'height' => 300],
                 ],
             ],
         ];

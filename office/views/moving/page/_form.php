@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
                             ],
                             'pluginOptions' => [
                                 'initialPreview' => [
-                                    $page->getThumbFileUrl('photo', 'admin'),
+                                    $page ? $page->getThumbFileUrl('photo', 'admin') : null,
                                 ],
                                 'initialPreviewAsData' => true,
                                 'overwriteInitial' => true,
@@ -51,6 +51,7 @@ use yii\widgets\ActiveForm;
 
                 </div>
             </div>
+            <?= $form->field($model, 'description')->textarea()->label('Описание') ?>
             <?= $form->field($model, 'content')->widget(CKEditor::class)->label('Текст') ?>
 
         </div>

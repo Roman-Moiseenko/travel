@@ -46,7 +46,8 @@ class PageManageService
                 $form->meta->description,
                 $form->meta->keywords
             ),
-            $form->icon
+            $form->icon,
+            $form->description
         );
         if ($form->photo->files) {
             $page->setPhoto($form->photo->files[0]);
@@ -70,7 +71,8 @@ class PageManageService
                 $form->meta->description,
                 $form->meta->keywords
             ),
-            $form->icon
+            $form->icon,
+            $form->description
         );
         if ($form->parentId !== $page->parent->id) {
             $parent = $this->pages->get($form->parentId);

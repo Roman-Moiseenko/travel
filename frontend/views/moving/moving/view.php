@@ -44,7 +44,7 @@ $this->params['slug'] = $page->slug;
 if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
-        $this->params['breadcrumbs'][] = ['label' => $parent->title, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
+        $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
     }
 }
 $this->params['breadcrumbs'][] = $page->name;
@@ -88,15 +88,9 @@ newerton\fancybox\FancyBox::widget([
     ]
 ]);
 ?>
-<div class="d-flex flex-wrap">
-    <?php foreach ($categories as $category): ?>
-        <a href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug]) ?>">
-            <div class="flex-fill moving-menu-page m-1 align-self-center"> <?= $category->title ?></div>
-        </a>
-    <?php endforeach; ?>
-</div>
+<h1 class="pb-4"><?= $page->title ?></h1>
 <article class="page-view params-moving">
-    <h1><?= $page->title ?></h1>
+
     <?= SysHelper::lazyloaded($page->content); ?>
     <ul>
         <?php foreach ($page->items as $i => $item): ?>
@@ -145,16 +139,48 @@ newerton\fancybox\FancyBox::widget([
             </a>
 
         <?php endif ?>
-    <div class="pt-3 pb-2">
-        <?= SysHelper::lazyloaded($item->text); ?>
-    </div>
-    <?php if ($item->post_id): ?>
-    <div>
-        <a href="<?= Url::to(['/forum/post', 'id' => $item->post_id]) ?>" rel="nofollow" target="_blank">Прочитать отзывы на форуме</a>
-    </div>
-    <?php endif; ?>
+        <div class="pt-3 pb-2">
+            <?= SysHelper::lazyloaded($item->text); ?>
+        </div>
+        <?php if ($item->post_id): ?>
+            <div>
+                <a href="<?= Url::to(['/forum/post', 'id' => $item->post_id]) ?>" rel="nofollow" target="_blank">Прочитать отзывы на форуме</a>
+            </div>
+        <?php endif; ?>
     <?php endforeach; ?>
 </article>
+    <?php foreach ($categories as $i => $category): ?>
+        <div class="row py-4">
+        <?php if (($i % 2) == 0): ?>
+        <div class="col-sm-4">
+            <?= $this->render('_button_image', [
+                    'category' => $category,
+            ]) ?>
+        </div>
+        <div class="col-sm-8">
+
+            <?= $this->render('_button_description', [
+                'category' => $category,
+            ]) ?>
+        </div>
+        <?php else: ?>
+            <div class="col-sm-8">
+                <?= $this->render('_button_description', [
+                    'category' => $category,
+                ]) ?>
+            </div>
+            <div class="col-sm-4">
+                <?= $this->render('_button_image', [
+                    'category' => $category,
+                ]) ?>
+
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php endforeach; ?>
+
+
+
 
 
 <div id="map-item" style="display: none; height: 100%;"></div>

@@ -42,13 +42,13 @@ use yii\helpers\Url;
                         <i class="far fa-map"></i>
                         &#160;<?= Lang::t('Карта земли') ?></a>
                 </li>
-                <li class="nav-item">
+                <!--li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'land/add' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/moving/land'])) ?>">
                         <i class="fas fa-layer-group"></i>
                         &#160;<?= Lang::t('Участки') ?>
                     </a>
-                </li>
+                </li-->
                 <li class="nav-item">
                     <a class="top-menu-a nav-link"
                        href="<?= Html::encode(Url::to(['/forum/zemlya-nedvizhimost-stroitelstvo'])) ?>">
