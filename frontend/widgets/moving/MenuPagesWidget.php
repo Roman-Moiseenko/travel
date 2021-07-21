@@ -14,9 +14,8 @@ class MenuPagesWidget extends Widget
     public function run()
     {
         $mobile = SysHelper::isMobile();
-        return $this->render('menu_pages', [
+        return $this->render($mobile ? 'menu_pages_mobile' : 'menu_pages', [
             'pages' => $this->pages,
-
         ]);
     }
 }

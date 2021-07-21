@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
 
                 </div>
             </div>
-            <?= $form->field($model, 'description')->textarea()->label('Описание') ?>
+            <?= $form->field($model, 'description')->widget(CKEditor::class)->label('Описание') ?>
             <?= $form->field($model, 'content')->widget(CKEditor::class)->label('Текст') ?>
 
         </div>
