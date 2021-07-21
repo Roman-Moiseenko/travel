@@ -110,6 +110,7 @@ class Page extends ActiveRecord
                     'cart_list' => ['width' => 140, 'height' => 250],
                     'cart_list_2' => ['width' => 140, 'height' => 140],
                     'button_image' => ['width' => 200, 'height' => 300],
+                    //'button_image_mobile' => ['width' => 200, 'height' => 200],
                 ],
             ],
         ];

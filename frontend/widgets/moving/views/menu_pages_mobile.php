@@ -1,8 +1,10 @@
 <?php
 
-use booking\entities\Page;
 
 /* @var $pages Page[] */
+
+use booking\entities\moving\Page;
+
 ?>
 <p class="py-2"></p>
 <?php foreach ($pages as $page): ?>

@@ -1497,4 +1497,6 @@ h2.faq-card {
     color: white;
     background-color: var(--main-nav-color);
 }
-.forum-section
+.moving-button-text {
+    text-align: justify; text-indent: 40px; font-size: 16px; line-height: 2.5rem; padding-top: 12px
+}
