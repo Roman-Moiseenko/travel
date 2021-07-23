@@ -54,7 +54,7 @@ class PageManageService
                 $form->meta->keywords
             )
         );
-        if ($form->parentId !== $page->parent->id) {
+        if ($form->parentId != $page->parent->id) {
             $parent = $this->pages->get($form->parentId);
             $page->appendTo($parent);
         }

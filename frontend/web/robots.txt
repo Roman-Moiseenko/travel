@@ -1,6 +1,30 @@
 User-agent: *
 
-Disallow: /test
+
+Disallow: /ru/moving/builds
+Disallow: /ru/moving/developers
+Disallow: /ru/moving/lands
+Disallow: /ru/moving/klgd-place
+Disallow: /ru/moving/school-klgd
+Disallow: /ru/moving/chastnye-detskie-sady
+Disallow: /ru/moving/samye-sportivnye-sekcii
+Disallow: /ru/moving/dopolnitelnoe-obrazovanie
+Disallow: /ru/moving/detskie-lagerya
+Disallow: /ru/moving/luchshie-medicinskie-centry
+Disallow: /ru/moving/populyarnye-sanatorii
+
+Disallow: /en/moving/builds
+Disallow: /en/moving/developers
+Disallow: /en/moving/lands
+Disallow: /en/moving/klgd-place
+Disallow: /en/moving/school-klgd
+Disallow: /en/moving/chastnye-detskie-sady
+Disallow: /en/moving/samye-sportivnye-sekcii
+Disallow: /en/moving/dopolnitelnoe-obrazovanie
+Disallow: /en/moving/detskie-lagerya
+Disallow: /en/moving/luchshie-medicinskie-centry
+Disallow: /en/moving/populyarnye-sanatorii
+
 Disallow: /ru/forum/create-post
 Disallow: /ru/forum/update-message
 Disallow: /en/forum/create-post
