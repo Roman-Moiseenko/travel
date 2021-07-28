@@ -10,7 +10,7 @@ $this->title = 'Агентство Инвестиции в Калинингра�
 $this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки. Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
 
 $this->params['canonical'] = Url::to(['/realtor/map'], true);
-$this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/lands'])];
+$this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/realtor'])];
 
 $this->params['breadcrumbs'][] = 'Карта участков';
 LandAsset::register($this);
@@ -51,6 +51,7 @@ LandAsset::register($this);
     </p>
 </div>
 
+<h2 class="pt-4 pb-2">Карта приватных участков земли на продажу</h2>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <div id="map-land" style="width: 100%; height: 600px;"></div>
 <div class="indent text-justify p-4">

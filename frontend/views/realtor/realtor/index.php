@@ -9,7 +9,7 @@ use yii\helpers\Url;
 $this->title = 'Приват Риелтор Компани - Конфиденциаьное Агентство Недвижимости';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Приватная покупка недвижимости премиум сегмента, оформление сделок с землей, проектирование и строительство частного элитного жилья']);
 
-$this->params['canonical'] = Url::to(['/realtor/land'], true);
+$this->params['canonical'] = Url::to(['/realtor'], true);
 $this->params['breadcrumbs'][] = 'Агентство';
 ?>
 <h1>Название Компании</h1>
