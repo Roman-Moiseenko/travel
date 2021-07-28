@@ -72,7 +72,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
             <?= $this->render('_button_mobile', [
                 'url' => '/moving',
                 'img_name' => 'moving_mobile.jpg',
-                'img_alt' => 'На ПМЖ в Калининграде',
+                'img_alt' => 'На ПМЖ в Калининград',
                 'caption' => 'На ПМЖ',
             ]) ?>
             <?= $this->render('_button_mobile', [
@@ -80,6 +80,12 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                 'img_name' => 'land_mobile.jpg',
                 'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
                 'caption' => 'Земельные участки<br>Недвижимость',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/night',
+                'img_name' => 'night_mobile.jpg',
+                'img_alt' => 'Ночная жизнь в Калининграде',
+                'caption' => 'Ночная жизнь',
             ]) ?>
         </div>
     </div>
