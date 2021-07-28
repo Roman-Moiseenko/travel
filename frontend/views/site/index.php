@@ -183,7 +183,7 @@ $this->registerJs($script);
             </div>
             <div class="col-3">
                 <?= $this->render('_button', [
-                    'url' => '/lands',
+                    'url' => '/realtor',
                     'img_name' => 'land.jpg',
                     'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
                     'caption' => 'Земельные участки<br>Недвижимость',

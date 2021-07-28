@@ -188,7 +188,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
-                new IndexItem(Url::to(['lands'], true)),
+                new IndexItem(Url::to(['realtor'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 //new IndexItem(Url::to(['faq-category'], true)),
                 new IndexItem(Url::to(['forum'], true)),
@@ -237,16 +237,16 @@ class SitemapController extends Controller
         });
     }
 
-    public function actionLands(): Response
+    public function actionRealtor(): Response
     {
-        return $this->renderSitemap('sitemap-lands', function () {
+        return $this->renderSitemap('sitemap-realtor', function () {
             return $this->sitemap->generateMap(array_map(function ($item) {
                 return new MapItem(
                     Url::to([$item], true),
                     null,
                     MapItem::ALWAYS
                 );
-            }, ['/lands', '/lands/investment', '/lands/map']));
+            }, ['/realtor', '/realtor/investment', '/realtor/map']));
         });
     }
 

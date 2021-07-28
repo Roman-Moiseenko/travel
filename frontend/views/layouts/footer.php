@@ -18,6 +18,7 @@ use yii\helpers\Url; ?>
                     </li>
                     <li><a href="<?= Html::encode(Url::to(['/offer'])) ?>" rel="nofollow"><?= Lang::t('Оферта') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/post'])) ?>"><h3><?= Lang::t('Достопримечательности Калининграда') ?></h3></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/night'])) ?>"><h3><?= Lang::t('Ночная жизнь в Калининграде') ?></h3></a></li>
                 </ul>
             </div>
             <?php //TODO Жилье ?>

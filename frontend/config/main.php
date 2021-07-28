@@ -204,9 +204,15 @@ return [
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
 
-                'lands' => 'land/land/index',
+               /* 'lands' => 'land/land/index',
                 'land/investment' => 'land/investment/index',
-                'land/map' => 'land/map/index',
+                'land/map' => 'land/map/index',*/
+
+                'realtor' => 'realtor/realtor/index',
+                'realtor/land' => 'realtor/land/index',
+                'realtor/investment' => 'realtor/investment/index',
+                'realtor/map' => 'realtor/map/index',
+
 
                 'forum' => 'forum/index',
                 'forum/category/<id:\d+>' => 'forum/category',

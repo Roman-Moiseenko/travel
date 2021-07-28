@@ -10,7 +10,7 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\menu\LandMenuWidget;
+use frontend\widgets\menu\RealtorMenuWidget;
 use frontend\widgets\menu\BookingMenuWidget;
 use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
@@ -96,7 +96,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <nav id="top">
     <?= TopUserMenuWidget::widget() ?>
-    <?= LandMenuWidget::widget() ?>
+    <?= RealtorMenuWidget::widget() ?>
 </nav>
 <div id="common-home" class="container content-container">
     <?= BreadcrumbsWidget::widget([

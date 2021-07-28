@@ -76,7 +76,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                 'caption' => 'На ПМЖ',
             ]) ?>
             <?= $this->render('_button_mobile', [
-                'url' => '/lands',
+                'url' => '/realtor',
                 'img_name' => 'land_mobile.jpg',
                 'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
                 'caption' => 'Земельные участки<br>Недвижимость',

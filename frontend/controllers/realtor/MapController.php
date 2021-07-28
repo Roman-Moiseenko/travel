@@ -1,7 +1,7 @@
 <?php
 
 
-namespace frontend\controllers\land;
+namespace frontend\controllers\realtor;
 
 
 use booking\entities\land\Land;

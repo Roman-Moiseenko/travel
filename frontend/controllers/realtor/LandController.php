@@ -1,7 +1,7 @@
 <?php
 
 
-namespace frontend\controllers\land;
+namespace frontend\controllers\realtor;
 
 
 use booking\entities\land\Land;
@@ -9,7 +9,7 @@ use booking\entities\land\Point;
 use booking\repositories\land\LandRepository;
 use yii\web\Controller;
 
-class AddController extends Controller
+class LandController extends Controller
 {
 
     public $layout = 'main_land';

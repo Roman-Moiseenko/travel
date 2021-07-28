@@ -9,7 +9,7 @@ use yii\helpers\Url;
 $this->title = 'Инвестиции в Калининградскую землю, стоимость земельных участков, купить землю, строительство, проектирование, риэлторская компания';
 $this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
 
-$this->params['canonical'] = Url::to(['/land/investment'], true);
+$this->params['canonical'] = Url::to(['/realtor/investment'], true);
 $this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/lands'])];
 $this->params['breadcrumbs'][] = 'Инвестиции';
 LandAsset::register($this);

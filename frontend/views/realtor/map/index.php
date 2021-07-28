@@ -6,12 +6,15 @@ use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
-$this->title = 'Агентство Инвестиции в Калининградскую землю, деликатная купля-продажа участков для строительства дома и коммерческих зданий в области';
-$this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки']);
+$this->title = 'Агентство Инвестиции в Калининградскую землю, деликатная купля-продажа участков для строительства дома и коммерческих зданий в области Карта участков';
+$this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки. Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
 
-$this->params['canonical'] = Url::to(['/lands'], true);
+$this->params['canonical'] = Url::to(['/realtor/map'], true);
+$this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/lands'])];
 
-$this->params['breadcrumbs'][] = 'Агентство';
+$this->params['breadcrumbs'][] = 'Карта участков';
+LandAsset::register($this);
+
 
 
 ?>
@@ -46,4 +49,10 @@ $this->params['breadcrumbs'][] = 'Агентство';
     <p><i class="fas fa-phone"></i> 8-911-455-72-91</p>
     <p><i class="far fa-envelope"></i> <a href="mailto:yclaster@yandex.ru">yclaster@yandex.ru</a>
     </p>
+</div>
+
+<span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
+<div id="map-land" style="width: 100%; height: 600px;"></div>
+<div class="indent text-justify p-4">
+    ...
 </div>
