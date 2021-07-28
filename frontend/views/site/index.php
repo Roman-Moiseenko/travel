@@ -97,7 +97,6 @@ $this->registerJs($script);
                 <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
                 <div class="container">
                     <div class="carousel-caption">
-
                         <?php if ($i == 0) {
                             echo '<h1><p class="landing-h1">' . Lang::t('Калининград') . '</p>';
                             echo '<p class="landing-h2">';
@@ -189,6 +188,25 @@ $this->registerJs($script);
                     'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
                     'caption' => 'Земельные участки<br>Недвижимость',
                 ]) ?>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col-3">
+                <?= $this->render('_button', [
+                    'url' => '/night',
+                    'img_name' => 'night.jpg',
+                    'img_alt' => 'Ночная жизнь в Калининграде',
+                    'caption' => 'Ночная жизнь',
+                ]) ?>
+            </div>
+            <div class="col-3">
+
+            </div>
+            <div class="col-3">
+
+            </div>
+            <div class="col-3">
+
             </div>
         </div>
     </div>
