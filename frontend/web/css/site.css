@@ -1334,7 +1334,9 @@ ul.pagination>li.active a:focus {
 .indent {
     text-indent: 40px;
 }
-
+.no-indent {
+    text-indent: 0 !important;
+}
 h2.faq-card {
     margin-top: 3px;
     margin-bottom: 0;

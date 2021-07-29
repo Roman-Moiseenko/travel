@@ -52,20 +52,24 @@ $this->params['breadcrumbs'][] = 'Агентство';
         <li>Проведем предварительные переговоры с продавцами недвижимости и экспертизу правоустанавливающих документов
         </li>
     </ul>
-    <p>
-        По вопросам удаленного подбора недвижимости звоните +7 000 000 0000 , Имя.
-    </p>
     <hr>
     <h2>Частная экскурсия по объектам недвижимости</h2>
-    3 (4) небольших фото
+    <?= ImageH2BlockWidget::widget([
+        'directory' => 'realtor/realtor',
+        'scale' => 'item-1-1by1',
+        'images' => ['realtor_06.jpg', 'realtor_07.jpg', 'realtor_08.jpg', 'realtor_09.jpg',],
+        'col' => '3',
+        'alt' => 'Индивидуальная экскурсия по объектам недвижимости в Калининградской области',
+    ]); ?>
     <p>
-        Текст
+        При необходимости личного подбора района проживания, наша организация проведет для Вас индивидуальную
+        экскурсию с гидом на комфортабельном автомобиле. В экскурсионную программу входит:
     </p>
     <ul>
         <li>Встреча в аэропорту на автомобиле премиум класса</li>
         <li>Расселение в премиум квартирах или отелях 5 звезд</li>
         <li>Экскурсия по престижным районам частной застройки или элитным жилищным комплексам</li>
-        <li>Рекомендации специалиста ...</li>
+        <li>Индивидуальные рекомендации нашего специалиста</li>
     </ul>
     <hr>
     <h2>Документальное сопровождение сделки</h2>
@@ -124,18 +128,20 @@ $this->params['breadcrumbs'][] = 'Агентство';
     <hr>
     <h2>Контакты</h2>
     <div class="row">
-        <div class="col-sm-4">
-                  <div class="item-responsive item-1-1by1">
-                           <div class="content-item">
-                                  <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/realtor/realtor_contact' ?>"
-                                       alt="Агентство Privat-Недвижимость" title="Агентство Privat-Недвижимость" max-width="300px" loading="lazy">
-                               </div>
-                      </div>
+        <div class="col-6 col-sm-4">
+            <div class="item-responsive item-1-1by1">
+                <div class="content-item">
+                    <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/realtor/realtor/realtor_contact.jpg' ?>"
+                         alt="Агентство Privat-Недвижимость" title="Агентство Privat-Недвижимость" loading="lazy"
+                         style="max-width: 200px; border-radius: 20px;">
+                </div>
+            </div>
         </div>
-        <div class="col-sm-8">
-            <p><i class="fas fa-phone"></i> 8-911-471-0701, Роман</p>
-            <p><i class="fas fa-mail-bulk"></i> <a href="mailto:koenigs.ru@gmail.com">koenigs.ru@gmail.com</a></p>
-            <p><i class="fas fa-map-marked-alt"></i> г.Калининград, ул.Маршала Жукова, 10</p>
+        <div class="col-6 col-sm-8">
+            <p class="no-indent"><i class="fas fa-phone"></i> 8-911-471-0701, Роман</p>
+            <p class="no-indent"><i class="fas fa-mail-bulk"></i> <a href="mailto:koenigs.ru@gmail.com">koenigs.ru@gmail.com</a>
+            </p>
+            <p class="no-indent"><i class="fas fa-map-marked-alt"></i> г.Калининград, ул.Маршала Жукова, 10</p>
         </div>
     </div>
     <p>
