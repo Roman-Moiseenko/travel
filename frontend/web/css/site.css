@@ -21,7 +21,7 @@ body {
 
 /* Override the bootstrap defaults */
 h1 {
-   /* font-family: 'Comfortaa', sans-serif;*/
+    /* font-family: 'Comfortaa', sans-serif;*/
     font-family: 'PT Sans Caption', 'Verdana','Dejavu','Sans', sans-serif;
     font-size: 33px;
 }
@@ -215,7 +215,7 @@ a.desc:after {
     padding: 20px 20px;
     background: var(--seach-menu-color);
     border: #122b40 2px;
-   /* margin: 10px 10px;*/
+    /* margin: 10px 10px;*/
     /*font-size: 14px !important;*/
 }
 
@@ -1132,11 +1132,11 @@ div.required label:after {
 
 }
 .mobile-landing {
-   /* display: block;
-    background: url(https://static.koenigs.ru/files/images/landing/other/background.jpg) no-repeat;
-    min-height: 100vh;
-    background-position: center;
-    background-size: cover;*/
+    /* display: block;
+     background: url(https://static.koenigs.ru/files/images/landing/other/background.jpg) no-repeat;
+     min-height: 100vh;
+     background-position: center;
+     background-size: cover;*/
     background-color: #a7a7a7;
 }
 .container-mobile {
@@ -1208,6 +1208,7 @@ ul.pagination li:not(.active) a:focus {
 ul.pagination>li.active a:hover {
     background-color: #227aa5;
 }
+
 ul.pagination>li.active a:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(35, 117, 160, 0.5);
@@ -1222,8 +1223,8 @@ ul.pagination>li.active a:focus {
 .button-booking-index-mobile {
     border: white solid 2px;
     margin-bottom: 6px;
-/*    width: 100%;
-    height: 50%;*/
+    /*    width: 100%;
+        height: 50%;*/
 }
 
 
@@ -1345,6 +1346,31 @@ h2.faq-card {
     text-indent: 20px;
     color: #333;
 }
+
+.text-block-realtor p{
+    text-align: justify;
+    text-indent: 40px;
+    font-size: 16px;
+    line-height: 2.5rem;
+    color: #333;
+}
+.text-block-realtor ul{
+    text-align: justify;
+    text-indent: 40px;
+    font-size: 16px;
+    line-height: 2.5rem;
+    color: #333;
+}
+.text-block-realtor li {
+    list-style-type: none;
+}
+
+.text-block-realtor h2 {
+    padding-top: 18px;
+    padding-bottom: 6px;
+}
+
+
 .text-block h2 {
     padding-top: 20px;
 }

@@ -21,7 +21,7 @@ LandAsset::register($this);
 <h1>Деликатная купля-продажа земельных участков в Калининградской области</h1>
 
 <?= ImageH2Widget::widget([
-    'directory' => 'land',
+    'directory' => 'realtor',
     'image_file' => 'land_01.jpg',
     'alt' => 'Деликатная купля-продажа земельных участков в Калининградской области',
 ]); ?>
