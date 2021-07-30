@@ -9,10 +9,14 @@ use booking\entities\Meta;
 use booking\entities\moving\Item;
 use booking\entities\moving\Page;
 use booking\entities\moving\Photo;
+use booking\entities\moving\ReviewMoving;
+use booking\forms\booking\ReviewForm;
 use booking\forms\moving\ItemForm;
 use booking\forms\moving\PageForm;
+use booking\forms\moving\ReviewMovingForm;
 use booking\repositories\moving\ItemRepository;
 use booking\repositories\moving\PageRepository;
+use booking\repositories\moving\ReviewMovingRepository;
 
 
 class PageManageService
@@ -26,11 +30,20 @@ class PageManageService
      * @var ItemRepository
      */
     private $items;
+    /**
+     * @var ReviewMovingRepository
+     */
+    private $reviews;
 
-    public function __construct(PageRepository $pages, ItemRepository $items)
+    public function __construct(
+        PageRepository $pages,
+        ItemRepository $items,
+        ReviewMovingRepository $reviews
+    )
     {
         $this->pages = $pages;
         $this->items = $items;
+        $this->reviews = $reviews;
     }
 
     public function create(PageForm $form): Page
@@ -182,5 +195,20 @@ class PageManageService
             }
         }
         $item->save();
+    }
+
+    public function addReview($tour_id, $user_id, ReviewMovingForm $form)
+    {
+        $page = $this->pages->get($tour_id);
+        $page->addReview(ReviewMoving::create($user_id, $form->text));
+        $this->pages->save($page);
+    }
+
+    public function removeReview($review_id)
+    {
+        $review = $this->reviews->get($review_id);
+        $page = $this->pages->get($review->page_id);
+        $page->removeReview($review_id);
+        $this->pages->save($page);
     }
 }

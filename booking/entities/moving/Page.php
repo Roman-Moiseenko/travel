@@ -5,6 +5,7 @@ namespace booking\entities\moving;
 
 
 use booking\entities\behaviors\MetaBehavior;
+use booking\entities\booking\BaseReview;
 use booking\entities\Meta;
 use booking\entities\queries\CategoryQuery;
 use booking\helpers\SlugHelper;
@@ -37,6 +38,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $meta_json [json]
  * @property string $icon
  * @property Item[] $items
+ * @property ReviewMoving[] $reviews
  * @property string $name [varchar(255)]
  * @mixin NestedSetsBehavior
  * @mixin ImageUploadBehavior
@@ -95,6 +97,7 @@ class Page extends ActiveRecord
                 'class' => SaveRelationsBehavior::class,
                 'relations' => [
                     'items',
+                    'reviews'
                 ],
             ],
             [
@@ -197,4 +200,29 @@ class Page extends ActiveRecord
         return $item;
     }
 
+    public function getReviews(): ActiveQuery
+    {
+        return $this->hasMany(ReviewMoving::class, ['page_id' => 'id']);
+    }
+
+    public function addReview(ReviewMoving $review)
+    {
+        $reviews = $this->reviews;
+        $reviews[] = $review;
+        $this->reviews = $reviews;
+        return $review;
+    }
+
+    public function removeReview($id)
+    {
+        $reviews = $this->reviews;
+        foreach ($reviews as $i => $review) {
+            if ($review->isIdEqualTo($id)) {
+                unset($reviews[$i]);
+                $this->reviews = $reviews;
+                return;
+            }
+        }
+        throw new \DomainException('Отзыв не найден');
+    }
 }

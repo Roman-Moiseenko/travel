@@ -8,6 +8,8 @@ use frontend\assets\MapPageItemAsset;
 use frontend\assets\MapStayAsset;
 use frontend\assets\MovingAsset;
 use frontend\widgets\moving\MenuPagesWidget;
+use frontend\widgets\reviews\NewReviewMovingWidget;
+use frontend\widgets\reviews\ReviewsMovingWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -21,23 +23,6 @@ $this->title = Lang::t($page->getSeoTitle());
 $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
-
-//MagnificPopupAsset::register($this);
-//MapPageItemAsset::register($this);
-/*$js_click = <<<JS
-$(document).ready(function() {
-$('.fancybox-close').click(function(e){
-    e.preventDefault();
-    //history.pushState({}, '', '');
-    });
-$('.map-close').click(function(e){
-    e.preventDefault();
-    //history.pushState({}, '', '');
-    });
-});
-JS;
-$this->registerJs($js_click);*/
-
 
 $this->params['canonical'] = Url::to(['moving/moving/view', 'slug' => $page->slug], true);
 $this->params['pages'] = true;
@@ -54,41 +39,7 @@ $mobile = SysHelper::isMobile();
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <span id="data-page" data-id="<?= $page->id ?>"></span>
-<?= ''/*
-newerton\fancybox\FancyBox::widget([
-    'target' => 'a[rel=fancybox]',
-    'helpers' => false,
-    'mouse' => true,
-    'config' => [
-        'maxWidth' => '95%',
-        'maxHeight' => '95%',
-        'playSpeed' => 0,
-        'arrows' => false,
-        'padding' => 0,
-        'fitToView' => false,
-        'width' => '90%',
-        'height' => '90%',
-        'autoSize' => false,
-        'closeClick' => false,
-        'openEffect' => 'none',
-        'closeEffect' => 'none',
-        'prevEffect' => 'elastic',
-        'nextEffect' => 'elastic',
-        'closeBtn' => true,
-        'openOpacity' => true,
-        'helpers' => [
-            'title' => ['type' => 'inline'],
-            'buttons' => [],
-            'thumbs' => ['width' => 68, 'height' => 50],
-            'overlay' => [
-                'css' => [
-                    'background' => 'rgba(0, 0, 0, 0.3)'
-                ]
-            ]
-        ],
-    ]
-]);*/
-?>
+
 <h1 class="pb-4"><?= $page->title ?></h1>
 <article class="page-view params-moving <?= $mobile ? 'word-break-table'  : ''?>">
 
@@ -99,10 +50,19 @@ newerton\fancybox\FancyBox::widget([
         <?php endforeach; ?>
     </ul>
 
-
 </article>
 <?= MenuPagesWidget::widget(['pages' => $categories]) ?>
 
-
-
-<div id="map-item" style="display: none; height: 100%;"></div>
+<!-- Отзывы -->
+<!-- Новый отзыв -->
+<!-- ОТЗЫВЫ -->
+<div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+        <!-- Виджет подгрузки отзывов -->
+        <h3>Комментарии:</h3>
+        <div id="review" class="py-3">
+            <?= ReviewsMovingWidget::widget(['reviews' => $page->reviews]); ?>
+        </div>
+        <?= NewReviewMovingWidget::widget(['page' => $page]); ?>
+    </div>
+</div>
