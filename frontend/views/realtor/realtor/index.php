@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = 'Агентство';
     <?= ImageH2BlockWidget::widget([
         'directory' => 'realtor/realtor',
         'scale' => 'item-1-1by1',
-        'images' => ['realtor_18.jpg', 'realtor_18.jpg', 'realtor_19.jpg', 'realtor_20.jpg',],
+        'images' => ['realtor_18.jpg', 'realtor_19.jpg', 'realtor_20.jpg', 'realtor_21.jpg',],
         'col' => '3',
         'alt' => 'Подбор земельного участка в Калининградской области',
     ]); ?>
@@ -131,28 +131,26 @@ $this->params['breadcrumbs'][] = 'Агентство';
         <li>Большая база и возможности для подбора земли под застройку</li>
         <li>Полный сервис услуг и операций с землей</li>
     </ul>
-    <hr>
+
     <h2>Индивидуальный проект дизайна квартиры или дома</h2>
     <?= ImageH2BlockWidget::widget([
         'directory' => 'realtor/realtor',
         'scale' => 'item-1-1by1',
-        'images' => ['realtor_21.jpg', 'realtor_22.jpg', 'realtor_23.jpg', 'realtor_24.jpg',],
+        'images' => ['realtor_22.jpg', 'realtor_23.jpg', 'realtor_24.jpg', 'realtor_25.jpg'],
         'col' => '3',
         'alt' => 'Индивидуальный проект дизайна квартиры или дома в Калининградской области',
     ]); ?>
     <p>
-        Текст
+        Заказажите дизайн-проект квартиры или дома у профессионала, который воплотит Ваши самые смелые идеи в
+        реальность! С «Privat-Недвижимость» работают лучшие дизайнеры интерьеров и домов во всем Калининграде.
+        Вы получите индивидуальный проект Премиум-класса.
     </p>
-    <ul>
-        <li>Какой-то текст ....</li>
-        <li>Какой-то текст ....</li>
-    </ul>
     <hr>
     <h2>Строительство дома под ключ</h2>
     <?= ImageH2BlockWidget::widget([
         'directory' => 'realtor/realtor',
         'scale' => 'item-1-1by1',
-        'images' => ['realtor_25.jpg', 'realtor_26.jpg', 'realtor_27.jpg', 'realtor_28.jpg',],
+        'images' => ['realtor_26.jpg', 'realtor_27.jpg', 'realtor_28.jpg', 'realtor_29.jpg'],
         'col' => '3',
         'alt' => 'Строительство дома под ключ в Калининградской области',
     ]); ?>
