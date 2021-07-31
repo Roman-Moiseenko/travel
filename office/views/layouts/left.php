@@ -123,7 +123,12 @@ use yii\helpers\Url;
                             ['label' => '- Провайдеры', 'iconStyle' => 'fas', 'icon' => 'users-cog', 'url' => ['/info/events/providers'], 'active' => $this->context->id == 'info/events/provider'],
                             ['label' => '- Пользователи', 'icon' => 'users', 'url' => ['/info/events/users'], 'active' => $this->context->id == 'info/events/users'],*/
                         ]],
-
+                        ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
+                            ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
+                            ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
+                            ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
+                        ]],
+                        ['label' => 'Ночная жизнь', 'icon' => 'republican', 'url' => ['/night/page'], 'active' => $this->context->id == 'night/page'],
                     ]],
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
@@ -133,11 +138,7 @@ use yii\helpers\Url;
                         ['label' => 'IMG Alt', 'iconStyle' => 'far', 'icon' => 'images', 'url' => ['/seo/alt'], 'active' => $this->context->id == 'seo/alt'],
                         ['label' => 'Meta Теги', 'iconStyle' => 'fab', 'icon' => 'maxcdn', 'url' => ['/seo/meta'], 'active' => $this->context->id == 'seo/meta'],
                     ]],
-                    ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
-                        ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
-                        ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
-                        ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
-                    ]],
+
                 ],
             ]);
             ?>

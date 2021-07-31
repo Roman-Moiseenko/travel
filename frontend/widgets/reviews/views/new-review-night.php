@@ -1,10 +1,9 @@
 <?php
-/* @var $reviewForm \booking\forms\CommentForm */
+/* @var $reviewForm \booking\forms\booking\ReviewForm */
 /* @var $id int */
 /* @var $action string */
 
 use booking\entities\Lang;
-use booking\forms\CommentForm;
 use frontend\widgets\design\BtnBooking;
 use frontend\widgets\design\BtnReview;
 use frontend\widgets\design\BtnSend;

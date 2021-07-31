@@ -1,21 +1,22 @@
 <?php
 
 
-namespace frontend\controllers\moving;
+namespace frontend\controllers\night;
 
 
 use booking\entities\Lang;
 use booking\forms\moving\ReviewMovingForm;
 use booking\forms\CommentForm;
-use booking\repositories\moving\PageRepository;
-use booking\services\moving\PageManageService;
+use booking\repositories\night\PageRepository;
+use booking\services\night\PageManageService;
 use booking\services\system\LoginService;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
-class MovingController extends Controller
+class NightController extends Controller
 {
-    public $layout = 'main_moving';
+    public $layout = 'main_night';
     /**
      * @var PageRepository
      */
@@ -47,13 +48,12 @@ class MovingController extends Controller
     public function actionIndex()
     {
         $categories = $this->pages->findRoot();
-        return $this->redirect(Url::to(['/moving/moving/view', 'slug' => $categories[0]->slug]));
+        return $this->redirect(Url::to(['/night/night/view', 'slug' => $categories[0]->slug]));
     }
 
 
     public function actionView($slug)
     {
-
         if (!$page = $this->pages->findBySlug($slug)) {
             \Yii::$app->session->setFlash('error', 'Страница не найдена');
             return $this->render(Url::to(['/about']));
@@ -78,19 +78,4 @@ class MovingController extends Controller
         ]);
     }
 
-    public function actionGetItems()
-    {
-        if (\Yii::$app->request->isAjax) {
-            try {
-                $params = \Yii::$app->request->bodyParams;
-                $page_id = $params['page_id'];
-                $item_id = $params['item_id'];
-                $items = $this->pages->getItemsMap($page_id, $item_id);
-                return json_encode($items);
-            } catch (\Throwable $e) {
-                return $e->getMessage();
-            }
-        }
-        return $this->goHome();
-    }
 }

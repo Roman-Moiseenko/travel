@@ -17,6 +17,7 @@ use frontend\urls\CarTypeUrlRule;
 use frontend\urls\ForumUrlRule;
 use frontend\urls\FunTypeUrlRule;
 use frontend\urls\MovingPageUrlRule;
+use frontend\urls\NightPageUrlRule;
 use frontend\urls\PageUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
@@ -88,7 +89,10 @@ class SetUp implements BootstrapInterface
             Instance::of(\booking\repositories\moving\PageRepository::class),
             Instance::of('cache'),
         ]);
-
+        $container->setSingleton(NightPageUrlRule::class, [], [
+            Instance::of(\booking\repositories\night\PageRepository::class),
+            Instance::of('cache'),
+        ]);
         $container->setSingleton(TourTypeUrlRule::class, [], [
             Instance::of(\booking\repositories\booking\tours\TypeRepository::class),
             Instance::of('cache'),

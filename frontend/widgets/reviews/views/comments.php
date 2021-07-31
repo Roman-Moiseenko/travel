@@ -1,11 +1,7 @@
 <?php
 
-use booking\entities\booking\BaseReview;
-use booking\entities\moving\ReviewMoving;
-use frontend\widgets\RatingWidget;
-
 /* @var $array array */
-/* @var $reviews ReviewMoving[] */
+/* @var $reviews array */
 ?>
 <?php foreach ($reviews as $review): ?>
     <div class="card mt-2" style="border-radius: 20px">

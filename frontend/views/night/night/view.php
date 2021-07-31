@@ -1,17 +1,19 @@
 <?php
 
-use booking\entities\Lang;
-use booking\entities\moving\Page;
-use booking\helpers\SysHelper;
+use booking\entities\night\Page;
+use booking\forms\CommentForm;
 use frontend\widgets\moving\MenuPagesWidget;
-use frontend\widgets\reviews\NewReviewMovingWidget;
+use frontend\widgets\reviews\NewReviewNightWidget;
 use frontend\widgets\reviews\CommentWidget;
+use yii\web\View;
 use yii\helpers\Url;
-
-/* @var $this yii\web\View */
+use booking\helpers\SysHelper;
+use booking\entities\Lang;
+/* @var $this View */
 /* @var $page Page */
 /* @var $categories Page[] */
 /* @var $main_page bool */
+/* @var $reviewForm CommentForm */
 
 $this->title = Lang::t($page->getSeoTitle());
 
@@ -19,13 +21,13 @@ $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->descr
 $this->registerMetaTag(['name' => 'og:description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
 
-$this->params['canonical'] = Url::to(['moving/moving/view', 'slug' => $page->slug], true);
+$this->params['canonical'] = Url::to(['night/night/view', 'slug' => $page->slug], true);
 $this->params['pages'] = true;
 $this->params['slug'] = $page->slug;
-if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
+if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Ночная жизнь', 'url' => Url::to(['/night'])];
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
-        $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
+        $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['night/night/view', 'slug' => $parent->slug])];
     }
 }
 $this->params['breadcrumbs'][] = $page->name;
@@ -37,16 +39,9 @@ $mobile = SysHelper::isMobile();
 
 <h1 class="pb-4"><?= $page->title ?></h1>
 <article class="page-view params-moving <?= $mobile ? 'word-break-table'  : ''?>">
-
     <?= SysHelper::lazyloaded($page->content); ?>
-    <ul>
-        <?php foreach ($page->items as $i => $item): ?>
-            <li><a href="#i-<?= $item->id ?>"><?= $item->title ?></a></li>
-        <?php endforeach; ?>
-    </ul>
-
 </article>
-<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => 'moving']) ?>
+<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => 'night']) ?>
 
 <!-- Отзывы -->
 <!-- Новый отзыв -->
@@ -58,6 +53,6 @@ $mobile = SysHelper::isMobile();
         <div id="review" class="py-3">
             <?= CommentWidget::widget(['reviews' => $page->reviews]); ?>
         </div>
-        <?= NewReviewMovingWidget::widget(['page' => $page]); ?>
+        <?= NewReviewNightWidget::widget(['page' => $page]); ?>
     </div>
 </div>

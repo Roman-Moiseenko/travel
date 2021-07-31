@@ -203,10 +203,8 @@ return [
 
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
-
-               /* 'lands' => 'land/land/index',
-                'land/investment' => 'land/investment/index',
-                'land/map' => 'land/map/index',*/
+                'night' => 'night/night/index',
+                'night/<slug:[\w\-]+>' => 'night/night/view',
 
                 'realtor' => 'realtor/realtor/index',
                 'realtor/land' => 'realtor/land/index',
@@ -251,6 +249,7 @@ return [
                 '/<slug:[\w\-]+>' => 'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\MovingPageUrlRule'],
+                ['class' => 'frontend\urls\NightPageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
                 ['class' => 'frontend\urls\ForumUrlRule'],

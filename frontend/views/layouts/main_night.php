@@ -5,20 +5,17 @@
 /* @var $content string */
 
 use booking\entities\Lang;
-use frontend\assets\CarAsset;
-use frontend\assets\FunAsset;
 use frontend\assets\MovingAsset;
-use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
-use frontend\widgets\menu\BookingMenuWidget;
+use frontend\widgets\menu\MovingMenuWidget;
+use frontend\widgets\menu\NightMenuWidget;
+use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
 MovingAsset::register($this);
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -83,11 +80,28 @@ MovingAsset::register($this);
 </head>
 <body style="background-color: #f2f6f9;">
 <?php $this->beginBody() ?>
-<div id="common-home" class="content-container">
+
+    <nav id="top">
+        <?= TopUserMenuWidget::widget() ?>
+        <?= NightMenuWidget::widget() ?>
+    </nav>
+
+<div id="common-home" class="container content-container">
+    <?= BreadcrumbsWidget::widget([
+        'options' => ['class' => 'breadcrumb-site'],
+        'homeLink' => [
+            'label' => Lang::t('Главная'),
+            'url' => Yii::$app->homeUrl,
+            'title' => Lang::t('На главную'),
+        ],
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= AlertWidget::widget() ?>
     <?= $content ?>
 </div>
 <!-- Main Footer -->
 <?= $this->render('footer') ?>
+
 <?php $this->endBody() ?>
 <script type="text/javascript">
     let giftofspeed1 = document.createElement('link');
