@@ -117,6 +117,10 @@ class SitemapController extends Controller
      * @var \booking\repositories\forum\PostRepository
      */
     private $postForum;
+    /**
+     * @var \booking\repositories\night\PageRepository
+     */
+    private $night;
 
 
     public function __construct(
@@ -137,6 +141,7 @@ class SitemapController extends Controller
         \booking\repositories\booking\stays\TypeRepository $stayTypes,
         CategoryRepository $postType,
         PageRepository $moving,
+        \booking\repositories\night\PageRepository $night,
         CategoryFAQRepository $categoryFAQ,
         \booking\repositories\forum\CategoryRepository $categoryForum,
         \booking\repositories\forum\PostRepository $postForum,
@@ -165,6 +170,7 @@ class SitemapController extends Controller
         $this->categoryForum = $categoryForum;
         $this->sections = $sections;
         $this->postForum = $postForum;
+        $this->night = $night;
     }
 
     public function actionIndex(): Response
@@ -190,6 +196,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['realtor'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
+                new IndexItem(Url::to(['night-pages'], true)),
                 //new IndexItem(Url::to(['faq-category'], true)),
                 new IndexItem(Url::to(['forum'], true)),
                 new IndexItem(Url::to(['forum-category'], true)),
@@ -275,7 +282,18 @@ class SitemapController extends Controller
             }, $this->moving->getAll()));
         });
     }
-
+    public function actionNightPages(): Response
+    {
+        return $this->renderSitemap('sitemap-night-pages', function () {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\night\Page $page) {
+                return new MapItem(
+                    Url::to(['/night/night/view', 'slug' => $page->slug], true),
+                    null,
+                    MapItem::DAILY
+                );
+            }, $this->night->getAll()));
+        });
+    }
     public function actionMains(): Response
     {
         return $this->renderSitemap('sitemap-mains', function () {

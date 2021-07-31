@@ -23,14 +23,14 @@ use yii\helpers\Url;
                 <?php foreach ($categories as $category):?>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link <?= $this->params['slug'] == $category->slug ? 'active' : '' ?>"
-                       href="<?= Url::to(['moving/moving/view', 'slug' => $category->slug])?>">
+                       href="<?= Url::to(['night/night/view', 'slug' => $category->slug])?>">
                         <?= $category->icon ?>&#160;<?= Lang::t($category->name) ?>
                     </a>
                 </li>
                 <?php endforeach; ?>
                 <li class="nav-item">
                     <a class="top-menu-a nav-link"
-                       href="<?= Html::encode(Url::to(['/forum/pereezd-na-pmzh'])) ?>">
+                       href="<?= Html::encode(Url::to(['/forum/category/6'])) ?>">
                         <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
                 </li>
             </ul>

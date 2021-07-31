@@ -85,7 +85,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,�
                 'url' => '/night',
                 'img_name' => 'night_mobile.jpg',
                 'img_alt' => 'Ночная жизнь в Калининграде',
-                'caption' => 'Ночная жизнь',
+                'caption' => 'Ночная жизнь<br>Развлечения',
             ]) ?>
         </div>
     </div>
