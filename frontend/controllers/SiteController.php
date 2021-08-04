@@ -80,14 +80,9 @@ class SiteController extends Controller
     {
         $this->layout = 'main_landing';
         $mobile = SysHelper::isMobile();
-        //if ($mobile) return $this->redirect(['/tours']);
         $params = \Yii::$app->request->queryParams;
-        //if (isset($params['_1984'])) {
-            //получаем список файлов на карусель
-
         $path = __DIR__ . '/../web/' . \Yii::$app->params['url_img_landing'] . 'carousel/';//\Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
         $url = $url_img_booking = \Yii::$app->params['url_img_landing'] . 'carousel/';//\Yii::$app->params['staticHostInfo'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры
-        //scr::p($path);
         $list = scandir($path);
         $images = [];
         foreach ($list as $item) {
@@ -106,9 +101,6 @@ class SiteController extends Controller
             'user' => $this->loginService->user(),
             'region' => $region,
         ]);
-     // }
-
-       // return $this->redirect(['/tours']);
     }
 
     public function actionUpdate()
