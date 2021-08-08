@@ -76,6 +76,7 @@ use yii\helpers\Url; ?>
                 </ul>
             </div>
         </div>
+
         <hr>
         <div class="float-right d-none d-sm-inline">
             <div>
