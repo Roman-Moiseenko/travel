@@ -22,7 +22,7 @@ class LangUrlManager extends UrlManager
             $lang = Lang::current();
         }
         $url = parent::createUrl($params);
-        //if ($lang == Lang::DEFAULT) return $url;
+        if ($lang == Lang::DEFAULT) return $url;
         return $url == '/' ? '/' . $lang : '/' . $lang . $url;
     }
 }
