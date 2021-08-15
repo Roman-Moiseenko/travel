@@ -1,22 +1,20 @@
 User-agent: *
 
 
-Disallow: /ru/moving/builds
-Disallow: /ru/moving/developers
-Disallow: /ru/moving/lands
-Disallow: /ru/moving/klgd-place
-Disallow: /ru/moving/school-klgd
-Disallow: /ru/moving/chastnye-detskie-sady
-Disallow: /ru/moving/samye-sportivnye-sekcii
-Disallow: /ru/moving/dopolnitelnoe-obrazovanie
-Disallow: /ru/moving/detskie-lagerya
-Disallow: /ru/moving/luchshie-medicinskie-centry
-Disallow: /ru/moving/populyarnye-sanatorii
+Disallow: /moving/builds
+Disallow: /moving/developers
+Disallow: /moving/lands
+Disallow: /moving/school-klgd
+Disallow: /moving/chastnye-detskie-sady
+Disallow: /moving/samye-sportivnye-sekcii
+Disallow: /moving/dopolnitelnoe-obrazovanie
+Disallow: /moving/detskie-lagerya
+Disallow: /moving/luchshie-medicinskie-centry
+Disallow: /moving/populyarnye-sanatorii
 
 Disallow: /en/moving/builds
 Disallow: /en/moving/developers
 Disallow: /en/moving/lands
-Disallow: /en/moving/klgd-place
 Disallow: /en/moving/school-klgd
 Disallow: /en/moving/chastnye-detskie-sady
 Disallow: /en/moving/samye-sportivnye-sekcii
@@ -25,25 +23,15 @@ Disallow: /en/moving/detskie-lagerya
 Disallow: /en/moving/luchshie-medicinskie-centry
 Disallow: /en/moving/populyarnye-sanatorii
 
-Disallow: /ru/forum/create-post
-Disallow: /ru/forum/update-message
 Disallow: /en/forum/create-post
 Disallow: /en/forum/update-message
-Disallow: /ru/cabinet
 Disallow: /en/cabinet
-Disallow: /ru/login
 Disallow: /en/login
-Disallow: /ru/reset
 Disallow: /en/reset
-Disallow: /ru/auth
 Disallow: /en/auth
-Disallow: /ru/signup
 Disallow: /en/signup
-Disallow: /ru/conversation
 Disallow: /en/conversation
-Disallow: /ru/support
 Disallow: /en/support
-Disallow: /ru/shop/cart
 Disallow: /en/shop/cart
 Disallow: /*?*map=
 
