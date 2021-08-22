@@ -30,7 +30,7 @@ MovingAsset::register($this);
     <meta name="copyright" content="Моисеенко Роман Александрович">
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= '&#127969; ' . $this->title ?></title>
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">

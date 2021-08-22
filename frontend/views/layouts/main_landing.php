@@ -34,7 +34,7 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
     <meta name="yandex-verification" content="7e8361bb699b88a1" />
     <meta name="leaq-verification" content="84bea902-8ff8-4c70-8e42-1f3cf951757d" />
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= '&#9992; ' . $this->title ?></title>
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>" />
     <meta property="og:title" content="<?= Html::encode($this->title) ?>" />

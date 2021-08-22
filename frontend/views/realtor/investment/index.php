@@ -47,7 +47,7 @@ LandAsset::register($this);
 
     <h2>Инвестиционная стоимость земельных участков в Калининградской области в 2021 году</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_02.jpg',
         'alt' => 'Инвестиционная стоимость земельных участков в Калининградской области',
     ]); ?>
@@ -64,7 +64,7 @@ LandAsset::register($this);
 
     <h2>Бесплатные земельные участки</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_03.jpg',
         'alt' => 'Бесплатные земельные участки',
     ]); ?>
@@ -78,7 +78,7 @@ LandAsset::register($this);
 
     <h2>Рыночная стоимость земли для инвестора</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_04.jpg',
         'alt' => 'Рыночная стоимость земли для инвестора',
     ]); ?>
@@ -90,7 +90,7 @@ LandAsset::register($this);
 
     <h2>Факторы, влияющие на рыночную стоимость земли</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_05.jpg',
         'alt' => 'Факторы, влияющие на рыночную стоимость земли',
     ]); ?>
@@ -110,7 +110,7 @@ LandAsset::register($this);
 
     <h2>Правильно инвестируем в земельный участок</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_06.jpg',
         'alt' => 'Правильно инвестируем в земельный участок',
     ]); ?>
@@ -140,7 +140,7 @@ LandAsset::register($this);
 
     <h2>Правильно застраиваем земельный участок</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_07.jpg',
         'alt' => 'Правильно застраиваем земельный участок',
     ]); ?>
@@ -229,7 +229,7 @@ LandAsset::register($this);
 
     <h2>Инвестиции в земли под ТЦ и БЦ</h2>
     <?= ImageH2Widget::widget([
-        'directory' => 'land/investment',
+        'directory' => 'realtor/investment',
         'image_file' => 'investment_08.jpg',
         'alt' => 'Инвестиции в земли под ТЦ и БЦ',
     ]); ?>
