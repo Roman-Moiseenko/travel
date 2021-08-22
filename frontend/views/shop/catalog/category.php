@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\entities\shops\products\Category;
+use booking\helpers\Emoji;
 use frontend\widgets\shop\CategoriesWidget;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
@@ -25,6 +26,7 @@ $this->params['active_category'] = $category;
 $this->params['canonical'] = Url::to(['/shop/catalog/'. $category->id], true);
 
 $this->params['id_category'] = $category->id;
+$this->params['emoji'] = Emoji::SHOP;
 ?>
 
     <h1><?=Html::encode(Lang::t($category->getHeadingTile()))?></h1>

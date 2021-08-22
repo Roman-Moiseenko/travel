@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
@@ -39,6 +40,7 @@ MapAsset::register($this);
 $mobile = SysHelper::isMobile();
 
 $countReveiws = $car->countReviews();
+$this->params['emoji'] = Emoji::CAR;
 ?>
 <!-- ФОТО  -->
 <div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"

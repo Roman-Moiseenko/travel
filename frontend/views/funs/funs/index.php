@@ -9,6 +9,7 @@ use booking\entities\Lang;
 use booking\forms\booking\cars\SearchCarForm;
 use booking\forms\booking\funs\SearchFunForm;
 use booking\forms\booking\tours\SearchTourForm;
+use booking\helpers\Emoji;
 use frontend\assets\FunAsset;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
@@ -31,6 +32,7 @@ $(document).ready(function() {
 JS;
 
 $this->registerJs($js_search);
+$this->params['emoji'] = Emoji::FUN;
 ?>
 
 <div class="list-cars">

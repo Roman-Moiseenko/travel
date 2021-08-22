@@ -4,6 +4,7 @@ use booking\entities\admin\Contact;
 use booking\entities\foods\Food;
 use booking\entities\Lang;
 use booking\forms\foods\ReviewFoodForm;
+use booking\helpers\Emoji;
 use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -35,6 +36,7 @@ MagnificPopupAsset::register($this);
 MapAsset::register($this);
 $mobile = SysHelper::isMobile();
 $countReveiws = $food->countReviews();
+$this->params['emoji'] = Emoji::FOOD;
 ?>
     <!-- ФОТО  -->
     <div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"

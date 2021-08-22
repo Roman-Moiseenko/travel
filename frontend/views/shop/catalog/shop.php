@@ -9,6 +9,7 @@ use booking\entities\shops\Shop;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\CurrencyHelper;
 
+use booking\helpers\Emoji;
 use booking\helpers\funs\WorkModeHelper;
 use booking\helpers\ReviewHelper;
 use booking\helpers\shops\ManufacturedHelper;
@@ -46,7 +47,7 @@ $this->params['canonical'] = Url::to(['/shop/catalog/shop', 'id' => $shop->id], 
 
 //$this->params['active_category'] = $product->category;
 $mobile = SysHelper::isMobile();
-
+$this->params['emoji'] = Emoji::SHOP;
 SwiperAsset::register($this);
 MagnificPopupAsset::register($this);
 ?>

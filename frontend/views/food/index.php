@@ -8,6 +8,7 @@
 use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
 use booking\forms\foods\SearchFoodForm;
+use booking\helpers\Emoji;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -17,6 +18,7 @@ $description = 'Рестораны Калининграда где недоро�
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->params['canonical'] = Url::to(['/foods'], true);
+$this->params['emoji'] = Emoji::FOOD;
 ?>
 
 <div class="list-tours">

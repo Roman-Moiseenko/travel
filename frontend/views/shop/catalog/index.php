@@ -3,6 +3,7 @@
 
 use booking\entities\Lang;
 use booking\entities\shops\products\Category;
+use booking\helpers\Emoji;
 use frontend\widgets\shop\CategoriesWidget;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
@@ -18,6 +19,7 @@ $description = 'Что привезти из Калининграда сувен
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->params['canonical'] = Url::to(['/shops'], true);
+$this->params['emoji'] = Emoji::SHOP;
 ?>
 <h1><?= Lang::t('Сувениры и подарки с Калининграда')?></h1>
 <hr>

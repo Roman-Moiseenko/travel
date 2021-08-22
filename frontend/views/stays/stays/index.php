@@ -8,12 +8,14 @@
 use booking\entities\Lang;
 
 use booking\forms\booking\stays\search\SearchStayForm;
+use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
 
 $this->title = Lang::t('Бронирование квартир апартаментов домов в Калининграде и на море');
 $mobile = SysHelper::isMobile();
+$this->params['emoji'] = Emoji::STAY;
 ?>
 
 <div class="list-cars">

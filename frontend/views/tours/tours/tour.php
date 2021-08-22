@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use booking\helpers\tours\TourHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = $tour->getName();
 
 $this->params['canonical'] = Url::to(['/tour/view', 'id' => $tour->id], true);
 $this->params['tour'] = true;
+$this->params['emoji'] = Emoji::TOUR;
 
 MagnificPopupAsset::register($this);
 MapAsset::register($this);

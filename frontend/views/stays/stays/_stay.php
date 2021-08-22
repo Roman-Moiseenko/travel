@@ -4,6 +4,7 @@ use booking\entities\booking\stays\Stay;
 use booking\entities\booking\stays\Type;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\Emoji;
 use booking\helpers\stays\StayHelper;
 use booking\helpers\SysHelper;
 use frontend\widgets\design\BtnStayCheck;
@@ -14,7 +15,6 @@ use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $stay Stay */
-
 //SysHelper::_renderDate()
 $arr = [
     'date_from' => $this->params['search']['date_from'],

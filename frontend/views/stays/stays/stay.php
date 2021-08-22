@@ -9,6 +9,7 @@ use booking\entities\booking\stays\rules\WiFi;
 use booking\entities\booking\stays\Stay;
 use booking\entities\Lang;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\Emoji;
 use booking\helpers\stays\StayHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
@@ -169,7 +170,7 @@ JS;
 }
 $mobile = SysHelper::isMobile();
 $countReveiws = $stay->countReviews();
-
+$this->params['emoji'] = Emoji::STAY;
 ?>
     <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
           data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>

@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use booking\helpers\Emoji;
 use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
@@ -17,7 +18,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
-
+$emoji = isset($this->params['emoji']) ? $this->params['emoji'] : Emoji::MAIN;
 if (isset($this->params['fun'])) FunAsset::register($this);
 if (isset($this->params['car'])) CarAsset::register($this);
 if (isset($this->params['tour'])) TourAsset::register($this);
@@ -36,7 +37,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
     <meta name="copyright" content="Моисеенко Роман Александрович" />
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= '&#9992; ' . $this->title ?></title>
+    <title><?= $emoji . ' ' . $this->title ?></title>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="<?= Html::encode($this->title) ?>" />
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>" />

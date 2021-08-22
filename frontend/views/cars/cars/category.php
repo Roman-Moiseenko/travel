@@ -3,11 +3,13 @@
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $id integer */
 
+use booking\helpers\Emoji;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Список всех авто по категории';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['emoji'] = Emoji::CAR;
 ?>
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>

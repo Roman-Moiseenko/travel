@@ -4,6 +4,7 @@ use booking\entities\shops\cart\Cart;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
+use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use frontend\widgets\design\BtnToOrder;
 use yii\helpers\Html;
@@ -33,7 +34,6 @@ $this->title = 'Корзина';
 $this->params['breadcrumbs'][] = ['label' => 'Каталог', 'url' => '/shops'];
 $this->params['breadcrumbs'][] = $this->title;
 $mobil = SysHelper::isMobile();
-
 ?>
 <?php if ($cart->getItems()): ?>
     <div class="row">

@@ -7,8 +7,10 @@
 
 use booking\entities\Lang;
 use booking\forms\booking\tours\SearchTourForm;
+use booking\helpers\Emoji;
 use yii\data\DataProviderInterface;
-$this->title = Lang::t('Экскурсии по Калининграду обзорная, замки, форты');
+$this->title = Lang::t('Экскурсии по Калининграду обзорная, замки, форты - недорого');
+$this->params['emoji'] = Emoji::TOUR;
 ?>
 
 <div class="list-tours">
