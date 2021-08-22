@@ -94,7 +94,7 @@ $this->registerJs($script);
         ?>
         <?php foreach ($images as $i => $image): ?>
             <div class="item-class">
-                <img data-src="<?= $image ?>" class="lazyload" alt="На отдых в Калининградскую область">
+                <img loading="lazy" src="<?= $image ?>" alt="На отдых в Калининградскую область">
                 <div class="container">
                     <div class="carousel-caption">
                         <?php if ($i == 0) {

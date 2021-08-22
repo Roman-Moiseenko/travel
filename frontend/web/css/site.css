@@ -1530,3 +1530,9 @@ h2.faq-card {
 .word-break-table table {
     word-break: break-all;
 }
+
+/* Стили для IMG  */
+.w-h-button {
+    width: 100%;
+    height: 300px;
+}

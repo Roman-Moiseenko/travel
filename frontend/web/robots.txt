@@ -1,3 +1,14 @@
+User-agent: Googlebot
+Allow:	/*.css*
+Allow:	/*.js*
+Allow: 	/*.ttf*
+Allow: 	/*.woff*
+User-agent: Googlebot-Mobile
+Allow:	/*.css*
+Allow:	/*.js*
+Allow: 	/*.ttf*
+Allow: 	/*.woff*
+
 User-agent: *
 
 Disallow: *?*

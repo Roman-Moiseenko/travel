@@ -11,6 +11,6 @@
         $star = 'fas fa-star-half-alt';
     } ?>
         <i class="<?= $star; ?>"></i>
-    </span>&nbsp
+    </span>&#160;
 <?php endfor; ?>
 </div>

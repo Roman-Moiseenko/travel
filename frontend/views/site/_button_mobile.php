@@ -15,8 +15,7 @@ $url_img_booking = \Yii::$app->params['url_img_landing'] . 'booking/'
 <div class="item-responsive item-2-29by1 button-booking-index-mobile">
     <div class="content-item">
         <a href="<?= Url::to([$url]) ?>">
-            <img data-src="<?= $url_img_booking . $img_name ?>" class="img-responsive lazyload" width="100%"
-                 height="300px" alt="<?= $img_alt ?>">
+            <img loading="lazy"  src="<?= $url_img_booking . $img_name ?>" class="img-responsive w-h-button" alt="<?= $img_alt ?>">
             <div class="card-img-overlay d-flex flex-column">
                 <div>
                     <h2 class="card-title"

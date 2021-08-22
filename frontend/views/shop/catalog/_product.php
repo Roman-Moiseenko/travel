@@ -55,7 +55,7 @@ $url = Url::to(['/shop/product/' . $product->id]);
                         <?php if ($product->saleOn()): ?>
                             <a title="В корзину" href="<?= Url::to(['/shop/cart/add', 'id' => $product->id]) ?>"><i class="fas fa-shopping-cart"></i> В корзину</a>
                         <?php else: ?>
-                            <a title="Где купить" href="<?= Url::to(['/shop/'. $product->shop_id]) ?>"><i class="fas fa-map-marked-alt"></i> Где купить</a>
+                            <a title="Где купить" href="<?= Url::to(['/shop/'. $product->shop_id]) ?>"><i class="fas fa-map-marked-alt"></i> Купить</a>
                         <?php endif; ?>
                     </div>
                 </div>
