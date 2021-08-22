@@ -40,9 +40,8 @@ MovingAsset::register($this);
         echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
     } ?>
     <?php $this->head() ?>
-    <script src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
-    <script defer type="text/javascript">
+    <script>
         var fired = false;
         window.addEventListener('scroll', () => {
             if (fired === false) {
@@ -71,8 +70,6 @@ MovingAsset::register($this);
                 }, 2200)
             }
         });
-    </script>
-    <script defer type="text/javascript">
     </script>
     <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
@@ -103,7 +100,7 @@ MovingAsset::register($this);
 <?= $this->render('footer') ?>
 
 <?php $this->endBody() ?>
-<script type="text/javascript">
+<script>
     let giftofspeed1 = document.createElement('link');
     giftofspeed1.rel = 'stylesheet';
     giftofspeed1.href = 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap';

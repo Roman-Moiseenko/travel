@@ -94,11 +94,11 @@ use yii\helpers\Url; ?>
         <p>
             <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow">
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_3.png" alt="Инстаграм koenigs.ru"
-                     title="Инстаграм koenigs.ru" width="20px" height="20px"/> koenigs.ru
+                     title="Инстаграм koenigs.ru" width="20" height="20"/> koenigs.ru
             </a>
             <a href="https://vk.com/koenigsru" target="_blank" rel="nofollow">
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru"
-                     title="Вконтакте koenigs.ru" width="20px" height="20px"/> koenigsru
+                     title="Вконтакте koenigs.ru" width="20" height="20"/> koenigsru
             </a>
             <?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
                                              target="_blank" rel="=nofollow"><?= Lang::t('ООО Кёнигс.РУ') ?></a>

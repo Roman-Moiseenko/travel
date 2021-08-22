@@ -22,10 +22,10 @@ $mobile = SysHelper::isMobile();
         <?php if ($food->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
                 <a href="<?= Html::encode($url) ?>">
-                    <img data-src="<?= Html::encode($food->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list_food')) ?>"
+                    <img loading="lazy" src="<?= Html::encode($food->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list_food')) ?>"
                          alt="<?= $food->mainPhoto->getAlt() ?>"
                          title="<?= $food->name ?>"
-                         class="card-img-top lazyload"/>
+                         class="card-img-top"/>
                     <link  itemprop="contentUrl" href="<?= Html::encode($food->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list_food')) ?>">
 
                 </a>

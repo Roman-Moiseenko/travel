@@ -53,7 +53,7 @@ $this->registerJs($script);
                 <div class="card text-white shadow-lg" style="border: 0 !important; ">
                     <div class="item-responsive item-0-75by1">
                         <div class="content-item">
-                            <img loading="lazy"  src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img" alt="<?= $post->getTitle()?>">
+                            <img loading="lazy" src="<?= $post->getThumbFileUrl('photo', 'landing_list') ?>" class="card-img" alt="<?= $post->getTitle()?>">
                         </div>
                     </div>
                     <div class="card-img-overlay d-flex flex-column">

@@ -21,10 +21,10 @@ $url = Url::to(['/tour/view', 'id' => $tour->id])
                 <div class="item-responsive item-2-0by1">
                     <div class="content-item">
                         <a href="<?= Html::encode($url) ?>">
-                            <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>"
+                            <img loading="lazy" src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>"
                                  alt="<?= $tour->mainPhoto->getAlt() ?>"
                                  title="<?= $tour->getName() ?>"
-                                 class="card-img-top lazyload"/>
+                                 class="card-img-top"/>
                             <link  itemprop="contentUrl" href="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>">
                         </a>
                     </div>

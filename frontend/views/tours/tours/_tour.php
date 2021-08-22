@@ -23,7 +23,7 @@ $mobile = SysHelper::isMobile();
                 <div class="item-responsive <?= $mobile ? 'item-2-0by1' : 'item-1-1by1'?>">
                     <div class="content-item">
                 <a href="<?= Html::encode($url) ?>">
-                    <img data-src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list')) ?>"
+                    <img loading="lazy" src="<?= Html::encode($tour->mainPhoto->getThumbFileUrl('file', $mobile ? 'catalog_list_mobile' : 'catalog_list')) ?>"
                          alt="<?= $tour->mainPhoto->getAlt() ?>"
                          title="<?= $tour->getName() ?>"
                          class="card-img-top lazyload"/>

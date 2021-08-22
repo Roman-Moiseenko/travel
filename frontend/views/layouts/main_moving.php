@@ -39,9 +39,8 @@ MovingAsset::register($this);
         echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
     } ?>
     <?php $this->head() ?>
-    <script src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
-    <script defer type="text/javascript">
+    <script>
         var fired = false;
         window.addEventListener('scroll', () => {
             if (fired === false) {
@@ -70,8 +69,6 @@ MovingAsset::register($this);
                 }, 2200)
             }
         });
-    </script>
-    <script defer type="text/javascript">
     </script>
     <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>

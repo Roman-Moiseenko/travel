@@ -13,8 +13,8 @@ $count = count($posts);
 <div class="row">
     <div class="col p-1">
         <div class="card text-white shadow-lg" style="border: 0 !important; ">
-            <img data-src="<?= $posts[0]->getThumbFileUrl('photo', $mobile ? 'widget_mobile' : 'widget_top') ?>"
-                 class="card-img lazyload"
+            <img loading="lazy" src="<?= $posts[0]->getThumbFileUrl('photo', $mobile ? 'widget_mobile' : 'widget_top') ?>"
+                 class="card-img"
                  alt="<?= $posts[0]->getTitle() ?>"
                  title="<?= $posts[0]->getTitle() ?>">
             <div class="card-img-overlay">
@@ -31,8 +31,8 @@ $count = count($posts);
     <?php for ($i = 1; $i < $count; $i++): ?>
         <div class="col-sm-4 px-1">
             <div class="card text-white shadow-lg" style="border: 0 !important; ">
-                <img data-src="<?= $posts[$i]->getThumbFileUrl('photo', $mobile ? 'widget_mobile' : 'widget_bottom') ?>"
-                     class="card-img lazyload"
+                <img loading="lazy" src="<?= $posts[$i]->getThumbFileUrl('photo', $mobile ? 'widget_mobile' : 'widget_bottom') ?>"
+                     class="card-img"
                      alt="<?= $posts[$i]->getTitle() ?>"
                      title="<?= $posts[$i]->getTitle() ?>">
                 <div class="card-img-overlay">

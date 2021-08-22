@@ -24,46 +24,44 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="author" href="https://koenigs.ru/humans.txt">
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="copyright" content="Моисеенко Роман Александрович">
-    <meta name="yandex-verification" content="7e8361bb699b88a1"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="author" href="https://koenigs.ru/humans.txt" />
+    <meta charset="<?= Yii::$app->charset ?>" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="copyright" content="Моисеенко Роман Александрович" />
+    <meta name="yandex-verification" content="7e8361bb699b88a1" />
     <meta name="leaq-verification" content="84bea902-8ff8-4c70-8e42-1f3cf951757d" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>">
-    <meta property="og:title" content="<?= Html::encode($this->title) ?>">
-    <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">
-    <meta property="og:url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>">
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>" />
+    <meta property="og:title" content="<?= Html::encode($this->title) ?>" />
+    <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>" />
+    <meta property="og:url" content="<?= \Yii::$app->params['frontendHostInfo'] ?>" />
 
-    <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>">
+    <link rel="canonical" href="<?= \Yii::$app->params['frontendHostInfo'] ?>" />
 
     <?php if ($mobile):?>
-        <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" type="text/css">
-    <link rel="preload" as="image" href="/images/landing/other/background.jpg">
+        <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" type="text/css" />
+        <link rel="preload" as="image" href="/images/landing/other/background.jpg" />
 
-    <link rel="preload" as="image" href="/images/landing/booking/car_mobile.jpg">
-    <link rel="preload" as="image" href="/images/landing/booking/food_mobile.jpg">
-    <link rel="preload" as="image" href="/images/landing/booking/shop_mobile.jpg">
-    <link rel="preload" as="image" href="/images/landing/booking/fun_mobile.jpg">
-    <link rel="preload" as="image" href="/images/landing/booking/stay_mobile.jpg">
-    <link rel="preload" as="image" href="/images/landing/booking/tour_mobile.jpg">
+        <link rel="preload" as="image" href="/images/landing/booking/car_mobile.jpg" />
+        <link rel="preload" as="image" href="/images/landing/booking/food_mobile.jpg" />
+        <link rel="preload" as="image" href="/images/landing/booking/shop_mobile.jpg" />
+        <link rel="preload" as="image" href="/images/landing/booking/fun_mobile.jpg" />
+        <link rel="preload" as="image" href="/images/landing/booking/stay_mobile.jpg" />
+        <link rel="preload" as="image" href="/images/landing/booking/tour_mobile.jpg" />
     <?php endif;?>
 
     <?php $this->head() ?>
-    <script defer src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
-    <script defer type="text/javascript">
+    <script>
         var fired = false;
         window.addEventListener('scroll', () => {
             if (fired === false) {
                 fired = true;
-
                 setTimeout(() => {
                     console.log('Идет тестирование загрузки метрики');
                     if (document.getElementById('checkbox-1')) {
@@ -95,7 +93,7 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
             }
         });
     </script>
-        <script defer type="text/javascript">
+        <script>
         window.onReadyState = (e, t) => {
             const a = ["loading", "interactive", "complete"],
                 o = a.slice(a.indexOf(e)),
@@ -107,13 +105,10 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
             });
     </script>
 
-    <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
+    <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика" /></div>
     <!-- <noscript></noscript>  /Yandex.Metrika counter -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script defer
-            src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
-    <script defer>
-
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>">
     </script>
 </head>
 <body>
@@ -124,7 +119,7 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
 <!-- Main Footer -->
 <?= $this->render('footer') ?>
 <?php $this->endBody() ?>
-<script type="text/javascript">
+<script>
     let giftofspeed1 = document.createElement('link');
     giftofspeed1.rel = 'stylesheet';
     giftofspeed1.href = 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap';

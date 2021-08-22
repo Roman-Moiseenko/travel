@@ -39,14 +39,13 @@ AppAsset::register($this);
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">
     <?php if (isset($this->params['canonical'])) {
-        echo '<meta property="og:url" content="' . $this->params['canonical'] . '">' . PHP_EOL;
-        echo '<link rel="canonical" href="' . $this->params['canonical'] . '">' . PHP_EOL;
+        echo '<meta property="og:url" content="' . $this->params['canonical'] . '" />' . PHP_EOL;
+        echo '<link rel="canonical" href="' . $this->params['canonical'] . '" />' . PHP_EOL;
     } ?>
     <!--link  rel="preload" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" type="text/css"-->
     <?php $this->head() ?>
-    <script src="/js/lazysizes.min.js"></script>
     <!-- Yandex.Metrika counter -->
-    <script defer type="text/javascript">
+    <script>
         var fired = false;
         window.addEventListener('scroll', () => {
             if (fired === false) {
@@ -76,16 +75,6 @@ AppAsset::register($this);
             }
         });
     </script>
-    <script defer type="text/javascript">
-        /*window.onReadyState = (e, t) => {
-            const a = ["loading", "interactive", "complete"],
-                o = a.slice(a.indexOf(e)),
-                n = () => o.includes(document.readyState);
-            n() ? t() : document.addEventListener("readystatechange", (() => n() && t()))
-        };
-        window.onReadyState("complete",function(){
-        });*/
-    </script>
     <div><img src="https://mc.yandex.ru/watch/70580203" style="position:absolute; left:-9999px;" alt="Яндекс Метрика"/></div>
     <!-- <noscript></noscript>  /Yandex.Metrika counter -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -97,7 +86,6 @@ AppAsset::register($this);
 <nav id="top">
     <?= TopUserMenuWidget::widget() ?>
     <?= ForumMenuWidget::widget() ?>
-
 </nav>
 <div id="common-home" class="container content-container">
     <?= BreadcrumbsWidget::widget([
@@ -115,7 +103,7 @@ AppAsset::register($this);
 <!-- Main Footer -->
 <?= $this->render('footer') ?>
 <?php $this->endBody() ?>
-<script type="text/javascript">
+<script>
     let giftofspeed1 = document.createElement('link');
     giftofspeed1.rel = 'stylesheet';
     giftofspeed1.href = 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700&display=swap';
