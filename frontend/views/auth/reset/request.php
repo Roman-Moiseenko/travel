@@ -1,14 +1,15 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model \booking\forms\user\PasswordResetRequestForm */
-
 use booking\entities\Lang;
 use booking\forms\user\PasswordResetRequestForm;
 use frontend\widgets\design\BtnSend;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model \booking\forms\user\PasswordResetRequestForm */
+
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Сброс пароля');
 $this->params['breadcrumbs'][] = $this->title;

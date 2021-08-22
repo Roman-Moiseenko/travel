@@ -2,11 +2,6 @@
 
 use booking\entities\booking\cars\BookingCar;
 use booking\entities\user\User;
-
-/* @var $booking BookingCar */
-
-/* @var $user User */
-
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
@@ -20,6 +15,12 @@ use frontend\widgets\design\BtnPay;
 use frontend\widgets\LegalWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+/* @var $booking BookingCar */
+
+/* @var $user User */
+
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;

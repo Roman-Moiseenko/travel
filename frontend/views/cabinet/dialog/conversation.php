@@ -16,6 +16,7 @@ use yii\helpers\Url;
 /* @var $conversations Conversation[] */
 /* @var $model ConversationForm */
 /* @var $currentUser string */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Переписка') . '. ' . Lang::t($dialog->theme->caption);
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Сообщения'), 'url' => Url::to(['cabinet/dialog/index'])];;

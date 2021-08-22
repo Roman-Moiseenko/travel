@@ -15,6 +15,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $order Order  */
 /* @var $model OrderForm*/
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
+
 $js = <<<JS
 $(document).ready(function() {
         $('.delivery-address').hide();

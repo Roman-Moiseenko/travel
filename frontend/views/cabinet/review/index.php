@@ -4,6 +4,7 @@
 
 use booking\entities\Lang;
 use yii\helpers\Url;
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Мои отзывы');
 $this->params['breadcrumbs'][] = $this->title;

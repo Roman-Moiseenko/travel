@@ -10,6 +10,7 @@ use yii\helpers\Url;
 
 /* @var $model ConfirmationForm */
 /* @var $booking BaseBooking */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Подтверждение отмены бронирования');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];

@@ -10,6 +10,7 @@ use yii\helpers\Html;
 
 /* @var $user User */
 /* @var $model PreferencesForm */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Настройки');
 $this->params['breadcrumbs'][] = $this->title;

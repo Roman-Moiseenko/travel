@@ -7,9 +7,11 @@ use booking\helpers\BookingHelper;
 use booking\helpers\CurrencyHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+/* @var $this yii\web\View */
 
 /* @var $wishlist WishlistItemInterface[] */
 
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 $this->title = Lang::t('Избранное');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

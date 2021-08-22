@@ -1,10 +1,4 @@
 <?php
-
-/* @var $dialog Dialog */
-
-/* @var $typeDialog integer */
-/* @var $optional */
-
 use booking\entities\Lang;
 use booking\entities\message\Dialog;
 use booking\entities\message\ThemeDialog;
@@ -13,6 +7,13 @@ use booking\helpers\DialogHelper;
 use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+/* @var $dialog Dialog */
+
+/* @var $typeDialog integer */
+/* @var $optional */
+
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Создать новый диалог');
 $this->params['breadcrumbs'][] = $this->title;

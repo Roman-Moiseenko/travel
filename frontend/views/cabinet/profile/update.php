@@ -14,6 +14,7 @@ use yii\widgets\DetailView;
 
 /* @var $user User */
 /* @var $model PersonalForm */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Редактировать');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Профиль'), 'url' => Url::to(['/cabinet/profile', 'id' => $user->id])];;

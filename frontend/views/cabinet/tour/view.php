@@ -20,6 +20,7 @@ use frontend\widgets\design\BtnGeo;
 use frontend\widgets\design\BtnPay;
 use yii\helpers\Html;
 use yii\helpers\Url;
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;

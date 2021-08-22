@@ -10,6 +10,7 @@ use yii\widgets\DetailView;
 use booking\entities\user\User;
 
 /* @var $user User */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Аутентификация');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Профиль'), 'url' => Url::to(['/cabinet/profile'])];;

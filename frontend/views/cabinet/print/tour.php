@@ -8,6 +8,7 @@ use booking\helpers\CurrencyHelper;
 use yii\helpers\Html;
 
 /* @var $booking BookingTour */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $latitude = $booking->calendar->tour->params->beginAddress->latitude;
 $longitude = $booking->calendar->tour->params->beginAddress->longitude;

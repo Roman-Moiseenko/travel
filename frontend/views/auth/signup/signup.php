@@ -1,10 +1,4 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-
-/* @var $model \booking\forms\user\SignupForm */
-
 use booking\entities\Lang;
 use booking\forms\user\SignupForm;
 use frontend\widgets\design\BtnSignUp;
@@ -12,6 +6,13 @@ use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+
+/* @var $model \booking\forms\user\SignupForm */
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
+
 
 $this->title = Lang::t('Регистрация на портале туристических услуг');
 $description = 'Регистрация на сайте для туристов и гостей Калининграда. После регистрации Вы сможете оплачивать туристические услуги';

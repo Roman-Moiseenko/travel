@@ -11,6 +11,7 @@ use yii\helpers\Url;
 
 /* @var $model PasswordEditForm */
 /* @var $user User */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = 'Изменить Пароль';
 $this->params['breadcrumbs'][] = ['label' => 'Аутентификация', 'url' => Url::to(['/cabinet/auth'])];

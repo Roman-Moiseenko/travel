@@ -9,6 +9,7 @@ use yii\widgets\LinkPager;
 /* @var $dataProvider DataProviderInterface */
 /* @var $active string */
 /* @var $counts array */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Мои заказы');
 $mobil = SysHelper::isMobile();

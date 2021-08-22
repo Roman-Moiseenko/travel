@@ -12,6 +12,8 @@ use yii\helpers\Url;
 
 /* @var $bookings BaseBooking[] */
 /* @var $active bool */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
+
 if ($active) {
     $this->title = Lang::t('Мои бронирования');
 } else {

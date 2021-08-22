@@ -1,16 +1,17 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-
-/* @var $model \booking\forms\auth\LoginForm */
-
 use booking\entities\Lang;
 use frontend\widgets\design\BtnLogin;
 use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+
+/* @var $model \booking\forms\auth\LoginForm */
+
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Вход на сайт - Калининград для гостей и туристов');
 $description = 'Вход на сайт для туристов и гостей Калининграда. После входа, Вы сможете оплачивать туристические услуги';

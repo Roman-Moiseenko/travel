@@ -17,6 +17,7 @@ jQuery(document).ready(function($) {
     });
 });
 JS;
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->registerJs($js);
 

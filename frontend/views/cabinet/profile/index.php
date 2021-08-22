@@ -10,6 +10,7 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $user User */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Профиль');
 $this->params['breadcrumbs'][] = $this->title;

@@ -11,6 +11,7 @@ use yii\helpers\Url;
 
 /* @var $model UserEditForm */
 /* @var $user User */
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = Lang::t('Изменить');
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Аутентификация'), 'url' => Url::to(['/cabinet/auth'])];

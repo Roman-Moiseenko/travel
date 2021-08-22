@@ -1,13 +1,15 @@
 <?php
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model ResetPasswordForm */
-
 use booking\entities\Lang;
 use booking\forms\auth\ResetPasswordForm;
 use frontend\widgets\design\BtnSend;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model ResetPasswordForm */
+
+
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = 'Resend verification email';
 $this->params['breadcrumbs'][] = $this->title;

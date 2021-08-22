@@ -17,6 +17,7 @@ use yii\helpers\Url;
 /* @var $booking BookingStay */
 /* @var $user User */
 
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 
 $this->title = $booking->getName();
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Мои бронирования'), 'url' => Url::to(['cabinet/booking/index'])];;
