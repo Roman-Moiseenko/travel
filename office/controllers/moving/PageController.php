@@ -249,7 +249,17 @@ class PageController extends Controller
             'item' => $item,
         ]);
     }
+    public function actionActivate($id)
+    {
+        $this->service->activate($id);
+        $this->redirect(['view', 'id' => $id]);
+    }
 
+    public function actionDraft($id)
+    {
+        $this->service->draft($id);
+        $this->redirect(['view', 'id' => $id]);
+    }
     protected function findModel($id)
     {
         if (($model = Page::findOne($id)) !== null) {

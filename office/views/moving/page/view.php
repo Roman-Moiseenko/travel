@@ -13,6 +13,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-view">
     <p>
+        <?php if ($page->isActive()): ?>
+            <?= Html::a('Снять с публикации', ['draft', 'id' => $page->id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+        <?php else: ?>
+            <?= Html::a('Опубликовать', ['activate', 'id' => $page->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+        <?php endif; ?>
+
         <?= Html::a('Изменить', ['update', 'id' => $page->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $page->id], [
             'class' => 'btn btn-danger',

@@ -9,6 +9,7 @@ use booking\entities\booking\BaseReview;
 use booking\entities\Meta;
 use booking\entities\queries\CategoryQuery;
 use booking\helpers\SlugHelper;
+use booking\helpers\StatusHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use paulzi\nestedsets\NestedSetsBehavior;
 
@@ -28,6 +29,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $lft
  * @property integer $rgt
  * @property integer $depth
+ * @property integer $status
  * @property Meta $meta
  *
  * @property Page $parent
@@ -58,6 +60,7 @@ class Page extends ActiveRecord
         $page->description = $description;
         $page->meta = $meta;
         $page->icon = $icon;
+        $page->status = StatusHelper::STATUS_DRAFT;
         return $page;
     }
 
@@ -78,6 +81,33 @@ class Page extends ActiveRecord
     {
         $this->photo = $file;
     }
+
+    public function activate(): void
+    {
+        if ($this->isActive()) {
+            throw new \DomainException('Статья уже опубликована');
+        }
+        $this->status = StatusHelper::STATUS_ACTIVE;
+    }
+
+    public function draft(): void
+    {
+        if ($this->isDraft()) {
+            throw new \DomainException('Статья уже снята с публикации');
+        }
+        $this->status = StatusHelper::STATUS_DRAFT;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status == StatusHelper::STATUS_ACTIVE;
+    }
+
+    public function isDraft(): bool
+    {
+        return $this->status == StatusHelper::STATUS_DRAFT;
+    }
+
     public static function tableName()
     {
         return '{{%moving_pages}}';

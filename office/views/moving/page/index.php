@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\moving\Page;
+use booking\helpers\StatusHelper;
 use yii\grid\ActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -60,6 +61,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Заголовок',
                     'contentOptions' => ['data-label' => 'Заголовок'],
                     ],
+                [
+                    'attribute' => 'status',
+                    'label' => 'Статус',
+                    'filter' => [StatusHelper::STATUS_DRAFT => 'Черновик', StatusHelper::STATUS_ACTIVE => 'Опубликована'],
+                    'value' => function (Page $model) {
+                        return StatusHelper::statusToHTML($model->status);
+                    },
+                    'format' => 'raw',
+                    'contentOptions' => ['data-label' => 'Статус'],
+                ],
                 ['class' => ActionColumn::class],
             ],
         ]); ?>

@@ -212,4 +212,18 @@ class PageManageService
         $page->removeReview($review_id);
         $this->pages->save($page);
     }
+
+    public function activate($id): void
+    {
+        $page = $this->pages->get($id);
+        $page->activate();
+        $this->pages->save($page);
+    }
+
+    public function draft($id): void
+    {
+        $page = $this->pages->get($id);
+        $page->draft();
+        $this->pages->save($page);
+    }
 }
