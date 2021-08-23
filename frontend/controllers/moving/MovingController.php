@@ -7,6 +7,7 @@ namespace frontend\controllers\moving;
 use booking\entities\Lang;
 use booking\forms\moving\ReviewMovingForm;
 use booking\forms\CommentForm;
+use booking\helpers\StatusHelper;
 use booking\repositories\moving\PageRepository;
 use booking\services\moving\PageManageService;
 use booking\services\system\LoginService;
@@ -53,11 +54,13 @@ class MovingController extends Controller
 
     public function actionView($slug)
     {
-
-        if (!$page = $this->pages->findBySlug($slug)) {
-            \Yii::$app->session->setFlash('error', 'Страница не найдена');
-            return $this->render(Url::to(['/about']));
+        try {
+            $page = $this->pages->findBySlug($slug);
+        } catch (\DomainException $e) {
+            \Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(Url::to(['/about']));
         }
+
         $reviewForm = new CommentForm();
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
@@ -69,7 +72,7 @@ class MovingController extends Controller
             }
         }
         $root = $this->pages->findRoot();
-        $categories = $page->getChildren()->all();
+        $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
         return $this->render('view', [
             'page' => $page,
             'categories' => $categories,

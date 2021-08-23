@@ -33,7 +33,7 @@ class PageRepository
 
     public function getAll(): array
     {
-        return Page::find()->andWhere(['>', 'depth', 0])->all();
+        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['>', 'depth', 0])->all();
     }
 
     public function find($id): ?Page
@@ -43,7 +43,10 @@ class PageRepository
 
     public function findBySlug($slug): ?Page
     {
-        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
+        if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one()) {
+            throw new \DomainException('Страница не найдена');
+        }
+        return $page;
     }
 
     public function findRoot()
