@@ -9,42 +9,11 @@ Allow:	/*.js*
 Allow: 	/*.ttf*
 Allow: 	/*.woff*
 
-User-agent: *
 
+User-agent: Yandex
 Disallow: *?*
 
-Disallow: /moving/builds
-Disallow: /moving/developers
-Disallow: /moving/lands
-Disallow: /moving/school-klgd
-Disallow: /moving/chastnye-detskie-sady
-Disallow: /moving/samye-sportivnye-sekcii
-Disallow: /moving/dopolnitelnoe-obrazovanie
-Disallow: /moving/detskie-lagerya
-Disallow: /moving/luchshie-medicinskie-centry
-Disallow: /moving/populyarnye-sanatorii
-
-Disallow: /en/moving/builds
-Disallow: /en/moving/developers
-Disallow: /en/moving/lands
-Disallow: /en/moving/school-klgd
-Disallow: /en/moving/chastnye-detskie-sady
-Disallow: /en/moving/samye-sportivnye-sekcii
-Disallow: /en/moving/dopolnitelnoe-obrazovanie
-Disallow: /en/moving/detskie-lagerya
-Disallow: /en/moving/luchshie-medicinskie-centry
-Disallow: /en/moving/populyarnye-sanatorii
-
-Disallow: /en/forum/create-post
-Disallow: /en/forum/update-message
-Disallow: /en/cabinet
-Disallow: /en/login
-Disallow: /en/reset
-Disallow: /en/auth
-Disallow: /en/signup
-Disallow: /en/conversation
-Disallow: /en/support
-Disallow: /en/shop/cart
+User-agent: *
 Disallow: /*?*map=
 
 Disallow: /forum/create-post
