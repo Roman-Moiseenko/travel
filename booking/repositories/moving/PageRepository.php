@@ -6,6 +6,7 @@ namespace booking\repositories\moving;
 
 use booking\entities\moving\Item;
 use booking\entities\moving\Page;
+use booking\helpers\StatusHelper;
 
 class PageRepository
 {
@@ -42,7 +43,7 @@ class PageRepository
 
     public function findBySlug($slug): ?Page
     {
-        return Page::find()->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
+        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
     }
 
     public function findRoot()
