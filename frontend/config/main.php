@@ -124,7 +124,10 @@ return [
                 'humans.txt' => 'humans.txt',
 
 
-                'test' => 'test/index',
+                //'test' => 'test/index',
+                'legals/<id:\d+>' => 'legals/view',
+
+
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 
