@@ -127,7 +127,7 @@ class Lang extends ActiveRecord
     {
         //TODO Заглушка на языки
         return [
-            'ru', 'en',
+            'ru', //'en',
         ];
         return [
             'ru', 'en', 'pl', 'de', 'fr', 'lt', 'lv'
