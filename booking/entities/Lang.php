@@ -23,6 +23,7 @@ use yii\web\Cookie;
 class Lang extends ActiveRecord
 {
     const DEFAULT = 'ru';
+    const ONLY_RU = true;
 
     public static function default(): bool
     {
@@ -31,6 +32,7 @@ class Lang extends ActiveRecord
 
     public static function current(): string
     {
+        if (self::ONLY_RU) return self::DEFAULT;
         //scr::v(\Yii::$app->request->cookies->get('lang'));
         //if ($cookie = \Yii::$app->request->cookies->get('lang')) return $cookie->value;
         //Если гость
@@ -89,6 +91,8 @@ class Lang extends ActiveRecord
 
     public static function t($text, $lang = null): string
     {
+        if (self::ONLY_RU) return $text;
+
         if (empty($text)) return '';
         //Определяем какой User запросил перевод,
         //если клиент, то получаем текущий язык
@@ -125,10 +129,7 @@ class Lang extends ActiveRecord
 
     public static function listLangs(): array
     {
-        //TODO Заглушка на языки
-        return [
-            'ru', //'en',
-        ];
+        if (self::ONLY_RU) return ['ru'];
         return [
             'ru', 'en', 'pl', 'de', 'fr', 'lt', 'lv'
         ];
@@ -136,9 +137,7 @@ class Lang extends ActiveRecord
 
     public static function listLangsDropDown(): array
     {
-        return [
-            'ru' => 'ru', 'en' => 'en',
-        ];
+        if (self::ONLY_RU) return ['ru' => 'ru'];
 
         return [
             'ru' => 'ru', 'en' => 'en', 'pl' => 'pl', 'de' => 'de', 'fr' => 'fr', 'lt' => 'lt', 'lv' => 'lv'
