@@ -23,9 +23,9 @@ $this->title = $custom_name;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
+    <!--div class="alert alert-danger">
+        <?= ''//nl2br(Html::encode($message)) ?>
+    </div-->
     <span class="params-tour">
     <p>
         <?= Lang::t('Вышеуказанная ошибка произошла, когда веб-сервер обрабатывал ваш запрос.') ?>
