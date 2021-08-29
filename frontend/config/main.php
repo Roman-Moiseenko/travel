@@ -206,6 +206,7 @@ return [
 
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
+                'map' => 'map/index',
                 'night' => 'night/night/index',
                 'night/<slug:[\w\-]+>' => 'night/night/view',
 

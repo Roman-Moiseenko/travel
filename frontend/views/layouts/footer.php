@@ -73,6 +73,9 @@ use yii\helpers\Url; ?>
                     <li><a href="<?= Html::encode(Url::to(['/cabinet/dialogs'])) ?>"
                            rel="nofollow"><?= Lang::t('Сообщения') ?></a>
                     </li>
+                    <li><a href="<?= Html::encode(Url::to(['/map'])) ?>"
+                           rel="nofollow"><?= Lang::t('Карта сайта') ?></a>
+                    </li>
                 </ul>
             </div>
         </div>
