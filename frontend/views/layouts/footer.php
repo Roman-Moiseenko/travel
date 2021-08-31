@@ -10,9 +10,9 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Информация') ?></label>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О сайте') ?></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О нас') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/contacts'])) ?>"
-                           rel="nofollow"><?= Lang::t('Контакты') ?></a></li>
+                           rel="nofollow"><?= Lang::t('Реквизиты и контакты') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/forum'])) ?>"><?= Lang::t('Форум') ?></a></li>
                     <li>
                         <a href="<?= Html::encode(Url::to(['/policy'])) ?>"

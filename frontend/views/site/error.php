@@ -8,6 +8,7 @@
 
 use booking\entities\Lang;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 if (isset(\Yii::$app->params['errors'][$exception->statusCode])) {
@@ -21,21 +22,21 @@ $this->title = $custom_name;
 ?>
 <div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="py-4"><?= Html::encode($this->title) ?></h1>
 
     <!--div class="alert alert-danger">
         <?= ''//nl2br(Html::encode($message)) ?>
     </div-->
     <span class="params-tour">
     <p>
-        <?= Lang::t('Вышеуказанная ошибка произошла, когда веб-сервер обрабатывал ваш запрос.') ?>
+        <?= Lang::t('При обработке Вашего запроса произошла ошибка, возможно, данной страницы уже не существует.') ?>
     </p>
     <p>
-        <?= Lang::t('Пожалуйста, свяжитесь с нами, если вы считаете, что это ошибка сервера. Спасибо.') ?>
+        <?= Lang::t('Возможно, что-то пошло не так, и если Вам необходимо выполнить Ваш запрос, свяжитесь с нами удобным для Вас способом - ')  ?>
+        <?= Html::a('Кёнигс.РУ', Url::to(['/about'], true))?>
     </p>
     </span>
     <p>
         <img src="https://static.koenigs.ru/images/page/about/koenigs-about-2.jpg" alt="about" class="card-img-top"/>
     </p>
-
 </div>
