@@ -30,16 +30,16 @@ $this->params['emoji'] = Emoji::TOUR;
     ]) ?>
 
     <!--Как забронировать экскурсию-->
-    <?= HelperWidget::widget([
+    <?= '' /*HelperWidget::widget([
         'title' => 'Как заказать экскурсию',
         'youtube' => 'https://www.youtube.com/watch?v=TmR-pO6JT60',
         'link' => 'https://koenigs.ru/help-tour',
-    ]) ?>
+    ]) */?>
 
     <!--Облако тегов-->
-    <?= TagsWidget::widget([
+    <?= ''/*TagsWidget::widget([
         'object' => Tour::class
-    ]) ?>
+    ]) */?>
     <!--Наши гиды-->
     <?= GuidesObjectWidget::widget([
         'object' => Tour::class

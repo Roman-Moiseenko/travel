@@ -20,7 +20,7 @@ $count = count($guides) < 4 ? 2 : 4;
 
 $script = <<<JS
 $(document).ready(function() {
-        var swiper2 = new Swiper('.swiper_review',{
+        var swiper2 = new Swiper('.swiper_guide',{
           //  el: '.swiper-container',
             initialSlide: 1,
             spaceBetween: 30,
@@ -56,12 +56,13 @@ SwiperAsset::register($this);
 <h2 class="pt-4">Наши гиды</h2>
 
 <?php  if (SysHelper::isMobile()) echo '<p class="p-1"></p>';?>
-    <div class="pt-3 swiper-container swiper_review">
+    <div class="pt-3 swiper-container swiper_guide">
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
         <!-- Add Arrows -->
-        <!--div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div-->
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
         <div class="swiper-wrapper">
             <?php foreach ($guides as $guide): ?>
                 <div class="swiper-slide">
@@ -77,7 +78,9 @@ SwiperAsset::register($this);
                                     </a>
                                 </div>
                                 <div  class="pt-4" style="font-size: 16px">
+                                    <a href="<?= Url::to(['/legals/view', 'id' => $guide->id])?>">
                                     <?= $guide->name ?>
+                                    </a>
                                 </div>
 
                     </div>

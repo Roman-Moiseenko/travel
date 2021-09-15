@@ -12,23 +12,14 @@ class GuidesObjectWidget extends Widget
 {
     public $object;
 
-
     public function run()
     {
-        //TODO от класса $object получаем отзывы
         $class = $this->object;
-        //Tour::find()->having(['legal_id'])->groupBy(['legal_id'])->all();
-
         $guides = Legal::find()->where([
             'IN',
             'id',
-            Tour::find()->select('legal_id')->groupBy(['legal_id'])
-        ])->all();
-       /* $guides = array_map(function (Tour $tour) {
-            return $tour->legal;
-        },
-            $class::find()->groupBy(['legal_id'])->all()
-        );*/
+            $class::find()->select('legal_id')->groupBy(['legal_id'])
+        ])->andWhere(['<>', 'photo', 'NULL'])->all();
         return $this->render('guides', [
             'guides' => $guides,
         ]);
