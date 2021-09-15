@@ -12,7 +12,7 @@ use yii\helpers\Url;
 use yii\web\JqueryAsset;
 
 /* @var $reviews BaseReview[] */
-$count = SysHelper::isMobile() ? 2 : 4;
+$count = SysHelper::isMobile() ? 1 : 4;
 $script = <<<JS
 $(document).ready(function() {
         var swiper2 = new Swiper('.swiper_review',{

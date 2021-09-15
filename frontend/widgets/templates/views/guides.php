@@ -16,7 +16,7 @@ use yii\web\JqueryAsset;
 /* @var $guides Legal[] */
 
 $count = SysHelper::isMobile() ? 2 : 4;
-$count = count($guides) < 4 ? 2 : 4;
+$count = count($guides) < 4 ? 2 : $count;
 
 $script = <<<JS
 $(document).ready(function() {

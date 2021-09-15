@@ -396,6 +396,11 @@ class MapController extends Controller
         ];
         $result[] = [
             'lvl' => 1,
+            'caption' => 'Как заказать экскурсию',
+            'link' => Url::to(['/help-tour'], true),
+        ];
+        $result[] = [
+            'lvl' => 1,
             'caption' => 'Кёнигс.РУ',
             'link' => Url::to(['/contacts'], true),
         ];
@@ -404,6 +409,8 @@ class MapController extends Controller
             'caption' => 'Авиабилеты',
             'link' => Url::to(['/avia'], true),
         ];
+
+
         return $result;
     }
 
