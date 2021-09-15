@@ -53,7 +53,7 @@ JqueryAsset::register($this);
 SwiperAsset::register($this);
 ?>
 
-<h2 class="pt-4">Наши гиды</h2>
+<h2 class="pt-5">Наши гиды</h2>
 
 <?php  if (SysHelper::isMobile()) echo '<p class="p-1"></p>';?>
     <div class="pt-3 swiper-container swiper_guide">

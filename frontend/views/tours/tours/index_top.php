@@ -37,9 +37,9 @@ $this->params['emoji'] = Emoji::TOUR;
     ]) ?>
 
     <!--Облако тегов-->
-    <?= ''/*TagsWidget::widget([
+    <?= TagsWidget::widget([
         'object' => Tour::class
-    ]) */?>
+    ]) ?>
     <!--Наши гиды-->
     <?= GuidesObjectWidget::widget([
         'object' => Tour::class

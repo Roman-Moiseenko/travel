@@ -7,7 +7,7 @@
 
 use lesha724\youtubewidget\Youtube; ?>
 
-<h2 class="pt-4"><?= $title ?></h2>
+<h2 class="pt-5"><?= $title ?></h2>
 
 <div class="row pt-4">
     <div class="col-sm-12">
