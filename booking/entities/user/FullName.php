@@ -27,6 +27,11 @@ class FullName
         return  $this->surname . ' ' . mb_substr($this->firstname, 0, 1) . '.' . (!empty($this->secondname) ? '' . mb_substr($this->secondname, 0, 1) . '.' : '') ;
     }
 
+    public function getEuropeName(): string
+    {
+        return  $this->firstname . ' ' . mb_substr($this->surname, 0, 1) . '.';
+    }
+
     public function isEmpty(): bool
     {
         return empty($this->surname);

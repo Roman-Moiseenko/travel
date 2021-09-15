@@ -22,8 +22,8 @@ use yii\widgets\LinkPager;
 /* @var $message Message */
 /* @var $user User */
 
-$this->title = $post->caption . ' Форум для туристов и гостей Калининграда';
-$description = '';
+$this->title = $post->caption . '. Форум для туристов и гостей Калининграда';
+$description = $this->title . '. Актуальные новости от наших подписчиков.';
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];

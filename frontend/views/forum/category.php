@@ -16,6 +16,8 @@ use yii\widgets\LinkPager;
 /* @var $user User */
 
 $this->title = $category->name . ' На форуме Калининград для туристов и гостей - найди ответ на вопрос';
+$this->registerMetaTag(['name' => 'description', 'content' => $category->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $category->description]);
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
 $this->params['breadcrumbs'][] = ['label' => $category->section->caption, 'url' => Url::to(['/forum/view', 'slug' => $category->section->slug])];
 $this->params['breadcrumbs'][] = $category->name;

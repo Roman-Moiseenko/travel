@@ -7,7 +7,7 @@ use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $sections Section[] */
-$description ='';
+$description = 'Форум Калининграда. Актуальные проблемы, вопросы переезда на ПМЖ, рейтинг экскурсий и гидов, выбираем лечение в Калининградской области и много других важных вопросов';
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 

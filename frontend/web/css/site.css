@@ -1112,7 +1112,7 @@ div.required label:after {
     padding-top: 40px;
 }
 .landing-top-contact {
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     font-family: Geneva, Arial, Helvetica, sans-serif;
     letter-spacing: 3px;
@@ -1128,7 +1128,7 @@ div.required label:after {
     vertical-align: middle;
     border: 0;
     display: inline-block;
-    margin-top: -13px;
+   /* margin-top: -13px;*/
 
 }
 .mobile-landing {

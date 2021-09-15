@@ -15,7 +15,7 @@ $this->title = Lang::t('Калининград для туристов и гос
 $description = 'Отдых в Калининграде обзорные экскурсии по городу и замкам, развлечения, прогулки бронирование апартаментов квартир домов и прокат авто вело, переезд на ПМЖ, купить участок земли';
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
-$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+//$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 /* @var $region string */
 
 //JqueryAsset::register($this);

@@ -20,7 +20,7 @@ $description = 'Отдых в Калининграде обзорные экск
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 
-$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
+//$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 $this->registerLinkTag(['rel' => "preload", 'as' => "image", 'href' => $images[0]]);
 JqueryAsset::register($this);
 SwiperAsset::register($this);

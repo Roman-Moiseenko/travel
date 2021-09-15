@@ -1,7 +1,8 @@
 <?php
 /* @var $rating integer */
+/* @var $size integer */
 ?>
-<div class="rating-tour">
+<div class="rating-tour" <?= $size ? 'style="font-size: ' . $size . 'px !important;"' : '' ?>>
 <?php for ($i = 1; $i <= 5; $i++): ?>
     <span class="fa fa-stack">
     <?php $star = 'far fa-star'; ?>

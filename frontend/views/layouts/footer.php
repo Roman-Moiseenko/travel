@@ -32,7 +32,7 @@ use yii\helpers\Url; ?>
                 <ul class="list-unstyled">
                     <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
                     <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
-                    <li><a href="<?= Url::to(['/stays']) ?>"><h3><?= Lang::t('Апартаменты/дома целиком') ?></h3></a>
+                    <li><a href="<?= Url::to(['/stays']) ?>"><h3><?= Lang::t('Бронировать квартиру, дом') ?></h3></a>
                     </li>
                     <li>
                         <hr/>
@@ -47,7 +47,7 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автотранспорта') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автомобиля') ?></h3></a></li>
                     <li><a href="<?= Url::to(['/tours']) ?>"><h3><?= Lang::t('Экскурсии в Калининграде') ?></h3></a>
                     </li>
                     <li><a href="<?= Url::to(['/funs']) ?>"><h3><?= Lang::t('Развлечения и отдых') ?></h3></a></li>

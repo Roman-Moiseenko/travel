@@ -14,6 +14,9 @@ use yii\web\View;
 /* @var $dataProvider DataProviderInterface */
 
 $this->title = $section->caption . ' На форуме Калининград для туристов и гостей - найди ответ на вопрос';
+$description = $this->title . '. Актуальные новости от наших подписчиков.';
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 $this->params['breadcrumbs'][] = ['label' => 'Форум', 'url' => Url::to(['/forum'])];
 $this->params['breadcrumbs'][] = $section->caption;
 $this->params['canonical'] = Url::to(['/forum/view', 'slug' =>  $section->slug], true);
