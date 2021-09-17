@@ -29,7 +29,7 @@ use yii\helpers\Url;
                         </a>
                     </span>
             </li>
-            <li class="dropdown nav-item">
+            <!--li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button"
                    aria-haspopup="true" aria-expanded="false" rel="nofollow">
                     <?= Lang::current() ?></a>
@@ -39,7 +39,7 @@ use yii\helpers\Url;
                            href="<?= Html::encode(Url::to(['/', 'lang' => $lang])) ?>" rel="nofollow"><?= $lang ?></a>
                     <?php endforeach; ?>
                 </div>
-            </li>
+            </li-->
             <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link"
                    data-toggle="dropdown" rel="nofollow"><?= CurrencyHelper::currentString() ?></a>

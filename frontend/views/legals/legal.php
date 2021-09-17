@@ -10,12 +10,14 @@ use frontend\assets\SwiperAsset;
 use frontend\widgets\legal\BookingObjectWidget;
 use frontend\widgets\legal\ReviewsWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 /* @var $legal Legal */
 
 $this->registerMetaTag(['name' => 'description', 'content' => $legal->description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $legal->description]);
+$this->params['canonical'] = Url::to(['/legals/view', 'id' => $legal->id], true);
 
 $this->title = $legal->caption;
 $this->params['breadcrumbs'][] = $this->title;

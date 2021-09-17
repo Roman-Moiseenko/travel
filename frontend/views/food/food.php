@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\admin\Contact;
+use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
 use booking\entities\Lang;
 use booking\forms\foods\ReviewFoodForm;
@@ -15,6 +16,7 @@ use frontend\widgets\featured\ForFoodsWidget;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\reviews\NewReviewFoodWidget;
 use frontend\widgets\reviews\ReviewsFoodWidget;
+use frontend\widgets\templates\TagsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -207,7 +209,10 @@ $this->params['emoji'] = Emoji::FOOD;
             </div>
         </div>
     </div>
-
+    <!--Облако тегов-->
+    <?= TagsWidget::widget([
+        'object' => Tour::class
+    ]) ?>
     <div itemscope itemtype="https://schema.org/Restaurant">
         <meta itemprop="name" content="<?= $food->name ?>">
         <link itemprop="image" href="<?= $food->mainPhoto->getThumbFileUrl('file', 'catalog_list') ?>">

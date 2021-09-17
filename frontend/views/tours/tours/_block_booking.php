@@ -8,6 +8,7 @@ use frontend\widgets\design\BtnBooking;
 use frontend\widgets\LegalWidget;
 use frontend\widgets\RatingWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $tour Tour */
 DatepickerAsset::register($this);
@@ -31,6 +32,7 @@ DatepickerAsset::register($this);
                     <p></p>
                     <?= BtnBooking::widget(['caption' => 'Забронировать', 'confirmation' => $tour->isConfirmation(), 'btn_id' => 'button-booking-tour']) ?>
                     <div class="pt-3" style="color: #560005; ">* <?= Lang::t('При покупке экскурсии менее чем за 3 дня, предварительно, уточните ее доступность по тел.') . '+7-911-471-0701' ?></div>
+                    <div class="pt-3"><a href="<?= Url::to(['/help-tour'])?>" target="_blank">Как заказать  экскурсию</a></div>
                     <?= Html::endForm() ?>
                 </div>
             </div>
