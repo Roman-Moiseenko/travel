@@ -18,7 +18,7 @@ $this->title = Lang::t($post->getSeoTitle());
 $this->registerMetaTag(['name' =>'description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $post->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $post->meta->keywords]);
-
+$this->params['canonical'] = Url::to(['/post/post', 'id' => $post->id], true);
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => Url::to(['/post'])];
 $this->params['breadcrumbs'][] = ['label' => $post->category->getName(), 'url' => Url::to(['/post/category', 'slug' => $post->category->slug])];
 $this->params['breadcrumbs'][] = $post->getTitle();

@@ -6,7 +6,7 @@
 use frontend\widgets\blog\CategoriesWidget;
 use yii\helpers\Url;
 
-$this->params['canonical'] = Url::to(['/post'], true);
+
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>

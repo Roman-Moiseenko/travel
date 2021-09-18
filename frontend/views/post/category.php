@@ -14,6 +14,7 @@ $this->title = $category->getSeoTitle();
 $this->registerMetaTag(['name' =>'description', 'content' => $category->meta->description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => $category->meta->keywords]);
 
+$this->params['canonical'] = Url::to(['/post/category', 'slug' => $category->slug], true);
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => Url::to(['/post'])];
 $this->params['breadcrumbs'][] = $category->getName();
 

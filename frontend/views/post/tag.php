@@ -7,9 +7,10 @@
 use booking\entities\blog\Tag;
 use booking\entities\Lang;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = Lang::t('Посты с тегом') . ' ' . $tag->name;
-
+$this->params['canonical'] = Url::to(['/post/tag', 'slug' => $tag->slug], true);
 $this->params['breadcrumbs'][] = ['label' => Lang::t('Блог'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $tag->name;
 ?>
