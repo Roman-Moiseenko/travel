@@ -70,6 +70,12 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'caption' => 'Сувениры',
             ]) ?>
             <?= $this->render('_button_mobile', [
+                'url' => '/post',
+                'img_name' => 'blog_mobile.jpg',
+                'img_alt' => 'Блог о Калининграде',
+                'caption' => 'Блог о Калининграде',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
                 'url' => '/moving',
                 'img_name' => 'moving_mobile.jpg',
                 'img_alt' => 'На ПМЖ в Калининград',
