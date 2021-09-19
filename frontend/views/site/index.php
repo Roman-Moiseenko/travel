@@ -123,7 +123,7 @@ $this->registerJs($script);
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span
                     class="line-b-title"></span></h2>
         <div class="row">
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/tours',
                     'img_name' => 'tour.jpg',
@@ -131,7 +131,7 @@ $this->registerJs($script);
                     'caption' => 'Экскурсии',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/stays',
                     'img_name' => 'stay.jpg',
@@ -139,7 +139,7 @@ $this->registerJs($script);
                     'caption' => 'Апартаменты',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/funs',
                     'img_name' => 'fun.jpg',
@@ -147,7 +147,7 @@ $this->registerJs($script);
                     'caption' => 'Развлечения',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/cars',
                     'img_name' => 'car.jpg',
@@ -155,9 +155,8 @@ $this->registerJs($script);
                     'caption' => 'Прокат авто',
                 ]) ?>
             </div>
-        </div>
-        <div class="row pt-4">
-            <div class="col-3">
+
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/foods',
                     'img_name' => 'food.jpg',
@@ -165,7 +164,7 @@ $this->registerJs($script);
                     'caption' => 'Где поесть',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/shops',
                     'img_name' => 'shop.jpg',
@@ -173,7 +172,15 @@ $this->registerJs($script);
                     'caption' => 'Сувениры',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/post',
+                    'img_name' => 'blog.jpg',
+                    'img_alt' => 'Блог о Калининграде',
+                    'caption' => 'Блог о Калининграде',
+                ]) ?>
+            </div>
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/moving',
                     'img_name' => 'moving.jpg',
@@ -181,7 +188,7 @@ $this->registerJs($script);
                     'caption' => 'На ПМЖ',
                 ]) ?>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/realtor',
                     'img_name' => 'land.jpg',
@@ -189,24 +196,13 @@ $this->registerJs($script);
                     'caption' => 'Земельные участки<br>Недвижимость',
                 ]) ?>
             </div>
-        </div>
-        <div class="row pt-4">
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/night',
                     'img_name' => 'night.jpg',
                     'img_alt' => 'Ночная жизнь в Калининграде',
-                    'caption' => 'Ночная жизнь<br>Развлечения',
+                    'caption' => 'Ночная жизнь<br>Развлечения<br>Отдых',
                 ]) ?>
-            </div>
-            <div class="col-3">
-
-            </div>
-            <div class="col-3">
-
-            </div>
-            <div class="col-3">
-
             </div>
         </div>
     </div>
