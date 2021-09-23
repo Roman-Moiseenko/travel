@@ -91,7 +91,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'url' => '/night',
                 'img_name' => 'night_mobile.jpg',
                 'img_alt' => 'Ночная жизнь в Калининграде',
-                'caption' => 'Ночная жизнь<br>Развлечения',
+                'caption' => 'Ночная жизнь<br>Развлечения. Отдых',
             ]) ?>
         </div>
     </div>

@@ -47,13 +47,13 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автомобиля') ?></h3></a></li>
                     <li><a href="<?= Url::to(['/tours']) ?>"><h3><?= Lang::t('Экскурсии в Калининграде') ?></h3></a>
+                    <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автомобиля') ?></h3></a></li>
                     </li>
                     <li><a href="<?= Url::to(['/funs']) ?>"><h3><?= Lang::t('Развлечения и отдых') ?></h3></a></li>
                     <li><a href="<?= Url::to(['/moving']) ?>"><h3><?= Lang::t('На ПМЖ в Калининград') ?></h3>
                         </a></li>
-                    <li><a href="<?= Url::to(['/lands']) ?>"><h3><?= Lang::t('Земля и Недвижимость') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/realtor']) ?>"><h3><?= Lang::t('Земля и Недвижимость') ?></h3></a></li>
                     <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление')  ?></a></li>
                 </ul>
             </div>

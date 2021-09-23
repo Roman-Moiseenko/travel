@@ -1550,3 +1550,8 @@ h2.faq-card {
     color: white;
     background-color: var(--main-nav-color);;
 }
+.post-p > p {
+    font-size: 16px;
+    text-align: justify;
+    text-indent: 20px;
+}

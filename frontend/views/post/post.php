@@ -69,7 +69,7 @@ MapBlogAsset::register($this);
         </div>
         <meta itemprop="author" content="ООО Кёнигс.РУ">
         <meta itemprop="description" content="<?= $post->getDescription() ?>">
-        <div itemprop="articleBody">
+        <div itemprop="articleBody" class="post-p">
             <?= SysHelper::lazyloaded(Yii::$app->formatter->asRaw($post->getContent())) ?>
         </div>
     </div>
