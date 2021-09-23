@@ -66,8 +66,8 @@ return [
             ],
         ],
         [
-           /* 'width' => 950,
-            'height' => 650,*/
+           /* 'width' => 1280,
+            'height' => 1024,*/
             'quality' => 75,
             'items' => [
                 '/images/blog/'
