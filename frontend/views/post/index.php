@@ -5,7 +5,9 @@
 /* @var $category Category */
 
 use booking\entities\blog\Category;
+use booking\entities\booking\tours\Tour;
 use booking\entities\Lang;
+use frontend\widgets\templates\TagsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -21,4 +23,9 @@ $this->params['breadcrumbs'][] = Lang::t('О Калининградской об
 
 <?= $this->render('_list', [
     'dataProvider' => $dataProvider
+]) ?>
+
+<!--Облако тегов-->
+<?= TagsWidget::widget([
+    'object' => Tour::class
 ]) ?>
