@@ -14,11 +14,9 @@ use frontend\widgets\design\BtnUrl;
     <div class="text-left-hr"><?= Lang::t('Агентство «Privat-Недвижимость»') ?></div>
 </div>
 
-<div>
+<div class="pb-3">
     Наши услуги<br>
-    ссылка на основную страницу
-</div>
-<div>
+    ссылка на основную страницу<br>
     Позвонить
 </div>
 
@@ -27,7 +25,7 @@ use frontend\widgets\design\BtnUrl;
     <?= BtnUrl::widget([
         'url' => 'https://koenigs.ru/moving/tur-dlya-pereezzhayushchih-v-kaliningrad',
         'caption' => 'Тур на ПМЖ в Калининград',
-
+        'block' => false,
     ]) ?>
     </div>
 </div>
