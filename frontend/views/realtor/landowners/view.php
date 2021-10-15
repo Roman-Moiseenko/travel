@@ -20,7 +20,9 @@ $this->registerMetaTag(['name' => 'og:description', 'content' => $landowner->met
 
 $this->title = $landowner->meta->title ? $landowner->meta->title : $landowner->name;
 $this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/realtor'])];
-$this->params['breadcrumbs'][] = 'Участки';
+$this->params['breadcrumbs'][] = ['label' => 'Участки', 'url' => Url::to(['/realtor/landowners'])];
+
+$this->params['breadcrumbs'][] = $landowner->name;
 
 $this->params['canonical'] = Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true);
 
