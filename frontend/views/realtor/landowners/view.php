@@ -6,6 +6,7 @@ use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\assets\MovingAsset;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\GalleryWidget;
 use frontend\widgets\info\LandownerWidget;
@@ -30,7 +31,7 @@ $this->params['canonical'] = Url::to(['/realtor/landowners/view', 'id' => $lando
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
 $mobile = SysHelper::isMobile();
-
+MovingAsset::register($this);
 ?>
 <h1 class="pb-4"><?= $landowner->name ?></h1>
 <!-- ФОТО  -->
@@ -105,3 +106,16 @@ $mobile = SysHelper::isMobile();
     </div>
 </div>
 <?= LandownerWidget::widget(); ?>
+
+<?php $js = <<<EOD
+    $(document).ready(function() {
+        $('.thumbnails').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+EOD;
+$this->registerJs($js); ?>

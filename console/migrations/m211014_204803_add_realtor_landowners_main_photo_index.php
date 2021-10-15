@@ -19,7 +19,7 @@ class m211014_204803_add_realtor_landowners_main_photo_index extends Migration
             'main_photo_id',
             '{{%realtor_landowners_photos}}',
             'id',
-            'CASCADE',
+            'SET NULL',
             'RESTRICT');
     }
 
