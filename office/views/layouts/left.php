@@ -44,8 +44,11 @@ use yii\helpers\Url;
                         ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
                     ]],
                     ['label' => 'В.Музеи', 'icon' => 'dungeon', 'url' => ['/vmuseum/vmuseum'], 'active' => $this->context->id == 'vmuseum/vmuseum'],
-                    ['label' => 'Земельные участки', 'icon' => 'map', 'url' => ['/land'], 'active' => $this->context->id == 'land'],
 
+                    ['label' => 'Риелторство', 'icon' => 'map', 'items' => [
+                        ['label' => 'Землевладельцы', 'icon' => 'map', 'url' => ['/realtor/landowners'], 'active' => $this->context->id == 'realtor/landowners'],
+                        ['label' => 'Анонимная карта', 'icon' => 'map', 'url' => ['/realtor/map'], 'active' => $this->context->id == 'realtor/map'],
+                    ]],
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
                         ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
                         ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/reviews/trip'], 'active' => $this->context->id == 'reviews/trip'],

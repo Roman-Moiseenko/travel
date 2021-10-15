@@ -13,7 +13,6 @@ use yii\helpers\ArrayHelper;
  * @package booking\forms
  * @property MetaForm $meta
  */
-
 class PageForm extends CompositeForm
 {
     public $title;
@@ -32,8 +31,7 @@ class PageForm extends CompositeForm
             $this->meta = new MetaForm($page->meta);
             $this->parentId = $page->parent ? $page->parent->id : null;
             $this->_page = $page;
-        }
-        else {
+        } else {
             $this->meta = new MetaForm();
         }
         parent::__construct($config);

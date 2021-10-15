@@ -1555,3 +1555,8 @@ h2.faq-card {
     text-align: justify;
     text-indent: 20px;
 }
+
+.landowner-description {
+    font-size: 1.2rem;
+    color: var(--main-dark2-color);
+}

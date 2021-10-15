@@ -216,7 +216,8 @@ return [
                 'realtor/land' => 'realtor/land/index',
                 'realtor/investment' => 'realtor/investment/index',
                 'realtor/map' => 'realtor/map/index',
-
+                'realtor/landowners' => 'realtor/landowners/index',
+                'landowner/<slug:[\w\-]+>' => 'realtor/landowners/view',
 
                 'forum' => 'forum/index',
                 'forum/category/<id:\d+>' => 'forum/category',
@@ -262,6 +263,7 @@ return [
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],
+                ['class' => 'frontend\urls\LandownerUrlRule'],
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',

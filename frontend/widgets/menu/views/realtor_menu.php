@@ -29,6 +29,13 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'realtor/landowners' ? 'active' : '' ?>"
+                       href="<?= Html::encode(Url::to(['/realtor/landowners'])) ?>">
+                        <i class="fas fa-layer-group"></i>
+                        &#160;<?= Lang::t('Участки') ?>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'realtor/investment' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/realtor/investment'])) ?>">
                         <i class="fas fa-search-dollar"></i>

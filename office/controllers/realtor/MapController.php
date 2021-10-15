@@ -1,7 +1,7 @@
 <?php
 
 
-namespace office\controllers;
+namespace office\controllers\realtor;
 
 
 use booking\entities\land\Land;
@@ -16,7 +16,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
 
-class LandController extends Controller
+class MapController extends Controller
 {
     /**
      * @var LandService
