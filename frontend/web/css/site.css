@@ -307,6 +307,7 @@ a.desc:after {
     background: #fff;
     padding: 0 10px;
     font-size: 21px;
+    line-height: 20px;
 }
 
 .text-right-hr {
@@ -555,7 +556,7 @@ div.required label:after {
     padding: 8px 0;
     display: flex;
     flex-wrap: wrap;
-    font-size: 12px;
+    font-size: 16px;
     list-style: none;
 }
 
@@ -1559,4 +1560,9 @@ h2.faq-card {
 .landowner-description {
     font-size: 1.2rem;
     color: var(--main-dark2-color);
+}
+
+.landowner-main  {
+    font-size: 16px;
+    line-height: 30px;
 }

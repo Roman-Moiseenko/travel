@@ -15,6 +15,7 @@ use booking\entities\forum\Section;
 use booking\entities\moving\CategoryFAQ;
 use booking\entities\moving\FAQ;
 use booking\entities\moving\Page;
+use booking\entities\realtor\Landowner;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
 use booking\repositories\blog\CategoryRepository;
@@ -28,6 +29,7 @@ use booking\repositories\forum\SectionRepository;
 use booking\repositories\moving\CategoryFAQRepository;
 use booking\repositories\moving\FAQRepository;
 use booking\repositories\moving\PageRepository;
+use booking\repositories\realtor\LandownerRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
 use booking\services\sitemap\IndexItem;
@@ -121,6 +123,10 @@ class SitemapController extends Controller
      * @var \booking\repositories\night\PageRepository
      */
     private $night;
+    /**
+     * @var LandownerRepository
+     */
+    private $landowners;
 
 
     public function __construct(
@@ -146,6 +152,7 @@ class SitemapController extends Controller
         \booking\repositories\forum\CategoryRepository $categoryForum,
         \booking\repositories\forum\PostRepository $postForum,
         SectionRepository $sections,
+        LandownerRepository $landowners,
         $config = []
     )
     {
@@ -171,6 +178,7 @@ class SitemapController extends Controller
         $this->sections = $sections;
         $this->postForum = $postForum;
         $this->night = $night;
+        $this->landowners = $landowners;
     }
 
     public function actionIndex(): Response
@@ -195,6 +203,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['realtor'], true)),
+                new IndexItem(Url::to(['realtor-landowners'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 new IndexItem(Url::to(['night-pages'], true)),
                 //new IndexItem(Url::to(['faq-category'], true)),
@@ -253,7 +262,20 @@ class SitemapController extends Controller
                     null,
                     MapItem::ALWAYS
                 );
-            }, ['/realtor', '/realtor/investment', '/realtor/map']));
+            }, ['/realtor', '/realtor/investment', '/realtor/map', 'realtor/landowners']));
+        });
+    }
+
+    public function actionRealtorLandowners(): Response
+    {
+        return $this->renderSitemap('sitemap-forum-theme', function () {
+            return $this->sitemap->generateMap(array_map(function (Landowner $landowner) {
+                return new MapItem(
+                    Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true),
+                    $landowner->created_at,
+                    MapItem::ALWAYS
+                );
+            }, $this->landowners->getAll()));
         });
     }
 

@@ -47,66 +47,64 @@ MovingAsset::register($this);
         ]);
     } ?>
 </div>
-
-<div class="row">
-    <div class="col-sm-12 params-tour text-justify">
-        <?= Yii::$app->formatter->asHtml($landowner->text, [
-            'Attr.AllowedRel' => array('nofollow'),
-            'HTML.SafeObject' => true,
-            'Output.FlashCompat' => true,
-            'HTML.SafeIframe' => true,
-            'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-        ]) ?>
+<div class="landowner-main">
+    <div class="row">
+        <div class="col-sm-12 landowner-main text-justify">
+            <?= Yii::$app->formatter->asHtml($landowner->text, [
+                'Attr.AllowedRel' => array('nofollow'),
+                'HTML.SafeObject' => true,
+                'Output.FlashCompat' => true,
+                'HTML.SafeIframe' => true,
+                'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+            ]) ?>
+        </div>
     </div>
-</div>
-
-
-<!-- Координаты -->
-<div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col <?= $mobile ? ' ml-2' : '' ?>">
+    <!-- Координаты -->
+    <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
+        <div class="col <?= $mobile ? ' ml-2' : '' ?>">
                 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
-        <div class="container-hr">
-            <hr/>
-            <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
-        </div>
-        <div class="params-item-map">
-            <div class="row pb-2">
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <?= BtnGeo::widget([
-                        'caption' => 'Показать на карте',
-                        'target_id' => 'collapse-map',
-                    ]) ?>
-                </div>
-                <div class="col-sm-6 col-md-8 col-lg-9 align-self-center"
-                     id="address"><?= $landowner->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
+            <div class="container-hr">
+                <hr/>
+                <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
             </div>
-            <div class="collapse" id="collapse-map">
-                <div class="card card-body card-map">
-                    <div class="row">
-                        <div class="col-8">
-                            <input id="bookingaddressform-address" class="form-control" width="100%"
-                                   value="<?= $landowner->address->address ?? '' ?>" type="hidden">
-                        </div>
-                        <div class="col-2">
-                            <input id="bookingaddressform-latitude" class="form-control" width="100%"
-                                   value="<?= $landowner->address->latitude ?? '' ?>" type="hidden">
-                        </div>
-                        <div class="col-2">
-                            <input id="bookingaddressform-longitude" class="form-control" width="100%"
-                                   value="<?= $landowner->address->longitude ?? '' ?>" type="hidden">
-                        </div>
+            <div class="params-item-map">
+                <div class="row pb-2">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <?= BtnGeo::widget([
+                            'caption' => 'Показать на карте',
+                            'target_id' => 'collapse-map',
+                        ]) ?>
                     </div>
-                    <div class="row">
-                        <div id="map-view" style="width: 100%; height: 400px"></div>
+                    <div class="col-sm-6 col-md-8 col-lg-9 align-self-center"
+                         id="address"><?= $landowner->address->address ?? '<span class="badge badge-info">' . Lang::t('Не указано') . '</span>' ?></div>
+                </div>
+                <div class="collapse" id="collapse-map">
+                    <div class="card card-body card-map">
+                        <div class="row">
+                            <div class="col-8">
+                                <input id="bookingaddressform-address" class="form-control" width="100%"
+                                       value="<?= $landowner->address->address ?? '' ?>" type="hidden">
+                            </div>
+                            <div class="col-2">
+                                <input id="bookingaddressform-latitude" class="form-control" width="100%"
+                                       value="<?= $landowner->address->latitude ?? '' ?>" type="hidden">
+                            </div>
+                            <div class="col-2">
+                                <input id="bookingaddressform-longitude" class="form-control" width="100%"
+                                       value="<?= $landowner->address->longitude ?? '' ?>" type="hidden">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="map-view" style="width: 100%; height: 400px"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?= LandownerWidget::widget(); ?>
 </div>
-<?= LandownerWidget::widget(); ?>
-
 <?php $js = <<<EOD
     $(document).ready(function() {
         $('.thumbnails').magnificPopup({

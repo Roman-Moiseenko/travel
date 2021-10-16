@@ -51,4 +51,5 @@ class LandownerRepository
     {
         return Landowner::find()->andWhere(['id' => $id])->one();
     }
+
 }
