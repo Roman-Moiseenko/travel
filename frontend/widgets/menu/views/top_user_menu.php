@@ -20,6 +20,7 @@ use yii\helpers\Url;
 <div class="container">
     <div id="top-links">
         <ul class="nav justify-content-end">
+            <li class="nav-item mr-auto" style="color: #0f455a"><a class="nav-link" href="<?= Url::to(['/'], true) ?>">Калининград для туристов и гостей</a></li>
             <li class="nav-item">
                     <span class="hidden-xs hidden-sm hidden-md">
                         <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>"

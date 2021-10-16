@@ -572,7 +572,7 @@ div.required label:after {
     text-shadow: 0 1px 0 #FFF;
     padding: 0 10px;
     position: relative;
-    white-space: nowrap;
+   /* white-space: nowrap;*/
 }
 
 .breadcrumb-site > li + li:before {
@@ -1404,6 +1404,7 @@ h2.faq-card {
 
 .params-moving {
     font-size: 16px;
+    line-height: 28px;
 }
 
 /* Forum */
@@ -1551,10 +1552,15 @@ h2.faq-card {
     color: white;
     background-color: var(--main-nav-color);;
 }
-.post-p > p {
+.post-p {
     font-size: 16px;
     text-align: justify;
-    text-indent: 20px;
+    /*text-indent: 20px;*/
+    line-height: 28px;
+}
+.blog-posts-item {
+    font-size: 16px;
+    line-height: 28px;
 }
 
 .landowner-description {

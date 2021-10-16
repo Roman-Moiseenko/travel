@@ -13,6 +13,7 @@ use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
 use booking\entities\forum\Section;
 use booking\entities\moving\Page;
+use booking\entities\realtor\Landowner;
 use booking\entities\shops\products\Product;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
@@ -24,6 +25,7 @@ use booking\repositories\foods\FoodRepository;
 use booking\repositories\forum\SectionRepository;
 use booking\repositories\moving\CategoryFAQRepository;
 use booking\repositories\moving\PageRepository;
+use booking\repositories\realtor\LandownerRepository;
 use booking\repositories\shops\ProductRepository;
 use booking\repositories\shops\ShopRepository;
 use yii\helpers\Url;
@@ -108,6 +110,10 @@ class MapController extends Controller
      * @var SectionRepository
      */
     private $sections;
+    /**
+     * @var LandownerRepository
+     */
+    private $landowners;
 
     public function __construct(
         $id,
@@ -131,6 +137,7 @@ class MapController extends Controller
         \booking\repositories\forum\CategoryRepository $categoryForum,
         \booking\repositories\forum\PostRepository $postForum,
         SectionRepository $sections,
+        LandownerRepository $landowners,
         $config = []
     )
     {
@@ -154,6 +161,7 @@ class MapController extends Controller
         $this->categoryForum = $categoryForum;
         $this->postForum = $postForum;
         $this->sections = $sections;
+        $this->landowners = $landowners;
     }
 
     public function actionIndex()
@@ -347,6 +355,20 @@ class MapController extends Controller
             'caption' => 'Приватное риелторское агентство',
             'link' => Url::to(['/realtor'], true),
         ];
+        $result[] = [
+            'lvl' => 2,
+            'caption' => 'Участки',
+            'link' => Url::to(['/realtor/landowners'], true),
+        ];
+        $_items = array_map(function (Landowner $landowner) {
+            return [
+                'lvl' => 3,
+                'caption' => $landowner->name,
+                'link' => Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true),
+            ];
+        }, $this->landowners->getAll());
+        $result = array_merge($result, $_items);
+
         $result[] = [
             'lvl' => 2,
             'caption' => 'Инвестиции в землю',
