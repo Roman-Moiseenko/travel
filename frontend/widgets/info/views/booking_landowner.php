@@ -30,6 +30,8 @@ use yii\bootstrap4\ActiveForm;
             'action' => $action,
         ]); ?>
         <div class="row">
+            <?= $form->field($model, 'landowner_id')->textInput(['type' => 'hidden'])->label(false) ?>
+
             <div class="col-sm-6">
                 <?= $form->field($model, 'name')->textInput(['placeholder' => 'ФИО'])->label(false) ?>
             </div>
