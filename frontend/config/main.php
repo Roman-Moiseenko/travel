@@ -217,6 +217,7 @@ return [
                 'realtor/investment' => 'realtor/investment/index',
                 'realtor/map' => 'realtor/map/index',
                 'realtor/landowners' => 'realtor/landowners/index',
+                'realtor/landowners/booking' => 'realtor/landowners/booking',
                 'landowner/<slug:[\w\-]+>' => 'realtor/landowners/view',
 
                 'forum' => 'forum/index',

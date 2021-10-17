@@ -385,6 +385,11 @@ class ContactService
         }
     }
 
+    public function sendBookingLandowner(\booking\forms\realtor\BookingLandowner $form)
+    {
+        //TODO Сделать отправку письма
+
+    }
 
 
 }

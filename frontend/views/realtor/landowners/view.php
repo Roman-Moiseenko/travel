@@ -9,6 +9,8 @@ use frontend\assets\MapAsset;
 use frontend\assets\MovingAsset;
 use frontend\widgets\design\BtnGeo;
 use frontend\widgets\GalleryWidget;
+use frontend\widgets\info\BookingLandownerWidget;
+use frontend\widgets\info\BrokerLandownerWidget;
 use frontend\widgets\info\LandownerWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -59,6 +61,10 @@ MovingAsset::register($this);
             ]) ?>
         </div>
     </div>
+    <!-- Как посмотреть сейчас . текст берется с виджета, далее будет браться с базы -->
+    <?= BrokerLandownerWidget::widget(); ?>
+    <!-- Забронировать осмотр -->
+    <?= BookingLandownerWidget::widget(); ?>
     <!-- Координаты -->
     <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
         <div class="col <?= $mobile ? ' ml-2' : '' ?>">
@@ -103,6 +109,7 @@ MovingAsset::register($this);
             </div>
         </div>
     </div>
+    <!-- Агентство -->
     <?= LandownerWidget::widget(); ?>
 </div>
 <?php $js = <<<EOD
