@@ -4,6 +4,7 @@
 namespace booking\forms\realtor;
 
 
+use booking\entities\realtor\Landowner;
 use yii\base\Model;
 
 class BookingLandowner extends Model
@@ -24,5 +25,10 @@ class BookingLandowner extends Model
             ['phone', 'match', 'pattern' => '/^[+][0-9]*$/i', 'message' => 'Неверный номер телефона'],
             [['landowner_id', 'name', 'phone', 'period'], 'required', 'message' => 'Обязательное поле']
         ];
+    }
+
+    public function Landowner():? Landowner
+    {
+        return $this->landowner_id ? Landowner::findOne($this->landowner_id) : null;
     }
 }

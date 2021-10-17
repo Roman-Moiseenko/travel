@@ -317,6 +317,7 @@ class ContactService
             throw new \DomainException(Lang::t('Ошибка отправки'));
         }
     }
+
 /// ВНУТРЕННИЕ ФУНКЦИИ
     private function sendSMS($phone, $message, User $admin_user = null)
     {
@@ -388,7 +389,15 @@ class ContactService
     public function sendBookingLandowner(\booking\forms\realtor\BookingLandowner $form)
     {
         //TODO Сделать отправку письма
-
+        if ($this->loc) return;
+        $send = $this->mailer->compose('bookingLandowner', ['form' => $form])
+            ->setTo(\Yii::$app->params['landownerEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Бронь на показ участка')])
+            ->setSubject('Бронь на показ участка')
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
     }
 
 
