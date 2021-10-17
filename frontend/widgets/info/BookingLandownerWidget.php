@@ -13,9 +13,7 @@ class BookingLandownerWidget extends Widget
 
     public function run()
     {
-        $form = new BookingLandowner();
-        $form->landowner_id = $this->landowner_id;
-
+        $form = new BookingLandowner($this->landowner_id);
         $action = '/realtor/landowners/booking';
         return $this->render('booking_landowner', [
             'action' => $action,

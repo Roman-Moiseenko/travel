@@ -16,6 +16,12 @@ class BookingLandowner extends Model
     public $period;
     public $wish;
 
+    public function __construct($id = null,$config = [])
+    {
+        if ($id) $this->landowner_id = $id;
+        parent::__construct($config);
+    }
+
     public function rules()
     {
         return [
