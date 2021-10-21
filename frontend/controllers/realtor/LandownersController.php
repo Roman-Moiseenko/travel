@@ -52,7 +52,7 @@ class LandownersController extends Controller
                 $this->contact->sendBookingLandowner($form);
                 \Yii::$app->session->setFlash('success', 'Ваша заявка отправлена!');
             } catch (\DomainException $e) {
-                \Yii::$app->session->setFlash('error', 'Что-то пошло не так! Коля, звони полицию!');
+                \Yii::$app->session->setFlash('error', 'Что-то пошло не так! Коля, звони в полицию!');
             }
         } else {
             \Yii::$app->session->setFlash('warning', 'Ошибка отправки, попробуйте позже!');

@@ -4,6 +4,7 @@ namespace booking\entities\behaviors;
 
 use booking\entities\booking\BookingAddress;
 use booking\entities\Meta;
+use booking\entities\user\FullName;
 use booking\helpers\scr;
 use yii\base\Behavior;
 use yii\base\Event;
@@ -29,7 +30,7 @@ class FullnameBehavior extends Behavior
         $brand = $event->sender;
         //
         //$meta = Json::decode($brand->getAttribute($this->jsonAttribute));
-        $brand->{$this->attribute} = new BookingAddress(
+        $brand->{$this->attribute} = new FullName(
             $brand->getAttribute($this->attribute . '_surname'),
             $brand->getAttribute($this->attribute . '_firstname'),
             $brand->getAttribute($this->attribute . '_secondname')

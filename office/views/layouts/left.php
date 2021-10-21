@@ -129,6 +129,7 @@ use yii\helpers\Url;
                         ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
                             ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
                             ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
+                            ['label' => 'Представители', 'icon' => 'user-secret', 'url' => ['/moving/agent'], 'active' => $this->context->id == 'moving/agent'],
                             ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
                         ]],
                         ['label' => 'Ночная жизнь', 'icon' => 'republican', 'url' => ['/night/page'], 'active' => $this->context->id == 'night/page'],

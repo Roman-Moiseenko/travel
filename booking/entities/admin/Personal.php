@@ -67,7 +67,6 @@ class Personal extends ActiveRecord implements PersonalInterface
 
     public function afterFind(): void
     {
-
         $this->fullname = new FullName(
             $this->getAttribute('surname'),
             $this->getAttribute('firstname'),

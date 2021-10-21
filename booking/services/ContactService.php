@@ -388,7 +388,6 @@ class ContactService
 
     public function sendBookingLandowner(\booking\forms\realtor\BookingLandowner $form)
     {
-        //TODO Сделать отправку письма
         if ($this->loc) return;
         $send = $this->mailer->compose('bookingLandowner', ['form' => $form])
             ->setTo(\Yii::$app->params['landownerEmail'])

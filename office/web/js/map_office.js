@@ -84,15 +84,25 @@ function init() {
     /********************************************************** MAP-FUN ***/
 
     if (document.getElementById("map")) {
-        var myMap = new ymaps.Map(document.getElementById("map"), {
-            center: [54.74639455404805, 20.537801017695948],
-            zoom: 10
-        }, {
-            restrictMapArea: [
-                [54.256, 19.586],
-                [55.317, 22.975]
-            ]
-        });
+        let _restrict = $('#map').data('restrict');
+        console.log(_restrict);
+        if (_restrict == "no") {
+            var myMap = new ymaps.Map(document.getElementById("map"), {
+                center: [54.74639455404805, 20.537801017695948],
+                zoom: 10
+            });
+        } else {
+            var myMap = new ymaps.Map(document.getElementById("map"), {
+                center: [54.74639455404805, 20.537801017695948],
+                zoom: 10
+            }, {
+                restrictMapArea: [
+                    [54.256, 19.586],
+                    [55.317, 22.975]
+                ]
+            });
+        }
+
         myMap.controls.remove('searchControl');
         myMap.controls.remove('trafficControl');
         myMap.controls.remove('geolocationControl');
@@ -170,6 +180,25 @@ function init() {
         let coord_lo = $('#' + longitude).val();
         coords = [coord_la, coord_lo];
 
+        let _restrict = $('#map-view').data('restrict');
+        console.log(_restrict);
+        if (_restrict == "no") {
+            var myMapView = new ymaps.Map(document.getElementById("map-view"), {
+                center: [coord_la, coord_lo],
+                zoom: 10
+            });
+        } else {
+            var myMapView = new ymaps.Map(document.getElementById("map-view"), {
+                center: [coord_la, coord_lo],
+                zoom: 10
+            }, {
+                restrictMapArea: [
+                    [54.256, 19.586],
+                    [55.317, 22.975]
+                ]
+            });
+        }
+        /*
         var myMapView = new ymaps.Map(document.getElementById("map-view"), {
             center: [coord_la, coord_lo],
             zoom: 10
@@ -179,7 +208,7 @@ function init() {
                 [55.317, 22.975]
             ]
         });
-
+*/
         myMapView.controls.remove('searchControl');
         myMapView.controls.remove('trafficControl');
         myMapView.controls.remove('geolocationControl');

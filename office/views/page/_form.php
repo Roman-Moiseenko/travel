@@ -11,8 +11,6 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="page-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="card card-default">
@@ -43,4 +41,3 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
-</div>
