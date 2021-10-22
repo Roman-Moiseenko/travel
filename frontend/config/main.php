@@ -200,6 +200,7 @@ return [
                 'moving/docs' => 'moving/docs/index',
                 'moving/realty' => 'moving/realty/index',
                 'moving/land' => 'moving/land/index',
+                'moving/agents' => 'moving/agents/index',
                 'land/map/get-lands' => 'land/map/get-lands',
                 'moving/moving/get-items' => 'moving/moving/get-items',
                 'moving/region' => 'moving/region/index',

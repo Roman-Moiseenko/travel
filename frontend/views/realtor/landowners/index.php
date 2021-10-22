@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = 'Участки';
 ?>
 
 <div>
-    <h1 class="pb-4">Земельные участки в Калининградской области</h1>
+    <h1 class="pb-4">Земельные участки под ИЖС на продажу</h1>
     <?= $this->render('_list', ['landowners' => $landowners]) ?>
     <?= InfoLandownersWidget::widget() ?>
 </div>

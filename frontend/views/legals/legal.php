@@ -15,12 +15,16 @@ use yii\helpers\Url;
 
 /* @var $legal Legal */
 
-$this->registerMetaTag(['name' => 'description', 'content' => $legal->description]);
-$this->registerMetaTag(['name' => 'og:description', 'content' => $legal->description]);
+$description =  'Индивидуальный гид по Калининградской области. Профессионал своего дела ' .
+    $legal->name . ', работающий под торговой маркой ' . $legal->caption .
+    ', покажет Вам достопримечательности Калининграда и области. Вы получите незабываемые впечатления.';
+
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 $this->params['canonical'] = Url::to(['/legals/view', 'id' => $legal->id], true);
 
-$this->title = $legal->caption;
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $legal->caption . ' - индивидуальный гид в Калининграде. Обзорные экскурсии';
+$this->params['breadcrumbs'][] = $legal->caption;
 MagnificPopupAsset::register($this);
 MapAsset::register($this);
 SwiperAsset::register($this);
