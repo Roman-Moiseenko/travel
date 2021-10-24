@@ -209,6 +209,8 @@ return [
 
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
+                'medicine/<slug:[\w\-]+>' => 'medicine/medicine/view',
+
                 'map' => 'map/index',
                 'night' => 'night/night/index',
                 'night/<slug:[\w\-]+>' => 'night/night/view',
@@ -257,6 +259,7 @@ return [
                 '/<slug:[\w\-]+>' => 'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\MovingPageUrlRule'],
+                ['class' => 'frontend\urls\MedicinePageUrlRule'],
                 ['class' => 'frontend\urls\NightPageUrlRule'],
                 ['class' => 'frontend\urls\TourUrlRule'],
                 ['class' => 'frontend\urls\TourTypeUrlRule'],

@@ -3,9 +3,9 @@
 namespace frontend\urls;
 
 
-use booking\entities\moving\Page;
+use booking\entities\medicine\Page;
 use booking\helpers\scr;
-use booking\repositories\moving\PageRepository;
+use booking\repositories\medicine\PageRepository;
 use yii\base\BaseObject;
 use yii\base\InvalidArgumentException;
 use yii\caching\Cache;
@@ -28,7 +28,7 @@ class MedicinePageUrlRule extends BaseObject implements UrlRuleInterface
     public function parseRequest($manager, $request)
     {
         $path = $request->pathInfo;
-        $result = $this->cache->getOrSet(['page_route', 'path' => $path], function () use ($path) {
+        $result = $this->cache->getOrSet(['medicine_page_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {
                 return ['id' => null, 'path' => null];
             }
@@ -40,21 +40,21 @@ class MedicinePageUrlRule extends BaseObject implements UrlRuleInterface
         }
 
         if ($path != $result['path']) {
-            throw new UrlNormalizerRedirectException(['moving/view', 'id' => $result['id']], 301);
+            throw new UrlNormalizerRedirectException(['medicine/view', 'id' => $result['id']], 301);
         }
 
-        return ['moving/view', ['id' => $result['id']]];
+        return ['medicine/view', ['id' => $result['id']]];
     }
 
     public function createUrl($manager, $route, $params)
     {
-        if ($route == 'moving/view') {
+        if ($route == 'medicine/view') {
             if (empty($params['id'])) {
                 throw new InvalidArgumentException('Empty id.');
             }
             $id = $params['id'];
 
-            $url = $this->cache->getOrSet(['page_route', 'id' => $id], function () use ($id) {
+            $url = $this->cache->getOrSet(['medicine_page_route', 'id' => $id], function () use ($id) {
                 if (!$page = $this->repository->find($id)) {
                     return null;
                 }

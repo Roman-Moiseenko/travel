@@ -1,5 +1,6 @@
 <?php
 
+use booking\helpers\StatusHelper;
 use yii\db\Migration;
 
 /**
@@ -21,6 +22,7 @@ class m211024_214750_add_medicine_pages_root_row extends Migration
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
+            'status' => StatusHelper::STATUS_ACTIVE,
         ]);
     }
 

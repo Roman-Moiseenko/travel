@@ -18,6 +18,7 @@ use frontend\urls\CarTypeUrlRule;
 use frontend\urls\ForumUrlRule;
 use frontend\urls\FunTypeUrlRule;
 use frontend\urls\LandownerUrlRule;
+use frontend\urls\MedicinePageUrlRule;
 use frontend\urls\MovingPageUrlRule;
 use frontend\urls\NightPageUrlRule;
 use frontend\urls\PageUrlRule;
@@ -100,6 +101,11 @@ class SetUp implements BootstrapInterface
             Instance::of(\booking\repositories\night\PageRepository::class),
             Instance::of('cache'),
         ]);
+        $container->setSingleton(MedicinePageUrlRule::class, [], [
+            Instance::of(\booking\repositories\medicine\PageRepository::class),
+            Instance::of('cache'),
+        ]);
+
         $container->setSingleton(TourTypeUrlRule::class, [], [
             Instance::of(\booking\repositories\booking\tours\TypeRepository::class),
             Instance::of('cache'),
@@ -133,6 +139,10 @@ class SetUp implements BootstrapInterface
             Instance::of(SectionRepository::class),
             Instance::of('cache'),
         ]);
+
+
+
+
         if (!\Yii::$app->request->cookies->get('lang')) {
             //scr::v(\Yii::$app->language);
             if (!$data =\Yii::$app->geo->getData()) {
