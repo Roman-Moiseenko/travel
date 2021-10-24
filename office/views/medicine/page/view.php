@@ -46,11 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'text',
                         'label' => 'Ссылка'
                     ],
-                    [
-
-                        'value' => count($page->items),
-                        'label' => 'Количество Элементов списочных данных'
-                    ],
                 ],
             ]) ?>
         </div>

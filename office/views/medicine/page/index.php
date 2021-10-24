@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\moving\Page;
+use booking\entities\medicine\Page;
 use booking\helpers\StatusHelper;
 use yii\grid\ActionColumn;
 use yii\helpers\Html;
