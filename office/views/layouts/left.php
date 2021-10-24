@@ -133,6 +133,8 @@ use yii\helpers\Url;
                             ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
                         ]],
                         ['label' => 'Ночная жизнь', 'icon' => 'republican', 'url' => ['/night/page'], 'active' => $this->context->id == 'night/page'],
+                        ['label' => 'Медицина', 'icon' => 'clinic-medical', 'url' => ['/medicine/page'], 'active' => $this->context->id == 'medicine/page'],
+
                     ]],
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
