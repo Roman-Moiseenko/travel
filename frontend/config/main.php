@@ -209,6 +209,7 @@ return [
 
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
+                'medicine' => 'medicine/medicine/index',
                 'medicine/<slug:[\w\-]+>' => 'medicine/medicine/view',
 
                 'map' => 'map/index',

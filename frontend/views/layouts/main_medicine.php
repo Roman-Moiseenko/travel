@@ -7,6 +7,7 @@
 use booking\entities\Lang;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
+use frontend\widgets\menu\MedicineMenuWidget;
 use frontend\widgets\menu\MovingMenuWidget;
 use frontend\widgets\menu\TopUserMenuWidget;
 use yii\helpers\Html;
