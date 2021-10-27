@@ -22,10 +22,15 @@ class TdfirstController extends Controller
 
     public function actionLoad()
     {
-        $params = \Yii::$app->request->post();
-        $timestamp = $params['timestamp'];
-        \Yii::error($timestamp);
-        $result = $this->service->getJSON($params['user_id']);
-        return $result;
+        try {
+            $params = \Yii::$app->request->post();
+            $timestamp = $params['timestamp'];
+            \Yii::error($timestamp);
+            $result = $this->service->getJSON($params['user_id']);
+            return $result;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return $e->getMessage();
+        }
     }
 }

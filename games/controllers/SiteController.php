@@ -85,8 +85,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-        return $this->service->getJSON('8888dddd');
+        return 'index';
     }
 
     public function actionUpdate()
