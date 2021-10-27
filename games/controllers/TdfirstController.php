@@ -23,6 +23,8 @@ class TdfirstController extends Controller
     public function actionLoad()
     {
         $params = \Yii::$app->request->post();
+        $timestamp = $params['timestamp'];
+        \Yii::error($timestamp);
         $result = $this->service->getJSON($params['user_id']);
         return $result;
     }

@@ -3,8 +3,6 @@
 namespace check\controllers;
 
 
-use booking\entities\check\User;
-use booking\helpers\scr;
 use booking\services\check\UserManageService;
 use booking\services\system\LoginService;
 use yii\helpers\Url;

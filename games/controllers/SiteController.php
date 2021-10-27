@@ -7,6 +7,8 @@ use booking\entities\check\User;
 use booking\helpers\scr;
 use booking\services\check\UserManageService;
 use booking\services\system\LoginService;
+use engine\tdfirst\gUser;
+use engine\tdfirst\gUserService;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -20,19 +22,15 @@ class SiteController extends Controller
 {
     public $layout = 'main-login';
     /**
-     * @var UserManageService
+     * @var gUserService
      */
     private $service;
-    /**
-     * @var LoginService
-     */
-    private $loginService;
 
-    public function __construct($id, $module, UserManageService $service, LoginService $loginService, $config = [])
+
+    public function __construct($id, $module, gUserService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
-        $this->loginService = $loginService;
     }
 
     /**
@@ -87,16 +85,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->service->getJSON('8888dddd');
         return 'index';
-        $this->layout = 'main';
-        if ($this->loginService->isGuest()) {
-            return $this->redirect(Url::to(['/login']));
-        }
-        $user = $this->loginService->check();
-        if (count($user->objects) == 1) {
-            return $this->redirect(['give/view', 'id' => $user->objects[0]->id]);
-        }
-        return $this->redirect(Url::to(['give/index']));
     }
 
     public function actionUpdate()

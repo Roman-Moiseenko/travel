@@ -9,3 +9,4 @@ Yii::setAlias('@api', dirname(dirname(__DIR__)) . '/api');
 Yii::setAlias('@admin', dirname(dirname(__DIR__)) . '/admin');
 Yii::setAlias('@check', dirname(dirname(__DIR__)) . '/check');
 Yii::setAlias('@games', dirname(dirname(__DIR__)) . '/games');
+Yii::setAlias('@engine', dirname(dirname(__DIR__)) . '/engine');
