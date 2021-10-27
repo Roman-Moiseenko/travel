@@ -25,12 +25,14 @@ class TdfirstController extends Controller
         try {
             $params = \Yii::$app->request->post();
             $timestamp = $params['timestamp'];
-            \Yii::error($timestamp);
+            //$user_id = (isset($params['user_id'])) ? $params['user_id'] : '0--qqq';
+            //TODO Проверка $timestamp
+
             $result = $this->service->getJSON($params['user_id']);
             return $result;
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
-            return $e->getMessage();
+            return 'error_params';
         }
     }
 }
