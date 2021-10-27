@@ -41,7 +41,8 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
-            'class' => 'frontend\urls\LangRequest',
+            //'enableCsrfValidation'=>false,
+            //'class' => 'frontend\urls\LangRequest',
             //'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'https://' . $_SERVER['HTTP_HOST'] : '',
         ],
         'user' => [
@@ -99,8 +100,8 @@ return [
             ]
         ],
         'urlManager' => [
-            'class' => 'frontend\urls\LangUrlManager',
-            //           'class' => 'yii\web\UrlManager',
+            //'class' => 'frontend\urls\LangUrlManager',
+            'class' => 'yii\web\UrlManager',
             'hostInfo' => $params['frontendHostInfo'],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -116,6 +117,7 @@ return [
                 'site/login' => 'auth/auth/login',
                 'site/captcha' => 'site/captcha',
                 'avia' => 'site/avia',
+                'ajax/load' => 'ajax/load',
 
                 ['pattern' => 'turbo', 'route' => 'market/turbo', 'suffix' => '.xml'],
                 ['pattern' => 'rss', 'route' => 'market/rss', 'suffix' => '.xml'],

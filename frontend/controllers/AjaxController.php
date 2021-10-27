@@ -25,4 +25,14 @@ class AjaxController extends Controller
         }
     }
 
+    public function actionLoad()
+    {
+        $this->enableCsrfValidation = false;
+        $params = \Yii::$app->request->post();
+        \Yii::error($params);
+        $filename = "data.txt"; //
+        return \Yii::$app->request->getCsrfToken();
+        //return file_put_contents($filename, $params, FILE_APPEND | LOCK_EX);
+
+    }
 }
