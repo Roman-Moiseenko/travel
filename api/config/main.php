@@ -8,7 +8,7 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-games',
+    'id' => 'app-api',
     'basePath' => dirname(__DIR__),
     // перевести сайт в режим обслуживания
     //'catchAll' => ['site/update'],
@@ -17,9 +17,10 @@ return [
         '@static' => $params['staticHostInfo'],
     ],
 
-    'controllerNamespace' => 'games\controllers',
+    'controllerNamespace' => 'api\controllers',
     'bootstrap' => [
         'log',
+      //  'common\bootstrap\SetUp',
     ],
     'modules' => [],
     'components' => [
@@ -35,17 +36,16 @@ return [
             ],
         ],
         'request' => [
-            'csrfParam' => '_csrf-games',
-            'enableCsrfValidation'=>false,
+            'csrfParam' => '_csrf-api',
         ],
         'user' => [
-            'identityClass' => 'booking\entities\games\User',
-            //'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-games', 'httpOnly' => true, 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
+            'identityClass' => 'booking\entities\api\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-api', 'httpOnly' => true, 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-games',
+            'name' => 'advanced-api',
             'cookieParams' => [
                 'httponly' => true,
                 'sameSite' => yii\web\Cookie::SAME_SITE_STRICT,
@@ -66,7 +66,7 @@ return [
 
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            'hostInfo' => $params['gamesHostInfo'],
+            'hostInfo' => $params['apiHostInfo'],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

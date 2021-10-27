@@ -1,6 +1,6 @@
 <?php
 
-namespace games\controllers;
+namespace api\controllers;
 
 
 use booking\entities\check\User;
@@ -87,7 +87,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return 'index';
         $this->layout = 'main';
         if ($this->loginService->isGuest()) {
             return $this->redirect(Url::to(['/login']));
