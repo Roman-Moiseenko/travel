@@ -58,9 +58,13 @@ class gUserService
     {
         try {
             $user = $this->users->getByUserId($user_id);
-            $user->visited();
-            $this->users->save($user);
-            if ($user == null) $user = $this->create($user_id);
+
+            if ($user == null) {
+                $user = $this->create($user_id);
+            } else {
+                $user->visited();
+                $this->users->save($user);
+            }
             if ($user == null) return 'error_create_user';
             $array = [
                 'user_id' => $user_id,
@@ -72,6 +76,7 @@ class gUserService
                 'researches_json' => $user->researches_json,
             ];
             $result = json_encode($array, true);
+
             return $result;
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);

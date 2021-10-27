@@ -14,7 +14,7 @@ class gUserRepository
         return $gUsers;
     }
 
-    public function getByUserId(string $user_id): gUser
+    public function getByUserId(string $user_id):? gUser
     {
         return gUser::find()->andWhere(['user_id' => $user_id])->one();
     }
