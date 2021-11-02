@@ -20,19 +20,51 @@ class TdfirstController extends Controller
         $this->service = $service;
     }
 
-    public function actionLoad()
+    public function actionLoadData()
     {
         try {
             $params = \Yii::$app->request->post();
-            $timestamp = $params['timestamp'];
-            //$user_id = (isset($params['user_id'])) ? $params['user_id'] : '0--qqq';
-            //TODO Проверка $timestamp
-
-            $result = $this->service->getJSON($params['user_id']);
+            $result = $this->service->getData($params['user_id']);
             return $result;
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params';
+        }
+    }
+
+    public function actionLoadSettings()
+    {
+        try {
+            $params = \Yii::$app->request->post();
+            $result = $this->service->getSettings($params['user_id']);
+            return $result;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return 'error_params';
+        }
+    }
+
+    public function actionSaveData()
+    {
+        try {
+            $params = \Yii::$app->request->post();
+            $result = $this->service->setData($params['user_id'], $params['data_json']);
+            return $result;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return 'error_params' . $e->getMessage();
+        }
+    }
+
+    public function actionSaveSettings()
+    {
+        try {
+            $params = \Yii::$app->request->post();
+            $result = $this->service->setData($params['user_id'], $params['settings_json']);
+            return $result;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return 'error_params' . $e->getMessage();
         }
     }
 }

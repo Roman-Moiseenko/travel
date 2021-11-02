@@ -50,7 +50,7 @@ class PageRepository
 
     public function findRoot()
     {
-        return Page::find()->andWhere(['depth' => 1])->all();
+        return Page::find()->andWhere(['depth' => 1])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
 
     }
 

@@ -4,8 +4,9 @@
 namespace frontend\urls;
 
 use booking\entities\Lang;
-use booking\helpers\scr;
+
 use yii\base\InvalidConfigException;
+use yii\web\NotFoundHttpException;
 use yii\web\Request;
 
 class LangRequest extends Request
@@ -18,7 +19,9 @@ class LangRequest extends Request
             $this->_lang_url = $this->getUrl();
             $url_list = explode('/', $this->_lang_url);
             $lang_url = !empty($url_list[1]) ? $url_list[1] : null;
-
+            if ($url_list[1] == 'en') {
+                throw new NotFoundHttpException ('-');
+            }
             $result = Lang::setCurrent($lang_url);
             if ($lang_url !== null && $lang_url === $result  &&
                 strpos($this->_lang_url, $lang_url) === 1) {

@@ -28,11 +28,11 @@ class gUserService
         }
     }
 
-    public function edit($user_id, $level_open, $points, $levels_json, $resources_json, $researches_json): bool
+    public function setData($user_id, $data_json): bool
     {
         try {
             $user = $this->users->getByUserId($user_id);
-            $user->edit($level_open, $points, $levels_json, $resources_json, $researches_json);
+            $user->setData($data_json);
             $this->users->save($user);
             return true;
         } catch (\Throwable $e) {
@@ -41,11 +41,11 @@ class gUserService
         }
     }
 
-    public function setName($user_id, $user_name): bool
+    public function setSettings($user_id, $settings_json): bool
     {
         try {
             $user = $this->users->getByUserId($user_id);
-            $user->SetName($user_name);
+            $user->setSettings($settings_json);
             $this->users->save($user);
             return true;
         } catch (\Throwable $e) {
@@ -54,7 +54,7 @@ class gUserService
         }
     }
 
-    public function getJSON($user_id): string
+    public function getData($user_id): string
     {
         try {
             $user = $this->users->getByUserId($user_id);
@@ -66,21 +66,43 @@ class gUserService
                 $this->users->save($user);
             }
             if ($user == null) return 'error_create_user';
-            $array = [
-                'user_id' => $user_id,
-                'user_name' => $user->user_name,
-                'level_open' => $user->level_open,
-                'points' => $user->points,
-                'levels_json' => $user->levels_json,
-                'resources_json' => $user->resources_json,
-                'researches_json' => $user->researches_json,
-            ];
-            $result = json_encode($array, true);
-
-            return $result;
+            return $user->data_json;
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_get_data';
+        }
+    }
+
+    public function getSettings($user_id): string
+    {
+        try {
+
+            $user = $this->users->getByUserId($user_id);
+            if ($user == null) {
+                $user = $this->create($user_id);
+            } else {
+                $user->visited();
+                $this->users->save($user);
+            }
+            if ($user == null) return 'error_create_user';
+
+            return $user->settings_json;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return 'error_get_data';
+        }
+    }
+
+    public function saveJSON($user_id, $json_data): string
+    {
+        try {
+            $user = $this->users->getByUserId($user_id);
+            $array = json_encode($json_data);
+            $result = json_encode($array, true);
+            return $result;
+        } catch (\Throwable $e) {
+            \Yii::$app->errorHandler->logException($e);
+            return 'error_set_data';
         }
     }
 }
