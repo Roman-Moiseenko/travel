@@ -24,8 +24,7 @@ class TdfirstController extends Controller
     {
         try {
             $params = \Yii::$app->request->post();
-            $result = $this->service->getData($params['user_id']);
-            return $result;
+            return $this->service->getData($params['user_id']);
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params';
@@ -36,8 +35,7 @@ class TdfirstController extends Controller
     {
         try {
             $params = \Yii::$app->request->post();
-            $result = $this->service->getSettings($params['user_id']);
-            return $result;
+            return $this->service->getSettings($params['user_id']);
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params';
@@ -48,8 +46,7 @@ class TdfirstController extends Controller
     {
         try {
             $params = \Yii::$app->request->post();
-            $result = $this->service->setData($params['user_id'], $params['data_json']);
-            return $result;
+            return $this->service->setData($params['user_id'], $params['data_json']);
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params' . $e->getMessage();
@@ -60,8 +57,7 @@ class TdfirstController extends Controller
     {
         try {
             $params = \Yii::$app->request->post();
-            $result = $this->service->setData($params['user_id'], $params['settings_json']);
-            return $result;
+            return $this->service->setData($params['user_id'], $params['settings_json']);
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params' . $e->getMessage();

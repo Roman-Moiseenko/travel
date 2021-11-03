@@ -96,4 +96,24 @@ class MovingController extends Controller
         }
         return $this->goHome();
     }
+
+    public function actionModal()
+    {
+        if (\Yii::$app->request->isAjax) {
+            try {
+                $this->layout = 'main_ajax';
+                $params = \Yii::$app->request->bodyParams;
+                $moving_id = $params['moving_id'];
+                //$item_id = $params['item_id'];
+                //Получаем окно, тексты и картинки
+
+                return $this->render('modal', [
+                    'title' => 'Переезд На ПМЖ',
+                ]);
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+            }
+        }
+        return $this->goHome();
+    }
 }

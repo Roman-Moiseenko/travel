@@ -28,7 +28,7 @@ class gUser extends ActiveRecord
         $user->user_id = $user_id;
 
         $user->settings_json = '{}';
-        $user->data_json = '{}';
+        $user->data_json = '{"last_level":"Zero"}';
         return $user;
     }
 

@@ -11,6 +11,8 @@ class MovingAsset extends AssetBundle
 {
     public $js = [
         'js/close_link.js',
+        'js/modal_widget.js',
+
     ];
     public $depends = [
         'yii\web\JqueryAsset',

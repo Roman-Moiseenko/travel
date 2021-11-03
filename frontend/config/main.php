@@ -208,7 +208,7 @@ return [
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
                 'moving/build' => 'moving/build/index',
-
+                '/moving/moving/modal' => '/moving/moving/modal',
                 'moving/close/get-link' => 'moving/close/get-link',
                 'moving/<slug:[\w\-]+>' => 'moving/moving/view',
                 'medicine' => 'medicine/medicine/index',
