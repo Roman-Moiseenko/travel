@@ -103,12 +103,11 @@ class MovingController extends Controller
             try {
                 $this->layout = 'main_ajax';
                 $params = \Yii::$app->request->bodyParams;
-                $moving_id = $params['moving_id'];
-                //$item_id = $params['item_id'];
-                //Получаем окно, тексты и картинки
+                $modal_id = $params['modal_id'];
+                //Получаем окно, тексты и картинки по $modal_id
 
                 return $this->render('modal', [
-                    'title' => 'Переезд На ПМЖ',
+                    'modal_id' => $modal_id,
                 ]);
             } catch (\Throwable $e) {
                 return $e->getMessage();
