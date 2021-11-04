@@ -11,7 +11,7 @@ use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\Modal; ?>
 
 <?php Modal::begin([
-    'title' => 'Тестируем Функционал, отнеситесь с пониманием ;)',
+    'title' => 'Здравствуй, уважаемый посетитель нашего портала!',
     'clientOptions' => ['show' => true],
     'size' => Modal::SIZE_LARGE,
     'centerVertical' => true,
@@ -25,20 +25,31 @@ use yii\bootstrap4\Modal; ?>
 ]) ?>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6 col-sm-12">
             <img src="https://static.koenigs.ru/images/moving/modal/moving_anketa_1.jpg" class="img-responsive"
-                 />
+            />
         </div>
-        <div class="col-sm-6 d-flex">
-            <div>
-                Текст
-            </div>
-            <div class="mt-auto mb-4">
-                <?= BtnMail::widget([
-                    'caption' => 'Заполнить Анкету',
-                    'url' => 'https://forms.gle/4nSC893icsomkYyz9',
-                ]) ?>
-            </div>
+        <div class="col-md-6 col-sm-12 d-flex flex-column">
+                <div class="params-modal">
+                    <p>Мы заметили, что возможно:</p>
+                    <ul>
+                        <li>Вам интересна тема переезда на ПМЖ в Калининград</li>
+                        <li>Вы планируете в ближайшее время посетить Калининград, чтоб оценить
+                            возможность переезда
+                        </li>
+                        <li>Вы уже решились переехать в Калининград</li>
+                    </ul>
+                    <p>Но, есть трудности, которые Вы пока не знаете как преодолеть.</p>
+                    <p class="pt-2">Тогда, заполните нашу анкету, и мы будем знать чем сможем Вам помочь!</p>
+
+                </div>
+                <div class="mt-auto mb-4">
+                    <?= BtnSend::widget([
+                        'caption' => 'Заполнить Анкету',
+                        'url' => 'https://forms.gle/4nSC893icsomkYyz9',
+                    ]) ?>
+                </div>
+
         </div>
     </div>
 

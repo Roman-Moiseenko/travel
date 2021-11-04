@@ -1406,7 +1406,16 @@ h2.faq-card {
     font-size: 16px;
     line-height: 28px;
 }
-
+.params-modal >p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+.params-modal >ul {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 0;
+}
 /* Forum */
 .table-forum {
     border-collapse: collapse;
