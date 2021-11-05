@@ -421,6 +421,12 @@ class MapController extends Controller
             'caption' => 'Как заказать экскурсию',
             'link' => Url::to(['/help-tour'], true),
         ];
+
+        $result[] = [
+            'lvl' => 1,
+            'caption' => 'Полезная информация',
+            'link' => Url::to(['/useful'], true),
+        ];
         $result[] = [
             'lvl' => 1,
             'caption' => 'Кёнигс.РУ',

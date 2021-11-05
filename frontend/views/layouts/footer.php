@@ -11,6 +11,7 @@ use yii\helpers\Url; ?>
                 <label class="footer-title"><?= Lang::t('Информация') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О нас') ?></a></li>
+                    <li><a href="<?= Html::encode(Url::to(['/useful'])) ?>" rel="nofollow"><?= Lang::t('Полезная информация') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/contacts'])) ?>"
                            rel="nofollow"><?= Lang::t('Реквизиты и контакты') ?></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/forum'])) ?>"><?= Lang::t('Форум') ?></a></li>
@@ -24,6 +25,8 @@ use yii\helpers\Url; ?>
                             <h3><?= Lang::t('Достопримечательности Калининграда') ?></h3></a></li>
                     <li><a href="<?= Html::encode(Url::to(['/night'])) ?>">
                             <h3><?= Lang::t('Ночная жизнь в Калининграде') ?></h3></a></li>
+
+
                 </ul>
             </div>
             <?php //TODO Жилье ?>

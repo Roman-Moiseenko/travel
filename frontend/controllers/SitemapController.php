@@ -334,7 +334,7 @@ class SitemapController extends Controller
                         MapItem::ALWAYS
                     );
                 }
-            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods', '/shops', '/avia', '/map', '/help-tour']));
+            }, ['', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods', '/shops', '/avia', '/map', '/help-tour', '/useful']));
         });
     }
 
