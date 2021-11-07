@@ -5,6 +5,7 @@ use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapAsset;
+use frontend\widgets\info\NewProviderWidget;
 use yii\helpers\Url;
 
 
@@ -31,3 +32,5 @@ $this->params['emoji'] = Emoji::FUN;
 <h1><?= $category->title ?></h1>
 <p class="pt-4">База развлечений и мест отдыха наполняется ... </p>
 <p>Подождите немного, через несколько дней мы постараемся ее наполнить</p>
+
+<?= NewProviderWidget::widget()?>

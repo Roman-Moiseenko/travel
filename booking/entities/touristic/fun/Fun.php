@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
 
 /**
  * Class Fun
- * @package booking\entities\booking\funs
+ * @package booking\entities\touristic\fun
  * @property integer $id
  * @property integer $category_id - Тип (entities)
  * @property string $name - Название
