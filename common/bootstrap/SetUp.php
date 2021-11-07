@@ -8,6 +8,7 @@ use booking\repositories\booking\trips\TripRepository;
 use booking\repositories\forum\SectionRepository;
 use booking\repositories\office\PageRepository;
 use booking\repositories\realtor\LandownerRepository;
+use booking\repositories\touristic\fun\CategoryRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
@@ -122,7 +123,7 @@ class SetUp implements BootstrapInterface
         ]);
 
         $container->setSingleton(FunTypeUrlRule::class, [], [
-            Instance::of(\booking\repositories\booking\funs\TypeRepository::class),
+            Instance::of(CategoryRepository::class),
             Instance::of('cache'),
         ]);
 

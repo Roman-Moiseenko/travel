@@ -90,4 +90,14 @@ class FunsController extends Controller
             throw new \DomainException('Развлечение не найдено');
         return $fun;
     }
+
+    public function actionCreate()
+    {
+
+    }
+
+    public function actionUpdate($id)
+    {
+
+    }
 }

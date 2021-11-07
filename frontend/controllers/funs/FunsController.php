@@ -11,6 +11,7 @@ use booking\forms\booking\ReviewForm;
 use booking\helpers\scr;
 use booking\repositories\booking\funs\FunRepository;
 use booking\repositories\booking\funs\TypeRepository;
+use booking\repositories\touristic\fun\CategoryRepository;
 use booking\services\booking\funs\FunService;
 use booking\services\system\LoginService;
 use yii\web\Controller;
@@ -24,7 +25,7 @@ class FunsController extends Controller
      */
     private $funs;
     /**
-     * @var TypeRepository
+     * @var CategoryRepository
      */
     private $categories;
     /**
@@ -40,9 +41,10 @@ class FunsController extends Controller
         $id,
         $module,
         FunRepository $funs,
-        TypeRepository $categories,
+        //TypeRepository $categories,
         FunService $service,
         LoginService $loginService,
+        CategoryRepository $categories,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -54,7 +56,7 @@ class FunsController extends Controller
 
     public function actionIndex()
     {
-        $form = new SearchFunForm([]);
+        /*$form = new SearchFunForm([]);
         if (isset(\Yii::$app->request->queryParams['SearchFunForm'])) {
             if (isset(\Yii::$app->request->queryParams['SearchFunForm']['type'])) {
                 $form->type = \Yii::$app->request->queryParams['SearchFunForm']['type'];
@@ -64,22 +66,22 @@ class FunsController extends Controller
             $dataProvider = $this->funs->search($form);
         } else {
             $dataProvider = $this->funs->search();
-        }
+        }*/
+        $categories = $this->categories->getAll();
         return $this->render('index', [
-            'model' => $form,
-            'dataProvider' => $dataProvider,
+            'categories' => $categories,
         ]);
     }
 
-    public function actionFun($id)
+    public function actionFun($slug)
     {
         $this->layout = 'booking_blank';
 
-        $fun = $this->findModel($id);
-        if ($fun->isLock()) {
+        $fun = $this->funs->findBySlug($slug);
+       /* if ($fun->isLock()) {
             \Yii::$app->session->setFlash('warning', Lang::t('Данное развлечение заблокировано! Доступ к нему ограничен.'));
             return $this->goHome();
-        }
+        }*/
         $reviewForm = new ReviewForm();
         //scr::p(\Yii::$app->request->post());
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
@@ -91,7 +93,6 @@ class FunsController extends Controller
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
-        $this->service->upViews($fun);//Перед показом увеличиваем счетчик
         return $this->render('fun', [
             'fun' => $fun,
             'reviewForm' => $reviewForm,
@@ -103,18 +104,20 @@ class FunsController extends Controller
         if (!$category = $this->categories->findBySlug($slug)) {
             throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
         }
-        $form = new SearchFunForm(['type' => $category->id]);
-        $form->setAttribute($category->id);
+        //$form = new SearchFunForm(['type' => $category->id]);
+        //$funs = $this->funs->get
+        /*$form->setAttribute($category->id);
         if (isset(\Yii::$app->request->queryParams['SearchCarForm'])) {
             $form->load(\Yii::$app->request->get());
             $form->validate();
             $dataProvider = $this->funs->search($form);
         } else {
             $dataProvider = $this->funs->search($form);
-        }
-        return $this->render('index', [
-            'model' => $form,
-            'dataProvider' => $dataProvider,
+        } */
+        return $this->render('category', [
+            'category' => $category,
+            //'model' => $form,
+            'dataProvider' => null,//$dataProvider,
         ]);
     }
 

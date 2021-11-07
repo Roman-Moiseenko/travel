@@ -13,6 +13,7 @@ use yii\helpers\Url;
 $this->title = 'Развлечения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="providers-list">
     <div class="card">
         <div class="card-body">

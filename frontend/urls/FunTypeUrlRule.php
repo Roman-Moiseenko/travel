@@ -3,8 +3,7 @@
 
 namespace frontend\urls;
 
-
-use booking\repositories\booking\funs\TypeRepository;
+use booking\repositories\touristic\fun\CategoryRepository;
 use yii\base\BaseObject;
 use yii\base\InvalidArgumentException;
 use yii\caching\Cache;
@@ -16,7 +15,7 @@ class FunTypeUrlRule extends BaseObject implements UrlRuleInterface
     private $repository;
     private $cache;
 
-    public function __construct(TypeRepository $repository, Cache $cache, $config = [])
+    public function __construct(CategoryRepository $repository, Cache $cache, $config = [])
     {
         parent::__construct($config);
         $this->repository = $repository;
@@ -27,7 +26,7 @@ class FunTypeUrlRule extends BaseObject implements UrlRuleInterface
     {
         //scr::p([$manager, $request]);
         $path = $request->pathInfo;
-        $result = $this->cache->getOrSet(['funs_route', 'path' => $path], function () use ($path) {
+        $result = $this->cache->getOrSet(['fun_category_route', 'path' => $path], function () use ($path) {
             if (!$page = $this->repository->findBySlug($this->getPathSlug($path))) {
                 return ['id' => null, 'path' => null];
             }
@@ -53,7 +52,7 @@ class FunTypeUrlRule extends BaseObject implements UrlRuleInterface
             }
             $id = $params['id'];
 
-            $url = $this->cache->getOrSet(['funs_route', 'id' => $id], function () use ($id) {
+            $url = $this->cache->getOrSet(['fun_category_route', 'id' => $id], function () use ($id) {
                 if (!$category = $this->repository->find($id)) {
                     return null;
                 }

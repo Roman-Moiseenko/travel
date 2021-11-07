@@ -24,6 +24,15 @@ use yii\helpers\Url;
             <?php
             echo \hail812\adminlte3\widgets\Menu::widget([
                 'items' => [
+                    ['label' => 'Туризм', 'icon' => 'object-group', 'items' => [
+                        //['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
+                        //['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
+                        //['label' => ' - Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
+                        ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/touristic/fun'], 'active' => $this->context->id == 'touristic/fun'],
+                        //['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
+                        //['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
+                        //['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
+                    ]],
                     ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
                         ['label' => 'Выплаты провайдерам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/provider'], 'active' => $this->context->id == 'finance/provider'],
                         ['label' => 'Возвраты клиентам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/client'], 'active' => $this->context->id == 'finance/client'],

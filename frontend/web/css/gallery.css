@@ -1,0 +1,108 @@
+/**Gallery Fun***/
+.gallery-fun {
+    display: grid;
+    gap: 16px;
+    row-gap: 16px;
+    column-gap: 16px;
+    grid-template-areas:
+            "a a a"
+            "b c c"
+            "d d e"
+            "f f e"
+            "g h h"
+;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+.gallery-fun .item-gallery {
+    position: relative;
+    flex: 1;
+    margin: 0;
+
+}
+
+.gallery-fun .item-gallery:first-child {
+    grid-area: a;
+    grid-row-start: a;
+    grid-column-start: a;
+    grid-row-end: a;
+    grid-column-end: a;
+}
+
+.gallery-fun .item-gallery:nth-child(2) {
+    grid-area: b;
+    grid-row-start: b;
+    grid-column-start: b;
+    grid-row-end: b;
+    grid-column-end: b;
+}
+
+.gallery-fun .item-gallery:nth-child(3) {
+    grid-area: c;
+    grid-row-start: c;
+    grid-column-start: c;
+    grid-row-end: c;
+    grid-column-end: c;
+}
+.gallery-fun .item-gallery:nth-child(4) {
+    grid-area: d;
+    grid-row-start: d;
+    grid-column-start: d;
+    grid-row-end: d;
+    grid-column-end: d;
+}
+.gallery-fun .item-gallery:nth-child(5) {
+    grid-area: e;
+    grid-row-start: e;
+    grid-column-start: e;
+    grid-row-end: e;
+    grid-column-end: e;
+}
+.gallery-fun .item-gallery:nth-child(6) {
+    grid-area: f;
+    grid-row-start: f;
+    grid-column-start: f;
+    grid-row-end: f;
+    grid-column-end: f;
+}
+.gallery-fun .item-gallery:nth-child(7) {
+    grid-area: g;
+    grid-row-start: g;
+    grid-column-start: g;
+    grid-row-end: g;
+    grid-column-end: g;
+}
+.gallery-fun .item-gallery:nth-child(8) {
+    grid-area: h;
+    grid-row-start: h;
+    grid-column-start: h;
+    grid-row-end: h;
+    grid-column-end: h;
+}
+.gallery-fun .text-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    font-size: 46px;
+    line-height: 50px;
+    padding: 10px;
+    text-align: center !important;
+    margin-bottom: 0 !important;
+}
+.gallery-fun .text-overlay:hover {
+    background: rgba(0,0,0,0);
+    color: #eee;
+    text-shadow: black 2px 2px 1px;
+}
+@media only screen and (max-width: 1024px) {
+    .gallery-fun {
+        gap: 2vw;
+    }
+}

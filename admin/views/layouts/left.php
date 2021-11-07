@@ -25,7 +25,7 @@ $test = 'Saint' == \Yii::$app->user->identity->username || 'saint' == \Yii::$app
                     ['label' => 'Мои Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
                     ['label' => 'Мои Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
                     ['label' => 'Мои Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
-                    ['label' => 'Мои Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
+                   // ['label' => 'Мои Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
                     ['label' => 'Мое Жилье', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                     $test ? ['label' => 'Мои Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'] : false,
                     ['label' => 'Мои Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
