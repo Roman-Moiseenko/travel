@@ -101,6 +101,22 @@
     color: #eee;
     text-shadow: black 2px 2px 1px;
 }
+
+
+.gallery-fun .hidden-text {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: white;
+    text-shadow: grey 2px 2px 1px;
+    z-index: -1;
+}
+
 @media only screen and (max-width: 1024px) {
     .gallery-fun {
         gap: 2vw;

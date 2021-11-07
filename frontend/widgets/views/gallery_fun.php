@@ -44,8 +44,10 @@ GalleryAsset::register($this);
                          class="img-responsive-2"
                     />
                     <h2 class="text-overlay"><?= $category->name ?></h2>
+                    <span class="hidden-text"><?= $category->description ?></span>
                 </a>
             </div>
+
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
