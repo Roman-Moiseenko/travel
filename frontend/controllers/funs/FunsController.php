@@ -6,6 +6,7 @@ namespace frontend\controllers\funs;
 
 use booking\entities\Lang;
 use booking\forms\booking\ReviewForm;
+use booking\helpers\scr;
 use booking\repositories\touristic\fun\CategoryRepository;
 use booking\repositories\touristic\fun\FunRepository;
 use booking\services\system\LoginService;
@@ -78,7 +79,7 @@ class FunsController extends Controller
             try {
                 $this->service->addReview($fun->id, $this->loginService->user()->id, $reviewForm);
                 \Yii::$app->session->setFlash('success', Lang::t('Спасибо за оставленный отзыв'));
-                return $this->redirect(['fun/view', 'id' => $fun->id]);
+                return $this->redirect(['funs/funs/fun', 'id' => $fun->id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -103,6 +104,7 @@ class FunsController extends Controller
         } else {
             $dataProvider = $this->funs->search($form);
         } */
+        //scr::p($dataProvider);
         return $this->render('category', [
             'category' => $category,
             //'model' => $form,

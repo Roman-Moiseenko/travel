@@ -9,6 +9,7 @@ use booking\repositories\forum\SectionRepository;
 use booking\repositories\office\PageRepository;
 use booking\repositories\realtor\LandownerRepository;
 use booking\repositories\touristic\fun\CategoryRepository;
+use booking\repositories\touristic\fun\FunRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
@@ -18,6 +19,7 @@ use booking\services\yandex\YandexMarket;
 use frontend\urls\CarTypeUrlRule;
 use frontend\urls\ForumUrlRule;
 use frontend\urls\FunTypeUrlRule;
+use frontend\urls\FunUrlRule;
 use frontend\urls\LandownerUrlRule;
 use frontend\urls\MedicinePageUrlRule;
 use frontend\urls\MovingPageUrlRule;
@@ -126,7 +128,10 @@ class SetUp implements BootstrapInterface
             Instance::of(CategoryRepository::class),
             Instance::of('cache'),
         ]);
-
+        $container->setSingleton(FunUrlRule::class, [], [
+            Instance::of(FunRepository::class),
+            Instance::of('cache'),
+        ]);
         $container->setSingleton(TourUrlRule::class, [], [
             Instance::of(TourRepository::class),
             Instance::of('cache'),

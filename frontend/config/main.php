@@ -142,9 +142,11 @@ return [
                 'cars/checkout/booking' => 'cars/checkout/booking',
                 'cars/<slug:[\w\-]+>' => 'cars/cars/category',
 
-                'funs' => 'funs/funs/index',
-                'fun/<id:\d+>' => 'funs/funs/fun',
 
+                'fun/<slug:[\w\-]+>' => 'funs/funs/fun',
+
+                //'fun/<id:\d+>' => 'funs/funs/fun',
+                'funs' => 'funs/funs/index',
                 'funs/funs/get-search' => 'funs/funs/get-search',
                 'funs/booking/get-calendar' => 'funs/booking/get-calendar',
                 'funs/booking/get-tickets' => 'funs/booking/get-tickets',
@@ -268,7 +270,9 @@ return [
                 ['class' => 'frontend\urls\TourTypeUrlRule'],
                 ['class' => 'frontend\urls\ForumUrlRule'],
                 ['class' => 'frontend\urls\CarTypeUrlRule'],
+                ['class' => 'frontend\urls\FunUrlRule'],
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
+
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],
                 ['class' => 'frontend\urls\LandownerUrlRule'],

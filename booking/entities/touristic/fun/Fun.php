@@ -138,7 +138,7 @@ class Fun extends BaseObjectOfTouristic
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewFun::class, ['fun_id' => 'id'])->andWhere([ReviewFun::tableName() . '.status' => BaseReview::STATUS_ACTIVE]);
+        return $this->hasMany(ReviewFun::class, ['fun_id' => 'id']);
     }
 
     public function getMainPhoto(): ActiveQuery

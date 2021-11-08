@@ -5,6 +5,7 @@ namespace booking\repositories\touristic\fun;
 
 
 use booking\entities\touristic\fun\Fun;
+use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -19,7 +20,8 @@ class FunRepository
 
     public function getAllByCategory($category_id): DataProviderInterface
     {
-        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
+        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['featured_at' => SORT_DESC]);
+        //scr::p($query->all());
         return $this->getProvider($query);
     }
 
@@ -42,19 +44,16 @@ class FunRepository
         return new ActiveDataProvider([
                 'query' => $query,
                 'sort' => [
-                    'defaultOrder' => ['featured_at' => SORT_DESC],
+                    //'defaultOrder' => ['created_at' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['f.featured_at' => SORT_ASC], 'desc' => ['f.featured_at' => SORT_DESC],
+                            'asc' => ['featured_at' => SORT_ASC], 'desc' => ['featured_at' => SORT_DESC],
                         ],
                         'name' => [
-                            'asc' => ['f.name' => SORT_ASC], 'desc' => ['f.name' => SORT_DESC],
-                        ],
-                        'date' => [
-                            'asc' => ['f.created_at' => SORT_ASC], 'desc' => ['f.created_at' => SORT_DESC],
+                            'asc' => ['name' => SORT_ASC], 'desc' => ['name' => SORT_DESC],
                         ],
                         'rating' => [
-                            'asc' => ['f.rating' => SORT_ASC], 'desc' => ['f.rating' => SORT_DESC],
+                            'asc' => ['rating' => SORT_ASC], 'desc' => ['rating' => SORT_DESC],
                         ],
                     ],
                 ],
@@ -69,8 +68,6 @@ class FunRepository
     public function findBySlug($slug)
     {
         $fun = Fun::find()->andWhere(['slug' => $slug])->one();
-        $fun->upViews();
-        $this->save($fun);
         return $fun;
     }
 

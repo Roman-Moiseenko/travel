@@ -25,13 +25,13 @@ $this->params['breadcrumbs'][] = 'Изменить';
 MagnificPopupAsset::register($this);
 ?>
     <p>
-        <?= Html::a('Редактировать', Url::to(['update-fun', 'id' => $category->id]), ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Редактировать', Url::to(['update-fun', 'id' => $fun->id]), ['class' => 'btn btn-warning']) ?>
         <?php if ($fun->isActive())
-            echo Html::a('В черновик', Url::to(['draft-fun', 'id' => $category->id]), ['class' => 'btn btn-secondary']);
+            echo Html::a('В черновик', Url::to(['draft-fun', 'id' => $fun->id]), ['class' => 'btn btn-secondary']);
         else
-            echo Html::a('Опубликовать', Url::to(['active-fun', 'id' => $category->id]), ['class' => 'btn btn-primary']);
+            echo Html::a('Опубликовать', Url::to(['active-fun', 'id' => $fun->id]), ['class' => 'btn btn-primary']);
         ?>
-        <?= Html::a('Добавить Фотографии', Url::to(['photo-fun', 'id' => $category->id]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить Фотографии', Url::to(['photo-fun', 'id' => $fun->id]), ['class' => 'btn btn-success']) ?>
     </p>
 
 

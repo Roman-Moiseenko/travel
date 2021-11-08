@@ -15,7 +15,7 @@ use frontend\widgets\design\BtnUrl;
 </div>
 
 <div class="py-3">
-    <p style="font-size: 16px; line-height: 22px;">
+    <p class="pt-5" style="font-size: 16px; line-height: 22px;">
         Если Вы не нашли свой объект развлечения и считаете, что он должен быть в этом каталоге, напишите нам на почту
         <a href="mailto:koenigs.ru@gmail.com?subject=Развлечения и Отдых">koenigs.ru@gmail.com</a> , и мы обязательно его разместим.
     </p>
