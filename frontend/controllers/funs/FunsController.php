@@ -4,16 +4,12 @@
 namespace frontend\controllers\funs;
 
 
-use booking\entities\booking\funs\Fun;
 use booking\entities\Lang;
-use booking\forms\booking\funs\SearchFunForm;
 use booking\forms\booking\ReviewForm;
-use booking\helpers\scr;
-use booking\repositories\booking\funs\FunRepository;
-use booking\repositories\booking\funs\TypeRepository;
 use booking\repositories\touristic\fun\CategoryRepository;
-use booking\services\booking\funs\FunService;
+use booking\repositories\touristic\fun\FunRepository;
 use booking\services\system\LoginService;
+use booking\services\touristic\fun\FunService;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -41,7 +37,6 @@ class FunsController extends Controller
         $id,
         $module,
         FunRepository $funs,
-        //TypeRepository $categories,
         FunService $service,
         LoginService $loginService,
         CategoryRepository $categories,
@@ -78,12 +73,7 @@ class FunsController extends Controller
         $this->layout = 'booking_blank';
 
         $fun = $this->funs->findBySlug($slug);
-       /* if ($fun->isLock()) {
-            \Yii::$app->session->setFlash('warning', Lang::t('Данное развлечение заблокировано! Доступ к нему ограничен.'));
-            return $this->goHome();
-        }*/
         $reviewForm = new ReviewForm();
-        //scr::p(\Yii::$app->request->post());
         if ($reviewForm->load(\Yii::$app->request->post()) && $reviewForm->validate()) {
             try {
                 $this->service->addReview($fun->id, $this->loginService->user()->id, $reviewForm);
@@ -104,8 +94,7 @@ class FunsController extends Controller
         if (!$category = $this->categories->findBySlug($slug)) {
             throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
         }
-        //$form = new SearchFunForm(['type' => $category->id]);
-        //$funs = $this->funs->get
+        $dataProvider = $this->funs->getAllByCategory($category->id);
         /*$form->setAttribute($category->id);
         if (isset(\Yii::$app->request->queryParams['SearchCarForm'])) {
             $form->load(\Yii::$app->request->get());
@@ -117,10 +106,10 @@ class FunsController extends Controller
         return $this->render('category', [
             'category' => $category,
             //'model' => $form,
-            'dataProvider' => null,//$dataProvider,
+            'dataProvider' => $dataProvider,
         ]);
     }
-
+/*
     public function actionGetSearch()
     {
         $this->layout = '_blank';
@@ -137,12 +126,6 @@ class FunsController extends Controller
             ]);
         }
     }
+*/
 
-    protected function findModel($id)
-    {
-        if (($model = Fun::findOne($id)) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 }

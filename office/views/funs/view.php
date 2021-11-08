@@ -160,7 +160,7 @@ MagnificPopupAsset::register($this);
                 ]) ?>
             </div>
         </div>
-        <!-- Координаты -->
+
         <div class="row pt-4">
             <div class="col-md-12">
                 <div class="card card-secondary">
@@ -180,6 +180,7 @@ MagnificPopupAsset::register($this);
                 </div>
             </div>
         </div>
+        <!-- Координаты -->
         <div class="row pt-4">
             <div class="col-md-12">
                 <div class="card card-secondary">

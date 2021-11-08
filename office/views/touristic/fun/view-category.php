@@ -1,12 +1,18 @@
 <?php
 
 use booking\entities\touristic\fun\Category;
+use booking\entities\touristic\fun\Fun;
+use office\forms\touristic\FunSearch;
+use yii\data\ActiveDataProvider;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 
 /* @var $this \yii\web\View */
-/* @var $category Category|null */
+/* @var $category Category */
+/* @var $searchModel FunSearch */
+/* @var $dataProvider ActiveDataProvider */
 
 $this->title = $category->name;
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
@@ -32,4 +38,59 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-Список развлечений
+<div class="card">
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'tableOptions' => [
+                'class' => 'table table-adaptive table-striped table-bordered',
+            ],
+            'columns' => [
+                [
+                    'attribute' => 'id',
+                    'options' => ['width' => '20px',],
+                    'contentOptions' => ['data-label' => 'ID'],
+                ],
+                [
+                    'attribute' => 'main_photo_id',
+                    'value' => function (Fun $model) {
+                        return $model->main_photo_id ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin'), ['class' => 'img-responsive']) : '';
+                    },
+                    'format' => 'raw',
+                    'label' => 'Фото',
+                    'contentOptions' => ['data-label' => 'Фото'],
+                ],
+                [
+                    'attribute' => 'name',
+                    'value' => function (Fun $model) {
+                        return Html::a($model->name, ['view-fun', 'id' => $model->id]);
+                    },
+                    'format' => 'raw',
+                    'label' => 'Название',
+                    'contentOptions' => ['data-label' => 'Название'],
+                ],
+
+                [
+                    'attribute' => 'slug',
+                    'label' => 'Ссылка',
+                    'contentOptions' => ['data-label' => 'Ссылка'],
+                ],
+                [
+                    'attribute' => 'description',
+                    'label' => 'Описание',
+                    'contentOptions' => ['data-label' => 'Описание'],
+                ],
+
+                [
+                    'value' => function (Fun $model) {
+                        return 'TODO добавить'; //count($model->funs) . ' объектов';
+                    },
+                    'label' => 'Featured',
+                    'contentOptions' => ['data-label' => 'Featured'],
+                ],
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    </div>
+</div>

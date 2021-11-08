@@ -10,8 +10,8 @@ use yii\helpers\Html;
 /* @var $model CategoryForm */
 /* @var $category Category|null */
 
-
 ?>
+
 <?php $form = ActiveForm::begin([
     'options' => ['enctype' => 'multipart/form-data']
 ]); ?>

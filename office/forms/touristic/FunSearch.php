@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 class FunSearch extends Fun
 {
 
-    public $verify = false;
+    public $_categoryId = null;
 
     public function __construct($config = [])
     {
@@ -27,7 +27,7 @@ class FunSearch extends Fun
     public function search($params): ActiveDataProvider
     {
         $query = Fun::find();
-        if ($this->verify) $query = $query->verify();
+
        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
@@ -42,7 +42,12 @@ class FunSearch extends Fun
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'category_id' => $this->category_id,
         ]);
+        /*if ($this->category_id) $query->andFilterWhere([
+            'id' => $this->id,
+            'category_id' => $this->category_id,
+        ]);*/
         $query
             ->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;

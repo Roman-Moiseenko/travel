@@ -1,40 +1,45 @@
 <?php
 
-use booking\entities\booking\tours\Tour;
+use booking\entities\touristic\fun\Category;
+use booking\entities\touristic\fun\Fun;
 use booking\forms\booking\PhotosForm;
 use kartik\widgets\FileInput;
-use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var  $tour Tour */
+/* @var $this \yii\web\View */
+/* @var $fun Fun|null */
 /* @var $photosForm PhotosForm */
+/* @var $category Category */
 
-$this->title = 'Фотографии ' . $tour->name;
-$this->params['id'] = $tour->id;
-$this->params['breadcrumbs'][] = ['label' => 'Экскурсии', 'url' => ['/tours']];
-$this->params['breadcrumbs'][] = ['label' => $tour->name, 'url' => ['/tour/common', 'id' => $tour->id]];
-$this->params['breadcrumbs'][] = 'Фотографии';
+
+$this->title = 'Фотографии ' . $fun->name;
+$this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $category->name, 'url' => ['view-category', 'id' => $category->id]];
+$this->params['breadcrumbs'][] = ['label' => $fun->name, 'url' => ['view-fun', 'id' => $fun->id]];
+$this->params['breadcrumbs'][] = 'Фото';
 ?>
+
+<div class="tours-view">
 
     <div class="card card-secondary" id="photos">
         <div class="card-header with-border">Фотографии</div>
         <div class="card-body">
             <label>Для более качественного отображения, фотографии должны иметь размер не менее 1280х720</label>
             <div class="row">
-                <?php foreach ($tour->photos as $photo): ?>
+                <?php foreach ($fun->photos as $photo): ?>
                     <div class="col-md-2 col-xs-3" style="text-align: center">
                         <div class="btn-group">
-                            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-photo-up', 'id' => $tour->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-up-photo-fun', 'id' => $fun->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                             ]); ?>
-                            <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo', 'id' => $tour->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo-fun', 'id' => $fun->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                                 'data-confirm' => 'Remove photo?',
                             ]); ?>
-                            <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-photo-down', 'id' => $tour->id, 'photo_id' => $photo->id], [
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-down-photo-fun', 'id' => $fun->id, 'photo_id' => $photo->id], [
                                 'class' => 'btn btn-default',
                                 'data-method' => 'post',
                             ]); ?>
@@ -68,17 +73,9 @@ $this->params['breadcrumbs'][] = 'Фотографии';
                 ]) ?>
 
             <div class="form-group">
-                <?php if ($tour->filling) {
-                    echo Html::submitButton('Далее >>', ['class' => 'btn btn-primary']);
-                } else {
-                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
-                }
-                ?>
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
             </div>
-
             <?php ActiveForm::end(); ?>
-
         </div>
     </div>
-
-
+</div>

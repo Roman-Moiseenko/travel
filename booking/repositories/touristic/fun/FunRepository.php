@@ -17,7 +17,6 @@ class FunRepository
         return Fun::findOne($id);
     }
 
-
     public function getAllByCategory($category_id): DataProviderInterface
     {
         $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE]);
@@ -43,10 +42,10 @@ class FunRepository
         return new ActiveDataProvider([
                 'query' => $query,
                 'sort' => [
-                    'defaultOrder' => ['id' => SORT_DESC],
+                    'defaultOrder' => ['featured_at' => SORT_DESC],
                     'attributes' => [
                         'id' => [
-                            'asc' => ['f.public_at' => SORT_ASC], 'desc' => ['f.public_at' => SORT_DESC],
+                            'asc' => ['f.featured_at' => SORT_ASC], 'desc' => ['f.featured_at' => SORT_DESC],
                         ],
                         'name' => [
                             'asc' => ['f.name' => SORT_ASC], 'desc' => ['f.name' => SORT_DESC],
@@ -57,7 +56,6 @@ class FunRepository
                         'rating' => [
                             'asc' => ['f.rating' => SORT_ASC], 'desc' => ['f.rating' => SORT_DESC],
                         ],
-
                     ],
                 ],
                 'pagination' => [
@@ -83,7 +81,7 @@ class FunRepository
 
     public function getAllForSitemap()
     {
-        return Fun::find()->active()->all();
+        return Fun::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
     }
 
 }

@@ -51,22 +51,16 @@ class ContactService
 /// УВЕДОМЛЕНИЕ ПРОВАЙДЕРУ ОБ ОТЗЫВЕ
     public function sendNoticeReview(BaseReview $review)
     {
-        if (isset(\Yii::$app->params['bot_review']) && \Yii::$app->params['bot_review']) return;
         if ($this->loc) return;
-        $user_admin = $review->getAdmin();
-        $noticeAdmin = $user_admin->notice;
-        $legal = $review->getLegal();
-        $emailAdmin = $legal->noticeEmail;
-        if ($noticeAdmin->review->email) {
-            $send = $this->mailer->compose('noticeAdminReview', ['review' => $review])
-                ->setTo($emailAdmin)
-                ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый отзыв'])
-                ->setSubject('Новый отзыв')
-                ->send();
-            if (!$send) {
-                throw new \DomainException('Ошибка отправки');
-            }
+        $send = $this->mailer->compose('noticeReview', ['review' => $review])
+            ->setTo(\Yii::$app->params['reviewEmail'])
+            ->setFrom([\Yii::$app->params['supportEmail'] => 'Новый отзыв'])
+            ->setSubject('Новый отзыв')
+            ->send();
+        if (!$send) {
+            throw new \DomainException('Ошибка отправки');
         }
+
     }
 
 /// УВЕДОМЛЕНИЕ КЛИЕНТУ ИЛИ ПРОВАЙДЕРУ О НОВОМ СООБЩЕНИИ

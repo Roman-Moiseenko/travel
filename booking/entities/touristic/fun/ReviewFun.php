@@ -39,6 +39,7 @@ class ReviewFun extends BaseReview
         return [
            // 'admin' => Url::to(['fun/review/index', 'id' => $this->fun_id]),
             'frontend' => Url::to(['fun/view', 'id' => $this->fun_id]),
+            'office' => Url::to(['/touristic/fun/view-fun', 'id' => $this->fun_id]),
             'update' => Url::to(['cabinet/review/update-fun', 'id' => $this->id]),
             'remove' => Url::to(['cabinet/review/delete-fun', 'id' => $this->id]),
         ];

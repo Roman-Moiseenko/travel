@@ -21,9 +21,10 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $slug
  * @property integer $sort
  * @property string $photo
- *
  * @property Fun[] $funs
+ * @property string $meta_json [json]
  * @mixin ImageUploadBehavior
+ *
  */
 class Category extends ActiveRecord
 {

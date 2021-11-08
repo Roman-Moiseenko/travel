@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = 'Категории';
                 ],
                 [
                     'value' => function (Category $model) {
-                        return 'TODO добавить'; //count($model->funs) . ' объектов';
+                        return count($model->funs);
                     },
                     'label' => 'Кол-во',
                     'contentOptions' => ['data-label' => 'Кол-во'],
