@@ -7,13 +7,11 @@ namespace frontend\controllers;
 use booking\entities\blog\Category;
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
-use booking\entities\booking\funs\Fun;
+use booking\entities\touristic\fun\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
 use booking\entities\forum\Section;
-use booking\entities\moving\CategoryFAQ;
-use booking\entities\moving\FAQ;
 use booking\entities\moving\Page;
 use booking\entities\realtor\Landowner;
 use booking\entities\shops\products\Product;
@@ -21,13 +19,12 @@ use booking\entities\shops\Shop;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
-use booking\repositories\booking\funs\FunRepository;
+use booking\repositories\touristic\fun\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
 use booking\repositories\forum\SectionRepository;
 use booking\repositories\moving\CategoryFAQRepository;
-use booking\repositories\moving\FAQRepository;
 use booking\repositories\moving\PageRepository;
 use booking\repositories\realtor\LandownerRepository;
 use booking\repositories\shops\ProductRepository;
@@ -71,10 +68,6 @@ class SitemapController extends Controller
      * @var \booking\entities\booking\cars\Type
      */
     private $carTypes;
-    /**
-     * @var \booking\entities\booking\funs\Type
-     */
-    private $funTypes;
     /**
      * @var CategoryRepository
      */
@@ -127,6 +120,10 @@ class SitemapController extends Controller
      * @var LandownerRepository
      */
     private $landowners;
+    /**
+     * @var \booking\entities\touristic\fun\Category
+     */
+    private $funCategories;
 
 
     public function __construct(
@@ -143,7 +140,7 @@ class SitemapController extends Controller
         ProductRepository $products,
         \booking\repositories\booking\tours\TypeRepository $tourTypes,
         \booking\repositories\booking\cars\TypeRepository $carTypes,
-        \booking\repositories\booking\funs\TypeRepository $funTypes,
+        \booking\repositories\touristic\fun\CategoryRepository $funCategories,
         \booking\repositories\booking\stays\TypeRepository $stayTypes,
         CategoryRepository $postType,
         PageRepository $moving,
@@ -164,7 +161,6 @@ class SitemapController extends Controller
         $this->posts = $posts;
         $this->tourTypes = $tourTypes;
         $this->carTypes = $carTypes;
-        $this->funTypes = $funTypes;
         $this->postType = $postType;
         $this->stays = $stays;
         $this->stayTypes = $stayTypes;
@@ -179,6 +175,7 @@ class SitemapController extends Controller
         $this->postForum = $postForum;
         $this->night = $night;
         $this->landowners = $landowners;
+        $this->funCategories = $funCategories;
     }
 
     public function actionIndex(): Response
@@ -395,7 +392,7 @@ class SitemapController extends Controller
         return $this->renderSitemap('sitemap-funs', function () {
             return $this->sitemap->generateMap(array_map(function (Fun $fun) {
                 return new MapItem(
-                    Url::to(['/fun/view', 'id' => $fun->id], true),
+                    Url::to(['/funs/funs/fun', 'id' => $fun->id], true),
                     $fun->updated_at ?? $fun->created_at,
                     MapItem::WEEKLY
                 );
@@ -406,13 +403,13 @@ class SitemapController extends Controller
     public function actionFunCategories(): Response
     {
         return $this->renderSitemap('sitemap-fun-categories', function () {
-            return $this->sitemap->generateMap(array_map(function (\booking\entities\booking\funs\Type $type) {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\touristic\fun\Category $category) {
                 return new MapItem(
-                    Url::to(['/funs/' . $type->slug], true),
+                    Url::to(['/funs/category', 'id' => $category->id], true),
                     null,
                     MapItem::ALWAYS
                 );
-            }, $this->funTypes->getAll()));
+            }, $this->funCategories->getAll()));
         });
     }
 

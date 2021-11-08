@@ -7,7 +7,7 @@ namespace frontend\controllers;
 use booking\entities\blog\Category;
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
-use booking\entities\booking\funs\Fun;
+use booking\entities\touristic\fun\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
 use booking\entities\foods\Food;
@@ -18,7 +18,7 @@ use booking\entities\shops\products\Product;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
-use booking\repositories\booking\funs\FunRepository;
+use booking\repositories\touristic\fun\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\foods\FoodRepository;
@@ -114,6 +114,10 @@ class MapController extends Controller
      * @var LandownerRepository
      */
     private $landowners;
+    /**
+     * @var \booking\repositories\touristic\fun\CategoryRepository
+     */
+    private $funCategories;
 
     public function __construct(
         $id,
@@ -130,6 +134,7 @@ class MapController extends Controller
         \booking\repositories\booking\cars\TypeRepository $carTypes,
         \booking\repositories\booking\funs\TypeRepository $funTypes,
         \booking\repositories\booking\stays\TypeRepository $stayTypes,
+        \booking\repositories\touristic\fun\CategoryRepository $funCategories,
         CategoryRepository $postType,
         PageRepository $moving,
         \booking\repositories\night\PageRepository $night,
@@ -162,6 +167,7 @@ class MapController extends Controller
         $this->postForum = $postForum;
         $this->sections = $sections;
         $this->landowners = $landowners;
+        $this->funCategories = $funCategories;
     }
 
     public function actionIndex()
@@ -233,18 +239,18 @@ class MapController extends Controller
             return [
                 'lvl' => 2,
                 'caption' => $fun->getName(),
-                'link' => Url::to(['/fun/view', 'id' => $fun->id], true),
+                'link' => Url::to(['/funs/funs/fun', 'id' => $fun->id], true),
             ];
         }, $this->funs->getAllForSitemap());
         $result = array_merge($result, $_items);
         //Type
-        $_items = array_map(function (\booking\entities\booking\funs\Type $type) {
+        $_items = array_map(function (\booking\entities\touristic\fun\Category $category) {
             return [
                 'lvl' => 2,
-                'caption' => $type->name,
-                'link' => Url::to(['/funs/' . $type->slug], true),
+                'caption' => $category->name,
+                'link' => Url::to(['/funs/category', 'id' => $category->id], true),
             ];
-        }, $this->funTypes->getAll());
+        }, $this->funCategories->getAll());
         $result = array_merge($result, $_items);
         //STAYS
         $result[] = [

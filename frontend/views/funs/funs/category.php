@@ -41,8 +41,7 @@ $values = [
 ?>
 
 <h1><?= $category->title ?></h1>
-<p class="pt-4" style="font-size: 22px">База развлечений и мест отдыха наполняется ... </p>
-<p  style="font-size: 18px">Подождите немного, через несколько дней мы постараемся ее наполнить</p>
+
 
     <!--div class="sort-bar d-none d-sm-block">
         <ul>
@@ -81,6 +80,7 @@ $values = [
         <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
     </div>
 
-
+    <p class="pt-4" style="font-size: 22px">База развлечений и мест отдыха наполняется ... </p>
+    <p  style="font-size: 18px">Подождите немного, через несколько дней мы постараемся ее наполнить</p>
 
 <?= NewProviderWidget::widget()?>

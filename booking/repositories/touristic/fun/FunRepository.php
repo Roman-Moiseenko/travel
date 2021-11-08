@@ -20,7 +20,7 @@ class FunRepository
 
     public function getAllByCategory($category_id): DataProviderInterface
     {
-        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['featured_at' => SORT_DESC]);
+        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['featured_at' => SORT_DESC, 'created_at' => SORT_DESC]);
         //scr::p($query->all());
         return $this->getProvider($query);
     }
