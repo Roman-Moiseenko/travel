@@ -38,8 +38,8 @@ use yii\helpers\Url;
                 <div class="pt-3 text-center">
                     <h2 class="card-title card-object"><?= Html::encode($fun->getName()) ?></h2>
                 </div>
-                <div class="mb-auto text-justify">
-                    <?= (StringHelper::truncateWords(strip_tags($fun->getDescription()), 20)) ?>
+                <div class="mb-auto text-justify" style="font-size: 16px; line-height: 22px">
+                    <?= $fun->getDescription() ?>
                 </div>
                 <div class="category-card pt-4">
 

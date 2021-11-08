@@ -18,10 +18,8 @@ use yii\helpers\Url;
     <div class="holder"> <!-- style="position: relative" -->
         <?php if ($fun->mainPhoto): ?>
             <div itemscope itemtype="https://schema.org/ImageObject">
-                <a href="<?= Html::encode($url) ?>">
                     <img src="<?= Html::encode($fun->mainPhoto->getThumbFileUrl('file', 'catalog_list_mobile')) ?>" alt="<?= $fun->mainPhoto->getAlt() ?>"
                          class="card-img-top" itemprop="contentUrl"/>
-                </a>
                 <meta itemprop="name" content="<?= empty($fun->mainPhoto->getAlt()) ? 'Развлечения и отдых в Калининграде' : $fun->mainPhoto->getAlt() ?>">
                 <meta itemprop="description" content="<?= $fun->getName() ?>">
             </div>
@@ -34,32 +32,25 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="card-body color-card-body">
-        <!--a href="<?= Html::encode($url) ?>"-->
-            <h2 class="card-title card-object"><?= Html::encode($fun->getName()) ?></h2>
-        <!--/a-->
+        <h2 class="card-title card-object"><?= Html::encode($fun->getName()) ?></h2>
         <p class="card-text" style="height: available">
-        <div class="mb-auto text-justify">
-            <?= (StringHelper::truncateWords(strip_tags($fun->getDescription()), 20)) ?>
+        <div class="mb-auto text-justify" style="font-size: 16px; line-height: 22px">
+            <?= $fun->getDescription() ?>
         </div>
-
         </p>
     </div>
     <div class="card-footer color-card-body">
-
     </div>
-
     <div class="mt-auto card-footer color-card-footer">
         <div class="d-flex p-1">
         <div class="p-2">
             <span class="price-card"><?= $fun->contact->getFirstContact() ?></span>
         </div>
         <div class="ml-auto">
-
         </div>
         </div>
     </div>
     <a href="<?= Html::encode($url) ?>" class="stretched-link"></a>
-
 </div>
 
 

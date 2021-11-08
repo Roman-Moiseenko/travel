@@ -9,7 +9,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="d2-btn-box">
-    <a class="d2-btn <?= $block ? 'd2-btn-block' : '' ?> d2-btn-phone" href="tel:<?= $phone ?>">
+    <a class="d2-btn <?= $block ? 'd2-btn-block' : '' ?> d2-btn-phone" href="tel:<?= $phone ?>" rel="nofollow">
         <?php if (!empty($caption)): ?><div class="d2-btn-caption"><?= Lang::t($caption)?></div><?php endif; ?>
         <div class="d2-btn-icon">
             <i class="fas fa-phone"></i>

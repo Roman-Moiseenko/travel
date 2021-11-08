@@ -35,7 +35,7 @@ $this->registerMetaTag(['name' => 'og:description', 'content' => $fun->meta->des
 $this->title = $fun->meta->title ? Lang::t($fun->meta->title) : $fun->getName();
 $this->params['breadcrumbs'][] = ['label' => 'Развлечения и мероприятия', 'url' => Url::to(['funs/index'])];
 $this->params['breadcrumbs'][] = ['label' => $fun->category->name, 'url' => Url::to(['funs/category', 'id' => $fun->category_id])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $fun->name;
 $this->params['canonical'] = Url::to(['/funs/funs/fun', 'id' => $fun->id], true);
 
 $this->params['fun'] = true;
@@ -75,8 +75,8 @@ $this->params['emoji'] = Emoji::FUN;
 </div>
 <!-- Описание -->
 <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
-    <div class="col-sm-12 params-tour text-justify <?= $mobile ? ' ml-2' : '' ?>">
-        <?= Yii::$app->formatter->asHtml($fun->getDescription(), [
+    <div class="col-sm-12 params-moving text-justify <?= $mobile ? ' ml-2' : '' ?>">
+        <?= Yii::$app->formatter->asHtml($fun->content, [
             'Attr.AllowedRel' => array('nofollow'),
             'HTML.SafeObject' => true,
             'Output.FlashCompat' => true,
