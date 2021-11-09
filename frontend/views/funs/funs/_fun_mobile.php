@@ -44,9 +44,10 @@ use yii\helpers\Url;
     <div class="mt-auto card-footer color-card-footer">
         <div class="d-flex p-1">
         <div class="p-2">
-            <span class="price-card"><?= $fun->contact->getFirstContact() ?></span>
+            <span class="price-card"><?= ''; //$fun->contact->getFirstContact() ?></span>
         </div>
         <div class="ml-auto">
+            <span class="price-card" style="font-size: 30px"><i class="fas fa-chevron-circle-right"></i></span>
         </div>
         </div>
     </div>

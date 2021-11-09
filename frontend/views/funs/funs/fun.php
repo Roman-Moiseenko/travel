@@ -66,7 +66,7 @@ $this->params['emoji'] = Emoji::FUN;
     <div class="col-12 <?= $mobile ? ' ml-2' : '' ?>">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h1><?= Html::encode($fun->getName()) ?></h1>
+                <h1><?= empty($fun->title) ? $fun->name : $fun->title ?></h1>
             </div>
 
             <?= ''; //TODO BtnWish::widget(['url' => Url::to(['/cabinet/wishlist/add-fun', 'id' => $fun->id]) ]) ?>

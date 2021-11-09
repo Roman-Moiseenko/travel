@@ -47,10 +47,12 @@ use yii\helpers\Url;
                 <div class="color-card-footer margin-card-footer">
                     <div class="d-flex p-3">
                     <div class="pl-4 py-2">
-                        <span class="price-card">Контакты: <?= $fun->contact->getFirstContact() ?></span>
+                        <span class="price-card"><?= $fun->title ?><?= ''; //'Контакты: ' . $fun->contact->getFirstContact() ?></span>
                     </div>
                     <div class="ml-auto">
-                        <?= RatingWidget::widget(['rating' => $fun->rating ?? 5]) ?>
+                        <span class="price-card" style="font-size: 30px"><i class="fas fa-chevron-circle-right"></i></span>
+
+                        <?= ''; //RatingWidget::widget(['rating' => $fun->rating ?? 5]) ?>
                         <span class="badge badge-success"></span>
                     </div>
                     </div>

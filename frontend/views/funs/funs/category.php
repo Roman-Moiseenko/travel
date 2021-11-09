@@ -36,7 +36,6 @@ $values = [
     '-id' => 'по умолчанию',
     'name' => 'по имени (А-Я)',
     '-rating' => 'по рейтингу (сначала высокий)',
-
 ];
 ?>
 
@@ -79,8 +78,12 @@ $values = [
         </div>
         <div class="col-sm-6 text-right"><?= 'Показано ' . $dataProvider->getCount() . ' из ' . $dataProvider->getTotalCount() ?></div>
     </div>
-
+    <?php if ($dataProvider->getCount() < 2): ?>
     <p class="pt-4" style="font-size: 22px">База развлечений и мест отдыха наполняется ... </p>
     <p  style="font-size: 18px">Подождите немного, через несколько дней мы постараемся ее наполнить</p>
+    <p style="font-size: 16px">
+        Пока вы можете посмотреть раздел <a href="https://koenigs.ru/funs/extreme" rel="nofollow">активный отдых</a>
+    </p>
+<?php endif;?>
 
 <?= NewProviderWidget::widget()?>
