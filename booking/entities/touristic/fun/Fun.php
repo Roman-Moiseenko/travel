@@ -36,6 +36,7 @@ use yii\db\ActiveQuery;
  * @property integer $updated_at
  * @property float $rating
  * @property integer $featured_at
+ * @property integer $sort
  * ====== GET-Ы ============================================
  * @property Category $category
  * @property Photo $mainPhoto
@@ -93,32 +94,7 @@ class Fun extends BaseObjectOfTouristic
         $this->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
 
     }
-/*
-    public function isActive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_ACTIVE;
-    }
 
-    public function isInactive(): bool
-    {
-        return $this->status === StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function activated()
-    {
-        $this->status = StatusHelper::STATUS_ACTIVE;
-    }
-
-    public function inactivated()
-    {
-        $this->status = StatusHelper::STATUS_INACTIVE;
-    }
-
-    public function setMeta(Meta $meta): void
-    {
-        $this->meta = $meta;
-    }
-*/
     public static function tableName()
     {
         return '{{%touristic_fun}}';

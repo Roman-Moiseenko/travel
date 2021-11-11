@@ -162,7 +162,7 @@ MagnificPopupAsset::register($this);
 </div>
 <!-- ОПИСАНИЕ -->
 <div class="card my-3">
-    <div class="card-body">
+    <div class="card-body params-moving">
         <p>
             <?= Yii::$app->formatter->asNtext($product->description) ?>
         </p>

@@ -11,6 +11,7 @@ use booking\services\NetworkService;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\authclient\AuthAction;
 
@@ -37,18 +38,16 @@ class NetworkController extends Controller
         ];
     }
 
-    public function onAuthSuccess(ClientInterface $client): void
+    public function onAuthSuccess(ClientInterface $client) //: void
     {
-        //scr::v($client);
         $network = $client->getId();
         $attributes = $client->getUserAttributes();
+        //$client->getName();
         $identity = ArrayHelper::getValue($attributes, 'id');
         $email = $attributes['email'] ?? null;
         try {
-            //scr::v($email);
             $user = $this->networkService->auth($network, $identity, $email);
             \Yii::$app->user->login($user, \Yii::$app->params['user.rememberMeDuration']);
-
         } catch (\DomainException $e) {
             \Yii::$app->errorHandler->logException($e);
             \Yii::$app->session->setFlash('error', $e->getMessage());

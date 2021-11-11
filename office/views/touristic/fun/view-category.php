@@ -81,7 +81,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Описание',
                     'contentOptions' => ['data-label' => 'Описание'],
                 ],
-
+                [
+                    'label' => 'Сортировка',
+                    'value' => function (Fun $model) {
+                        return
+                            Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['move-up-fun', 'category_id' => $model->category_id, 'id' => $model->id],
+                                ['data-method' => 'post',]) .
+                            Html::a('<span class="glyphicon glyphicon-arrow-down"></span>', ['move-down-fun', 'category_id' => $model->category_id, 'id' => $model->id],
+                                ['data-method' => 'post',]);
+                    },
+                    'format' => 'raw',
+                ],
                 [
                     'value' => function (Fun $model) {
                         return 'TODO добавить'; //count($model->funs) . ' объектов';

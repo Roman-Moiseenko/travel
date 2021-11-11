@@ -80,6 +80,8 @@ class FunService
                 $form->contact->email
             )
         );
+        $sort = $this->funs->getMaxSort($fun->category_id);
+        $fun->setSort($sort + 1);
         $this->funs->save($fun);
         return $fun;
     }
@@ -111,6 +113,40 @@ class FunService
             )
         );
         $this->funs->save($fun);
+    }
+
+    public function moveUp($category_id, $id)
+    {
+        $types = $this->funs->getAll($category_id);
+        foreach ($types as $i => $type) {
+            if ($type->isFor($id) && $i != 0) {
+                $t1 = $types[$i - 1];
+                $t2 = $type;
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->funs->save($t1);
+                $this->funs->save($t2);
+                return;
+            }
+        }
+    }
+
+    public function moveDown($category_id, $id)
+    {
+        $types = $this->funs->getAll($category_id);
+        foreach ($types as $i => $type) {
+            if ($type->isFor($id) && $i != count($types) - 1) {
+                $t1 = $type;
+                $t2 = $types[$i + 1];
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->funs->save($t1);
+                $this->funs->save($t2);
+                return;
+            }
+        }
     }
 
     public function addPhotos($id, PhotosForm $form)

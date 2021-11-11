@@ -197,6 +197,17 @@ class FunController extends Controller
         $this->funService->remove($id);
         return $this->redirect(Url::to(['view-category', 'id' => $category_id]));
     }
+    public function actionMoveUpFun($category_id, $id)
+    {
+        $this->funService->moveUp($category_id, $id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionMoveDownFun($category_id, $id)
+    {
+        $this->funService->moveDown($category_id, $id);
+        return $this->redirect(\Yii::$app->request->referrer);
+    }
 
     public function actionMoveUpPhotoFun($id, $photo_id)
     {

@@ -32,7 +32,7 @@ class NewReviewMovingWidget extends Widget
     public function run()
     {
         //$test =  ?? false;
-        if ($this->loginService->isGuest()) return '';
+        if ($this->loginService->isGuest()) return $this->render('auth', []);
         $reviewForm = new CommentForm();
         return $this->render('new-review-moving', [
             'reviewForm' => $reviewForm,

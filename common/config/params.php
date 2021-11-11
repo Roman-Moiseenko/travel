@@ -10,7 +10,7 @@ return [
     'paginationTour' => 24,
     'paginationTrip' => 16,
     'paginationCar' => 16,
-    'paginationFun' => 24,
+    'paginationFun' => 10,
     'paginationStay' => 24,
     'paginationFood' => 24,
     'paginationPost' => 10,
@@ -47,14 +47,12 @@ return [
             'quality' => 75,
             'items' => [
                 '/origin/cars/',
-                '/origin/funs/',
                 '/origin/tours/',
                 '/origin/stays/',
                 '/origin/certs/',
                 '/origin/foods/',
                 '/origin/shops/',
                 '/origin/products/',
-
             ],
         ],
         [
@@ -70,7 +68,8 @@ return [
             'height' => 1024,*/
             'quality' => 75,
             'items' => [
-                '/images/blog/'
+                '/images/blog/',
+                //'/origin/touristic/',
             ],
         ],
         [
@@ -90,7 +89,7 @@ return [
             ],
         ],
         [
-            'quality' => 50,
+            'quality' => 65,
             'items' => [
                 '/cache/',
             ],

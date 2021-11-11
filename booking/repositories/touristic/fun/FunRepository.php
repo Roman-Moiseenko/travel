@@ -10,6 +10,7 @@ use booking\helpers\StatusHelper;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii\web\NotFoundHttpException;
 
 class FunRepository
 {
@@ -21,8 +22,16 @@ class FunRepository
     public function getAllByCategory($category_id): DataProviderInterface
     {
         $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['featured_at' => SORT_DESC, 'created_at' => SORT_DESC]);
-        //scr::p($query->all());
         return $this->getProvider($query);
+    }
+
+    /**
+     * @return Fun[]
+     */
+
+    public function getAll($category_id)
+    {
+        return Fun::find()->andWhere(['category_id' => $category_id])->orderBy(['sort' => SORT_ASC])->all();
     }
 
     public function save(Fun $fun)
@@ -67,7 +76,9 @@ class FunRepository
 
     public function findBySlug($slug)
     {
-        $fun = Fun::find()->andWhere(['slug' => $slug])->one();
+        if (!$fun = Fun::find()->andWhere(['slug' => $slug])->one()) {
+            throw new NotFoundHttpException();
+        }
         return $fun;
     }
 
@@ -80,5 +91,14 @@ class FunRepository
     {
         return Fun::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
     }
+    public function getMaxSort($category_id)
+    {
+        return Fun::find()->andWhere(['category_id' => $category_id])->max('sort');
+    }
 
+
+    public function getMinSort($category_id)
+    {
+        return Fun::find()->andWhere(['category_id' => $category_id])->min('sort');
+    }
 }

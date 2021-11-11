@@ -90,6 +90,11 @@ class FunsController extends Controller
         ]);
     }
 
+    public function actionNot($id)
+    {
+        throw new NotFoundHttpException();
+    }
+
     public function actionCategory($slug)
     {
         if (!$category = $this->categories->findBySlug($slug)) {

@@ -142,10 +142,10 @@ return [
                 'cars/checkout/booking' => 'cars/checkout/booking',
                 'cars/<slug:[\w\-]+>' => 'cars/cars/category',
 
-
+                'fun/<id:\d+>' => 'funs/funs/not',
                 'fun/<slug:[\w\-]+>' => 'funs/funs/fun',
 
-                //'fun/<id:\d+>' => 'funs/funs/fun',
+
                 'funs' => 'funs/funs/index',
                 'funs/funs/get-search' => 'funs/funs/get-search',
                 'funs/booking/get-calendar' => 'funs/booking/get-calendar',

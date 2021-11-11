@@ -34,6 +34,7 @@ use yii\db\ActiveRecord;
  * @property string $phone
  * @property string $url
  * @property string $email
+ * @property integer $sort
  *
  * @property integer $main_photo_id
  * @property integer $status
@@ -76,6 +77,11 @@ abstract class BaseObjectOfTouristic extends ActiveRecord
         return $this->featured_at > time();
     }
 
+    public function isFor($id): bool
+    {
+        return $this->id == $id;
+    }
+
 //====== SET-ы         ============================================
     public function activated()
     {
@@ -90,6 +96,11 @@ abstract class BaseObjectOfTouristic extends ActiveRecord
     public function setMeta(Meta $meta): void
     {
         $this->meta = $meta;
+    }
+
+    public function setSort($sort): void
+    {
+        $this->sort = $sort;
     }
 
 //====== GET-ы         ============================================
