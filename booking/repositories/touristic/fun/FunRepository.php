@@ -21,7 +21,7 @@ class FunRepository
 
     public function getAllByCategory($category_id): DataProviderInterface
     {
-        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['featured_at' => SORT_DESC, 'created_at' => SORT_DESC]);
+        $query = Fun::find()->andWhere(['category_id' => $category_id])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['sort' => SORT_ASC]);
         return $this->getProvider($query);
     }
 
@@ -52,7 +52,7 @@ class FunRepository
     {
         return new ActiveDataProvider([
                 'query' => $query,
-                'sort' => [
+                /*'sort' => [
                     //'defaultOrder' => ['created_at' => SORT_DESC],
                     'attributes' => [
                         'id' => [
@@ -65,7 +65,7 @@ class FunRepository
                             'asc' => ['rating' => SORT_ASC], 'desc' => ['rating' => SORT_DESC],
                         ],
                     ],
-                ],
+                ],*/
                 'pagination' => [
                     'defaultPageSize' => \Yii::$app->params['paginationFun'],
                     'pageSizeLimit' => [\Yii::$app->params['paginationFun'], \Yii::$app->params['paginationFun']],

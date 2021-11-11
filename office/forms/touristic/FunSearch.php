@@ -9,8 +9,6 @@ use yii\data\ActiveDataProvider;
 class FunSearch extends Fun
 {
 
-    public $_categoryId = null;
-
     public function __construct($config = [])
     {
         parent::__construct($config);
@@ -31,7 +29,7 @@ class FunSearch extends Fun
        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['name' => SORT_ASC]
+                'defaultOrder' => ['sort' => SORT_ASC]
             ],
         ]);
         $this->load($params);
