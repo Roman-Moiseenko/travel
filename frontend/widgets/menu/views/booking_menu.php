@@ -43,7 +43,7 @@ use yii\helpers\Url;
                     <a class="top-menu-a nav-link <?= \Yii::$app->controller->id == 'stays/stays' ? 'active' : '' ?>"
                        href="<?= Html::encode(Url::to(['/stays'])) ?>">
                         <?= BookingHelper::icons(BookingHelper::BOOKING_TYPE_STAY) ?>
-                        &#160;<?= Lang::t('Жилье') ?>
+                        &#160;<?= Lang::t('Проживание') ?>
                     </a>
                 </li>
                 <li class="nav-item">

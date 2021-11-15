@@ -123,6 +123,8 @@ abstract class BaseObjectOfTouristic extends ActiveRecord
 
     abstract public function getPhotos(): ActiveQuery;
 
+    abstract public function getCategory(): ActiveQuery;
+
     public function behaviors()
     {
         return [

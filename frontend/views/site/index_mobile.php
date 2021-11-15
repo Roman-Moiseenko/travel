@@ -42,14 +42,14 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
             <?= $this->render('_button_mobile', [
                 'url' => '/stays',
                 'img_name' => 'stay_mobile.jpg',
-                'img_alt' => 'Бронирование жилья в Калининграде',
-                'caption' => 'Апартаменты',
+                'img_alt' => 'Проживание в Калининграде',
+                'caption' => 'Проживание',
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/funs',
                 'img_name' => 'fun_mobile.jpg',
                 'img_alt' => 'Развлечения и отдых в Калининграде',
-                'caption' => 'Развлечения',
+                'caption' => 'Развлечения<br>Отдых',
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/cars',
@@ -72,8 +72,8 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
             <?= $this->render('_button_mobile', [
                 'url' => '/post',
                 'img_name' => 'blog_mobile.jpg',
-                'img_alt' => 'Блог о Калининграде',
-                'caption' => 'Блог о Калининграде',
+                'img_alt' => 'Туристам о Калининграде',
+                'caption' => 'Туристам о Калининграде',
             ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/moving',

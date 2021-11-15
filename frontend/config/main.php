@@ -177,13 +177,18 @@ return [
                 'trip/<slug:[\w\-]+>' => 'trips/trips/trip',
                 'trips/<slug:[\w\-]+>' => 'trips/trips/category',
 
+                'stay/<id:\d+>' => 'stays/stays/not',
+                'stay/<slug:[\w\-]+>' => 'stays/stays/stay',
+
                 'stays' => 'stays/stays/index',
                 'stays/stays/get-booking' => 'stays/stays/get-booking',
                 'stays/stays/get-error' => 'stays/stays/get-error',
                 'stays/stays/map' => 'stays/stays/map',
                 'stays/stays/get-maps' => 'stays/stays/get-maps',
                 'stays/checkout/booking' => 'stays/checkout/booking',
-                'stay/<id:\d+>' => 'stays/stays/stay',
+                'stays/<slug:[\w\-]+>' => 'stays/stays/category',
+
+                //'stay/<id:\d+>' => 'stays/stays/stay',
 
                 'foods' => 'food/index',
                 'food/map-foods' => 'food/map-foods',
@@ -272,6 +277,7 @@ return [
                 ['class' => 'frontend\urls\CarTypeUrlRule'],
                 ['class' => 'frontend\urls\FunUrlRule'],
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
+                ['class' => 'frontend\urls\StayCategoryUrlRule'],
 
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],

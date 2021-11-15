@@ -27,7 +27,7 @@ $this->params['active_category'] = $category;
 
 <?php if (trim($category->getDescription())): ?>
     <div class="card card-default">
-        <div class="card-body text-justify">
+        <div class="card-body text-justify params-moving">
             <?= Yii::$app->formatter->asHtml($category->getDescription(), [
                 'Attr.AllowedRel' => array('nofollow'),
                 'HTML.SafeObject' => true,

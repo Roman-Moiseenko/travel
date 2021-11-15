@@ -7,9 +7,9 @@ use booking\entities\Lang;
 use booking\entities\touristic\fun\Category;
 use booking\helpers\Emoji;
 use booking\helpers\SysHelper;
-use frontend\widgets\GalleryFunWidget;
+use frontend\widgets\gallery\GalleryFunWidget;
 use frontend\widgets\templates\TagsWidget;
-use yii\helpers\Url;
+
 
 
 $_count = count($categories);
@@ -18,7 +18,7 @@ $this->title = Lang::t('Развлечения и мероприятия в Ка
 $this->params['emoji'] = Emoji::FUN;
 
 ?>
-<h1 class="pt-4 pb-2"><?= Lang::t('Отдых и Развлечения в Калининграде') ?></h1>
+<h1 class="pt-4 pb-2">Отдых и Развлечения в Калининграде</h1>
 
 
 <?= GalleryFunWidget::widget([

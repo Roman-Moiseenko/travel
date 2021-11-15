@@ -31,7 +31,7 @@ use yii\helpers\Url; ?>
             </div>
             <?php //TODO Жилье ?>
             <div class="col-sm-3">
-                <label class="footer-title"><?= Lang::t('Жилье в Калининграде') ?></label>
+                <label class="footer-title"><?= Lang::t('Проживание в Калининграде') ?></label>
                 <ul class="list-unstyled">
                     <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
                     <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->

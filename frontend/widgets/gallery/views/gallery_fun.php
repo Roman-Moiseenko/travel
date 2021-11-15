@@ -34,7 +34,7 @@ GalleryAsset::register($this);
         </div>
     <?php endforeach; ?>
 <?php else: ?>
-    <div class="gallery-fun">
+    <div class="gallery-touristic gallery-fun">
         <?php foreach ($categories as $i => $category): ?>
             <div class="item-gallery">
                 <a class="thumbnail" href="<?= Url::to(['funs/category', 'id' => $category->id]) ?>">

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\entities\touristic\fun;
+namespace booking\entities\touristic\stay;
 
 use booking\entities\booking\BookingAddress;
 use booking\entities\Meta;
@@ -14,7 +14,7 @@ use yii\db\ActiveQuery;
 
 /**
  * Class Fun
- * @package booking\entities\touristic\fun
+ * @package booking\entities\touristic\stay
  * @property integer $id
  * @property integer $category_id - Тип (entities)
  * @property string $name - Название
@@ -33,7 +33,7 @@ use yii\db\ActiveQuery;
  * ====== GET-Ы ============================================
  * @property Category $category
  * @property Photo $mainPhoto
- * @property ReviewFun[] $reviews
+ * @property ReviewStay[] $reviews
  * @property Photo[] $photos
  * @property string $meta_json
  * @property string $contact_phone [varchar(255)]
@@ -44,7 +44,7 @@ use yii\db\ActiveQuery;
  * @property string $address_longitude [varchar(255)]
  */
 
-class Fun extends BaseObjectOfTouristic
+class Stay extends BaseObjectOfTouristic
 {
     /** @var $meta Meta */
     public $meta;
@@ -55,22 +55,22 @@ class Fun extends BaseObjectOfTouristic
 
     public static function create($category_id, $name, $title, $slug, $description, $content, BookingAddress $address, Meta $meta, TouristicContact $contact): self
     {
-        $fun = new static();
-        $fun->category_id = $category_id;
-        $fun->name = $name;
-        $fun->title = empty($title) ? $name : $title;
-        $fun->description = $description;
-        $fun->content = $content;
-        $fun->address = $address;
-        $fun->meta = $meta;
-        $fun->contact = $contact;
+        $stay = new static();
+        $stay->category_id = $category_id;
+        $stay->name = $name;
+        $stay->title = empty($title) ? $name : $title;
+        $stay->description = $description;
+        $stay->content = $content;
+        $stay->address = $address;
+        $stay->meta = $meta;
+        $stay->contact = $contact;
 
-        $fun->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
-        $fun->created_at = time();
-        $fun->status = StatusHelper::STATUS_INACTIVE;
-        $fun->featured_at = null; //Если дата больше текущей, то вверху. Сортировка по featured_at
+        $stay->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
+        $stay->created_at = time();
+        $stay->status = StatusHelper::STATUS_INACTIVE;
+        $stay->featured_at = null; //Если дата больше текущей, то вверху. Сортировка по featured_at
 
-        return $fun;
+        return $stay;
     }
 
     public function edit($category_id, $name, $title, $slug, $description, $content, BookingAddress $address, Meta $meta, TouristicContact $contact): void
@@ -90,19 +90,20 @@ class Fun extends BaseObjectOfTouristic
 
     public static function tableName()
     {
-        return '{{%touristic_fun}}';
+        return '{{%touristic_stay}}';
     }
 
     /** getXXX ==========> */
     public function getPhotos(): ActiveQuery
     {
-        return $this->hasMany(Photo::class, ['fun_id' => 'id'])->orderBy('sort');
+        return $this->hasMany(Photo::class, ['stay_id' => 'id'])->orderBy('sort');
     }
+
 
     public function getReviews(): ActiveQuery
     {
         /** Только активные отзывы */
-        return $this->hasMany(ReviewFun::class, ['fun_id' => 'id']);
+        return $this->hasMany(ReviewStay::class, ['stay_id' => 'id']);
     }
 
     public function getMainPhoto(): ActiveQuery

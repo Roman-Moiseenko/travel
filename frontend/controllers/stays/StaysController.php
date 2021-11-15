@@ -3,47 +3,63 @@
 
 namespace frontend\controllers\stays;
 
-use booking\entities\booking\stays\Stay;
-use booking\entities\Lang;
+
 use booking\forms\booking\ReviewForm;
-use booking\forms\booking\stays\search\SearchStayForm;
-use booking\helpers\CurrencyHelper;
-use booking\helpers\scr;
+
 use booking\repositories\booking\stays\StayRepository;
+use booking\repositories\touristic\stay\CategoryRepository;
 use booking\services\booking\stays\StayService;
-use booking\services\system\LoginService;
+
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class StaysController extends Controller
 {
     public $layout = 'stays';
     /**
-     * @var StayRepository
+     * @var CategoryRepository
      */
-    private $stays;
-    /**
-     * @var StayService
-     */
-    private $service;
-    /**
-     * @var LoginService
-     */
-    private $loginService;
+    private $categories;
 
     public function __construct(
         $id,
         $module,
-        StayRepository $stays,
-        StayService $service,
-        LoginService $loginService,
+
+        //LoginService $loginService,
+        CategoryRepository $categories,
         $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->stays = $stays;
-        $this->service = $service;
-        $this->loginService = $loginService;
+
+        $this->categories = $categories;
     }
 
+    public function actionIndex()
+    {
+        $categories = $this->categories->getAll();
+        return $this->render('index', [
+            'categories' => $categories,
+        ]);
+    }
+
+    public function actionNot($id)
+    {
+        throw new NotFoundHttpException();
+    }
+
+    public function actionCategory($slug)
+    {
+        if (!$category = $this->categories->findBySlug($slug)) {
+            throw new NotFoundHttpException('Запрашиваемая категория не существует.');
+        }
+        //$dataProvider = $this->stays->getAllByCategory($category->id);
+        return $this->render('category', [
+            'category' => $category,
+
+            //'dataProvider' => $dataProvider,
+        ]);
+    }
+    /*
     public function actionIndex()
     {
         $form = new SearchStayForm();
@@ -165,4 +181,5 @@ class StaysController extends Controller
         }
         return 'Error';
     }
+    */
 }

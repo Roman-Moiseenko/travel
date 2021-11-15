@@ -29,6 +29,7 @@ use yii\helpers\Url;
                         //['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
                         //['label' => ' - Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
                         ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/touristic/fun'], 'active' => $this->context->id == 'touristic/fun'],
+                        ['label' => ' - Проживание', 'icon' => 'house-user', 'url' => ['/touristic/stay'], 'active' => $this->context->id == 'touristic/stay'],
                         //['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
                         //['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
                         //['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],

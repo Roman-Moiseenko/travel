@@ -135,8 +135,8 @@ $this->registerJs($script);
                 <?= $this->render('_button', [
                     'url' => '/stays',
                     'img_name' => 'stay.jpg',
-                    'img_alt' => 'Бронирование жилья в Калининграде',
-                    'caption' => 'Апартаменты',
+                    'img_alt' => 'Проживание Калининграде',
+                    'caption' => 'Проживание',
                 ]) ?>
             </div>
             <div class="col-sm-4 col-md-3 pt-4">
@@ -144,7 +144,7 @@ $this->registerJs($script);
                     'url' => '/funs',
                     'img_name' => 'fun.jpg',
                     'img_alt' => 'Развлечения и отдых в Калининграде',
-                    'caption' => 'Развлечения',
+                    'caption' => 'Развлечения<br>Отдых',
                 ]) ?>
             </div>
             <div class="col-sm-4 col-md-3 pt-4">
@@ -176,8 +176,8 @@ $this->registerJs($script);
                 <?= $this->render('_button', [
                     'url' => '/post',
                     'img_name' => 'blog.jpg',
-                    'img_alt' => 'Блог о Калининграде',
-                    'caption' => 'Блог о Калининграде',
+                    'img_alt' => 'Туристам о Калининграде',
+                    'caption' => 'Туристам о Калининграде',
                 ]) ?>
             </div>
             <div class="col-sm-4 col-md-3 pt-4">

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace frontend\widgets;
+namespace frontend\widgets\gallery;
 
 
 use booking\entities\booking\BasePhoto;

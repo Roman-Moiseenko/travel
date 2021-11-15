@@ -25,6 +25,7 @@ use frontend\urls\MedicinePageUrlRule;
 use frontend\urls\MovingPageUrlRule;
 use frontend\urls\NightPageUrlRule;
 use frontend\urls\PageUrlRule;
+use frontend\urls\StayCategoryUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
 use frontend\urls\TripTypeUrlRule;
@@ -125,9 +126,15 @@ class SetUp implements BootstrapInterface
         ]);
 
         $container->setSingleton(FunTypeUrlRule::class, [], [
-            Instance::of(CategoryRepository::class),
+            Instance::of(\booking\repositories\touristic\fun\CategoryRepository::class),
             Instance::of('cache'),
         ]);
+
+        $container->setSingleton(StayCategoryUrlRule::class, [], [
+            Instance::of(\booking\repositories\touristic\stay\CategoryRepository::class),
+            Instance::of('cache'),
+        ]);
+
         $container->setSingleton(FunUrlRule::class, [], [
             Instance::of(FunRepository::class),
             Instance::of('cache'),
