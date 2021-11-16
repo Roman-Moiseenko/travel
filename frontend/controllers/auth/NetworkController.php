@@ -30,13 +30,24 @@ class NetworkController extends Controller
 
     public function actions()
     {
+
+        $session = \Yii::$app->session;
+        if ($session->isActive) {
+            $returnLink = $session->get('link');
+            $session->remove('link');
+        } else {
+            $returnLink = '/about';
+        }
         return [
             'auth' => [
                 'class' => AuthAction::class,
                 'successCallback' => [$this, 'onAuthSuccess'],
+                'successUrl' => Url::to([$returnLink]),// Перенаправление после успешной авторизации
+                'cancelUrl' => Url::to(['/login']), // Перенаправление после не успешной авторизации
             ],
         ];
     }
+
 
     public function onAuthSuccess(ClientInterface $client) //: void
     {

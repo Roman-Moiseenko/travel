@@ -108,4 +108,5 @@ abstract class BaseReview extends ActiveRecord
 
     abstract public function getLegal(): Legal;
 
+   // abstract public static function getAction(): string;
 }

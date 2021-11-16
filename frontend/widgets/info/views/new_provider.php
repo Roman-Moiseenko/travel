@@ -11,7 +11,7 @@ use frontend\widgets\design\BtnUrl;
 
 <div class="container-hr">
     <hr/>
-    <div class="text-left-hr"><?= 'Организаторам развлечений и владельцам мест отдыха' ?></div>
+    <div class="text-left-hr"><?= 'Владельцам туристических объектов и мест развлечений' ?></div>
 </div>
 
 <div class="py-3">

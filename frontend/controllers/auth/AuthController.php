@@ -59,11 +59,10 @@ class   AuthController extends Controller
         ];
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
+
+
+
+
     public function actionLogin()
     {
         if (!$this->loginService->isGuest()) {
