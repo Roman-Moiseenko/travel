@@ -41,6 +41,8 @@ class EventRepository
     public function getByCategory($category_id)
     {
         //TODO Сортировка по Календарю
+
+        //TODO отбор по Assignment!!
         return Event::find()->andWhere(['category_id' => $category_id])->all();
     }
 

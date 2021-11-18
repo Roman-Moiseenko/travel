@@ -113,7 +113,7 @@ MagnificPopupAsset::register($this);
         </div>
     </div>
     </div>
-    <div class="card card-default">
+    <div class="card card-secondary">
         <div class="card-header">SEO</div>
         <div class="card-body">
             <?= DetailView::widget([

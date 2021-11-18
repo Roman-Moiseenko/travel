@@ -15,8 +15,8 @@ use yii\db\ActiveRecord;
  * @property integer $date_begin
  * @property integer $date_end
  * @property string $time_begin
- * @property string $description
- *
+ * @property string $description... ???
+ * @property string $programm ... Программа мероприятия на текущий год
  * @property
  */
 class Calendar extends ActiveRecord

@@ -23,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Редактировать', Url::to(['update', 'id' => $event->id]), ['class' => 'btn btn-success']) ?>
 </p>
 <div class="card card-secondary">
-    <div class="card-header with-border">Основные</div>
+    <div class="card-header with-border">Медиа</div>
     <div class="card-body">
         <div class="row">
             <div class="col-6">
                 <a class="pt-4" href="<?= $event->getUploadedFileUrl('photo')?>">
-                    <img class="img-responsive-2" src="<?= $event->getThumbFileUrl('photo', 'widget_list')?>" alt=""/>
+                    <img class="img-responsive-2" src="<?= $event->getThumbFileUrl('photo', 'catalog_list_2_3x')?>" alt=""/>
                 </a>
             </div>
             <div class="col-6">
@@ -155,3 +155,21 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
+<div class="card card-secondary">
+    <div class="card-header">SEO</div>
+    <div class="card-body">
+        <?= DetailView::widget([
+            'model' => $event->meta,
+            'attributes' => [
+                [
+                    'attribute' => 'title',
+                    'label' => 'Заголовок',
+                ],
+                [
+                    'attribute' => 'description',
+                    'label' => 'Описание',
+                ],
+            ],
+        ]) ?>
+    </div>
+</div>

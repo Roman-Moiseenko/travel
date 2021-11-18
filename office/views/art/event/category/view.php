@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </p>
 
-<div class="card">
+<div class="card card-secondary">
+    <div class="card-header with-border">Основные</div>
     <div class="card-body">
         <?= DetailView::widget([
             'model' => $category,
@@ -46,4 +47,21 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-
+<div class="card card-secondary">
+    <div class="card-header">SEO</div>
+    <div class="card-body">
+        <?= DetailView::widget([
+            'model' => $category->meta,
+            'attributes' => [
+                [
+                    'attribute' => 'title',
+                    'label' => 'Заголовок',
+                ],
+                [
+                    'attribute' => 'description',
+                    'label' => 'Описание',
+                ],
+            ],
+        ]) ?>
+    </div>
+</div>
