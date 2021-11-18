@@ -78,6 +78,7 @@ $mobile = SysHelper::isMobile();
             </div>
         </div>
     </a>
+
     <div itemtype="https://schema.org/TouristTrip" itemscope>
         <meta itemprop="name" content="<?= Lang::t('Экскурсия ') . $tour->getName() ?>" />
         <meta itemprop="description" content="<?= strip_tags($tour->getDescription()) ?>" />

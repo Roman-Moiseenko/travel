@@ -6,6 +6,7 @@ use booking\helpers\SysHelper;
 use frontend\widgets\moving\MenuPagesWidget;
 use frontend\widgets\reviews\NewReviewMovingWidget;
 use frontend\widgets\reviews\CommentWidget;
+use frontend\widgets\reviews\NewReviewWidget;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -58,6 +59,10 @@ $mobile = SysHelper::isMobile();
         <div id="review" class="py-3">
             <?= CommentWidget::widget(['reviews' => $page->reviews]); ?>
         </div>
-        <?= NewReviewMovingWidget::widget(['page' => $page]); ?>
+        <?= NewReviewWidget::widget([
+                '_slug' => $page->slug,
+            'path' => '/moving/moving/view',
+        ])?>
+        <?= ''//NewReviewMovingWidget::widget(['page' => $page]); ?>
     </div>
 </div>

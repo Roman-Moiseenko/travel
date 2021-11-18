@@ -21,7 +21,7 @@ use yii\helpers\Url;
     <div id="top-links">
         <ul class="nav justify-content-end">
             <li class="nav-item mr-auto" style="color: #0f455a; font-weight: 600"><a class="nav-link" href="<?= Url::to(['/'], true) ?>"><i class="fab fa-fort-awesome-alt"></i> Калининград для туристов и гостей</a></li>
-            <li class="nav-item">
+            <!--li class="nav-item">
                     <span class="hidden-xs hidden-sm hidden-md">
                         <a class="nav-link" href="<?= Url::to(['/cabinet/dialogs']) ?>"
                            title="<?= Lang::t('Сообщения') ?>" rel="nofollow">
@@ -30,7 +30,7 @@ use yii\helpers\Url;
                         </a>
                     </span>
             </li>
-            <!--li class="dropdown nav-item">
+            <li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button"
                    aria-haspopup="true" aria-expanded="false" rel="nofollow">
                     <?= Lang::current() ?></a>
@@ -41,7 +41,7 @@ use yii\helpers\Url;
                     <?php endforeach; ?>
                 </div>
             </li-->
-            <li class="dropdown nav-item">
+            <!--li class="dropdown nav-item">
                 <a href="/index.php" class="dropdown-toggle nav-link"
                    data-toggle="dropdown" rel="nofollow"><?= CurrencyHelper::currentString() ?></a>
                 <div class="dropdown-menu">
@@ -52,7 +52,7 @@ use yii\helpers\Url;
                         </a>
                     <?php endforeach; ?>
                 </div>
-            </li>
+            </li-->
             <li class="nav-item">
                 <span class="hidden-xs hidden-sm hidden-md">
                     <a class="nav-link" href="<?= Url::to(['/support']) ?>" title="<?= Lang::t('Служба поддержки') ?>" rel="nofollow">

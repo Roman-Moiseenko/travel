@@ -21,11 +21,19 @@ class NetworkController extends Controller
      * @var NetworkService
      */
     private  $networkService;
+    private $link;
 
     public function __construct($id, $module, NetworkService $networkService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->networkService = $networkService;
+       /* $session = \Yii::$app->session;
+        if ($session->isActive) {
+            $this->link = $session->get('link');
+            $session->remove('link');
+        } else {
+            $this->link = '/about';
+        }*/
     }
 
     public function actions()
@@ -38,16 +46,16 @@ class NetworkController extends Controller
         } else {
             $returnLink = '/about';
         }
+        $returnLink = '/about';
         return [
             'auth' => [
                 'class' => AuthAction::class,
                 'successCallback' => [$this, 'onAuthSuccess'],
-                'successUrl' => Url::to([$returnLink]),// Перенаправление после успешной авторизации
-                'cancelUrl' => Url::to(['/login']), // Перенаправление после не успешной авторизации
+                'successUrl' => Url::to([$returnLink], true),
+                'cancelUrl' => Url::to(['/login'], true),
             ],
         ];
     }
-
 
     public function onAuthSuccess(ClientInterface $client) //: void
     {

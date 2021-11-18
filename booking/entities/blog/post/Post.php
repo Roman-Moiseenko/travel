@@ -31,7 +31,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $status
  * @property integer $comments_count
  * @property integer $public_at
- * @property Meta $meta
+ *
  * @property Category $category
  * @property TagAssignment[] $tagAssignments
  * @property Tag[] $tags

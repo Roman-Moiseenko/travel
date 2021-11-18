@@ -34,6 +34,14 @@ use yii\helpers\Url;
                         //['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
                         //['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
                     ]],
+                    ['label' => 'Искусство', 'icon' => 'object-group', 'items' => [
+                        ['label' => ' - События', 'icon' => 'hot-tub', 'items' => [
+                            ['label' => ' - Категории', 'icon' => 'house-user', 'url' => ['/art/event/category'], 'active' => $this->context->id == 'art/event/category'],
+                            ['label' => ' - События', 'icon' => 'house-user', 'url' => ['/art/event/event'], 'active' => $this->context->id == 'art/event/event'],
+                            ['label' => ' - Календарь', 'icon' => 'house-user', 'url' => ['/art/event/calendar'], 'active' => $this->context->id == 'art/event/calendar'],
+                        ]],
+
+                    ]],
                     ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
                         ['label' => 'Выплаты провайдерам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/provider'], 'active' => $this->context->id == 'finance/provider'],
                         ['label' => 'Возвраты клиентам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/client'], 'active' => $this->context->id == 'finance/client'],

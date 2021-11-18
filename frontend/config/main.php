@@ -132,6 +132,7 @@ return [
                 'legals/<id:\d+>' => 'legals/view',
 
 
+
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 
@@ -247,6 +248,12 @@ return [
                 'forum/<slug:[\w\-]+>' => 'forum/view',
                 'tickets' => 'tickets/tickets/index',
 
+                //** ART *****************
+                'art' => 'art/art/index',
+                'art/events' => 'art/event/index',
+                'art/events/<slug:[\w\-]+>' => 'art/event/category',
+                'art/event/<slug:[\w\-]+>' => 'art/event/event',
+
                 'legals/view' => 'legals/view',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/orders' => 'cabinet/order/index',
@@ -278,6 +285,11 @@ return [
                 ['class' => 'frontend\urls\FunUrlRule'],
                 ['class' => 'frontend\urls\FunTypeUrlRule'],
                 ['class' => 'frontend\urls\StayCategoryUrlRule'],
+
+                //** ART *****************
+                ['class' => 'frontend\urls\EventCategoryUrlRule'],
+                ['class' => 'frontend\urls\EventUrlRule'],
+
 
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],

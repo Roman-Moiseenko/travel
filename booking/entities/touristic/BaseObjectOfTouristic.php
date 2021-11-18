@@ -55,10 +55,10 @@ abstract class BaseObjectOfTouristic extends ActiveRecord
     /** @var $address BookingAddress */
     public $address;
 
-    public function upViews(): void
+    /*public function upViews(): void
     {
         $this->views++;
-    }
+    }*/
 
 //====== is-ы          ============================================
 

@@ -7,7 +7,7 @@ use frontend\widgets\info\InfoLandownersWidget;use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $landowners Landowner */
 
-$this->title = 'Земельные участи под ИЖС в Калининградской области';
+$this->title = 'Купить земельный участок под ИЖС в Калининграде и Калининградской области';
 $description = 'Земельные участи под ИЖС в Калининградской области по низким ценам от собственников, возможно строительство домов и сопровождение';
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = 'Участки';
 ?>
 
 <div>
-    <h1 class="pb-4">Земельные участки под ИЖС на продажу</h1>
+    <h1 class="pb-4">Купить земельный участок под ИЖС в Калининградской области</h1>
     <?= $this->render('_list', ['landowners' => $landowners]) ?>
     <?= InfoLandownersWidget::widget() ?>
 </div>

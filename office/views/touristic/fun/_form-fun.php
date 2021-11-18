@@ -37,7 +37,7 @@ use yii\web\View;
 </div>
 
 <div class="card card-secondary">
-    <div class="card-header with-border">Предварительно Описание</div>
+    <div class="card-header with-border">Предварительное Описание</div>
     <div class="card-body">
         <div class="row">
             <div class="col-6">

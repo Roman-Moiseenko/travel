@@ -13,5 +13,5 @@ class Emoji
     const STAY = '&#128716;';
     const FOOD = '&#127828;';
     const SHOP = '&#128141;';
-
+    const ART = '&#127917;';
 }

@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use booking\entities\Lang;
+use booking\helpers\Emoji;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
 use frontend\widgets\menu\MedicineMenuWidget;
@@ -14,7 +15,6 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ AppAsset::register($this);
     <meta name="copyright" content="Моисеенко Роман Александрович">
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= '&#127969; ' . $this->title ?></title>
+    <title><?= '&#127973; ' . $this->title ?></title>
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">

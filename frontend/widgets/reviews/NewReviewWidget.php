@@ -36,7 +36,7 @@ class NewReviewWidget extends Widget
         $url = explode('?', $url);
         $url = $url[0];
         $session->set('link', $url);
-        if ($this->loginService->isGuest()) return $this->render('auth', []);
+        if ($this->loginService->isGuest()) return $this->render('auth', ['url' => $url]);
         $reviewForm = new CommentForm();
         $action = '';
         if (!empty($this->_id)) $action = [$this->path, 'id' => $this->_id];
