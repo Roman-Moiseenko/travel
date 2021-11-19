@@ -85,8 +85,8 @@ MagnificPopupAsset::register($this);
                         'label' => 'Содержимое',
                     ],
                     [
-                            'value' => (!empty($fun->contact->phone) ? 'Телефон ' . $fun->contact->phone . '<br>' : '') .
-                            (!empty($fun->contact->url) ? 'Ссылка ' . $fun->contact->url . '<br>' : '').
+                        'value' => (!empty($fun->contact->phone) ? 'Телефон ' . $fun->contact->phone . '<br>' : '') .
+                            (!empty($fun->contact->url) ? 'Ссылка ' . $fun->contact->url . '<br>' : '') .
                             (!empty($fun->contact->email) ? 'Электронная почта ' . $fun->contact->email . '<br>' : ''),
                         'format' => 'raw',
                         'label' => 'Контакты',
@@ -112,7 +112,7 @@ MagnificPopupAsset::register($this);
             </div>
         </div>
     </div>
-    </div>
+
     <div class="card card-secondary">
         <div class="card-header">SEO</div>
         <div class="card-body">

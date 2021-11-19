@@ -16,11 +16,11 @@ if (!empty($contact->phone)) $array[] = BtnPhone::widget([
     'block' => true]);
 
 if (!empty($contact->url)) $array[] = BtnUrl::widget([
-    'url' => $contact->url,
+    'url' => 'https://koenigs.ru/out-link?link=' . $contact->url,
     'caption' => 'Перейти на сайт',
     'block' => true]);
 if (!empty($contact->email)) $array[] = BtnMail::widget([
-    'url' => $contact->url,
+    'url' => 'mailto:' . $contact->email,
     'caption' => 'Написать письмо',
     'block' => true]);
 ?>

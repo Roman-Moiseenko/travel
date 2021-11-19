@@ -254,6 +254,7 @@ return [
                 'art/events/<slug:[\w\-]+>' => 'art/event/category',
                 'art/event/<slug:[\w\-]+>' => 'art/event/event',
 
+                'out-link' => 'out-link/index',
                 'legals/view' => 'legals/view',
                 'cabinet/dialogs' => 'cabinet/dialog/index',
                 'cabinet/orders' => 'cabinet/order/index',
@@ -262,17 +263,21 @@ return [
                 'cabinet/petition' => 'cabinet/dialog/petition',
                 'conversation' => 'cabinet/dialog/conversation',
                 'support' => 'cabinet/dialog/support',
+
                 'post' => 'post/index',
                 'post/comment' => 'post/comment',
                 'post/widget-map' => 'post/widget-map',
                 'post/tag/<slug:[\w\-]+>' => 'post/tag',
                 'post/<id:\d+>' => 'post/post',
                 'post/<slug:[\w\-]+>' => 'post/category',
+
                 'cabinet' => 'cabinet/default/index',
                 'cabinet/<_c:[\w\-]+>' => 'cabinet/<_c>/index',
                 'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
                 'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
                 'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
+
+
                 '/<slug:[\w\-]+>' => 'page/view',
                 ['class' => 'frontend\urls\PageUrlRule'],
                 ['class' => 'frontend\urls\MovingPageUrlRule'],
@@ -289,7 +294,6 @@ return [
                 //** ART *****************
                 ['class' => 'frontend\urls\EventCategoryUrlRule'],
                 ['class' => 'frontend\urls\EventUrlRule'],
-
 
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],
