@@ -46,7 +46,6 @@ class Land extends ActiveRecord
         return $land;
     }
 
-
     public function edit($name, $slug, $cost): void
     {
         $this->name = $name;
@@ -76,7 +75,7 @@ class Land extends ActiveRecord
         $this->points = $points;
     }
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%land_anonymous}}';
     }
@@ -91,7 +90,7 @@ class Land extends ActiveRecord
         }
     }
 
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         $this->setAttribute('points_json', json_encode($this->points));
         return parent::beforeSave($insert);
@@ -106,11 +105,10 @@ class Land extends ActiveRecord
     {
         $this->points = [];
     }
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             MetaBehavior::class,
-//            NestedSetsBehavior::class,
             [
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'photo',

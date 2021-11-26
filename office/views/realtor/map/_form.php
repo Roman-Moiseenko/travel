@@ -1,7 +1,7 @@
 <?php
 
 use booking\entities\realtor\land\Land;
-use booking\forms\land\LandForm;
+use booking\forms\realtor\land\LandForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 

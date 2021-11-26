@@ -11,7 +11,7 @@ use booking\helpers\Filling;
 use booking\repositories\booking\trips\ActivityRepository;
 use booking\services\booking\trips\ActivityService;
 use booking\services\booking\trips\TripService;
-use booking\services\land\LandService;
+use booking\services\realtor\land\LandService;
 use booking\services\system\LoginService;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

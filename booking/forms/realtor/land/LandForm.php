@@ -1,12 +1,13 @@
 <?php
 
 
-namespace booking\forms\land;
+namespace booking\forms\realtor\land;
 
 
 use booking\entities\realtor\land\Land;
 use booking\entities\realtor\land\Point;
 use booking\forms\CompositeForm;
+use booking\forms\realtor\land\PointForm;
 use yii\base\Model;
 
 /**
@@ -17,8 +18,8 @@ use yii\base\Model;
 class LandForm extends CompositeForm
 {
     public $name;
-    public $min_price;
-    public $count;
+    public $slug;
+    public $cost;
 
     public function __construct(Land $land = null, $config = [])
     {
@@ -26,8 +27,8 @@ class LandForm extends CompositeForm
         $_n = 0;
         if ($land) {
             $this->name = $land->name;
-            $this->min_price = $land->min_price;
-            $this->count = $land->count;
+            $this->slug = $land->slug;
+            $this->cost = $land->cost;
             $_n = count($land->points);
             $points = array_map(function (Point $point) {
                 return new PointForm($point);
@@ -38,12 +39,12 @@ class LandForm extends CompositeForm
         parent::__construct($config);
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['name', 'min_price'], 'required'],
-            ['name', 'string'],
-            [['min_price', 'count'], 'integer'],
+            [['name', 'cost'], 'required'],
+            [['name', 'slug'], 'string'],
+            [['cost'], 'integer'],
 
         ];
     }
@@ -53,7 +54,7 @@ class LandForm extends CompositeForm
         return ['points'];
     }
 
-    public function beforeValidate()
+    public function beforeValidate(): bool
     {
         $this->points = array_filter(
             array_map(function (PointForm $point) {

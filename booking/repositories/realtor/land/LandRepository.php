@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\repositories\land;
+namespace booking\repositories\realtor\land;
 
 
 use booking\entities\realtor\land\Land;
@@ -24,6 +24,10 @@ class LandRepository
         }
     }
 
+    /**
+     * @throws \yii\db\StaleObjectException
+     * @throws \Throwable
+     */
     public function remove(Land $land)
     {
         if (!$land->delete()) {
@@ -31,7 +35,7 @@ class LandRepository
         }
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         return Land::find()->all();
     }

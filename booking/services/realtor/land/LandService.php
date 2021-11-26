@@ -1,14 +1,14 @@
 <?php
 
 
-namespace booking\services\land;
+namespace booking\services\realtor\land;
 
 
+use booking\entities\Meta;
 use booking\entities\realtor\land\Land;
 use booking\entities\realtor\land\Point;
-use booking\forms\land\LandForm;
-use booking\helpers\scr;
-use booking\repositories\land\LandRepository;
+use booking\forms\realtor\land\LandForm;
+use booking\repositories\realtor\land\LandRepository;
 
 class LandService
 {
@@ -24,7 +24,7 @@ class LandService
 
     public function create(LandForm $form): void
     {
-        $land = Land::create($form->name, $form->min_price, $form->count);
+        $land = Land::create($form->name, $form->slug, $form->cost);
         foreach ($form->points as $point) {
             $land->addPoint(Point::create($point->latitude, $point->longitude));
         }
@@ -34,7 +34,7 @@ class LandService
     public function edit($id, LandForm $form): void
     {
         $land = $this->lands->get($id);
-        $land->edit($form->name, $form->min_price, $form->count);
+        $land->edit($form->name, $form->slug, $form->cost);
         $land->clearPoints();
         foreach ($form->points as $point) {
             $land->addPoint(Point::create($point->latitude, $point->longitude));
@@ -48,6 +48,8 @@ class LandService
         foreach ($coords as $point) {
             $land->addPoint(Point::create($point[0], $point[1]));
         }
+
+        $land->setMeta(new Meta());
         $this->lands->save($land);
         return $land;
     }

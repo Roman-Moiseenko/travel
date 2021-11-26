@@ -4,7 +4,7 @@
 /* @var $this yii\web\View */
 
 use booking\entities\realtor\land\Land;
-use booking\forms\land\LandForm;
+use booking\forms\realtor\land\LandForm;
 use office\assets\LandAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;

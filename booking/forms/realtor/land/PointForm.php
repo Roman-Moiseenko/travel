@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\forms\land;
+namespace booking\forms\realtor\land;
 
 
 use booking\entities\realtor\land\Point;
@@ -21,7 +21,7 @@ class PointForm extends Model
         parent::__construct($config);
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['latitude', 'longitude'], 'string'],

@@ -6,7 +6,7 @@ namespace frontend\controllers\realtor;
 
 use booking\entities\realtor\land\Land;
 use booking\entities\realtor\land\Point;
-use booking\repositories\land\LandRepository;
+use booking\repositories\realtor\land\LandRepository;
 use yii\web\Controller;
 
 class MapController extends Controller

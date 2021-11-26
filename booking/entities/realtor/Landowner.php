@@ -117,12 +117,12 @@ class Landowner extends ActiveRecord
         $this->status = $status;
     }
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%realtor_landowners}}';
     }
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             BookingAddressBehavior::class,
