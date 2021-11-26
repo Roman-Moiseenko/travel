@@ -40,7 +40,7 @@ $(document).ready(function () {
             function loadLands() {
                 //Удаляем все нарисованные объекты
                 mapLand.geoObjects.removeAll();
-                $.post('/land/map/get-lands', {}, function (data) {
+                $.post('/realtor/map/get-lands', {}, function (data) {
                     let collection = new ymaps.GeoObjectCollection(null, {});
                     let _result = JSON.parse(data);
                     for (let i = 0; i < _result.length; i++) {
@@ -49,8 +49,7 @@ $(document).ready(function () {
                                 [_result[i].coords]
                                 , {
                                     hintContent: '<div class="p-2 m-2"><span style="color: rgba(41,78,107,0.93); font-size: 16px;">' +
-                                        _result[i].name + '</span></div>' + '<p style="font-size: 14px; color: rgba(41,78,107,0.93);">' + _result[i].min_price + ' руб./сотка</p>' +
-                                        '<p><span style="font-size: 12px; color: rgba(41,78,107,0.93);">' + _result[i].count + ' участков</span></p>',
+                                        _result[i].name + '</span></div>' + '<p style="font-size: 14px; color: rgba(41,78,107,0.93);">' + _result[i].cost + ' руб.</p>',
                                     balloonContent:
                                         '<p>Позвонить: +7-911-471-0701</p>',
                                 }, {

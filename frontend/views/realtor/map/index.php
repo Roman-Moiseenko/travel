@@ -51,7 +51,7 @@ LandAsset::register($this);
     </p>
 </div>
 
-<h2 class="pt-4 pb-2">Карта приватных участков земли на продажу</h2>
+<h2 class="pt-4 pb-2">Карта инвестиционных участков земли</h2>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <div id="map-land" style="width: 100%; height: 600px;"></div>
 <div class="indent text-justify p-4">

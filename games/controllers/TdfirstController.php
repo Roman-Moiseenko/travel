@@ -57,7 +57,7 @@ class TdfirstController extends Controller
     {
         try {
             $params = \Yii::$app->request->post();
-            return $this->service->setData($params['user_id'], $params['settings_json']);
+            return $this->service->setSettings($params['user_id'], $params['settings_json']);
         } catch (\Throwable $e) {
             \Yii::$app->errorHandler->logException($e);
             return 'error_params' . $e->getMessage();

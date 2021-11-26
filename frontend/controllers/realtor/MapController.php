@@ -4,8 +4,8 @@
 namespace frontend\controllers\realtor;
 
 
-use booking\entities\land\Land;
-use booking\entities\land\Point;
+use booking\entities\realtor\land\Land;
+use booking\entities\realtor\land\Point;
 use booking\repositories\land\LandRepository;
 use yii\web\Controller;
 
@@ -38,8 +38,8 @@ class MapController extends Controller
                     return [
                         'name' => urldecode($land->name),
                         'id' => $land->id,
-                        'min_price' => $land->min_price,
-                        'count' => $land->count,
+                        'slug' => $land->slug,
+                        'cost' => $land->cost,
                         'coords' => array_map(function (Point $point) {
                             return [$point->latitude, $point->longitude];
                         }, $land->points),

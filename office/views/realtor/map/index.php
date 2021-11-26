@@ -41,15 +41,15 @@ LandAsset::register($this);
                     <input type="text" id="land-name" class="form-control" name="LandForm[name]" aria-required="true">
 
                 </div>
-                <div class="form-group field-landform-min_price required">
-                    <label for="land-min_price">Мин.цена за 1га</label>
-                    <input type="text" id="land-min_price" class="form-control" name="LandForm[min_price]"
+                <div class="form-group field-landform-min_price slug">
+                    <label for="land-slug">Ссылка</label>
+                    <input type="text" id="land-slug" class="form-control" name="LandForm[slug]"
                            aria-required="true">
                 </div>
 
-                <div class="form-group field-landform-count">
-                    <label for="land-count">Кол-во участков</label>
-                    <input type="text" id="land-count" class="form-control" name="LandForm[count]">
+                <div class="form-group field-landform-cost">
+                    <label for="land-cost">Цена</label>
+                    <input type="text" id="land-cost" class="form-control" name="LandForm[cost]">
                 </div>
             <div class="modal-footer">
                 <div class="form-group">

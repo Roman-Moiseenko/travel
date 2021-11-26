@@ -6,7 +6,7 @@ namespace booking\helpers\trips;
 
 use booking\entities\booking\trips\BookingTrip;
 use booking\entities\booking\trips\ReviewTrip;
-use booking\entities\land\Land;
+use booking\entities\realtor\land\Land;
 use booking\entities\Lang;
 use booking\helpers\BookingHelper;
 

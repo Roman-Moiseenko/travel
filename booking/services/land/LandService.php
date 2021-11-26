@@ -4,8 +4,8 @@
 namespace booking\services\land;
 
 
-use booking\entities\land\Land;
-use booking\entities\land\Point;
+use booking\entities\realtor\land\Land;
+use booking\entities\realtor\land\Point;
 use booking\forms\land\LandForm;
 use booking\helpers\scr;
 use booking\repositories\land\LandRepository;
@@ -42,9 +42,9 @@ class LandService
         $this->lands->save($land);
     }
 
-    public function create_ajax($name, $min_price, $count, array $coords): Land
+    public function create_ajax($name, $slug, $cost, array $coords): Land
     {
-        $land = Land::create($name, $min_price, $count);
+        $land = Land::create($name, $slug, $cost);
         foreach ($coords as $point) {
             $land->addPoint(Point::create($point[0], $point[1]));
         }
@@ -58,10 +58,10 @@ class LandService
         $this->lands->remove($land);
     }
 
-    public function edit_ajax($id, $name, $min_price, $count)
+    public function edit_ajax($id, $name, $slug, $cost)
     {
         $land = $this->lands->get($id);
-        $land->edit($name, $min_price, $count);
+        $land->edit($name, $slug, $cost);
         $this->lands->save($land);
         return $land;
     }

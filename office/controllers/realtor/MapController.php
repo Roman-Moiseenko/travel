@@ -4,9 +4,9 @@
 namespace office\controllers\realtor;
 
 
-use booking\entities\land\Land;
-use booking\entities\land\Point;
+use booking\entities\realtor\land\Land;
 use booking\entities\Rbac;
+use booking\entities\realtor\land\Point;
 use booking\forms\land\LandForm;
 use booking\helpers\scr;
 use booking\repositories\land\LandRepository;
@@ -60,6 +60,14 @@ class MapController extends Controller
         return $this->render('index');
     }
 
+    public function actionPage($id)
+    {
+        $land = Land::findOne($id);
+
+        return $this->render('page', [
+            'land' => $land,
+        ]);
+    }
 
     public function actionGetLands()
     {
@@ -70,8 +78,8 @@ class MapController extends Controller
                     return [
                         'name' => urldecode($land->name),
                         'id' => $land->id,
-                        'min_price' => $land->min_price,
-                        'count' => $land->count,
+                        'slug' => $land->slug,
+                        'cost' => $land->cost,
                         'coords' => array_map(function (Point $point) {
                             return [$point->latitude, $point->longitude];
                         }, $land->points),
@@ -91,11 +99,11 @@ class MapController extends Controller
             try {
                 $params = \Yii::$app->request->bodyParams;
                 $name = $params['name'];
-                $min_price = $params['min_price'];
-                $count = $params['count'];
+                $slug = $params['slug'];
+                $cost = $params['cost'];
                 $coords = $params['coords'];
 
-                $land = $this->service->create_ajax($name, $min_price, $count, $coords);
+                $land = $this->service->create_ajax($name, $slug, $cost, $coords);
 
                 return 'success ' . $land->id;
             } catch (\Throwable $e) {
@@ -111,11 +119,11 @@ class MapController extends Controller
             try {
                 $params = \Yii::$app->request->bodyParams;
                 $name = $params['name'];
-                $min_price = $params['min_price'];
-                $count = $params['count'];
+                $slug = $params['slug'];
+                $cost = $params['cost'];
                 $id = $params['id'];
 
-                $land = $this->service->edit_ajax($id, $name, $min_price, $count);
+                $land = $this->service->edit_ajax($id, $name, $slug, $cost);
 
                 return 'success ' . $land->id;
             } catch (\Throwable $e) {

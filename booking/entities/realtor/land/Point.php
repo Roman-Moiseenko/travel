@@ -1,7 +1,7 @@
 <?php
 
 
-namespace booking\entities\land;
+namespace booking\entities\realtor\land;
 
 
 class Point

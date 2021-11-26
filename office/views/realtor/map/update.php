@@ -3,7 +3,7 @@
 
 /* @var $this yii\web\View */
 
-use booking\entities\land\Land;
+use booking\entities\realtor\land\Land;
 use booking\forms\land\LandForm;
 use office\assets\LandAsset;
 use yii\helpers\Html;

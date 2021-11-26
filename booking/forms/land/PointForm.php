@@ -4,7 +4,7 @@
 namespace booking\forms\land;
 
 
-use booking\entities\land\Point;
+use booking\entities\realtor\land\Point;
 use yii\base\Model;
 
 class PointForm extends Model

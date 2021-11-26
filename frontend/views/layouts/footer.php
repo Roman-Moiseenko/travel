@@ -33,9 +33,11 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Проживание в Калининграде') ?></label>
                 <ul class="list-unstyled">
-                    <!--li><a href=""><?= Lang::t('Отели') ?> (*)</a></li-->
-                    <!--li><a href=""><?= Lang::t('Хостелы') ?> (*)</a></li-->
-                    <li><a href="<?= Url::to(['/stays']) ?>"><h3><?= Lang::t('Бронировать квартиру, дом') ?></h3></a>
+                    <li><a href="<?= Url::to(['/stays/recreation']) ?>"><h3><?= Lang::t('Базы отдыха и глэмпинги') ?></h3></a></li>
+
+                    <li><a href="<?= Url::to(['/stays/hotel']) ?>"><h3><?= Lang::t('Отели и Хостелы') ?></h3></a>
+                    <li><a href="<?= Url::to(['/stays/house']) ?>"><h3><?= Lang::t('Дома целиком, виллы') ?></h3></a></li>
+                    <li><a href="<?= Url::to(['/stays/flat']) ?>"><h3><?= Lang::t('Квартиры комфорт и премиум') ?></h3></a></li>
                     </li>
                     <li>
                         <hr/>
@@ -44,7 +46,7 @@ use yii\helpers\Url; ?>
                     </li>
                     <li><a href="<?= Url::to(['/shops']) ?>"><h3><?= Lang::t('Что привезти из Калининграда') ?></h3></a>
                     </li>
-                    <!--li><a href=""><?= Lang::t('Загородные дома') ?> (*)</a></li-->
+
                 </ul>
             </div>
             <div class="col-sm-3">
@@ -57,7 +59,7 @@ use yii\helpers\Url; ?>
                     <li><a href="<?= Url::to(['/moving']) ?>"><h3><?= Lang::t('На ПМЖ в Калининград') ?></h3>
                         </a></li>
                     <li><a href="<?= Url::to(['/realtor']) ?>"><h3><?= Lang::t('Земля и Недвижимость') ?></h3></a></li>
-                    <li><a href=""><?= '' //TODO Lang::t('Купить билет на представление')  ?></a></li>
+
                 </ul>
             </div>
             <div class="col-sm-3">
@@ -86,7 +88,7 @@ use yii\helpers\Url; ?>
         <hr>
         <div class="float-right d-none d-sm-inline">
             <div>
-                <?= Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo'], ['rel' => 'nofollow']) ?>
+                <?= '';//Html::a('Стать Провайдером услуг', \Yii::$app->params['adminHostInfo'], ['rel' => 'nofollow']) ?>
             </div>
             <div>
                 <a href="https://metrika.yandex.ru/stat/?id=70580203&amp;from=informer"

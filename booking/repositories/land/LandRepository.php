@@ -4,7 +4,7 @@
 namespace booking\repositories\land;
 
 
-use booking\entities\land\Land;
+use booking\entities\realtor\land\Land;
 
 class LandRepository
 {

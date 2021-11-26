@@ -1,6 +1,6 @@
 <?php
 
-use booking\entities\land\Land;
+use booking\entities\realtor\land\Land;
 use booking\forms\land\LandForm;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;

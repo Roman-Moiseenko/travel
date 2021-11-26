@@ -4,7 +4,7 @@
 namespace frontend\controllers\realtor;
 
 
-use booking\entities\land\Land;
+use booking\entities\realtor\land\Land;
 use booking\entities\land\Point;
 use booking\repositories\land\LandRepository;
 use yii\web\Controller;

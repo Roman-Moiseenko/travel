@@ -4,8 +4,8 @@
 namespace booking\forms\land;
 
 
-use booking\entities\land\Land;
-use booking\entities\land\Point;
+use booking\entities\realtor\land\Land;
+use booking\entities\realtor\land\Point;
 use booking\forms\CompositeForm;
 use yii\base\Model;
 

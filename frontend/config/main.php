@@ -211,7 +211,7 @@ return [
                 'moving/realty' => 'moving/realty/index',
                 'moving/land' => 'moving/land/index',
                 'moving/agents' => 'moving/agents/index',
-                'land/map/get-lands' => 'land/map/get-lands',
+
                 'moving/moving/get-items' => 'moving/moving/get-items',
                 'moving/region' => 'moving/region/index',
                 'moving/bussines' => 'moving/bussines/index',
@@ -229,6 +229,7 @@ return [
                 'realtor' => 'realtor/realtor/index',
                 'realtor/land' => 'realtor/land/index',
                 'realtor/investment' => 'realtor/investment/index',
+                'realtor/map/get-lands' => 'realtor/map/get-lands',
                 'realtor/map' => 'realtor/map/index',
                 'realtor/landowners' => 'realtor/landowners/index',
                 'realtor/landowners/booking' => 'realtor/landowners/booking',
@@ -253,6 +254,9 @@ return [
                 'art/events' => 'art/event/index',
                 'art/events/<slug:[\w\-]+>' => 'art/event/category',
                 'art/event/<slug:[\w\-]+>' => 'art/event/event',
+
+                //** COMMENT *****************
+                'comment/new-comment' => 'comment/new-comment',
 
                 'out-link' => 'out-link/index',
                 'legals/view' => 'legals/view',
