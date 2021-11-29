@@ -8,10 +8,11 @@
 use frontend\assets\LandAsset;
 use yii\helpers\Url;
 
-$this->title = 'Агентство Инвестиции в Калининградскую землю, деликатная купля-продажа участков для строительства дома и коммерческих зданий в области Карта участков';
-$this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки. Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
+$this->title = $land->meta->title;
+$this->registerMetaTag(['name' => 'description', 'content' => $land->meta->description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $land->meta->description]);
 
-$this->params['canonical'] = Url::to(['/realtor/map'], true);
+$this->params['canonical'] = Url::to(['/realtor/map/view', 'slug' => $land->slug], true);
 $this->params['breadcrumbs'][] = ['label' => 'Земля', 'url' => Url::to(['/realtor'])];
 $this->params['breadcrumbs'][] = ['label' => 'Инвесторам', 'url' => Url::to(['/realtor/map'])];
 

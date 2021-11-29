@@ -42,10 +42,10 @@ class PageRepository
 
     public function findBySlug($slug): ?Page
     {
-        if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one()) {
+        /*if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one()) {
             throw new \DomainException('Страница не найдена');
-        }
-        return $page;
+        }*/
+        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
     }
 
     public function findRoot(): ?Page

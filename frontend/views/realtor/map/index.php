@@ -9,7 +9,9 @@ use yii\helpers\Url;
 
 /* @var $lands \booking\entities\realtor\land\Land[] */
 $this->title = 'Агентство Инвестиции в Калининградскую землю, деликатная купля-продажа участков для строительства дома и коммерческих зданий в области Карта участков';
-$this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки. Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
+$description = 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки. Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки';
+$this->registerMetaTag(['name' => 'description', 'content' => $description]);
+$this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 
 $this->params['canonical'] = Url::to(['/realtor/map'], true);
 $this->params['breadcrumbs'][] = ['label' => 'Земля', 'url' => Url::to(['/realtor'])];
@@ -24,7 +26,7 @@ LandAsset::register($this);
 <?= ImageH2Widget::widget([
     'directory' => 'realtor',
     'image_file' => 'land_01.jpg',
-    'alt' => 'Деликатная купля-продажа земельных участков в Калининградской области',
+    'alt' => 'Инвестиции в земельные участки под застройку ИЖД и МКД в Калининградской области',
 ]); ?>
 <div class="container params-moving pt-4 text-block">
 

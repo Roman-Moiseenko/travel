@@ -12,7 +12,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Инвестиционные уч�
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <p>
+    <?= \yii\helpers\Html::a('Изменить', \yii\helpers\Url::to(['update', 'id' => $land->id]), ['class' => 'btn btn-primary']) ?>
     <?= \yii\helpers\Html::a('Нарисовать Участок', \yii\helpers\Url::to(['points', 'id' => $land->id]), ['class' => 'btn btn-success']) ?>
+
 </p>
 
 <div class="card card-secondary">

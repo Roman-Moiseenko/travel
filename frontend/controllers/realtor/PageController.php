@@ -4,6 +4,7 @@
 namespace frontend\controllers\realtor;
 
 
+use booking\helpers\scr;
 use booking\helpers\StatusHelper;
 use booking\repositories\realtor\PageRepository;
 use booking\services\realtor\PageManageService;
@@ -36,8 +37,7 @@ class PageController extends Controller
     public function actionIndex()
     {
         $page = $this->pages->findBySlug('info');
-        if (!$page) return \Yii::$app->request->referrer;
-        //$page = $this->pages->findRoot();
+        if ($page == null) return $this->redirect(\Yii::$app->request->referrer);
         $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
 
         return $this->render('view', [
@@ -47,7 +47,6 @@ class PageController extends Controller
         ]);
     }
 
-
     public function actionView($slug)
     {
         try {
@@ -56,7 +55,7 @@ class PageController extends Controller
             \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(Url::to(['/about']));
         }
-        $root = $this->pages->findRoot();
+        //$root = $this->pages->findRoot();
         $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
         return $this->render('view', [
             'page' => $page,
