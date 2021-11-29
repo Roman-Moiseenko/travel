@@ -53,12 +53,7 @@ use yii\widgets\ActiveForm;
             </div>
             <?= $form->field($model, 'description')->widget(CKEditor::class)->label('Описание') ?>
             <?= $form->field($model, 'content')
-                ->widget(CKEditor::class, [
-                    'options' => ['rows' => 24],
-                    'editorOptions' => [
-                        'allowedContent' => true,
-                    ]
-                ])
+                ->widget(CKEditor::class)
                 ->label('Текст') ?>
         </div>
     </div>

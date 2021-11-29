@@ -115,7 +115,7 @@ LandAsset::register($this);
 <h2 class="pt-4">Информация для Инвестора</h2>
 <div class="params-moving">
     <p>Перечень оказываемых услуг в сфере инвестиции и еще чего-то, Вы можете узнать на нашей странице <a
-                href="<?= Url::to(['/realtor/about']) ?>">Агентство</a></p>
+                href="https://koenigs.ru/realtor/page/agentstvo-privat-nedvizhimost-v-kaliningrade" rel="nofollow">Агентство</a></p>
     <p>Юридическими вопросами занимаются наши партнеры <a href="https://koenigs.ru/out-link?link=https://dekorum39.ru/"
                                                           rel="nofollow">"Декорум"</a></p>
     <p>Фото (чье?)</p>
