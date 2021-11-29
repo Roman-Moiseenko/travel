@@ -41,7 +41,7 @@ $mobile = SysHelper::isMobile();
 <article class="page-view params-moving <?= $mobile ? 'word-break-table'  : ''?>">
     <?= SysHelper::lazyloaded($page->content); ?>
 </article>
-<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => 'night']) ?>
+<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => '/night/night']) ?>
 
 <!-- Отзывы -->
 <!-- Новый отзыв -->

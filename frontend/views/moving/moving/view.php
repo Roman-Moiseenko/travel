@@ -47,7 +47,7 @@ $mobile = SysHelper::isMobile();
     </ul>
 
 </article>
-<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => 'moving']) ?>
+<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => '/moving/moving']) ?>
 
 <!-- Отзывы -->
 <!-- Новый отзыв -->

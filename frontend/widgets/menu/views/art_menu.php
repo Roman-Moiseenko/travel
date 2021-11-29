@@ -53,7 +53,7 @@ use yii\helpers\Url;
                 <li class="dropdown nav-item">
                     <a class="top-menu-a dropdown-toggle nav-link <?= \Yii::$app->controller->id == 'art/word' ? 'active' : '' ?>"
                        data-toggle="dropdown" rel="nofollow" href="<?= Html::encode(Url::to(['/art/word'])) ?>">
-                        <i class="fas fa-book"></i>&#160;<?= Lang::t('Томик') ?></a>
+                        <i class="fas fa-book"></i>&#160;<?= Lang::t('Поэзия') ?></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?= Html::encode(Url::to(['/art/word'])) ?>">Литература в Калининграде</a>
                         <a class="dropdown-item" href="<?= Html::encode(Url::to(['/art/word/gallery'])) ?>">Вечера</a>

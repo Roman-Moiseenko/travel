@@ -43,7 +43,7 @@ $mobile = SysHelper::isMobile();
 
 
 </article>
-<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => 'medicine']) ?>
+<?= MenuPagesWidget::widget(['pages' => $categories, 'section' => '/medicine/medicine']) ?>
 
 <!-- Отзывы -->
 <!-- Новый отзыв -->

@@ -10,8 +10,8 @@ $this->title = 'Инвестиции в Калининградскую земл�
 $this->registerMetaTag(['name' => 'description', 'content' => 'Операции с землей в Калининграде - купля-продажа, инвестиции, закрытые сделки,']);
 
 $this->params['canonical'] = Url::to(['/realtor/investment'], true);
-$this->params['breadcrumbs'][] = ['label' => 'Земля', 'url' => Url::to(['/realtor'])];
-$this->params['breadcrumbs'][] = 'Покупка';
+$this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/realtor'])];
+$this->params['breadcrumbs'][] = 'Инвестиции';
 LandAsset::register($this);
 
 

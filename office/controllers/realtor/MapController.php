@@ -148,7 +148,7 @@ class MapController extends Controller
         }
         return $this->goHome();
     }
-
+/*
     public function actionCreate()
     {
         $form = new LandForm();
@@ -167,7 +167,7 @@ class MapController extends Controller
         ]);
 
     }
-
+*/
     public function actionUpdate($id)
     {
         $land = Land::findOne($id);

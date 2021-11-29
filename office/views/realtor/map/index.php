@@ -16,7 +16,6 @@ LandAsset::register($this);
 
 <div>
     <p>
-        <?= ''//Html::a('Создать Участок', Url::to(['create']), ['class' => 'btn btn-success'])  ?>
         <button id="add-land" class="btn btn-success" data-toggle="modal"
                 data-target="#landModal">Создать Участок
         </button>

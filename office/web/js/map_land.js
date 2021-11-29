@@ -1,46 +1,50 @@
 ymaps.ready(init);
 
 function init() {
-    let land_name, land_slug, land_cost, land_id;
+    let land_id;
     let newPolygon;
-    const CONTROLLER_LANDS ='/realtor/map/';
-
+    const CONTROLLER_LANDS ='/realtor/invest/';
 
     if (document.getElementById("map-land")) {
-        let mapLand = new ymaps.Map(document.getElementById("map-land"), {
-            center: [54.74639455404805, 20.537801017695948],
-            zoom: 10
-        }, {
-            restrictMapArea: [
-                [54.256, 19.586],
-                [55.317, 22.975]
-            ]
-        });
-        mapLand.controls.remove('searchControl');
-        mapLand.controls.remove('trafficControl');
-        mapLand.controls.remove('geolocationControl');
+        land_id = $('#map-land').data('id');
+        let mapLand;
+        $.post(CONTROLLER_LANDS + 'get-land', {id: land_id}, function (data) {
+            let _result = JSON.parse(data);
 
-        loadLands();
+            mapLand = new ymaps.Map(document.getElementById("map-land"), {
+                center: [_result.x, _result.y],
+                zoom: 16
+            }, {
+                restrictMapArea: [
+                    [54.256, 19.586],
+                    [55.317, 22.975]
+                ]
+            });
+            mapLand.controls.remove('searchControl');
+            mapLand.controls.remove('trafficControl');
+            mapLand.controls.remove('geolocationControl');
+            mapLand.geoObjects.removeAll();
+            let collection = new ymaps.GeoObjectCollection(null, {});
+                collection.add(
+                    new ymaps.Polygon(
+                        [_result.points],
+                        {
+                            hintContent: '',
+                            balloonContent: '',
+                        },
+                        {
+                            // Задаем опции геообъекта.
+                            fillColor: '#00FF0066',// Цвет заливки.
+                            strokeWidth: 1// Ширина обводки.
+                        })
+                );
+            mapLand.geoObjects.add(collection);
+        });
 
 
         $('body').on('click', '#start-land', function () {
-            land_name = $('#land-name').val();
-            land_slug = $('#land-slug').val();
-            land_cost = $('#land-cost').val();
-            land_id = $('#start-land').attr('data-id');
-            console.log(land_id);
-            if (Number(land_id) > 0) {
-                $.post(CONTROLLER_LANDS + 'update-land', {
-                    name: land_name,
-                    slug: land_slug,
-                    cost: land_cost,
-                    id: land_id
-                }, function (data) {
-                    console.log(data);
-                    loadLands();
-                })
-            } else {
-                $('#caption-edit').html('Рисуем новый участок <span style="font-weight: 600; ">' + land_name + '</span>');
+
+                $('#caption-edit').html('Рисуем новый участок');
                 $('#stop-land').show();
 
                 newPolygon = new ymaps.Polygon([], {}, {
@@ -55,7 +59,7 @@ function init() {
                     newPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
                 });
                 newPolygon.editor.startDrawing();
-            }
+
         });
 
         $('body').on('click', '#stop-land', function () {
@@ -65,17 +69,16 @@ function init() {
             newPolygon.editor.stopEditing();
             let coords = newPolygon.geometry.getCoordinates();
 
-            $.post(CONTROLLER_LANDS + 'create-land', {
-                name: land_name,
-                slug: land_slug,
-                cost: land_cost,
+            $.post(CONTROLLER_LANDS + 'create-points', {
+                id: land_id,
                 coords: coords[0]
             }, function (data) {
                 console.log(data);
-                loadLands();
+                //loadLand();
             });
-        });
 
+        });
+/*
         $('body').on('click', '#add-land', function () {
             $('#land-name').val('');
             $('#land-slug').val('');
@@ -99,6 +102,46 @@ function init() {
                 loadLands();
             });
         });
+*/
+   /*     function loadLand() {
+            $.post(CONTROLLER_LANDS + 'get-land', {id: land_id}, function (data) {
+                let _result = JSON.parse(data);
+
+                mapLand = new ymaps.Map(document.getElementById("map-land"), {
+                    center: [_result.x, _result.y],
+                    zoom: 16
+                }, {
+                    restrictMapArea: [
+                        [54.256, 19.586],
+                        [55.317, 22.975]
+                    ]
+                });
+                mapLand.controls.remove('searchControl');
+                mapLand.controls.remove('trafficControl');
+                mapLand.controls.remove('geolocationControl');
+                mapLand.geoObjects.removeAll();
+                let collection = new ymaps.GeoObjectCollection(null, {});
+
+
+                collection.add(
+                    new ymaps.Polygon(
+                        [_result.points]
+                        , {
+                            hintContent: '',
+                            balloonContent:
+                                '',
+                        }, {
+                            // Задаем опции геообъекта.
+                            // Цвет заливки.
+                            fillColor: '#00FF0066',
+                            // Ширина обводки.
+                            strokeWidth: 1
+                        })
+                );
+
+                mapLand.geoObjects.add(collection);
+            });
+        }
 
         function loadLands() {
             //Удаляем все нарисованные объекты
@@ -132,7 +175,7 @@ function init() {
                 }
                 mapLand.geoObjects.add(collection);
             });
-        }
+        }*/
 
     }
 

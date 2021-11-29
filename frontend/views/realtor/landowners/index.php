@@ -13,8 +13,8 @@ $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 
 $this->params['canonical'] = Url::to(['/realtor/landowners'], true);
-$this->params['breadcrumbs'][] = ['label' => 'Агентство', 'url' => Url::to(['/realtor'])];
-$this->params['breadcrumbs'][] = 'Участки';
+$this->params['breadcrumbs'][] = ['label' => 'Земля', 'url' => Url::to(['/realtor'])];
+$this->params['breadcrumbs'][] = 'Под ИЖС';
 
 ?>
 

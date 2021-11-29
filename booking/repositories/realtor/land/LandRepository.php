@@ -39,4 +39,9 @@ class LandRepository
     {
         return Land::find()->all();
     }
+
+    public function findBySlug($slug):? Land
+    {
+        return Land::find()->andWhere(['slug' => $slug])->one();
+    }
 }

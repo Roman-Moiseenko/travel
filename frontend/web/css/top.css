@@ -70,3 +70,14 @@
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
     border-radius: 7px;
 }
+.nav-item-tabs {
+    margin-left: 10px;
+    background: rgba(0,0,0,0.1);
+}
+.nav-item-tabs:hover{
+    background: rgba(0,0,0,0);
+}
+
+.nav-item-tabs.active {
+    background: rgba(0,0,0,0);
+}

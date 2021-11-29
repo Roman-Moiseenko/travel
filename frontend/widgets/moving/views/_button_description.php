@@ -15,5 +15,5 @@ use yii\web\View;
     <?= $category->description ?>
 </div>
 <p style="font-size: 16px; line-height: 2.5rem; padding-top: 12px">
-    <a href="<?= Url::to(['/' .$section . '/' . $section . '/view', 'slug' => $category->slug])?>"><i class="fab fa-readme"></i>&#160;<?= $category->name ?></a>
+    <a href="<?= Url::to([$section . '/view', 'slug' => $category->slug])?>"><i class="fab fa-readme"></i>&#160;<?= $category->name ?></a>
 </p>

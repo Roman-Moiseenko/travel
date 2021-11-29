@@ -18,7 +18,7 @@ use yii\helpers\Url;
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <?= ''//ProfileLeftBarWidget::widget()  ?>
+        <?= ''//ProfileLeftBarWidget::widget()   ?>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
@@ -42,51 +42,44 @@ use yii\helpers\Url;
                         ]],
 
                     ]],
-                    ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
-                        ['label' => 'Выплаты провайдерам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/provider'], 'active' => $this->context->id == 'finance/provider'],
-                        ['label' => 'Возвраты клиентам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/client'], 'active' => $this->context->id == 'finance/client'],
-                        ['label' => 'Финансовый отчет', 'icon' => 'file-invoice-dollar', 'url' => ['/finance/report'], 'active' => $this->context->id == 'finance/report'],
-                        ['label' => 'Движение (Клиенты)', 'icon' => 'cash-register', 'url' => ['/finance/movement'], 'active' => $this->context->id == 'finance/movement'],
-                        ['label' => 'ПрайсЛист', 'icon' => 'cash-register', 'url' => ['/finance/price'], 'active' => $this->context->id == 'finance/price'],
-                    ]],
-                    ['label' => 'Активация', 'icon' => 'external-link-alt', 'url' => ['/active'], 'active' => $this->context->id == 'active'],
-                    ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
-                    ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
-                    ['label' => 'Объекты', 'icon' => 'object-group', 'items' => [
-                        ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
-                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
-                        ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
-                        ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
-                        ['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
-                        ['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
-                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
-                    ]],
-                    ['label' => 'В.Музеи', 'icon' => 'dungeon', 'url' => ['/vmuseum/vmuseum'], 'active' => $this->context->id == 'vmuseum/vmuseum'],
-
                     ['label' => 'Риелторство', 'icon' => 'map', 'items' => [
                         ['label' => 'Землевладельцы', 'icon' => 'map', 'url' => ['/realtor/landowners'], 'active' => $this->context->id == 'realtor/landowners'],
-                        ['label' => 'Анонимная карта', 'icon' => 'map', 'url' => ['/realtor/map'], 'active' => $this->context->id == 'realtor/map'],
+                        ['label' => 'Инвестиционная карта', 'icon' => 'map', 'url' => ['/realtor/invest'], 'active' => $this->context->id == 'realtor/invest'],
+                        ['label' => 'Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'url' => ['/realtor/page'], 'active' => $this->context->id == 'realtor/page'],
+                        // ['label' => 'Анонимная карта', 'icon' => 'map', 'url' => ['/realtor/map'], 'active' => $this->context->id == 'realtor/map'],
                     ]],
-                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
-                        ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
-                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/reviews/trip'], 'active' => $this->context->id == 'reviews/trip'],
-                        ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/reviews/car'], 'active' => $this->context->id == 'reviews/car'],
-                        ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/reviews/fun'], 'active' => $this->context->id == 'reviews/fun'],
-                        ['label' => ' - Жилища', 'icon' => 'hotel', 'url' => ['/reviews/stay'], 'active' => $this->context->id == 'reviews/stay'],
-                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/reviews/shop'], 'active' => $this->context->id == 'reviews/shop'],
-                        ['label' => ' - Товары', 'icon' => 'box', 'url' => ['/reviews/product'], 'active' => $this->context->id == 'reviews/product'],
-                        ['label' => ' - Заведения', 'icon' => 'utensils', 'url' => ['/reviews/food'], 'active' => $this->context->id == 'reviews/food'],
-                        ['label' => ' - ВМузеи', 'icon' => 'dungeon', 'url' => ['/reviews/vmuseum'], 'active' => $this->context->id == 'reviews/vmuseum'],
+                    ['label' => 'Общие Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'items' => [
+                        ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/file'], 'active' => $this->context->id == 'file'],
+                        ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/page'], 'active' => $this->context->id == 'page'],
+                        ['label' => 'Помощь (Провайдер)', 'icon' => 'info', 'url' => ['/help'], 'active' => $this->context->id == 'help'],
+                        ['label' => 'Карты', 'icon' => 'map', 'url' => ['/map'], 'active' => $this->context->id == 'map']
+                    ]],
+                    ['label' => 'Блог', 'icon' => 'blog', 'items' => [
+                        ['label' => 'Статьи', 'icon' => 'book', 'url' => ['/blog/post'], 'active' => $this->context->id == 'blog/post'],
+                        ['label' => 'Категории', 'icon' => 'folder-open', 'url' => ['/blog/category'], 'active' => $this->context->id == 'blog/category'],
+                        ['label' => 'Метки', 'icon' => 'tags', 'url' => ['/blog/tag'], 'active' => $this->context->id == 'blog/tag'],
+                        ['label' => 'Комментарии', 'icon' => 'comment-dots', 'url' => ['/blog/comment'], 'active' => $this->context->id == 'blog/comment'],
+                    ]],
+                    ['label' => 'Информер', 'icon' => 'info-circle', 'items' => [
+                        ['label' => 'Питание', 'icon' => 'utensils', 'items' => [
+                            ['label' => '- Заведения', 'icon' => 'utensils', 'url' => ['/info/foods/food'], 'active' => $this->context->id == 'info/foods/food'],
+                            ['label' => '- Типы кухни', 'icon' => 'book', 'url' => ['/info/foods/kitchen'], 'active' => $this->context->id == 'info/foods/kitchen'],
+                            ['label' => '- Типы заведений', 'icon' => 'book', 'url' => ['/info/foods/category'], 'active' => $this->context->id == 'info/foods/category'],
+                        ]],
+                        ['label' => 'События (Новости)', 'iconStyle' => 'far', 'icon' => 'newspaper', 'items' => [/*
+                            ['label' => '- Провайдеры', 'iconStyle' => 'fas', 'icon' => 'users-cog', 'url' => ['/info/events/providers'], 'active' => $this->context->id == 'info/events/provider'],
+                            ['label' => '- Пользователи', 'icon' => 'users', 'url' => ['/info/events/users'], 'active' => $this->context->id == 'info/events/users'],*/
+                        ]],
+                        ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
+                            ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
+                            ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
+                            ['label' => 'Представители', 'icon' => 'user-secret', 'url' => ['/moving/agent'], 'active' => $this->context->id == 'moving/agent'],
+                            ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
+                        ]],
+                        ['label' => 'Ночная жизнь', 'icon' => 'republican', 'url' => ['/night/page'], 'active' => $this->context->id == 'night/page'],
+                        ['label' => 'Медицина', 'icon' => 'clinic-medical', 'url' => ['/medicine/page'], 'active' => $this->context->id == 'medicine/page'],
 
                     ]],
-                    ['label' => 'Диалоги', 'icon' => 'comments', 'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupport() . '</span>',
-                        'items' => [
-                            ['label' => 'От Провайдеров', 'icon' => 'comments', 'url' => ['/dialogs/provider'], 'active' => $this->context->id == 'dialogs/provider',
-                                'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupportByType(Dialog::PROVIDER_SUPPORT) . '</span>'],
-                            ['label' => 'От Клиентов', 'icon' => 'comments', 'url' => ['/dialogs/client'], 'active' => $this->context->id == 'dialogs/client',
-                                'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupportByType(Dialog::CLIENT_SUPPORT) . '</span>'],
-                            ['label' => 'Клиент - Провайдер', 'icon' => 'comments', 'url' => ['/dialogs/other'], 'active' => $this->context->id == 'dialogs/other'],
-                        ]],
                     ['label' => 'Справочники', 'icon' => 'book', 'items' => [
                         ['label' => '- Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/guides/tour-type'], 'active' => $this->context->id == 'guides/tour-type'],
                         ['label' => '- Туры', 'icon' => 'suitcase', 'items' => [
@@ -122,38 +115,51 @@ use yii\helpers\Url;
 
                         ]],
                     ]],
-                    ['label' => 'Страницы', 'iconStyle' => 'far', 'icon' => 'copy', 'items' => [
-                        ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/file'], 'active' => $this->context->id == 'file'],
-                        ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/page'], 'active' => $this->context->id == 'page'],
-                        ['label' => 'Помощь (Провайдер)', 'icon' => 'info', 'url' => ['/help'], 'active' => $this->context->id == 'help'],
-                        ['label' => 'Карты', 'icon' => 'map', 'url' => ['/map'], 'active' => $this->context->id == 'map']
+
+                    ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
+                        ['label' => 'Выплаты провайдерам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/provider'], 'active' => $this->context->id == 'finance/provider'],
+                        ['label' => 'Возвраты клиентам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/client'], 'active' => $this->context->id == 'finance/client'],
+                        ['label' => 'Финансовый отчет', 'icon' => 'file-invoice-dollar', 'url' => ['/finance/report'], 'active' => $this->context->id == 'finance/report'],
+                        ['label' => 'Движение (Клиенты)', 'icon' => 'cash-register', 'url' => ['/finance/movement'], 'active' => $this->context->id == 'finance/movement'],
+                        ['label' => 'ПрайсЛист', 'icon' => 'cash-register', 'url' => ['/finance/price'], 'active' => $this->context->id == 'finance/price'],
                     ]],
-                    ['label' => 'Блог', 'icon' => 'blog', 'items' => [
-                        ['label' => 'Статьи', 'icon' => 'book', 'url' => ['/blog/post'], 'active' => $this->context->id == 'blog/post'],
-                        ['label' => 'Категории', 'icon' => 'folder-open', 'url' => ['/blog/category'], 'active' => $this->context->id == 'blog/category'],
-                        ['label' => 'Метки', 'icon' => 'tags', 'url' => ['/blog/tag'], 'active' => $this->context->id == 'blog/tag'],
-                        ['label' => 'Комментарии', 'icon' => 'comment-dots', 'url' => ['/blog/comment'], 'active' => $this->context->id == 'blog/comment'],
+                    ['label' => 'Активация', 'icon' => 'external-link-alt', 'url' => ['/active'], 'active' => $this->context->id == 'active'],
+                    ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
+                    ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
+                    ['label' => 'Объекты', 'icon' => 'object-group', 'items' => [
+                        ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
+                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
+                        ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/cars'], 'active' => $this->context->id == 'cars'],
+                        ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/funs'], 'active' => $this->context->id == 'funs'],
+                        ['label' => ' - Жилища', 'icon' => 'house-user', 'url' => ['/stays'], 'active' => $this->context->id == 'stays'],
+                        ['label' => ' - Отели', 'icon' => 'hotel', 'url' => ['/hotels'], 'active' => $this->context->id == 'hotels'],
+                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
                     ]],
-                    ['label' => 'Информер', 'icon' => 'info-circle', 'items' => [
-                          ['label' => 'Питание', 'icon' => 'utensils', 'items' => [
-                              ['label' => '- Заведения', 'icon' => 'utensils', 'url' => ['/info/foods/food'], 'active' => $this->context->id == 'info/foods/food'],
-                              ['label' => '- Типы кухни', 'icon' => 'book', 'url' => ['/info/foods/kitchen'], 'active' => $this->context->id == 'info/foods/kitchen'],
-                              ['label' => '- Типы заведений', 'icon' => 'book', 'url' => ['/info/foods/category'], 'active' => $this->context->id == 'info/foods/category'],
-                          ]],
-                        ['label' => 'События (Новости)', 'iconStyle' => 'far', 'icon' => 'newspaper', 'items' => [/*
-                            ['label' => '- Провайдеры', 'iconStyle' => 'fas', 'icon' => 'users-cog', 'url' => ['/info/events/providers'], 'active' => $this->context->id == 'info/events/provider'],
-                            ['label' => '- Пользователи', 'icon' => 'users', 'url' => ['/info/events/users'], 'active' => $this->context->id == 'info/events/users'],*/
-                        ]],
-                        ['label' => 'На ПМЖ', 'iconStyle' => 'fas', 'icon' => 'truck-moving', 'items' => [
-                            ['label' => 'Категории FAQ', 'icon' => 'question', 'url' => ['/moving/category'], 'active' => $this->context->id == 'moving/category'],
-                            ['label' => 'Страницы', 'icon' => 'paste', 'url' => ['/moving/page'], 'active' => $this->context->id == 'moving/page'],
-                            ['label' => 'Представители', 'icon' => 'user-secret', 'url' => ['/moving/agent'], 'active' => $this->context->id == 'moving/agent'],
-                            ['label' => 'Опросники', 'icon' => 'question', 'url' => ['/moving/survey'], 'active' => $this->context->id == 'moving/survey'],
-                        ]],
-                        ['label' => 'Ночная жизнь', 'icon' => 'republican', 'url' => ['/night/page'], 'active' => $this->context->id == 'night/page'],
-                        ['label' => 'Медицина', 'icon' => 'clinic-medical', 'url' => ['/medicine/page'], 'active' => $this->context->id == 'medicine/page'],
+                    // ['label' => 'В.Музеи', 'icon' => 'dungeon', 'url' => ['/vmuseum/vmuseum'], 'active' => $this->context->id == 'vmuseum/vmuseum'],
+
+
+                    ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
+                        ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
+                        ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/reviews/trip'], 'active' => $this->context->id == 'reviews/trip'],
+                        ['label' => ' - Авто', 'icon' => 'car', 'url' => ['/reviews/car'], 'active' => $this->context->id == 'reviews/car'],
+                        ['label' => ' - Развлечения', 'icon' => 'hot-tub', 'url' => ['/reviews/fun'], 'active' => $this->context->id == 'reviews/fun'],
+                        ['label' => ' - Жилища', 'icon' => 'hotel', 'url' => ['/reviews/stay'], 'active' => $this->context->id == 'reviews/stay'],
+                        ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/reviews/shop'], 'active' => $this->context->id == 'reviews/shop'],
+                        ['label' => ' - Товары', 'icon' => 'box', 'url' => ['/reviews/product'], 'active' => $this->context->id == 'reviews/product'],
+                        ['label' => ' - Заведения', 'icon' => 'utensils', 'url' => ['/reviews/food'], 'active' => $this->context->id == 'reviews/food'],
+                        ['label' => ' - ВМузеи', 'icon' => 'dungeon', 'url' => ['/reviews/vmuseum'], 'active' => $this->context->id == 'reviews/vmuseum'],
 
                     ]],
+                    ['label' => 'Диалоги', 'icon' => 'comments', 'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupport() . '</span>',
+                        'items' => [
+                            ['label' => 'От Провайдеров', 'icon' => 'comments', 'url' => ['/dialogs/provider'], 'active' => $this->context->id == 'dialogs/provider',
+                                'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupportByType(Dialog::PROVIDER_SUPPORT) . '</span>'],
+                            ['label' => 'От Клиентов', 'icon' => 'comments', 'url' => ['/dialogs/client'], 'active' => $this->context->id == 'dialogs/client',
+                                'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupportByType(Dialog::CLIENT_SUPPORT) . '</span>'],
+                            ['label' => 'Клиент - Провайдер', 'icon' => 'comments', 'url' => ['/dialogs/other'], 'active' => $this->context->id == 'dialogs/other'],
+                        ]],
+
+
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
                     ['label' => 'Рассылка', 'icon' => 'mail-bulk', 'url' => ['/mailing'], 'active' => $this->context->id == 'mailing'],
