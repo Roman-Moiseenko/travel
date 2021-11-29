@@ -35,7 +35,7 @@ MapAsset::register($this);
 $mobile = SysHelper::isMobile();
 MovingAsset::register($this);
 ?>
-<h1 class="pb-4"><?= $landowner->name ?></h1>
+<h1 class="pb-4"><?= $landowner->title ?></h1>
 <!-- ФОТО  -->
 <div class="pb-4 thumbnails gallery" style="margin-left: 0 !important;"
      xmlns:fb="https://www.w3.org/1999/xhtml" <?= $mobile ? ' style="width: 100vw"' : '' ?>>

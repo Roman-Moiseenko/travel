@@ -35,7 +35,7 @@ $mobile = SysHelper::isMobile();
                 <meta itemprop="description" content="<?= $landowner->name ?>">
             </div>
         <?php endif; ?>
-        <p class="params-moving">
+        <p class="params-moving pt-3">
             <?= $landowner->description ?>
         </p>
 
