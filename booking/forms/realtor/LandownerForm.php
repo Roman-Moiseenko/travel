@@ -19,6 +19,7 @@ class LandownerForm extends CompositeForm
 {
     public $name;
     public $slug;
+    public $title;
     public $caption;
     public $phone;
     public $email;
@@ -36,6 +37,7 @@ class LandownerForm extends CompositeForm
         if ($landowner) {
             $this->name = $landowner->name;
             $this->slug = $landowner->slug;
+            $this->title = $landowner->title;
             $this->caption = $landowner->caption;
             $this->phone = $landowner->phone;
             $this->email = $landowner->email;
@@ -57,7 +59,7 @@ class LandownerForm extends CompositeForm
     public function rules()
     {
         return [
-            [['name', 'slug', 'caption', 'phone', 'email', 'description', 'text'], 'string'],
+            [['name', 'slug', 'caption', 'phone', 'email', 'description', 'text', 'title'], 'string'],
             [['cost', 'size', 'count'], 'integer'],
             [['distance'], 'number'],
         ];

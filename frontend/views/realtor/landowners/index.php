@@ -19,7 +19,11 @@ $this->params['breadcrumbs'][] = 'Под ИЖС';
 ?>
 
 <div>
-    <h1 class="pb-4">Купить земельный участок под ИЖС в Калининградской области</h1>
-    <?= $this->render('_list', ['landowners' => $landowners]) ?>
+    <h1 class="pb-4">Лучшие земельные участки под ИЖС в Калининградской области</h1>
+    <?php foreach ($landowners as $landowner): ?>
+        <?= $this->render('_landowner', [
+            'landowner' => $landowner
+        ]) ?>
+    <?php endforeach; ?>
     <?= InfoLandownersWidget::widget() ?>
 </div>

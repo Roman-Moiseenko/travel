@@ -29,6 +29,9 @@ use yii\widgets\ActiveForm;
                         ->label('Ссылка')
                         ->hint('Оставьте пустым, заполнится автоматически') ?>
                 </div>
+                <div class="col-4">
+                    <?= $form->field($model, 'title')->textInput()->label('Заголовок H1') ?>
+                </div>
             </div>
         </div>
     </div>

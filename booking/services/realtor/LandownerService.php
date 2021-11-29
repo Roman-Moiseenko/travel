@@ -33,6 +33,7 @@ class LandownerService
         $landowner = Landowner::create(
             $form->name,
             $form->slug,
+            $form->title,
             $form->caption,
             $form->phone,
             $form->email,
@@ -65,6 +66,7 @@ class LandownerService
         $landowner->edit(
             $form->name,
             $form->slug,
+            $form->title,
             $form->caption,
             $form->phone,
             $form->email,

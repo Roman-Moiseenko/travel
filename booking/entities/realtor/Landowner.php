@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $name
  * @property string $slug
+ * @property string $title
  * @property integer $status .. активен или нет
  * @property integer $created_at
  *
@@ -48,8 +49,6 @@ use yii\db\ActiveRecord;
  *
  *
  */
-
-
 class Landowner extends ActiveRecord
 {
     /** @var $address BookingAddress */
@@ -57,12 +56,13 @@ class Landowner extends ActiveRecord
     /** @var $meta Meta */
     public $meta;
 
-    public static function create($name, $slug, $caption, $phone, $email, $cost, $description, $distance, $count, $size,  $text, BookingAddress $address): self
+    public static function create($name, $slug, $title, $caption, $phone, $email, $cost, $description, $distance, $count, $size, $text, BookingAddress $address): self
     {
         $landowner = new static();
         $landowner->name = $name;
         $landowner->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
         if (Landowner::find()->andWhere(['slug' => $landowner->slug])->one()) throw new \DomainException('Не уникален slug!!');
+        $landowner->title = $title;
 
         $landowner->status = StatusHelper::STATUS_INACTIVE;
         $landowner->created_at = time();
@@ -83,11 +83,11 @@ class Landowner extends ActiveRecord
         return $landowner;
     }
 
-    public function edit($name, $slug, $caption, $phone, $email, $cost, $description, $distance, $count, $size,  $text, BookingAddress $address): void
+    public function edit($name, $slug, $title, $caption, $phone, $email, $cost, $description, $distance, $count, $size, $text, BookingAddress $address): void
     {
         $this->name = $name;
         $this->slug = empty($slug) ? SlugHelper::slug($name) : $slug;
-
+        $this->title = $title;
         $this->caption = $caption;
         $this->phone = $phone;
         $this->email = $email;
