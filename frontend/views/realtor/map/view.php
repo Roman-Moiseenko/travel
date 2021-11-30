@@ -31,7 +31,27 @@ LandAsset::register($this);
 </div>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>" data-lang="ru_RU"></span>
 
-<div id="map-land" data-id="<?= $land->id ?>" style="width: 100%; height: 600px;"></div>
+<div id="map-land" data-id="<?= $land->id ?>" style="width: 100%; height: 400px;"></div>
 
-<br>
-Контакты позвоните
+
+<h2 class="pt-5">Получить консультацию по инвестициям в земельный участок</h2>
+<div class="d-flex params-moving pt-4">
+    <div><img alt="Шадуйкис Олег Геннадьевич" width="200" height="200"
+              src="https://static.koenigs.ru/images/page/about/oleg.jpg"
+              style="border-radius: 30px;"/>
+
+    </div>
+    <div class="pl-5">
+        <p style="text-align: center;"><span style="font-size:18px;"><b>Шадуйкис Олег</b></span></p>
+        <p>Эксперт в области инвестиций, маркетинга и финансов. Специализация - коммерческая недвижимость и интернет-маркетинг туризма.</p>
+        <?= \frontend\widgets\design\BtnPhone::widget([
+            'caption' => '8-950-676-3594',
+            'block' => false,
+            'phone' => '8-950-676-3594'
+        ]) ?>
+
+
+    </div>
+    <div class="ml-auto">
+    </div>
+</div>

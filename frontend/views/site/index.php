@@ -133,20 +133,21 @@ $this->registerJs($script);
             </div>
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
-                    'url' => '/stays',
-                    'img_name' => 'stay.jpg',
-                    'img_alt' => 'Проживание Калининграде',
-                    'caption' => 'Проживание',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
                     'url' => '/funs',
                     'img_name' => 'fun.jpg',
                     'img_alt' => 'Развлечения и отдых в Калининграде',
                     'caption' => 'Развлечения<br>Отдых',
                 ]) ?>
             </div>
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/stays',
+                    'img_name' => 'stay.jpg',
+                    'img_alt' => 'Проживание Калининграде',
+                    'caption' => 'Проживание',
+                ]) ?>
+            </div>
+
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/cars',

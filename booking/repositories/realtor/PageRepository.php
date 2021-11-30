@@ -54,4 +54,9 @@ class PageRepository
 
     }
 
+    public function getAllForSitemap(): array
+    {
+        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['>', 'depth', 1])->all();
+    }
+
 }

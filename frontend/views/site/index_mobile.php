@@ -40,17 +40,18 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'caption' => 'Экскурсии',
             ]) ?>
             <?= $this->render('_button_mobile', [
-                'url' => '/stays',
-                'img_name' => 'stay_mobile.jpg',
-                'img_alt' => 'Проживание в Калининграде',
-                'caption' => 'Проживание',
-            ]) ?>
-            <?= $this->render('_button_mobile', [
                 'url' => '/funs',
                 'img_name' => 'fun_mobile.jpg',
                 'img_alt' => 'Развлечения и отдых в Калининграде',
                 'caption' => 'Развлечения<br>Отдых',
             ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/stays',
+                'img_name' => 'stay_mobile.jpg',
+                'img_alt' => 'Проживание в Калининграде',
+                'caption' => 'Проживание',
+            ]) ?>
+
             <?= $this->render('_button_mobile', [
                 'url' => '/cars',
                 'img_name' => 'car_mobile.jpg',

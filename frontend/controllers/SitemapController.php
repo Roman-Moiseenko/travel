@@ -7,6 +7,7 @@ namespace frontend\controllers;
 use booking\entities\blog\Category;
 use booking\entities\blog\post\Post;
 use booking\entities\booking\cars\Car;
+use booking\entities\realtor\land\Land;
 use booking\entities\touristic\fun\Fun;
 use booking\entities\booking\stays\Stay;
 use booking\entities\booking\tours\Tour;
@@ -19,6 +20,7 @@ use booking\entities\shops\Shop;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
+use booking\repositories\realtor\land\LandRepository;
 use booking\repositories\touristic\fun\FunRepository;
 use booking\repositories\booking\stays\StayRepository;
 use booking\repositories\booking\tours\TourRepository;
@@ -96,10 +98,7 @@ class SitemapController extends Controller
      * @var PageRepository
      */
     private $moving;
-    /**
-     * @var CategoryFAQRepository
-     */
-    private $categoryFAQ;
+
     /**
      * @var \booking\entities\forum\Category
      */
@@ -124,6 +123,14 @@ class SitemapController extends Controller
      * @var \booking\entities\touristic\fun\Category
      */
     private $funCategories;
+    /**
+     * @var LandRepository
+     */
+    private $lands;
+    /**
+     * @var \booking\repositories\realtor\PageRepository
+     */
+    private $realtorPages;
 
 
     public function __construct(
@@ -145,11 +152,12 @@ class SitemapController extends Controller
         CategoryRepository $postType,
         PageRepository $moving,
         \booking\repositories\night\PageRepository $night,
-        CategoryFAQRepository $categoryFAQ,
         \booking\repositories\forum\CategoryRepository $categoryForum,
         \booking\repositories\forum\PostRepository $postForum,
         SectionRepository $sections,
         LandownerRepository $landowners,
+        LandRepository $lands,
+        \booking\repositories\realtor\PageRepository $realtorPages,
         $config = []
     )
     {
@@ -168,14 +176,14 @@ class SitemapController extends Controller
         $this->shops = $shops;
         $this->products = $products;
         $this->moving = $moving;
-
-        $this->categoryFAQ = $categoryFAQ;
         $this->categoryForum = $categoryForum;
         $this->sections = $sections;
         $this->postForum = $postForum;
         $this->night = $night;
         $this->landowners = $landowners;
         $this->funCategories = $funCategories;
+        $this->lands = $lands;
+        $this->realtorPages = $realtorPages;
     }
 
     public function actionIndex(): Response
@@ -200,10 +208,9 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['realtor'], true)),
-                new IndexItem(Url::to(['realtor-landowners'], true)),
+               // new IndexItem(Url::to(['realtor-landowners'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 new IndexItem(Url::to(['night-pages'], true)),
-                //new IndexItem(Url::to(['faq-category'], true)),
                 new IndexItem(Url::to(['forum'], true)),
                 new IndexItem(Url::to(['forum-category'], true)),
                 new IndexItem(Url::to(['forum-theme'], true)),
@@ -253,17 +260,42 @@ class SitemapController extends Controller
     public function actionRealtor(): Response
     {
         return $this->renderSitemap('sitemap-realtor', function () {
-            return $this->sitemap->generateMap(array_map(function ($item) {
+            $items = ['/realtor', '/realtor/pages', '/realtor/map', 'realtor/landowners'];
+            $items = array_merge(
+                $items,
+                array_map(
+                    function (Landowner $landowner) {
+                        return Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true);
+                        },
+                    $this->landowners->getAll()
+                ),
+                array_map(
+                    function (Land $land){
+                        return Url::to(['/realtor/map/view', 'slug' => $land->slug], true);
+
+                    },
+                    $this->lands->getAll()
+                ),
+                array_map(
+                    function (\booking\entities\realtor\Page $page){
+                        return Url::to(['/realtor/page/view', 'slug' => $page->slug], true);
+
+                    },
+                    $this->realtorPages->getAllForSitemap()
+                ),
+                        );
+
+            return $this->sitemap->generateMap(array_map(function ($item) use($items) {
                 return new MapItem(
                     Url::to([$item], true),
                     null,
                     MapItem::ALWAYS
                 );
-            }, ['/realtor', '/realtor/investment', '/realtor/map', 'realtor/landowners']));
+            }, $items));
         });
     }
 
-    public function actionRealtorLandowners(): Response
+/*    public function actionRealtorLandowners(): Response
     {
         return $this->renderSitemap('sitemap-forum-theme', function () {
             return $this->sitemap->generateMap(array_map(function (Landowner $landowner) {
@@ -275,7 +307,7 @@ class SitemapController extends Controller
             }, $this->landowners->getAll()));
         });
     }
-
+*/
     public function actionMoving(): Response
     {
         return $this->renderSitemap('sitemap-moving', function () {

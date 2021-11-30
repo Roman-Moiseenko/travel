@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use frontend\assets\LandAsset;
+use frontend\widgets\design\BtnSend;
 use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
@@ -101,12 +102,12 @@ LandAsset::register($this);
                 <h3 class="pt-4"><?= $land->title ?></h3>
                 <div class="item-responsive item-3-0by1">
                     <div class="content-item">
-                <img loading="lazy" src="<?= $land->getThumbFileUrl('photo', 'list_lands') ?>"/>
+                        <img loading="lazy" src="<?= $land->getThumbFileUrl('photo', 'list_lands') ?>"/>
                     </div>
                 </div>
                 <p class="pt-4"><?= $land->description ?></p>
                 <p><a href="<?= Url::to(['realtor/map/view', 'slug' => $land->slug]) ?>"
-                   class="stretched-link">Подробнее об инвестиционном предложении</a>
+                      class="stretched-link">Подробнее об инвестиционном предложении</a>
                 </p>
             </div>
         </div>
@@ -114,14 +115,40 @@ LandAsset::register($this);
 </div>
 <h2 class="pt-4">Информация для Инвестора</h2>
 <div class="params-moving">
-    <p>Перечень оказываемых услуг в сфере инвестиции и еще чего-то, Вы можете узнать на нашей странице <a
-                href="https://koenigs.ru/realtor/page/agentstvo-privat-nedvizhimost-v-kaliningrade" rel="nofollow">Агентство</a></p>
+    <p class="pt-3">Перечень оказываемых услуг в сфере инвестиции и еще чего-то, Вы можете узнать на нашей странице <a
+                href="https://koenigs.ru/realtor/page/agentstvo-privat-nedvizhimost-v-kaliningrade" rel="nofollow">Агентство</a>
+    </p>
     <p>Юридическими вопросами занимаются наши партнеры <a href="https://koenigs.ru/out-link?link=https://dekorum39.ru/"
                                                           rel="nofollow">"Декорум"</a></p>
-    <p>Фото (чье?)</p>
-    <p>Контакты ?</p>
-    <h3 class="pt-3">Анкета для инвестора</h3>
+    <p class="pt-3">Также Вы можете позвонить нашему специалисту</p>
+    <div class="d-flex">
+        <div><img alt="Шадуйкис Олег Геннадьевич" width="200" height="200"
+                                            src="https://static.koenigs.ru/images/page/about/oleg.jpg"
+                                            style="border-radius: 30px;"/>
+
+        </div>
+        <div class="pl-5">
+            <p style="text-align: center;"><span style="font-size:18px;"><b>Шадуйкис Олег</b></span></p>
+            <p>Эксперт в области инвестиций, маркетинга и финансов. Специализация - коммерческая недвижимость и интернет-маркетинг туризма.</p>
+            <?= \frontend\widgets\design\BtnPhone::widget([
+                    'caption' => '8-950-676-3594',
+                'block' => false,
+                'phone' => '8-950-676-3594'
+            ]) ?>
+
+
+        </div>
+        <div class="ml-auto">
+        </div>
+    </div>
+
+    <h3 class="pt-5">Анкета для инвестора</h3>
     <p>
-        Пройдите наше Анкетирование и мы подберем Вам .....
+        Пройдите наше Анкетирование и мы подберем Вам индивидуально участок для инвестиций
     </p>
+    <?= BtnSend::widget([
+        'caption' => 'Заполнить Анкету',
+        'block' => false,
+        'url' => 'https://forms.gle/v21QaePoZxoHmoSt9',
+    ]) ?>
 </div>
