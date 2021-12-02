@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use frontend\assets\LandAsset;
 use frontend\widgets\design\BtnSend;
+use frontend\widgets\info\AgentRealtorWidget;
 use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
@@ -121,26 +122,7 @@ LandAsset::register($this);
     <p>Юридическими вопросами занимаются наши партнеры <a href="https://koenigs.ru/out-link?link=https://dekorum39.ru/"
                                                           rel="nofollow">"Декорум"</a></p>
     <p class="pt-3">Также Вы можете позвонить нашему специалисту</p>
-    <div class="d-flex">
-        <div><img alt="Шадуйкис Олег Геннадьевич" width="200" height="200"
-                                            src="https://static.koenigs.ru/images/page/about/oleg.jpg"
-                                            style="border-radius: 30px;"/>
-
-        </div>
-        <div class="pl-5">
-            <p style="text-align: center;"><span style="font-size:18px;"><b>Шадуйкис Олег</b></span></p>
-            <p>Эксперт в области инвестиций, маркетинга и финансов. Специализация - коммерческая недвижимость и интернет-маркетинг туризма.</p>
-            <?= \frontend\widgets\design\BtnPhone::widget([
-                    'caption' => '8-950-676-3594',
-                'block' => false,
-                'phone' => '8-950-676-3594'
-            ]) ?>
-
-
-        </div>
-        <div class="ml-auto">
-        </div>
-    </div>
+    <?= AgentRealtorWidget::widget() ?>
 
     <h3 class="pt-5">Анкета для инвестора</h3>
     <p>

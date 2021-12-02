@@ -6,6 +6,7 @@
 /* @var $land  \booking\entities\realtor\land\Land */
 
 use frontend\assets\LandAsset;
+use frontend\widgets\info\AgentRealtorWidget;
 use yii\helpers\Url;
 
 $this->title = $land->meta->title;
@@ -35,23 +36,4 @@ LandAsset::register($this);
 
 
 <h2 class="pt-5">Получить консультацию по инвестициям в земельный участок</h2>
-<div class="d-flex params-moving pt-4">
-    <div><img alt="Шадуйкис Олег Геннадьевич" width="200" height="200"
-              src="https://static.koenigs.ru/images/page/about/oleg.jpg"
-              style="border-radius: 30px;"/>
-
-    </div>
-    <div class="pl-5">
-        <p style="text-align: center;"><span style="font-size:18px;"><b>Шадуйкис Олег</b></span></p>
-        <p>Эксперт в области инвестиций, маркетинга и финансов. Специализация - коммерческая недвижимость и интернет-маркетинг туризма.</p>
-        <?= \frontend\widgets\design\BtnPhone::widget([
-            'caption' => '8-950-676-3594',
-            'block' => false,
-            'phone' => '8-950-676-3594'
-        ]) ?>
-
-
-    </div>
-    <div class="ml-auto">
-    </div>
-</div>
+<?= AgentRealtorWidget::widget() ?>

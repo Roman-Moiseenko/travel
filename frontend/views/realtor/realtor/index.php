@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use frontend\assets\LandAsset;
+use frontend\widgets\info\AgentRealtorWidget;
 use frontend\widgets\templates\ImageH2Widget;
 use yii\helpers\Url;
 
@@ -50,26 +51,5 @@ LandAsset::register($this);
     <!--p><i class="fas fa-phone"></i> 8-911-455-72-91</p>
     <p><i class="far fa-envelope"></i> <a href="mailto:yclaster@yandex.ru">yclaster@yandex.ru</a>
     </p-->
-    <div class="d-flex pt-4">
-        <div><img alt="Олег" width="200" height="200"
-                  src="https://static.koenigs.ru/images/page/about/oleg.jpg"
-                  style="border-radius: 30px;"/>
-
-        </div>
-        <div class="pl-5  d-flex align-items-center">
-            <div>
-                <p style="text-align: center;"><span
-                            style="font-size:18px;"><b>Специалист по недвижимости Олег</b></span></p>
-                <div class="d-flex justify-content-center">
-                    <?= \frontend\widgets\design\BtnPhone::widget([
-                        'caption' => '8-950-676-3594',
-                        'block' => false,
-                        'phone' => '8-950-676-3594'
-                    ]) ?>
-                </div>
-            </div>
-        </div>
-        <div class="ml-auto">
-        </div>
-    </div>
+    <?= AgentRealtorWidget::widget() ?>
 </div>
