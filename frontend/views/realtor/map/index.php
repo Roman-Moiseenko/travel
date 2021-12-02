@@ -25,8 +25,8 @@ LandAsset::register($this);
 <h1>Инвестиции в земельные участки под застройку ИЖД и МКД в Калининградской области</h1>
 
 <?= ImageH2Widget::widget([
-    'directory' => 'realtor',
-    'image_file' => 'land_01.jpg',
+    'directory' => 'realtor/map',
+    'image_file' => 'map_01.jpg',
     'alt' => 'Инвестиции в земельные участки под застройку ИЖД и МКД в Калининградской области',
 ]); ?>
 <div class="container params-moving pt-4 text-block">
