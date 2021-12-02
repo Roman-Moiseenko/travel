@@ -25,6 +25,7 @@ LandAsset::register($this);
     'image_file' => 'land_01.jpg',
     'alt' => 'Деликатная купля-продажа земельных участков в Калининградской области',
 ]); ?>
+<h2 class="pt-5">Выкупим дорого землю под МКД (ИЖД) или коммерческую недвижимость</h2>
 <div class="container params-moving pt-4 text-block">
     <ul class="pt-4">
         <li>Соблюдение «коммерческой тайны» инвестирования</li>
@@ -50,22 +51,23 @@ LandAsset::register($this);
     <p><i class="far fa-envelope"></i> <a href="mailto:yclaster@yandex.ru">yclaster@yandex.ru</a>
     </p-->
     <div class="d-flex pt-4">
-        <div><img alt="Шадуйкис Олег Геннадьевич" width="200" height="200"
+        <div><img alt="Олег" width="200" height="200"
                   src="https://static.koenigs.ru/images/page/about/oleg.jpg"
                   style="border-radius: 30px;"/>
 
         </div>
-        <div class="pl-5">
-            <p style="text-align: center;"><span style="font-size:18px;"><b>Шадуйкис Олег</b></span></p>
-            <p>Эксперт в области инвестиций, маркетинга и финансов. Специализация - коммерческая недвижимость и
-                интернет-маркетинг туризма.</p>
-            <?= \frontend\widgets\design\BtnPhone::widget([
-                'caption' => '8-950-676-3594',
-                'block' => false,
-                'phone' => '8-950-676-3594'
-            ]) ?>
-
-
+        <div class="pl-5  d-flex align-items-center">
+            <div>
+                <p style="text-align: center;"><span
+                            style="font-size:18px;"><b>Специалист по недвижимости Олег</b></span></p>
+                <div class="d-flex justify-content-center">
+                    <?= \frontend\widgets\design\BtnPhone::widget([
+                        'caption' => '8-950-676-3594',
+                        'block' => false,
+                        'phone' => '8-950-676-3594'
+                    ]) ?>
+                </div>
+            </div>
         </div>
         <div class="ml-auto">
         </div>

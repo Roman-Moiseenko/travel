@@ -1186,6 +1186,10 @@
                 "extension",
                 "yii2"
             ],
+            "support": {
+                "issues": "https://github.com/hail812/yii2-adminlte3/issues",
+                "source": "https://github.com/hail812/yii2-adminlte3/tree/v1.1.3"
+            },
             "time": "2021-05-16T05:11:55+00:00"
         },
         {
@@ -8372,5 +8376,6 @@
         "ext-xmlwriter": "*",
         "ext-curl": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
