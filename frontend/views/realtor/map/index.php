@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Земля', 'url' => Url::to(['/r
 $this->params['breadcrumbs'][] = 'Инвесторам';
 LandAsset::register($this);
 
-
 ?>
 <h1>Инвестиции в земельные участки под застройку ИЖД и МКД в Калининградской области</h1>
 
@@ -96,24 +95,11 @@ LandAsset::register($this);
 <div id="map-lands" style="width: 100%; height: 600px;"></div>
 
 
-<div class="indent text-justify pt-4">
+
     <?php foreach ($lands as $land): ?>
-        <div class="card mt-4" style="border: 0">
-            <div class="card-body params-moving" style="border: 0">
-                <h3 class="pt-4"><?= $land->title ?></h3>
-                <div class="item-responsive item-3-0by1">
-                    <div class="content-item">
-                        <img loading="lazy" src="<?= $land->getThumbFileUrl('photo', 'list_lands') ?>"/>
-                    </div>
-                </div>
-                <p class="pt-4"><?= $land->description ?></p>
-                <p><a href="<?= Url::to(['realtor/map/view', 'slug' => $land->slug]) ?>"
-                      class="stretched-link">Подробнее об инвестиционном предложении</a>
-                </p>
-            </div>
-        </div>
+    <?= $this->render('_invest', ['land' => $land]) ?>
     <?php endforeach; ?>
-</div>
+
 <h2 class="pt-4">Информация для Инвестора</h2>
 <div class="params-moving">
     <p class="pt-3">Перечень оказываемых услуг в сфере инвестиции и еще чего-то, Вы можете узнать на нашей странице <a

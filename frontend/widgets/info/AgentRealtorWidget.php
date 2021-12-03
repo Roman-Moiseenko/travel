@@ -7,19 +7,17 @@ use yii\base\Widget;
 
 class AgentRealtorWidget extends Widget
 {
-    public $landowner_id;
+    public $name = 'Специалист по недвижимости Олег';
+    public $phone = '8-950-676-3594';
+    public $img = 'https://static.koenigs.ru/images/page/about/oleg.jpg';
 
     public function run()
     {
-        $mobile = SysHelper::isMobile();
-        $name = 'Специалист по недвижимости Олег';
-        $phone = '8-950-676-3594';
-        $img = 'https://static.koenigs.ru/images/page/about/oleg.jpg';
         return $this->render('agent_realtor', [
-            'name' => $name,
-            'phone' => $phone,
-            'img' => $img,
-            'mobile' => $mobile,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'img' => $this->img,
+            'mobile' => SysHelper::isMobile(),
         ]);
     }
 }

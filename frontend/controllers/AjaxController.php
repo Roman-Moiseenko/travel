@@ -35,4 +35,17 @@ class AjaxController extends Controller
         //return file_put_contents($filename, $params, FILE_APPEND | LOCK_EX);
 
     }
+
+    public function actionYoutube()
+    {
+        $this->layout = 'main_ajax';
+        if (\Yii::$app->request->isAjax) {
+
+            $params = \Yii::$app->request->bodyParams;
+            $url = $params['url_video'];
+            return $url; //$this->render('youtube', ['url' => $url]);
+        } else {
+            return $this->goHome();
+        }
+    }
 }

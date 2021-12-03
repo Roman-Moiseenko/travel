@@ -131,7 +131,7 @@ return [
                 //'test' => 'test/index',
                 'legals/<id:\d+>' => 'legals/view',
 
-
+                'ajax/youtube' => 'ajax/youtube',
 
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',

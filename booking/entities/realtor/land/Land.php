@@ -127,6 +127,7 @@ class Land extends ActiveRecord
                 'thumbs' => [
                     'office_view' => ['width' => 300, 'height' => 200],
                     'list_lands' => ['width' => 900, 'height' => 300],
+                    'list_lands_mobile' => ['width' => 600, 'height' => 300],
                     'for_map' => ['width' => 160, 'height' => 160],
                     'landing' => ['width' => 1024, 'height' => 512],
                 ],

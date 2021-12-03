@@ -17,7 +17,7 @@
                  style="border-radius: 30px;"/>
         </div>
         <div class="col-12">
-            <p style="text-align: center;"><span
+            <p class="pt-3" style="text-align: center;"><span
                         style="font-size:18px;"><b><?= $name ?></b></span></p>
             <?= \frontend\widgets\design\BtnPhone::widget([
                 'caption' => $phone,
