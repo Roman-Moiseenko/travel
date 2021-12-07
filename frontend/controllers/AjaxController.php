@@ -38,12 +38,33 @@ class AjaxController extends Controller
 
     public function actionYoutube()
     {
+        //TODO Переделать!!!!
         $this->layout = 'main_ajax';
         if (\Yii::$app->request->isAjax) {
 
             $params = \Yii::$app->request->bodyParams;
             $url = $params['url_video'];
-            return $url; //$this->render('youtube', ['url' => $url]);
+            return $this->render('youtube', ['url' => $url]);
+        } else {
+            return $this->goHome();
+        }
+    }
+
+    public function actionGetWidget()
+    {
+
+        $this->layout = 'main_ajax';
+        if (\Yii::$app->request->isAjax) {
+            try {
+
+
+                $params = \Yii::$app->request->bodyParams;
+                $classWidget = $params['class_widget'];
+                $result = $classWidget::widget();
+                return $result;
+            } catch (\Throwable $e) {
+                return  $e->getMessage();
+            }
         } else {
             return $this->goHome();
         }

@@ -44,4 +44,9 @@ class LandRepository
     {
         return Land::find()->andWhere(['slug' => $slug])->one();
     }
+
+    public function find($id):? Land
+    {
+        return Land::findOne($id);
+    }
 }

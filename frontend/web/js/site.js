@@ -13,4 +13,12 @@ $(document).ready(function() {
         $(this).change();
     });
 
+
+    if (document.getElementById("class_widget")) {
+        let class_widget = $('#class_widget').data('class');
+        $.post('/ajax/get-widget', {class_widget: class_widget}, function(data) {
+            console.log(data);
+            $('#class_widget').html(data);
+        });
+    }
 });

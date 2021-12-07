@@ -17,6 +17,7 @@ use booking\entities\moving\Page;
 use booking\entities\realtor\Landowner;
 use booking\entities\shops\products\Product;
 use booking\entities\shops\Shop;
+use booking\helpers\scr;
 use booking\repositories\blog\CategoryRepository;
 use booking\repositories\blog\PostRepository;
 use booking\repositories\booking\cars\CarRepository;
@@ -208,7 +209,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
                 new IndexItem(Url::to(['realtor'], true)),
-               // new IndexItem(Url::to(['realtor-landowners'], true)),
+                // new IndexItem(Url::to(['realtor-landowners'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
                 new IndexItem(Url::to(['night-pages'], true)),
                 new IndexItem(Url::to(['forum'], true)),
@@ -265,27 +266,27 @@ class SitemapController extends Controller
                 $items,
                 array_map(
                     function (Landowner $landowner) {
-                        return Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true);
-                        },
+                        return Url::to(['/realtor/landowners/view', 'id' => $landowner->id]);
+                    },
                     $this->landowners->getAll()
                 ),
                 array_map(
-                    function (Land $land){
-                        return Url::to(['/realtor/map/view', 'slug' => $land->slug], true);
+                    function (Land $land) {
+                        return Url::to(['/realtor/map/view', 'id' => $land->id]);
 
                     },
                     $this->lands->getAll()
                 ),
                 array_map(
-                    function (\booking\entities\realtor\Page $page){
-                        return Url::to(['/realtor/page/view', 'slug' => $page->slug], true);
+                    function (\booking\entities\realtor\Page $page) {
+                        return Url::to(['/realtor/page/view', 'slug' => $page->slug]);
 
                     },
                     $this->realtorPages->getAllForSitemap()
                 ),
-                        );
-
-            return $this->sitemap->generateMap(array_map(function ($item) use($items) {
+            );
+            //scr::p($items);
+            return $this->sitemap->generateMap(array_map(function ($item) use ($items) {
                 return new MapItem(
                     Url::to([$item], true),
                     null,
@@ -295,28 +296,28 @@ class SitemapController extends Controller
         });
     }
 
-/*    public function actionRealtorLandowners(): Response
-    {
-        return $this->renderSitemap('sitemap-forum-theme', function () {
-            return $this->sitemap->generateMap(array_map(function (Landowner $landowner) {
-                return new MapItem(
-                    Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true),
-                    $landowner->created_at,
-                    MapItem::ALWAYS
-                );
-            }, $this->landowners->getAll()));
-        });
-    }
-*/
+    /*    public function actionRealtorLandowners(): Response
+        {
+            return $this->renderSitemap('sitemap-forum-theme', function () {
+                return $this->sitemap->generateMap(array_map(function (Landowner $landowner) {
+                    return new MapItem(
+                        Url::to(['/realtor/landowners/view', 'id' => $landowner->id], true),
+                        $landowner->created_at,
+                        MapItem::ALWAYS
+                    );
+                }, $this->landowners->getAll()));
+            });
+        }
+    */
     public function actionMoving(): Response
     {
         return $this->renderSitemap('sitemap-moving', function () {
             return $this->sitemap->generateMap(array_map(function ($item) {
-                    return new MapItem(
-                        Url::to([$item], true),
-                        null,
-                        MapItem::ALWAYS
-                    );
+                return new MapItem(
+                    Url::to([$item], true),
+                    null,
+                    MapItem::ALWAYS
+                );
             }, ['/moving', '/moving/index']));
         });
     }
@@ -333,6 +334,7 @@ class SitemapController extends Controller
             }, $this->moving->getAll()));
         });
     }
+
     public function actionNightPages(): Response
     {
         return $this->renderSitemap('sitemap-night-pages', function () {
@@ -345,6 +347,7 @@ class SitemapController extends Controller
             }, $this->night->getAll()));
         });
     }
+
     public function actionMains(): Response
     {
         return $this->renderSitemap('sitemap-mains', function () {
@@ -355,8 +358,7 @@ class SitemapController extends Controller
                         null,
                         MapItem::ALWAYS
                     );
-                }
-                else {
+                } else {
                     return new MapItem(
                         Url::to([$item], true),
                         null,
@@ -457,20 +459,21 @@ class SitemapController extends Controller
             }, $this->stays->getAllForSitemap()));
         });
     }
-/*
-    public function actionStayCategories(): Response
-    {
-        return $this->renderSitemap('sitemap-stays-categories', function () {
-            return $this->sitemap->generateMap(array_map(function (\booking\entities\booking\stays\Type $type) {
-                return new MapItem(
-                    Url::to(['/stays/' . $type->slug], true),
-                    null,
-                    MapItem::ALWAYS
-                );
-            }, $this->stayTypes->getAll()));
-        });
-    }
-*/
+
+    /*
+        public function actionStayCategories(): Response
+        {
+            return $this->renderSitemap('sitemap-stays-categories', function () {
+                return $this->sitemap->generateMap(array_map(function (\booking\entities\booking\stays\Type $type) {
+                    return new MapItem(
+                        Url::to(['/stays/' . $type->slug], true),
+                        null,
+                        MapItem::ALWAYS
+                    );
+                }, $this->stayTypes->getAll()));
+            });
+        }
+    */
     public function actionPosts(): Response
     {
         return $this->renderSitemap('sitemap-posts', function () {

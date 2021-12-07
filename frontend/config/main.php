@@ -132,6 +132,7 @@ return [
                 'legals/<id:\d+>' => 'legals/view',
 
                 'ajax/youtube' => 'ajax/youtube',
+                'ajax/get-widget' => 'ajax/get-widget',
 
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
@@ -306,6 +307,8 @@ return [
                 ['class' => 'frontend\urls\TripUrlRule'],
                 ['class' => 'frontend\urls\TripTypeUrlRule'],
                 ['class' => 'frontend\urls\LandownerUrlRule'],
+                ['class' => 'frontend\urls\RealtorMapUrlRule'],
+
                 '<_c:[\w\-]+>' => '<_c>/index',
                 '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w\-]+>/<_a:[\w\-]+' => '<_c>/<_a>',

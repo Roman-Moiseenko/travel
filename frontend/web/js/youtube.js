@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log('333');
     if (document.getElementById("youtube_widget")) {
         let url_video = $('#youtube_widget').data('url');
         console.log('33');

@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $this->title = 'Редактировать страницу: ' . $page->title;
 $this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $page->title, 'url' => ['view', 'id' => $page->id]];
+$this->params['breadcrumbs'][] = ['label' => $page->name, 'url' => ['view', 'id' => $page->id]];
 $this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="page-update">

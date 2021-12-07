@@ -8,6 +8,7 @@ use booking\repositories\booking\tours\TourRepository;
 use booking\repositories\booking\trips\TripRepository;
 use booking\repositories\forum\SectionRepository;
 use booking\repositories\office\PageRepository;
+use booking\repositories\realtor\land\LandRepository;
 use booking\repositories\realtor\LandownerRepository;
 use booking\repositories\touristic\fun\CategoryRepository;
 use booking\repositories\touristic\fun\FunRepository;
@@ -28,6 +29,7 @@ use frontend\urls\MedicinePageUrlRule;
 use frontend\urls\MovingPageUrlRule;
 use frontend\urls\NightPageUrlRule;
 use frontend\urls\PageUrlRule;
+use frontend\urls\RealtorMapUrlRule;
 use frontend\urls\StayCategoryUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
@@ -95,8 +97,15 @@ class SetUp implements BootstrapInterface
             Instance::of('cache'),
         ]);
 
+
+        //** REALTOR && MOVING*** */
         $container->setSingleton(LandownerUrlRule::class, [], [
             Instance::of(LandownerRepository::class),
+            Instance::of('cache'),
+        ]);
+
+        $container->setSingleton(RealtorMapUrlRule::class, [], [
+            Instance::of(LandRepository::class),
             Instance::of('cache'),
         ]);
 
