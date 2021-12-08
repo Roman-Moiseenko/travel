@@ -21,8 +21,8 @@ $this->params['canonical'] = Url::to(['/foods'], true);
 $this->params['emoji'] = Emoji::FOOD;
 ?>
 
-<div class="list-tours">
+
     <h1><?= Lang::t('Где поесть в Калининграде и области') ?></h1>
     <?= $this->render('_search', ['model' => $model]) ?>
     <?= $this->render('_list', ['dataProvider' => $dataProvider]) ?>
-</div>
+

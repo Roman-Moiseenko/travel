@@ -28,11 +28,11 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <?php endforeach; ?>
-                <li class="nav-item">
+                <!--li class="nav-item">
                     <a class="top-menu-a nav-link"
                        href="<?= Html::encode(Url::to(['/forum/category/6'])) ?>">
                         <i class="far fa-question-circle"></i>&#160;<?= Lang::t('Форум') ?></a>
-                </li>
+                </li-->
             </ul>
         </div>
     </nav>
