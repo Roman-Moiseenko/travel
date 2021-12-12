@@ -65,7 +65,8 @@
     "guzzlehttp/guzzle": "^7.3",
     "ext-curl": "*",
     "lesha724/yii2-youtube-widget": "*",
-    "kalyabin/yii2-wysibb": "dev-master"
+    "kalyabin/yii2-wysibb": "dev-master",
+    "happyworm/jplayer": "2.*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
@@ -79,6 +80,7 @@
     "symfony/browser-kit": ">=2.7 <=4.2.4"
   },
   "config": {
+    "component-dir": "vendor/jplayer",
     "process-timeout": 1800,
     "fxp-asset": {
       "enabled": false
