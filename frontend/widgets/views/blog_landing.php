@@ -62,7 +62,7 @@ $this->registerJs($script);
                                 style="color: white; text-shadow: black 2px 2px 1px"><?= $post->getTitle() ?></h4>
                         </div>
                     </div>
-                    <a href="<?= Url::to(['/post/view', 'id' => $post->id]) ?>" class="stretched-link"></a>
+                    <a href="<?= Url::to(['/post/view', 'id' => $post->id]) ?>" class="stretched-link" rel="nofollow"></a>
                 </div>
             </div>
         <?php endforeach; ?>
