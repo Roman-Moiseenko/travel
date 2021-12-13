@@ -106,7 +106,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 
         </div>
     </div>
-    <div class="landing-block-center pb-2">
+    <!--div class="landing-block-center pb-2">
         <div class="container">
             <div class="p-2 landing-block-dark">
                 <h2 class="landing-title-h2" style="font-size: 18px; color: #2980a5; padding-top: 10px !important;"></span><?= Lang::t('Для туристических компаний') ?></h2>
@@ -125,7 +125,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
     <div class="landing-block-center pb-2">
         <div class="container">
             <?= $this->render('_seo_text', [

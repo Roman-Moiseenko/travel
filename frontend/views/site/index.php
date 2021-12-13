@@ -266,7 +266,7 @@ $this->registerJs($script);
                     class="line-b-title"></span></h2>
     </div>
 </div-->
-<div class="landing-block-center">
+<!--div class="landing-block-center">
     <div class="container">
         <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для туристических компаний') ?><span
                     class="line-b-title"></span></h2>
@@ -282,7 +282,7 @@ $this->registerJs($script);
             </div>
         </div>
     </div>
-</div>
+</div-->
 <div class="landing-block-center">
     <div class="container">
         <!--h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span
