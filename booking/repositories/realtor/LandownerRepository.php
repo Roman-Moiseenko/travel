@@ -42,19 +42,18 @@ class LandownerRepository
     }
 
 
-
-    public function findBySlug(string $getPathSlug): ?Landowner
-    {
-        return Landowner::find()->andWhere(['slug' => $getPathSlug])->one();
-    }
-
     /**
      * @throws NotFoundHttpException
      */
+    public function findBySlug(string $getPathSlug): ?Landowner
+    {
+        if (!$landowner = Landowner::find()->andWhere(['slug' => $getPathSlug])->one()) throw new NotFoundHttpException('');
+        return $landowner;
+    }
+
     public function find($id): Landowner
     {
-        if (!$landowner = Landowner::find()->andWhere(['id' => $id])->one()) throw new NotFoundHttpException('');
-        return $landowner;
+        return Landowner::find()->andWhere(['id' => $id])->one();
     }
 
 }
