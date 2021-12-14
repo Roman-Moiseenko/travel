@@ -37,7 +37,7 @@ class PageController extends Controller
     public function actionIndex()
     {
         $page = $this->pages->findBySlug('info');
-        if ($page == null) return $this->redirect(\Yii::$app->request->referrer);
+        //if ($page == null) return $this->redirect(\Yii::$app->request->referrer);
         $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
 
         return $this->render('view', [

@@ -10,6 +10,7 @@ use booking\entities\blog\Tag;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii\web\NotFoundHttpException;
 
 class PostRepository
 {
@@ -88,9 +89,14 @@ class PostRepository
         return Post::find()->with('category')->orderBy(['comments_count' => SORT_DESC])->limit($limit)->all();
     }
 
-    public function find($id): ?Post
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function find($id): Post
     {
-        return Post::find()->active()->andWhere(['id' => $id])->one();
+        if (!$post = Post::find()->active()->andWhere(['id' => $id])->one())
+            throw new NotFoundHttpException('');
+        return $post;
     }
 
     private function getProvider(ActiveQuery $query): ActiveDataProvider

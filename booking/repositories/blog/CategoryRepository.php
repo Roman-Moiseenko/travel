@@ -5,6 +5,7 @@ namespace booking\repositories\blog;
 
 
 use booking\entities\blog\Category;
+use yii\web\NotFoundHttpException;
 
 class CategoryRepository
 {
@@ -45,6 +46,8 @@ class CategoryRepository
 
     public function findBySlug($slug): ?Category
     {
-        return Category::find()->andWhere(['slug' => $slug])->one();
+        if (!$category = Category::find()->andWhere(['slug' => $slug])->one())
+            throw new NotFoundHttpException('');
+        return $category;
     }
 }

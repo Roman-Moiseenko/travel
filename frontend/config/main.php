@@ -229,7 +229,7 @@ return [
 
                 'realtor' => 'realtor/realtor/index',
                 'realtor/land' => 'realtor/land/index',
-                'realtor/investment' => 'realtor/investment/index',
+                //'realtor/investment' => 'realtor/investment/index',
                 'realtor/investment/<slug:[\w\-]+>' => 'realtor/map/view',
                 'realtor/map/get-land' => 'realtor/map/get-land',
                 'realtor/map/get-lands' => 'realtor/map/get-lands',

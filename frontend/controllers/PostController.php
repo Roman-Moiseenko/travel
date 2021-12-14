@@ -123,9 +123,7 @@ class PostController extends Controller
      */
     public function actionComment($id)
     {
-        if (!$post = $this->posts->find($id)) {
-            throw new NotFoundHttpException(Lang::t('Запрашиваемая страница блога не существует') . '.');
-        }
+        $post = $this->posts->find($id);
         $form = new CommentForm();
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {

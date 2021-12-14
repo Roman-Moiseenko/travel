@@ -5,6 +5,7 @@ namespace booking\repositories\blog;
 
 
 use booking\entities\blog\map\Maps;
+use yii\web\NotFoundHttpException;
 
 class MapRepository
 {
@@ -33,7 +34,7 @@ class MapRepository
     public function getBySlug($slug): Maps
     {
         if (!$map = Maps::findOne(['slug' => $slug])) {
-            throw new \DomainException('Карта не найдена.');
+            throw new NotFoundHttpException('Карта не найдена.');
         }
         return $map;
     }

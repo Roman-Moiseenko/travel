@@ -5,6 +5,7 @@ namespace booking\repositories\art\event;
 
 
 use booking\entities\art\event\Event;
+use yii\web\NotFoundHttpException;
 
 class EventRepository
 {
@@ -55,6 +56,7 @@ class EventRepository
 
     public function find($id):? Event
     {
-        return Event::findOne($id);
+        if (!$event = Event::findOne($id)) throw new NotFoundHttpException('');
+        return $event;
     }
 }

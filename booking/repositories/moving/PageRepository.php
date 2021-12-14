@@ -7,6 +7,7 @@ namespace booking\repositories\moving;
 use booking\entities\moving\Item;
 use booking\entities\moving\Page;
 use booking\helpers\StatusHelper;
+use yii\web\NotFoundHttpException;
 
 class PageRepository
 {
@@ -44,7 +45,7 @@ class PageRepository
     public function findBySlug($slug): ?Page
     {
         if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one()) {
-            throw new \DomainException('Страница не найдена');
+            throw new NotFoundHttpException('Страница не найдена');
         }
         return $page;
     }

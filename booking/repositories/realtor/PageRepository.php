@@ -6,6 +6,7 @@ namespace booking\repositories\realtor;
 
 use booking\entities\realtor\Page;
 use booking\helpers\StatusHelper;
+use yii\web\NotFoundHttpException;
 
 class PageRepository
 {
@@ -45,7 +46,9 @@ class PageRepository
         /*if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one()) {
             throw new \DomainException('Страница не найдена');
         }*/
-        return Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
+        if (!$page = Page::find()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one())
+            throw new NotFoundHttpException('');
+        return $page;
     }
 
     public function findRoot(): ?Page

@@ -4,6 +4,7 @@
 namespace booking\repositories\night;
 
 use booking\entities\night\Page;
+use yii\web\NotFoundHttpException;
 
 class PageRepository
 {
@@ -40,7 +41,9 @@ class PageRepository
 
     public function findBySlug($slug): ?Page
     {
-        return Page::find()->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one();
+        if (!$page = Page::find()->andWhere(['slug' => $slug])->andWhere(['>', 'depth', 0])->one())
+            throw new NotFoundHttpException('');
+        return $page;
     }
 
     public function findRoot()
