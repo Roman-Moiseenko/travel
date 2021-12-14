@@ -5,6 +5,7 @@ namespace booking\repositories\realtor\land;
 
 
 use booking\entities\realtor\land\Land;
+use yii\web\NotFoundHttpException;
 
 class LandRepository
 {
@@ -42,11 +43,13 @@ class LandRepository
 
     public function findBySlug($slug):? Land
     {
-        return Land::find()->andWhere(['slug' => $slug])->one();
+        if(!$land = Land::find()->andWhere(['slug' => $slug])->one()) throw new NotFoundHttpException('');
+        return $land;
     }
 
     public function find($id):? Land
     {
         return Land::findOne($id);
+
     }
 }

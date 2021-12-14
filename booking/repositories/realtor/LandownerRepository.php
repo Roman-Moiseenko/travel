@@ -7,6 +7,7 @@ namespace booking\repositories\realtor;
 use booking\entities\realtor\Landowner;
 use booking\helpers\StatusHelper;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 class LandownerRepository
 {
@@ -47,9 +48,13 @@ class LandownerRepository
         return Landowner::find()->andWhere(['slug' => $getPathSlug])->one();
     }
 
-    public function find($id):? Landowner
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function find($id): Landowner
     {
-        return Landowner::find()->andWhere(['id' => $id])->one();
+        if (!$landowner = Landowner::find()->andWhere(['id' => $id])->one()) throw new NotFoundHttpException('');
+        return $landowner;
     }
 
 }
