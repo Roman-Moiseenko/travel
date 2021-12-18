@@ -46,10 +46,16 @@ class MedicineController extends Controller
 
     public function actionIndex()
     {
-        //TODO
-        //if ($this->loginService->isGuest()) return $this->redirect(Url::to(['/']));
         $categories = $this->pages->findRoot();
-        return $this->redirect(Url::to(['/medicine/medicine/view', 'slug' => $categories[0]->slug]));
+        $page = $this->pages->findBySlug($categories[0]->slug);
+        $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
+        return $this->render('view', [
+            'page' => $page,
+            'categories' => $categories,
+            'main_page' => true,
+            'reviewForm' => null,
+        ]);
+        //return $this->redirect(Url::to(['/medicine/medicine/view', 'slug' => $categories[0]->slug]));
     }
 
 

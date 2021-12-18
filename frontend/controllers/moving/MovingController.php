@@ -48,7 +48,16 @@ class MovingController extends Controller
     public function actionIndex()
     {
         $categories = $this->pages->findRoot();
-        return $this->redirect(Url::to(['/moving/moving/view', 'slug' => $categories[0]->slug]));
+        $page = $this->pages->findBySlug($categories[0]->slug);
+        //$root = $this->pages->findRoot();
+        $categories = $page->getChildren()->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
+        return $this->render('view', [
+            'page' => $page,
+            'categories' => $categories,
+            'main_page' => true,
+            'reviewForm' => null,
+        ]);
+       // return $this->redirect(Url::to(['/moving/moving/view', 'slug' => $categories[0]->slug]));
     }
 
 

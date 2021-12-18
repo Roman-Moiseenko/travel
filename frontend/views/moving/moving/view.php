@@ -2,6 +2,7 @@
 
 use booking\entities\Lang;
 use booking\entities\moving\Page;
+use booking\forms\CommentForm;
 use booking\helpers\SysHelper;
 use frontend\widgets\moving\MenuPagesWidget;
 use frontend\widgets\reviews\NewReviewMovingWidget;
@@ -13,6 +14,7 @@ use yii\helpers\Url;
 /* @var $page Page */
 /* @var $categories Page[] */
 /* @var $main_page bool */
+/* @var $reviewForm CommentForm|null */
 
 $this->title = Lang::t($page->getSeoTitle());
 
@@ -52,6 +54,7 @@ $mobile = SysHelper::isMobile();
 <!-- Отзывы -->
 <!-- Новый отзыв -->
 <!-- ОТЗЫВЫ -->
+<?php if ($reviewForm != null): ?>
 <div class="row" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <!-- Виджет подгрузки отзывов -->
@@ -66,3 +69,4 @@ $mobile = SysHelper::isMobile();
         <?= ''//NewReviewMovingWidget::widget(['page' => $page]); ?>
     </div>
 </div>
+<?php endif;?>
