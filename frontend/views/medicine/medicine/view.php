@@ -22,16 +22,25 @@ $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->descr
 $this->registerMetaTag(['name' => 'og:description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
 
-$this->params['canonical'] = Url::to(['medicine/medicine/view', 'slug' => $page->slug], true);
 $this->params['pages'] = true;
 $this->params['slug'] = $page->slug;
-if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Медицина и Санатории', 'url' => Url::to(['/medicine'])];
+if ($main_page) {
+    $this->params['canonical'] = Url::to(['/medicine'], true);
+    $this->params['breadcrumbs'][] = 'Медицинский туризм';
+} else
+{
+    $this->params['canonical'] = Url::to(['medicine/medicine/view', 'slug' => $page->slug], true);
+
+    $this->params['breadcrumbs'][] = ['label' => 'Медицинский туризм', 'url' => Url::to(['/medicine'])];
+    $this->params['breadcrumbs'][] = $page->name;
+}
+/*
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
         $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['medicine/medicine/view', 'slug' => $parent->slug])];
     }
-}
-$this->params['breadcrumbs'][] = $page->name;
+}*/
+
 $mobile = SysHelper::isMobile();
 ?>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"

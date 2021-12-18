@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use yii\helpers\Html;
 use yii\helpers\Url;
+/* @var $categories booking\entities\medicine\Page[] */
 ?>
 <div class="container">
     <nav id="top-menu" class="navbar navbar-expand-lg navbar-dark">
