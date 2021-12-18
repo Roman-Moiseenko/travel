@@ -183,6 +183,14 @@ $this->registerJs($script);
             </div>
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
+                    'url' => '/medicine',
+                    'img_name' => 'medicine.jpg',
+                    'img_alt' => 'Медицинский туризм в Калининграде',
+                    'caption' => 'Медицинский<br>туризм',
+                ]) ?>
+            </div>
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
                     'url' => '/moving',
                     'img_name' => 'moving.jpg',
                     'img_alt' => 'На ПМЖ в Калининграде',

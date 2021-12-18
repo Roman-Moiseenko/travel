@@ -82,9 +82,10 @@ $values = [
     <p class="pt-4" style="font-size: 22px">База развлечений и мест отдыха наполняется ... </p>
     <p  style="font-size: 18px">Подождите немного, через несколько дней мы постараемся ее наполнить</p>
     <p style="font-size: 16px">
-        Пока вы можете посмотреть разделы <a href="https://koenigs.ru/funs/extreme" rel="nofollow">активный отдых</a>,
-        <a href="https://koenigs.ru/funs/spa" rel="nofollow">СПА-салоны, бани и сауны</a> и
-        <a href="https://koenigs.ru/funs/museum" rel="nofollow">Музеи</a>
+        Мы уже наполнили для Вас следующие разделы <a href="https://koenigs.ru/funs/extreme" rel="nofollow">активный отдых</a>,
+        <a href="https://koenigs.ru/funs/spa" rel="nofollow">СПА-салоны, бани и сауны</a>,
+        <a href="https://koenigs.ru/funs/museum" rel="nofollow">Музеи</a> и
+        <a href="https://koenigs.ru/funs/horse" rel="nofollow">Конные прогулки</a>
     </p>
 <?php endif;?>
 

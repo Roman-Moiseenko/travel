@@ -77,6 +77,12 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'caption' => 'Туристам о Калининграде',
             ]) ?>
             <?= $this->render('_button_mobile', [
+                'url' => '/medicine',
+                'img_name' => 'medicine_mobile.jpg',
+                'img_alt' => 'Медицинский туризм в Калининграде',
+                'caption' => 'Медицинский<br>туризм',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
                 'url' => '/moving',
                 'img_name' => 'moving_mobile.jpg',
                 'img_alt' => 'На ПМЖ в Калининград',
