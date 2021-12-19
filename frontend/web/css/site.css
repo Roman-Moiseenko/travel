@@ -1411,6 +1411,11 @@ h2.faq-card {
     font-size: 16px;
     line-height: 28px;
 }
+.params-moving >h2 {
+    padding-top: 3rem!important;
+    font-weight: 600;
+}
+
 .params-modal >p {
     font-size: 16px;
     line-height: 24px;

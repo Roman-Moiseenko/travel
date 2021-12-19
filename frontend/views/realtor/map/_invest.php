@@ -11,7 +11,7 @@ $mobile = SysHelper::isMobile();
 
 <div class="card pt-4"  style="border: 0">
 <div class="holder">
-    <h3 class="pt-4"><?= $land->title ?></h3>
+    <h2 class="pt-4"><?= $land->title ?></h2>
     <div class="item-responsive  <?= $mobile ? 'item-2-0by1' : 'item-3-0by1'?>">
         <div class="content-item">
             <img class="card-img-top" loading="lazy" src="<?= $land->getThumbFileUrl('photo', $mobile ? 'list_lands_mobile' : 'list_lands') ?>"/>
