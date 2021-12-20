@@ -74,7 +74,7 @@ AppAsset::register($this);
     <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>"></script>
 
 </head>
-<body style="background-color: #f2f6f9;">
+<body>
 <?php $this->beginBody() ?>
 
     <nav id="top">
