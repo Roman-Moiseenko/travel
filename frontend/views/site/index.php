@@ -213,6 +213,14 @@ $this->registerJs($script);
                     'caption' => 'Ночная жизнь<br>Развлечения<br>Отдых',
                 ]) ?>
             </div>
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/forum',
+                    'img_name' => 'forum.jpg',
+                    'img_alt' => 'Форум в Калининграде',
+                    'caption' => 'Форум в Калининграде',
+                ]) ?>
+            </div>
         </div>
     </div>
 </div>

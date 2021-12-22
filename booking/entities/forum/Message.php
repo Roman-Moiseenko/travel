@@ -80,7 +80,7 @@ class Message extends ActiveRecord
 
     public function userName($short = false): string
     {
-        if ($this->user->personal->fullname->isEmpty()) return 'Неизвестная личность';
+        if ($this->user->personal->fullname->isEmpty()) return 'Имя скрыто';
         return $short
             ? $this->user->personal->fullname->getShortname()
             : $this->user->personal->fullname->getFullname();

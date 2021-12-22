@@ -100,6 +100,12 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'img_alt' => 'Ночная жизнь в Калининграде',
                 'caption' => 'Ночная жизнь<br>Развлечения. Отдых',
             ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/forum',
+                'img_name' => 'forum_mobile.jpg',
+                'img_alt' => 'Форум в Калининграде',
+                'caption' => 'Форум в Калининграде',
+            ]) ?>
         </div>
     </div>
     <div class="landing-block-center">
