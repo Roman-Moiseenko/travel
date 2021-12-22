@@ -19,7 +19,7 @@ $number_page = floor($count2 / (int)(\Yii::$app->params['paginationForum']));
 $page = '';
 if ($count2 > 0) $page = '?page=' . ($number_page + 1);
 
-$url = \Yii::$app->params['frontendHostInfo'] . '/forum/post/' . $message->post_id . $page . '#' . $message->post_id;
+$url = \Yii::$app->params['frontendHostInfo'] . '/forum/post/' . $message->post_id . $page . '#' . $message->id;
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">

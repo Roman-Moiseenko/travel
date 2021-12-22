@@ -11,6 +11,7 @@ use booking\entities\forum\Category;
 use booking\entities\forum\Post;
 use booking\entities\forum\Section;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class UserForumHelper
 {
@@ -110,9 +111,9 @@ class UserForumHelper
             $post = $message->post;
             $count2 = count($post->messages);
             $page = floor($count2 / (int)(\Yii::$app->params['paginationForum']));
-            $url = '';
-            if ($count2 > 0) $url = '?page=' . ($page + 1);
-            $url .= '#' . $post_id;
+
+            $url = Url::to(['/forum/post', 'id' => $message->post_id, 'page' => ($page + 1), '#' => $post_id], true);
+
             $text = preg_replace('~\[quote=(.+?)post_id=(.+?)time=(.+?)user_id=(.+?)\](.+?)\[/quote\]~s',
                 '<blockquote><cite>
                             <div class="d-flex">
