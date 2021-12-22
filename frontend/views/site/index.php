@@ -159,30 +159,6 @@ $this->registerJs($script);
 
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
-                    'url' => '/foods',
-                    'img_name' => 'food.jpg',
-                    'img_alt' => 'Где поесть в Калининграде',
-                    'caption' => 'Где поесть',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/shops',
-                    'img_name' => 'shop.jpg',
-                    'img_alt' => 'Что купить в Калининграде',
-                    'caption' => 'Сувениры',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/post',
-                    'img_name' => 'blog.jpg',
-                    'img_alt' => 'Туристам о Калининграде',
-                    'caption' => 'Туристам о Калининграде',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
                     'url' => '/medicine',
                     'img_name' => 'medicine.jpg',
                     'img_alt' => 'Медицинский туризм в Калининграде',
@@ -205,6 +181,15 @@ $this->registerJs($script);
                     'caption' => 'Земельные участки<br>Недвижимость',
                 ]) ?>
             </div>
+
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/forum',
+                    'img_name' => 'forum.jpg',
+                    'img_alt' => 'Форум в Калининграде',
+                    'caption' => 'Форумы<br><br>На ПМЖ<br>Лечение<br>Туристам',
+                ]) ?>
+            </div>
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
                     'url' => '/night',
@@ -215,10 +200,26 @@ $this->registerJs($script);
             </div>
             <div class="col-sm-4 col-md-3 pt-4">
                 <?= $this->render('_button', [
-                    'url' => '/forum',
-                    'img_name' => 'forum.jpg',
-                    'img_alt' => 'Форум в Калининграде',
-                    'caption' => 'Форумы<br><br>На ПМЖ<br>Лечение<br>Туристам',
+                    'url' => '/foods',
+                    'img_name' => 'food.jpg',
+                    'img_alt' => 'Где поесть в Калининграде',
+                    'caption' => 'Где поесть',
+                ]) ?>
+            </div>
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/shops',
+                    'img_name' => 'shop.jpg',
+                    'img_alt' => 'Что купить в Калининграде',
+                    'caption' => 'Сувениры',
+                ]) ?>
+            </div>
+            <div class="col-sm-4 col-md-3 pt-4">
+                <?= $this->render('_button', [
+                    'url' => '/post',
+                    'img_name' => 'blog.jpg',
+                    'img_alt' => 'Туристам о Калининграде',
+                    'caption' => 'Туристам о Калининграде',
                 ]) ?>
             </div>
         </div>

@@ -58,24 +58,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'img_alt' => 'Прокат авто в Калининграде',
                 'caption' => 'Прокат авто',
             ]) ?>
-            <?= $this->render('_button_mobile', [
-                'url' => '/foods',
-                'img_name' => 'food_mobile.jpg',
-                'img_alt' => 'Где поесть в Калининграде',
-                'caption' => 'Где поесть',
-            ]) ?>
-            <?= $this->render('_button_mobile', [
-                'url' => '/shops',
-                'img_name' => 'shop_mobile.jpg',
-                'img_alt' => 'Что купить в Калининграде',
-                'caption' => 'Сувениры',
-            ]) ?>
-            <?= $this->render('_button_mobile', [
-                'url' => '/post',
-                'img_name' => 'blog_mobile.jpg',
-                'img_alt' => 'Туристам о Калининграде',
-                'caption' => 'Туристам о Калининграде',
-            ]) ?>
+
             <?= $this->render('_button_mobile', [
                 'url' => '/medicine',
                 'img_name' => 'medicine_mobile.jpg',
@@ -94,6 +77,13 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
                 'caption' => 'Земельные участки<br>Недвижимость',
             ]) ?>
+
+            <?= $this->render('_button_mobile', [
+                'url' => '/forum',
+                'img_name' => 'forum_mobile.jpg',
+                'img_alt' => 'Форум в Калининграде',
+                'caption' => 'Форумы<br>На ПМЖ. Лечение. Туристам',
+            ]) ?>
             <?= $this->render('_button_mobile', [
                 'url' => '/night',
                 'img_name' => 'night_mobile.jpg',
@@ -101,10 +91,22 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'caption' => 'Ночная жизнь<br>Развлечения. Отдых',
             ]) ?>
             <?= $this->render('_button_mobile', [
-                'url' => '/forum',
-                'img_name' => 'forum_mobile.jpg',
-                'img_alt' => 'Форум в Калининграде',
-                'caption' => 'Форумы<br>На ПМЖ<br>Лечение<br>Туристам',
+                'url' => '/foods',
+                'img_name' => 'food_mobile.jpg',
+                'img_alt' => 'Где поесть в Калининграде',
+                'caption' => 'Где поесть',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/shops',
+                'img_name' => 'shop_mobile.jpg',
+                'img_alt' => 'Что купить в Калининграде',
+                'caption' => 'Сувениры',
+            ]) ?>
+            <?= $this->render('_button_mobile', [
+                'url' => '/post',
+                'img_name' => 'blog_mobile.jpg',
+                'img_alt' => 'Туристам о Калининграде',
+                'caption' => 'Туристам о Калининграде',
             ]) ?>
         </div>
     </div>
