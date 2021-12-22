@@ -57,7 +57,7 @@ class PostRepository
             'IN',
             'category_id',
             Category::find()->select('id')->andWhere(['section_id' => $section_id])->groupBy('id')
-        ])->groupBy('id')->limit(20);
+        ])->groupBy('id');//->limit(20);
 
         return $this->getProvider($query);
     }
@@ -71,8 +71,8 @@ class PostRepository
                 'defaultOrder' => ['fix' => SORT_DESC, 'update_at' => SORT_DESC],
             ],
             'pagination' => [
-                'defaultPageSize' => 20,
-                'pageSizeLimit' => [20, 20],
+                'defaultPageSize' => \Yii::$app->params['paginationForum'],
+                'pageSizeLimit' => [\Yii::$app->params['paginationForum'], \Yii::$app->params['paginationForum']],
             ],
         ]);
     }

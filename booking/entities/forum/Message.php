@@ -46,8 +46,8 @@ class Message extends ActiveRecord
     public function quote(): self
     {
         $clone = clone $this;
-        $clone->text = '[quote=' . $clone->userName() .
-            ' post_id=' . $clone->post_id .
+        $clone->text = '[quote=' . $clone->userName(true) .
+            ' post_id=' . $clone->id .
             ' time=' . $clone->created_at .
             ' user_id=' . $clone->user_id . ']' .
             $clone->text .

@@ -3,12 +3,11 @@
 use booking\entities\user\User;
 use booking\entities\forum\Message;
 use booking\entities\forum\Post;
+use booking\forms\forum\MessageForm;
 use booking\helpers\SysHelper;
 use booking\helpers\UserForumHelper;
-use frontend\widgets\design\BtnSave;
 use frontend\widgets\design\BtnSend;
 use kalyabin\wysibb\WysiBBWidget;
-use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap4\ActiveForm;
 use yii\data\DataProviderInterface;
 use yii\helpers\Html;
@@ -19,6 +18,7 @@ use yii\widgets\LinkPager;
 
 /* @var $post Post */
 /* @var $dataProvider DataProviderInterface */
+/* @var $model MessageForm*/
 /* @var $message Message */
 /* @var $user User */
 

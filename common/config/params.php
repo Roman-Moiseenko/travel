@@ -14,6 +14,7 @@ return [
     'paginationStay' => 24,
     'paginationFood' => 24,
     'paginationPost' => 10,
+    'paginationForum' => 20,
     'mode_confirmation' => false, //true -  Разрешено только подтверждение бронирования, false - Оплата и Подтверждение бронирования
 
     'bot_review' => false,  //Если true то можно оставлять отзывы без покупки туров

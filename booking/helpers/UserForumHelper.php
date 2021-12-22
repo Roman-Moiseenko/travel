@@ -4,6 +4,8 @@
 namespace booking\helpers;
 
 
+
+use booking\entities\forum\Message;
 use booking\entities\user\User;
 use booking\entities\forum\Category;
 use booking\entities\forum\Post;
@@ -69,13 +71,13 @@ class UserForumHelper
         $text = strip_tags($text);
 
         $text = str_replace(PHP_EOL, '<br>', $text);
-       // $text = str_replace('&nbsp;', ' ', $text);
+        // $text = str_replace('&nbsp;', ' ', $text);
         $text = preg_replace('/\[(\/?)(b|i|u|s)\s*\]/', "<$1$2>", $text);
-       /*
-        $text = preg_replace('~\[b\](.+?)\[/b\]~mxi', '<b>$1</b>', $text);
-        $text = preg_replace('~\[i\](.+?)\[/i\]~m', '<i>$1</i>', $text);
-        $text = preg_replace('~\[u\](.+?)\[/u\]~m', '<u>$1</u>', $text);
-        $text = preg_replace('~\[s\](.+?)\[/s\]~m', '<s>$1</s>', $text);*/
+        /*
+         $text = preg_replace('~\[b\](.+?)\[/b\]~mxi', '<b>$1</b>', $text);
+         $text = preg_replace('~\[i\](.+?)\[/i\]~m', '<i>$1</i>', $text);
+         $text = preg_replace('~\[u\](.+?)\[/u\]~m', '<u>$1</u>', $text);
+         $text = preg_replace('~\[s\](.+?)\[/s\]~m', '<s>$1</s>', $text);*/
 
         //Картинки и ссылки
         $text = preg_replace('~\[img\](.+?)\[/img\]~s', '<a href="$1" rel="nofollow" target="_blank"><img src="$1" style="max-width: 100px; max-height: 100px"/></a>', $text);
@@ -95,7 +97,31 @@ class UserForumHelper
         $text = preg_replace('~\[left\](.+?)\[/left\]~s', '<div style="width: 100%; text-align: left">$1</div>', $text);
         $text = preg_replace('~\[center\](.+?)\[/center\]~s', '<div style="width: 100%; text-align: center">$1</div>', $text);
         $text = preg_replace('~\[right\](.+?)\[/right\]~s', '<div style="width: 100%; text-align: right">$1</div>', $text);
-        $text = preg_replace('~\[quote\](.+?)\[/quote\]~s', '<blockquote>$1</blockquote>', $text);
+
+        //Цитирование
+        $count = preg_match_all('~\[quote=(.+?)post_id=(.+?)time=(.+?)user_id=(.+?)\](.+?)\[/quote\]~s', $text, $result);
+
+        if ($count == 1) {
+            $name = $result[1][0];
+            $post_id = $result[2][0];
+            $created_at = $result[3][0];
+            //$user_id = $result[4][0];
+            $message = Message::findOne((int)$post_id);
+            $post = $message->post;
+            $count2 = count($post->messages);
+            $page = floor($count2 / (int)(\Yii::$app->params['paginationForum']));
+            $url = '';
+            if ($count2 > 0) $url = '?page=' . ($page + 1);
+            $url .= '#' . $post_id;
+            $text = preg_replace('~\[quote=(.+?)post_id=(.+?)time=(.+?)user_id=(.+?)\](.+?)\[/quote\]~s',
+                '<blockquote><cite>
+                            <div class="d-flex">
+                                <div><i class="fas fa-quote-left"></i> <a href="'. $url .'">' . $name . '</a> писал(а)</div>
+                                <div class="ml-auto">' . date('d-m-Y H:s', (int)$created_at) . '
+                                </div></cite>
+                            </div>$5</blockquote>', $text);
+        }
+
         return $text;
     }
 }

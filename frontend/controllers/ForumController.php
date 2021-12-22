@@ -11,6 +11,7 @@ use booking\forms\forum\PostForm;
 use booking\helpers\SysHelper;
 use booking\repositories\forum\PostRepository;
 use booking\repositories\forum\SectionRepository;
+use booking\services\ContactService;
 use booking\services\forum\CategoryService;
 use booking\services\forum\PostService;
 use booking\services\system\LoginService;
@@ -40,6 +41,10 @@ class ForumController extends Controller
      * @var LoginService
      */
     private $loginService;
+    /**
+     * @var ContactService
+     */
+    private $contact;
 
     public function __construct(
         $id,
@@ -49,6 +54,7 @@ class ForumController extends Controller
         PostService $postService,
         PostRepository $posts,
         LoginService $loginService,
+        ContactService $contact,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -57,6 +63,7 @@ class ForumController extends Controller
         $this->postService = $postService;
         $this->posts = $posts;
         $this->loginService = $loginService;
+        $this->contact = $contact;
     }
 
     public function actionIndex()
@@ -158,24 +165,20 @@ class ForumController extends Controller
     public function actionReplyMessage($id)
     {
         $user = $this->loginService->user();
-        $message = Message::findOne($id);
-        $post = $message->post;
-        //Обертка для Сообщения//
-
-
-        $form = new MessageForm($message->quote());
+        $replyMessage = Message::findOne($id);
+        $post = $replyMessage->post;
+        $form = new MessageForm($replyMessage->quote());
         if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
             try {
                 $message = $this->postService->addMessage($post->id, $form);
+                $this->contact->sendReplyForum($replyMessage->user, $message);
                 return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $this->posts->getPage($post->id), '#' => $message->id]);
-                //$this->postService->editMessage($message->post_id, $message->id, $form);
-                //return $this->redirect(['forum/post', 'id' => $message->post_id]);
             } catch (\DomainException $e) {
                 \Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         return $this->render('post-update', [
-            'post' => $message->post,
+            'post' => $replyMessage->post,
             'model' => $form,
             'user' => $user,
             'title' => 'Ответить с цитированием'

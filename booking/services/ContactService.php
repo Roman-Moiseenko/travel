@@ -393,5 +393,20 @@ class ContactService
         }
     }
 
+    public function sendReplyForum(\booking\entities\user\User $user, \booking\entities\forum\Message $message)
+    {
+        if (empty($user->email)) return;
+        //if (true) return;
+        $send = $this->mailer->compose('noticeReplyForum', ['message' => $message])
+            ->setTo($user->email)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Форум портала Koenigs.ru')])
+            ->setSubject('Вам ответили на Форуме')
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
+
+    }
+
 
 }
