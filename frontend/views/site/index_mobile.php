@@ -104,7 +104,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
                 'url' => '/forum',
                 'img_name' => 'forum_mobile.jpg',
                 'img_alt' => 'Форум в Калининграде',
-                'caption' => 'Форум в Калининграде',
+                'caption' => 'Форумы<br>На ПМЖ<br>Лечение<br>Туристам',
             ]) ?>
         </div>
     </div>

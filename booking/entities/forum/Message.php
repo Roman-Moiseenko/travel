@@ -33,6 +33,7 @@ class Message extends ActiveRecord
         // $message->sort = $sort; createOfTime
         return $message;
     }
+
     public static function createOfTime($user_id, $text, $time): self
     {
         $message = new static();
@@ -40,6 +41,18 @@ class Message extends ActiveRecord
         $message->text = $text;
         $message->created_at = $time;
         return $message;
+    }
+
+    public function quote(): self
+    {
+        $clone = clone $this;
+        $clone->text = '[quote=' . $clone->userName() .
+            ' post_id=' . $clone->post_id .
+            ' time=' . $clone->created_at .
+            ' user_id=' . $clone->user_id . ']' .
+            $clone->text .
+            '[/quote]';
+        return $clone;
     }
 
     public function lastDate(): int

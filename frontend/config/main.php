@@ -251,6 +251,7 @@ return [
                 'forum/unlock-post' => 'forum/unlock-post',
                 'forum/update-message' => 'forum/update-message',
                 'forum/remove-message' => 'forum/remove-message',
+                'forum/reply-message' => 'forum/reply-message',
                 'forum/<slug:[\w\-]+>' => 'forum/view',
                 'tickets' => 'tickets/tickets/index',
 

@@ -54,6 +54,7 @@ class PostService
         return $post;
     }
 
+
     public function lock($id)
     {
         $user = $this->user;

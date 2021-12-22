@@ -155,61 +155,84 @@ class ForumController extends Controller
         ]);
     }
 
-    public function actionRemovePost($id)
+    public function actionReplyMessage($id)
+    {
+        $user = $this->loginService->user();
+        $message = Message::findOne($id);
+        $post = $message->post;
+        //Обертка для Сообщения//
+
+
+        $form = new MessageForm($message->quote());
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $message = $this->postService->addMessage($post->id, $form);
+                return $this->redirect(['forum/post', 'id' => $post->id, 'page' => $this->posts->getPage($post->id), '#' => $message->id]);
+                //$this->postService->editMessage($message->post_id, $message->id, $form);
+                //return $this->redirect(['forum/post', 'id' => $message->post_id]);
+            } catch (\DomainException $e) {
+                \Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('post-update', [
+            'post' => $message->post,
+            'model' => $form,
+            'user' => $user,
+            'title' => 'Ответить с цитированием'
+        ]);
+    }
+
+
+    public function actionRemovePost($id): \yii\web\Response
     {
         try {
             $this->postService->removePost($id);
-            return $this->redirect(\Yii::$app->request->referrer);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
         }
+        return $this->redirect(\Yii::$app->request->referrer);
         //Проверка на права доступа - модератор
         // если автор, то есть ли сообщения других участников
     }
 
-    public function actionFixPost($id)
+    public function actionFixPost($id): \yii\web\Response
     {
         try {
             $this->postService->fix($id);
-            return $this->redirect(\Yii::$app->request->referrer);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
         }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionUnfixPost($id)
+    public function actionUnfixPost($id): \yii\web\Response
     {
         try {
             $this->postService->unFix($id);
-            return $this->redirect(\Yii::$app->request->referrer);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
         }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionLockPost($id)
+    public function actionLockPost($id): \yii\web\Response
     {
         try {
             $this->postService->lock($id);
-            return $this->redirect(\Yii::$app->request->referrer);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
         }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionUnlockPost($id)
+    public function actionUnlockPost($id): \yii\web\Response
     {
         try {
             $this->postService->unLock($id);
-            return $this->redirect(\Yii::$app->request->referrer);
         } catch (\DomainException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
-            return $this->redirect(\Yii::$app->request->referrer);
         }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionUpdateMessage($id)
@@ -229,6 +252,7 @@ class ForumController extends Controller
             'post' => $message->post,
             'model' => $form,
             'user' => $user,
+            'title' => 'Редактировать свое сообщение'
         ]);
     }
 

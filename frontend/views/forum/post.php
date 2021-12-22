@@ -68,6 +68,7 @@ $mobile = SysHelper::isMobile();
                                         </span>
                                 </div>
                                 <div class="ml-auto">
+
                                     <?php if ($user && $post->isActive() && $user->id == $message->user_id && !$user->preferences->isForumLock()): ?>
                                         <a class="btn btn-default"
                                            href="<?= Url::to(['forum/update-message', 'id' => $message->id]) ?>"><i
@@ -75,6 +76,10 @@ $mobile = SysHelper::isMobile();
                                         <a class="btn btn-default"
                                            href="<?= Url::to(['forum/remove-message', 'id' => $message->id]) ?>"><i
                                                     class="fas fa-trash"></i></a>
+                                    <?php endif; ?>
+                                    <?php if ($user && $post->isActive() && $user->id != $message->user_id && !$user->preferences->isForumLock()): ?>
+                                        <a class="btn btn-default"
+                                           href="<?= Url::to(['forum/reply-message', 'id' => $message->id]) ?>"><i class="fas fa-quote-left"></i></a>
                                     <?php endif; ?>
                                 </div>
                             </div>

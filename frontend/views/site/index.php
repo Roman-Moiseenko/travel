@@ -218,7 +218,7 @@ $this->registerJs($script);
                     'url' => '/forum',
                     'img_name' => 'forum.jpg',
                     'img_alt' => 'Форум в Калининграде',
-                    'caption' => 'Форум в Калининграде',
+                    'caption' => 'Форумы<br><br>На ПМЖ<br>Лечение<br>Туристам',
                 ]) ?>
             </div>
         </div>

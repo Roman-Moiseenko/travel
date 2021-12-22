@@ -19,7 +19,7 @@ class MessageForm extends Model
         parent::__construct($config);
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['text'], 'string'],

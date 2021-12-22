@@ -75,6 +75,10 @@ $mobile = SysHelper::isMobile();
                                href="<?= Url::to(['forum/remove-message', 'id' => $message->id]) ?>"><i
                                         class="fas fa-trash"></i></a>
                         <?php endif; ?>
+                        <?php if ($user && $post->isActive() && $user->id != $message->user_id && !$user->preferences->isForumLock()): ?>
+                            <a class="btn btn-default"
+                               href="<?= Url::to(['forum/reply-message', 'id' => $message->id]) ?>"><i class="fas fa-quote-left"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <?= Yii::$app->formatter->asHtml(UserForumHelper::encodeBB($message->text), [
