@@ -31,6 +31,7 @@ class ContactService
      */
     private $pdf;
     private $loc;
+    private $noNotice;
     /**
      * @var LoginService
      */
@@ -45,6 +46,7 @@ class ContactService
         $this->mailer = $mailer;
         $this->pdf = $pdf;
         $this->loc = \Yii::$app->params['local'] ?? false;
+        $this->noNotice = \Yii::$app->params['no_notice'] ?? false;
         $this->loginService = $loginService;
     }
 
@@ -396,7 +398,8 @@ class ContactService
     public function sendReplyForum(\booking\entities\user\User $user, \booking\entities\forum\Message $message)
     {
         if (empty($user->email)) return;
-        //if (true) return;
+        if ($this->loc) return;
+        if ($this->noNotice) return;
         $send = $this->mailer->compose('noticeReplyForum', ['message' => $message])
             ->setTo($user->email)
             ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Форум портала Koenigs.ru')])

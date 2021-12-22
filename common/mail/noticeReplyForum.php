@@ -16,10 +16,12 @@ use yii\helpers\Url;
 
 $count2 = count($message->post->messages);
 $number_page = floor($count2 / (int)(\Yii::$app->params['paginationForum']));
-$page = '';
+/*$page = '';
 if ($count2 > 0) $page = '?page=' . ($number_page + 1);
 
 $url = \Yii::$app->params['frontendHostInfo'] . '/forum/post/' . $message->post_id . $page . '#' . $message->id;
+*/
+$url = Url::to(['/forum/post', 'id' => $message->post_id, 'page' => ($number_page + 1), '#' => $message->id], true);
 ?>
 
 <div class="mail-notice" style="color: #0b0b0b;">
