@@ -789,7 +789,7 @@ div.required label:after {
 
 .margin-card-footer {
     margin-left: -6px !important;
-    margin-right: -6px !important;
+   /* margin-right: -6px !important;*/
 }
 
 /*  STAY  */

@@ -33,12 +33,12 @@ use yii\helpers\Url;
             <?php endif; ?>
             </div>
         </div>
-        <div class="caption-fun-list px-2">
+        <div class="caption-fun-list">
             <div class="d-flex flex-column align-items-stretch" style="height: 228px">
-                <div class="pt-3 text-center">
+                <div class="pl-2 pt-3 text-center">
                     <h2 class="card-title card-object"><?= Html::encode($fun->getName()) ?></h2>
                 </div>
-                <div class="mb-auto text-justify" style="font-size: 16px; line-height: 22px">
+                <div class="px-2 mb-auto text-justify" style="font-size: 16px; line-height: 22px">
                     <?= $fun->getDescription() ?>
                 </div>
                 <div class="category-card pt-4">

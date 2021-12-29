@@ -26,11 +26,11 @@ $this->params['canonical'] = Url::to(['moving/moving/view', 'slug' => $page->slu
 $this->params['pages'] = true;
 $this->params['slug'] = $page->slug;
 if (!$main_page) $this->params['breadcrumbs'][] = ['label' => 'Переезд на ПМЖ', 'url' => Url::to(['/moving'])];
-foreach ($page->parents as $parent) {
+/*foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
         $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['moving/moving/view', 'slug' => $parent->slug])];
     }
-}
+}*/
 $this->params['breadcrumbs'][] = $page->name;
 $mobile = SysHelper::isMobile();
 ?>

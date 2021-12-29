@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 class ProductRepository
 {
@@ -107,7 +108,7 @@ class ProductRepository
     public function getForFrontend($id):? Product
     {
         if (!$product = Product::find()->active()->andWhere(['id' => $id])->one()) {
-            throw new \DomainException('Продукт не найден');
+            throw new NotFoundHttpException('Продукт не найден');
         }
         return $product;
     }
