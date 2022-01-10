@@ -117,6 +117,4 @@ class ProductRepository
     {
         return Product::find()->active()->all();
     }
-
-
 }
