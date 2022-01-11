@@ -11,7 +11,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'квартиры,посуточно,аренда,жилья,Калининград,отдых']);
-$this->params['canonical'] = Url::to(['/stays'], true);
+$this->params['canonical'] = $this->params['canonical'] ?? Url::to(['/stays'], true);
 $this->params['stay'] = true;
 
 ?>

@@ -10,7 +10,7 @@ $description = 'Прокат и аренда автомобиля, скутер�
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'прокат,аренда,автомобили,велосипеды,скутеры,Калининград,Светлогорск,Зеленоградск,Куршская,Янтарный']);
-$this->params['canonical'] = Url::to(['/cars'], true);
+$this->params['canonical'] = $this->params['canonical'] ?? Url::to(['/cars'], true);
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>

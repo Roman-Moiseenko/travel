@@ -9,7 +9,7 @@ $description = 'Развлечение и отдых в Калининграде
 $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'развлечения,отдых,Калининград,прогулки,полеты,достопримечательности']);
-$this->params['canonical'] = Url::to(['/funs'], true);
+$this->params['canonical'] = $this->params['canonical'] ?? Url::to(['/funs'], true);
 
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>

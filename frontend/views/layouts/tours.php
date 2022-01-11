@@ -11,7 +11,7 @@ $this->registerMetaTag(['name' =>'description', 'content' => $description]);
 $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
 
 $this->registerMetaTag(['name' =>'keywords', 'content' => 'туры,экскурсия,Калининград,достопримечательности,отдых,Светлогорск,Зеленоградск,Куршская,Янтарный,замок,форт,']);
-$this->params['canonical'] = Url::to(['/tours'], true);
+$this->params['canonical'] = $this->params['canonical'] ?? Url::to(['/tours'], true);
 ?>
 <?php $this->beginContent('@frontend/views/layouts/objects.php') ?>
 <div class="row">
