@@ -29,16 +29,7 @@ use yii\helpers\Url;
                     </a>
                 </li>
                 <?php endforeach; ?>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link"
-                       href="<?= Html::encode(Url::to(['/medicine'])) ?>">
-                        <i class="fas fa-hotel"></i>&#160;<?= Lang::t('Санатории') ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="top-menu-a nav-link"
-                       href="<?= Html::encode(Url::to(['/medicine'])) ?>">
-                        <i class="fas fa-running"></i>&#160;<?= Lang::t('Йога') ?></a>
-                </li>
+
                 <li class="nav-item">
                     <a class="top-menu-a nav-link"
                        href="<?= Html::encode(Url::to(['/forum/lechenie'])) ?>">

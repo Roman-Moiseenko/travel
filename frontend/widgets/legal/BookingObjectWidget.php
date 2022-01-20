@@ -52,7 +52,7 @@ class BookingObjectWidget extends Widget
                 'link' => Url::to(['tour/view', 'id' => $tour->id]),
                 'description' => $tour->getDescription(),
             ];
-        }
+        }/*
         $cars = $this->cars->getByLegal($this->legal_id);
         foreach ($cars as $car) {
             $obj[] = [
@@ -80,7 +80,7 @@ class BookingObjectWidget extends Widget
                 'link' => Url::to(['stay/view', 'id' => $stay->id]),
                 'description' => $stay->getDescription(),
             ];
-        }
+        }*/
       //
         //TODO ** BOOKING_OBJECT **
         shuffle($obj);

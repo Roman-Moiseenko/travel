@@ -51,7 +51,7 @@ class PageRepository
 
     public function findRoot()
     {
-        return Page::find()->andWhere(['depth' => 1])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->all();
+        return Page::find()->andWhere(['depth' => 1])->andWhere(['status' => StatusHelper::STATUS_ACTIVE])->orderBy(['lft'=> SORT_ASC])->all();
 
     }
 
