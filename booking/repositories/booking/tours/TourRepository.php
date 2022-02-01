@@ -53,11 +53,11 @@ class TourRepository
     {
         $query = Tour::find()->alias('t')->active('t')->with('type', 'mainPhoto');
         if ($form == null) {
-
-            $query->joinWith(['actualCalendar ac']);
+            return $this->getProvider($query);
+            /*$query->joinWith(['actualCalendar ac']);
             $query->andWhere(['>=', 'ac.tour_at', strtotime(date('d-m-Y', time()) . '00:00:00')]);
             $query->groupBy('t.id');
-            return $this->getProvider($query);
+            return $this->getProvider($query);*/
         }
         /******  Поиск по Категории ***/
         if ($form->type) {
@@ -67,13 +67,13 @@ class TourRepository
             }
         }
         /******  Поиск по Дате ***/
-        if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
+      /*  if ($form->date_from == null) $form->date_from = date('d-m-Y', time());
         if ($form->date_from || $form->date_to) {
             //TODO Стек проверить
             $query->joinWith(['actualCalendar ac']);
             if ($form->date_from) $query->andWhere(['>=', 'ac.tour_at', strtotime($form->date_from . '00:00:00')]);
             if ($form->date_to) $query->andWhere(['<=', 'ac.tour_at', strtotime($form->date_to . '23:59:00')]);
-        }
+        }*/
         /******  Поиск по Наименованию ***/
         if (!empty($form->text)) {
             $form->text = trim(htmlspecialchars($form->text));

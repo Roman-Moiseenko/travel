@@ -12,6 +12,7 @@ class BtnPhone extends Widget
     public $phone;
     public $caption;
     public $block = true;
+    public $class = 'd2-btn-phone';
 
     public function run()
     {

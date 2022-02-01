@@ -86,7 +86,7 @@ $countReveiws = $tour->countReviews();
     <!-- КУПИТЬ БИЛЕТЫ -->
     <?php if (!$mobile): ?>
     <div class="col-md-4 <?= $mobile ? ' ml-2' : '' ?>">
-        <?= $this->render('_block_booking', [
+        <?= $this->render('_block_call_up', [
             'tour' => $tour,
         ])?>
     </div>
@@ -171,7 +171,7 @@ $countReveiws = $tour->countReviews();
         <?php endif; ?>
 
         <span class="params-item">
-                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени') ?>
+                    <i class="fas fa-star-of-life"></i>&#160;&#160;<?= Lang::t('Цена экскурсии может меняться в зависимости от даты и времени, актуальную цену уточняйте у гида ') ?>
                 </span>
     </div>
 </div>
@@ -237,7 +237,7 @@ $countReveiws = $tour->countReviews();
 <?php if ($mobile): ?>
 <div class="row pt-4" <?= $mobile ? ' style="width: 100vw"' : '' ?>>
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
-        <?= $this->render('_block_booking', [
+        <?= $this->render('_block_call_up', [
             'tour' => $tour,
         ])?>
     </div>

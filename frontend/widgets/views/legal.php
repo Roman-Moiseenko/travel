@@ -39,8 +39,7 @@ if (!empty($legal->photo)) {
                 <div class="py-2"
                      style="font-size: 13px; color: #343434; font-weight: 500;"><?= $legal->getName() ?></div>
             </a>
-            <p class="pt-2">
-                <?= BtnMail::widget(['caption' => 'Написать', 'url' => 'mailto:' . $legal->noticeEmail]) ?>
+
         </div>
     </div>
     <div class="row align-content-center">
