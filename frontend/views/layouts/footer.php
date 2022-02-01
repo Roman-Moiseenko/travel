@@ -23,7 +23,7 @@ use yii\helpers\Url; ?>
                     </li>
                     <li><a href="<?= Html::encode(Url::to(['/post'])) ?>">
                             <h3><?= Lang::t('Достопримечательности Калининграда') ?></h3></a></li>
-                    <li><a href="<?= Html::encode(Url::to(['/night'])) ?>">
+                    <li><a href="<?= Html::encode(Url::to(['/night/nochnaya-zhizn-v-kaliningrade'])) ?>">
                             <h3><?= Lang::t('Ночная жизнь в Калининграде') ?></h3></a></li>
 
 
@@ -52,6 +52,7 @@ use yii\helpers\Url; ?>
             <div class="col-sm-3">
                 <label class="footer-title"><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
+                    <li><a href="<?= Url::to(['/medicine']) ?>"><h3><?= Lang::t('Медицинский туризм') ?></h3></a>
                     <li><a href="<?= Url::to(['/tours']) ?>"><h3><?= Lang::t('Экскурсии в Калининграде') ?></h3></a>
                     <li><a href="<?= Url::to(['/cars']) ?>"><h3><?= Lang::t('Прокат автомобиля') ?></h3></a></li>
                     </li>

@@ -132,6 +132,10 @@ class SitemapController extends Controller
      * @var \booking\repositories\realtor\PageRepository
      */
     private $realtorPages;
+    /**
+     * @var \booking\repositories\medicine\PageRepository
+     */
+    private $pageMedicine;
 
 
     public function __construct(
@@ -155,6 +159,7 @@ class SitemapController extends Controller
         \booking\repositories\night\PageRepository $night,
         \booking\repositories\forum\CategoryRepository $categoryForum,
         \booking\repositories\forum\PostRepository $postForum,
+        \booking\repositories\medicine\PageRepository $pageMedicine,
         SectionRepository $sections,
         LandownerRepository $landowners,
         LandRepository $lands,
@@ -185,6 +190,7 @@ class SitemapController extends Controller
         $this->funCategories = $funCategories;
         $this->lands = $lands;
         $this->realtorPages = $realtorPages;
+        $this->pageMedicine = $pageMedicine;
     }
 
     public function actionIndex(): Response
@@ -208,6 +214,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
+                new IndexItem(Url::to(['medicine'], true)),
                 new IndexItem(Url::to(['realtor'], true)),
                 // new IndexItem(Url::to(['realtor-landowners'], true)),
                 new IndexItem(Url::to(['moving-pages'], true)),
@@ -319,6 +326,19 @@ class SitemapController extends Controller
                     MapItem::ALWAYS
                 );
             }, ['/moving', '/moving/index']));
+        });
+    }
+
+    public function actionMedicine(): Response
+    {
+        return $this->renderSitemap('sitemap-medicine', function () {
+            return $this->sitemap->generateMap(array_map(function (\booking\entities\medicine\Page $page) {
+                return new MapItem(
+                    Url::to(['medicine/medicine/view', 'slug' => $page->slug], true),
+                    null,
+                    MapItem::ALWAYS
+                );
+            }, $this->pageMedicine->getAll()));
         });
     }
 

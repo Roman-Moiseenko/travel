@@ -32,6 +32,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= '&#127973; ' . $this->title ?></title>
     <meta property="og:type" content="website">
+
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
     <meta property="og:image" content="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/logo-admin.jpg' ?>">
     <?php if (isset($this->params['canonical'])) {

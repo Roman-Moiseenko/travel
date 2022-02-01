@@ -9,7 +9,7 @@ use booking\forms\foods\ReviewFoodForm;
 use frontend\widgets\design\BtnReview;use frontend\widgets\design\BtnSend;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html; ?>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-6">
         <?= BtnReview::widget(['caption' => 'Оставить отзыв', 'target_id' => 'collapse-review'])?>

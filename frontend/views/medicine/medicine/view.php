@@ -20,38 +20,29 @@ $this->title = Lang::t($page->getSeoTitle());
 
 $this->registerMetaTag(['name' => 'description', 'content' => $page->meta->description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $page->meta->description]);
-$this->registerMetaTag(['name' => 'keywords', 'content' => $page->meta->keywords]);
+
+
 
 $this->params['pages'] = true;
-$this->params['slug'] = $page->slug;
-if ($main_page) {
-    $this->params['canonical'] = Url::to(['/medicine'], true);
-    $this->params['breadcrumbs'][] = 'Медицинский туризм';
-} else
-{
-    $this->params['canonical'] = Url::to(['medicine/medicine/view', 'slug' => $page->slug], true);
-
-    $this->params['breadcrumbs'][] = ['label' => 'Медицинский туризм', 'url' => Url::to(['/medicine'])];
-    $this->params['breadcrumbs'][] = $page->name;
-}
-/*
+if ($page->depth == 1) $this->params['slug'] = $page->slug;
 foreach ($page->parents as $parent) {
     if (!$parent->isRoot()) {
         $this->params['breadcrumbs'][] = ['label' => $parent->name, 'url' => Url::to(['medicine/medicine/view', 'slug' => $parent->slug])];
     }
-}*/
-
+    if ($parent->depth == 1)
+        $this->params['slug'] = $parent->slug;
+}
+$this->params['breadcrumbs'][] = $page->name;
 $mobile = SysHelper::isMobile();
 ?>
 <span id="ymap-params" data-api="<?= \Yii::$app->params['YandexAPI'] ?>"
       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
 <span id="data-page" data-id="<?= $page->id ?>"></span>
 
-<h1 class="pb-4"><?= $page->title ?></h1>
+
 <article class="page-view params-moving <?= $mobile ? 'word-break-table'  : ''?>">
-
+    <h1 class="pb-4"><?= $page->title ?></h1>
     <?= SysHelper::lazyloaded($page->content); ?>
-
 
 </article>
 <?= MenuPagesWidget::widget(['pages' => $categories, 'section' => '/medicine/medicine']) ?>
