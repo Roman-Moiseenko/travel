@@ -22,7 +22,7 @@ $this->params['emoji'] = Emoji::TOUR;
 
 <div class="list-tours">
     <h1><?= Lang::t('Экскурсии по Калининграду и области') ?></h1>
-    <?= $this->render('_search_top', ['model' => $model]) ?>
+    <?= ''//$this->render('_search_top', ['model' => $model]) ?>
     <?= $this->render('_list', ['dataProvider' => $dataProvider]) ?>
     <!--Отзывы туристов-->
     <?= ReviewObjectWidget::widget([
@@ -30,11 +30,11 @@ $this->params['emoji'] = Emoji::TOUR;
     ]) ?>
 
     <!--Как забронировать экскурсию-->
-    <?= HelperWidget::widget([
+    <?= ''/* HelperWidget::widget([
         'title' => 'Как заказать экскурсию',
         'youtube' => 'https://www.youtube.com/watch?v=TmR-pO6JT60',
         'link' => 'https://koenigs.ru/help-tour',
-    ]) ?>
+    ]) */?>
 
     <!--Облако тегов-->
     <?= TagsWidget::widget([
