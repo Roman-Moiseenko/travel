@@ -21,10 +21,14 @@ use yii\helpers\Url;
                 <div class="card-body">
 
                     <p></p>
-                    <?= \frontend\widgets\design\BtnPhone::widget(['caption' => 'Забронировать', 'block' => true, 'phone' => $tour->legal->noticePhone, 'class' => 'd2-badge-success']) ?>
-                    <div class="pt-3" style="color: #560005; ">* Наличие экскурсии на Ваши даты уточняйте у гида</div>
+                    <?= \frontend\widgets\design\BtnPhone::widget([
+                        'caption' => 'Забронировать',
+                        'block' => true,
+                        'phone' => $tour->legal->noticePhone,
+                        'class_name' => 'd2-badge-success'
+                    ]) ?>
 
-
+                    <div class="pt-3" style="color: #005601; ">* Наличие экскурсии на Ваши даты уточняйте у гида</div>
                 </div>
             </div>
         <?php else: ?>

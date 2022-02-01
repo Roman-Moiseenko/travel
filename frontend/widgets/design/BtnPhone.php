@@ -12,7 +12,7 @@ class BtnPhone extends Widget
     public $phone;
     public $caption;
     public $block = true;
-    public $class = 'd2-btn-phone';
+    public $class_name = 'd2-btn-phone';
 
     public function run()
     {
@@ -20,7 +20,7 @@ class BtnPhone extends Widget
             'phone'=> $this->phone,
             'caption' => $this->caption,
             'block' => $this->block,
-
+            'class' => $this->class_name,
         ]);
     }
 }

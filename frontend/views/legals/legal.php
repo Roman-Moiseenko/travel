@@ -115,7 +115,7 @@ SwiperAsset::register($this);
         </div>
     </div-->
     <!-- Контакты -->
-    <!--div class="row pt-4">
+    <div class="row pt-4">
         <div class="col">
             <div class="container-hr pb-3">
                 <hr/>
@@ -140,7 +140,7 @@ SwiperAsset::register($this);
                 </tbody>
             </table>
         </div>
-    </div-->
+    </div>
 
     <!-- Юридические сведения -->
     <!--div class="row pt-4">
