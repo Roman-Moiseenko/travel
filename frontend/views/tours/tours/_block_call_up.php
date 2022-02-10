@@ -25,7 +25,7 @@ use yii\helpers\Url;
                         'caption' => 'Забронировать',
                         'block' => true,
                         'phone' => $tour->legal->noticePhone,
-                        'class_name' => 'd2-badge-success'
+                        'class_name' => 'd2-btn-main'
                     ]) ?>
 
                     <div class="pt-3" style="color: #005601; ">* Наличие экскурсии на Ваши даты уточняйте у гида</div>

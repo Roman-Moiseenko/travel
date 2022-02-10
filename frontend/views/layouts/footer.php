@@ -127,7 +127,6 @@ use yii\helpers\Url; ?>
                         <meta itemprop="postalCode" content="<?= \Yii::$app->params['address']['postalCode'] ?>">
                         <span itemprop="addressLocality"><?= \Yii::$app->params['address']['addressLocality'] ?></span>
                     </div>
-                    Телефон:<span itemprop="telephone">+7-911-471-0701</span>,
                     E-mail: <span itemprop="email">koenigs.ru@gmail.com</span>
                 </div>
             </div>

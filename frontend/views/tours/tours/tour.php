@@ -17,6 +17,7 @@ use frontend\widgets\LegalWidget;
 use frontend\widgets\reviews\NewReviewTourWidget;
 use frontend\widgets\RatingWidget;
 use frontend\widgets\reviews\ReviewsWidget;
+use frontend\widgets\templates\TagsWidget;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
@@ -97,7 +98,7 @@ $countReveiws = $tour->countReviews();
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><?= Lang::t('Стоимость') ?></div>
+            <div class="text-left-hr">Стоимость экскурсии</div>
         </div>
         <span class="params-item">
                     <?php if ($tour->baseCost->adult): ?>
@@ -180,7 +181,7 @@ $countReveiws = $tour->countReviews();
     <div class="col <?= $mobile ? ' ml-2' : '' ?>">
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><?= Lang::t('Параметры') ?></div>
+            <div class="text-left-hr">Параметры экскурсии</div>
         </div>
         <span class="params-item">
                     <i class="far fa-clock"></i>&#160;&#160;<?= Lang::duration($tour->params->duration) ?>
@@ -250,7 +251,7 @@ $countReveiws = $tour->countReviews();
                       data-lang="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>"></span>
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><?= Lang::t('Координаты') ?></div>
+            <div class="text-left-hr">Экскурсия на карте</div>
         </div>
         <div class="params-item-map">
             <div class="row pb-2">
@@ -359,7 +360,7 @@ $countReveiws = $tour->countReviews();
         <!-- Виджет подгрузки отзывов -->
         <div class="container-hr">
             <hr/>
-            <div class="text-left-hr"><h3 style="font-size: 21px!important; color: #666; font-family: 'Comfortaa', sans-serif;"><?= Lang::t('Отзывы') ?></h3></div>
+            <div class="text-left-hr"><h3 style="font-size: 21px!important; color: #666; font-family: 'Comfortaa', sans-serif;">Отзывы об экскурсии</h3></div>
         </div>
         <div id="review">
             <?= ReviewsWidget::widget(['reviews' => $tour->reviews]); ?>
@@ -367,6 +368,10 @@ $countReveiws = $tour->countReviews();
         <?= NewReviewTourWidget::widget(['tour_id' => $tour->id]); ?>
     </div>
 </div>
+<!--Облако тегов-->
+<?= TagsWidget::widget([
+    'object' => Tour::class
+]) ?>
 
 <div itemtype="https://schema.org/TouristTrip" itemscope>
     <meta itemprop="name" content="<?= Lang::t('Экскурсия ') . $tour->getName() ?>"/>
