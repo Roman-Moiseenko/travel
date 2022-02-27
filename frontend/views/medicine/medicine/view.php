@@ -32,6 +32,9 @@ foreach ($page->parents as $parent) {
     if ($parent->depth == 1)
         $this->params['slug'] = $parent->slug;
 }
+
+$this->params['canonical'] = Url::to(['medicine/medicine/view', 'slug' => $page->slug], true);
+
 $this->params['breadcrumbs'][] = $page->name;
 $mobile = SysHelper::isMobile();
 ?>
