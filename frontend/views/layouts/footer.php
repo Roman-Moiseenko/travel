@@ -132,5 +132,6 @@ use yii\helpers\Url; ?>
             </div>
         </div>
     </div>
+    <div id="upbutton" class="button-scroll-up"></div>
 </footer>
 
