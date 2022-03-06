@@ -2,7 +2,9 @@
 
 use booking\entities\Lang;
 use yii\helpers\Html;
-use yii\helpers\Url; ?>
+use yii\helpers\Url;
+
+?>
 
 <footer class="pb-2">
     <div class="container">

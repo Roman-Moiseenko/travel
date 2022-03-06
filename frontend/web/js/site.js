@@ -34,4 +34,5 @@ $(document).ready(function () {
     $('#upbutton').on('click', function () {
         $('html, body').stop().animate({scrollTop: 0}, 300);
     });
+
 });
