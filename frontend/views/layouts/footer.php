@@ -103,10 +103,10 @@ use yii\helpers\Url;
             </div>
         </div>
         <p>
-            <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow">
+            <!--a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow">
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_3.png" alt="Инстаграм koenigs.ru"
                      title="Инстаграм koenigs.ru" width="20" height="20"/> koenigs.ru
-            </a>
+            </a-->
             <a href="https://vk.com/koenigsru" target="_blank" rel="nofollow">
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru"
                      title="Вконтакте koenigs.ru" width="20" height="20"/> koenigsru
