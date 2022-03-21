@@ -1,8 +1,4 @@
 Фото Блог =: Калининградская область в фотографиях
-или
-в Разделе Искусство  ??
-или
-подраздел /blog
 
 ===Структура===
     PhotoPage
@@ -27,8 +23,8 @@
         domain.ru/blog/category_slug
         domain.ru/post/id => перейти на slug - domain.ru/post/post_slug
     ФотоБлог
-        domain.ru/blog/photos или domain.ru/photos или domain.ru/photo-blog
-        domain.ru/blog/photo/slug или domain.ru/photos/slug или domain.ru/photo-blog/slug
+        domain.ru/photos или domain.ru/photo-blog
+        domain.ru/photo/slug или domain.ru/photo-blog/slug
 
 Контроллер
     PhotoBlogController
