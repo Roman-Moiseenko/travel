@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $born_at
  * @property string $photo
-
+ *
  */
 
 class Author extends ActiveRecord

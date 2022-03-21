@@ -116,16 +116,17 @@ use yii\helpers\Url;
                         ]],
                     ]],
 
-                    ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
+                   /* ['label' => 'Финансы', 'icon' => 'ruble-sign', 'items' => [
                         ['label' => 'Выплаты провайдерам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/provider'], 'active' => $this->context->id == 'finance/provider'],
                         ['label' => 'Возвраты клиентам', 'icon' => 'hand-holding-usd', 'url' => ['/finance/client'], 'active' => $this->context->id == 'finance/client'],
                         ['label' => 'Финансовый отчет', 'icon' => 'file-invoice-dollar', 'url' => ['/finance/report'], 'active' => $this->context->id == 'finance/report'],
                         ['label' => 'Движение (Клиенты)', 'icon' => 'cash-register', 'url' => ['/finance/movement'], 'active' => $this->context->id == 'finance/movement'],
                         ['label' => 'ПрайсЛист', 'icon' => 'cash-register', 'url' => ['/finance/price'], 'active' => $this->context->id == 'finance/price'],
                     ]],
-                    ['label' => 'Активация', 'icon' => 'external-link-alt', 'url' => ['/active'], 'active' => $this->context->id == 'active'],
+                    */
+                    /*['label' => 'Активация', 'icon' => 'external-link-alt', 'url' => ['/active'], 'active' => $this->context->id == 'active'],*/
                     ['label' => 'Провайдеры', 'icon' => 'user-shield', 'url' => ['/providers'], 'active' => $this->context->id == 'providers'],
-                    ['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],
+                    /*['label' => 'Организации', 'icon' => 'registered', 'url' => ['/legals'], 'active' => $this->context->id == 'legals'],*/
                     ['label' => 'Объекты', 'icon' => 'object-group', 'items' => [
                         ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/tours'], 'active' => $this->context->id == 'tours'],
                         ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/trips'], 'active' => $this->context->id == 'trips'],
@@ -136,8 +137,6 @@ use yii\helpers\Url;
                         ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/shops'], 'active' => $this->context->id == 'shops'],
                     ]],
                     // ['label' => 'В.Музеи', 'icon' => 'dungeon', 'url' => ['/vmuseum/vmuseum'], 'active' => $this->context->id == 'vmuseum/vmuseum'],
-
-
                     ['label' => 'Отзывы', 'icon' => 'comment-dots', 'items' => [
                         ['label' => ' - Экскурсии', 'icon' => 'map-marked-alt', 'url' => ['/reviews/tour'], 'active' => $this->context->id == 'reviews/tour'],
                         ['label' => ' - Туры', 'icon' => 'suitcase', 'url' => ['/reviews/trip'], 'active' => $this->context->id == 'reviews/trip'],
@@ -147,8 +146,6 @@ use yii\helpers\Url;
                         ['label' => ' - Магазины', 'icon' => 'store', 'url' => ['/reviews/shop'], 'active' => $this->context->id == 'reviews/shop'],
                         ['label' => ' - Товары', 'icon' => 'box', 'url' => ['/reviews/product'], 'active' => $this->context->id == 'reviews/product'],
                         ['label' => ' - Заведения', 'icon' => 'utensils', 'url' => ['/reviews/food'], 'active' => $this->context->id == 'reviews/food'],
-                        ['label' => ' - ВМузеи', 'icon' => 'dungeon', 'url' => ['/reviews/vmuseum'], 'active' => $this->context->id == 'reviews/vmuseum'],
-
                     ]],
                     ['label' => 'Диалоги', 'icon' => 'comments', 'badge' => '<span class="right badge badge-danger">' . MessageHelper::countNewSupport() . '</span>',
                         'items' => [
@@ -162,8 +159,8 @@ use yii\helpers\Url;
 
                     ['label' => 'Клиенты', 'icon' => 'users', 'url' => ['/clients'], 'active' => $this->context->id == 'clients'],
                     ['label' => 'Пользователи', 'icon' => 'users-cog', 'url' => ['/users'], 'active' => $this->context->id == 'users'],
-                    ['label' => 'Рассылка', 'icon' => 'mail-bulk', 'url' => ['/mailing'], 'active' => $this->context->id == 'mailing'],
-                    ['label' => 'Перевод', 'icon' => 'language', 'url' => ['/lang'], 'active' => $this->context->id == 'lang'],
+                  /*  ['label' => 'Рассылка', 'icon' => 'mail-bulk', 'url' => ['/mailing'], 'active' => $this->context->id == 'mailing'],*/
+                  /*  ['label' => 'Перевод', 'icon' => 'language', 'url' => ['/lang'], 'active' => $this->context->id == 'lang'],*/
                     ['label' => 'SEO', 'iconStyle' => 'fab', 'icon' => 'internet-explorer', 'items' => [
                         ['label' => 'IMG Alt', 'iconStyle' => 'far', 'icon' => 'images', 'url' => ['/seo/alt'], 'active' => $this->context->id == 'seo/alt'],
                         ['label' => 'Meta Теги', 'iconStyle' => 'fab', 'icon' => 'maxcdn', 'url' => ['/seo/meta'], 'active' => $this->context->id == 'seo/meta'],

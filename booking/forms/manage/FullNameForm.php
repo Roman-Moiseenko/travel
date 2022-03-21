@@ -28,8 +28,8 @@ class FullNameForm extends Model
     {
         return [
             [['surname', 'firstname', 'secondname'], 'string', 'max' => 33],
-            [['surname'], 'required', 'message' => Lang::t('Заполните это поле')],
-            [['firstname'], 'required', 'message' => Lang::t('Заполните это поле')],
+            [['surname'], 'required', 'message' => 'Заполните это поле'],
+            [['firstname'], 'required', 'message' => 'Заполните это поле'],
         ];
     }
 

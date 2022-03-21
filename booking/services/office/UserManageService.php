@@ -5,6 +5,7 @@ namespace booking\services\office;
 
 
 use booking\entities\office\User;
+use booking\entities\user\FullName;
 use booking\forms\admin\PasswordEditForm;
 use booking\forms\office\UserForm;
 use booking\repositories\office\UserRepository;
@@ -34,25 +35,26 @@ class UserManageService
         $this->transaction = $transaction;
         $this->roles = $roles;
     }
-/*
-    public function setPersonal($id, PersonalForm $form)
-    {
-        $user = $this->users->get($id);
-        $personal = $user->personal;
-        if ($form->photo->files != null)
-            $personal->setPhoto($form->photo->files[0]);
-        $personal->phone = $form->phone;
-        $personal->dateborn = $form->dateborn;
-        $personal->position = $form->position;
-        $personal->address = new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
-        $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
-        $user->updatePersonal($personal);
-        $this->users->save($user);
-    }
+
+    /*
+        public function setPersonal($id, PersonalForm $form)
+        {
+            $user = $this->users->get($id);
+            $personal = $user->personal;
+            if ($form->photo->files != null)
+                $personal->setPhoto($form->photo->files[0]);
+            $personal->phone = $form->phone;
+            $personal->dateborn = $form->dateborn;
+            $personal->position = $form->position;
+            $personal->address = new UserAddress('RU', $form->address->town, $form->address->address, $form->address->index);
+            $personal->fullname = new FullName($form->fullname->surname, $form->fullname->firstname, $form->fullname->secondname);
+            $user->updatePersonal($personal);
+            $this->users->save($user);
+        }
 
 
 
-*/
+    */
 
     public function create(UserForm $form): User
     {
@@ -61,8 +63,19 @@ class UserManageService
             $form->email,
             $form->password
         );
+        $user->setPersonal(
+            $form->home_page,
+            $form->description,
+            new FullName(
+                $form->person->surname,
+                $form->person->firstname,
+                $form->person->secondname
+            )
+        );
+        if ($form->photo->files != null)
+            $user->setPhoto($form->photo->files[0]);
 
-        $this->transaction->wrap(function () use($user, $form) {
+        $this->transaction->wrap(function () use ($user, $form) {
             $this->users->save($user);
             $this->roles->assign($user->id, $form->role);
         });
@@ -73,7 +86,19 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $user->edit($form->username, $form->email);
-        $this->transaction->wrap(function () use($user, $form) {
+        $user->setPersonal(
+            $form->home_page,
+            $form->description,
+            new FullName(
+                $form->person->surname,
+                $form->person->firstname,
+                $form->person->secondname
+            )
+        );
+        if ($form->photo->files != null)
+            $user->setPhoto($form->photo->files[0]);
+        
+        $this->transaction->wrap(function () use ($user, $form) {
             if (!empty($form->password)) $user->setPassword($form->password);
             $this->users->save($user);
             $this->roles->assign($user->id, $form->role);
@@ -99,4 +124,5 @@ class UserManageService
         $user = $this->users->get($id);
         $this->users->remove($user);
     }
+
 }

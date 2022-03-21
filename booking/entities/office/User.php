@@ -2,12 +2,16 @@
 namespace booking\entities\office;
 
 
+use booking\entities\behaviors\FullnameBehavior;
+use booking\entities\user\FullName;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\web\UploadedFile;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * User model
@@ -22,7 +26,13 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ **** Для Блоггеров ****
+ * @property string $photo
+ * @property string $home_page //ссылка на страницу на сайте
+ * @property string $description
  * property string $password write-only password
+ * @mixin ImageUploadBehavior
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -30,6 +40,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    /** @var $person FullName */
+    public $person;
 
     public static function create(string $username, string $email, string $password): self
     {
@@ -45,6 +57,17 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
+    public function setPersonal(string $home_page, string $description, FullName $person): void
+    {
+        $this->home_page = $home_page;
+        $this->description = $description;
+        $this->person = $person;
+    }
+
+    public function setPhoto(UploadedFile $file): void
+    {
+        $this->photo = $file;
+    }
 
     public function edit(string $username, string $email): void
     {
@@ -60,8 +83,6 @@ class User extends ActiveRecord implements IdentityInterface
         $user->generateEmailVerificationToken();
         return $user;
     }
-
-
 
     public function isActive(): bool
     {
@@ -101,6 +122,23 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
+            FullnameBehavior::class,
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'photo',
+                'createThumbsOnRequest' => true,
+                'filePath' => '@staticRoot/origin/office_users/[[attribute_id]]/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/office_users/[[attribute_id]]/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/office_users/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/office_users/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbs' => [
+                    'admin' => ['width' => 100, 'height' => 70],
+                    'thumb' => ['width' => 320, 'height' => 320],
+                    'cart_list' => ['width' => 160, 'height' => 160],
+                    'forum' => ['width' => 140, 'height' => 140],
+                    'profile' => ['width' => 400, 'height' => 400],
+                ],
+            ],
           /*  [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => ['personal', 'legals', 'notice'],

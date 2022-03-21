@@ -3,6 +3,7 @@
 use booking\helpers\OfficeUserHelper;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -48,7 +49,6 @@ $this->params['breadcrumbs'][] = $model->username;
                 'format' => 'raw',
                 'label' => 'Уровень доступа'
             ],
-            'password_reset_token',
             [
                 'attribute' =>'created_at',
                 'format' => 'datetime',
@@ -59,9 +59,39 @@ $this->params['breadcrumbs'][] = $model->username;
                 'format' => 'datetime',
                 'label' => 'Изменен'
             ],
-            'verification_token',
+            [
+                'attribute' =>'person_surname',
+                'label' => 'Фамилия'
+            ],
+            [
+                'attribute' =>'person_firstname',
+                'label' => 'Имя'
+            ],
+            [
+                'attribute' =>'person_secondname',
+                'label' => 'Отчество'
+            ],
+            [
+                'attribute' =>'description',
+                'format' => 'text',
+                'label' => 'Описание'
+            ],
+            [
+                'attribute' =>'home_page',
+                'value' => '<a href="' . $model->home_page . '">' . $model->home_page . '</a>',
+                'format' => 'raw',
+                'label' => 'Ссылка'
+            ],
         ],
     ]) ?>
     </div>
 </div>
+    <?php if (!empty($model->photo)): ?>
+        <img src="<?= Html::encode($model->getThumbFileUrl('photo', 'profile')) ?>" alt=""
+             class="img-responsive" style="max-width:100%;height:auto;"/>
+    <?php else: ?>
+        <img src="<?= Url::to('@static/files/images/no_user.png') ?>" alt=""
+             class="img-responsive" style="max-width:100%;height:auto;"/>
+    <?php endif; ?>
+
 </div>
