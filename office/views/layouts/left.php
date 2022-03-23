@@ -61,8 +61,8 @@ use yii\helpers\Url;
                         ['label' => 'Комментарии', 'icon' => 'comment-dots', 'url' => ['/blog/comment'], 'active' => $this->context->id == 'blog/comment'],
                     ]],
                     ['label' => 'Фото-Блог', 'icon' => 'image', 'items' => [
-                        ['label' => 'Публикации', 'icon' => 'book', 'url' => ['/photos/page'], 'active' => $this->context->id == 'blog/post'],
-                        ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/photos/file'], 'active' => $this->context->id == 'file'],
+                        ['label' => 'Публикации', 'icon' => 'book', 'url' => ['/photos/page'], 'active' => $this->context->id == 'photos/page'],
+                       // ['label' => 'Файлы', 'iconStyle' => 'far', 'icon' => 'file', 'url' => ['/photos/file'], 'active' => $this->context->id == 'file'],
                         ['label' => 'Метки', 'icon' => 'tags', 'url' => ['/photos/tag'], 'active' => $this->context->id == 'blog/tag'],
                     ]],
                     ['label' => 'Информер', 'icon' => 'info-circle', 'items' => [

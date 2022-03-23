@@ -64,7 +64,7 @@ $this->title = 'Публикации';
                     'buttons' => [
                         'update' => function ($url, Page $model, $key) {
                             if ($model->isDraft()) {
-                                $url = Url::to(['active', 'id' => $model->id]);
+                                $url = Url::to(['activate', 'id' => $model->id]);
                                 $icon = Html::tag('i', '', ['class' => "fas fa-play", 'style' => 'color: #ffc107']);
                                 return Html::a($icon, $url, [
                                     'title' => 'Активировать',
