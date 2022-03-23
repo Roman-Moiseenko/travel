@@ -18,18 +18,20 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class Item extends ActiveRecord
 {
-    public static function create(string $name, string $description): self
+    public static function create(string $name, string $description, UploadedFile $photo = null): self
     {
         $item = new static();
         $item->name = $name;
         $item->description = $description;
+        if (!empty($photo)) $item->photo = $photo;
         return $item;
     }
 
-    public function edit(string $name, string $description): void
+    public function edit(string $name, string $description, UploadedFile $photo = null): void
     {
         $this->name = $name;
         $this->description = $description;
+        if (!empty($photo)) $this->photo = $photo;
     }
 
     public function setPhoto(UploadedFile $photo): void
@@ -47,7 +49,7 @@ class Item extends ActiveRecord
         return '{{%photos_page_items}}';
     }
 
-    public function isIdEqualTo($id): bool
+    public function isFor($id): bool
     {
         return $this->id == $id;
     }
@@ -67,7 +69,7 @@ class Item extends ActiveRecord
         return [
             [
                 'class' => ImageUploadBehavior::class,
-                'attribute' => 'file',
+                'attribute' => 'photo',
                 'createThumbsOnRequest' => true,
                 'filePath' => '@staticRoot/origin/photos_blog/[[attribute_page_id]]/[[id]].[[extension]]',
                 'fileUrl' => '@static/origin/photos_blog/[[attribute_page_id]]/[[id]].[[extension]]',
@@ -83,7 +85,6 @@ class Item extends ActiveRecord
                     'catalog_list' => ['width' => 228, 'height' => 228],
                     'catalog_list_2x' => ['width' => 456, 'height' => 228],
                     'catalog_list_3x' => ['width' => 342, 'height' => 114],
-                    'catalog_list_food' => ['width' => 300, 'height' => 200],
                     'catalog_list_mobile' => ['width' => 320, 'height' => 160],
                     'legal_list' => ['width' => 300, 'height' => 300],
                     'catalog_gallery' => ['width' => 800, 'height' => 400],
@@ -91,7 +92,6 @@ class Item extends ActiveRecord
                     'catalog_gallery_mini' => ['width' => 400, 'height' => 200],
                     'catalog_main_mobil' => ['width' => 600, 'height' => 200],
                     'catalog_origin' => ['width' => 1080, 'height' => 720],
-                    'map' => ['width' => 195, 'height' => 150],
                 ],
             ],
         ];

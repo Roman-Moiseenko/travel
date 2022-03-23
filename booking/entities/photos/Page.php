@@ -5,9 +5,12 @@ namespace booking\entities\photos;
 
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Meta;
+use booking\helpers\scr;
 use booking\helpers\SlugHelper;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * @property integer $id
@@ -40,6 +43,7 @@ class Page extends ActiveRecord
         $page->slug = $slug ?? SlugHelper::slug($title);
         $page->description = $description;
         $page->created_at = time();
+        $page->status = self::STATUS_DRAFT;
         return $page;
     }
 
@@ -93,7 +97,7 @@ class Page extends ActiveRecord
     {
         $assignments = $this->tagAssignments;
         foreach ($assignments as $assignment) {
-            if ($assignment->isForTag($id)) {
+            if ($assignment->isFor($id)) {
                 return;
             }
         }
@@ -105,13 +109,13 @@ class Page extends ActiveRecord
     {
         $assignments = $this->tagAssignments;
         foreach ($assignments as $i => $assignment) {
-            if ($assignment->isForTag($id)) {
+            if ($assignment->isFor($id)) {
                 unset($assignments[$i]);
                 $this->tagAssignments = $assignments;
                 return;
             }
         }
-        throw new \DomainException('Наазначение тега не найдено.');
+        throw new \DomainException('Назначение тега не найдено.');
     }
 
     public function revokeTags(): void
@@ -123,43 +127,107 @@ class Page extends ActiveRecord
     {
         $items = $this->items;
         $items[] = $item;
-        $this->items = $items;
+        $this->updateItems($items);
     }
 
-    public function editItem($id, Item $item): void
+    public function editItem($id, $name, $description, UploadedFile $photo = null): void
     {
         $items = $this->items;
         foreach ($items as $i => $item) {
-            if ($item->isIdEqualTo($id)) {
+            if ($item->isFor($id)) {
+                $item->edit($name, $description);
+                if (!empty($photo)) $item->setPhoto($photo);
                 $items[$i] = $item;
                 break;
             }
         }
-        $this->items = $items;
+        $this->updateItems($items);
     }
 
     public function removeItem($id): void
     {
         $items = $this->items;
         foreach ($items as $i => $item) {
-            if ($item->isIdEqualTo($id)) {
+            if ($item->isFor($id)) {
                 unset($items[$i]);
                 break;
             }
         }
+        $this->updateItems($items);
+    }
+
+    private function updateItems(array $items): void
+    {
+        /**
+         * @var int $i
+         * @var Item $item
+         */
+        foreach ($items as $i => $item) {
+            $item->setSort($i);
+        }
         $this->items = $items;
     }
+
+    public function moveUpItem($id): void
+    {
+        $items = $this->items;
+        foreach ($items as $i => $item) {
+            if ($item->isFor($id) && $i != 0) {
+                $t1 = $items[$i - 1];
+                $t2 = $item;
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->items = $items;
+                return;
+            }
+        }
+
+    }
+
+    public function moveDownItem($id): void
+    {
+        $items = $this->items;
+        foreach ($items as $i => $item) {
+            if ($item->isFor($id) && $i != count($items) - 1) {
+                $t1 = $item;
+                $t2 = $items[$i + 1];
+                $buffer = $t1->sort;
+                $t1->setSort($t2->sort);
+                $t2->setSort($buffer);
+                $this->items = $items;
+                return;
+            }
+        }
+    }
+
 
     public static function tableName()
     {
         return '{{%photos_page}}';
     }
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             MetaBehavior::class,
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'items',
+                    'tagAssignments',
+                ]
+            ],
         ];
+    }
+
+    public function getItem($id): Item
+    {
+        foreach ($this->items as $item)
+        {
+            if ($item->isFor($id) == $id) return $item;
+        }
+        throw new \DomainException('Items не найден id='. $id);
     }
 
     public function getItems(): ActiveQuery

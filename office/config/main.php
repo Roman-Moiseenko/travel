@@ -47,6 +47,19 @@ return [
                 ],
             ],
         ],
+        'elfinder_photo' => [
+            'class' => 'mihaildev\elfinder\Controller',
+            'access' => ['@'],
+
+            'roots' => [
+                [
+                    'baseUrl'=>'@static',
+                    'basePath'=> '@staticRoot',
+                    'path' => 'images/photos',
+                    'name' => 'Фото-Блог'
+                ],
+            ],
+        ],
     ],
     'components' => [
         'assetManager' => [
