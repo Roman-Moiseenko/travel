@@ -196,6 +196,9 @@ return [
                 'food/map-foods' => 'food/map-foods',
                 'food/<id:\d+>' => 'food/view',
 
+                'photos' => 'photos/page/index',
+
+
                 'shops' => 'shop/catalog/index',
                 'shop/catalog/<id:\d+>' => 'shop/catalog/category',
                 'shop/product/<id:\d+>' => 'shop/catalog/product',

@@ -5,6 +5,7 @@ namespace booking\entities\photos;
 
 use booking\entities\behaviors\MetaBehavior;
 use booking\entities\Meta;
+use booking\entities\queries\ObjectActiveQuery;
 use booking\helpers\scr;
 use booking\helpers\SlugHelper;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -243,5 +244,10 @@ class Page extends ActiveRecord
     public function getTags(): ActiveQuery
     {
         return $this->hasMany(Tag::class, ['id' => 'tag_id'])->via('tagAssignments');
+    }
+
+    public static function find(): PageQuery
+    {
+        return new PageQuery(static::class);
     }
 }

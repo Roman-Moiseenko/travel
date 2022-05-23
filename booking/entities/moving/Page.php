@@ -42,6 +42,8 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property Item[] $items
  * @property ReviewMoving[] $reviews
  * @property string $name [varchar(255)]
+ * @property int $created_at [int]
+ * @property int $updated_at [int]
  * @mixin NestedSetsBehavior
  * @mixin ImageUploadBehavior
  */
@@ -55,6 +57,7 @@ class Page extends ActiveRecord
         $page->title = $title;
         $page->name = $name;
         if (empty($slug)) $slug = SlugHelper::slug($title);
+        $page->created_at = time();
         $page->slug = $slug;
         $page->content = $content;
         $page->description = $description;
@@ -76,6 +79,7 @@ class Page extends ActiveRecord
         $this->description = $description;
         $this->meta = $meta;
         $this->icon = $icon;
+        $this->updated_at = time();
     }
     public function setPhoto(UploadedFile $file)
     {

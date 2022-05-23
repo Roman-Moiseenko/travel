@@ -9,7 +9,7 @@ use yii\helpers\Url;
 <footer class="pb-2">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <label class="footer-title"><?= Lang::t('Информация') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Html::encode(Url::to(['/about'])) ?>"><?= Lang::t('О нас') ?></a></li>
@@ -26,11 +26,13 @@ use yii\helpers\Url;
                     <li><a href="<?= Html::encode(Url::to(['/night/nochnaya-zhizn-v-kaliningrade'])) ?>">
                             <h3><?= Lang::t('Ночная жизнь в Калининграде') ?></h3></a></li>
 
-
+                    <li><a href="<?= Html::encode(Url::to(['/map'])) ?>"
+                           rel="nofollow"><?= Lang::t('Карта сайта') ?></a>
+                    </li>
                 </ul>
             </div>
-            <?php //TODO Жилье ?>
-            <div class="col-sm-3">
+
+            <div class="col-sm-4">
                 <label class="footer-title"><?= Lang::t('Проживание в Калининграде') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::to(['/stays/recreation']) ?>"><h3><?= Lang::t('Базы отдыха и глэмпинги') ?></h3></a></li>
@@ -49,7 +51,7 @@ use yii\helpers\Url;
 
                 </ul>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <label class="footer-title"><?= Lang::t('Услуги') ?></label>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::to(['/medicine']) ?>"><h3><?= Lang::t('Медицинский туризм') ?></h3></a>
@@ -63,27 +65,7 @@ use yii\helpers\Url;
 
                 </ul>
             </div>
-            <div class="col-sm-3">
-                <label class="footer-title"><?= Lang::t('Личный кабинет') ?></label>
-                <ul class="list-unstyled">
-                    <li><a href="<?= Html::encode(Url::to(['/cabinet/profile'])) ?>"
-                           rel="nofollow"><?= Lang::t('Кабинет') ?></a></li>
-                    <li>
-                        <a href="<?= Html::encode(Url::to(['/cabinet/booking/index'])) ?>"
-                           rel="nofollow"><?= Lang::t('Бронирования') ?></a>
-                    </li>
-                    <li>
-                        <a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>"
-                           rel="nofollow"><?= Lang::t('Избранное') ?></a>
-                    </li>
-                    <li><a href="<?= Html::encode(Url::to(['/cabinet/dialogs'])) ?>"
-                           rel="nofollow"><?= Lang::t('Сообщения') ?></a>
-                    </li>
-                    <li><a href="<?= Html::encode(Url::to(['/map'])) ?>"
-                           rel="nofollow"><?= Lang::t('Карта сайта') ?></a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
 
         <hr>
@@ -109,8 +91,8 @@ use yii\helpers\Url;
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru"
                      title="Вконтакте koenigs.ru" width="20" height="20"/> koenigsru
             </a>
-            <?= Lang::t('Разработано') ?> <a href="mailto:koenigs.ru@gmail.com"
-                                             target="_blank" rel="=nofollow"><?= Lang::t('ООО Кёнигс.РУ') ?></a>
+            <?= ''//Lang::t('Разработано') ?> <a href="https://website39.site"
+                                             target="_blank">https://website39.site</a>
             &copy; 2020-<?= date('Y', time()) ?> <?= Lang::t('Все права защищены') ?>
         </p>
         <div>

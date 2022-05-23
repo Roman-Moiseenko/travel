@@ -51,13 +51,13 @@ $this->registerJs($script);
                                 class="fab fa-vk"></i></span></a>
             </div>
             <div class="mr-4">
-                <a href="https://www.instagram.com/koenigs.ru" target="_blank" rel="nofollow"><span
-                            class="landing-top-contact"><i class="fab fa-instagram"></i></span></a>
             </div>
+            <?php if (!empty(\Yii::$app->params['supportPhone'])): ?>
             <div style="align-items: center" class="mr-4">
                 <span class="landing-top-contact"><i
                             class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
             </div>
+            <?php endif; ?>
             <div style="align-items: center">
                 <?php if ($user): ?>
                     <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>"
