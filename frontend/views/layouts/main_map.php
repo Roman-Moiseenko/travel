@@ -27,6 +27,9 @@ AppAsset::register($this);
         <meta name="yandex-verification" content="7e8361bb699b88a1" />
 
         <?php $this->registerCsrfMetaTags() ?>
+        <!-- Yandex.RTB -->
+        <script>window.yaContextCb=window.yaContextCb||[]</script>
+        <script src="https://yandex.ru/ads/system/context.js" async></script>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
 

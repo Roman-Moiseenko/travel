@@ -12,6 +12,7 @@ use frontend\assets\FunAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\menu\BookingMenuWidget;
+use frontend\widgets\menu\MainMenu;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
@@ -34,6 +35,9 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
     <meta name="yandex-verification" content="7e8361bb699b88a1" />
     <meta name="leaq-verification" content="84bea902-8ff8-4c70-8e42-1f3cf951757d" />
     <?php $this->registerCsrfMetaTags() ?>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
     <title><?= '&#9992; ' . $this->title ?></title>
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="<?= Lang::current() == 'ru' ? 'ru_RU' : 'en_US' ?>" />
@@ -113,7 +117,10 @@ if ($mobile) {AppAssetMobile::register($this);} else {AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div id="common-home" class="container-mobile content-container">
+<header class="landing-header">
+    <?= MainMenu::widget()?>
+</header>
+<div id="common-home" class="container-mobile content-container with-top-header">
     <?= $content ?>
 </div>
 <!-- Main Footer -->

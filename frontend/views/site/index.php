@@ -5,6 +5,7 @@ use booking\entities\Lang;
 use booking\entities\user\User;
 use frontend\assets\SwiperAsset;
 use frontend\widgets\BlogLandingWidget;
+use frontend\widgets\menu\MainMenu;
 use frontend\widgets\RatingWidget;
 use kv4nt\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Url;
@@ -20,25 +21,26 @@ $description = 'Отдых в Калининграде обзорные экск
 $this->registerMetaTag(['name' => 'description', 'content' => $description]);
 $this->registerMetaTag(['name' => 'og:description', 'content' => $description]);
 
-//$this->registerMetaTag(['name' => 'keywords', 'content' => 'экскурсии,туры,бронирование,развлечения,жилья,Калининград,отдых']);
 $this->registerLinkTag(['rel' => "preload", 'as' => "image", 'href' => $images[0]]);
 JqueryAsset::register($this);
 SwiperAsset::register($this);
-$script = <<<JS
+
+/*$script = <<<JS
 $(document).ready(function() {
 });
 JS;
-$this->registerJs($script);
+$this->registerJs($script);*/
+$mobile = \booking\helpers\SysHelper::isMobile();
 ?>
 
-<header class="landing-header">
-    <div class="container d-flex  justify-content-between" style="align-items: center; display: flow-root">
+
+    <!--div class="container d-flex  justify-content-between" style="align-items: center; display: flow-root">
         <div class="" style="float: left">
             <div id="Oplao" data-cl="white" data-id="33141" data-wd="200px" data-hg="80px" data-l="ru" data-c="554234"
                  data-t="C" data-w="m/s" data-p="hPa" data-wg="widget_3" class="170 80"></div>
             <script type="text/javascript" id="weather_widget" charset="UTF-8"
-                    src="../js/weather_widget.js"></script> <!-- https://oplao.com/js/weather_widget.js -->
-        </div>
+                    src="https://oplao.com/js/weather_widget.js"></script> <!-- https://oplao.com/js/weather_widget.js  ../js/weather_widget.js -->
+        <!--/div>
         <div style="align-items: center">
             <a href="/" class="landing-logo">
                 <img src="<?= \Yii::$app->params['staticHostInfo'] . '/files/images/koenigs_ru.png' ?>"
@@ -58,7 +60,7 @@ $this->registerJs($script);
                             class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
             </div>
             <?php endif; ?>
-            <div style="align-items: center">
+            <!--div style="align-items: center">
                 <?php if ($user): ?>
                     <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>"
                                                          title="<?= Lang::t('Кабинет') ?>" rel="nofollow"><i
@@ -69,12 +71,13 @@ $this->registerJs($script);
                                                          title="<?= Lang::t('Войти') ?>" rel="nofollow"><i
                                     class="fas fa-sign-in-alt"></i></a></span>
                 <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</header>
+            </div-->
+        <!--/div>
+    </div-->
 
-<div class="item-responsive item-2-80by1">
+
+<?php if(!$mobile): ?>
+    <div class="item-responsive item-2-80by1 with-top-header">
     <div class="content-item">
         <?php
         OwlCarouselWidget::begin([
@@ -116,119 +119,35 @@ $this->registerJs($script);
             </div>
         <?php endforeach; ?>
         <?php OwlCarouselWidget::end(); ?>
-    </div>
-</div>
-<div class="landing-block-center">
-    <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для гостей') ?><span
-                    class="line-b-title"></span></h2>
-        <div class="row">
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/tours',
-                    'img_name' => 'tour.jpg',
-                    'img_alt' => 'Экскурсии в Калининграде',
-                    'caption' => 'Экскурсии',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/funs',
-                    'img_name' => 'fun.jpg',
-                    'img_alt' => 'Развлечения и отдых в Калининграде',
-                    'caption' => 'Развлечения<br>Отдых',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/stays',
-                    'img_name' => 'stay.jpg',
-                    'img_alt' => 'Проживание Калининграде',
-                    'caption' => 'Проживание',
-                ]) ?>
-            </div>
-
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/cars',
-                    'img_name' => 'car.jpg',
-                    'img_alt' => 'Прокат авто в Калининграде',
-                    'caption' => 'Прокат авто',
-                ]) ?>
-            </div>
-
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/medicine',
-                    'img_name' => 'medicine.jpg',
-                    'img_alt' => 'Медицинский туризм в Калининграде',
-                    'caption' => 'Медицинский<br>туризм',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/moving',
-                    'img_name' => 'moving.jpg',
-                    'img_alt' => 'На ПМЖ в Калининграде',
-                    'caption' => 'На ПМЖ',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/realtor',
-                    'img_name' => 'land.jpg',
-                    'img_alt' => 'Купить-продать землю и недвижимость в Калининграде',
-                    'caption' => 'Земельные участки<br>Недвижимость',
-                ]) ?>
-            </div>
-
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/forum',
-                    'img_name' => 'forum.jpg',
-                    'img_alt' => 'Форум в Калининграде',
-                    'caption' => 'Форумы<br><br>На ПМЖ<br>Лечение<br>Туристам',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/night',
-                    'img_name' => 'night.jpg',
-                    'img_alt' => 'Ночная жизнь в Калининграде',
-                    'caption' => 'Ночная жизнь<br>Развлечения<br>Отдых',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/foods',
-                    'img_name' => 'food.jpg',
-                    'img_alt' => 'Где поесть в Калининграде',
-                    'caption' => 'Где поесть',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/shops',
-                    'img_name' => 'shop.jpg',
-                    'img_alt' => 'Что купить в Калининграде',
-                    'caption' => 'Сувениры',
-                ]) ?>
-            </div>
-            <div class="col-sm-4 col-md-3 pt-4">
-                <?= $this->render('_button', [
-                    'url' => '/post',
-                    'img_name' => 'blog.jpg',
-                    'img_alt' => 'Туристам о Калининграде',
-                    'caption' => 'Туристам о Калининграде',
-                ]) ?>
-            </div>
         </div>
     </div>
+<?php else: ?>
+    <h1 style="text-align: center; align-items: center;">Калининград для туристов</h1>
+<?php endif;?>
+
+
+<div class="landing-block-center ">
+    <div class="container">
+        <h2 class="<?= $mobile ? 'mobile-title-h2' : 'landing-title-h2' ?>"><span class="<?= $mobile ? '' : 'line-t-title'?>"></span>Для гостей<span class="<?= $mobile ? '' : 'line-b-title'?>"></span></h2>
+        <?php if ($mobile): ?>
+            <?php foreach ($buttons as $button):?>
+                <?= $this->render('_button_mobile', $button) ?>
+            <?php endforeach;?>
+        <?php else: ?>
+        <div class="row">
+            <?php foreach ($buttons as $button):?>
+                <div class="col-sm-4 col-md-3 pt-4">
+                    <?= $this->render('_button', $button) ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+        <?php endif; ?>
+    </div>
 </div>
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('О Калининградской области') ?><span
-                    class="line-b-title"></span></h2>
+        <h2 class="<?= $mobile ? 'mobile-title-h2' : 'landing-title-h2' ?>"><span class="<?= $mobile ? '' : 'line-t-title'?>"></span>О Калининградской области<span
+                    class="<?= $mobile ? '' : 'line-b-title'?>"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2;">
                 <p class="indent">
@@ -256,15 +175,14 @@ $this->registerJs($script);
         </div>
         <div class="row pt-5">
             <div class="col-12">
-                <?= BlogLandingWidget::widget(); ?>
+                <?= ''//BlogLandingWidget::widget(); ?>
             </div>
         </div>
     </div>
 </div>
 <div class="landing-block-center">
     <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Авиабилеты в Калининград') ?><span
-                    class="line-b-title"></span></h2>
+        <h2 class="<?= $mobile ? 'mobile-title-h2' : 'landing-title-h2' ?>"><span class="<?= $mobile ? '' : 'line-t-title'?>"></span>Авиабилеты в Калининград<span class="<?= $mobile ? '' : 'line-b-title'?>"></span></h2>
         <div class="row">
             <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2;">
                 <p class="indent">
@@ -277,29 +195,7 @@ $this->registerJs($script);
         </div>
     </div>
 </div>
-<!--div class="landing-block-center">
-    <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span>Отзывы Партнеры Ссылки<span
-                    class="line-b-title"></span></h2>
-    </div>
-</div-->
-<!--div class="landing-block-center">
-    <div class="container">
-        <h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Для туристических компаний') ?><span
-                    class="line-b-title"></span></h2>
-        <div class="row">
-            <div class="col-12" style="font-size: 18px; text-align: justify; letter-spacing: 1px; line-height: 2">
-                <p class="indent">
-                    Если Вы оказываете различные туристические услуги для гостей и жителей нашего региона, то Вы можете
-                    разместить их на нашем сайте.
-                    Для размещения доступны следующие услуги: экскурсии, прокат транспортных средств, бронирование
-                    апартаментов/домов (целиком) и развлечения (активный, культурный отдых).
-                </p> Зарегистрироваться можно по адресу <a href="https://admin.koenigs.ru" rel="nofollow"
-                                                           target="_blank">admin.koenigs.ru</a>.<br>
-            </div>
-        </div>
-    </div>
-</div-->
+
 <div class="landing-block-center">
     <div class="container">
         <!--h2 class="landing-title-h2"><span class="line-t-title"></span><?= Lang::t('Календарь событий') ?><span

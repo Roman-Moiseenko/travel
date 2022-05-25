@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use frontend\assets\MovingAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
+use frontend\widgets\menu\MainMenu;
 use frontend\widgets\menu\MovingMenuWidget;
 use frontend\widgets\menu\NightMenuWidget;
 use frontend\widgets\menu\TopUserMenuWidget;
@@ -31,6 +32,9 @@ MovingAsset::register($this);
     <meta name="copyright" content="Моисеенко Роман Александрович">
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>
     <?php $this->registerCsrfMetaTags() ?>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
     <title><?= '&#127875; ' . $this->title ?></title>
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= Html::encode($this->title) ?>">
@@ -78,12 +82,14 @@ MovingAsset::register($this);
 <body style="background-color: #f2f6f9;">
 <?php $this->beginBody() ?>
 
-    <nav id="top">
-        <?= TopUserMenuWidget::widget() ?>
-        <?= NightMenuWidget::widget() ?>
-    </nav>
-
-<div id="common-home" class="container content-container">
+    <!--nav id="top">
+        <?= ''// TopUserMenuWidget::widget() ?>
+        <?= ''// NightMenuWidget::widget() ?>
+    </nav-->
+<header class="landing-header">
+    <?= MainMenu::widget()?>
+</header>
+<div id="common-home" class="container content-container with-top-header">
     <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],
         'homeLink' => [

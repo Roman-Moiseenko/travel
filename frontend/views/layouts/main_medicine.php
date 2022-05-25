@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\helpers\Emoji;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
+use frontend\widgets\menu\MainMenu;
 use frontend\widgets\menu\MedicineMenuWidget;
 use frontend\widgets\menu\MovingMenuWidget;
 use frontend\widgets\menu\TopUserMenuWidget;
@@ -30,6 +31,9 @@ AppAsset::register($this);
     <meta name="copyright" content="Моисеенко Роман Александрович">
     <meta name="yandex-verification" content="7e8361bb699b88a1"/>
     <?php $this->registerCsrfMetaTags() ?>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
     <title><?= '&#127973; ' . $this->title ?></title>
     <meta property="og:type" content="website">
 
@@ -78,12 +82,14 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-    <nav id="top">
-        <?= TopUserMenuWidget::widget() ?>
-        <?= MedicineMenuWidget::widget() ?>
-    </nav>
-
-<div id="common-home" class="container content-container">
+    <!--nav id="top">
+        <?= ''// TopUserMenuWidget::widget() ?>
+        <?= ''// MedicineMenuWidget::widget() ?>
+    </nav-->
+<header class="landing-header">
+    <?= MainMenu::widget()?>
+</header>
+<div id="common-home" class="container content-container with-top-header">
     <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],
         'homeLink' => [
