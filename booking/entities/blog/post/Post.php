@@ -21,6 +21,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $id
  * @property integer $category_id
  * @property integer $created_at
+ * @property integer $updated_at
  * @property string $title
  * @property string $description
  * @property string $content
@@ -77,6 +78,7 @@ class Post extends ActiveRecord
         $this->description = $description;
         $this->content = $content;
         $this->meta = $meta;
+        $this->updated_at = time();
 
         $this->title_en = $title_en;
         $this->description_en = $description_en;

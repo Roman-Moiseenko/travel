@@ -5,6 +5,7 @@
 
 use booking\entities\blog\post\Post;
 use booking\entities\Lang;
+use booking\helpers\SchemaHelper;
 use booking\helpers\SysHelper;
 use frontend\assets\MagnificPopupAsset;
 use frontend\assets\MapBlogAsset;
@@ -75,6 +76,17 @@ MapBlogAsset::register($this);
         </div>
     </div>
 </article>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "<?= $post->name ?>",
+        "datePublished": "<?= SchemaHelper::ToDateJSON($post->created_at) ?>",
+        "dateModified": "<?= SchemaHelper::ToDateJSON($post->updated_at ?? $post->created_at) ?>"
+    }
+</script>
+
 <p><?= Lang::t('Метки') ?>: <?= implode(', ', $tagLinks) ?></p>
 <?= CommentsWidget::widget([
     'post' => $post,

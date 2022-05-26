@@ -1,6 +1,7 @@
 <?php
 
 use booking\entities\Lang;
+use booking\helpers\SchemaHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
