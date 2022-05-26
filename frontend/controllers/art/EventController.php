@@ -19,7 +19,7 @@ use yii\web\Controller;
 
 class EventController extends Controller
 {
-    public $layout = 'main_art';
+    public $layout = 'main';//_art';
 
     /**
      * @var LoginService

@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
 
 class NightController extends Controller
 {
-    public $layout = 'main_night';
+    public $layout = 'main';//_night';
     /**
      * @var PageRepository
      */

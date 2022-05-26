@@ -78,7 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main_landing';
+        $this->layout = 'main';//_landing';
         //$mobile = SysHelper::isMobile();
         $params = \Yii::$app->request->queryParams;
         $path = __DIR__ . '/../web/' . \Yii::$app->params['url_img_landing'] . 'carousel/';//\Yii::$app->params['staticPath'] . '/files/images/landing/carousel/'; //перенести куда нить в параметры

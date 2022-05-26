@@ -10,7 +10,7 @@ use yii\web\Controller;
 
 class AgentsController extends Controller
 {
-    public $layout = 'main_moving';
+    public $layout = 'main';//_moving';
     /**
      * @var RegionRepository
      */

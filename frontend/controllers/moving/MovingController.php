@@ -16,7 +16,7 @@ use yii\web\Controller;
 
 class MovingController extends Controller
 {
-    public $layout = 'main_moving';
+    public $layout = 'main';//_moving';
     /**
      * @var PageRepository
      */

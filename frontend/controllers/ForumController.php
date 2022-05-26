@@ -20,7 +20,7 @@ use yii\web\Controller;
 
 class ForumController extends Controller
 {
-    public $layout = 'main_forum';
+    public $layout = 'main';//_forum';
     /**
      * @var SectionRepository
      */

@@ -12,7 +12,7 @@ use yii\web\Controller;
 class RealtorController extends Controller
 {
 
-    public $layout = 'main_land';
+    public $layout = 'main';//_land';
 
 
     public function actionIndex()

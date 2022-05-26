@@ -385,7 +385,7 @@ class SitemapController extends Controller
                         MapItem::ALWAYS
                     );
                 }
-            }, ['','/kak-raskrutit-svoy-sayt', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/contacts', '/foods', '/shops', '/avia', '/map', '/help-tour', '/useful']));
+            }, ['','/kak-raskrutit-svoy-sayt', '/tours', '/cars', '/stays', '/funs', '/about', '/post', '/foods', '/shops', '/avia', '/map', '/useful']));
         });
     }
 

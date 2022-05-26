@@ -12,7 +12,7 @@ use yii\web\Controller;
 class LandController extends Controller
 {
 
-    public $layout = 'main_moving';
+    public $layout = 'main';//_moving';
     /**
      * @var LandRepository
      */

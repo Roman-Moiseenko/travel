@@ -106,8 +106,24 @@ class MainMenu extends Widget
                     [
                         'icon' => '',
                         'title' => 'Участки под ИЖС',
+                        'link' => '/realtor/landowners'
+                    ],
+                    [
+                        'icon' => '',
+                        'title' => 'Полезная информация',
+                        'link' => '/realtor/pages'
+                    ],
+                    [
+                        'icon' => '',
+                        'title' => 'Земля инвесторам',
+                        'link' => '/realtor/map'
+                    ],
+                    [
+                        'icon' => '',
+                        'title' => 'Покупка земли',
                         'link' => '/realtor'
                     ],
+
                     [
                         'icon' => '',
                         'title' => 'Форум',

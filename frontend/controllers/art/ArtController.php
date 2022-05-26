@@ -16,7 +16,7 @@ use yii\web\Controller;
 
 class ArtController extends Controller
 {
-    public $layout = 'main_art';
+    public $layout = 'main';//_art';
 
     /**
      * @var LoginService

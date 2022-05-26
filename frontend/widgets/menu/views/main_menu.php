@@ -50,8 +50,8 @@ $this->registerJs($script);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= Url::to(['/support']) ?>" title="Написать нам" rel="nofollow">
-                    <span class="landing-top-contact"><i class="far fa-question-circle"></i></span>
+                <a class="nav-link" href="mailto:koenigs.ru@gmail.com" title="Написать нам" rel="nofollow">
+                    <span class="landing-top-contact"><i class="far fa-envelope"></i></span>
                 </a>
             </li>
             <li class="nav-item">

@@ -14,7 +14,7 @@ use yii\web\Controller;
 class MapController extends Controller
 {
 
-    public $layout = 'main_land';
+    public $layout = 'main';//_land';
     /**
      * @var LandRepository
      */

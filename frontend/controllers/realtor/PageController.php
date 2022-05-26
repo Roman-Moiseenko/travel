@@ -14,7 +14,7 @@ use yii\web\Controller;
 
 class PageController extends Controller
 {
-    public $layout = 'main_land';
+    public $layout = 'main';//_land';
     /**
      * @var PageRepository
      */

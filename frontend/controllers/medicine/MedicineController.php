@@ -15,7 +15,7 @@ use yii\web\Controller;
 
 class MedicineController extends Controller
 {
-    public $layout = 'main_medicine';
+    public $layout = 'main';//_medicine';
     /**
      * @var PageRepository
      */

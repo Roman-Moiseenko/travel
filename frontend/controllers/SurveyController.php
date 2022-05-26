@@ -14,7 +14,7 @@ use yii\web\Controller;
 
 class SurveyController extends Controller
 {
-    public $layout = 'main_moving';
+    public $layout = 'main';//_moving';
     /**
      * @var QuestionnaireService
      */

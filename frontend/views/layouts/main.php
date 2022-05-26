@@ -8,6 +8,7 @@ use booking\entities\Lang;
 use booking\helpers\Emoji;
 use frontend\assets\CarAsset;
 use frontend\assets\FunAsset;
+use frontend\assets\MovingAsset;
 use frontend\assets\TourAsset;
 use frontend\widgets\AlertWidget;
 use frontend\widgets\BreadcrumbsWidget;
@@ -19,6 +20,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
+MovingAsset::register($this);
 $emoji = isset($this->params['emoji']) ? $this->params['emoji'] : Emoji::MAIN;
 if (isset($this->params['fun'])) FunAsset::register($this);
 if (isset($this->params['car'])) CarAsset::register($this);
