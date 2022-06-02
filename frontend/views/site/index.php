@@ -99,27 +99,16 @@ $mobile = \booking\helpers\SysHelper::isMobile();
         <?php foreach ($images as $i => $image): ?>
             <div class="item-class">
                 <img loading="lazy" src="<?= $image ?>" alt="На отдых в Калининградскую область">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <?php if ($i == 0) {
-                            echo '<h1><p class="landing-h1">' . Lang::t('Калининград') . '</p>';
-                            echo '<p class="landing-h2">';
-                        } else {
-                            echo '<p class="landing-h1">' . Lang::t('Калининград') . '</p>';
-                            echo '<p class="landing-h2">';
-                        } ?>
-                        <span class="line-t"></span><?= Lang::t('для туристов и гостей') ?><span
-                                class="line-b"></span>
-                        <?php if ($i == 0) {
-                            echo '</p></h1>';
-                        } else {
-                            echo '</p>';
-                        } ?>
-                    </div>
-                </div>
             </div>
         <?php endforeach; ?>
         <?php OwlCarouselWidget::end(); ?>
+        <div class="container">
+            <div class="carousel-caption">
+                <h1><p class="landing-h1">Калининград</p>
+                    <p class="landing-h2"><span class="line-t"></span>для туристов и гостей<span class="line-b"></span></p>
+                </h1>
+            </div>
+        </div>
         </div>
     </div>
 <?php else: ?>
