@@ -25,6 +25,7 @@ $this->registerLinkTag(['rel' => "preload", 'as' => "image", 'href' => $images[0
 JqueryAsset::register($this);
 SwiperAsset::register($this);
 
+$this->params['not_container'] = true;
 /*$script = <<<JS
 $(document).ready(function() {
 });
@@ -60,7 +61,7 @@ $mobile = \booking\helpers\SysHelper::isMobile();
                             class="fas fa-phone"></i> <?= \Yii::$app->params['supportPhone']; ?></span>
             </div>
             <?php endif; ?>
-            <!--div style="align-items: center">
+            <div style="align-items: center">
                 <?php if ($user): ?>
                     <span class="landing-top-contact"><a href="<?= Url::to(['/cabinet/profile']) ?>"
                                                          title="<?= Lang::t('Кабинет') ?>" rel="nofollow"><i

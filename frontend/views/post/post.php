@@ -81,7 +81,7 @@ MapBlogAsset::register($this);
     {
         "@context": "https://schema.org",
         "@type": "NewsArticle",
-        "headline": "<?= $post->name ?>",
+        "headline": "<?= $post->title ?>",
         "datePublished": "<?= SchemaHelper::ToDateJSON($post->created_at) ?>",
         "dateModified": "<?= SchemaHelper::ToDateJSON($post->updated_at ?? $post->created_at) ?>"
     }

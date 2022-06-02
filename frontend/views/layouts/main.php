@@ -100,7 +100,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
 <header class="landing-header">
     <?= MainMenu::widget()?>
 </header>
-<div id="common-home" class="container content-container with-top-header">
+<div id="common-home" class="<?= isset($this->params['not_container']) ? '' : 'container' ?> content-container with-top-header">
     <?= BreadcrumbsWidget::widget([
         'options' => ['class' => 'breadcrumb-site'],
         'homeLink' => [
