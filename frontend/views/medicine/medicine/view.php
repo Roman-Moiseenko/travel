@@ -3,6 +3,7 @@
 use booking\entities\Lang;
 use booking\entities\medicine\Page;
 use booking\forms\CommentForm;
+use booking\helpers\SchemaHelper;
 use booking\helpers\SysHelper;
 use frontend\widgets\moving\MenuPagesWidget;
 use frontend\widgets\reviews\NewReviewMedicineWidget;
@@ -65,3 +66,12 @@ $mobile = SysHelper::isMobile();
     </div>
 </div>
 <?php endif; ?>
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "<?= $page->name ?>",
+        "datePublished": "<?= SchemaHelper::ToDateJSON($page->created_at) ?>",
+        "dateModified": "<?= SchemaHelper::ToDateJSON($page->updated_at ?? $page->created_at) ?>"
+    }
+</script>

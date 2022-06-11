@@ -38,6 +38,8 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $icon
  * @property ReviewMedicine[] $reviews
  * @property string $name [varchar(255)]
+ * @property int $created_at [int]
+ * @property int $updated_at [int]
  * @mixin NestedSetsBehavior
  * @mixin ImageUploadBehavior
  */
@@ -57,6 +59,7 @@ class Page extends ActiveRecord
         $page->meta = $meta;
         $page->icon = $icon;
         $page->status = StatusHelper::STATUS_DRAFT;
+        $page->created_at = time();
         return $page;
     }
 
@@ -72,6 +75,7 @@ class Page extends ActiveRecord
         $this->description = $description;
         $this->meta = $meta;
         $this->icon = $icon;
+        $this->updated_at = time();
     }
     public function setPhoto(UploadedFile $file)
     {
