@@ -74,6 +74,7 @@ if (isset($this->params['tour'])) TourAsset::register($this);
                         trackLinks: true,
                         accurateTrackBounce: true
                     });
+
                     window.dataLayer = window.dataLayer || [];
                     function gtag() {
                         dataLayer.push(arguments);
@@ -81,6 +82,36 @@ if (isset($this->params['tour'])) TourAsset::register($this);
                     gtag('js', new Date());
                     gtag('config', '<?= \Yii::$app->params['GoogleAnalyticAPI'] ?>');
                 }, 2200)
+            }
+        });
+    </script>
+
+    <!-- Yandex.Metrica counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym("88754565", "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+            ecommerce: "dataLayer",
+            params: {
+                __ym: {
+                    "ymCmsPlugin": {
+                        "cms": "wordpress",
+                        "cmsVersion":"6.0",
+                        "pluginVersion": "1.1.6",
+                        "ymCmsRip": "327153263"
+                    }
+                }
             }
         });
     </script>
