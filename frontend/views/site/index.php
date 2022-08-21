@@ -198,7 +198,7 @@ $mobile = \booking\helpers\SysHelper::isMobile();
 </div>
 <div class="landing-block-center">
     <div class="container">
-        <?= $this->render('_seo_text') ?>
+        <?= ''//$this->render('_seo_text') ?>
     </div>
 </div>
 

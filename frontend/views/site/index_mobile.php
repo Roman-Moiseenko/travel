@@ -142,9 +142,7 @@ $this->registerMetaTag(['name' =>'og:description', 'content' => $description]);
     </div-->
     <div class="landing-block-center pb-2">
         <div class="container">
-            <?= $this->render('_seo_text', [
-                    'mobile' => true,
-            ]) ?>
+            <?= '' // $this->render('_seo_text', [ 'mobile' => true,]) ?>
         </div>
     </div>
 </div>
