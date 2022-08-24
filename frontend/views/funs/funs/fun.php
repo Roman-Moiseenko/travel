@@ -97,6 +97,7 @@ $this->params['emoji'] = Emoji::FUN;
         </div>
         <?= TouristicContactWidget::widget([
                 'contact' => $fun->contact,
+                'fun_id' => $fun->id,
         ]) ?>
 
     </div>
