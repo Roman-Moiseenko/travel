@@ -8,6 +8,7 @@ use booking\entities\forum\Category;
 use booking\entities\forum\Message;
 use booking\forms\forum\MessageForm;
 use booking\forms\forum\PostForm;
+use booking\helpers\scr;
 use booking\helpers\SysHelper;
 use booking\repositories\forum\PostRepository;
 use booking\repositories\forum\SectionRepository;
