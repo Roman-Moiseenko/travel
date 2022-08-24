@@ -37,11 +37,11 @@ $(document).ready(function () {
     //Обработка кликов по кнопкам
     $('body').on('click', '.d2-btn', function () {
         //получаем параметры
-        let class_name = '';
-        let class_id = '';
-        let type_event = 0;
+        let class_name = $(this).data('class-name');
+        let class_id = $(this).data('class-id');
+        let type_event = $(this).data('type-event');
         $.post('/ajax/click-user', {class_name: class_name, class_id: class_id, type_event: type_event}, function (data) {
-            if (data !== 101) console.log(data);
+            if (data !== 'not_error') console.log(data);
         });
     });
 

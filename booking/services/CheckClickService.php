@@ -26,7 +26,7 @@ class CheckClickService
         } catch (\Throwable $e) {
             return $e->getMessage();
         }
-        return 101;
+        return 'not_error';
     }
     //TODO ***
 }

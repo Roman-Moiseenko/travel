@@ -25,7 +25,9 @@ use yii\helpers\Url;
                         'caption' => 'Забронировать',
                         'block' => true,
                         'phone' => $tour->legal->noticePhone,
-                        'class_name' => 'd2-btn-main'
+                        'class_name' => 'd2-btn-main',
+                        'class_name_click' => Tour::class,
+                        'class_id_click' => $tour->id,
                     ]) ?>
 
                     <div class="pt-3" style="color: #005601; ">* Наличие экскурсии на Ваши даты уточняйте у гида</div>

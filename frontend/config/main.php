@@ -133,7 +133,7 @@ return [
 
                 'ajax/youtube' => 'ajax/youtube',
                 'ajax/get-widget' => 'ajax/get-widget',
-
+                'ajax/click-user' => 'ajax/click-user',
                 'cars' => 'cars/cars/index',
                 'car/<id:\d+>' => 'cars/cars/car',
 
