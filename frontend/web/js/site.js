@@ -34,5 +34,15 @@ $(document).ready(function () {
     $('#upbutton').on('click', function () {
         $('html, body').stop().animate({scrollTop: 0}, 300);
     });
+    //Обработка кликов по кнопкам
+    $('body').on('click', '.d2-btn', function () {
+        //получаем параметры
+        let class_name = '';
+        let class_id = '';
+        let type_event = 0;
+        $.post('/ajax/click-user', {class_name: class_name, class_id: class_id, type_event: type_event}, function (data) {
+            if (data !== 101) console.log(data);
+        });
+    });
 
 });

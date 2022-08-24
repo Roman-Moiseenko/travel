@@ -18,10 +18,15 @@ class CheckClickService
         $this->clicks = $clicks;
     }
 
-    public function create($created_at, $class_name, $class_id, $type_event)
+    public function create(array $params)
     {
-        $click = CheckClickUser::create($created_at, $class_name, $class_id, $type_event);
-        $this->clicks->save($click);
+        try {
+            $click = CheckClickUser::create($params['class_name'], $params['class_id'], $params['type_event']);
+            $this->clicks->save($click);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+        return 101;
     }
     //TODO ***
 }

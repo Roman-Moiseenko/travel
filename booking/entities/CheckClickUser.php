@@ -19,10 +19,10 @@ class CheckClickUser extends ActiveRecord
     const CLICK_URL = '402';
     const CLICK_EMAIL = '403';
 
-    public static function create($created_at, $class_name, $class_id, $type_event): self
+    public static function create($class_name, $class_id, $type_event): self
     {
         $click = new static();
-        $click->created_at = $created_at;
+        $click->created_at = time();
         $click->class_name = $class_name;
         $click->class_id = $class_id;
         $click->type_event = $type_event;

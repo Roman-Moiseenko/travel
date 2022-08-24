@@ -5,10 +5,22 @@ namespace frontend\controllers;
 
 
 use booking\entities\Lang;
+use booking\repositories\CheckClickRepository;
+use booking\services\CheckClickService;
 use yii\web\Controller;
 
 class AjaxController extends Controller
 {
+    /**
+     * @var CheckClickService
+     */
+    private $clickService;
+
+    public function __construct($id, $module, CheckClickService $clickService, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->clickService = $clickService;
+    }
 
     public function actionLangt()
     {
@@ -62,6 +74,21 @@ class AjaxController extends Controller
                 $classWidget = $params['class_widget'];
                 $result = $classWidget::widget();
                 return $result;
+            } catch (\Throwable $e) {
+                return  $e->getMessage();
+            }
+        } else {
+            return $this->goHome();
+        }
+    }
+
+    public function actionClickUser()
+    {
+        $this->layout = 'main_ajax';
+        if (\Yii::$app->request->isAjax) {
+            try {
+                $params = \Yii::$app->request->bodyParams;
+                return $this->clickService->create($params);
             } catch (\Throwable $e) {
                 return  $e->getMessage();
             }
