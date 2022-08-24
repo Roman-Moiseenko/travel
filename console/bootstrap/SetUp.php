@@ -10,6 +10,7 @@ use booking\repositories\office\PageRepository;
 use booking\services\RoleManager;
 use booking\services\ContactService;
 use booking\services\pdf\pdfServiceController;
+use booking\services\system\LoginService;
 use frontend\urls\PageUrlRule;
 use frontend\urls\TourTypeUrlRule;
 use frontend\urls\TourUrlRule;
@@ -36,7 +37,7 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(ContactService::class, function () use ($app) {
             return new ContactService(
-                $app->mailer, new pdfServiceController('pdf_controller', new Module('pdf_module'))
+                $app->mailer, new pdfServiceController('pdf_controller', new Module('pdf_module')), new LoginService()
             );
         });
 

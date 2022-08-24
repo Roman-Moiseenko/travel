@@ -402,13 +402,27 @@ class ContactService
         if ($this->noNotice) return;
         $send = $this->mailer->compose('noticeReplyForum', ['message' => $message])
             ->setTo($user->email)
-            ->setFrom([\Yii::$app->params['supportEmail'] => Lang::t('Форум портала Koenigs.ru')])
+            ->setFrom([\Yii::$app->params['forumEmail'] => Lang::t('Форум портала Koenigs.ru')])
             ->setSubject('Вам ответили на Форуме')
             ->send();
         if (!$send) {
             throw new \DomainException(Lang::t('Ошибка отправки'));
         }
+    }
 
+    public function sendPostForum(\booking\entities\forum\Post $post)
+    {
+
+        if ($this->loc) return;
+        if ($this->noNotice) return;
+        $send = $this->mailer->compose('noticePostForum', ['post' => $post])
+            ->setTo(\Yii::$app->params['forumEmail'])
+            ->setFrom([\Yii::$app->params['adminEmail'] => Lang::t('Форум портала Koenigs.ru')])
+            ->setSubject('Новый пост на Форуме')
+            ->send();
+        if (!$send) {
+            throw new \DomainException(Lang::t('Ошибка отправки'));
+        }
     }
 
 
