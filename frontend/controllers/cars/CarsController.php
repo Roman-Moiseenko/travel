@@ -54,6 +54,9 @@ class CarsController extends Controller
 
     public function actionIndex()
     {
+        //TODO Заглушка
+        return $this->goHome();
+
         $form = new SearchCarForm([]);
         if (isset(\Yii::$app->request->queryParams['SearchCarForm'])) {
             if (isset(\Yii::$app->request->queryParams['SearchCarForm']['type'])) {
@@ -73,6 +76,9 @@ class CarsController extends Controller
 
     public function actionCar($id)
     {
+        //TODO Заглушка
+        return $this->goHome();
+
         $this->layout = 'booking_blank';
 
         $car = $this->findModel($id);
@@ -99,6 +105,9 @@ class CarsController extends Controller
 
     public function actionCategory($slug)
     {
+        //TODO Заглушка
+        return $this->goHome();
+
         if (!$category = $this->categories->findBySlug($slug)) {
             throw new NotFoundHttpException(Lang::t('Запрашиваемая категория не существует') . '.');
         }

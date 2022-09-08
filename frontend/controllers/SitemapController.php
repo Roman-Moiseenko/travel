@@ -201,8 +201,9 @@ class SitemapController extends Controller
             return $this->sitemap->generateIndex([
                 new IndexItem(Url::to(['tours'], true)),
                 new IndexItem(Url::to(['tour-categories'], true)),
-                new IndexItem(Url::to(['cars'], true)),
-                new IndexItem(Url::to(['car-categories'], true)),
+//TODO Временно исключено
+//                new IndexItem(Url::to(['cars'], true)),
+//                new IndexItem(Url::to(['car-categories'], true)),
                 new IndexItem(Url::to(['funs'], true)),
                 new IndexItem(Url::to(['fun-categories'], true)),
                 new IndexItem(Url::to(['stays'], true)),
@@ -210,7 +211,7 @@ class SitemapController extends Controller
                 new IndexItem(Url::to(['posts'], true)),
                 new IndexItem(Url::to(['post-categories'], true)),
                 new IndexItem(Url::to(['foods'], true)),
-                new IndexItem(Url::to(['shops'], true)),
+//                new IndexItem(Url::to(['shops'], true)),
                 new IndexItem(Url::to(['products'], true)),
                 new IndexItem(Url::to(['mains'], true)),
                 new IndexItem(Url::to(['moving'], true)),
@@ -415,6 +416,7 @@ class SitemapController extends Controller
         });
     }
 
+/*
     public function actionCars(): Response
     {
         return $this->renderSitemap('sitemap-cars', function () {
@@ -440,6 +442,7 @@ class SitemapController extends Controller
             }, $this->carTypes->getAll()));
         });
     }
+*/
 
     public function actionFuns(): Response
     {
@@ -532,7 +535,7 @@ class SitemapController extends Controller
             }, $this->foods->getAllForSitemap()));
         });
     }
-
+/*
     public function actionShops(): Response
     {
         return $this->renderSitemap('sitemap-shops', function () {
@@ -545,7 +548,7 @@ class SitemapController extends Controller
             }, $this->shops->getAllForSitemap()));
         });
     }
-
+*/
     public function actionProducts(): Response
     {
         return $this->renderSitemap('sitemap-products', function () {

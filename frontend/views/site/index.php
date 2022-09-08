@@ -198,7 +198,7 @@ $mobile = \booking\helpers\SysHelper::isMobile();
 </div>
 <div class="landing-block-center">
     <div class="container">
-        <?= ''//$this->render('_seo_text') ?>
+        Создание и продвижение сайтов <a href="https://website39.site" target="_blank">Веб-студия Web39</a>
     </div>
 </div>
 

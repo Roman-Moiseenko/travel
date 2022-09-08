@@ -90,13 +90,6 @@ class SiteController extends Controller
                 $images[] = $url . $item;
         }
         \Yii::$app->response->headers->set('Cache-Control', 'public, max-age=' . 60 * 60 * 24 * 7);
-        /*if (isset(\Yii::$app->params['locale'])) {
-            $region = 'MOW';
-        } else {
-            $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $_SERVER['REMOTE_ADDR'] . '?lang=ru'));
-            $region = $query['region'] == 'KGD' ? 'MOW' : 'KGD';
-        }
-        */
         $buttons = [
             [
                 'url' => '/tours',

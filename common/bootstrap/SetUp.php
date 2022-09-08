@@ -174,7 +174,7 @@ class SetUp implements BootstrapInterface
             Instance::of(EventRepository::class),
             Instance::of('cache'),
         ]);
-
+        /*
         if (!\Yii::$app->request->cookies->get('lang')) {
             //scr::v(\Yii::$app->language);
             if (!$data =\Yii::$app->geo->getData()) {
@@ -188,6 +188,7 @@ class SetUp implements BootstrapInterface
                 'expire' => time() + 3600 * 24 * 365
             ]));
         }
+        */
         $container->setSingleton(YandexMarket::class, [], [
             new Info($app->name, $app->name, $app->params['frontendHostInfo']),
         ]);

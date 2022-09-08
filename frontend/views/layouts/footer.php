@@ -91,8 +91,8 @@ use yii\helpers\Url;
                 <img src="https://static.koenigs.ru/cache/files_contacts/list_4.png" alt="Вконтакте koenigs.ru"
                      title="Вконтакте koenigs.ru" width="20" height="20"/> koenigsru
             </a>
-            <?= ''//Lang::t('Разработано') ?> <a href="https://website39.site"
-                                             target="_blank">https://website39.site</a>
+            <!--a href="https://website39.site"
+                                             target="_blank">https://website39.site</a-->
             &copy; 2020-<?= date('Y', time()) ?> <?= Lang::t('Все права защищены') ?>
         </p>
         <div>

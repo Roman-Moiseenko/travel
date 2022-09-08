@@ -15,7 +15,7 @@ class Sitemap
         $writer->startDocument('1.0', 'UTF-8');
         $writer->setIndent(true);
         $writer->startElement('sitemapindex');
-        $writer->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+        $writer->writeAttribute('xmlns', 'https://www.sitemaps.org/schemas/sitemap/0.9');
     
         foreach ($items as $item) {
             $writer->startElement('sitemap');
@@ -43,7 +43,7 @@ class Sitemap
         $writer->startDocument('1.0', 'UTF-8');
         $writer->setIndent(true);
         $writer->startElement('urlset');
-        $writer->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+        $writer->writeAttribute('xmlns', 'https://www.sitemaps.org/schemas/sitemap/0.9');
 
         foreach ($items as $item) {
             $writer->startElement('url');

@@ -40,6 +40,7 @@ $(document).ready(function () {
         let class_name = $(this).data('class-name');
         let class_id = $(this).data('class-id');
         let type_event = $(this).data('type-event');
+        if (class_name !== undefined && class_id != 0)
         $.post('/ajax/click-user', {class_name: class_name, class_id: class_id, type_event: type_event}, function (data) {
             if (data !== 'not_error') console.log(data);
         });

@@ -42,7 +42,8 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             //'enableCsrfValidation'=>false,
-            'class' => 'frontend\urls\LangRequest',
+            'class' => 'yii\web\Request',
+            //'class' => 'frontend\urls\LangRequest',
             //'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'https://' . $_SERVER['HTTP_HOST'] : '',
         ],
         'user' => [

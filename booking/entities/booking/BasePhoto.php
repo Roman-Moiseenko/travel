@@ -72,9 +72,11 @@ abstract class BasePhoto extends ActiveRecord
                 'attribute' => 'file',
                 'createThumbsOnRequest' => true,
                 'filePath' => '@staticRoot/origin/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[id]].[[extension]]',
+                //'fileUrl' => '@static/origin/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[id]].[[extension]]',
+                'fileUrl' => '/static/origin/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[id]].[[extension]]',
                 'thumbPath' => '@staticRoot/cache/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[profile]]_[[id]].[[extension]]',
+                //'thumbUrl' => '@static/cache/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '/static/cache/' . $this->catalog . '/[[attribute_' . $this->name_id . ']]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 320, 'height' => 240],
