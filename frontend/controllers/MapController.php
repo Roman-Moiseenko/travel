@@ -443,11 +443,11 @@ class MapController extends Controller
             'caption' => 'Авиабилеты',
             'link' => Url::to(['/avia'], true),
         ];
-        $result[] = [
+       /* $result[] = [
             'lvl' => 1,
             'caption' => 'Как раскрутить сайт',
             'link' => Url::to(['/kak-raskrutit-svoy-sayt'], true),
-        ];
+        ];*/
 
         return $result;
     }
