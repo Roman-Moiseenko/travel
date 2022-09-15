@@ -64,6 +64,7 @@ MovingAsset::register($this);
     <!-- Как посмотреть сейчас . текст берется с виджета, далее будет браться с базы -->
     <?= BrokerLandownerWidget::widget(); ?>
     <!-- Забронировать осмотр -->
+
     <?= BookingLandownerWidget::widget([
             'landowner_id' => $landowner->id,
     ]); ?>
